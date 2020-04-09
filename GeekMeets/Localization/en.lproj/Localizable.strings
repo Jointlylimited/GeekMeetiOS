@@ -1,0 +1,19 @@
+/* 
+  Localizable.strings
+  Basecode
+
+  Created by SOTSYS203 on 17/02/18.
+  Copyright © 2018 SOTSYS203. All rights reserved.
+*/
+
+
+//LOGIN SCREEN
+"EMAIL_BLANK"="Email address can't be blank";
+"PASSWORD_BLANK"="Password can't be blank";
+"INVALID_EMAIL"="Please enter correct email";
+"INVALID_PASSWORD"="Password must include at least 6 characters";
+
+//REGISTRATION SCREEN
+"CONFIRM_PASSWORD_BLANK"="Please enter confirm password";
+"CONFIRM_PASSWORD_MISMATCH"="Confirm password is not match";
+"TERM_AND_CONDITION"="Please check Terms & Conditions";

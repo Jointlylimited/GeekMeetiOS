@@ -1,0 +1,15 @@
+//
+//  Release.xcconfig
+//  Basecode
+//
+//  Created by SOTSYS203 on 15/02/18.
+//  Copyright © 2018 SOTSYS203. All rights reserved.
+//
+IS_APP_NAME = AppName
+IS_APP_VERSION = 0.3
+IS_APP_BUNDLE_ID = com.org.xxxx
+
+BACKEND_URL = http:\/\/xxxx/live
+CONSUMER_KEY = ck_a57_live
+CONSUMER_SECRET = ck_a57_live
+
