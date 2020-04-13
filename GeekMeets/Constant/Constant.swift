@@ -8,6 +8,76 @@
 
 import UIKit
 
+
+let AppDelObj : AppDelegate = AppDelegate.shared
+
 class Constant: NSObject {
+
+}
+
+struct APPUser {
+  
+    static let Customer = 1
+  
+}
+
+struct UserListingData {
+    static let Bussiness = 1
+}
+
+struct GeekMeets_StoryBoard
+{
+    static let Main = UIStoryboard(name: "Main", bundle: nil)
+    static let LoginSignUp = UIStoryboard(name: "LoginSingUp", bundle: nil)
+    static let Profile = UIStoryboard(name: "Profile", bundle: nil)
+    static let SideMenu = UIStoryboard(name: "SideMenu", bundle: nil)
+    static let Home = UIStoryboard(name: "Home", bundle: nil)
+    static let Setting = UIStoryboard(name: "Setting", bundle: nil)
+    static let MissingWorkPlace = UIStoryboard(name: "AddMissingBussiness", bundle: nil)
+
+}
+struct GeekMeets_ViewController
+{
+    static let SignInScreen = "SignInViewController"
+    static let SignUpScreen = "SignUpViewController"
+    static let OTPScreen = "OTPViewController"
+    static let ForgotPassword = "ForgotPasswordViewController"
+    static let compeleteProfile = "CompleteProfileViewController"
+    static let  sideMenu = "SideMenuViewController"
+    static let SelectLanguageScreen = "SelectLanguageViewController"
+    static let BusinessInformationVC = "BusinessInformationViewController"
+    static let AddressLandMarkVC = "AddressLandMarkViewController"
+    static let CharacteristicsVC = "CharacteristicsViewController"
+    static let OpeningDaysVC = "OpeningDaysViewController"
+    static let UploadImageVC = "UploadImageViewController"
+    static let CharacteristicsCategoryVC = "CharacteristicsCategoryViewController"
+}
+
+
+
+
+struct AppCommonColor {
+    static let navigationTitleFontColor = #colorLiteral(red: 0.1803921569, green: 0.1803921569, blue: 0.1803921569, alpha: 1.0)
+    static let orangeColor = #colorLiteral(red: 0.9883782268, green: 0.305493474, blue: 0.3512662053, alpha: 1)
+    static let placeHolderColor = #colorLiteral(red: 0.6990235448, green: 0.7155820727, blue: 0.719522655, alpha: 1)
+    
+}
+
+struct APPLANGUAGE {
+    static let english = "en"
+    static let arabic = "ar"
+}
+
+struct UserDefaultKeyName {
+    static let kCurrentCustomerDetail = "CurrentCustomer"
+    static let kCurrentProviderDetail = "kCurrentProvider"
+    static let kCustomerLanguage = "CustomerLanguage"
+}
+
+struct AppResponseCode {
+    static let SUCCESS = 200
+    static let UNAUTHORIZE = 203
+    static let MEHOD_NOT_ALLOW = 405
+    static let NO_DATA_FOUND = 204
 
 }

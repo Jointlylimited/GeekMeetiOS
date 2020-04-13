@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		E5B521D13F02F46FBABC5C21 /* Pods_GeekMeets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC146BF9C834F09E88494EB4 /* Pods_GeekMeets.framework */; };
+		F76A8D832440396800ED9947 /* CustomerWindowExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76A8D7C2440396700ED9947 /* CustomerWindowExtension.swift */; };
+		F76A8D842440396800ED9947 /* BlockClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76A8D7D2440396700ED9947 /* BlockClass.swift */; };
+		F76A8D862440396800ED9947 /* CustomerEnumaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76A8D7F2440396700ED9947 /* CustomerEnumaration.swift */; };
+		F76A8D872440396800ED9947 /* DocumentDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76A8D802440396700ED9947 /* DocumentDirectory.swift */; };
+		F7CD7A4D24442F3A00E02A9E /* TutorialPagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CD7A4A24442F3A00E02A9E /* TutorialPagePresenter.swift */; };
+		F7CD7A4E24442F3A00E02A9E /* TutorialPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CD7A4B24442F3A00E02A9E /* TutorialPageViewController.swift */; };
+		F7CD7A4F24442F3A00E02A9E /* TutorialPageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CD7A4C24442F3A00E02A9E /* TutorialPageInteractor.swift */; };
 		F90B4C9E20329C45006ADAF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F90B4C9C20329C45006ADAF6 /* Main.storyboard */; };
 		F90B4CA020329C45006ADAF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F90B4C9F20329C45006ADAF6 /* Assets.xcassets */; };
 		F90B4CA320329C45006ADAF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F90B4CA120329C45006ADAF6 /* LaunchScreen.storyboard */; };
@@ -65,6 +72,13 @@
 		36A8046D3032A36E9F05BAA1 /* Pods-GeekMeets.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeekMeets.debug.xcconfig"; path = "Target Support Files/Pods-GeekMeets/Pods-GeekMeets.debug.xcconfig"; sourceTree = "<group>"; };
 		CF4F6DE0B0DBDFACF78C5DE6 /* Pods-GeekMeets.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeekMeets.staging.xcconfig"; path = "Target Support Files/Pods-GeekMeets/Pods-GeekMeets.staging.xcconfig"; sourceTree = "<group>"; };
 		EC146BF9C834F09E88494EB4 /* Pods_GeekMeets.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GeekMeets.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F76A8D7C2440396700ED9947 /* CustomerWindowExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerWindowExtension.swift; sourceTree = "<group>"; };
+		F76A8D7D2440396700ED9947 /* BlockClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockClass.swift; sourceTree = "<group>"; };
+		F76A8D7F2440396700ED9947 /* CustomerEnumaration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerEnumaration.swift; sourceTree = "<group>"; };
+		F76A8D802440396700ED9947 /* DocumentDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentDirectory.swift; sourceTree = "<group>"; };
+		F7CD7A4A24442F3A00E02A9E /* TutorialPagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPagePresenter.swift; sourceTree = "<group>"; };
+		F7CD7A4B24442F3A00E02A9E /* TutorialPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPageViewController.swift; sourceTree = "<group>"; };
+		F7CD7A4C24442F3A00E02A9E /* TutorialPageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPageInteractor.swift; sourceTree = "<group>"; };
 		F9031F1A2035A534002EBE92 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		F9031F1E2035A548002EBE92 /* Staging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Staging.xcconfig; sourceTree = "<group>"; };
 		F9031F222035A562002EBE92 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
@@ -153,6 +167,35 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		F76A8D7B2440396700ED9947 /* CustomHelper */ = {
+			isa = PBXGroup;
+			children = (
+				F76A8D7C2440396700ED9947 /* CustomerWindowExtension.swift */,
+				F76A8D7D2440396700ED9947 /* BlockClass.swift */,
+				F76A8D7F2440396700ED9947 /* CustomerEnumaration.swift */,
+				F76A8D802440396700ED9947 /* DocumentDirectory.swift */,
+			);
+			path = CustomHelper;
+			sourceTree = "<group>";
+		};
+		F7CD7A4924442BCA00E02A9E /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				F7CD7A5024442F5100E02A9E /* TutorialPage */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		F7CD7A5024442F5100E02A9E /* TutorialPage */ = {
+			isa = PBXGroup;
+			children = (
+				F7CD7A4A24442F3A00E02A9E /* TutorialPagePresenter.swift */,
+				F7CD7A4B24442F3A00E02A9E /* TutorialPageViewController.swift */,
+				F7CD7A4C24442F3A00E02A9E /* TutorialPageInteractor.swift */,
+			);
+			path = TutorialPage;
+			sourceTree = "<group>";
+		};
 		F9031F192035A51B002EBE92 /* Config */ = {
 			isa = PBXGroup;
 			children = (
@@ -184,6 +227,7 @@
 		F90B4C9720329C45006ADAF6 /* GeekMeets */ = {
 			isa = PBXGroup;
 			children = (
+				F76A8D7B2440396700ED9947 /* CustomHelper */,
 				F9EDD441203C2F2D008FA83F /* Category */,
 				F9A453A2203AA74A0065C9FD /* VIP */,
 				F9A4539D203AA7110065C9FD /* Constant */,
@@ -411,6 +455,7 @@
 		F9A453A2203AA74A0065C9FD /* VIP */ = {
 			isa = PBXGroup;
 			children = (
+				F7CD7A4924442BCA00E02A9E /* Main */,
 				F953B8CE20467AE800BE4F67 /* Settings */,
 				F9A453A3203AA74A0065C9FD /* ForgetPassword */,
 				F9A453A7203AA74A0065C9FD /* Login */,
@@ -632,17 +677,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F76A8D832440396800ED9947 /* CustomerWindowExtension.swift in Sources */,
 				F96C2D292037E92B00F8CBC7 /* MirroringViewController.swift in Sources */,
 				F948AECA203E865500F5A852 /* AppdelegateNotification.swift in Sources */,
 				F97A9A2C21103FA7007C45F5 /* CGRectExtensions.swift in Sources */,
 				F9A453C9203AA74B0065C9FD /* SignUpPresenter.swift in Sources */,
 				F9A453B7203AA74A0065C9FD /* ForgotPasswordPresenter.swift in Sources */,
+				F76A8D872440396800ED9947 /* DocumentDirectory.swift in Sources */,
 				F9A453C6203AA74B0065C9FD /* SignUpInteractor.swift in Sources */,
 				F97A9A2E21103FAD007C45F5 /* CGFloatExtensions.swift in Sources */,
 				F97A9A2A21103FA2007C45F5 /* UIViewControllerExtensions.swift in Sources */,
 				F9A453C0203AA74A0065C9FD /* LoginPresenter.swift in Sources */,
 				F995BDC1204D1277005E5279 /* KeyMessages.swift in Sources */,
 				F9EDD431203BFF33008FA83F /* BaseModel.swift in Sources */,
+				F76A8D842440396800ED9947 /* BlockClass.swift in Sources */,
 				F9A453C3203AA74B0065C9FD /* LoginViewController.swift in Sources */,
 				F9A453CC203AA74B0065C9FD /* SignUpViewController.swift in Sources */,
 				F96C2D2D20380B1A00F8CBC7 /* Validator.swift in Sources */,
@@ -661,15 +709,19 @@
 				F9A453D5203AA74B0065C9FD /* SplashViewController.swift in Sources */,
 				F97A9A2D21103FAA007C45F5 /* EZSwiftFunctions.swift in Sources */,
 				F97A9A2F21103FAF007C45F5 /* UserDefaultsExtension.swift in Sources */,
+				F7CD7A4D24442F3A00E02A9E /* TutorialPagePresenter.swift in Sources */,
+				F7CD7A4F24442F3A00E02A9E /* TutorialPageInteractor.swift in Sources */,
 				F90B4CE52032F4A6006ADAF6 /* SOService.swift in Sources */,
 				F90B4CE22032F4A6006ADAF6 /* SOAPI.swift in Sources */,
 				F953B8E32046836E00BE4F67 /* EditProfilePresenter.swift in Sources */,
+				F7CD7A4E24442F3A00E02A9E /* TutorialPageViewController.swift in Sources */,
 				F96C2D232037E92B00F8CBC7 /* L102Language.swift in Sources */,
 				F95238312047D66B00BC0D49 /* ChangePasswordViewController.swift in Sources */,
 				F9EDD434203BFF33008FA83F /* ProfileUrl.swift in Sources */,
 				F9A453BA203AA74A0065C9FD /* ForgotPasswordViewController.swift in Sources */,
 				F953B8D520467AFB00BE4F67 /* SettingsPresenter.swift in Sources */,
 				F95238302047D66B00BC0D49 /* ChangePasswordPresenter.swift in Sources */,
+				F76A8D862440396800ED9947 /* CustomerEnumaration.swift in Sources */,
 				F9A4539F203AA7200065C9FD /* Constant.swift in Sources */,
 				F9A453BD203AA74A0065C9FD /* LoginInteractor.swift in Sources */,
 				F97A9A2B21103FA4007C45F5 /* StringExtensions.swift in Sources */,
@@ -778,7 +830,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = Z896W6JV89;
+				DEVELOPMENT_TEAM = 539289LEEH;
 				INFOPLIST_FILE = "$(SRCROOT)/GeekMeets/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -789,7 +841,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.org.geekmeets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "6fe03dd0-bb5b-416c-b4fe-1118ff86f17c";
-				PROVISIONING_PROFILE_SPECIFIER = "Wildcard Development";
+				PROVISIONING_PROFILE_SPECIFIER = SpaceGabWildCard;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PRODUCT_NAME)/Application/Basecode-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -920,7 +972,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = Z896W6JV89;
+				DEVELOPMENT_TEAM = 539289LEEH;
 				INFOPLIST_FILE = "$(SRCROOT)/GeekMeets/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -931,7 +983,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.org.geekmeets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "6fe03dd0-bb5b-416c-b4fe-1118ff86f17c";
-				PROVISIONING_PROFILE_SPECIFIER = "Wildcard Development";
+				PROVISIONING_PROFILE_SPECIFIER = SpaceGabWildCard;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PRODUCT_NAME)/Application/Basecode-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -947,7 +999,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = Z896W6JV89;
+				DEVELOPMENT_TEAM = 539289LEEH;
 				INFOPLIST_FILE = "$(SRCROOT)/GeekMeets/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -958,7 +1010,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.org.geekmeets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "6fe03dd0-bb5b-416c-b4fe-1118ff86f17c";
-				PROVISIONING_PROFILE_SPECIFIER = "Wildcard Development";
+				PROVISIONING_PROFILE_SPECIFIER = SpaceGabWildCard;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PRODUCT_NAME)/Application/Basecode-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
