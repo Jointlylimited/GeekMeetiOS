@@ -17,9 +17,13 @@ protocol TutorialPageProtocol: class {
 }
 
 class TutorialPageViewController: UIViewController, TutorialPageProtocol {
+  
     //var interactor : TutorialPageInteractorProtocol?
     var presenter : TutorialPagePresentationProtocol?
     
+   @IBOutlet var clViewTutorial : UICollectionView!
+  @IBOutlet weak var pageControl: UIPageControl!
+    var tutorialData : [TutorialData] = [.firstPage, .secondPage, .thirdPage]
     // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -64,10 +68,45 @@ class TutorialPageViewController: UIViewController, TutorialPageProtocol {
     //@IBOutlet weak var nameTextField: UITextField!
     
     func doSomething() {
+      
+      clViewTutorial.frame.size = self.view.frame.size
         
     }
     
     func displaySomething() {
         //nameTextField.text = viewModel.name
     }
+}
+
+
+//MARK:- UICollectionView Delegate and DataSource
+extension TutorialPageViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
+{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+    {
+        let cell : TutorialCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! TutorialCell
+        cell.tutorialData = self.tutorialData[indexPath.row]
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+       let screenSize = UIScreen.main.bounds.size
+             return screenSize
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView)
+    {
+      pageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+//        for cell in self.clViewTutorial.visibleCells
+//        {
+//          let indexpath = self.clViewTutorial.indexPath(for: cell)
+//          pageController.set(progress: (indexpath?.row)!, animated: true)
+//      }
+      
+    }
+ 
 }

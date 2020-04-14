@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qFX-3i-4Y3">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qFX-3i-4Y3">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="Didot.ttc">
-            <string>Didot-Bold</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="FoJ-yg-wi5">
             <objects>
                 <viewController id="FYq-f8-jWJ" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="prK-hv-2Pz"/>
-                        <viewControllerLayoutGuide type="bottom" id="9iy-mw-4if"/>
+                        <viewControllerLayoutGuide type="top" id="rsi-0d-OKr"/>
+                        <viewControllerLayoutGuide type="bottom" id="woo-TS-uV3"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="H0r-AU-oBk">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Base Code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IOa-E2-z6D">
-                                <rect key="frame" x="103.5" y="311" width="167.5" height="44.5"/>
-                                <fontDescription key="fontDescription" name="Didot-Bold" family="Didot" pointSize="35"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_launchbg" translatesAutoresizingMaskIntoConstraints="NO" id="gbQ-ZQ-rLB">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_logoapp" translatesAutoresizingMaskIntoConstraints="NO" id="afi-aa-1Wi">
+                                <rect key="frame" x="119" y="312.66666666666669" width="137" height="187"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="IOa-E2-z6D" firstAttribute="centerX" secondItem="H0r-AU-oBk" secondAttribute="centerX" id="aQE-01-3xj"/>
-                            <constraint firstItem="IOa-E2-z6D" firstAttribute="centerY" secondItem="H0r-AU-oBk" secondAttribute="centerY" id="c8r-q3-DMh"/>
+                            <constraint firstAttribute="trailing" secondItem="gbQ-ZQ-rLB" secondAttribute="trailing" id="IeI-mM-x2K"/>
+                            <constraint firstItem="afi-aa-1Wi" firstAttribute="width" secondItem="gbQ-ZQ-rLB" secondAttribute="width" multiplier="0.365333" id="LxO-jw-xI0"/>
+                            <constraint firstItem="afi-aa-1Wi" firstAttribute="height" secondItem="gbQ-ZQ-rLB" secondAttribute="height" multiplier="0.230296" id="MGe-Yu-ojg"/>
+                            <constraint firstAttribute="bottom" secondItem="gbQ-ZQ-rLB" secondAttribute="bottom" id="WgN-WE-yJo"/>
+                            <constraint firstItem="gbQ-ZQ-rLB" firstAttribute="top" secondItem="H0r-AU-oBk" secondAttribute="top" id="ZyM-9s-Kd9"/>
+                            <constraint firstItem="afi-aa-1Wi" firstAttribute="centerX" secondItem="H0r-AU-oBk" secondAttribute="centerX" id="lTz-5m-ov8"/>
+                            <constraint firstItem="afi-aa-1Wi" firstAttribute="centerY" secondItem="H0r-AU-oBk" secondAttribute="centerY" id="oZC-su-ZdP"/>
+                            <constraint firstItem="gbQ-ZQ-rLB" firstAttribute="leading" secondItem="H0r-AU-oBk" secondAttribute="leading" id="uTW-X6-3hs"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="rLL-p7-vh5"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fnP-bn-NhW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-132" y="507.79610194902551"/>
+            <point key="canvasLocation" x="-133.59999999999999" y="506.89655172413796"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="nzh-ha-QmS">
@@ -61,4 +61,8 @@
             <point key="canvasLocation" x="-876" y="508"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="img_launchbg" width="375" height="812"/>
+        <image name="img_logoapp" width="196" height="211"/>
+    </resources>
 </document>

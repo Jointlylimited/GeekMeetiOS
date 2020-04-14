@@ -222,33 +222,33 @@ enum TutorialData {
     var pageTitle : String{
         switch self {
         case .firstPage:
-            return "Find Restaurants of Your Choice"
+            return "Find people You Like nearby"
         case .secondPage:
-            return "Discover Various offers and Deals Nearby you"
+            return "Match & Chat with new people"
         case .thirdPage:
-            return "Get Best Deals and Happy hours offers"
+            return "Meet your Match and have fun!!"
         }
     }
     
     var pageDescription : String{
         switch self {
         case .firstPage:
-            return "Lorem Ipsum is simply dummy text of the printing typesetting industry. Lorem Ipsum has been the standard dummy text."
+            return "Best Dating app to meet, chat, date and hangout with people near you"
         case .secondPage:
-            return "Lorem Ipsum is simply dummy text of the printing typesetting industry. Lorem Ipsum has been the standard dummy text."
+            return "Best Dating app to meet, chat, date and hangout with people near you"
         case .thirdPage:
-            return "Lorem Ipsum is simply dummy text of the printing typesetting industry. Lorem Ipsum has been the standard dummy text."
+            return "Best Dating app to meet, chat, date and hangout with people near you"
         }
     }
     
     var pageImage : UIImage{
         switch self {
         case .firstPage:
-            return #imageLiteral(resourceName: "Tutorial_1")
+            return #imageLiteral(resourceName: "img_intro_1")
         case .secondPage:
-            return #imageLiteral(resourceName: "Tutorial_2")
+            return #imageLiteral(resourceName: "img_intro_2")
         case .thirdPage:
-            return #imageLiteral(resourceName: "Tutorial_3")
+            return #imageLiteral(resourceName: "img_intro_3")
         }
     }
 }
@@ -339,11 +339,13 @@ enum SettingData {
     
     var settingData : [SettingOption]{
         switch self {
+          
         case .firstSection:
 //            return currentCustomerUser.tiIsSocialLogin == 1 ? [.notification, .viewAppFetures] : [.notification, .changePW, .viewAppFetures]
               return [.rateUs, .privacyPolicy, .terms, .contactUs, .logout]
         case .secondSection:
             return [.rateUs, .privacyPolicy, .terms, .contactUs, .logout]
+          
         }
     }
     

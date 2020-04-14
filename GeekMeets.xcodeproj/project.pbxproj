@@ -12,6 +12,7 @@
 		F76A8D842440396800ED9947 /* BlockClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76A8D7D2440396700ED9947 /* BlockClass.swift */; };
 		F76A8D862440396800ED9947 /* CustomerEnumaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76A8D7F2440396700ED9947 /* CustomerEnumaration.swift */; };
 		F76A8D872440396800ED9947 /* DocumentDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76A8D802440396700ED9947 /* DocumentDirectory.swift */; };
+		F79604BD244597A2002FFB79 /* TutorialCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79604BC244597A2002FFB79 /* TutorialCell.swift */; };
 		F7CD7A4D24442F3A00E02A9E /* TutorialPagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CD7A4A24442F3A00E02A9E /* TutorialPagePresenter.swift */; };
 		F7CD7A4E24442F3A00E02A9E /* TutorialPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CD7A4B24442F3A00E02A9E /* TutorialPageViewController.swift */; };
 		F7CD7A4F24442F3A00E02A9E /* TutorialPageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CD7A4C24442F3A00E02A9E /* TutorialPageInteractor.swift */; };
@@ -76,6 +77,7 @@
 		F76A8D7D2440396700ED9947 /* BlockClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockClass.swift; sourceTree = "<group>"; };
 		F76A8D7F2440396700ED9947 /* CustomerEnumaration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerEnumaration.swift; sourceTree = "<group>"; };
 		F76A8D802440396700ED9947 /* DocumentDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentDirectory.swift; sourceTree = "<group>"; };
+		F79604BC244597A2002FFB79 /* TutorialCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialCell.swift; sourceTree = "<group>"; };
 		F7CD7A4A24442F3A00E02A9E /* TutorialPagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPagePresenter.swift; sourceTree = "<group>"; };
 		F7CD7A4B24442F3A00E02A9E /* TutorialPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPageViewController.swift; sourceTree = "<group>"; };
 		F7CD7A4C24442F3A00E02A9E /* TutorialPageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPageInteractor.swift; sourceTree = "<group>"; };
@@ -178,6 +180,22 @@
 			path = CustomHelper;
 			sourceTree = "<group>";
 		};
+		F79604BA24459767002FFB79 /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				F79604BB24459782002FFB79 /* UICollectionViewCell */,
+			);
+			path = UIView;
+			sourceTree = "<group>";
+		};
+		F79604BB24459782002FFB79 /* UICollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				F79604BC244597A2002FFB79 /* TutorialCell.swift */,
+			);
+			path = UICollectionViewCell;
+			sourceTree = "<group>";
+		};
 		F7CD7A4924442BCA00E02A9E /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -227,6 +245,7 @@
 		F90B4C9720329C45006ADAF6 /* GeekMeets */ = {
 			isa = PBXGroup;
 			children = (
+				F79604BA24459767002FFB79 /* UIView */,
 				F76A8D7B2440396700ED9947 /* CustomHelper */,
 				F9EDD441203C2F2D008FA83F /* Category */,
 				F9A453A2203AA74A0065C9FD /* VIP */,
@@ -726,6 +745,7 @@
 				F9A453BD203AA74A0065C9FD /* LoginInteractor.swift in Sources */,
 				F97A9A2B21103FA4007C45F5 /* StringExtensions.swift in Sources */,
 				F9A453B4203AA74A0065C9FD /* ForgotPasswordInteractor.swift in Sources */,
+				F79604BD244597A2002FFB79 /* TutorialCell.swift in Sources */,
 				F96C2D202037E92B00F8CBC7 /* L012Localizer.swift in Sources */,
 				F952382F2047D66B00BC0D49 /* ChangePasswordInteractor.swift in Sources */,
 			);
