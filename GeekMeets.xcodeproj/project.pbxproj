@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		E5B521D13F02F46FBABC5C21 /* Pods_GeekMeets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC146BF9C834F09E88494EB4 /* Pods_GeekMeets.framework */; };
+		F73002CB2446F0B600BDD7FD /* UITapGestureRecognizerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73002CA2446F0B600BDD7FD /* UITapGestureRecognizerExtensions.swift */; };
+		F73002D02446F4D000BDD7FD /* InitialSignUpPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73002CD2446F4D000BDD7FD /* InitialSignUpPresenter.swift */; };
+		F73002D12446F4D000BDD7FD /* InitialSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73002CE2446F4D000BDD7FD /* InitialSignUpViewController.swift */; };
+		F73002D22446F4D000BDD7FD /* InitialSignUpInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73002CF2446F4D000BDD7FD /* InitialSignUpInteractor.swift */; };
 		F76A8D832440396800ED9947 /* CustomerWindowExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76A8D7C2440396700ED9947 /* CustomerWindowExtension.swift */; };
 		F76A8D842440396800ED9947 /* BlockClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76A8D7D2440396700ED9947 /* BlockClass.swift */; };
 		F76A8D862440396800ED9947 /* CustomerEnumaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76A8D7F2440396700ED9947 /* CustomerEnumaration.swift */; };
@@ -73,6 +77,10 @@
 		36A8046D3032A36E9F05BAA1 /* Pods-GeekMeets.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeekMeets.debug.xcconfig"; path = "Target Support Files/Pods-GeekMeets/Pods-GeekMeets.debug.xcconfig"; sourceTree = "<group>"; };
 		CF4F6DE0B0DBDFACF78C5DE6 /* Pods-GeekMeets.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeekMeets.staging.xcconfig"; path = "Target Support Files/Pods-GeekMeets/Pods-GeekMeets.staging.xcconfig"; sourceTree = "<group>"; };
 		EC146BF9C834F09E88494EB4 /* Pods_GeekMeets.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GeekMeets.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F73002CA2446F0B600BDD7FD /* UITapGestureRecognizerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITapGestureRecognizerExtensions.swift; sourceTree = "<group>"; };
+		F73002CD2446F4D000BDD7FD /* InitialSignUpPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialSignUpPresenter.swift; sourceTree = "<group>"; };
+		F73002CE2446F4D000BDD7FD /* InitialSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialSignUpViewController.swift; sourceTree = "<group>"; };
+		F73002CF2446F4D000BDD7FD /* InitialSignUpInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialSignUpInteractor.swift; sourceTree = "<group>"; };
 		F76A8D7C2440396700ED9947 /* CustomerWindowExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerWindowExtension.swift; sourceTree = "<group>"; };
 		F76A8D7D2440396700ED9947 /* BlockClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockClass.swift; sourceTree = "<group>"; };
 		F76A8D7F2440396700ED9947 /* CustomerEnumaration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerEnumaration.swift; sourceTree = "<group>"; };
@@ -169,6 +177,16 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		F73002CC2446F49A00BDD7FD /* InitialSignUp */ = {
+			isa = PBXGroup;
+			children = (
+				F73002CD2446F4D000BDD7FD /* InitialSignUpPresenter.swift */,
+				F73002CE2446F4D000BDD7FD /* InitialSignUpViewController.swift */,
+				F73002CF2446F4D000BDD7FD /* InitialSignUpInteractor.swift */,
+			);
+			path = InitialSignUp;
+			sourceTree = "<group>";
+		};
 		F76A8D7B2440396700ED9947 /* CustomHelper */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +217,7 @@
 		F7CD7A4924442BCA00E02A9E /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				F73002CC2446F49A00BDD7FD /* InitialSignUp */,
 				F7CD7A5024442F5100E02A9E /* TutorialPage */,
 			);
 			path = Main;
@@ -442,6 +461,7 @@
 				F97A9A1B211031A6007C45F5 /* UIViewControllerExtensions.swift */,
 				F97A9A1C211031A6007C45F5 /* UIViewExtensions.swift */,
 				F97A9A1521102E18007C45F5 /* UIApplicationExtensions.swift */,
+				F73002CA2446F0B600BDD7FD /* UITapGestureRecognizerExtensions.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -723,12 +743,15 @@
 				F953B8E22046836E00BE4F67 /* EditProfileInteractor.swift in Sources */,
 				F952382B2047BA3500BC0D49 /* RequestParameter.swift in Sources */,
 				F9EDD42E203BFF33008FA83F /* ResponseData.swift in Sources */,
+				F73002D02446F4D000BDD7FD /* InitialSignUpPresenter.swift in Sources */,
 				F97A9A2921103F9F007C45F5 /* UIViewExtensions.swift in Sources */,
 				F9A453D2203AA74B0065C9FD /* SplashPresenter.swift in Sources */,
 				F9A453D5203AA74B0065C9FD /* SplashViewController.swift in Sources */,
 				F97A9A2D21103FAA007C45F5 /* EZSwiftFunctions.swift in Sources */,
+				F73002CB2446F0B600BDD7FD /* UITapGestureRecognizerExtensions.swift in Sources */,
 				F97A9A2F21103FAF007C45F5 /* UserDefaultsExtension.swift in Sources */,
 				F7CD7A4D24442F3A00E02A9E /* TutorialPagePresenter.swift in Sources */,
+				F73002D22446F4D000BDD7FD /* InitialSignUpInteractor.swift in Sources */,
 				F7CD7A4F24442F3A00E02A9E /* TutorialPageInteractor.swift in Sources */,
 				F90B4CE52032F4A6006ADAF6 /* SOService.swift in Sources */,
 				F90B4CE22032F4A6006ADAF6 /* SOAPI.swift in Sources */,
@@ -746,6 +769,7 @@
 				F97A9A2B21103FA4007C45F5 /* StringExtensions.swift in Sources */,
 				F9A453B4203AA74A0065C9FD /* ForgotPasswordInteractor.swift in Sources */,
 				F79604BD244597A2002FFB79 /* TutorialCell.swift in Sources */,
+				F73002D12446F4D000BDD7FD /* InitialSignUpViewController.swift in Sources */,
 				F96C2D202037E92B00F8CBC7 /* L012Localizer.swift in Sources */,
 				F952382F2047D66B00BC0D49 /* ChangePasswordInteractor.swift in Sources */,
 			);

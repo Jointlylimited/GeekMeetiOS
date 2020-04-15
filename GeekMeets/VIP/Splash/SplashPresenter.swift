@@ -14,9 +14,12 @@ import UIKit
 
 protocol SplashPresentationProtocol {
     func callStart()
+    func actionNextButton()
 }
 
 class SplashPresenter: SplashPresentationProtocol {
+
+  
     weak var viewController: SplashProtocol?
     var interactor: SplashInteractorProtocol?
     
@@ -27,5 +30,9 @@ class SplashPresenter: SplashPresentationProtocol {
         if let view = self.viewController as? UIViewController {
             view.navigationController?.pushViewController(objLogin, animated: true)
         }
+    }
+  
+    func actionNextButton() {
+    
     }
 }

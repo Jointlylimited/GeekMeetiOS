@@ -21,9 +21,10 @@ class TutorialPageViewController: UIViewController, TutorialPageProtocol {
     //var interactor : TutorialPageInteractorProtocol?
     var presenter : TutorialPagePresentationProtocol?
     
-   @IBOutlet var clViewTutorial : UICollectionView!
-  @IBOutlet weak var pageControl: UIPageControl!
-    var tutorialData : [TutorialData] = [.firstPage, .secondPage, .thirdPage]
+    @IBOutlet var clViewTutorial : UICollectionView!
+    @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet weak var btnNext: UIButton!
+  var tutorialData : [TutorialData] = [.firstPage, .secondPage, .thirdPage]
     // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -83,6 +84,7 @@ class TutorialPageViewController: UIViewController, TutorialPageProtocol {
   {
       if pageControl.currentPage == self.tutorialData.count - 1
       {
+        
 //          if UserResponse.isUserLoggedIn
 //          {
 //              self.navBar?.isHidden = false
@@ -92,7 +94,8 @@ class TutorialPageViewController: UIViewController, TutorialPageProtocol {
 //          {
 //              self.presenter?.actionNextButton()
 //          }
- 
+        self.presenter?.actionNextButton()
+        
       }
       else
       {
@@ -103,6 +106,9 @@ class TutorialPageViewController: UIViewController, TutorialPageProtocol {
           if nextItem.row < tutorialData.count {
               self.clViewTutorial.scrollToItem(at: nextItem, at: .left, animated: true)
               pageControl.currentPage = nextItem.row
+            if nextItem.row == 2{
+              btnNext.setTitle("Continue",for: .normal)
+            }
           }
       }
   }

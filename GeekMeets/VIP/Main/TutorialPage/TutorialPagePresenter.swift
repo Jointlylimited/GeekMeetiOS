@@ -14,9 +14,12 @@ import UIKit
 
 protocol TutorialPagePresentationProtocol {
     func presentSomething()
+    func actionNextButton()
 }
 
 class TutorialPagePresenter: TutorialPagePresentationProtocol {
+ 
+  
     weak var viewController: TutorialPageProtocol?
     var interactor: TutorialPageInteractorProtocol?
     
@@ -24,4 +27,9 @@ class TutorialPagePresenter: TutorialPagePresentationProtocol {
     func presentSomething() {
         
     }
+  
+    func actionNextButton() {
+       UserDefaults.standard.set(true, forKey: UserDefaultKeyName.kCustomerLanguage)
+       AppDelObj.window?.setRootViewController()
+     }
 }

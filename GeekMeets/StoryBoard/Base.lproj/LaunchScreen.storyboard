@@ -29,14 +29,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="afi-aa-1Wi" firstAttribute="height" secondItem="gbQ-ZQ-rLB" secondAttribute="height" multiplier="0.230296" id="6wi-YX-qW0"/>
                             <constraint firstAttribute="trailing" secondItem="gbQ-ZQ-rLB" secondAttribute="trailing" id="IeI-mM-x2K"/>
-                            <constraint firstItem="afi-aa-1Wi" firstAttribute="width" secondItem="gbQ-ZQ-rLB" secondAttribute="width" multiplier="0.365333" id="LxO-jw-xI0"/>
-                            <constraint firstItem="afi-aa-1Wi" firstAttribute="height" secondItem="gbQ-ZQ-rLB" secondAttribute="height" multiplier="0.230296" id="MGe-Yu-ojg"/>
                             <constraint firstAttribute="bottom" secondItem="gbQ-ZQ-rLB" secondAttribute="bottom" id="WgN-WE-yJo"/>
                             <constraint firstItem="gbQ-ZQ-rLB" firstAttribute="top" secondItem="H0r-AU-oBk" secondAttribute="top" id="ZyM-9s-Kd9"/>
-                            <constraint firstItem="afi-aa-1Wi" firstAttribute="centerX" secondItem="H0r-AU-oBk" secondAttribute="centerX" id="lTz-5m-ov8"/>
-                            <constraint firstItem="afi-aa-1Wi" firstAttribute="centerY" secondItem="H0r-AU-oBk" secondAttribute="centerY" id="oZC-su-ZdP"/>
+                            <constraint firstItem="afi-aa-1Wi" firstAttribute="width" secondItem="gbQ-ZQ-rLB" secondAttribute="width" multiplier="0.365333" id="aTL-QW-RlR"/>
+                            <constraint firstItem="afi-aa-1Wi" firstAttribute="centerX" secondItem="H0r-AU-oBk" secondAttribute="centerX" id="pQ0-vq-jf5"/>
                             <constraint firstItem="gbQ-ZQ-rLB" firstAttribute="leading" secondItem="H0r-AU-oBk" secondAttribute="leading" id="uTW-X6-3hs"/>
+                            <constraint firstItem="afi-aa-1Wi" firstAttribute="centerY" secondItem="H0r-AU-oBk" secondAttribute="centerY" id="unM-Hz-aLS"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="rLL-p7-vh5"/>
