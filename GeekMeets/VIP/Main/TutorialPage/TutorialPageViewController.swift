@@ -76,6 +76,41 @@ class TutorialPageViewController: UIViewController, TutorialPageProtocol {
     func displaySomething() {
         //nameTextField.text = viewModel.name
     }
+  
+   // MARK:- IBAction Method
+  
+  @IBAction func actionNext(_ sender : UIButton)
+  {
+      if pageControl.currentPage == self.tutorialData.count - 1
+      {
+//          if UserResponse.isUserLoggedIn
+//          {
+//              self.navBar?.isHidden = false
+//              self.navigationController?.popViewController(animated: false)
+//          }
+//          else
+//          {
+//              self.presenter?.actionNextButton()
+//          }
+ 
+      }
+      else
+      {
+          let visibleItems: NSArray = self.clViewTutorial.indexPathsForVisibleItems as NSArray
+          let currentItem: IndexPath = visibleItems.object(at: 0) as! IndexPath
+          let nextItem: IndexPath = IndexPath(item: currentItem.item + 1, section: 0)
+          // This is where I'm trying to detect the value
+          if nextItem.row < tutorialData.count {
+              self.clViewTutorial.scrollToItem(at: nextItem, at: .left, animated: true)
+              pageControl.currentPage = nextItem.row
+          }
+      }
+  }
+  @IBAction func actionSkip(_ sender : UIButton)
+    {
+        
+    }
+  
 }
 
 
