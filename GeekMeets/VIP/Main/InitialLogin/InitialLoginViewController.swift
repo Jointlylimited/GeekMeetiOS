@@ -70,4 +70,9 @@ class InitialLoginViewController: UIViewController, InitialLoginProtocol {
     func displaySomething() {
         //nameTextField.text = viewModel.name
     }
+  
+    
+  @IBAction func actionSignup(_ sender: Any) {
+    self.presenter?.actionSignUp()
+  }
 }

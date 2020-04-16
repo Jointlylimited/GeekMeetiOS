@@ -139,6 +139,67 @@ extension UIViewController {
         view.endEditing(true)
     }
     
+  
+     //MARK:- NavigationBar Button
+        
+        
+        var leftSideBackBarButton: UIBarButtonItem {
+            let button = UIBarButtonItem(image: #imageLiteral(resourceName: "icn_snapchat"), style: .plain, target: self, action: #selector(self.popVC))
+            button.image = #imageLiteral(resourceName: "icn_back").withRenderingMode(.alwaysOriginal)
+//            if isCurrentArabicLanguage
+//            {
+//                button.image = button.image?.withHorizontallyFlippedOrientation()
+//            }
+            return button;
+        }
+        
+        var leftSideRootViewBackButton: UIBarButtonItem {
+            let button = UIBarButtonItem(image: #imageLiteral(resourceName: "icn_back"), style: .plain, target: self, action: #selector(self.popToRootVC))
+            button.image = #imageLiteral(resourceName: "icn_back").withRenderingMode(.alwaysOriginal)
+//            if isCurrentArabicLanguage
+//            {
+//                button.image = button.image?.withHorizontallyFlippedOrientation()
+//            }
+            return button;
+        }
+        
+        var leftSideMenuBarButton: UIBarButtonItem
+        {
+            let button = UIBarButtonItem(image: #imageLiteral(resourceName: "icn_menu"), style: .plain, target: self, action: #selector(self.btnSideMenuClick(sender:)))
+            button.image = #imageLiteral(resourceName: "icn_menu").withRenderingMode(.alwaysOriginal)
+//            if isCurrentArabicLanguage
+//            {
+//                button.image =  button.image?.withHorizontallyFlippedOrientation()
+//            }
+            return button;
+        }
+        
+        @objc func btnSideMenuClick(sender: UIBarButtonItem)
+        {
+//            if sender.isEnabled {
+//               sender.isEnabled = false
+//                 BlockClass.sharedInstanceBlockClass().clickOnSideMenu!()
+//                delay(0.5) {
+//                     sender.isEnabled = true
+//                }
+//               
+//            }
+           
+        }
+        
+        var rightSideBarButton: UIBarButtonItem
+        {
+            let button = UIBarButtonItem(image: #imageLiteral(resourceName: "icn_notification"), style: .plain, target: self, action: #selector(self.btnRightSideClick))
+            button.image = #imageLiteral(resourceName: "icn_notification").withRenderingMode(.alwaysOriginal)
+            return button;
+        }
+        
+        @objc func btnRightSideClick()
+        {
+    //        BlockClass.sharedInstanceBlockClass().clickOnSideMenu!()
+        }
+  
+  
     // MARK: - VC Container
     
     ///EZSE: Returns maximum y of the ViewController
@@ -225,7 +286,7 @@ extension UIViewController {
     }
     
     ///EZSE: Pops the top view controller from the navigation stack and updates the display.
-    open func popVC() {
+  @objc open func popVC() {
         _ = navigationController?.popViewController(animated: true)
     }
 
@@ -240,7 +301,7 @@ extension UIViewController {
     }
     
     /// EZSE: Added extension for popToRootViewController
-    open func popToRootVC() {
+  @objc open func popToRootVC() {
         _ = navigationController?.popToRootViewController(animated: true)
     }
     

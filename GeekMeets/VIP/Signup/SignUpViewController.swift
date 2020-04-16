@@ -65,7 +65,7 @@ class SignUpViewController: UIViewController, SignUpProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+         
         if ez.isDebug {
             txtUserName?.text = "ht14"
             txtFirstName?.text = "ht14"

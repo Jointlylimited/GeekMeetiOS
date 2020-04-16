@@ -23,6 +23,10 @@
 		F7D5259024481DB5002D3A42 /* InitialLoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D5258D24481DB5002D3A42 /* InitialLoginPresenter.swift */; };
 		F7D5259124481DB5002D3A42 /* InitialLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D5258E24481DB5002D3A42 /* InitialLoginViewController.swift */; };
 		F7D5259224481DB5002D3A42 /* InitialLoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D5258F24481DB5002D3A42 /* InitialLoginInteractor.swift */; };
+		F7D52594244858F3002D3A42 /* LoginSingUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7D52593244858F3002D3A42 /* LoginSingUp.storyboard */; };
+		F7D5259A244869FB002D3A42 /* SignInPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D52597244869FB002D3A42 /* SignInPresenter.swift */; };
+		F7D5259B244869FB002D3A42 /* SignInInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D52598244869FB002D3A42 /* SignInInteractor.swift */; };
+		F7D5259C244869FB002D3A42 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D52599244869FB002D3A42 /* SignInViewController.swift */; };
 		F90B4C9E20329C45006ADAF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F90B4C9C20329C45006ADAF6 /* Main.storyboard */; };
 		F90B4CA020329C45006ADAF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F90B4C9F20329C45006ADAF6 /* Assets.xcassets */; };
 		F90B4CA320329C45006ADAF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F90B4CA120329C45006ADAF6 /* LaunchScreen.storyboard */; };
@@ -95,6 +99,10 @@
 		F7D5258D24481DB5002D3A42 /* InitialLoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialLoginPresenter.swift; sourceTree = "<group>"; };
 		F7D5258E24481DB5002D3A42 /* InitialLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialLoginViewController.swift; sourceTree = "<group>"; };
 		F7D5258F24481DB5002D3A42 /* InitialLoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialLoginInteractor.swift; sourceTree = "<group>"; };
+		F7D52593244858F3002D3A42 /* LoginSingUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = LoginSingUp.storyboard; path = GeekMeets/LoginSingUp.storyboard; sourceTree = SOURCE_ROOT; };
+		F7D52597244869FB002D3A42 /* SignInPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInPresenter.swift; sourceTree = "<group>"; };
+		F7D52598244869FB002D3A42 /* SignInInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInInteractor.swift; sourceTree = "<group>"; };
+		F7D52599244869FB002D3A42 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		F9031F1A2035A534002EBE92 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		F9031F1E2035A548002EBE92 /* Staging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Staging.xcconfig; sourceTree = "<group>"; };
 		F9031F222035A562002EBE92 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
@@ -248,6 +256,23 @@
 				F7D5258F24481DB5002D3A42 /* InitialLoginInteractor.swift */,
 			);
 			path = InitialLogin;
+			sourceTree = "<group>";
+		};
+		F7D525952448608E002D3A42 /* SignUpViewController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SignUpViewController;
+			sourceTree = "<group>";
+		};
+		F7D52596244869FB002D3A42 /* SignInVC */ = {
+			isa = PBXGroup;
+			children = (
+				F7D52597244869FB002D3A42 /* SignInPresenter.swift */,
+				F7D52598244869FB002D3A42 /* SignInInteractor.swift */,
+				F7D52599244869FB002D3A42 /* SignInViewController.swift */,
+			);
+			path = SignInVC;
 			sourceTree = "<group>";
 		};
 		F9031F192035A51B002EBE92 /* Config */ = {
@@ -534,6 +559,8 @@
 		F9A453A7203AA74A0065C9FD /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				F7D52596244869FB002D3A42 /* SignInVC */,
+				F7D525952448608E002D3A42 /* SignUpViewController */,
 				F9A453A8203AA74A0065C9FD /* LoginInteractor.swift */,
 				F9A453A9203AA74A0065C9FD /* LoginPresenter.swift */,
 				F9A453AA203AA74A0065C9FD /* LoginViewController.swift */,
@@ -567,6 +594,7 @@
 				F90B4C9C20329C45006ADAF6 /* Main.storyboard */,
 				F90B4CA120329C45006ADAF6 /* LaunchScreen.storyboard */,
 				F953B8DD20467B3300BE4F67 /* Settings.storyboard */,
+				F7D52593244858F3002D3A42 /* LoginSingUp.storyboard */,
 			);
 			path = StoryBoard;
 			sourceTree = "<group>";
@@ -647,6 +675,7 @@
 			files = (
 				F90B4CA320329C45006ADAF6 /* LaunchScreen.storyboard in Resources */,
 				F90B4CA020329C45006ADAF6 /* Assets.xcassets in Resources */,
+				F7D52594244858F3002D3A42 /* LoginSingUp.storyboard in Resources */,
 				F953B8DE20467B3300BE4F67 /* Settings.storyboard in Resources */,
 				F90B4C9E20329C45006ADAF6 /* Main.storyboard in Resources */,
 				F96C2D102037E78800F8CBC7 /* Localizable.strings in Resources */,
@@ -747,6 +776,7 @@
 				F995BDC1204D1277005E5279 /* KeyMessages.swift in Sources */,
 				F9EDD431203BFF33008FA83F /* BaseModel.swift in Sources */,
 				F76A8D842440396800ED9947 /* BlockClass.swift in Sources */,
+				F7D5259B244869FB002D3A42 /* SignInInteractor.swift in Sources */,
 				F9A453C3203AA74B0065C9FD /* LoginViewController.swift in Sources */,
 				F9A453CC203AA74B0065C9FD /* SignUpViewController.swift in Sources */,
 				F96C2D2D20380B1A00F8CBC7 /* Validator.swift in Sources */,
@@ -756,7 +786,9 @@
 				F90B4CDE2032AAB8006ADAF6 /* AppDelegate.swift in Sources */,
 				F953B8D620467AFB00BE4F67 /* SettingsViewController.swift in Sources */,
 				F96C2D262037E92B00F8CBC7 /* MirroringLabel.swift in Sources */,
+				F7D5259C244869FB002D3A42 /* SignInViewController.swift in Sources */,
 				F953B8D420467AFB00BE4F67 /* SettingsInteractor.swift in Sources */,
+				F7D5259A244869FB002D3A42 /* SignInPresenter.swift in Sources */,
 				F9A453CF203AA74B0065C9FD /* SplashInteractor.swift in Sources */,
 				F953B8E22046836E00BE4F67 /* EditProfileInteractor.swift in Sources */,
 				F952382B2047BA3500BC0D49 /* RequestParameter.swift in Sources */,

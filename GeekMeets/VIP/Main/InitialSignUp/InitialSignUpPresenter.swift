@@ -14,6 +14,7 @@ import UIKit
 
 protocol InitialSignUpPresentationProtocol {
     func presentSomething()
+    func actionSignUp()
 }
 
 class InitialSignUpPresenter: InitialSignUpPresentationProtocol {
@@ -24,4 +25,14 @@ class InitialSignUpPresenter: InitialSignUpPresentationProtocol {
     func presentSomething() {
         
     }
+    
+    func actionSignUp()
+      {
+          let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.SignInScreen)
+          if let view = self.viewController as? UIViewController
+          {
+              view.pushVC(controller)
+          }
+          
+      }
 }

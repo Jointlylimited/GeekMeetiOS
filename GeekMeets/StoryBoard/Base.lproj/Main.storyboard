@@ -1070,7 +1070,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="1my-eR-b3R" kind="show" id="U3d-Xk-rWP"/>
+                                    <action selector="actionSignup:" destination="AFZ-zR-Z17" eventType="touchUpInside" id="MhF-Yy-2gJ"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="pa7-n9-a4U">
@@ -1272,7 +1272,7 @@
         <image name="icn_Instagaram" width="17.333333969116211" height="17.333333969116211"/>
         <image name="icn_apple" width="15" height="17.333333969116211"/>
         <image name="icn_facebook" width="8" height="16"/>
-        <image name="icn_google" width="27" height="20"/>
+        <image name="icn_google" width="26.333333969116211" height="19.666666030883789"/>
         <image name="icn_snapchat" width="20.666666030883789" height="19.333333969116211"/>
         <image name="img_intro_1" width="375" height="812"/>
         <image name="img_loginbg" width="375" height="812"/>
@@ -1280,7 +1280,4 @@
         <image name="img_logo_Medium" width="16" height="16"/>
         <image name="user_profile" width="100" height="100"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="U3K-ht-lRx"/>
-    </inferredMetricsTieBreakers>
 </document>
