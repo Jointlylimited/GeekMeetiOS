@@ -20,6 +20,9 @@
 		F7CD7A4D24442F3A00E02A9E /* TutorialPagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CD7A4A24442F3A00E02A9E /* TutorialPagePresenter.swift */; };
 		F7CD7A4E24442F3A00E02A9E /* TutorialPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CD7A4B24442F3A00E02A9E /* TutorialPageViewController.swift */; };
 		F7CD7A4F24442F3A00E02A9E /* TutorialPageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CD7A4C24442F3A00E02A9E /* TutorialPageInteractor.swift */; };
+		F7D5259024481DB5002D3A42 /* InitialLoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D5258D24481DB5002D3A42 /* InitialLoginPresenter.swift */; };
+		F7D5259124481DB5002D3A42 /* InitialLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D5258E24481DB5002D3A42 /* InitialLoginViewController.swift */; };
+		F7D5259224481DB5002D3A42 /* InitialLoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D5258F24481DB5002D3A42 /* InitialLoginInteractor.swift */; };
 		F90B4C9E20329C45006ADAF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F90B4C9C20329C45006ADAF6 /* Main.storyboard */; };
 		F90B4CA020329C45006ADAF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F90B4C9F20329C45006ADAF6 /* Assets.xcassets */; };
 		F90B4CA320329C45006ADAF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F90B4CA120329C45006ADAF6 /* LaunchScreen.storyboard */; };
@@ -89,6 +92,9 @@
 		F7CD7A4A24442F3A00E02A9E /* TutorialPagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPagePresenter.swift; sourceTree = "<group>"; };
 		F7CD7A4B24442F3A00E02A9E /* TutorialPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPageViewController.swift; sourceTree = "<group>"; };
 		F7CD7A4C24442F3A00E02A9E /* TutorialPageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPageInteractor.swift; sourceTree = "<group>"; };
+		F7D5258D24481DB5002D3A42 /* InitialLoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialLoginPresenter.swift; sourceTree = "<group>"; };
+		F7D5258E24481DB5002D3A42 /* InitialLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialLoginViewController.swift; sourceTree = "<group>"; };
+		F7D5258F24481DB5002D3A42 /* InitialLoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialLoginInteractor.swift; sourceTree = "<group>"; };
 		F9031F1A2035A534002EBE92 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		F9031F1E2035A548002EBE92 /* Staging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Staging.xcconfig; sourceTree = "<group>"; };
 		F9031F222035A562002EBE92 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
@@ -217,6 +223,7 @@
 		F7CD7A4924442BCA00E02A9E /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				F7D5258C24481D73002D3A42 /* InitialLogin */,
 				F73002CC2446F49A00BDD7FD /* InitialSignUp */,
 				F7CD7A5024442F5100E02A9E /* TutorialPage */,
 			);
@@ -231,6 +238,16 @@
 				F7CD7A4C24442F3A00E02A9E /* TutorialPageInteractor.swift */,
 			);
 			path = TutorialPage;
+			sourceTree = "<group>";
+		};
+		F7D5258C24481D73002D3A42 /* InitialLogin */ = {
+			isa = PBXGroup;
+			children = (
+				F7D5258D24481DB5002D3A42 /* InitialLoginPresenter.swift */,
+				F7D5258E24481DB5002D3A42 /* InitialLoginViewController.swift */,
+				F7D5258F24481DB5002D3A42 /* InitialLoginInteractor.swift */,
+			);
+			path = InitialLogin;
 			sourceTree = "<group>";
 		};
 		F9031F192035A51B002EBE92 /* Config */ = {
@@ -735,6 +752,7 @@
 				F96C2D2D20380B1A00F8CBC7 /* Validator.swift in Sources */,
 				F97A9A2821103F9B007C45F5 /* UIApplicationExtensions.swift in Sources */,
 				F953B8E42046836E00BE4F67 /* EditProfileViewController.swift in Sources */,
+				F7D5259224481DB5002D3A42 /* InitialLoginInteractor.swift in Sources */,
 				F90B4CDE2032AAB8006ADAF6 /* AppDelegate.swift in Sources */,
 				F953B8D620467AFB00BE4F67 /* SettingsViewController.swift in Sources */,
 				F96C2D262037E92B00F8CBC7 /* MirroringLabel.swift in Sources */,
@@ -754,6 +772,7 @@
 				F73002D22446F4D000BDD7FD /* InitialSignUpInteractor.swift in Sources */,
 				F7CD7A4F24442F3A00E02A9E /* TutorialPageInteractor.swift in Sources */,
 				F90B4CE52032F4A6006ADAF6 /* SOService.swift in Sources */,
+				F7D5259024481DB5002D3A42 /* InitialLoginPresenter.swift in Sources */,
 				F90B4CE22032F4A6006ADAF6 /* SOAPI.swift in Sources */,
 				F953B8E32046836E00BE4F67 /* EditProfilePresenter.swift in Sources */,
 				F7CD7A4E24442F3A00E02A9E /* TutorialPageViewController.swift in Sources */,
@@ -761,6 +780,7 @@
 				F95238312047D66B00BC0D49 /* ChangePasswordViewController.swift in Sources */,
 				F9EDD434203BFF33008FA83F /* ProfileUrl.swift in Sources */,
 				F9A453BA203AA74A0065C9FD /* ForgotPasswordViewController.swift in Sources */,
+				F7D5259124481DB5002D3A42 /* InitialLoginViewController.swift in Sources */,
 				F953B8D520467AFB00BE4F67 /* SettingsPresenter.swift in Sources */,
 				F95238302047D66B00BC0D49 /* ChangePasswordPresenter.swift in Sources */,
 				F76A8D862440396800ED9947 /* CustomerEnumaration.swift in Sources */,
