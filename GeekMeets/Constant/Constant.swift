@@ -34,7 +34,7 @@ struct GeekMeets_StoryBoard
     static let Home = UIStoryboard(name: "Home", bundle: nil)
     static let Setting = UIStoryboard(name: "Setting", bundle: nil)
     static let MissingWorkPlace = UIStoryboard(name: "AddMissingBussiness", bundle: nil)
-
+    static let Dashboard = UIStoryboard(name: "Dashboard", bundle: nil)
 }
 struct GeekMeets_ViewController
 {
@@ -51,16 +51,27 @@ struct GeekMeets_ViewController
     static let OpeningDaysVC = "OpeningDaysViewController"
     static let UploadImageVC = "UploadImageViewController"
     static let CharacteristicsCategoryVC = "CharacteristicsCategoryViewController"
+    
+    static let TabbarScreen = "TabbarViewController"
+    static let MatchScreen = "MatchViewController"
 }
 
 
-
+struct ScreenSize {
+    static let width = UIScreen.main.bounds.size.width
+    static let height = UIScreen.main.bounds.size.height
+    static let frame = CGRect(x: 0, y: 0, width: ScreenSize.width, height: ScreenSize.height)
+    static let maxWH = max(ScreenSize.width, ScreenSize.height)
+    static let maxLength = ScreenSize.height
+}
 
 struct AppCommonColor {
     static let pinkColor = #colorLiteral(red: 0.7098039216, green: 0.3254901961, blue: 0.8941176471, alpha: 1)
     static let navigationTitleFontColor = #colorLiteral(red: 0.1803921569, green: 0.1803921569, blue: 0.1803921569, alpha: 1.0)
     static let orangeColor = #colorLiteral(red: 0.9883782268, green: 0.305493474, blue: 0.3512662053, alpha: 1)
     static let placeHolderColor = #colorLiteral(red: 0.6990235448, green: 0.7155820727, blue: 0.719522655, alpha: 1)
+    static let firstGradient = #colorLiteral(red: 0.606272161, green: 0.2928337753, blue: 0.8085166812, alpha: 1)
+    static let secondGradient = #colorLiteral(red: 0.8740701079, green: 0.5383403897, blue: 0.9913718104, alpha: 1)
     
 }
 
