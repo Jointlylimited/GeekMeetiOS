@@ -96,20 +96,38 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
   
     @IBAction func tapLabel(gesture: UITapGestureRecognizer) {
       
-      let text = (lblPrivacyTerm.text)!
-      let termsRange = (text as NSString).range(of: "Terms")
-      let privacyRange = (text as NSString).range(of: "privacy policy")
+        let text = (lblPrivacyTerm.text)!
+        let termsRange = (text as NSString).range(of: "Terms")
+        let privacyRange = (text as NSString).range(of: "privacy policy")
 
-      if gesture.didTapAttributedTextInLabel(label: lblPrivacyTerm, inRange: termsRange) {
-          print("Terms of service")
-      } else if gesture.didTapAttributedTextInLabel(label: lblPrivacyTerm, inRange: privacyRange) {
-          print("Privacy policy")
-      } else {
-          print("Tapped none")
-      }
+        if gesture.didTapAttributedTextInLabel(label: lblPrivacyTerm, inRange: termsRange) {
+            print("Terms of service")
+        } else if gesture.didTapAttributedTextInLabel(label: lblPrivacyTerm, inRange: privacyRange) {
+            print("Privacy policy")
+        } else {
+            print("Tapped none")
+        }
   }
+  
   
   
   
 }
 
+//MARK: IBAction Methods
+
+extension  InitialSignUpViewController{
+      
+  
+      @IBAction func actionGoogleSignUp(_ sender: Any) {
+          self.presenter?.actionSignUp()
+      }
+      @IBAction func actionFacebookSignUp(_ sender: Any) {
+      }
+      @IBAction func actionInstagramSignUp(_ sender: Any) {
+      }
+      @IBAction func actionSnapchatSignUp(_ sender: Any) {
+      }
+      @IBAction func actionAppleSignUp(_ sender: Any) {
+      }
+}

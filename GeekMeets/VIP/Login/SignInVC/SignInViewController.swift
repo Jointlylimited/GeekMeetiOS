@@ -76,24 +76,25 @@ class SignInViewController: UIViewController,SignInProtocol
         let range = (btnSignUp!.currentTitle! as NSString).range(of: "Sign Up")
 
         let attributedString = NSMutableAttributedString(string:(btnSignUp?.currentTitle)!)
-//        attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.font_bold(CGFloat(14.0).fontSize) , range: range)
         attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: AppCommonColor.pinkColor , range: range)
 
 
         btnSignUp?.setAttributedTitle(attributedString, for: .normal)
     }
-  override func viewWillAppear(_ animated: Bool) {
-    tfEmail.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
-    tfPassword.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
-  }
+  
+    override func viewWillAppear(_ animated: Bool) {
+      tfEmail.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
+      tfPassword.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
+    }
+  
     override func viewDidAppear(_ animated: Bool)
     {
-        super.viewDidAppear(animated)
-//        self.tfEmail.becomeFirstResponder()
+      super.viewDidAppear(animated)
     }
-  override func viewWillDisappear(_ animated: Bool) {
-     self.navigationController?.setNavigationBarHidden(true, animated: true)
-  }
+  
+    override func viewWillDisappear(_ animated: Bool) {
+      self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
 }
 
 //MARK:- IBAction Method

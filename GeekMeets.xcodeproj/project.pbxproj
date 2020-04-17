@@ -27,6 +27,9 @@
 		0BE21283244976AF004817BC /* Poppins-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BE21271244976AF004817BC /* Poppins-MediumItalic.ttf */; };
 		E5B521D13F02F46FBABC5C21 /* Pods_GeekMeets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC146BF9C834F09E88494EB4 /* Pods_GeekMeets.framework */; };
 		F716F2A524495EDD0063680F /* UITextFieldExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F716F2A424495EDD0063680F /* UITextFieldExtensions.swift */; };
+		F716F2A924498F630063680F /* SignUpVCPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F716F2A624498F630063680F /* SignUpVCPresenter.swift */; };
+		F716F2AA24498F630063680F /* SignUpVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F716F2A724498F630063680F /* SignUpVCViewController.swift */; };
+		F716F2AB24498F630063680F /* SignUpVCInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F716F2A824498F630063680F /* SignUpVCInteractor.swift */; };
 		F73002CB2446F0B600BDD7FD /* UITapGestureRecognizerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73002CA2446F0B600BDD7FD /* UITapGestureRecognizerExtensions.swift */; };
 		F73002D02446F4D000BDD7FD /* InitialSignUpPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73002CD2446F4D000BDD7FD /* InitialSignUpPresenter.swift */; };
 		F73002D12446F4D000BDD7FD /* InitialSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73002CE2446F4D000BDD7FD /* InitialSignUpViewController.swift */; };
@@ -122,6 +125,9 @@
 		CF4F6DE0B0DBDFACF78C5DE6 /* Pods-GeekMeets.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeekMeets.staging.xcconfig"; path = "Target Support Files/Pods-GeekMeets/Pods-GeekMeets.staging.xcconfig"; sourceTree = "<group>"; };
 		EC146BF9C834F09E88494EB4 /* Pods_GeekMeets.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GeekMeets.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F716F2A424495EDD0063680F /* UITextFieldExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtensions.swift; sourceTree = "<group>"; };
+		F716F2A624498F630063680F /* SignUpVCPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVCPresenter.swift; sourceTree = "<group>"; };
+		F716F2A724498F630063680F /* SignUpVCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVCViewController.swift; sourceTree = "<group>"; };
+		F716F2A824498F630063680F /* SignUpVCInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVCInteractor.swift; sourceTree = "<group>"; };
 		F73002CA2446F0B600BDD7FD /* UITapGestureRecognizerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITapGestureRecognizerExtensions.swift; sourceTree = "<group>"; };
 		F73002CD2446F4D000BDD7FD /* InitialSignUpPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialSignUpPresenter.swift; sourceTree = "<group>"; };
 		F73002CE2446F4D000BDD7FD /* InitialSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialSignUpViewController.swift; sourceTree = "<group>"; };
@@ -321,11 +327,14 @@
 			path = InitialLogin;
 			sourceTree = "<group>";
 		};
-		F7D525952448608E002D3A42 /* SignUpViewController */ = {
+		F7D525952448608E002D3A42 /* SignUpVC */ = {
 			isa = PBXGroup;
 			children = (
+				F716F2A624498F630063680F /* SignUpVCPresenter.swift */,
+				F716F2A724498F630063680F /* SignUpVCViewController.swift */,
+				F716F2A824498F630063680F /* SignUpVCInteractor.swift */,
 			);
-			path = SignUpViewController;
+			path = SignUpVC;
 			sourceTree = "<group>";
 		};
 		F7D52596244869FB002D3A42 /* SignInVC */ = {
@@ -625,7 +634,7 @@
 			isa = PBXGroup;
 			children = (
 				F7D52596244869FB002D3A42 /* SignInVC */,
-				F7D525952448608E002D3A42 /* SignUpViewController */,
+				F7D525952448608E002D3A42 /* SignUpVC */,
 				F9A453A8203AA74A0065C9FD /* LoginInteractor.swift */,
 				F9A453A9203AA74A0065C9FD /* LoginPresenter.swift */,
 				F9A453AA203AA74A0065C9FD /* LoginViewController.swift */,
@@ -866,10 +875,12 @@
 				F96C2D2D20380B1A00F8CBC7 /* Validator.swift in Sources */,
 				F97A9A2821103F9B007C45F5 /* UIApplicationExtensions.swift in Sources */,
 				F953B8E42046836E00BE4F67 /* EditProfileViewController.swift in Sources */,
+				F716F2AB24498F630063680F /* SignUpVCInteractor.swift in Sources */,
 				F7D5259224481DB5002D3A42 /* InitialLoginInteractor.swift in Sources */,
 				F90B4CDE2032AAB8006ADAF6 /* AppDelegate.swift in Sources */,
 				F953B8D620467AFB00BE4F67 /* SettingsViewController.swift in Sources */,
 				F96C2D262037E92B00F8CBC7 /* MirroringLabel.swift in Sources */,
+				F716F2A924498F630063680F /* SignUpVCPresenter.swift in Sources */,
 				F7D5259C244869FB002D3A42 /* SignInViewController.swift in Sources */,
 				F953B8D420467AFB00BE4F67 /* SettingsInteractor.swift in Sources */,
 				F7D5259A244869FB002D3A42 /* SignInPresenter.swift in Sources */,
@@ -886,6 +897,7 @@
 				F97A9A2F21103FAF007C45F5 /* UserDefaultsExtension.swift in Sources */,
 				F7CD7A4D24442F3A00E02A9E /* TutorialPagePresenter.swift in Sources */,
 				F73002D22446F4D000BDD7FD /* InitialSignUpInteractor.swift in Sources */,
+				F716F2AA24498F630063680F /* SignUpVCViewController.swift in Sources */,
 				F7CD7A4F24442F3A00E02A9E /* TutorialPageInteractor.swift in Sources */,
 				F90B4CE52032F4A6006ADAF6 /* SOService.swift in Sources */,
 				F7D5259024481DB5002D3A42 /* InitialLoginPresenter.swift in Sources */,

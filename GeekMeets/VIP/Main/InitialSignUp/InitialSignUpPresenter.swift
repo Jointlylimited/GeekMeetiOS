@@ -28,7 +28,7 @@ class InitialSignUpPresenter: InitialSignUpPresentationProtocol {
     
     func actionSignUp()
       {
-          let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.SignInScreen)
+          let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.SignUpScreen)
           if let view = self.viewController as? UIViewController
           {
               view.pushVC(controller)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
@@ -18,7 +18,7 @@
             <objects>
                 <viewController storyboardIdentifier="SignUpViewController" id="yYS-cL-mqN" customClass="SignUpViewController" customModule="GeekMeets" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iAw-9s-9cy">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="cdv-sT-XXi"/>
@@ -27,30 +27,30 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9ZT-rf-Qq2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-90" y="-62"/>
+            <point key="canvasLocation" x="-96" y="-99"/>
         </scene>
         <!--Sign In View Controller-->
         <scene sceneID="obc-YX-HMd">
             <objects>
                 <viewController storyboardIdentifier="SignInViewController" automaticallyAdjustsScrollViewInsets="NO" id="6TS-Zq-nZl" customClass="SignInViewController" customModule="GeekMeets" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GGo-QQ-8ry">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_logo_Small" translatesAutoresizingMaskIntoConstraints="NO" id="g1P-iX-mRj">
                                 <rect key="frame" x="15" y="0.0" width="32" height="32"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tch-Eu-JBB" customClass="LocalizedLabel" customModule="GeekMeets" customModuleProvider="target">
-                                <rect key="frame" x="15" y="42" width="70.5" height="33"/>
+                                <rect key="frame" x="15" y="42" width="70.666666666666671" height="33"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="28"/>
                                 <color key="textColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SnJ-ME-tUE">
-                                <rect key="frame" x="0.0" y="98" width="414" height="679"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SnJ-ME-tUE">
+                                <rect key="frame" x="0.0" y="95" width="375" height="595"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tfi-wb-IMF">
-                                        <rect key="frame" x="20" y="28" width="354" height="20"/>
+                                        <rect key="frame" x="20" y="21.333333333333343" width="315" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="cTb-lQ-v6d"/>
                                         </constraints>
@@ -59,7 +59,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter your email addres" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q34-zL-hqS" customClass="MyCustomTextField" customModule="GeekMeets" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="53" width="354" height="30"/>
+                                        <rect key="frame" x="20" y="46.333333333333343" width="315" height="26.333333333333329"/>
                                         <color key="textColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
@@ -73,7 +73,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gRX-tc-dn3" customClass="MyCustomTextField" customModule="GeekMeets" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="128" width="354" height="29.5"/>
+                                        <rect key="frame" x="20" y="117.66666666666669" width="315" height="26"/>
                                         <color key="textColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -84,21 +84,22 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hYF-0X-MpJ" customClass="LocalizedButton" customModule="GeekMeets" customModuleProvider="target">
-                                        <rect key="frame" x="98" y="634" width="218" height="30"/>
+                                        <rect key="frame" x="78.666666666666686" y="550" width="218" height="30"/>
                                         <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="15"/>
+                                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <state key="normal" title="Don't have an account? Sign Up">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sF6-oH-7d2" customClass="LocalizedButton" customModule="GeekMeets" customModuleProvider="target">
-                                        <rect key="frame" x="325" y="167.5" width="49" height="29"/>
+                                        <rect key="frame" x="286" y="153.66666666666669" width="49" height="29"/>
                                         <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
                                         <state key="normal" title="Forgot?">
                                             <color key="titleColor" red="0.70980392156862748" green="0.32549019607843138" blue="0.89411764705882346" alpha="1" colorSpace="custom" customColorSpace="adobeRGB1998"/>
                                         </state>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y9G-Jo-kc7">
-                                        <rect key="frame" x="20" y="103" width="354" height="20"/>
+                                        <rect key="frame" x="20" y="92.666666666666686" width="315" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="rz0-I8-NZz"/>
                                         </constraints>
@@ -107,12 +108,16 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pka-cZ-dle" customClass="LocalizedButton" customModule="GeekMeets" customModuleProvider="target">
-                                        <rect key="frame" x="141.5" y="207.5" width="131" height="44"/>
+                                        <rect key="frame" x="128.33333333333334" y="193.66666666666669" width="118.33333333333334" height="38.666666666666657"/>
                                         <color key="backgroundColor" red="0.70980392156862748" green="0.32549019607843138" blue="0.89411764705882346" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                         <state key="normal" title="Sign In">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zRE-8V-8Pd">
+                                        <rect key="frame" x="313" y="121.66666666666669" width="22" height="18"/>
+                                        <state key="normal" backgroundImage="icn_eye "/>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -121,6 +126,7 @@
                                     <constraint firstItem="Pka-cZ-dle" firstAttribute="top" secondItem="gRX-tc-dn3" secondAttribute="bottom" constant="50" id="3oY-HY-EeT"/>
                                     <constraint firstItem="Q34-zL-hqS" firstAttribute="height" secondItem="SnJ-ME-tUE" secondAttribute="height" multiplier="0.044" id="90A-nC-OEA"/>
                                     <constraint firstItem="Q34-zL-hqS" firstAttribute="centerY" secondItem="SnJ-ME-tUE" secondAttribute="centerY" multiplier="0.2" id="CJz-X0-EKb"/>
+                                    <constraint firstItem="zRE-8V-8Pd" firstAttribute="centerY" secondItem="gRX-tc-dn3" secondAttribute="centerY" id="F90-iO-PyY"/>
                                     <constraint firstItem="tfi-wb-IMF" firstAttribute="leading" secondItem="Q34-zL-hqS" secondAttribute="leading" id="HcI-rz-zl3"/>
                                     <constraint firstItem="gRX-tc-dn3" firstAttribute="top" secondItem="Y9G-Jo-kc7" secondAttribute="bottom" constant="5" id="JXH-E3-q13"/>
                                     <constraint firstAttribute="trailing" secondItem="Q34-zL-hqS" secondAttribute="trailing" constant="40" id="LOq-lc-rly"/>
@@ -138,6 +144,7 @@
                                     <constraint firstItem="Y9G-Jo-kc7" firstAttribute="leading" secondItem="gRX-tc-dn3" secondAttribute="leading" id="j0n-lB-WHp"/>
                                     <constraint firstItem="Pka-cZ-dle" firstAttribute="centerX" secondItem="SnJ-ME-tUE" secondAttribute="centerX" id="jHi-jd-CK0"/>
                                     <constraint firstItem="Y9G-Jo-kc7" firstAttribute="top" secondItem="Q34-zL-hqS" secondAttribute="bottom" constant="20" id="kLX-DP-ZJL"/>
+                                    <constraint firstItem="zRE-8V-8Pd" firstAttribute="trailing" secondItem="gRX-tc-dn3" secondAttribute="trailing" id="qiW-bf-BRO"/>
                                     <constraint firstItem="Q34-zL-hqS" firstAttribute="leading" secondItem="SnJ-ME-tUE" secondAttribute="leading" constant="20" id="sPl-on-Lij"/>
                                 </constraints>
                             </view>
@@ -167,8 +174,224 @@
             </objects>
             <point key="canvasLocation" x="947.82608695652186" y="-84.375"/>
         </scene>
+        <!--Sign UpVC View Controller-->
+        <scene sceneID="ybm-t1-etN">
+            <objects>
+                <viewController storyboardIdentifier="SignUpVCViewController" automaticallyAdjustsScrollViewInsets="NO" id="gTV-OF-HG0" customClass="SignUpVCViewController" customModule="GeekMeets" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bmZ-US-ajv">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_logo_Small" translatesAutoresizingMaskIntoConstraints="NO" id="kag-m4-QeZ">
+                                <rect key="frame" x="15" y="0.0" width="32" height="32"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign Up" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rrk-eo-ugK" customClass="LocalizedLabel" customModule="GeekMeets" customModuleProvider="target">
+                                <rect key="frame" x="15.000000000000007" y="42" width="99.666666666666686" height="33"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="28"/>
+                                <color key="textColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sD2-xp-Zw5">
+                                <rect key="frame" x="0.0" y="95" width="375" height="595"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AX8-il-5zR">
+                                        <rect key="frame" x="20" y="21.333333333333343" width="315" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="P0M-Lt-Jcg"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter your email addres" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RRG-UZ-q5Y" customClass="MyCustomTextField" customModule="GeekMeets" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="46.333333333333343" width="315" height="26.333333333333329"/>
+                                        <color key="textColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholder_text_color">
+                                                <color key="value" red="0.69803921570000005" green="0.70980392160000005" blue="0.71372549019999998" alpha="1" colorSpace="custom" customColorSpace="adobeRGB1998"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="charLength">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SoA-k7-C1I" customClass="MyCustomTextField" customModule="GeekMeets" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="117.66666666666669" width="315" height="26"/>
+                                        <color key="textColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholder_text_color">
+                                                <color key="value" red="0.69803921570000005" green="0.70980392160000005" blue="0.71372549019999998" alpha="1" colorSpace="custom" customColorSpace="adobeRGB1998"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lMO-Tr-kON">
+                                        <rect key="frame" x="20" y="92.666666666666686" width="315" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="ZcR-vW-YtZ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4sR-0H-B87" customClass="LocalizedButton" customModule="GeekMeets" customModuleProvider="target">
+                                        <rect key="frame" x="128.33333333333334" y="364.66666666666663" width="118.33333333333334" height="38.666666666666686"/>
+                                        <color key="backgroundColor" red="0.70980392160000005" green="0.32549019610000002" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                        <state key="normal" title="Sign In">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Renter Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DX3-bx-6M2" customClass="MyCustomTextField" customModule="GeekMeets" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="188.66666666666669" width="315" height="26.333333333333343"/>
+                                        <color key="textColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholder_text_color">
+                                                <color key="value" red="0.69803921570000005" green="0.70980392160000005" blue="0.71372549019999998" alpha="1" colorSpace="custom" customColorSpace="adobeRGB1998"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Be-p4-chO">
+                                        <rect key="frame" x="20" y="163.66666666666669" width="315" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="gcL-TE-ZWY"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter your Mobile Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oH1-ym-NNa" customClass="MyCustomTextField" customModule="GeekMeets" customModuleProvider="target">
+                                        <rect key="frame" x="77" y="260" width="258" height="26"/>
+                                        <color key="textColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholder_text_color">
+                                                <color key="value" red="0.69803921570000005" green="0.70980392160000005" blue="0.71372549019999998" alpha="1" colorSpace="custom" customColorSpace="adobeRGB1998"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mobile Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdf-XB-9gd">
+                                        <rect key="frame" x="20" y="235" width="315" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="MdG-cy-bdS"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nI0-2z-Tfn">
+                                        <rect key="frame" x="20" y="262" width="45" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="45" id="O3F-9E-4Zt"/>
+                                        </constraints>
+                                        <inset key="titleEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="30" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="+1" image="icn_down_arrow">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.51436750856164382" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yhy-NC-HKa">
+                                        <rect key="frame" x="65" y="265.66666666666669" width="2" height="14.666666666666686"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="2" id="kXj-PO-pCQ"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="irr-Ae-COJ">
+                                        <rect key="frame" x="20" y="304" width="18" height="18"/>
+                                        <inset key="titleEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="35" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" backgroundImage="icn_check">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.51436750860000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By continuing you choose to agree to our Terms &amp; Conditions and Privacy Policy" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3KH-Pd-3oT">
+                                        <rect key="frame" x="48" y="306" width="287" height="28.666666666666686"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="RRG-UZ-q5Y" firstAttribute="height" secondItem="sD2-xp-Zw5" secondAttribute="height" multiplier="0.044" id="1GV-PK-0qF"/>
+                                    <constraint firstItem="SoA-k7-C1I" firstAttribute="top" secondItem="lMO-Tr-kON" secondAttribute="bottom" constant="5" id="1is-BA-Uzq"/>
+                                    <constraint firstItem="irr-Ae-COJ" firstAttribute="height" secondItem="sD2-xp-Zw5" secondAttribute="height" multiplier="0.0302521" id="1v0-I2-e9r"/>
+                                    <constraint firstItem="3Be-p4-chO" firstAttribute="leading" secondItem="DX3-bx-6M2" secondAttribute="leading" id="4QL-7Q-p3f"/>
+                                    <constraint firstItem="4sR-0H-B87" firstAttribute="height" secondItem="sD2-xp-Zw5" secondAttribute="height" multiplier="0.0648012" id="5j0-mI-SAt"/>
+                                    <constraint firstItem="4sR-0H-B87" firstAttribute="width" secondItem="sD2-xp-Zw5" secondAttribute="width" multiplier="0.316425" id="6qy-Bj-Y8D"/>
+                                    <constraint firstItem="SoA-k7-C1I" firstAttribute="height" secondItem="RRG-UZ-q5Y" secondAttribute="height" id="BcQ-C7-sEf"/>
+                                    <constraint firstItem="yhy-NC-HKa" firstAttribute="centerY" secondItem="nI0-2z-Tfn" secondAttribute="centerY" id="BzG-TU-N7h"/>
+                                    <constraint firstItem="DX3-bx-6M2" firstAttribute="trailing" secondItem="SoA-k7-C1I" secondAttribute="trailing" id="EUg-fc-uF8"/>
+                                    <constraint firstItem="RRG-UZ-q5Y" firstAttribute="top" secondItem="AX8-il-5zR" secondAttribute="bottom" constant="5" id="GOs-at-8lL"/>
+                                    <constraint firstItem="oH1-ym-NNa" firstAttribute="leading" secondItem="yhy-NC-HKa" secondAttribute="trailing" constant="10" id="GWm-3x-kJg"/>
+                                    <constraint firstItem="3KH-Pd-3oT" firstAttribute="top" secondItem="oH1-ym-NNa" secondAttribute="bottom" constant="20" id="JHl-c9-cWu"/>
+                                    <constraint firstItem="RRG-UZ-q5Y" firstAttribute="centerY" secondItem="sD2-xp-Zw5" secondAttribute="centerY" multiplier="0.2" id="KZn-cD-w4O"/>
+                                    <constraint firstItem="nI0-2z-Tfn" firstAttribute="leading" secondItem="DX3-bx-6M2" secondAttribute="leading" id="KeN-fk-sfa"/>
+                                    <constraint firstItem="irr-Ae-COJ" firstAttribute="leading" secondItem="nI0-2z-Tfn" secondAttribute="leading" id="L3E-9I-EZC"/>
+                                    <constraint firstItem="oH1-ym-NNa" firstAttribute="top" secondItem="kdf-XB-9gd" secondAttribute="bottom" constant="5" id="Lzi-Sz-PY2"/>
+                                    <constraint firstItem="oH1-ym-NNa" firstAttribute="height" secondItem="DX3-bx-6M2" secondAttribute="height" id="M9w-bm-5cH"/>
+                                    <constraint firstAttribute="trailing" secondItem="RRG-UZ-q5Y" secondAttribute="trailing" constant="40" id="MNj-TF-PDK"/>
+                                    <constraint firstItem="kdf-XB-9gd" firstAttribute="top" secondItem="DX3-bx-6M2" secondAttribute="bottom" constant="20" id="NVZ-wK-mgO"/>
+                                    <constraint firstItem="RRG-UZ-q5Y" firstAttribute="leading" secondItem="sD2-xp-Zw5" secondAttribute="leading" constant="20" id="OpG-M6-GiM"/>
+                                    <constraint firstItem="irr-Ae-COJ" firstAttribute="width" secondItem="sD2-xp-Zw5" secondAttribute="width" multiplier="0.048" id="SxE-w7-jBw"/>
+                                    <constraint firstItem="SoA-k7-C1I" firstAttribute="leading" secondItem="RRG-UZ-q5Y" secondAttribute="leading" id="TFE-tH-Qie"/>
+                                    <constraint firstItem="lMO-Tr-kON" firstAttribute="top" secondItem="RRG-UZ-q5Y" secondAttribute="bottom" constant="20" id="Tkx-48-2De"/>
+                                    <constraint firstItem="3Be-p4-chO" firstAttribute="top" secondItem="SoA-k7-C1I" secondAttribute="bottom" constant="20" id="Ubi-xN-ict"/>
+                                    <constraint firstItem="nI0-2z-Tfn" firstAttribute="centerY" secondItem="oH1-ym-NNa" secondAttribute="centerY" id="Uy6-gu-9QX"/>
+                                    <constraint firstItem="lMO-Tr-kON" firstAttribute="leading" secondItem="SoA-k7-C1I" secondAttribute="leading" id="Vpm-gj-FfO"/>
+                                    <constraint firstItem="AX8-il-5zR" firstAttribute="trailing" secondItem="RRG-UZ-q5Y" secondAttribute="trailing" id="WBx-PP-9rs"/>
+                                    <constraint firstItem="yhy-NC-HKa" firstAttribute="leading" secondItem="nI0-2z-Tfn" secondAttribute="trailing" id="XJB-Qf-POk"/>
+                                    <constraint firstItem="DX3-bx-6M2" firstAttribute="height" secondItem="SoA-k7-C1I" secondAttribute="height" id="XeN-GO-5nP"/>
+                                    <constraint firstItem="3KH-Pd-3oT" firstAttribute="trailing" secondItem="oH1-ym-NNa" secondAttribute="trailing" id="apA-Oq-Fds"/>
+                                    <constraint firstItem="3Be-p4-chO" firstAttribute="trailing" secondItem="DX3-bx-6M2" secondAttribute="trailing" id="cBB-Va-b3F"/>
+                                    <constraint firstItem="AX8-il-5zR" firstAttribute="leading" secondItem="RRG-UZ-q5Y" secondAttribute="leading" id="hFE-B5-FdF"/>
+                                    <constraint firstItem="3KH-Pd-3oT" firstAttribute="leading" secondItem="irr-Ae-COJ" secondAttribute="trailing" constant="10" id="i16-6j-hfN"/>
+                                    <constraint firstItem="DX3-bx-6M2" firstAttribute="leading" secondItem="SoA-k7-C1I" secondAttribute="leading" id="n5J-J7-UJZ"/>
+                                    <constraint firstItem="nI0-2z-Tfn" firstAttribute="height" secondItem="yhy-NC-HKa" secondAttribute="height" multiplier="1.5" id="rSv-yE-kgC"/>
+                                    <constraint firstItem="DX3-bx-6M2" firstAttribute="top" secondItem="3Be-p4-chO" secondAttribute="bottom" constant="5" id="rpE-RU-F0y"/>
+                                    <constraint firstItem="kdf-XB-9gd" firstAttribute="leading" secondItem="DX3-bx-6M2" secondAttribute="leading" id="sYJ-j6-EB1"/>
+                                    <constraint firstItem="4sR-0H-B87" firstAttribute="top" secondItem="3KH-Pd-3oT" secondAttribute="bottom" constant="30" id="v5K-Wb-YpI"/>
+                                    <constraint firstItem="4sR-0H-B87" firstAttribute="centerX" secondItem="sD2-xp-Zw5" secondAttribute="centerX" id="vC6-UY-Ry4"/>
+                                    <constraint firstItem="irr-Ae-COJ" firstAttribute="top" secondItem="nI0-2z-Tfn" secondAttribute="bottom" constant="20" id="vPs-ma-wPG"/>
+                                    <constraint firstItem="lMO-Tr-kON" firstAttribute="trailing" secondItem="SoA-k7-C1I" secondAttribute="trailing" id="vxB-yN-QXj"/>
+                                    <constraint firstItem="kdf-XB-9gd" firstAttribute="trailing" secondItem="oH1-ym-NNa" secondAttribute="trailing" id="x6F-Oi-x4B"/>
+                                    <constraint firstItem="SoA-k7-C1I" firstAttribute="trailing" secondItem="RRG-UZ-q5Y" secondAttribute="trailing" id="xb3-2l-8NE"/>
+                                    <constraint firstItem="oH1-ym-NNa" firstAttribute="trailing" secondItem="DX3-bx-6M2" secondAttribute="trailing" id="ybA-Wx-KSl"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="sD2-xp-Zw5" firstAttribute="leading" secondItem="LoV-fW-fxl" secondAttribute="leading" id="3d0-vn-t2W"/>
+                            <constraint firstItem="rrk-eo-ugK" firstAttribute="leading" secondItem="kag-m4-QeZ" secondAttribute="leading" id="8ge-8c-gZR"/>
+                            <constraint firstItem="sD2-xp-Zw5" firstAttribute="top" secondItem="rrk-eo-ugK" secondAttribute="bottom" constant="20" id="8pP-jB-ktg"/>
+                            <constraint firstItem="sD2-xp-Zw5" firstAttribute="trailing" secondItem="LoV-fW-fxl" secondAttribute="trailing" id="D5Z-KG-Eab"/>
+                            <constraint firstItem="rrk-eo-ugK" firstAttribute="top" secondItem="kag-m4-QeZ" secondAttribute="bottom" constant="10" id="Q5V-s9-uAt"/>
+                            <constraint firstItem="LoV-fW-fxl" firstAttribute="bottom" secondItem="sD2-xp-Zw5" secondAttribute="bottom" id="jZC-og-6Gb"/>
+                            <constraint firstItem="kag-m4-QeZ" firstAttribute="top" secondItem="LoV-fW-fxl" secondAttribute="top" id="rZ2-t5-Con"/>
+                            <constraint firstItem="kag-m4-QeZ" firstAttribute="leading" secondItem="LoV-fW-fxl" secondAttribute="leading" constant="15" id="tBS-pb-Bkr"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="LoV-fW-fxl"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ioB-NM-LTC"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vhb-tH-WQo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1847.2" y="-84.975369458128085"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="icn_check" width="18" height="18"/>
+        <image name="icn_down_arrow" width="9" height="5"/>
+        <image name="icn_eye " width="21.333333969116211" height="16"/>
         <image name="img_logo_Small" width="16" height="16"/>
     </resources>
 </document>

@@ -39,7 +39,7 @@ struct GeekMeets_StoryBoard
 struct GeekMeets_ViewController
 {
     static let SignInScreen = "SignInViewController"
-    static let SignUpScreen = "SignUpViewController"
+    static let SignUpScreen = "SignUpVCViewController"
     static let OTPScreen = "OTPViewController"
     static let ForgotPassword = "ForgotPasswordViewController"
     static let compeleteProfile = "CompleteProfileViewController"

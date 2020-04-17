@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3RC-Uq-CTp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3RC-Uq-CTp">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -792,6 +792,9 @@
                                         <real key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="actionGoogleSignUp:" destination="1my-eR-b3R" eventType="touchUpInside" id="Z0Z-2Z-U9b"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NGz-XM-qNv">
                                 <rect key="frame" x="253.33333333333337" y="736" width="38" height="30"/>
@@ -834,6 +837,9 @@
                                                 <real key="value" value="5"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="actionFacebookSignUp:" destination="1my-eR-b3R" eventType="touchUpInside" id="b2A-0R-0Aq"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HY7-WO-GHv">
                                         <rect key="frame" x="187.66666666666663" y="0.0" width="147.33333333333337" height="44"/>
@@ -864,6 +870,9 @@
                                                 <real key="value" value="5"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="actionInstagramSignUp:" destination="1my-eR-b3R" eventType="touchUpInside" id="C4I-6f-OP3"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -902,6 +911,9 @@
                                                 <real key="value" value="5"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="actionSnapchatSignUp:" destination="1my-eR-b3R" eventType="touchUpInside" id="27r-ci-mdK"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Ym-Ra-gEj">
                                         <rect key="frame" x="187.66666666666663" y="0.0" width="147.33333333333337" height="44"/>
@@ -932,6 +944,9 @@
                                                 <real key="value" value="5"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="actionAppleSignUp:" destination="1my-eR-b3R" eventType="touchUpInside" id="kp6-fK-ehm"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -1063,6 +1078,9 @@
                                         <real key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="actionSignIn:" destination="AFZ-zR-Z17" eventType="touchUpInside" id="aoQ-0L-J1J"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9T-qw-jnM">
                                 <rect key="frame" x="253.33333333333337" y="736" width="54" height="30"/>
@@ -1070,7 +1088,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="actionSignup:" destination="AFZ-zR-Z17" eventType="touchUpInside" id="MhF-Yy-2gJ"/>
+                                    <action selector="actionSignup:" destination="AFZ-zR-Z17" eventType="touchUpInside" id="VLU-Wy-0RW"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="pa7-n9-a4U">
