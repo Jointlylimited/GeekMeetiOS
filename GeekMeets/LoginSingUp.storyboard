@@ -107,7 +107,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pka-cZ-dle" customClass="LocalizedButton" customModule="GeekMeets" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pka-cZ-dle">
                                         <rect key="frame" x="128.33333333333334" y="193.66666666666669" width="118.33333333333334" height="38.666666666666657"/>
                                         <color key="backgroundColor" red="0.70980392156862748" green="0.32549019607843138" blue="0.89411764705882346" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
@@ -165,6 +165,7 @@
                     <navigationItem key="navigationItem" id="S1T-KF-KC4"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
+                        <outlet property="btnSignIn" destination="Pka-cZ-dle" id="jlq-ch-Kxi"/>
                         <outlet property="btnSignUp" destination="hYF-0X-MpJ" id="ssG-Ud-WPB"/>
                         <outlet property="tfEmail" destination="Q34-zL-hqS" id="AQW-TO-Vd9"/>
                         <outlet property="tfPassword" destination="gRX-tc-dn3" id="Ros-AJ-cdi"/>
@@ -237,11 +238,11 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4sR-0H-B87" customClass="LocalizedButton" customModule="GeekMeets" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4sR-0H-B87">
                                         <rect key="frame" x="128.33333333333334" y="364.66666666666663" width="118.33333333333334" height="38.666666666666686"/>
                                         <color key="backgroundColor" red="0.70980392160000005" green="0.32549019610000002" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
-                                        <state key="normal" title="Sign In">
+                                        <state key="normal" title="Continue">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                     </button>
@@ -382,6 +383,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="ioB-NM-LTC"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <outlet property="btnContinue" destination="4sR-0H-B87" id="MCa-Fp-kum"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vhb-tH-WQo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -33,7 +33,8 @@ class SignInViewController: UIViewController,SignInProtocol
     @IBOutlet weak var tfPassword : UITextField!
     @IBOutlet weak var btnSignUp : UIButton?
 
-    // MARK:- Object lifecycle
+  @IBOutlet weak var btnSignIn: UIButton!
+  // MARK:- Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -72,6 +73,7 @@ class SignInViewController: UIViewController,SignInProtocol
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         self.navigationItem.leftBarButtonItem = leftSideBackBarButton
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
         
         let range = (btnSignUp!.currentTitle! as NSString).range(of: "Sign Up")
 
@@ -85,6 +87,7 @@ class SignInViewController: UIViewController,SignInProtocol
     override func viewWillAppear(_ animated: Bool) {
       tfEmail.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
       tfPassword.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
+      btnSignIn.applyGradient(colors: AppCommonColor.gredientColor)
     }
   
     override func viewDidAppear(_ animated: Bool)

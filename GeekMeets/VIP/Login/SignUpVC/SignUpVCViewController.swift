@@ -20,7 +20,8 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
     //var interactor : SignUpVCInteractorProtocol?
     var presenter : SignUpVCPresentationProtocol?
     
-    // MARK: Object lifecycle
+  @IBOutlet weak var btnContinue: UIButton!
+  // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -71,6 +72,8 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
             self.navigationController?.setNavigationBarHidden(false, animated: true)
             self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
             self.navigationItem.leftBarButtonItem = leftSideBackBarButton
+            self.navigationController?.navigationBar.barTintColor = UIColor.white
+            btnContinue.applyGradient(colors: AppCommonColor.gredientColor)
         
     }
   
