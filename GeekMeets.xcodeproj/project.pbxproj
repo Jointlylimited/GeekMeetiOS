@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E5B521D13F02F46FBABC5C21 /* Pods_GeekMeets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC146BF9C834F09E88494EB4 /* Pods_GeekMeets.framework */; };
+		F716F2A524495EDD0063680F /* UITextFieldExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F716F2A424495EDD0063680F /* UITextFieldExtensions.swift */; };
 		F73002CB2446F0B600BDD7FD /* UITapGestureRecognizerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73002CA2446F0B600BDD7FD /* UITapGestureRecognizerExtensions.swift */; };
 		F73002D02446F4D000BDD7FD /* InitialSignUpPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73002CD2446F4D000BDD7FD /* InitialSignUpPresenter.swift */; };
 		F73002D12446F4D000BDD7FD /* InitialSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73002CE2446F4D000BDD7FD /* InitialSignUpViewController.swift */; };
@@ -84,6 +85,7 @@
 		36A8046D3032A36E9F05BAA1 /* Pods-GeekMeets.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeekMeets.debug.xcconfig"; path = "Target Support Files/Pods-GeekMeets/Pods-GeekMeets.debug.xcconfig"; sourceTree = "<group>"; };
 		CF4F6DE0B0DBDFACF78C5DE6 /* Pods-GeekMeets.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeekMeets.staging.xcconfig"; path = "Target Support Files/Pods-GeekMeets/Pods-GeekMeets.staging.xcconfig"; sourceTree = "<group>"; };
 		EC146BF9C834F09E88494EB4 /* Pods_GeekMeets.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GeekMeets.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F716F2A424495EDD0063680F /* UITextFieldExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtensions.swift; sourceTree = "<group>"; };
 		F73002CA2446F0B600BDD7FD /* UITapGestureRecognizerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITapGestureRecognizerExtensions.swift; sourceTree = "<group>"; };
 		F73002CD2446F4D000BDD7FD /* InitialSignUpPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialSignUpPresenter.swift; sourceTree = "<group>"; };
 		F73002CE2446F4D000BDD7FD /* InitialSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialSignUpViewController.swift; sourceTree = "<group>"; };
@@ -504,6 +506,7 @@
 				F97A9A1C211031A6007C45F5 /* UIViewExtensions.swift */,
 				F97A9A1521102E18007C45F5 /* UIApplicationExtensions.swift */,
 				F73002CA2446F0B600BDD7FD /* UITapGestureRecognizerExtensions.swift */,
+				F716F2A424495EDD0063680F /* UITextFieldExtensions.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -774,6 +777,7 @@
 				F97A9A2A21103FA2007C45F5 /* UIViewControllerExtensions.swift in Sources */,
 				F9A453C0203AA74A0065C9FD /* LoginPresenter.swift in Sources */,
 				F995BDC1204D1277005E5279 /* KeyMessages.swift in Sources */,
+				F716F2A524495EDD0063680F /* UITextFieldExtensions.swift in Sources */,
 				F9EDD431203BFF33008FA83F /* BaseModel.swift in Sources */,
 				F76A8D842440396800ED9947 /* BlockClass.swift in Sources */,
 				F7D5259B244869FB002D3A42 /* SignInInteractor.swift in Sources */,
