@@ -23,9 +23,13 @@ class TabbarPresenter: TabbarPresentationProtocol {
     // MARK: Present something
     func gotoMatchVC() {
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchScreen)
+        controller.modalTransitionStyle = .crossDissolve
+        controller.modalPresentationStyle = .overCurrentContext
+        
         if let view = self.viewController as? UIViewController
         {
-            view.pushVC(controller)
+            view.presentVC(controller)
+//            view.pushVC(controller)
         }
     }
 }
