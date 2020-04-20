@@ -50,7 +50,7 @@ public class CardView: UIView {
     
     view.imgView.layer.cornerRadius = 10
     view.imgView.layer.masksToBounds = true
-    view.lblView.applyGradient(colors: [AppCommonColor.firstGradient.cgColor, AppCommonColor.secondGradient.cgColor])
+    view.lblView.applyGradient(colors: AppCommonColor.gredientColor)
     
     view.layoutIfNeeded()
     return view

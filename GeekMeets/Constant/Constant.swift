@@ -58,6 +58,17 @@ struct GeekMeets_ViewController
   
 }
 
+struct DeviceType {
+    static let iPhone4orLess = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.maxWH < 568.0
+    static let iPhone5orSE   = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.maxWH == 568.0
+    static let iPhone678     = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.maxWH == 667.0
+    static let iPhone678p    = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.maxWH == 736.0
+    static let iPhoneX       = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.maxWH == 812.0
+    static let iPhoneXRMax   = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.maxLength == 896.0
+    static var hasNotch: Bool {
+        return iPhoneX || iPhoneXRMax
+    }
+}
 
 struct ScreenSize {
     static let width = UIScreen.main.bounds.size.width
@@ -68,7 +79,7 @@ struct ScreenSize {
 }
 
 struct AppCommonColor {
-  static let gredientColor:[CGColor] = [#colorLiteral(red: 0.5294117647, green: 0.1803921569, blue: 0.7647058824, alpha: 1),#colorLiteral(red: 0.8352941176, green: 0.4274509804, blue: 0.9882352941, alpha: 1)]
+    static let gredientColor:[CGColor] = [#colorLiteral(red: 0.5294117647, green: 0.1803921569, blue: 0.7647058824, alpha: 1),#colorLiteral(red: 0.8352941176, green: 0.4274509804, blue: 0.9882352941, alpha: 1)]
     static let pinkColor = #colorLiteral(red: 0.7098039216, green: 0.3254901961, blue: 0.8941176471, alpha: 1)
     static let navigationTitleFontColor = #colorLiteral(red: 0.1803921569, green: 0.1803921569, blue: 0.1803921569, alpha: 1.0)
     static let orangeColor = #colorLiteral(red: 0.9883782268, green: 0.305493474, blue: 0.3512662053, alpha: 1)

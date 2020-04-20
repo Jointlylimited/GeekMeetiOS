@@ -21,7 +21,13 @@ class MatchViewController: UIViewController, MatchProtocol {
     var presenter : MatchPresentationProtocol?
     
     // MARK: Object lifecycle
+    @IBOutlet weak var userImgView: UIImageView!
+    @IBOutlet weak var matchUserImgView: UIImageView!
     
+    @IBOutlet weak var userImgWidthContraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var viewHeightConstant: NSLayoutConstraint!
+    @IBOutlet weak var stackViewHeightConstant: NSLayoutConstraint!
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -56,14 +62,21 @@ class MatchViewController: UIViewController, MatchProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        doSomething()
+        setUI()
     }
     
     // MARK: Do something
     
     //@IBOutlet weak var nameTextField: UITextField!
     
-    func doSomething() {
+    func setUI() {
+        
+        userImgWidthContraint.constant = ScreenSize.width/2 - 30
+        viewHeightConstant.constant = userImgWidthContraint.constant
+        stackViewHeightConstant.constant = DeviceType.iPhone5orSE ? 80 : 120
+        
+        self.matchUserImgView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/9))
+        self.userImgView.transform = CGAffineTransform(rotationAngle: -CGFloat(Double.pi/9))
         
     }
     
@@ -71,6 +84,6 @@ class MatchViewController: UIViewController, MatchProtocol {
         //nameTextField.text = viewModel.name
     }
     @IBAction func btnContinueSwippingAction(_ sender: UIButton) {
-        self.popVC()
+        self.dismissVC(completion: nil)
     }
 }
