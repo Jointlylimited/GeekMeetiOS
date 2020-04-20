@@ -13,7 +13,7 @@
 import UIKit
 
 protocol TabbarPresentationProtocol {
-    func gotoMatchVC()
+    
 }
 
 class TabbarPresenter: TabbarPresentationProtocol {
@@ -21,15 +21,5 @@ class TabbarPresenter: TabbarPresentationProtocol {
     var interactor: TabbarInteractorProtocol?
     
     // MARK: Present something
-    func gotoMatchVC() {
-        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchScreen)
-        controller.modalTransitionStyle = .crossDissolve
-        controller.modalPresentationStyle = .overCurrentContext
-        
-        if let view = self.viewController as? UIViewController
-        {
-            view.presentVC(controller)
-//            view.pushVC(controller)
-        }
-    }
+    
 }

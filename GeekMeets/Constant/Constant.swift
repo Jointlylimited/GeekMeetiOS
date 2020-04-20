@@ -58,6 +58,10 @@ struct GeekMeets_ViewController
   
 }
 
+struct Cells {
+    static let PhotoEmojiCell = "PhotoEmojiCell"
+}
+
 struct DeviceType {
     static let iPhone4orLess = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.maxWH < 568.0
     static let iPhone5orSE   = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.maxWH == 568.0
