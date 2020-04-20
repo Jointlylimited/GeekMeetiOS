@@ -71,11 +71,11 @@ class SignInPresenter: SignInPresentationProtocol {
     }
     
     func actionForgotPassword() {
-//        let controller = NearBy_Customer_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: NearBy_Provider_ViewController.ForgotPasswordVC)
-//        if let view = self.viewController as? UIViewController
-//        {
-//            view.pushVC(controller)
-//        }
+        let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.ForgotPassword)
+        if let view = self.viewController as? UIViewController
+        {
+            view.pushVC(controller)
+        }
     }
     
     func actionOTPVerifyClick()

@@ -32,8 +32,8 @@ class SignInViewController: UIViewController,SignInProtocol
     @IBOutlet weak var tfEmail : UITextField!
     @IBOutlet weak var tfPassword : UITextField!
     @IBOutlet weak var btnSignUp : UIButton?
-
-  @IBOutlet weak var btnSignIn: UIButton!
+    @IBOutlet weak var btnForgot: UIButton!
+    @IBOutlet weak var btnSignIn: UIButton!
   // MARK:- Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -70,51 +70,51 @@ class SignInViewController: UIViewController,SignInProtocol
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
-        self.navigationItem.leftBarButtonItem = leftSideBackBarButton
-        self.navigationController?.navigationBar.barTintColor = UIColor.white
-        
-        let range = (btnSignUp!.currentTitle! as NSString).range(of: "Sign Up")
-
-        let attributedString = NSMutableAttributedString(string:(btnSignUp?.currentTitle)!)
-        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: AppCommonColor.pinkColor , range: range)
-
-
-        btnSignUp?.setAttributedTitle(attributedString, for: .normal)
+       doSomething()
+      
     }
-  
-    override func viewWillAppear(_ animated: Bool) {
-      tfEmail.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
-      tfPassword.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
-      btnSignIn.applyGradient(colors: AppCommonColor.gredientColor)
+    func doSomething(){
+      
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+            self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
+            self.navigationItem.leftBarButtonItem = leftSideBackBarButton
+            self.navigationController?.navigationBar.barTintColor = UIColor.white
+            tfEmail.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
+            tfPassword.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
+            btnSignIn.applyGradient(colors: AppCommonColor.gredientColor)
+            let range = (btnSignUp!.currentTitle! as NSString).range(of: "Sign Up")
+            let attributedString = NSMutableAttributedString(string:(btnSignUp?.currentTitle)!)
+            attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: AppCommonColor.pinkColor , range: range)
+            btnSignUp?.setAttributedTitle(attributedString, for: .normal)
+      
     }
+    
   
     override func viewDidAppear(_ animated: Bool)
     {
       super.viewDidAppear(animated)
     }
   
-    override func viewWillDisappear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool){
       self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
 }
 
 //MARK:- IBAction Method
-//extension SignInViewController
-//{
-//    @IBAction func btnSignUpClick(_ sender : UIButton)
-//    {
+extension SignInViewController
+{
+    @IBAction func btnSignUpClick(_ sender : UIButton)
+    {
 //        self.presenter?.actionSignUp()
-//    }
-//
-//    @IBAction func btnSignInClick(_ sender : UIButton)
-//    {
+    }
+
+    @IBAction func btnSignInClick(_ sender : UIButton)
+    {
 //        self.presenter?.callSignInAPI(tfEmail.text ?? "", password: tfPassword.text ?? "")
-//    }
-//
-//    @IBAction func btnForgotPWClick(_ sender : UIButton)
-//    {
-//        self.presenter?.actionForgotPassword()
-//    }
-//}
+    }
+
+    @IBAction func btnForgotPWClick(_ sender : UIButton)
+    {
+        self.presenter?.actionForgotPassword()
+    }
+}

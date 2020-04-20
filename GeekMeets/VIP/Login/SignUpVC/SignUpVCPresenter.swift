@@ -14,6 +14,7 @@ import UIKit
 
 protocol SignUpVCPresentationProtocol {
     func presentSomething()
+    func actionContinue()
 }
 
 class SignUpVCPresenter: SignUpVCPresentationProtocol {
@@ -23,5 +24,13 @@ class SignUpVCPresenter: SignUpVCPresentationProtocol {
     // MARK: Present something
     func presentSomething() {
         
+    }
+  
+    func actionContinue() {
+        let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.UserProfile)
+        if let view = self.viewController as? UIViewController
+        {
+            view.pushVC(controller)
+        }
     }
 }
