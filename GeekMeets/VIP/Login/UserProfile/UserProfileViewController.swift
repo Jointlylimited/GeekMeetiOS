@@ -20,7 +20,13 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
     //var interactor : UserProfileInteractorProtocol?
     var presenter : UserProfilePresentationProtocol?
     @IBOutlet var scrollView: UIScrollView!
-    // MARK: Object lifecycle
+    @IBOutlet weak var tfName: UITextField!
+    @IBOutlet weak var tfAge: UITextField!
+    @IBOutlet weak var tfCompanyDetail: UITextField!
+    @IBOutlet weak var tfAbout: UITextField!
+    @IBOutlet weak var imgprofile: UIImageView!
+    @IBOutlet weak var btnContinue: UIButton!
+  // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -68,9 +74,30 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
       scrollView.delegate = self
       self.navigationController?.isNavigationBarHidden = false
       self.navigationItem.leftBarButtonItem = leftSideBackBarButton
-    }
+      tfName.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
+      tfAge.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
+      tfAbout.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
+      tfCompanyDetail.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
+ 
+      imgprofile.setCornerRadius(radius: imgprofile.frame.size.width/2)
+      
+      let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+               imgprofile.isUserInteractionEnabled = true
+               imgprofile.addGestureRecognizer(tapGestureRecognizer)
+      }
+
+      @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+      {
+          let tappedImage = tapGestureRecognizer.view as! UIImageView
+
+          print( "Your action")
+      }
+      
+      
+  @IBAction func actionContinue(_ sender: Any) {
     
-    func displaySomething() {
+  }
+  func displaySomething() {
         //nameTextField.text = viewModel.name
     }
     

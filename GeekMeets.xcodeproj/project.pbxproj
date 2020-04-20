@@ -56,6 +56,7 @@
 		F79CA6F0244D9C5100C9A7EB /* UserProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79CA6ED244D9C5100C9A7EB /* UserProfilePresenter.swift */; };
 		F79CA6F1244D9C5100C9A7EB /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79CA6EE244D9C5100C9A7EB /* UserProfileViewController.swift */; };
 		F79CA6F2244D9C5100C9A7EB /* UserProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79CA6EF244D9C5100C9A7EB /* UserProfileInteractor.swift */; };
+		F79CA6F7244DD4D900C9A7EB /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79CA6F6244DD4D800C9A7EB /* RadioButton.swift */; };
 		F7CD7A4D24442F3A00E02A9E /* TutorialPagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CD7A4A24442F3A00E02A9E /* TutorialPagePresenter.swift */; };
 		F7CD7A4E24442F3A00E02A9E /* TutorialPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CD7A4B24442F3A00E02A9E /* TutorialPageViewController.swift */; };
 		F7CD7A4F24442F3A00E02A9E /* TutorialPageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CD7A4C24442F3A00E02A9E /* TutorialPageInteractor.swift */; };
@@ -168,6 +169,7 @@
 		F79CA6ED244D9C5100C9A7EB /* UserProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePresenter.swift; sourceTree = "<group>"; };
 		F79CA6EE244D9C5100C9A7EB /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		F79CA6EF244D9C5100C9A7EB /* UserProfileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileInteractor.swift; sourceTree = "<group>"; };
+		F79CA6F6244DD4D800C9A7EB /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
 		F7CD7A4A24442F3A00E02A9E /* TutorialPagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPagePresenter.swift; sourceTree = "<group>"; };
 		F7CD7A4B24442F3A00E02A9E /* TutorialPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPageViewController.swift; sourceTree = "<group>"; };
 		F7CD7A4C24442F3A00E02A9E /* TutorialPageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPageInteractor.swift; sourceTree = "<group>"; };
@@ -399,6 +401,14 @@
 				F79CA6EF244D9C5100C9A7EB /* UserProfileInteractor.swift */,
 			);
 			path = UserProfile;
+			sourceTree = "<group>";
+		};
+		F79CA6F3244DCFFA00C9A7EB /* Localized UIView */ = {
+			isa = PBXGroup;
+			children = (
+				F79CA6F6244DD4D800C9A7EB /* RadioButton.swift */,
+			);
+			path = "Localized UIView";
 			sourceTree = "<group>";
 		};
 		F7CD7A4924442BCA00E02A9E /* Main */ = {
@@ -774,6 +784,7 @@
 		F9EDD441203C2F2D008FA83F /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				F79CA6F3244DCFFA00C9A7EB /* Localized UIView */,
 				F97A99C22110226F007C45F5 /* Foundation */,
 				F97A999F2110226E007C45F5 /* More */,
 				F97A99C72110226F007C45F5 /* StandardLib */,
@@ -976,6 +987,7 @@
 				F9A453CC203AA74B0065C9FD /* SignUpViewController.swift in Sources */,
 				F96C2D2D20380B1A00F8CBC7 /* Validator.swift in Sources */,
 				F97A9A2821103F9B007C45F5 /* UIApplicationExtensions.swift in Sources */,
+				F79CA6F7244DD4D900C9A7EB /* RadioButton.swift in Sources */,
 				F953B8E42046836E00BE4F67 /* EditProfileViewController.swift in Sources */,
 				F716F2AB24498F630063680F /* SignUpVCInteractor.swift in Sources */,
 				F7D5259224481DB5002D3A42 /* InitialLoginInteractor.swift in Sources */,
