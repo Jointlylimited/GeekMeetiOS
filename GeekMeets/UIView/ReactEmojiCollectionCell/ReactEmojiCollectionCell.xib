@@ -20,17 +20,22 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ECB-Ic-YmL">
                         <rect key="frame" x="5" y="5" width="166" height="164"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_intro_2" translatesAutoresizingMaskIntoConstraints="NO" id="Cf8-kf-1Ht">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Cf8-kf-1Ht">
                                 <rect key="frame" x="0.0" y="0.0" width="166" height="164"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Cf8-kf-1Ht" firstAttribute="leading" secondItem="ECB-Ic-YmL" secondAttribute="leading" id="Oec-2B-nnC"/>
                             <constraint firstAttribute="bottom" secondItem="Cf8-kf-1Ht" secondAttribute="bottom" id="PVv-sq-beh"/>
                             <constraint firstAttribute="trailing" secondItem="Cf8-kf-1Ht" secondAttribute="trailing" id="khn-kD-elv"/>
                             <constraint firstItem="Cf8-kf-1Ht" firstAttribute="top" secondItem="ECB-Ic-YmL" secondAttribute="top" id="xJ8-Ta-4O5"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
             </view>
@@ -45,7 +50,4 @@
             <point key="canvasLocation" x="223.18840579710147" y="188.16964285714286"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="img_intro_2" width="375" height="812"/>
-    </resources>
 </document>

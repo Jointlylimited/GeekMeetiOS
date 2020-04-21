@@ -74,15 +74,8 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setNavigationBar()
         self.registerCollectionViewCell()
         self.MatchProfileCollView.reloadData()
-    }
-    
-    func setNavigationBar(){
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
-        self.navigationItem.leftBarButtonItem = leftSideBackBarButton
     }
     
     func registerCollectionViewCell(){
@@ -93,6 +86,12 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
         pageControl.transform = CGAffineTransform(rotationAngle: angle)
         self.pageControl.numberOfPages = 5
         self.pageControl.currentPage = 0
+        
+     //   self.pageControl.currentPageIndicatorTintColor = UIColor.init(patternImage:#imageLiteral(resourceName: "letter"))
+        //self.pageControl.pageIndicatorTintColor = UIColor.init(patternImage: #imageLiteral(resourceName: <#T##String#>))
+    }
+    @IBAction func btnBackAction(_ sender: UIButton) {
+        self.dismissVC(completion: nil)
     }
 }
 
@@ -165,12 +164,12 @@ extension MatchProfileViewController : UICollectionViewDataSource, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+        return CGSize(width: collectionView.frame.width - 10, height: collectionView.frame.height - 10)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // Parallax visible cells
-        let center = CGPoint(x: scrollView.contentOffset.x + (scrollView.frame.width / 2), y: (scrollView.frame.height / 2))
+        let center = CGPoint(x: (scrollView.frame.width / 2), y: scrollView.contentOffset.y + (scrollView.frame.width / 2))
         if let ip = MatchProfileCollView.indexPathForItem(at: center) {
             self.pageControl.currentPage = ip.row
         }
