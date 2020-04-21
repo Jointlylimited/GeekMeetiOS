@@ -54,6 +54,16 @@
 		0BE21282244976AF004817BC /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BE21270244976AF004817BC /* Poppins-Italic.ttf */; };
 		0BE21283244976AF004817BC /* Poppins-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BE21271244976AF004817BC /* Poppins-MediumItalic.ttf */; };
 		E5B521D13F02F46FBABC5C21 /* Pods_GeekMeets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC146BF9C834F09E88494EB4 /* Pods_GeekMeets.framework */; };
+		F7164ABE244EB78600853BFC /* ForgotPasswordInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7164ABB244EB78500853BFC /* ForgotPasswordInteractor.swift */; };
+		F7164ABF244EB78600853BFC /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7164ABC244EB78500853BFC /* ForgotPasswordViewController.swift */; };
+		F7164AC0244EB78600853BFC /* ForgotPasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7164ABD244EB78500853BFC /* ForgotPasswordPresenter.swift */; };
+		F7164AC5244EB86F00853BFC /* AddPhotosPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7164AC2244EB86F00853BFC /* AddPhotosPresenter.swift */; };
+		F7164AC6244EB86F00853BFC /* AddPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7164AC3244EB86F00853BFC /* AddPhotosViewController.swift */; };
+		F7164AC7244EB86F00853BFC /* AddPhotosInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7164AC4244EB86F00853BFC /* AddPhotosInteractor.swift */; };
+		F7164AC9244EBD4F00853BFC /* AddPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7164AC8244EBD4F00853BFC /* AddPhotoCollectionViewCell.swift */; };
+		F7164ACE244EE90700853BFC /* OTPEnterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7164ACB244EE90700853BFC /* OTPEnterPresenter.swift */; };
+		F7164ACF244EE90700853BFC /* OTPEnterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7164ACC244EE90700853BFC /* OTPEnterViewController.swift */; };
+		F7164AD0244EE90700853BFC /* OTPEnterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7164ACD244EE90700853BFC /* OTPEnterInteractor.swift */; };
 		F716F2A524495EDD0063680F /* UITextFieldExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F716F2A424495EDD0063680F /* UITextFieldExtensions.swift */; };
 		F716F2A924498F630063680F /* SignUpVCPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F716F2A624498F630063680F /* SignUpVCPresenter.swift */; };
 		F716F2AA24498F630063680F /* SignUpVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F716F2A724498F630063680F /* SignUpVCViewController.swift */; };
@@ -67,9 +77,6 @@
 		F76A8D862440396800ED9947 /* CustomerEnumaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76A8D7F2440396700ED9947 /* CustomerEnumaration.swift */; };
 		F76A8D872440396800ED9947 /* DocumentDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76A8D802440396700ED9947 /* DocumentDirectory.swift */; };
 		F79604BD244597A2002FFB79 /* TutorialCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79604BC244597A2002FFB79 /* TutorialCell.swift */; };
-		F79CA6E9244D74AF00C9A7EB /* ForgotPasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79CA6E6244D74AF00C9A7EB /* ForgotPasswordPresenter.swift */; };
-		F79CA6EA244D74AF00C9A7EB /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79CA6E7244D74AF00C9A7EB /* ForgotPasswordViewController.swift */; };
-		F79CA6EB244D74AF00C9A7EB /* ForgotPasswordInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79CA6E8244D74AF00C9A7EB /* ForgotPasswordInteractor.swift */; };
 		F79CA6F0244D9C5100C9A7EB /* UserProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79CA6ED244D9C5100C9A7EB /* UserProfilePresenter.swift */; };
 		F79CA6F1244D9C5100C9A7EB /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79CA6EE244D9C5100C9A7EB /* UserProfileViewController.swift */; };
 		F79CA6F2244D9C5100C9A7EB /* UserProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79CA6EF244D9C5100C9A7EB /* UserProfileInteractor.swift */; };
@@ -184,6 +191,16 @@
 		36A8046D3032A36E9F05BAA1 /* Pods-GeekMeets.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeekMeets.debug.xcconfig"; path = "Target Support Files/Pods-GeekMeets/Pods-GeekMeets.debug.xcconfig"; sourceTree = "<group>"; };
 		CF4F6DE0B0DBDFACF78C5DE6 /* Pods-GeekMeets.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeekMeets.staging.xcconfig"; path = "Target Support Files/Pods-GeekMeets/Pods-GeekMeets.staging.xcconfig"; sourceTree = "<group>"; };
 		EC146BF9C834F09E88494EB4 /* Pods_GeekMeets.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GeekMeets.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F7164ABB244EB78500853BFC /* ForgotPasswordInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordInteractor.swift; sourceTree = "<group>"; };
+		F7164ABC244EB78500853BFC /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		F7164ABD244EB78500853BFC /* ForgotPasswordPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordPresenter.swift; sourceTree = "<group>"; };
+		F7164AC2244EB86F00853BFC /* AddPhotosPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotosPresenter.swift; sourceTree = "<group>"; };
+		F7164AC3244EB86F00853BFC /* AddPhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotosViewController.swift; sourceTree = "<group>"; };
+		F7164AC4244EB86F00853BFC /* AddPhotosInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotosInteractor.swift; sourceTree = "<group>"; };
+		F7164AC8244EBD4F00853BFC /* AddPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		F7164ACB244EE90700853BFC /* OTPEnterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPEnterPresenter.swift; sourceTree = "<group>"; };
+		F7164ACC244EE90700853BFC /* OTPEnterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPEnterViewController.swift; sourceTree = "<group>"; };
+		F7164ACD244EE90700853BFC /* OTPEnterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPEnterInteractor.swift; sourceTree = "<group>"; };
 		F716F2A424495EDD0063680F /* UITextFieldExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtensions.swift; sourceTree = "<group>"; };
 		F716F2A624498F630063680F /* SignUpVCPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVCPresenter.swift; sourceTree = "<group>"; };
 		F716F2A724498F630063680F /* SignUpVCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVCViewController.swift; sourceTree = "<group>"; };
@@ -197,9 +214,6 @@
 		F76A8D7F2440396700ED9947 /* CustomerEnumaration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerEnumaration.swift; sourceTree = "<group>"; };
 		F76A8D802440396700ED9947 /* DocumentDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentDirectory.swift; sourceTree = "<group>"; };
 		F79604BC244597A2002FFB79 /* TutorialCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialCell.swift; sourceTree = "<group>"; };
-		F79CA6E6244D74AF00C9A7EB /* ForgotPasswordPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordPresenter.swift; sourceTree = "<group>"; };
-		F79CA6E7244D74AF00C9A7EB /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
-		F79CA6E8244D74AF00C9A7EB /* ForgotPasswordInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordInteractor.swift; sourceTree = "<group>"; };
 		F79CA6ED244D9C5100C9A7EB /* UserProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePresenter.swift; sourceTree = "<group>"; };
 		F79CA6EE244D9C5100C9A7EB /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		F79CA6EF244D9C5100C9A7EB /* UserProfileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileInteractor.swift; sourceTree = "<group>"; };
@@ -450,6 +464,36 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		F7164ABA244EB78500853BFC /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				F7164ABB244EB78500853BFC /* ForgotPasswordInteractor.swift */,
+				F7164ABC244EB78500853BFC /* ForgotPasswordViewController.swift */,
+				F7164ABD244EB78500853BFC /* ForgotPasswordPresenter.swift */,
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		F7164AC1244EB84600853BFC /* AddPhotos */ = {
+			isa = PBXGroup;
+			children = (
+				F7164AC2244EB86F00853BFC /* AddPhotosPresenter.swift */,
+				F7164AC3244EB86F00853BFC /* AddPhotosViewController.swift */,
+				F7164AC4244EB86F00853BFC /* AddPhotosInteractor.swift */,
+			);
+			path = AddPhotos;
+			sourceTree = "<group>";
+		};
+		F7164ACA244EE8E800853BFC /* OTPEnter */ = {
+			isa = PBXGroup;
+			children = (
+				F7164ACB244EE90700853BFC /* OTPEnterPresenter.swift */,
+				F7164ACC244EE90700853BFC /* OTPEnterViewController.swift */,
+				F7164ACD244EE90700853BFC /* OTPEnterInteractor.swift */,
+			);
+			path = OTPEnter;
+			sourceTree = "<group>";
+		};
 		F73002CC2446F49A00BDD7FD /* InitialSignUp */ = {
 			isa = PBXGroup;
 			children = (
@@ -486,18 +530,9 @@
 			isa = PBXGroup;
 			children = (
 				F79604BC244597A2002FFB79 /* TutorialCell.swift */,
+				F7164AC8244EBD4F00853BFC /* AddPhotoCollectionViewCell.swift */,
 			);
 			path = UICollectionViewCell;
-			sourceTree = "<group>";
-		};
-		F79CA6E4244D737800C9A7EB /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-				F79CA6E6244D74AF00C9A7EB /* ForgotPasswordPresenter.swift */,
-				F79CA6E7244D74AF00C9A7EB /* ForgotPasswordViewController.swift */,
-				F79CA6E8244D74AF00C9A7EB /* ForgotPasswordInteractor.swift */,
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		F79CA6EC244D9C0B00C9A7EB /* UserProfile */ = {
@@ -845,8 +880,10 @@
 		F9A453A7203AA74A0065C9FD /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				F7164ACA244EE8E800853BFC /* OTPEnter */,
+				F7164AC1244EB84600853BFC /* AddPhotos */,
+				F7164ABA244EB78500853BFC /* New Group */,
 				F79CA6EC244D9C0B00C9A7EB /* UserProfile */,
-				F79CA6E4244D737800C9A7EB /* New Group */,
 				F7D52596244869FB002D3A42 /* SignInVC */,
 				F7D525952448608E002D3A42 /* SignUpVC */,
 				F9A453A8203AA74A0065C9FD /* LoginInteractor.swift */,
@@ -1089,12 +1126,14 @@
 				F79CA6F1244D9C5100C9A7EB /* UserProfileViewController.swift in Sources */,
 				F97A9A2A21103FA2007C45F5 /* UIViewControllerExtensions.swift in Sources */,
 				F9A453C0203AA74A0065C9FD /* LoginPresenter.swift in Sources */,
+				F7164ABF244EB78600853BFC /* ForgotPasswordViewController.swift in Sources */,
 				F995BDC1204D1277005E5279 /* KeyMessages.swift in Sources */,
 				F716F2A524495EDD0063680F /* UITextFieldExtensions.swift in Sources */,
 				F9EDD431203BFF33008FA83F /* BaseModel.swift in Sources */,
 				F76A8D842440396800ED9947 /* BlockClass.swift in Sources */,
 				0B319663244DE80500B38350 /* TabbarPresenter.swift in Sources */,
 				F7D5259B244869FB002D3A42 /* SignInInteractor.swift in Sources */,
+				F7164AC7244EB86F00853BFC /* AddPhotosInteractor.swift in Sources */,
 				0B319659244DE80500B38350 /* HomeViewController.swift in Sources */,
 				F9A453C3203AA74B0065C9FD /* LoginViewController.swift in Sources */,
 				F9A453CC203AA74B0065C9FD /* SignUpViewController.swift in Sources */,
@@ -1103,6 +1142,7 @@
 				F79CA6F7244DD4D900C9A7EB /* RadioButton.swift in Sources */,
 				F953B8E42046836E00BE4F67 /* EditProfileViewController.swift in Sources */,
 				F716F2AB24498F630063680F /* SignUpVCInteractor.swift in Sources */,
+				F7164AC6244EB86F00853BFC /* AddPhotosViewController.swift in Sources */,
 				F7D5259224481DB5002D3A42 /* InitialLoginInteractor.swift in Sources */,
 				F90B4CDE2032AAB8006ADAF6 /* AppDelegate.swift in Sources */,
 				F953B8D620467AFB00BE4F67 /* SettingsViewController.swift in Sources */,
@@ -1120,8 +1160,8 @@
 				F9A453CF203AA74B0065C9FD /* SplashInteractor.swift in Sources */,
 				F953B8E22046836E00BE4F67 /* EditProfileInteractor.swift in Sources */,
 				0BBD65F92449C8A500CA178A /* MatchInteractor.swift in Sources */,
-				F79CA6E9244D74AF00C9A7EB /* ForgotPasswordPresenter.swift in Sources */,
 				0B319662244DE80500B38350 /* ProfileInteractor.swift in Sources */,
+				F7164AC5244EB86F00853BFC /* AddPhotosPresenter.swift in Sources */,
 				F952382B2047BA3500BC0D49 /* RequestParameter.swift in Sources */,
 				F9EDD42E203BFF33008FA83F /* ResponseData.swift in Sources */,
 				0BBD66022449C8F100CA178A /* GradientView.swift in Sources */,
@@ -1130,13 +1170,12 @@
 				F9A453D2203AA74B0065C9FD /* SplashPresenter.swift in Sources */,
 				0BBD66032449C8F100CA178A /* CardView.swift in Sources */,
 				0B319665244DE80500B38350 /* TabbarInteractor.swift in Sources */,
-				F79CA6EB244D74AF00C9A7EB /* ForgotPasswordInteractor.swift in Sources */,
 				F9A453D5203AA74B0065C9FD /* SplashViewController.swift in Sources */,
-				F79CA6EA244D74AF00C9A7EB /* ForgotPasswordViewController.swift in Sources */,
 				F97A9A2D21103FAA007C45F5 /* EZSwiftFunctions.swift in Sources */,
 				F73002CB2446F0B600BDD7FD /* UITapGestureRecognizerExtensions.swift in Sources */,
 				F97A9A2F21103FAF007C45F5 /* UserDefaultsExtension.swift in Sources */,
 				F7CD7A4D24442F3A00E02A9E /* TutorialPagePresenter.swift in Sources */,
+				F7164AD0244EE90700853BFC /* OTPEnterInteractor.swift in Sources */,
 				F73002D22446F4D000BDD7FD /* InitialSignUpInteractor.swift in Sources */,
 				F716F2AA24498F630063680F /* SignUpVCViewController.swift in Sources */,
 				F7CD7A4F24442F3A00E02A9E /* TutorialPageInteractor.swift in Sources */,
@@ -1150,8 +1189,10 @@
 				F79CA6F2244D9C5100C9A7EB /* UserProfileInteractor.swift in Sources */,
 				F96C2D232037E92B00F8CBC7 /* L102Language.swift in Sources */,
 				F95238312047D66B00BC0D49 /* ChangePasswordViewController.swift in Sources */,
+				F7164ACF244EE90700853BFC /* OTPEnterViewController.swift in Sources */,
 				0B319656244DE80500B38350 /* MenuCell.swift in Sources */,
 				F9EDD434203BFF33008FA83F /* ProfileUrl.swift in Sources */,
+				F7164ABE244EB78600853BFC /* ForgotPasswordInteractor.swift in Sources */,
 				F7D5259124481DB5002D3A42 /* InitialLoginViewController.swift in Sources */,
 				F953B8D520467AFB00BE4F67 /* SettingsPresenter.swift in Sources */,
 				F95238302047D66B00BC0D49 /* ChangePasswordPresenter.swift in Sources */,
@@ -1160,12 +1201,15 @@
 				F9A4539F203AA7200065C9FD /* Constant.swift in Sources */,
 				0BBD65F82449C8A500CA178A /* MatchPresenter.swift in Sources */,
 				F9A453BD203AA74A0065C9FD /* LoginInteractor.swift in Sources */,
+				F7164AC0244EB78600853BFC /* ForgotPasswordPresenter.swift in Sources */,
 				0B31965E244DE80500B38350 /* ProfileCompanyCell.swift in Sources */,
+				F7164ACE244EE90700853BFC /* OTPEnterPresenter.swift in Sources */,
 				0B319660244DE80500B38350 /* ProfileInterestCell.swift in Sources */,
 				F97A9A2B21103FA4007C45F5 /* StringExtensions.swift in Sources */,
 				F79604BD244597A2002FFB79 /* TutorialCell.swift in Sources */,
 				F73002D12446F4D000BDD7FD /* InitialSignUpViewController.swift in Sources */,
 				F79CA6F0244D9C5100C9A7EB /* UserProfilePresenter.swift in Sources */,
+				F7164AC9244EBD4F00853BFC /* AddPhotoCollectionViewCell.swift in Sources */,
 				F96C2D202037E92B00F8CBC7 /* L012Localizer.swift in Sources */,
 				F952382F2047D66B00BC0D49 /* ChangePasswordInteractor.swift in Sources */,
 			);

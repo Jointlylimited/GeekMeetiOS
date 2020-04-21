@@ -26,6 +26,8 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
     @IBOutlet weak var tfAbout: UITextField!
     @IBOutlet weak var imgprofile: UIImageView!
     @IBOutlet weak var btnContinue: UIButton!
+    @IBOutlet weak var btnWork: UIButton!
+    @IBOutlet weak var btnStudy: UIButton!
   // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -78,7 +80,7 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
       tfAge.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
       tfAbout.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
       tfCompanyDetail.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
- 
+      btnContinue.applyGradient(colors: AppCommonColor.gredientColor)
       imgprofile.setCornerRadius(radius: imgprofile.frame.size.width/2)
       
       let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
@@ -94,8 +96,25 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
       }
       
       
+    @IBAction func btnClicked(sender:UIButton){
+
+        let buttonArray = [btnWork,btnStudy]
+
+        buttonArray.forEach{
+
+            $0?.isSelected = false
+          sender.setImage(UIImage(named: "checkbox") as! UIImage, for: .normal)
+        }
+
+        sender.isSelected = true
+      sender.setImage(#imageLiteral(resourceName: "icn_radio_ena"), for: .normal)
+
+    }
+  
+  
   @IBAction func actionContinue(_ sender: Any) {
     
+     self.presenter?.actionContinue()
   }
   func displaySomething() {
         //nameTextField.text = viewModel.name

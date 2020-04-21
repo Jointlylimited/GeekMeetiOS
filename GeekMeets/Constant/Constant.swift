@@ -42,6 +42,8 @@ struct GeekMeets_ViewController
     static let SignUpScreen = "SignUpVCViewController"
     static let OTPScreen = "OTPViewController"
     static let ForgotPassword = "ForgotPasswordViewController"
+    static let AddPhotos = "AddPhotosViewController"
+    static let OTPEnter =  "OTPEnterViewController"
     static let UserProfile = "UserProfileViewController"
     static let compeleteProfile = "CompleteProfileViewController"
     static let  sideMenu = "SideMenuViewController"
