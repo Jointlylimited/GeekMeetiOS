@@ -96,6 +96,7 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
         
         view.clickOnView = {
             print("View Action clicked!")
+//            self.presenter?.gotoMatchProfileVC()
         }
         
         return view

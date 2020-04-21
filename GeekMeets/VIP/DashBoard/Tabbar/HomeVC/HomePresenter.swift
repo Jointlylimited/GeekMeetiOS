@@ -14,6 +14,7 @@ import UIKit
 
 protocol HomePresentationProtocol {
     func gotoMatchVC()
+    func gotoMatchProfileVC()
 }
 
 class HomePresenter: HomePresentationProtocol {
@@ -23,6 +24,18 @@ class HomePresenter: HomePresentationProtocol {
     // MARK: Present something
     func gotoMatchVC() {
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchScreen)
+        controller.modalTransitionStyle = .crossDissolve
+        controller.modalPresentationStyle = .overCurrentContext
+        
+        if let view = self.viewController as? UIViewController
+        {
+            view.presentVC(controller)
+            //            view.pushVC(controller)
+        }
+    }
+    
+    func gotoMatchProfileVC() {
+        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchProfileScreen)
         controller.modalTransitionStyle = .crossDissolve
         controller.modalPresentationStyle = .overCurrentContext
         

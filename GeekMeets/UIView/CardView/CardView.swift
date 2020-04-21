@@ -29,7 +29,7 @@ public class CardView: UIView {
     @IBOutlet weak var btnView: UIButton!
     
     @IBOutlet weak var imgView: UIImageView!
-    @IBOutlet weak var lblView: UILabel!
+    @IBOutlet weak var lblView: GradientLabel!
     
     /// Variables
 //    weak var delegate: CardListDelegate?
@@ -50,7 +50,6 @@ public class CardView: UIView {
     
     view.imgView.layer.cornerRadius = 10
     view.imgView.layer.masksToBounds = true
-    view.lblView.applyGradient(colors: AppCommonColor.gredientColor)
     
     view.layoutIfNeeded()
     return view

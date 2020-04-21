@@ -80,24 +80,30 @@
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wk0-wS-8Af" customClass="GradientView" customModule="GeekMeets" customModuleProvider="target">
-                            <rect key="frame" x="289" y="539.66666666666663" width="33" height="14"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="boolean" keyPath="isHorizontal" value="YES"/>
-                            </userDefinedRuntimeAttributes>
-                        </view>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 mi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aaa-o1-O7E">
-                            <rect key="frame" x="294" y="539.66666666666663" width="23" height="14"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 mi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aaa-o1-O7E" customClass="GradientLabel" customModule="GeekMeets" customModuleProvider="target">
+                            <rect key="frame" x="282" y="539.66666666666663" width="35" height="14"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="35" id="Vil-eK-QXd"/>
+                            </constraints>
                             <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="12"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
+                                    <color key="value" red="0.52941176469999995" green="0.18039215689999999" blue="0.76470588240000004" alpha="1" colorSpace="calibratedRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
+                                    <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="thirdColor">
+                                    <color key="value" red="0.70980392160000005" green="0.32549019610000002" blue="0.89411764709999997" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                         </label>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
-                        <constraint firstItem="wk0-wS-8Af" firstAttribute="trailing" secondItem="aaa-o1-O7E" secondAttribute="trailing" constant="5" id="3Gg-3k-ITu"/>
                         <constraint firstItem="rmO-xr-av8" firstAttribute="leading" secondItem="kfW-ny-cBG" secondAttribute="trailing" constant="15" id="3qX-bP-EvQ"/>
                         <constraint firstItem="paf-rW-NRD" firstAttribute="centerY" secondItem="rmO-xr-av8" secondAttribute="centerY" id="3rV-or-5Lk"/>
                         <constraint firstAttribute="bottom" secondItem="PEu-0K-Zx6" secondAttribute="bottom" constant="120" id="7UU-nV-pxU"/>
@@ -105,14 +111,11 @@
                         <constraint firstItem="aaa-o1-O7E" firstAttribute="centerY" secondItem="b5G-U6-bIE" secondAttribute="centerY" id="Bla-gN-7sK"/>
                         <constraint firstItem="kfW-ny-cBG" firstAttribute="centerY" secondItem="rmO-xr-av8" secondAttribute="centerY" id="EHw-7E-zkc"/>
                         <constraint firstAttribute="trailing" secondItem="PEu-0K-Zx6" secondAttribute="trailing" constant="10" id="H2h-cX-Ytu"/>
-                        <constraint firstItem="wk0-wS-8Af" firstAttribute="leading" secondItem="aaa-o1-O7E" secondAttribute="leading" constant="-5" id="IbL-NC-UbO"/>
                         <constraint firstItem="PEu-0K-Zx6" firstAttribute="leading" secondItem="yUM-rN-n7M" secondAttribute="leading" constant="10" id="QmW-Ql-SQF"/>
                         <constraint firstItem="rmO-xr-av8" firstAttribute="centerX" secondItem="yUM-rN-n7M" secondAttribute="centerX" id="RoP-GT-kBf"/>
-                        <constraint firstItem="wk0-wS-8Af" firstAttribute="bottom" secondItem="aaa-o1-O7E" secondAttribute="bottom" id="XPY-fd-5st"/>
                         <constraint firstItem="CZq-sf-pKz" firstAttribute="top" secondItem="b5G-U6-bIE" secondAttribute="bottom" constant="2" id="YAF-QS-G4W"/>
                         <constraint firstItem="b5G-U6-bIE" firstAttribute="top" secondItem="PEu-0K-Zx6" secondAttribute="bottom" constant="39" id="cw6-Qc-F9e"/>
                         <constraint firstItem="b5G-U6-bIE" firstAttribute="leading" secondItem="yUM-rN-n7M" secondAttribute="leading" constant="27" id="dBH-d1-Ik1"/>
-                        <constraint firstItem="wk0-wS-8Af" firstAttribute="top" secondItem="aaa-o1-O7E" secondAttribute="top" id="eJi-ub-xdt"/>
                         <constraint firstAttribute="trailing" secondItem="aaa-o1-O7E" secondAttribute="trailing" constant="30" id="hPK-gP-OoF"/>
                         <constraint firstItem="rmO-xr-av8" firstAttribute="top" secondItem="PEu-0K-Zx6" secondAttribute="bottom" constant="-37" id="ihD-IZ-HGk"/>
                         <constraint firstItem="paf-rW-NRD" firstAttribute="leading" secondItem="rmO-xr-av8" secondAttribute="trailing" constant="15" id="jR0-Gj-gHz"/>

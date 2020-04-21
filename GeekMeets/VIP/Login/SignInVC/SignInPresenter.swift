@@ -20,6 +20,8 @@ protocol SignInPresentationProtocol
     func actionSignUp()
     func actionForgotPassword()
     func actionOTPVerifyClick()
+    
+    func gotoHomeScreen()
 }
 
 class SignInPresenter: SignInPresentationProtocol {
@@ -85,5 +87,13 @@ class SignInPresenter: SignInPresentationProtocol {
 //        {
 //            view.pushVC(controller)
 //        }
+    }
+    
+    func gotoHomeScreen(){
+        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.TabbarScreen)
+        if let view = self.viewController as? UIViewController
+        {
+            view.pushVC(controller)
+        }
     }
 }

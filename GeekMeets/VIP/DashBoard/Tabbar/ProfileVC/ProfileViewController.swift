@@ -35,7 +35,7 @@ enum ProfileListCells {
         case .AboutCell, .CompanyCell, .InterestCell, .SocialCell:
             return UITableView.automaticDimension
         case .PhotosCell:
-            return 200
+            return 130
         }
     }
     
@@ -120,7 +120,7 @@ class ProfileViewController: UIViewController, ProfileProtocol {
     // MARK: Object lifecycle
     
     var objProfileData = ProfileData()
-    
+    var imageArray = [#imageLiteral(resourceName: "img_loginbg"), #imageLiteral(resourceName: "image_1")]
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -155,6 +155,7 @@ class ProfileViewController: UIViewController, ProfileProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tblProfile.reloadData()
     }
     
     @IBAction func btnEditProfileAction(_ sender: UIButton) {
@@ -230,22 +231,31 @@ extension ProfileViewController : UICollectionViewDataSource, UICollectionViewDe
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return self.imageArray != nil && self.imageArray.count != 0 ? self.imageArray.count : 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell : PhotoEmojiCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PhotoEmojiCell, for: indexPath) as! PhotoEmojiCell
-        
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-         let width = DeviceType.iPhone5orSE ? (ScreenSize.width/3 + 10) : (ScreenSize.width/4 + 25)
-        return CGSize(width: width, height: width + 20)
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            
+//            let photoCell : ProfilePhotosCell = self.tblProfile.cellForRow(at: IndexPath(row: 0, section: 3)) as! ProfilePhotosCell
+            if let cell = cell as? PhotoEmojiCell {
+                cell.userImgView.alpha = 0.0
+//                cell.userImgView.image = self.imageArray[indexPath.row]
+//                cell.clipsToBounds = true
+                    
+                
+//                photoCell.photoCollectionView.reloadData()
+                //self.tblProfile.reloadData()
+            }
+//        }
     }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let width = DeviceType.iPhone5orSE ? (ScreenSize.width/3 + 10) : (ScreenSize.width/4 + 25)
-//        return CGSize(width: 50, height: 50) //CGSize(width: width, height: width + 20)
-//    }
+       func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+             let width = ScreenSize.width/3 - 20
+             return CGSize(width: 100, height: 100)
+     }
 }

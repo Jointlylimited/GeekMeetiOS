@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -128,7 +128,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zRE-8V-8Pd">
-                                        <rect key="frame" x="313.66666666666669" y="121.66666666666669" width="21.333333333333314" height="18"/>
+                                        <rect key="frame" x="293" y="114.66666666666669" width="42" height="32"/>
                                         <state key="normal" backgroundImage="icn_eye "/>
                                     </button>
                                 </subviews>
@@ -329,7 +329,7 @@
                                         <rect key="frame" x="20" y="304" width="18" height="18"/>
                                         <inset key="titleEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <inset key="imageEdgeInsets" minX="35" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" backgroundImage="icn_check">
+                                        <state key="normal">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.51436750860000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         </state>
                                     </button>
@@ -663,10 +663,10 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="46" translatesAutoresizingMaskIntoConstraints="NO" id="itV-Li-lEY">
-                                                <rect key="frame" x="20" y="414" width="315" height="15"/>
+                                                <rect key="frame" x="20" y="414" width="315" height="24"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ead-vT-0As">
-                                                        <rect key="frame" x="0.0" y="0.0" width="134.66666666666666" height="15"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="134.66666666666666" height="24"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                         <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         <state key="normal" title="Male" image="icn_radio_ena">
@@ -674,7 +674,7 @@
                                                         </state>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DqX-vc-uJN">
-                                                        <rect key="frame" x="180.66666666666663" y="0.0" width="134.33333333333337" height="15"/>
+                                                        <rect key="frame" x="180.66666666666663" y="0.0" width="134.33333333333337" height="24"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                         <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         <state key="normal" title="Others" image="icn_radio_ena">
@@ -687,10 +687,10 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="46" translatesAutoresizingMaskIntoConstraints="NO" id="lld-yH-7EL">
-                                                <rect key="frame" x="20" y="439" width="315" height="15"/>
+                                                <rect key="frame" x="20" y="448" width="315" height="24"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ir4-ea-Uao">
-                                                        <rect key="frame" x="0.0" y="0.0" width="134.66666666666666" height="15"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="134.66666666666666" height="24"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                         <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         <state key="normal" title="Female" image="icn_radio_ena">
@@ -698,7 +698,7 @@
                                                         </state>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9y3-ax-YRN">
-                                                        <rect key="frame" x="180.66666666666663" y="0.0" width="134.33333333333337" height="15"/>
+                                                        <rect key="frame" x="180.66666666666663" y="0.0" width="134.33333333333337" height="24"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                         <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         <state key="normal" title="Prefer not to say" image="icn_radio_ena">
@@ -711,7 +711,7 @@
                                                 </constraints>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wyz-Ha-2JS">
-                                                <rect key="frame" x="20" y="484" width="315" height="20"/>
+                                                <rect key="frame" x="20" y="502" width="315" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="bJF-P0-dVH"/>
                                                 </constraints>
@@ -720,10 +720,10 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="46" translatesAutoresizingMaskIntoConstraints="NO" id="LC9-7h-PF0">
-                                                <rect key="frame" x="20" y="514" width="315" height="15"/>
+                                                <rect key="frame" x="20" y="532" width="315" height="24"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y8S-yp-lyj">
-                                                        <rect key="frame" x="0.0" y="0.0" width="134.66666666666666" height="15"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="134.66666666666666" height="24"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                         <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         <state key="normal" title="Work" image="icn_radio_ena">
@@ -734,7 +734,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zot-d2-7en">
-                                                        <rect key="frame" x="180.66666666666663" y="0.0" width="134.33333333333337" height="15"/>
+                                                        <rect key="frame" x="180.66666666666663" y="0.0" width="134.33333333333337" height="24"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                         <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         <state key="normal" title="Study" image="icn_radio_ena">
@@ -750,7 +750,7 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="oNI-AJ-fug">
-                                                <rect key="frame" x="20" y="559" width="315" height="134"/>
+                                                <rect key="frame" x="20" y="586" width="315" height="134"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="xKb-hi-6fv">
                                                         <rect key="frame" x="0.0" y="0.0" width="266.33333333333331" height="52"/>
@@ -809,7 +809,7 @@
                                                 </constraints>
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v8v-Tx-vNp">
-                                                <rect key="frame" x="122.66666666666669" y="723" width="130" height="37"/>
+                                                <rect key="frame" x="122.66666666666669" y="750" width="130" height="37"/>
                                                 <color key="backgroundColor" red="0.70980392160000005" green="0.32549019610000002" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                 <state key="normal" title="Continue">
@@ -1147,13 +1147,12 @@
     </scenes>
     <resources>
         <image name="icn_add_photo" width="98" height="111"/>
-        <image name="icn_check" width="18" height="18"/>
         <image name="icn_close1" width="45" height="45"/>
         <image name="icn_down_arrow" width="9" height="5"/>
         <image name="icn_edit" width="59" height="59"/>
         <image name="icn_eye " width="21.333333969116211" height="16"/>
         <image name="icn_radio_ena" width="12" height="12"/>
-        <image name="icn_user" width="16" height="18"/>
+        <image name="icn_user" width="120" height="120"/>
         <image name="img_logo_Small" width="16" height="16"/>
     </resources>
 </document>

@@ -17,17 +17,38 @@
                 <rect key="frame" x="0.0" y="0.0" width="135" height="121"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image 34" translatesAutoresizingMaskIntoConstraints="NO" id="Sus-Tt-pq0">
-                        <rect key="frame" x="10" y="10" width="115" height="101"/>
-                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Fb-j0-W3y">
+                        <rect key="frame" x="5" y="5" width="125" height="111"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image_2" translatesAutoresizingMaskIntoConstraints="NO" id="Sus-Tt-pq0">
+                                <rect key="frame" x="0.0" y="0.0" width="125" height="111"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Sus-Tt-pq0" firstAttribute="leading" secondItem="6Fb-j0-W3y" secondAttribute="leading" id="1uG-9i-xxh"/>
+                            <constraint firstItem="Sus-Tt-pq0" firstAttribute="top" secondItem="6Fb-j0-W3y" secondAttribute="top" id="4Cs-fG-4wH"/>
+                            <constraint firstAttribute="bottom" secondItem="Sus-Tt-pq0" secondAttribute="bottom" id="7J8-Hf-dtU"/>
+                            <constraint firstAttribute="trailing" secondItem="Sus-Tt-pq0" secondAttribute="trailing" id="Y5Z-Bb-d5e"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
                 </subviews>
             </view>
-            <color key="backgroundColor" red="0.72941176470000002" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="Sus-Tt-pq0" secondAttribute="trailing" constant="10" id="YjR-C0-hgS"/>
-                <constraint firstItem="Sus-Tt-pq0" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="gvw-jg-fxA"/>
-                <constraint firstAttribute="bottom" secondItem="Sus-Tt-pq0" secondAttribute="bottom" constant="10" id="lJq-fh-8An"/>
-                <constraint firstItem="Sus-Tt-pq0" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="wL4-oi-LKt"/>
+                <constraint firstItem="6Fb-j0-W3y" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="ECf-pW-ihe"/>
+                <constraint firstAttribute="bottom" secondItem="6Fb-j0-W3y" secondAttribute="bottom" constant="5" id="Fd0-J6-4cp"/>
+                <constraint firstAttribute="trailing" secondItem="6Fb-j0-W3y" secondAttribute="trailing" constant="5" id="XgG-j5-3br"/>
+                <constraint firstItem="6Fb-j0-W3y" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="qJn-dk-arz"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="135" height="121"/>
@@ -38,6 +59,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="Image 34" width="272.5" height="212.5"/>
+        <image name="image_2" width="800" height="529"/>
     </resources>
 </document>

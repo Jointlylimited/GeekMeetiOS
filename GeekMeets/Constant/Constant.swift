@@ -57,11 +57,16 @@ struct GeekMeets_ViewController
     
     static let TabbarScreen = "TabbarViewController"
     static let MatchScreen = "MatchViewController"
+    static let MatchProfileScreen = "MatchProfileViewController"
   
 }
 
 struct Cells {
     static let PhotoEmojiCell = "PhotoEmojiCell"
+    static let MessageListCell = "MessageListCell"
+    static let StoryCollectionCell = "StoryCollectionCell"
+    static let DiscoverCollectionCell = "DiscoverCollectionCell"
+    static let ReactEmojiCollectionCell = "ReactEmojiCollectionCell"
 }
 
 struct DeviceType {
