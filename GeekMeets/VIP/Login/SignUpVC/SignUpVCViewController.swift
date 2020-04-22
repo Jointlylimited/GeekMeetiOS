@@ -20,7 +20,12 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
     //var interactor : SignUpVCInteractorProtocol?
     var presenter : SignUpVCPresentationProtocol?
     
+  @IBOutlet weak var tfEmailAddress: UITextField!
+  @IBOutlet weak var tfPassword: UITextField!
+  @IBOutlet weak var tfConfirmPassword: UITextField!
+  @IBOutlet weak var tfMobileNumber: UITextField!
   @IBOutlet weak var btnContinue: UIButton!
+  @IBOutlet weak var btnCountrycode: UIButton!
   // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -74,16 +79,35 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
             self.navigationItem.leftBarButtonItem = leftSideBackBarButton
             self.navigationController?.navigationBar.barTintColor = UIColor.white
             btnContinue.applyGradient(colors: AppCommonColor.gredientColor)
-        
+            tfEmailAddress.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
+            tfPassword.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
+            tfConfirmPassword.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
+            tfMobileNumber.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
+      
     }
   
     func displaySomething() {
         //nameTextField.text = viewModel.name
+      
     }
+  
+    func setCountryPickerData(_ country : Country)
+      {
+        
+          btnCountrycode.setTitle(country.dialingCode, for: .normal)
+//          btnCountryCode.setImage(country.flag?.resizeImage(targetSize:  CGSize(width: btnCountryCode.frame.height / 2, height: btnCountryCode.frame.height / 2)).withRenderingMode(.alwaysOriginal), for: .normal)
+      }
   //MARK: IBAction Method
   
   @IBAction func actionContinue(_ sender: Any) {
     
     self.presenter?.actionContinue()
+  }
+  
+  
+  @IBAction func actionSelectCountryCode(_ sender: Any) {
+        CountryPickerWithSectionViewController.presentController(on: self) { (country: Country) in
+                        self.setCountryPickerData(country)
+                    }
   }
 }
