@@ -110,4 +110,14 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
                         self.setCountryPickerData(country)
                     }
   }
+  @IBAction func btnPasswordShowHideClick(_ sender : UIButton)
+     {
+         sender.isSelected = !sender.isSelected
+         tfPassword.isSecureTextEntry = !sender.isSelected
+     }
+  @IBAction func btnConfirmPasswordShowHideClick(_ sender : UIButton)
+     {
+         sender.isSelected = !sender.isSelected
+         tfConfirmPassword.isSecureTextEntry = !sender.isSelected
+     }
 }

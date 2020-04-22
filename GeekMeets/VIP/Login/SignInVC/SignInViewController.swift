@@ -118,4 +118,10 @@ extension SignInViewController
     {
         self.presenter?.actionForgotPassword()
     }
+    
+    @IBAction func btnPasswordShowHideClick(_ sender : UIButton)
+    {
+        sender.isSelected = !sender.isSelected
+        tfPassword.isSecureTextEntry = !sender.isSelected
+    }
 }
