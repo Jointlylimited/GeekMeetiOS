@@ -119,4 +119,9 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
          sender.isSelected = !sender.isSelected
          tfConfirmPassword.isSecureTextEntry = !sender.isSelected
      }
+    @IBAction func btnAgreeDisagree(_ sender : UIButton)
+    {
+        sender.isSelected = !sender.isSelected
+        
+    }
 }
