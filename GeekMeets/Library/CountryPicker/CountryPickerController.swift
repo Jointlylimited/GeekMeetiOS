@@ -90,6 +90,7 @@ open class CountryPickerController: UIViewController {
 //            uiBarButtonItem.image = uiBarButtonItem.image?.withHorizontallyFlippedOrientation()
 //        }
         
+      
         self.navigationItem.leftBarButtonItem = uiBarButtonItem
         let nib = UINib(nibName: "CountryTableViewCell", bundle: bundle)
         tableView.register(nib, forCellReuseIdentifier: "CountryTableViewCell")
