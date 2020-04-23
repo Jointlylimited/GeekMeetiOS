@@ -25,14 +25,20 @@ class MenuViewModel {
 }
 
 protocol MenuProtocol: class {
-    func displaySomething()
 }
 
 class MenuViewController: UIViewController, MenuProtocol {
     //var interactor : MenuInteractorProtocol?
     var presenter : MenuPresentationProtocol?
     
+    @IBOutlet weak var tblMenuList: UITableView!
+    @IBOutlet weak var RemainTimeView: UIView!
+    @IBOutlet weak var lblRemainTime: UILabel!
+    @IBOutlet weak var remainTimeViewHeightConstant: NSLayoutConstraint!
+    
     var arrMenuModel : [MenuViewModel] = []
+    var timer: Timer?
+    var totalTime = 600
     
     // MARK: Object lifecycle
     
@@ -73,7 +79,17 @@ class MenuViewController: UIViewController, MenuProtocol {
         setTheme()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        stopTimer()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        startTimer()
+    }
     func setTheme() {
+        startTimer()
         arrMenuModel = [MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_my_match"), label: "My Matches (122)", rightImage: #imageLiteral(resourceName: "icn_arrow")),
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_manage_subscription"), label: "Manage Subscription", rightImage: #imageLiteral(resourceName: "icn_arrow")),
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_boosts_purple"), label: "Boosts (2)", rightImage: #imageLiteral(resourceName: "icn_arrow")),
@@ -81,15 +97,45 @@ class MenuViewController: UIViewController, MenuProtocol {
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_user_purple"), label: "Account Settings", rightImage: #imageLiteral(resourceName: "icn_arrow")),
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_discovery"), label: "Discovery Settings", rightImage: #imageLiteral(resourceName: "icn_arrow")),
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_manage_subscription"), label: "Push Notification", rightImage: #imageLiteral(resourceName: "icn_off")),
-                        MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_location"), label: "Location", rightImage: #imageLiteral(resourceName: "icn_on")),
+                        MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_location"), label: "Location", rightImage: #imageLiteral(resourceName: "icn_off")),
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_share"), label: "Share & Earn", rightImage: #imageLiteral(resourceName: "icn_arrow")),
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_tips"), label: "Tips", rightImage: #imageLiteral(resourceName: "icn_arrow")),
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_contact"), label: "Contact Us", rightImage: #imageLiteral(resourceName: "icn_arrow")),
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_legal"), label: "Legal", rightImage: #imageLiteral(resourceName: "icn_arrow"))]
     }
     
-    func displaySomething() {
-        //nameTextField.text = viewModel.name
+    private func startTimer() {
+        self.totalTime = 600
+        self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+    }
+       
+    @objc func updateTimer() {
+        print(self.totalTime)
+        self.lblRemainTime.text = self.timeFormatted(self.totalTime) // will show timer
+        if totalTime != 0 {
+            totalTime -= 1
+        } else {
+            if let timer = self.timer {
+                self.RemainTimeView.alpha = 0.0
+                self.remainTimeViewHeightConstant.constant = 0
+                timer.invalidate()
+                self.timer = nil                
+            }
+        }
+    }
+       
+    func stopTimer(){
+        if self.timer != nil {
+            timer!.invalidate()
+        }
+    }
+    func timeFormatted(_ totalSeconds: Int) -> String {
+        let seconds: Int = totalSeconds % 60
+        let minutes: Int = (totalSeconds / 60) % 60
+        return String(format: "%02d:%02d", minutes, seconds)
+    }
+    @IBAction func btnLogOutAction(_ sender: UIButton) {
+        self.navigationController?.popToRootViewController(animated: true)
     }
 }
 
@@ -111,13 +157,27 @@ extension MenuViewController : UITableViewDataSource, UITableViewDelegate {
         cell.btnLeft.setImage(viewModel.leftImage, for: .normal)
         cell.lblTitle.text = viewModel.label
         cell.btnRight.setImage(viewModel.rightImage, for: .normal)
-
         
+        cell.clickOnSwitchBtn = {
+            if indexPath.row == 6 || indexPath.row == 7 {
+                cell.btnRight.isSelected = !cell.btnRight.isSelected
+            }
+        }
         cell.selectionStyle = .none
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            let matchVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.MyMatchesScreen)
+            self.pushVC(matchVC)
+        } else if indexPath.row == 2 {
+            let boostVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.BoostScreen)
+            self.pushVC(boostVC)
+        }
     }
 }

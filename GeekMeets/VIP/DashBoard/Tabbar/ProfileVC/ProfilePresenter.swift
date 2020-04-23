@@ -22,10 +22,10 @@ class ProfilePresenter: ProfilePresentationProtocol {
     
     // MARK: Present something
     func gotoEditProfile() {
-//        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.TabbarScreen)
-//        if let view = self.viewController as? UIViewController
-//        {
-//            view.pushVC(controller)
-//        }
+        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.EditProfileScreen)
+        if let view = self.viewController as? UIViewController
+        {
+            view.pushVC(controller)
+        }
     }
 }

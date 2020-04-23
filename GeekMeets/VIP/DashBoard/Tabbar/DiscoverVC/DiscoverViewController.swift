@@ -70,6 +70,10 @@ class DiscoverViewController: UIViewController, DiscoverProtocol {
         
         self.AllStoryCollView.register(UINib.init(nibName: Cells.DiscoverCollectionCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.DiscoverCollectionCell)
         self.AllStoryCollView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        
+        let layout = CustomImageLayout()
+        layout.scrollDirection = .vertical
+        self.AllStoryCollView.collectionViewLayout = layout
     }
     
     func setStoryData(){
@@ -98,8 +102,7 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
         } else {
             let cell : DiscoverCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.DiscoverCollectionCell, for: indexPath) as! DiscoverCollectionCell
             let data = self.objStoryData[indexPath.row]
-           // cell.userImgView.image = data.userImage
-            cell.userImgView.alpha = 0.0
+            cell.userImgView.image = data.userImage
             return cell
         }
     }
@@ -108,7 +111,7 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
         if collectionView == self.StoryCollView {
             return CGSize(width: 80, height: 130)
         } else {
-            let width = ScreenSize.width/2 - 20
+            let width = ScreenSize.width/2 - 12
             return CGSize(width: width, height: width)
         }
     }

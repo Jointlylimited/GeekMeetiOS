@@ -15,6 +15,9 @@ class MessageListCell: UITableViewCell {
     @IBOutlet weak var msgText: UILabel!
     @IBOutlet weak var msgCount: GradientLabel!
     @IBOutlet weak var msgTime: UILabel!
+    
+    @IBOutlet weak var btnChat: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -24,6 +27,8 @@ class MessageListCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    @IBAction func btnChatAction(_ sender: Any) {
     }
     
 }

@@ -13,7 +13,7 @@
 import UIKit
 
 protocol MatchProfilePresentationProtocol {
-    func presentSomething()
+    func gotoMatchVC()
 }
 
 class MatchProfilePresenter: MatchProfilePresentationProtocol {
@@ -21,7 +21,15 @@ class MatchProfilePresenter: MatchProfilePresentationProtocol {
     var interactor: MatchProfileInteractorProtocol?
     
     // MARK: Present something
-    func presentSomething() {
+    func gotoMatchVC() {
+        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchScreen)
+        controller.modalTransitionStyle = .crossDissolve
+        controller.modalPresentationStyle = .overCurrentContext
         
+        if let view = self.viewController as? UIViewController
+        {
+            view.presentVC(controller)
+            //            view.pushVC(controller)
+        }
     }
 }

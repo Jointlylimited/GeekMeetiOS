@@ -127,6 +127,7 @@ extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
             cell.msgTime.text = data.msgTime
             cell.msgCount.text = data.msgCount
             
+            cell.btnChat.alpha = 0.0
         }
     }
     

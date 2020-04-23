@@ -102,9 +102,21 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yLE-CU-cz8">
+                        <rect key="frame" x="435" y="26.5" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="yLE-CU-cz8" secondAttribute="height" multiplier="1:1" id="GQa-c8-Xid"/>
+                            <constraint firstAttribute="width" constant="30" id="bLP-eS-WK7"/>
+                        </constraints>
+                        <state key="normal" image="icn_chat"/>
+                        <connections>
+                            <action selector="btnChatAction:" destination="7VV-Ix-7EI" eventType="touchUpInside" id="PPV-lr-qAT"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="dW0-X4-SKa" secondAttribute="bottom" constant="2" id="7v8-4H-Zat"/>
+                    <constraint firstItem="yLE-CU-cz8" firstAttribute="top" secondItem="kYR-se-smc" secondAttribute="top" id="AZQ-pw-ZFs"/>
                     <constraint firstItem="ajA-f4-zB0" firstAttribute="trailing" secondItem="kYR-se-smc" secondAttribute="trailing" id="B1V-JO-QMT"/>
                     <constraint firstItem="dW0-X4-SKa" firstAttribute="leading" secondItem="HBP-bu-Nyi" secondAttribute="leading" constant="20" id="CBN-1e-TW8"/>
                     <constraint firstItem="GHx-cr-P4F" firstAttribute="centerY" secondItem="HBP-bu-Nyi" secondAttribute="centerY" id="Hhg-Fi-CgT"/>
@@ -119,12 +131,14 @@
                     <constraint firstItem="jYQ-kh-KEF" firstAttribute="leading" secondItem="ajA-f4-zB0" secondAttribute="trailing" constant="15" id="eiA-FM-igL"/>
                     <constraint firstItem="GHx-cr-P4F" firstAttribute="leading" secondItem="HBP-bu-Nyi" secondAttribute="leading" constant="20" id="f51-SQ-uXf"/>
                     <constraint firstItem="kYR-se-smc" firstAttribute="top" secondItem="HBP-bu-Nyi" secondAttribute="top" constant="26.5" id="fjz-Gv-Son"/>
+                    <constraint firstAttribute="trailing" secondItem="yLE-CU-cz8" secondAttribute="trailing" constant="20" id="j8g-Ue-yw3"/>
                     <constraint firstItem="kYR-se-smc" firstAttribute="leading" secondItem="GHx-cr-P4F" secondAttribute="trailing" constant="20" id="kAe-fo-j6O"/>
                     <constraint firstItem="BSa-9p-uPg" firstAttribute="top" secondItem="kYR-se-smc" secondAttribute="top" id="x4o-wR-oEz"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="vEP-zU-Idt"/>
             <connections>
+                <outlet property="btnChat" destination="yLE-CU-cz8" id="a2T-gZ-cti"/>
                 <outlet property="msgCount" destination="BSa-9p-uPg" id="I5s-dP-Nl8"/>
                 <outlet property="msgText" destination="ajA-f4-zB0" id="QxH-e8-Nv8"/>
                 <outlet property="msgTime" destination="jYQ-kh-KEF" id="BGe-fp-r4e"/>
@@ -135,6 +149,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="icn_chat" width="18" height="18"/>
         <image name="img_intro_1" width="375" height="812"/>
     </resources>
 </document>

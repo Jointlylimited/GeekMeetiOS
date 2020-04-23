@@ -27,6 +27,24 @@
 		0B319663244DE80500B38350 /* TabbarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B319651244DE80500B38350 /* TabbarPresenter.swift */; };
 		0B319664244DE80500B38350 /* TabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B319652244DE80500B38350 /* TabbarViewController.swift */; };
 		0B319665244DE80500B38350 /* TabbarInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B319653244DE80500B38350 /* TabbarInteractor.swift */; };
+		0B53566424508701005571AF /* Menu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B53566324508701005571AF /* Menu.storyboard */; };
+		0B53566E2450870F005571AF /* MyMatchesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5356672450870F005571AF /* MyMatchesViewController.swift */; };
+		0B53566F2450870F005571AF /* MyMatchesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5356682450870F005571AF /* MyMatchesInteractor.swift */; };
+		0B5356702450870F005571AF /* MyMatchesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5356692450870F005571AF /* MyMatchesPresenter.swift */; };
+		0B5356712450870F005571AF /* BoostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53566B2450870F005571AF /* BoostViewController.swift */; };
+		0B5356722450870F005571AF /* BoostInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53566C2450870F005571AF /* BoostInteractor.swift */; };
+		0B5356732450870F005571AF /* BoostPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53566D2450870F005571AF /* BoostPresenter.swift */; };
+		0B53567624508775005571AF /* GradientLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53567424508775005571AF /* GradientLabel.swift */; };
+		0B53567724508775005571AF /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53567524508775005571AF /* GradientButton.swift */; };
+		0B53567A24508827005571AF /* CustomImageLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53567924508827005571AF /* CustomImageLayout.swift */; };
+		0B535684245088DC005571AF /* EditInterestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53567C245088DB005571AF /* EditInterestCell.swift */; };
+		0B535685245088DC005571AF /* EditSocialLinkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53567D245088DB005571AF /* EditSocialLinkCell.swift */; };
+		0B535686245088DC005571AF /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53567E245088DB005571AF /* EditProfileViewController.swift */; };
+		0B535687245088DC005571AF /* EditProfilePrivacyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53567F245088DB005571AF /* EditProfilePrivacyCell.swift */; };
+		0B535688245088DC005571AF /* EditProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B535680245088DB005571AF /* EditProfilePresenter.swift */; };
+		0B535689245088DC005571AF /* EditProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B535681245088DB005571AF /* EditProfileInteractor.swift */; };
+		0B53568A245088DC005571AF /* EditInformationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B535682245088DB005571AF /* EditInformationCell.swift */; };
+		0B53568B245088DC005571AF /* EditPhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B535683245088DB005571AF /* EditPhotosCell.swift */; };
 		0BBD65F72449C8A500CA178A /* MatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBD65F02449C8A400CA178A /* MatchViewController.swift */; };
 		0BBD65F82449C8A500CA178A /* MatchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBD65F12449C8A400CA178A /* MatchPresenter.swift */; };
 		0BBD65F92449C8A500CA178A /* MatchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBD65F22449C8A400CA178A /* MatchInteractor.swift */; };
@@ -133,9 +151,6 @@
 		F953B8D520467AFB00BE4F67 /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F953B8D220467AFB00BE4F67 /* SettingsPresenter.swift */; };
 		F953B8D620467AFB00BE4F67 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F953B8D320467AFB00BE4F67 /* SettingsViewController.swift */; };
 		F953B8DE20467B3300BE4F67 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F953B8DD20467B3300BE4F67 /* Settings.storyboard */; };
-		F953B8E22046836E00BE4F67 /* EditProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F953B8DF2046836E00BE4F67 /* EditProfileInteractor.swift */; };
-		F953B8E32046836E00BE4F67 /* EditProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F953B8E02046836E00BE4F67 /* EditProfilePresenter.swift */; };
-		F953B8E42046836E00BE4F67 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F953B8E12046836E00BE4F67 /* EditProfileViewController.swift */; };
 		F96C2D102037E78800F8CBC7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F96C2D142037E78800F8CBC7 /* Localizable.strings */; };
 		F96C2D202037E92B00F8CBC7 /* L012Localizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96C2D1C2037E92A00F8CBC7 /* L012Localizer.swift */; };
 		F96C2D232037E92B00F8CBC7 /* L102Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96C2D1D2037E92A00F8CBC7 /* L102Language.swift */; };
@@ -187,6 +202,24 @@
 		0B319651244DE80500B38350 /* TabbarPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabbarPresenter.swift; sourceTree = "<group>"; };
 		0B319652244DE80500B38350 /* TabbarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabbarViewController.swift; sourceTree = "<group>"; };
 		0B319653244DE80500B38350 /* TabbarInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabbarInteractor.swift; sourceTree = "<group>"; };
+		0B53566324508701005571AF /* Menu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Menu.storyboard; sourceTree = "<group>"; };
+		0B5356672450870F005571AF /* MyMatchesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMatchesViewController.swift; sourceTree = "<group>"; };
+		0B5356682450870F005571AF /* MyMatchesInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMatchesInteractor.swift; sourceTree = "<group>"; };
+		0B5356692450870F005571AF /* MyMatchesPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMatchesPresenter.swift; sourceTree = "<group>"; };
+		0B53566B2450870F005571AF /* BoostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoostViewController.swift; sourceTree = "<group>"; };
+		0B53566C2450870F005571AF /* BoostInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoostInteractor.swift; sourceTree = "<group>"; };
+		0B53566D2450870F005571AF /* BoostPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoostPresenter.swift; sourceTree = "<group>"; };
+		0B53567424508775005571AF /* GradientLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientLabel.swift; sourceTree = "<group>"; };
+		0B53567524508775005571AF /* GradientButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
+		0B53567924508827005571AF /* CustomImageLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageLayout.swift; sourceTree = "<group>"; };
+		0B53567C245088DB005571AF /* EditInterestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditInterestCell.swift; sourceTree = "<group>"; };
+		0B53567D245088DB005571AF /* EditSocialLinkCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSocialLinkCell.swift; sourceTree = "<group>"; };
+		0B53567E245088DB005571AF /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		0B53567F245088DB005571AF /* EditProfilePrivacyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfilePrivacyCell.swift; sourceTree = "<group>"; };
+		0B535680245088DB005571AF /* EditProfilePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfilePresenter.swift; sourceTree = "<group>"; };
+		0B535681245088DB005571AF /* EditProfileInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileInteractor.swift; sourceTree = "<group>"; };
+		0B535682245088DB005571AF /* EditInformationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditInformationCell.swift; sourceTree = "<group>"; };
+		0B535683245088DB005571AF /* EditPhotosCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPhotosCell.swift; sourceTree = "<group>"; };
 		0BBD65F02449C8A400CA178A /* MatchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchViewController.swift; sourceTree = "<group>"; };
 		0BBD65F12449C8A400CA178A /* MatchPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchPresenter.swift; sourceTree = "<group>"; };
 		0BBD65F22449C8A400CA178A /* MatchInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchInteractor.swift; sourceTree = "<group>"; };
@@ -302,9 +335,6 @@
 		F953B8D220467AFB00BE4F67 /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
 		F953B8D320467AFB00BE4F67 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		F953B8DD20467B3300BE4F67 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
-		F953B8DF2046836E00BE4F67 /* EditProfileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileInteractor.swift; sourceTree = "<group>"; };
-		F953B8E02046836E00BE4F67 /* EditProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfilePresenter.swift; sourceTree = "<group>"; };
-		F953B8E12046836E00BE4F67 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		F96C2D132037E78800F8CBC7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F96C2D1C2037E92A00F8CBC7 /* L012Localizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = L012Localizer.swift; sourceTree = "<group>"; };
 		F96C2D1D2037E92A00F8CBC7 /* L102Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = L102Language.swift; sourceTree = "<group>"; };
@@ -422,9 +452,62 @@
 			path = TabbarController;
 			sourceTree = "<group>";
 		};
+		0B5356652450870F005571AF /* MenuScreens */ = {
+			isa = PBXGroup;
+			children = (
+				0B5356662450870F005571AF /* MyMatchesVC */,
+				0B53566A2450870F005571AF /* BoostsVC */,
+			);
+			path = MenuScreens;
+			sourceTree = "<group>";
+		};
+		0B5356662450870F005571AF /* MyMatchesVC */ = {
+			isa = PBXGroup;
+			children = (
+				0B5356672450870F005571AF /* MyMatchesViewController.swift */,
+				0B5356682450870F005571AF /* MyMatchesInteractor.swift */,
+				0B5356692450870F005571AF /* MyMatchesPresenter.swift */,
+			);
+			path = MyMatchesVC;
+			sourceTree = "<group>";
+		};
+		0B53566A2450870F005571AF /* BoostsVC */ = {
+			isa = PBXGroup;
+			children = (
+				0B53566B2450870F005571AF /* BoostViewController.swift */,
+				0B53566C2450870F005571AF /* BoostInteractor.swift */,
+				0B53566D2450870F005571AF /* BoostPresenter.swift */,
+			);
+			path = BoostsVC;
+			sourceTree = "<group>";
+		};
+		0B53567824508827005571AF /* CustomImageLayout */ = {
+			isa = PBXGroup;
+			children = (
+				0B53567924508827005571AF /* CustomImageLayout.swift */,
+			);
+			path = CustomImageLayout;
+			sourceTree = "<group>";
+		};
+		0B53567B245088DB005571AF /* EditProfileVC */ = {
+			isa = PBXGroup;
+			children = (
+				0B53567C245088DB005571AF /* EditInterestCell.swift */,
+				0B53567D245088DB005571AF /* EditSocialLinkCell.swift */,
+				0B53567E245088DB005571AF /* EditProfileViewController.swift */,
+				0B53567F245088DB005571AF /* EditProfilePrivacyCell.swift */,
+				0B535680245088DB005571AF /* EditProfilePresenter.swift */,
+				0B535681245088DB005571AF /* EditProfileInteractor.swift */,
+				0B535682245088DB005571AF /* EditInformationCell.swift */,
+				0B535683245088DB005571AF /* EditPhotosCell.swift */,
+			);
+			path = EditProfileVC;
+			sourceTree = "<group>";
+		};
 		0BBD65EE2449C8A400CA178A /* DashBoard */ = {
 			isa = PBXGroup;
 			children = (
+				0B53567B245088DB005571AF /* EditProfileVC */,
 				0BF70806244F1D3C003D6AB7 /* MatchProfileVC */,
 				0BBD65EF2449C8A400CA178A /* MatchVC */,
 				0BBD65F32449C8A500CA178A /* Tabbar */,
@@ -458,6 +541,8 @@
 		0BBD65FD2449C8F000CA178A /* GradientView */ = {
 			isa = PBXGroup;
 			children = (
+				0B53567524508775005571AF /* GradientButton.swift */,
+				0B53567424508775005571AF /* GradientLabel.swift */,
 				0BBD65FE2449C8F000CA178A /* GradientView.swift */,
 			);
 			path = GradientView;
@@ -623,6 +708,7 @@
 		F79604BA24459767002FFB79 /* UIView */ = {
 			isa = PBXGroup;
 			children = (
+				0B53567824508827005571AF /* CustomImageLayout */,
 				0BF70810244F1D6B003D6AB7 /* DiscoverCollectionCell */,
 				0BF70816244F1D6B003D6AB7 /* MessageListCell */,
 				0BF70813244F1D6B003D6AB7 /* ReactEmojiCollectionCell */,
@@ -928,7 +1014,6 @@
 			isa = PBXGroup;
 			children = (
 				F953B8CF20467AE800BE4F67 /* ChangePassword */,
-				F953B8D020467AE800BE4F67 /* EditProfile */,
 				F953B8D120467AFB00BE4F67 /* SettingsInteractor.swift */,
 				F953B8D220467AFB00BE4F67 /* SettingsPresenter.swift */,
 				F953B8D320467AFB00BE4F67 /* SettingsViewController.swift */,
@@ -944,16 +1029,6 @@
 				F952382E2047D66B00BC0D49 /* ChangePasswordViewController.swift */,
 			);
 			path = ChangePassword;
-			sourceTree = "<group>";
-		};
-		F953B8D020467AE800BE4F67 /* EditProfile */ = {
-			isa = PBXGroup;
-			children = (
-				F953B8DF2046836E00BE4F67 /* EditProfileInteractor.swift */,
-				F953B8E02046836E00BE4F67 /* EditProfilePresenter.swift */,
-				F953B8E12046836E00BE4F67 /* EditProfileViewController.swift */,
-			);
-			path = EditProfile;
 			sourceTree = "<group>";
 		};
 		F96C2D0B2037E75B00F8CBC7 /* Localization */ = {
@@ -1025,6 +1100,7 @@
 		F9A453A2203AA74A0065C9FD /* VIP */ = {
 			isa = PBXGroup;
 			children = (
+				0B5356652450870F005571AF /* MenuScreens */,
 				0BBD65EE2449C8A400CA178A /* DashBoard */,
 				F7CD7A4924442BCA00E02A9E /* Main */,
 				F953B8CE20467AE800BE4F67 /* Settings */,
@@ -1074,6 +1150,7 @@
 		F9A453DB203AA8220065C9FD /* StoryBoard */ = {
 			isa = PBXGroup;
 			children = (
+				0B53566324508701005571AF /* Menu.storyboard */,
 				0BF707F8244F1C86003D6AB7 /* Dashboard.storyboard */,
 				F90B4C9C20329C45006ADAF6 /* Main.storyboard */,
 				F90B4CA120329C45006ADAF6 /* LaunchScreen.storyboard */,
@@ -1161,6 +1238,7 @@
 				F90B4CA320329C45006ADAF6 /* LaunchScreen.storyboard in Resources */,
 				F90B4CA020329C45006ADAF6 /* Assets.xcassets in Resources */,
 				0BE21274244976AF004817BC /* Poppins-ExtraLightItalic.ttf in Resources */,
+				0B53566424508701005571AF /* Menu.storyboard in Resources */,
 				0BE2127F244976AF004817BC /* Poppins-Black.ttf in Resources */,
 				0BE2127C244976AF004817BC /* Poppins-Regular.ttf in Resources */,
 				0BF70820244F1D6B003D6AB7 /* MessageListCell.xib in Resources */,
@@ -1282,11 +1360,13 @@
 				0B319664244DE80500B38350 /* TabbarViewController.swift in Sources */,
 				0BF707FE244F1D1C003D6AB7 /* DiscoverViewController.swift in Sources */,
 				0BF707FF244F1D1C003D6AB7 /* DiscoverInteractor.swift in Sources */,
+				0B53567724508775005571AF /* GradientButton.swift in Sources */,
 				F948AECA203E865500F5A852 /* AppdelegateNotification.swift in Sources */,
 				F97A9A2C21103FA7007C45F5 /* CGRectExtensions.swift in Sources */,
 				F9A453C9203AA74B0065C9FD /* SignUpPresenter.swift in Sources */,
 				F76A8D872440396800ED9947 /* DocumentDirectory.swift in Sources */,
 				0B319661244DE80500B38350 /* ProfileViewController.swift in Sources */,
+				0B5356732450870F005571AF /* BoostPresenter.swift in Sources */,
 				F9A453C6203AA74B0065C9FD /* SignUpInteractor.swift in Sources */,
 				0BF707FD244F1D1C003D6AB7 /* DiscoverPresenter.swift in Sources */,
 				F97A9A2E21103FAD007C45F5 /* CGFloatExtensions.swift in Sources */,
@@ -1307,9 +1387,9 @@
 				F9A453C3203AA74B0065C9FD /* LoginViewController.swift in Sources */,
 				F9A453CC203AA74B0065C9FD /* SignUpViewController.swift in Sources */,
 				F96C2D2D20380B1A00F8CBC7 /* Validator.swift in Sources */,
+				0B53568B245088DC005571AF /* EditPhotosCell.swift in Sources */,
 				F97A9A2821103F9B007C45F5 /* UIApplicationExtensions.swift in Sources */,
 				F79CA6F7244DD4D900C9A7EB /* RadioButton.swift in Sources */,
-				F953B8E42046836E00BE4F67 /* EditProfileViewController.swift in Sources */,
 				F716F2AB24498F630063680F /* SignUpVCInteractor.swift in Sources */,
 				F7164AC6244EB86F00853BFC /* AddPhotosViewController.swift in Sources */,
 				F7D5259224481DB5002D3A42 /* InitialLoginInteractor.swift in Sources */,
@@ -1327,11 +1407,12 @@
 				0B319658244DE80500B38350 /* HomeInteractor.swift in Sources */,
 				0BF7081F244F1D6B003D6AB7 /* MessageListCell.swift in Sources */,
 				F7D5259C244869FB002D3A42 /* SignInViewController.swift in Sources */,
+				0B53567A24508827005571AF /* CustomImageLayout.swift in Sources */,
 				0BF7081A244F1D6B003D6AB7 /* StoryCollectionCell.swift in Sources */,
 				F953B8D420467AFB00BE4F67 /* SettingsInteractor.swift in Sources */,
+				0B5356722450870F005571AF /* BoostInteractor.swift in Sources */,
 				F7D5259A244869FB002D3A42 /* SignInPresenter.swift in Sources */,
 				F9A453CF203AA74B0065C9FD /* SplashInteractor.swift in Sources */,
-				F953B8E22046836E00BE4F67 /* EditProfileInteractor.swift in Sources */,
 				F7DFAE3A24501192008863F3 /* CountryPickerController.swift in Sources */,
 				0BBD65F92449C8A500CA178A /* MatchInteractor.swift in Sources */,
 				F7DFAE3F24501192008863F3 /* CountryCell.swift in Sources */,
@@ -1341,7 +1422,9 @@
 				F9EDD42E203BFF33008FA83F /* ResponseData.swift in Sources */,
 				0BBD66022449C8F100CA178A /* GradientView.swift in Sources */,
 				F73002D02446F4D000BDD7FD /* InitialSignUpPresenter.swift in Sources */,
+				0B535687245088DC005571AF /* EditProfilePrivacyCell.swift in Sources */,
 				F97A9A2921103F9F007C45F5 /* UIViewExtensions.swift in Sources */,
+				0B535684245088DC005571AF /* EditInterestCell.swift in Sources */,
 				F9A453D2203AA74B0065C9FD /* SplashPresenter.swift in Sources */,
 				0BBD66032449C8F100CA178A /* CardView.swift in Sources */,
 				0BF70805244F1D2C003D6AB7 /* MessagesPresenter.swift in Sources */,
@@ -1350,6 +1433,7 @@
 				0B319665244DE80500B38350 /* TabbarInteractor.swift in Sources */,
 				F9A453D5203AA74B0065C9FD /* SplashViewController.swift in Sources */,
 				0BF7080B244F1D3C003D6AB7 /* MatchProfilePresenter.swift in Sources */,
+				0B535686245088DC005571AF /* EditProfileViewController.swift in Sources */,
 				0BF7080A244F1D3C003D6AB7 /* MatchProfileViewController.swift in Sources */,
 				F97A9A2D21103FAA007C45F5 /* EZSwiftFunctions.swift in Sources */,
 				F73002CB2446F0B600BDD7FD /* UITapGestureRecognizerExtensions.swift in Sources */,
@@ -1358,6 +1442,7 @@
 				F7164AD0244EE90700853BFC /* OTPEnterInteractor.swift in Sources */,
 				F73002D22446F4D000BDD7FD /* InitialSignUpInteractor.swift in Sources */,
 				F716F2AA24498F630063680F /* SignUpVCViewController.swift in Sources */,
+				0B5356712450870F005571AF /* BoostViewController.swift in Sources */,
 				F7CD7A4F24442F3A00E02A9E /* TutorialPageInteractor.swift in Sources */,
 				F90B4CE52032F4A6006ADAF6 /* SOService.swift in Sources */,
 				0BBD66072449C8FC00CA178A /* SwipeableCards.swift in Sources */,
@@ -1365,13 +1450,15 @@
 				F7D5259024481DB5002D3A42 /* InitialLoginPresenter.swift in Sources */,
 				F90B4CE22032F4A6006ADAF6 /* SOAPI.swift in Sources */,
 				0B31965B244DE80500B38350 /* ProfilePresenter.swift in Sources */,
-				F953B8E32046836E00BE4F67 /* EditProfilePresenter.swift in Sources */,
+				0B535689245088DC005571AF /* EditProfileInteractor.swift in Sources */,
 				F7CD7A4E24442F3A00E02A9E /* TutorialPageViewController.swift in Sources */,
+				0B53566E2450870F005571AF /* MyMatchesViewController.swift in Sources */,
 				F79CA6F2244D9C5100C9A7EB /* UserProfileInteractor.swift in Sources */,
 				F96C2D232037E92B00F8CBC7 /* L102Language.swift in Sources */,
 				F95238312047D66B00BC0D49 /* ChangePasswordViewController.swift in Sources */,
 				0BF7081E244F1D6B003D6AB7 /* ReactEmojiCollectionCell.swift in Sources */,
 				F7164ACF244EE90700853BFC /* OTPEnterViewController.swift in Sources */,
+				0B53568A245088DC005571AF /* EditInformationCell.swift in Sources */,
 				0B319656244DE80500B38350 /* MenuCell.swift in Sources */,
 				0BF7081B244F1D6B003D6AB7 /* DiscoverCollectionCell.swift in Sources */,
 				F9EDD434203BFF33008FA83F /* ProfileUrl.swift in Sources */,
@@ -1384,6 +1471,8 @@
 				F9A4539F203AA7200065C9FD /* Constantt.swift in Sources */,
 				0BBD65F82449C8A500CA178A /* MatchPresenter.swift in Sources */,
 				F9A453BD203AA74A0065C9FD /* LoginInteractor.swift in Sources */,
+				0B53566F2450870F005571AF /* MyMatchesInteractor.swift in Sources */,
+				0B535688245088DC005571AF /* EditProfilePresenter.swift in Sources */,
 				F7164AC0244EB78600853BFC /* ForgotPasswordPresenter.swift in Sources */,
 				0B31965E244DE80500B38350 /* ProfileCompanyCell.swift in Sources */,
 				F7164ACE244EE90700853BFC /* OTPEnterPresenter.swift in Sources */,
@@ -1391,8 +1480,11 @@
 				F97A9A2B21103FA4007C45F5 /* StringExtensions.swift in Sources */,
 				F79604BD244597A2002FFB79 /* TutorialCell.swift in Sources */,
 				F73002D12446F4D000BDD7FD /* InitialSignUpViewController.swift in Sources */,
+				0B5356702450870F005571AF /* MyMatchesPresenter.swift in Sources */,
+				0B535685245088DC005571AF /* EditSocialLinkCell.swift in Sources */,
 				0BF70804244F1D2C003D6AB7 /* MessagesInteractor.swift in Sources */,
 				F79CA6F0244D9C5100C9A7EB /* UserProfilePresenter.swift in Sources */,
+				0B53567624508775005571AF /* GradientLabel.swift in Sources */,
 				F7164AC9244EBD4F00853BFC /* AddPhotoCollectionViewCell.swift in Sources */,
 				F96C2D202037E92B00F8CBC7 /* L012Localizer.swift in Sources */,
 				F952382F2047D66B00BC0D49 /* ChangePasswordInteractor.swift in Sources */,

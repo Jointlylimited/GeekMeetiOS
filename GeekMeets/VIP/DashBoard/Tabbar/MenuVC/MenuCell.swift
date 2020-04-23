@@ -10,6 +10,9 @@ import UIKit
 
 class MenuCell: UITableViewCell {
 
+    typealias ButtonClickEvent = () -> Void
+    var clickOnSwitchBtn : ButtonClickEvent!
+    
     @IBOutlet weak var btnLeft: UIButton!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var btnRight: UIButton!
@@ -24,5 +27,8 @@ class MenuCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    @IBAction func btnRightAction(_ sender: UIButton) {
+        self.clickOnSwitchBtn!()
+    }
+    
 }

@@ -39,6 +39,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     @IBOutlet weak var pageControl: UIPageControl!
     
     var objProfileData = MatchProfileData()
+    var imageArray = [#imageLiteral(resourceName: "img_intro_2"), #imageLiteral(resourceName: "image_1"), #imageLiteral(resourceName: "Image 63"), #imageLiteral(resourceName: "Image 62")]
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -80,18 +81,22 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     
     func registerCollectionViewCell(){
         self.MatchProfileCollView.register(UINib.init(nibName: Cells.ReactEmojiCollectionCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.ReactEmojiCollectionCell)
-        self.MatchProfileCollView.contentInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        self.MatchProfileCollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+
+        let layout = CustomImageLayout()
+        layout.scrollDirection = .vertical
+        self.MatchProfileCollView.collectionViewLayout = layout
         
         let angle = CGFloat.pi/2
         pageControl.transform = CGAffineTransform(rotationAngle: angle)
-        self.pageControl.numberOfPages = 5
+        self.pageControl.numberOfPages = imageArray.count
         self.pageControl.currentPage = 0
-        
-     //   self.pageControl.currentPageIndicatorTintColor = UIColor.init(patternImage:#imageLiteral(resourceName: "letter"))
-        //self.pageControl.pageIndicatorTintColor = UIColor.init(patternImage: #imageLiteral(resourceName: <#T##String#>))
     }
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.dismissVC(completion: nil)
+    }
+    @IBAction func btnMatchAction(_ sender: UIButton) {
+        self.presenter?.gotoMatchVC()
     }
 }
 
@@ -154,17 +159,30 @@ extension MatchProfileViewController : UICollectionViewDataSource, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return imageArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-            let cell : ReactEmojiCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.ReactEmojiCollectionCell, for: indexPath) as! ReactEmojiCollectionCell
-            return cell
+        let cell : ReactEmojiCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.ReactEmojiCollectionCell, for: indexPath) as! ReactEmojiCollectionCell
+        
+        cell.ReactEmojiView.alpha = cell.btnLike.isSelected ? 1.0 : 0.0
+        cell.userImgView.image = imageArray[indexPath.row]
+        
+        cell.clickOnLikeBtn = {
+            if cell.btnLike.isSelected {
+                cell.btnLike.isSelected = false
+                cell.ReactEmojiView.alpha = 0.0
+            } else {
+                cell.btnLike.isSelected = true
+                cell.ReactEmojiView.alpha = 1.0
+            }
+        }
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width - 10, height: collectionView.frame.height - 10)
+        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -175,3 +193,4 @@ extension MatchProfileViewController : UICollectionViewDataSource, UICollectionV
         }
     }
 }
+

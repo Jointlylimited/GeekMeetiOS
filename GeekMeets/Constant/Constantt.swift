@@ -35,6 +35,7 @@ struct GeekMeets_StoryBoard
     static let Setting = UIStoryboard(name: "Setting", bundle: nil)
     static let MissingWorkPlace = UIStoryboard(name: "AddMissingBussiness", bundle: nil)
     static let Dashboard = UIStoryboard(name: "Dashboard", bundle: nil)
+    static let Menu = UIStoryboard(name: "Menu", bundle: nil)
 }
 struct GeekMeets_ViewController
 {
@@ -58,6 +59,9 @@ struct GeekMeets_ViewController
     static let TabbarScreen = "TabbarViewController"
     static let MatchScreen = "MatchViewController"
     static let MatchProfileScreen = "MatchProfileViewController"
+    static let EditProfileScreen = "EditProfileViewController"
+    static let MyMatchesScreen = "MyMatchesViewController"
+    static let BoostScreen = "BoostViewController"
   
 }
 

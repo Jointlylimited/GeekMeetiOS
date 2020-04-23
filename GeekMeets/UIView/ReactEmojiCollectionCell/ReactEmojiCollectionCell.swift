@@ -10,11 +10,20 @@ import UIKit
 
 class ReactEmojiCollectionCell: UICollectionViewCell {
 
-    @IBOutlet weak var pageControl: UIPageControl!
+    typealias LikeClickEvent = () -> Void
+    var clickOnLikeBtn : LikeClickEvent!
+    
+    @IBOutlet weak var emojiStackView: UIStackView!
+    @IBOutlet weak var userImgView: UIImageView!
+    @IBOutlet weak var ReactEmojiView: UIView!
+    
+    @IBOutlet weak var btnLike: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        // Initialization code
     }
 
+    @IBAction func btnLikeAction(_ sender: UIButton) {
+        self.clickOnLikeBtn!()
+    }
 }

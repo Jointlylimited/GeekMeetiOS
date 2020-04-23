@@ -11,6 +11,7 @@ import UIKit
 class PhotoEmojiCell: UICollectionViewCell {
 
     @IBOutlet weak var userImgView: UIImageView!
+    @IBOutlet weak var emojiStackView: UIStackView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
