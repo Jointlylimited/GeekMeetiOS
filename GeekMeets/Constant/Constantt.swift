@@ -64,6 +64,12 @@ struct GeekMeets_ViewController
     static let EditProfileScreen = "EditProfileViewController"
     static let MyMatchesScreen = "MyMatchesViewController"
     static let BoostScreen = "BoostViewController"
+    static let ManageSubscriptionScreen = "ManageSubscriptionViewController"
+    static let TopGeeksScreen = "TopGeeksViewController"
+    static let AccountSettingScreen = "AccountSettingViewController"
+    static let DiscoverySettingScreen = "DiscoverySettingViewController"
+    static let CommonPagesScreen = "CommonPagesViewController"
+    static let ContactUS_LegalScreen = "ContactUS_LegalViewController"
   
 }
 
@@ -73,6 +79,7 @@ struct Cells {
     static let StoryCollectionCell = "StoryCollectionCell"
     static let DiscoverCollectionCell = "DiscoverCollectionCell"
     static let ReactEmojiCollectionCell = "ReactEmojiCollectionCell"
+    static let CommonTblListCell = "CommonTblListCell"
 }
 
 struct DeviceType {

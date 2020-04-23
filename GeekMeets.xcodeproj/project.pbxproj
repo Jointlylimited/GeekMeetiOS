@@ -45,6 +45,27 @@
 		0B535689245088DC005571AF /* EditProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B535681245088DB005571AF /* EditProfileInteractor.swift */; };
 		0B53568A245088DC005571AF /* EditInformationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B535682245088DB005571AF /* EditInformationCell.swift */; };
 		0B53568B245088DC005571AF /* EditPhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B535683245088DB005571AF /* EditPhotosCell.swift */; };
+		0B9499B62451DBA5001AD1C8 /* CommonTblListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9499B42451DBA4001AD1C8 /* CommonTblListCell.swift */; };
+		0B9499B72451DBA5001AD1C8 /* CommonTblListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B9499B52451DBA4001AD1C8 /* CommonTblListCell.xib */; };
+		0B9499D12451DBC4001AD1C8 /* ManageSubscriptionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9499B92451DBC2001AD1C8 /* ManageSubscriptionPresenter.swift */; };
+		0B9499D22451DBC4001AD1C8 /* ManageSubscriptionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9499BA2451DBC2001AD1C8 /* ManageSubscriptionInteractor.swift */; };
+		0B9499D32451DBC4001AD1C8 /* ManageSubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9499BB2451DBC2001AD1C8 /* ManageSubscriptionViewController.swift */; };
+		0B9499D42451DBC4001AD1C8 /* DiscoverySettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9499BD2451DBC2001AD1C8 /* DiscoverySettingViewController.swift */; };
+		0B9499D52451DBC4001AD1C8 /* DiscoverySettingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9499BE2451DBC2001AD1C8 /* DiscoverySettingInteractor.swift */; };
+		0B9499D62451DBC4001AD1C8 /* DiscoverySettingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9499BF2451DBC2001AD1C8 /* DiscoverySettingPresenter.swift */; };
+		0B9499D72451DBC4001AD1C8 /* CommonPagesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9499C12451DBC3001AD1C8 /* CommonPagesPresenter.swift */; };
+		0B9499D82451DBC4001AD1C8 /* CommonPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9499C22451DBC3001AD1C8 /* CommonPagesViewController.swift */; };
+		0B9499D92451DBC4001AD1C8 /* CommonPagesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9499C32451DBC3001AD1C8 /* CommonPagesInteractor.swift */; };
+		0B9499DA2451DBC4001AD1C8 /* AccountSettingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9499C52451DBC3001AD1C8 /* AccountSettingPresenter.swift */; };
+		0B9499DB2451DBC4001AD1C8 /* AccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9499C62451DBC3001AD1C8 /* AccountSettingViewController.swift */; };
+		0B9499DC2451DBC4001AD1C8 /* AccountSettingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9499C72451DBC3001AD1C8 /* AccountSettingInteractor.swift */; };
+		0B9499DD2451DBC4001AD1C8 /* TopGeeksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9499C92451DBC3001AD1C8 /* TopGeeksViewController.swift */; };
+		0B9499DE2451DBC4001AD1C8 /* TopGeeksPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9499CA2451DBC3001AD1C8 /* TopGeeksPresenter.swift */; };
+		0B9499DF2451DBC4001AD1C8 /* TopGeeksInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9499CB2451DBC3001AD1C8 /* TopGeeksInteractor.swift */; };
+		0B9499E02451DBC4001AD1C8 /* ContactUSCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9499CD2451DBC4001AD1C8 /* ContactUSCell.swift */; };
+		0B9499E12451DBC4001AD1C8 /* ContactUS_LegalInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9499CE2451DBC4001AD1C8 /* ContactUS_LegalInteractor.swift */; };
+		0B9499E22451DBC4001AD1C8 /* ContactUS_LegalPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9499CF2451DBC4001AD1C8 /* ContactUS_LegalPresenter.swift */; };
+		0B9499E32451DBC4001AD1C8 /* ContactUS_LegalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9499D02451DBC4001AD1C8 /* ContactUS_LegalViewController.swift */; };
 		0BBD65F72449C8A500CA178A /* MatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBD65F02449C8A400CA178A /* MatchViewController.swift */; };
 		0BBD65F82449C8A500CA178A /* MatchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBD65F12449C8A400CA178A /* MatchPresenter.swift */; };
 		0BBD65F92449C8A500CA178A /* MatchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBD65F22449C8A400CA178A /* MatchInteractor.swift */; };
@@ -227,6 +248,27 @@
 		0B535681245088DB005571AF /* EditProfileInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileInteractor.swift; sourceTree = "<group>"; };
 		0B535682245088DB005571AF /* EditInformationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditInformationCell.swift; sourceTree = "<group>"; };
 		0B535683245088DB005571AF /* EditPhotosCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPhotosCell.swift; sourceTree = "<group>"; };
+		0B9499B42451DBA4001AD1C8 /* CommonTblListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonTblListCell.swift; sourceTree = "<group>"; };
+		0B9499B52451DBA4001AD1C8 /* CommonTblListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommonTblListCell.xib; sourceTree = "<group>"; };
+		0B9499B92451DBC2001AD1C8 /* ManageSubscriptionPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageSubscriptionPresenter.swift; sourceTree = "<group>"; };
+		0B9499BA2451DBC2001AD1C8 /* ManageSubscriptionInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageSubscriptionInteractor.swift; sourceTree = "<group>"; };
+		0B9499BB2451DBC2001AD1C8 /* ManageSubscriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageSubscriptionViewController.swift; sourceTree = "<group>"; };
+		0B9499BD2451DBC2001AD1C8 /* DiscoverySettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverySettingViewController.swift; sourceTree = "<group>"; };
+		0B9499BE2451DBC2001AD1C8 /* DiscoverySettingInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverySettingInteractor.swift; sourceTree = "<group>"; };
+		0B9499BF2451DBC2001AD1C8 /* DiscoverySettingPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverySettingPresenter.swift; sourceTree = "<group>"; };
+		0B9499C12451DBC3001AD1C8 /* CommonPagesPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonPagesPresenter.swift; sourceTree = "<group>"; };
+		0B9499C22451DBC3001AD1C8 /* CommonPagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonPagesViewController.swift; sourceTree = "<group>"; };
+		0B9499C32451DBC3001AD1C8 /* CommonPagesInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonPagesInteractor.swift; sourceTree = "<group>"; };
+		0B9499C52451DBC3001AD1C8 /* AccountSettingPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSettingPresenter.swift; sourceTree = "<group>"; };
+		0B9499C62451DBC3001AD1C8 /* AccountSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSettingViewController.swift; sourceTree = "<group>"; };
+		0B9499C72451DBC3001AD1C8 /* AccountSettingInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSettingInteractor.swift; sourceTree = "<group>"; };
+		0B9499C92451DBC3001AD1C8 /* TopGeeksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopGeeksViewController.swift; sourceTree = "<group>"; };
+		0B9499CA2451DBC3001AD1C8 /* TopGeeksPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopGeeksPresenter.swift; sourceTree = "<group>"; };
+		0B9499CB2451DBC3001AD1C8 /* TopGeeksInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopGeeksInteractor.swift; sourceTree = "<group>"; };
+		0B9499CD2451DBC4001AD1C8 /* ContactUSCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactUSCell.swift; sourceTree = "<group>"; };
+		0B9499CE2451DBC4001AD1C8 /* ContactUS_LegalInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactUS_LegalInteractor.swift; sourceTree = "<group>"; };
+		0B9499CF2451DBC4001AD1C8 /* ContactUS_LegalPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactUS_LegalPresenter.swift; sourceTree = "<group>"; };
+		0B9499D02451DBC4001AD1C8 /* ContactUS_LegalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactUS_LegalViewController.swift; sourceTree = "<group>"; };
 		0BBD65F02449C8A400CA178A /* MatchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchViewController.swift; sourceTree = "<group>"; };
 		0BBD65F12449C8A400CA178A /* MatchPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchPresenter.swift; sourceTree = "<group>"; };
 		0BBD65F22449C8A400CA178A /* MatchInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchInteractor.swift; sourceTree = "<group>"; };
@@ -469,6 +511,12 @@
 		0B5356652450870F005571AF /* MenuScreens */ = {
 			isa = PBXGroup;
 			children = (
+				0B9499C42451DBC3001AD1C8 /* AccountSettingVC */,
+				0B9499C02451DBC2001AD1C8 /* CommonPagesVC */,
+				0B9499CC2451DBC4001AD1C8 /* ContactUSLegalVC */,
+				0B9499BC2451DBC2001AD1C8 /* DiscoverySettingVC */,
+				0B9499B82451DBC2001AD1C8 /* ManageSubscriptionVC */,
+				0B9499C82451DBC3001AD1C8 /* TopGeeksVC */,
 				0B5356662450870F005571AF /* MyMatchesVC */,
 				0B53566A2450870F005571AF /* BoostsVC */,
 			);
@@ -516,6 +564,76 @@
 				0B535683245088DB005571AF /* EditPhotosCell.swift */,
 			);
 			path = EditProfileVC;
+			sourceTree = "<group>";
+		};
+		0B9499B32451DBA4001AD1C8 /* CommonTblListCell */ = {
+			isa = PBXGroup;
+			children = (
+				0B9499B42451DBA4001AD1C8 /* CommonTblListCell.swift */,
+				0B9499B52451DBA4001AD1C8 /* CommonTblListCell.xib */,
+			);
+			path = CommonTblListCell;
+			sourceTree = "<group>";
+		};
+		0B9499B82451DBC2001AD1C8 /* ManageSubscriptionVC */ = {
+			isa = PBXGroup;
+			children = (
+				0B9499B92451DBC2001AD1C8 /* ManageSubscriptionPresenter.swift */,
+				0B9499BA2451DBC2001AD1C8 /* ManageSubscriptionInteractor.swift */,
+				0B9499BB2451DBC2001AD1C8 /* ManageSubscriptionViewController.swift */,
+			);
+			path = ManageSubscriptionVC;
+			sourceTree = "<group>";
+		};
+		0B9499BC2451DBC2001AD1C8 /* DiscoverySettingVC */ = {
+			isa = PBXGroup;
+			children = (
+				0B9499BD2451DBC2001AD1C8 /* DiscoverySettingViewController.swift */,
+				0B9499BE2451DBC2001AD1C8 /* DiscoverySettingInteractor.swift */,
+				0B9499BF2451DBC2001AD1C8 /* DiscoverySettingPresenter.swift */,
+			);
+			path = DiscoverySettingVC;
+			sourceTree = "<group>";
+		};
+		0B9499C02451DBC2001AD1C8 /* CommonPagesVC */ = {
+			isa = PBXGroup;
+			children = (
+				0B9499C12451DBC3001AD1C8 /* CommonPagesPresenter.swift */,
+				0B9499C22451DBC3001AD1C8 /* CommonPagesViewController.swift */,
+				0B9499C32451DBC3001AD1C8 /* CommonPagesInteractor.swift */,
+			);
+			path = CommonPagesVC;
+			sourceTree = "<group>";
+		};
+		0B9499C42451DBC3001AD1C8 /* AccountSettingVC */ = {
+			isa = PBXGroup;
+			children = (
+				0B9499C52451DBC3001AD1C8 /* AccountSettingPresenter.swift */,
+				0B9499C62451DBC3001AD1C8 /* AccountSettingViewController.swift */,
+				0B9499C72451DBC3001AD1C8 /* AccountSettingInteractor.swift */,
+			);
+			path = AccountSettingVC;
+			sourceTree = "<group>";
+		};
+		0B9499C82451DBC3001AD1C8 /* TopGeeksVC */ = {
+			isa = PBXGroup;
+			children = (
+				0B9499C92451DBC3001AD1C8 /* TopGeeksViewController.swift */,
+				0B9499CA2451DBC3001AD1C8 /* TopGeeksPresenter.swift */,
+				0B9499CB2451DBC3001AD1C8 /* TopGeeksInteractor.swift */,
+			);
+			path = TopGeeksVC;
+			sourceTree = "<group>";
+		};
+		0B9499CC2451DBC4001AD1C8 /* ContactUSLegalVC */ = {
+			isa = PBXGroup;
+			children = (
+				0B9499CD2451DBC4001AD1C8 /* ContactUSCell.swift */,
+				0B9499CE2451DBC4001AD1C8 /* ContactUS_LegalInteractor.swift */,
+				0B9499CF2451DBC4001AD1C8 /* ContactUS_LegalPresenter.swift */,
+				0B9499D02451DBC4001AD1C8 /* ContactUS_LegalViewController.swift */,
+			);
+			path = ContactUSLegalVC;
 			sourceTree = "<group>";
 		};
 		0BBD65EE2449C8A400CA178A /* DashBoard */ = {
@@ -722,6 +840,7 @@
 		F79604BA24459767002FFB79 /* UIView */ = {
 			isa = PBXGroup;
 			children = (
+				0B9499B32451DBA4001AD1C8 /* CommonTblListCell */,
 				F7C3CDB7245169B200980835 /* MyCustomTextField */,
 				0B53567824508827005571AF /* CustomImageLayout */,
 				0BF70810244F1D6B003D6AB7 /* DiscoverCollectionCell */,
@@ -1299,6 +1418,7 @@
 				0BE2127B244976AF004817BC /* Poppins-BlackItalic.ttf in Resources */,
 				F7DFAE3E24501192008863F3 /* tickMark.png in Resources */,
 				0BE2127D244976AF004817BC /* Poppins-LightItalic.ttf in Resources */,
+				0B9499B72451DBA5001AD1C8 /* CommonTblListCell.xib in Resources */,
 				F7F9679C2451B90A00BD7275 /* questionnaire.json in Resources */,
 				0BE21278244976AF004817BC /* Poppins-SemiBoldItalic.ttf in Resources */,
 				0BE2127E244976AF004817BC /* Poppins-Bold.ttf in Resources */,
@@ -1409,7 +1529,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F76A8D832440396800ED9947 /* CustomerWindowExtension.swift in Sources */,
+				0B9499D22451DBC4001AD1C8 /* ManageSubscriptionInteractor.swift in Sources */,
 				F7F967952451ABF400BD7275 /* SelectAgeRangePresenter.swift in Sources */,
+				0B9499DB2451DBC4001AD1C8 /* AccountSettingViewController.swift in Sources */,
 				F96C2D292037E92B00F8CBC7 /* MirroringViewController.swift in Sources */,
 				0BBD65F72449C8A500CA178A /* MatchViewController.swift in Sources */,
 				0B319655244DE80500B38350 /* MenuInteractor.swift in Sources */,
@@ -1428,8 +1550,10 @@
 				F97A9A2E21103FAD007C45F5 /* CGFloatExtensions.swift in Sources */,
 				0B31965C244DE80500B38350 /* ProfilePhotosCell.swift in Sources */,
 				F79CA6F1244D9C5100C9A7EB /* UserProfileViewController.swift in Sources */,
+				0B9499D12451DBC4001AD1C8 /* ManageSubscriptionPresenter.swift in Sources */,
 				F97A9A2A21103FA2007C45F5 /* UIViewControllerExtensions.swift in Sources */,
 				F9A453C0203AA74A0065C9FD /* LoginPresenter.swift in Sources */,
+				0B9499B62451DBA5001AD1C8 /* CommonTblListCell.swift in Sources */,
 				F7164ABF244EB78600853BFC /* ForgotPasswordViewController.swift in Sources */,
 				F995BDC1204D1277005E5279 /* KeyMessages.swift in Sources */,
 				F716F2A524495EDD0063680F /* UITextFieldExtensions.swift in Sources */,
@@ -1437,6 +1561,7 @@
 				F76A8D842440396800ED9947 /* BlockClass.swift in Sources */,
 				0B319663244DE80500B38350 /* TabbarPresenter.swift in Sources */,
 				F7DFAE3D24501192008863F3 /* CountryPickerWithSectionViewController.swift in Sources */,
+				0B9499D92451DBC4001AD1C8 /* CommonPagesInteractor.swift in Sources */,
 				F7D5259B244869FB002D3A42 /* SignInInteractor.swift in Sources */,
 				F7164AC7244EB86F00853BFC /* AddPhotosInteractor.swift in Sources */,
 				0B319659244DE80500B38350 /* HomeViewController.swift in Sources */,
@@ -1449,6 +1574,7 @@
 				F79CA6F7244DD4D900C9A7EB /* RadioButton.swift in Sources */,
 				F716F2AB24498F630063680F /* SignUpVCInteractor.swift in Sources */,
 				F7164AC6244EB86F00853BFC /* AddPhotosViewController.swift in Sources */,
+				0B9499E22451DBC4001AD1C8 /* ContactUS_LegalPresenter.swift in Sources */,
 				F7D5259224481DB5002D3A42 /* InitialLoginInteractor.swift in Sources */,
 				F90B4CDE2032AAB8006ADAF6 /* AppDelegate.swift in Sources */,
 				F953B8D620467AFB00BE4F67 /* SettingsViewController.swift in Sources */,
@@ -1463,12 +1589,15 @@
 				F716F2A924498F630063680F /* SignUpVCPresenter.swift in Sources */,
 				0B319658244DE80500B38350 /* HomeInteractor.swift in Sources */,
 				0BF7081F244F1D6B003D6AB7 /* MessageListCell.swift in Sources */,
+				0B9499D72451DBC4001AD1C8 /* CommonPagesPresenter.swift in Sources */,
 				F7D5259C244869FB002D3A42 /* SignInViewController.swift in Sources */,
 				0B53567A24508827005571AF /* CustomImageLayout.swift in Sources */,
 				0BF7081A244F1D6B003D6AB7 /* StoryCollectionCell.swift in Sources */,
 				F953B8D420467AFB00BE4F67 /* SettingsInteractor.swift in Sources */,
+				0B9499DE2451DBC4001AD1C8 /* TopGeeksPresenter.swift in Sources */,
 				0B5356722450870F005571AF /* BoostInteractor.swift in Sources */,
 				F7F967972451ABF400BD7275 /* SelectAgeRangeInteractor.swift in Sources */,
+				0B9499E02451DBC4001AD1C8 /* ContactUSCell.swift in Sources */,
 				F7D5259A244869FB002D3A42 /* SignInPresenter.swift in Sources */,
 				F9A453CF203AA74B0065C9FD /* SplashInteractor.swift in Sources */,
 				F7DFAE3A24501192008863F3 /* CountryPickerController.swift in Sources */,
@@ -1492,6 +1621,7 @@
 				F9A453D5203AA74B0065C9FD /* SplashViewController.swift in Sources */,
 				0BF7080B244F1D3C003D6AB7 /* MatchProfilePresenter.swift in Sources */,
 				0B535686245088DC005571AF /* EditProfileViewController.swift in Sources */,
+				0B9499E32451DBC4001AD1C8 /* ContactUS_LegalViewController.swift in Sources */,
 				0BF7080A244F1D3C003D6AB7 /* MatchProfileViewController.swift in Sources */,
 				F97A9A2D21103FAA007C45F5 /* EZSwiftFunctions.swift in Sources */,
 				F7F967962451ABF400BD7275 /* SelectAgeRangeViewController.swift in Sources */,
@@ -1507,18 +1637,22 @@
 				F90B4CE52032F4A6006ADAF6 /* SOService.swift in Sources */,
 				0BBD66072449C8FC00CA178A /* SwipeableCards.swift in Sources */,
 				F7DFAE3924501192008863F3 /* Country.swift in Sources */,
+				0B9499E12451DBC4001AD1C8 /* ContactUS_LegalInteractor.swift in Sources */,
 				F7D5259024481DB5002D3A42 /* InitialLoginPresenter.swift in Sources */,
 				F90B4CE22032F4A6006ADAF6 /* SOAPI.swift in Sources */,
 				0B31965B244DE80500B38350 /* ProfilePresenter.swift in Sources */,
 				0B535689245088DC005571AF /* EditProfileInteractor.swift in Sources */,
+				0B9499D62451DBC4001AD1C8 /* DiscoverySettingPresenter.swift in Sources */,
 				F7CD7A4E24442F3A00E02A9E /* TutorialPageViewController.swift in Sources */,
 				0B53566E2450870F005571AF /* MyMatchesViewController.swift in Sources */,
 				F79CA6F2244D9C5100C9A7EB /* UserProfileInteractor.swift in Sources */,
+				0B9499DC2451DBC4001AD1C8 /* AccountSettingInteractor.swift in Sources */,
 				F96C2D232037E92B00F8CBC7 /* L102Language.swift in Sources */,
 				F95238312047D66B00BC0D49 /* ChangePasswordViewController.swift in Sources */,
 				0BF7081E244F1D6B003D6AB7 /* ReactEmojiCollectionCell.swift in Sources */,
 				F7164ACF244EE90700853BFC /* OTPEnterViewController.swift in Sources */,
 				0B53568A245088DC005571AF /* EditInformationCell.swift in Sources */,
+				0B9499DF2451DBC4001AD1C8 /* TopGeeksInteractor.swift in Sources */,
 				0B319656244DE80500B38350 /* MenuCell.swift in Sources */,
 				0BF7081B244F1D6B003D6AB7 /* DiscoverCollectionCell.swift in Sources */,
 				F9EDD434203BFF33008FA83F /* ProfileUrl.swift in Sources */,
@@ -1535,18 +1669,24 @@
 				0B535688245088DC005571AF /* EditProfilePresenter.swift in Sources */,
 				F7164AC0244EB78600853BFC /* ForgotPasswordPresenter.swift in Sources */,
 				0B31965E244DE80500B38350 /* ProfileCompanyCell.swift in Sources */,
+				0B9499D42451DBC4001AD1C8 /* DiscoverySettingViewController.swift in Sources */,
+				0B9499DA2451DBC4001AD1C8 /* AccountSettingPresenter.swift in Sources */,
 				F7164ACE244EE90700853BFC /* OTPEnterPresenter.swift in Sources */,
 				0B319660244DE80500B38350 /* ProfileInterestCell.swift in Sources */,
 				F97A9A2B21103FA4007C45F5 /* StringExtensions.swift in Sources */,
 				F79604BD244597A2002FFB79 /* TutorialCell.swift in Sources */,
+				0B9499D82451DBC4001AD1C8 /* CommonPagesViewController.swift in Sources */,
+				0B9499DD2451DBC4001AD1C8 /* TopGeeksViewController.swift in Sources */,
 				F73002D12446F4D000BDD7FD /* InitialSignUpViewController.swift in Sources */,
 				0B5356702450870F005571AF /* MyMatchesPresenter.swift in Sources */,
 				0B535685245088DC005571AF /* EditSocialLinkCell.swift in Sources */,
 				0BF70804244F1D2C003D6AB7 /* MessagesInteractor.swift in Sources */,
 				F79CA6F0244D9C5100C9A7EB /* UserProfilePresenter.swift in Sources */,
+				0B9499D52451DBC4001AD1C8 /* DiscoverySettingInteractor.swift in Sources */,
 				0B53567624508775005571AF /* GradientLabel.swift in Sources */,
 				F7164AC9244EBD4F00853BFC /* AddPhotoCollectionViewCell.swift in Sources */,
 				F96C2D202037E92B00F8CBC7 /* L012Localizer.swift in Sources */,
+				0B9499D32451DBC4001AD1C8 /* ManageSubscriptionViewController.swift in Sources */,
 				F952382F2047D66B00BC0D49 /* ChangePasswordInteractor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

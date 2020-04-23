@@ -175,9 +175,32 @@ extension MenuViewController : UITableViewDataSource, UITableViewDelegate {
         if indexPath.row == 0 {
             let matchVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.MyMatchesScreen)
             self.pushVC(matchVC)
+        } else if indexPath.row == 1 {
+            let subVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.ManageSubscriptionScreen)
+            self.pushVC(subVC)
         } else if indexPath.row == 2 {
             let boostVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.BoostScreen)
             self.pushVC(boostVC)
+        } else if indexPath.row == 3 {
+            let boostVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.TopGeeksScreen)
+            self.pushVC(boostVC)
+        } else if indexPath.row == 4 {
+            let accVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.AccountSettingScreen)
+            self.pushVC(accVC)
+        } else if indexPath.row == 5 {
+            let discVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.DiscoverySettingScreen)
+            self.pushVC(discVC)
+        } else if indexPath.row == 9 {
+            let discVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.CommonPagesScreen)
+            self.pushVC(discVC)
+        } else if indexPath.row == 10 {
+//            let conVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.ContactUS_LegalScreen) as? ContactUS_LegalViewController
+//            conVC?.isForLegal = false
+//            self.pushVC(conVC!)
+        } else if indexPath.row == 11 {
+//            let conVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.ContactUS_LegalScreen) as? ContactUS_LegalViewController
+//            conVC?.isForLegal = true
+//            self.pushVC(conVC!)
         }
     }
 }
