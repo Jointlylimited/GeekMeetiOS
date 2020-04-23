@@ -136,6 +136,12 @@
 		F7DFAE3D24501192008863F3 /* CountryPickerWithSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DFAE3324501192008863F3 /* CountryPickerWithSectionViewController.swift */; };
 		F7DFAE3E24501192008863F3 /* tickMark.png in Resources */ = {isa = PBXBuildFile; fileRef = F7DFAE3424501192008863F3 /* tickMark.png */; };
 		F7DFAE3F24501192008863F3 /* CountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DFAE3624501192008863F3 /* CountryCell.swift */; };
+		F7F9678F2451AAF200BD7275 /* Questionnaire.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7F9678E2451AAF100BD7275 /* Questionnaire.storyboard */; };
+		F7F967952451ABF400BD7275 /* SelectAgeRangePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F967922451ABF400BD7275 /* SelectAgeRangePresenter.swift */; };
+		F7F967962451ABF400BD7275 /* SelectAgeRangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F967932451ABF400BD7275 /* SelectAgeRangeViewController.swift */; };
+		F7F967972451ABF400BD7275 /* SelectAgeRangeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F967942451ABF400BD7275 /* SelectAgeRangeInteractor.swift */; };
+		F7F9679A2451B23F00BD7275 /* QuestionnaireModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F967992451B23F00BD7275 /* QuestionnaireModel.swift */; };
+		F7F9679C2451B90A00BD7275 /* questionnaire.json in Resources */ = {isa = PBXBuildFile; fileRef = F7F9679B2451B90900BD7275 /* questionnaire.json */; };
 		F90B4C9E20329C45006ADAF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F90B4C9C20329C45006ADAF6 /* Main.storyboard */; };
 		F90B4CA020329C45006ADAF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F90B4C9F20329C45006ADAF6 /* Assets.xcassets */; };
 		F90B4CA320329C45006ADAF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F90B4CA120329C45006ADAF6 /* LaunchScreen.storyboard */; };
@@ -315,6 +321,12 @@
 		F7DFAE3324501192008863F3 /* CountryPickerWithSectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryPickerWithSectionViewController.swift; sourceTree = "<group>"; };
 		F7DFAE3424501192008863F3 /* tickMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tickMark.png; sourceTree = "<group>"; };
 		F7DFAE3624501192008863F3 /* CountryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryCell.swift; sourceTree = "<group>"; };
+		F7F9678E2451AAF100BD7275 /* Questionnaire.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Questionnaire.storyboard; sourceTree = "<group>"; };
+		F7F967922451ABF400BD7275 /* SelectAgeRangePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAgeRangePresenter.swift; sourceTree = "<group>"; };
+		F7F967932451ABF400BD7275 /* SelectAgeRangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAgeRangeViewController.swift; sourceTree = "<group>"; };
+		F7F967942451ABF400BD7275 /* SelectAgeRangeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAgeRangeInteractor.swift; sourceTree = "<group>"; };
+		F7F967992451B23F00BD7275 /* QuestionnaireModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionnaireModel.swift; sourceTree = "<group>"; };
+		F7F9679B2451B90900BD7275 /* questionnaire.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = questionnaire.json; sourceTree = "<group>"; };
 		F9031F1A2035A534002EBE92 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		F9031F1E2035A548002EBE92 /* Staging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Staging.xcconfig; sourceTree = "<group>"; };
 		F9031F222035A562002EBE92 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
@@ -857,6 +869,33 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		F7F967902451AB0900BD7275 /* Questionnaire */ = {
+			isa = PBXGroup;
+			children = (
+				F7F967982451B22C00BD7275 /* Models */,
+				F7F967912451ABDB00BD7275 /* SelectAgeRange */,
+			);
+			path = Questionnaire;
+			sourceTree = "<group>";
+		};
+		F7F967912451ABDB00BD7275 /* SelectAgeRange */ = {
+			isa = PBXGroup;
+			children = (
+				F7F967922451ABF400BD7275 /* SelectAgeRangePresenter.swift */,
+				F7F967932451ABF400BD7275 /* SelectAgeRangeViewController.swift */,
+				F7F967942451ABF400BD7275 /* SelectAgeRangeInteractor.swift */,
+			);
+			path = SelectAgeRange;
+			sourceTree = "<group>";
+		};
+		F7F967982451B22C00BD7275 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F7F967992451B23F00BD7275 /* QuestionnaireModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		F9031F192035A51B002EBE92 /* Config */ = {
 			isa = PBXGroup;
 			children = (
@@ -990,6 +1029,7 @@
 		F90B4CD72032A87B006ADAF6 /* Documents */ = {
 			isa = PBXGroup;
 			children = (
+				F7F9679B2451B90900BD7275 /* questionnaire.json */,
 				F90B4CD82032A87B006ADAF6 /* Structure_Guide.rtf */,
 			);
 			path = Documents;
@@ -1111,6 +1151,7 @@
 		F9A453A2203AA74A0065C9FD /* VIP */ = {
 			isa = PBXGroup;
 			children = (
+				F7F967902451AB0900BD7275 /* Questionnaire */,
 				0B5356652450870F005571AF /* MenuScreens */,
 				0BBD65EE2449C8A400CA178A /* DashBoard */,
 				F7CD7A4924442BCA00E02A9E /* Main */,
@@ -1167,6 +1208,7 @@
 				F90B4CA120329C45006ADAF6 /* LaunchScreen.storyboard */,
 				F953B8DD20467B3300BE4F67 /* Settings.storyboard */,
 				F7D52593244858F3002D3A42 /* LoginSingUp.storyboard */,
+				F7F9678E2451AAF100BD7275 /* Questionnaire.storyboard */,
 			);
 			path = StoryBoard;
 			sourceTree = "<group>";
@@ -1257,6 +1299,7 @@
 				0BE2127B244976AF004817BC /* Poppins-BlackItalic.ttf in Resources */,
 				F7DFAE3E24501192008863F3 /* tickMark.png in Resources */,
 				0BE2127D244976AF004817BC /* Poppins-LightItalic.ttf in Resources */,
+				F7F9679C2451B90A00BD7275 /* questionnaire.json in Resources */,
 				0BE21278244976AF004817BC /* Poppins-SemiBoldItalic.ttf in Resources */,
 				0BE2127E244976AF004817BC /* Poppins-Bold.ttf in Resources */,
 				0BE21283244976AF004817BC /* Poppins-MediumItalic.ttf in Resources */,
@@ -1265,6 +1308,7 @@
 				F7D52594244858F3002D3A42 /* LoginSingUp.storyboard in Resources */,
 				0B31963B244DE7E100B38350 /* PhotoEmojiCell.xib in Resources */,
 				F7DFAE3B24501192008863F3 /* CountryPickerController.bundle in Resources */,
+				F7F9678F2451AAF200BD7275 /* Questionnaire.storyboard in Resources */,
 				F953B8DE20467B3300BE4F67 /* Settings.storyboard in Resources */,
 				0BE21272244976AF004817BC /* Poppins-ExtraLight.ttf in Resources */,
 				F90B4C9E20329C45006ADAF6 /* Main.storyboard in Resources */,
@@ -1365,6 +1409,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F76A8D832440396800ED9947 /* CustomerWindowExtension.swift in Sources */,
+				F7F967952451ABF400BD7275 /* SelectAgeRangePresenter.swift in Sources */,
 				F96C2D292037E92B00F8CBC7 /* MirroringViewController.swift in Sources */,
 				0BBD65F72449C8A500CA178A /* MatchViewController.swift in Sources */,
 				0B319655244DE80500B38350 /* MenuInteractor.swift in Sources */,
@@ -1396,6 +1441,7 @@
 				F7164AC7244EB86F00853BFC /* AddPhotosInteractor.swift in Sources */,
 				0B319659244DE80500B38350 /* HomeViewController.swift in Sources */,
 				F9A453C3203AA74B0065C9FD /* LoginViewController.swift in Sources */,
+				F7F9679A2451B23F00BD7275 /* QuestionnaireModel.swift in Sources */,
 				F9A453CC203AA74B0065C9FD /* SignUpViewController.swift in Sources */,
 				F96C2D2D20380B1A00F8CBC7 /* Validator.swift in Sources */,
 				0B53568B245088DC005571AF /* EditPhotosCell.swift in Sources */,
@@ -1422,6 +1468,7 @@
 				0BF7081A244F1D6B003D6AB7 /* StoryCollectionCell.swift in Sources */,
 				F953B8D420467AFB00BE4F67 /* SettingsInteractor.swift in Sources */,
 				0B5356722450870F005571AF /* BoostInteractor.swift in Sources */,
+				F7F967972451ABF400BD7275 /* SelectAgeRangeInteractor.swift in Sources */,
 				F7D5259A244869FB002D3A42 /* SignInPresenter.swift in Sources */,
 				F9A453CF203AA74B0065C9FD /* SplashInteractor.swift in Sources */,
 				F7DFAE3A24501192008863F3 /* CountryPickerController.swift in Sources */,
@@ -1447,6 +1494,7 @@
 				0B535686245088DC005571AF /* EditProfileViewController.swift in Sources */,
 				0BF7080A244F1D3C003D6AB7 /* MatchProfileViewController.swift in Sources */,
 				F97A9A2D21103FAA007C45F5 /* EZSwiftFunctions.swift in Sources */,
+				F7F967962451ABF400BD7275 /* SelectAgeRangeViewController.swift in Sources */,
 				F73002CB2446F0B600BDD7FD /* UITapGestureRecognizerExtensions.swift in Sources */,
 				F7C3CDB9245169E500980835 /* MyCustomTextField.swift in Sources */,
 				F97A9A2F21103FAF007C45F5 /* UserDefaultsExtension.swift in Sources */,

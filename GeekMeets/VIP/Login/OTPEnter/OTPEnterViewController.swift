@@ -92,6 +92,8 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     }
   
   @IBAction func actionVerifyOTP(_ sender: Any) {
+      
+    self.presenter?.actionVerifyOTP()
     
   }
 }

@@ -29,6 +29,7 @@ struct GeekMeets_StoryBoard
 {
     static let Main = UIStoryboard(name: "Main", bundle: nil)
     static let LoginSignUp = UIStoryboard(name: "LoginSingUp", bundle: nil)
+    static let Questionnaire = UIStoryboard(name: "Questionnaire", bundle: nil)
     static let Profile = UIStoryboard(name: "Profile", bundle: nil)
     static let SideMenu = UIStoryboard(name: "SideMenu", bundle: nil)
     static let Home = UIStoryboard(name: "Home", bundle: nil)
@@ -46,6 +47,7 @@ struct GeekMeets_ViewController
     static let AddPhotos = "AddPhotosViewController"
     static let OTPEnter =  "OTPEnterViewController"
     static let UserProfile = "UserProfileViewController"
+    static let SelectAgeRange = "SelectAgeRangeViewController"
     static let compeleteProfile = "CompleteProfileViewController"
     static let  sideMenu = "SideMenuViewController"
     static let SelectLanguageScreen = "SelectLanguageViewController"

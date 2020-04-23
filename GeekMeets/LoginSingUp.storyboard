@@ -20,22 +20,6 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Sign Up View Controller-->
-        <scene sceneID="5JR-ZL-d75">
-            <objects>
-                <viewController storyboardIdentifier="SignUpViewController" id="yYS-cL-mqN" customClass="SignUpViewController" customModule="GeekMeets" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="iAw-9s-9cy">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="cdv-sT-XXi"/>
-                    </view>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9ZT-rf-Qq2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="170" y="-86"/>
-        </scene>
         <!--Sign In View Controller-->
         <scene sceneID="obc-YX-HMd">
             <objects>
@@ -1039,13 +1023,13 @@
                                 <rect key="frame" x="15" y="0.0" width="32" height="32"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Photos" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ge-ue-h4Q" customClass="LocalizedLabel" customModule="GeekMeets" customModuleProvider="target">
-                                <rect key="frame" x="15" y="42" width="161.33333333333334" height="39.333333333333343"/>
+                                <rect key="frame" x="15" y="42" width="148" height="32.666666666666657"/>
                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="28"/>
                                 <color key="textColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uoX-DB-LEe">
-                                <rect key="frame" x="10" y="111.33333333333337" width="365" height="380"/>
+                                <rect key="frame" x="10" y="104.66666666666663" width="365" height="380"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="FL3-tZ-i3D">
                                     <size key="itemSize" width="100" height="100"/>
@@ -1073,7 +1057,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cmo-7K-a7J">
-                                                            <rect key="frame" x="0.0" y="0.0" width="126.00000000000003" height="126"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="126" height="126"/>
                                                             <state key="normal" backgroundImage="icn_add_photo"/>
                                                             <connections>
                                                                 <action selector="actionAddImg:" destination="bc4-cd-tPF" eventType="touchUpInside" id="naR-K2-GNM"/>
@@ -1153,7 +1137,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 / 3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wNn-RR-Bfk" customClass="LocalizedLabel" customModule="GeekMeets" customModuleProvider="target">
-                                <rect key="frame" x="326.66666666666669" y="52" width="28.333333333333314" height="19.666666666666671"/>
+                                <rect key="frame" x="326.66666666666669" y="50.333333333333343" width="28.333333333333314" height="16.333333333333329"/>
                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>

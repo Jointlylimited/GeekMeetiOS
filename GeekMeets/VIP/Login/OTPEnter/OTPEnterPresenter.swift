@@ -14,6 +14,7 @@ import UIKit
 
 protocol OTPEnterPresentationProtocol {
     func presentSomething()
+    func actionVerifyOTP()
 }
 
 class OTPEnterPresenter: OTPEnterPresentationProtocol {
@@ -23,5 +24,13 @@ class OTPEnterPresenter: OTPEnterPresentationProtocol {
     // MARK: Present something
     func presentSomething() {
         
+    }
+    
+    func actionVerifyOTP() {
+        let controller = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange)
+        if let view = self.viewController as? UIViewController
+        {
+            view.pushVC(controller)
+        }
     }
 }
