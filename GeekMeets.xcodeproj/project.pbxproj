@@ -116,6 +116,7 @@
 		F79CA6F1244D9C5100C9A7EB /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79CA6EE244D9C5100C9A7EB /* UserProfileViewController.swift */; };
 		F79CA6F2244D9C5100C9A7EB /* UserProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79CA6EF244D9C5100C9A7EB /* UserProfileInteractor.swift */; };
 		F79CA6F7244DD4D900C9A7EB /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79CA6F6244DD4D800C9A7EB /* RadioButton.swift */; };
+		F7C3CDB9245169E500980835 /* MyCustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C3CDB8245169E500980835 /* MyCustomTextField.swift */; };
 		F7CD7A4D24442F3A00E02A9E /* TutorialPagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CD7A4A24442F3A00E02A9E /* TutorialPagePresenter.swift */; };
 		F7CD7A4E24442F3A00E02A9E /* TutorialPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CD7A4B24442F3A00E02A9E /* TutorialPageViewController.swift */; };
 		F7CD7A4F24442F3A00E02A9E /* TutorialPageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CD7A4C24442F3A00E02A9E /* TutorialPageInteractor.swift */; };
@@ -294,6 +295,7 @@
 		F79CA6EE244D9C5100C9A7EB /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		F79CA6EF244D9C5100C9A7EB /* UserProfileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileInteractor.swift; sourceTree = "<group>"; };
 		F79CA6F6244DD4D800C9A7EB /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
+		F7C3CDB8245169E500980835 /* MyCustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCustomTextField.swift; sourceTree = "<group>"; };
 		F7CD7A4A24442F3A00E02A9E /* TutorialPagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPagePresenter.swift; sourceTree = "<group>"; };
 		F7CD7A4B24442F3A00E02A9E /* TutorialPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPageViewController.swift; sourceTree = "<group>"; };
 		F7CD7A4C24442F3A00E02A9E /* TutorialPageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPageInteractor.swift; sourceTree = "<group>"; };
@@ -708,6 +710,7 @@
 		F79604BA24459767002FFB79 /* UIView */ = {
 			isa = PBXGroup;
 			children = (
+				F7C3CDB7245169B200980835 /* MyCustomTextField */,
 				0B53567824508827005571AF /* CustomImageLayout */,
 				0BF70810244F1D6B003D6AB7 /* DiscoverCollectionCell */,
 				0BF70816244F1D6B003D6AB7 /* MessageListCell */,
@@ -746,6 +749,14 @@
 				F79CA6F6244DD4D800C9A7EB /* RadioButton.swift */,
 			);
 			path = "Localized UIView";
+			sourceTree = "<group>";
+		};
+		F7C3CDB7245169B200980835 /* MyCustomTextField */ = {
+			isa = PBXGroup;
+			children = (
+				F7C3CDB8245169E500980835 /* MyCustomTextField.swift */,
+			);
+			path = MyCustomTextField;
 			sourceTree = "<group>";
 		};
 		F7CD7A4924442BCA00E02A9E /* Main */ = {
@@ -1437,6 +1448,7 @@
 				0BF7080A244F1D3C003D6AB7 /* MatchProfileViewController.swift in Sources */,
 				F97A9A2D21103FAA007C45F5 /* EZSwiftFunctions.swift in Sources */,
 				F73002CB2446F0B600BDD7FD /* UITapGestureRecognizerExtensions.swift in Sources */,
+				F7C3CDB9245169E500980835 /* MyCustomTextField.swift in Sources */,
 				F97A9A2F21103FAF007C45F5 /* UserDefaultsExtension.swift in Sources */,
 				F7CD7A4D24442F3A00E02A9E /* TutorialPagePresenter.swift in Sources */,
 				F7164AD0244EE90700853BFC /* OTPEnterInteractor.swift in Sources */,

@@ -8,7 +8,24 @@
 
 import Foundation
 import UIKit
+protocol OptionButtonsDelegate{
+    func closeFriendsTapped(at index:IndexPath)
+    func actionRemoveIMG(at index:IndexPath)
+}
+
 class AddPhotoCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var myLabel: UILabel!
+   var delegate:OptionButtonsDelegate!
+      @IBOutlet weak var closeFriendsBtn: UIButton!
+      var indexPath:IndexPath!
+      @IBAction func actionAddImg(_ sender: UIButton) {
+          self.delegate?.closeFriendsTapped(at: indexPath)
+      }
+  @IBAction func actionRemoveImg(_ sender: UIButton) {
+      self.delegate?.actionRemoveIMG(at: indexPath)
+  }
+      
+     @IBOutlet weak var btnAddImg: UIButton!
+     @IBOutlet weak var btnRemoveImg: UIButton!
+     @IBOutlet weak var imgPhotos: UIImageView!
 }

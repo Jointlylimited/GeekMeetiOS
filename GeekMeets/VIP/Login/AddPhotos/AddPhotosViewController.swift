@@ -19,8 +19,12 @@ protocol AddPhotosProtocol: class {
 class AddPhotosViewController: UIViewController, AddPhotosProtocol {
     //var interactor : AddPhotosInteractorProtocol?
     var presenter : AddPhotosPresentationProtocol?
+    
     @IBOutlet weak var clnAddPhoto: UICollectionView!
-    @IBOutlet weak var btnDone: UIButton!
+    @IBOutlet weak var btnDone: GradientButton!
+  
+    //USER PHOTOS
+    var imgsUserPhotos:[UIImage] = []
   // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -68,7 +72,6 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
         self.navigationController?.isNavigationBarHidden = false
         self.navigationItem.leftBarButtonItem = leftSideBackBarButton
         self.navigationController?.navigationBar.barTintColor = UIColor.white
-        btnDone.applyGradient(colors: AppCommonColor.gredientColor)
     }
     
     func displaySomething() {
@@ -80,8 +83,12 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
       self.presenter?.actionDone()
   }
 }
-extension AddPhotosViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
+extension AddPhotosViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,OptionButtonsDelegate
 {
+ 
+  
+  
+  
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 9
     }
@@ -90,7 +97,19 @@ extension AddPhotosViewController: UICollectionViewDelegate, UICollectionViewDat
     {
         let cell : AddPhotoCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddPhotoCell", for: indexPath) as! AddPhotoCollectionViewCell
 //        cell.tutorialData = self.tutorialData[indexPath.row]
-        return cell
+          cell.btnRemoveImg.isHidden = true
+          cell.btnAddImg.isHidden = false
+          cell.imgPhotos.isHidden = true
+          if indexPath.row < imgsUserPhotos.count {
+            cell.imgPhotos.isHidden = false
+            cell.imgPhotos.image = imgsUserPhotos[indexPath.row] as UIImage
+            cell.btnRemoveImg.isHidden = false
+            cell.btnAddImg.isHidden = true
+          }
+     
+          cell.delegate = self
+          cell.indexPath = indexPath
+          return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -110,4 +129,79 @@ extension AddPhotosViewController: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
+  
+  
+    //DelegateMethod
+    func closeFriendsTapped(at index: IndexPath) {
+      Getimage()
+    }
+  
+    func actionRemoveIMG(at index: IndexPath) {
+      imgsUserPhotos.remove(at: index.row)
+      clnAddPhoto.reloadData()
+     }
+}
+
+extension AddPhotosViewController:  UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+ 
+  
+  
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+     let image = info[UIImagePickerController.InfoKey.originalImage]
+        imgsUserPhotos.append(image as! UIImage)
+     picker.dismiss(animated: true, completion: nil);
+     clnAddPhoto.reloadData()
+  }
+  
+  func Getimage(){
+    let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
+           alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
+               self.openCamera()
+           }))
+
+           alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in
+               self.openGallery()
+           }))
+
+           alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+
+           self.present(alert, animated: true, completion: nil)
+    
+  }
+  
+  
+  
+  func openCamera()
+  {
+      if UIImagePickerController.isSourceTypeAvailable(.camera) {
+          let imagePicker = UIImagePickerController()
+          imagePicker.delegate = self
+          imagePicker.sourceType = UIImagePickerController.SourceType.camera
+          imagePicker.allowsEditing = false
+          self.present(imagePicker, animated: true, completion: nil)
+      }
+      else
+      {
+          let alert  = UIAlertController(title: "Warning", message: "You don't have camera", preferredStyle: .alert)
+          alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+          self.present(alert, animated: true, completion: nil)
+      }
+  }
+  func openGallery()
+  {
+      if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary){
+          let imagePicker = UIImagePickerController()
+          imagePicker.delegate = self
+          imagePicker.allowsEditing = false
+          imagePicker.sourceType = UIImagePickerController.SourceType.savedPhotosAlbum
+          self.present(imagePicker, animated: true, completion: nil)
+      }
+      else
+      {
+          let alert  = UIAlertController(title: "Warning", message: "You don't have permission to access gallery.", preferredStyle: .alert)
+          alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+          self.present(alert, animated: true, completion: nil)
+      }
+  }
+
 }

@@ -25,9 +25,14 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
     @IBOutlet weak var tfCompanyDetail: UITextField!
     @IBOutlet weak var tfAbout: UITextField!
     @IBOutlet weak var imgprofile: UIImageView!
-    @IBOutlet weak var btnContinue: UIButton!
+    @IBOutlet weak var btnContinue: GradientButton!
     @IBOutlet weak var btnWork: UIButton!
     @IBOutlet weak var btnStudy: UIButton!
+    @IBOutlet weak var btnMale: UIButton!
+    @IBOutlet weak var btnFemale: UIButton!
+    @IBOutlet weak var btnOther: UIButton!
+    @IBOutlet weak var btnPreferNottoSay: UIButton!
+  
   // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -80,7 +85,6 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
       tfAge.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
       tfAbout.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
       tfCompanyDetail.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
-      btnContinue.applyGradient(colors: AppCommonColor.gredientColor)
       imgprofile.setCornerRadius(radius: imgprofile.frame.size.width/2)
       
       let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
@@ -93,21 +97,35 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
           let tappedImage = tapGestureRecognizer.view as! UIImageView
 
           print( "Your action")
+          Getimage()
       }
       
+  
+    @IBAction func btnSelectGender(sender:UIButton){
+
+        let buttonArray = [btnMale,btnFemale,btnOther,btnPreferNottoSay]
+
+        buttonArray.forEach{
+
+            $0?.isSelected = false
+        }
+
+        sender.isSelected = true
+
+
+    }
       
-    @IBAction func btnClicked(sender:UIButton){
+    @IBAction func btnCurrentStatusClicked(sender:UIButton){
 
         let buttonArray = [btnWork,btnStudy]
 
         buttonArray.forEach{
 
             $0?.isSelected = false
-          sender.setImage(UIImage(named: "checkbox") as! UIImage, for: .normal)
         }
 
         sender.isSelected = true
-      sender.setImage(#imageLiteral(resourceName: "icn_radio_ena"), for: .normal)
+
 
     }
   
@@ -128,4 +146,69 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
           navigationController?.setNavigationBarHidden(false, animated: true)
        }
     }
+}
+
+
+extension UserProfileViewController:  UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+ 
+  
+  
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+     let image = info[UIImagePickerController.InfoKey.originalImage]
+    imgprofile.image = image as! UIImage
+     picker.dismiss(animated: true, completion: nil);
+     
+  }
+  
+  func Getimage(){
+    let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
+           alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
+               self.openCamera()
+           }))
+
+           alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in
+               self.openGallery()
+           }))
+
+           alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+
+           self.present(alert, animated: true, completion: nil)
+    
+  }
+  
+  
+  
+  func openCamera()
+  {
+      if UIImagePickerController.isSourceTypeAvailable(.camera) {
+          let imagePicker = UIImagePickerController()
+          imagePicker.delegate = self
+          imagePicker.sourceType = UIImagePickerController.SourceType.camera
+          imagePicker.allowsEditing = false
+          self.present(imagePicker, animated: true, completion: nil)
+      }
+      else
+      {
+          let alert  = UIAlertController(title: "Warning", message: "You don't have camera", preferredStyle: .alert)
+          alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+          self.present(alert, animated: true, completion: nil)
+      }
+  }
+  func openGallery()
+  {
+      if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary){
+          let imagePicker = UIImagePickerController()
+          imagePicker.delegate = self
+          imagePicker.allowsEditing = false
+          imagePicker.sourceType = UIImagePickerController.SourceType.savedPhotosAlbum
+          self.present(imagePicker, animated: true, completion: nil)
+      }
+      else
+      {
+          let alert  = UIAlertController(title: "Warning", message: "You don't have permission to access gallery.", preferredStyle: .alert)
+          alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+          self.present(alert, animated: true, completion: nil)
+      }
+  }
+
 }

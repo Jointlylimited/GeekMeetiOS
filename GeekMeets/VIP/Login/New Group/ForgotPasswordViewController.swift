@@ -20,8 +20,8 @@ class ForgotPasswordViewController: UIViewController, ForgotPasswordProtocol {
     //var interactor : ForgotPasswordInteractorProtocol?
     var presenter : ForgotPasswordPresentationProtocol?
     
-    @IBOutlet weak var btnSend: UIButton!
-    @IBOutlet weak var tfEmail: UITextField!
+    @IBOutlet weak var btnSend: GradientButton!
+    @IBOutlet weak var tfEmail: MyCustomTextField!
   // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -76,7 +76,7 @@ class ForgotPasswordViewController: UIViewController, ForgotPasswordProtocol {
 //            self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
             self.navigationItem.leftBarButtonItem = leftSideBackBarButton
             self.navigationController?.navigationBar.barTintColor = UIColor.white
-            btnSend.applyGradient(colors: AppCommonColor.gredientColor)
+            
     }
     
     func displaySomething() {

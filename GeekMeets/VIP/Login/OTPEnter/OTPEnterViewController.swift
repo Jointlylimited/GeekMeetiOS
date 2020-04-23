@@ -28,7 +28,7 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     @IBOutlet weak var tfOTP6: UITextField!
     @IBOutlet weak var btnResend: UIButton!
     @IBOutlet weak var lblTime: UILabel!
-    @IBOutlet weak var btnVerifyOTP: UIButton!
+    @IBOutlet weak var btnVerifyOTP: GradientButton!
   // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -79,7 +79,6 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
                        let attributedString = NSMutableAttributedString(string:(btnResend?.currentTitle)!)
                        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: AppCommonColor.pinkColor , range: range)
                        btnResend?.setAttributedTitle(attributedString, for: .normal)
-              btnVerifyOTP.applyGradient(colors: AppCommonColor.gredientColor)
             tfOTP1.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
             tfOTP2.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
             tfOTP3.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)

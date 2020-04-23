@@ -33,7 +33,7 @@ class SignInViewController: UIViewController,SignInProtocol
     @IBOutlet weak var tfPassword : UITextField!
     @IBOutlet weak var btnSignUp : UIButton?
     @IBOutlet weak var btnForgot: UIButton!
-    @IBOutlet weak var btnSignIn: UIButton!
+    @IBOutlet weak var btnSignIn: GradientButton!
   // MARK:- Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -81,7 +81,7 @@ class SignInViewController: UIViewController,SignInProtocol
             self.navigationController?.navigationBar.barTintColor = UIColor.white
             tfEmail.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
             tfPassword.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
-            btnSignIn.applyGradient(colors: AppCommonColor.gredientColor)
+           
             let range = (btnSignUp!.currentTitle! as NSString).range(of: "Sign Up")
             let attributedString = NSMutableAttributedString(string:(btnSignUp?.currentTitle)!)
             attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: AppCommonColor.pinkColor , range: range)
