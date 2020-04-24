@@ -23,7 +23,7 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
   
     //var interactor : SelectAgeRangeInteractorProtocol?
     var presenter : SelectAgeRangePresentationProtocol?
-  var arrQuestionnaire:[QuestionnaireModel] = []
+    var arrQuestionnaire:[QuestionnaireModel] = []
     
     // MARK: Object lifecycle
     
@@ -77,7 +77,8 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
         //nameTextField.text = viewModel.name
     }
     func displayQuesionsData(Data: [QuestionnaireModel]) {
+        print(Data)
       arrQuestionnaire = Data
-      print(arrQuestionnaire[0].field_code)
+      print(arrQuestionnaire)
     }
 }
