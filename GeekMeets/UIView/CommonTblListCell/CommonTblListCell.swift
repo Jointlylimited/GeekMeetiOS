@@ -12,6 +12,7 @@ class CommonTblListCell: UITableViewCell {
 
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblDesc: UILabel!
+    @IBOutlet weak var btnArrow: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

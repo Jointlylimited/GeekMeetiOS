@@ -36,6 +36,7 @@ class MenuViewController: UIViewController, MenuProtocol {
     @IBOutlet weak var lblRemainTime: UILabel!
     @IBOutlet weak var remainTimeViewHeightConstant: NSLayoutConstraint!
     
+    var alertView: CustomAlertView!
     var arrMenuModel : [MenuViewModel] = []
     var timer: Timer?
     var totalTime = 600
@@ -135,7 +136,7 @@ class MenuViewController: UIViewController, MenuProtocol {
         return String(format: "%02d:%02d", minutes, seconds)
     }
     @IBAction func btnLogOutAction(_ sender: UIButton) {
-        self.navigationController?.popToRootViewController(animated: true)
+        self.showAlertView()
     }
 }
 
@@ -190,17 +191,40 @@ extension MenuViewController : UITableViewDataSource, UITableViewDelegate {
         } else if indexPath.row == 5 {
             let discVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.DiscoverySettingScreen)
             self.pushVC(discVC)
+        }  else if indexPath.row == 8 {
+            let shareVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.Share_EarnScreen)
+            self.pushVC(shareVC)
         } else if indexPath.row == 9 {
-            let discVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.CommonPagesScreen)
-            self.pushVC(discVC)
+            let commonVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.CommonPagesScreen) as! CommonPagesViewController
+            commonVC.objCommonData = CommonModelData.Tips
+            self.pushVC(commonVC)
         } else if indexPath.row == 10 {
-//            let conVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.ContactUS_LegalScreen) as? ContactUS_LegalViewController
-//            conVC?.isForLegal = false
-//            self.pushVC(conVC!)
+            let conVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.ContactUS_LegalScreen) as? ContactUS_LegalViewController
+            conVC?.isForLegal = false
+            self.pushVC(conVC!)
         } else if indexPath.row == 11 {
-//            let conVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.ContactUS_LegalScreen) as? ContactUS_LegalViewController
-//            conVC?.isForLegal = true
-//            self.pushVC(conVC!)
+            let conVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.ContactUS_LegalScreen) as? ContactUS_LegalViewController
+            conVC?.isForLegal = true
+            self.pushVC(conVC!)
         }
+    }
+}
+
+extension MenuViewController {
+    func showAlertView() {
+      alertView = CustomAlertView.initAlertView(title: "Are you sure you want to Logout?", message: "", btnRightStr: "Logout", btnCancelStr: "Cancel")
+      alertView.delegate = self
+      alertView.frame = self.view.frame
+      self.view.addSubview(alertView)
+    }
+}
+
+extension MenuViewController : AlertViewDelegate {
+    func OkButton() {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    func cancelButton() {
+        alertView.removeFromSuperview()
     }
 }

@@ -187,7 +187,21 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
         } else if objEditProfileData.cells[indexPath.section].cellID == "EditSocialLinkCell" {
             
         } else {
-            
+             if let cell = cell as? EditProfilePrivacyCell  {
+                
+                cell.clickOnBtnSwitch = { (index) in
+                    print(indexPath.row)
+                    if cell.btnSwichMode[index!].tag == 0 {
+                        cell.btnSwichMode[0].isSelected = !cell.btnSwichMode[0].isSelected
+                    } else if cell.btnSwichMode[index!].tag == 1 {
+                        cell.btnSwichMode[1].isSelected = !cell.btnSwichMode[1].isSelected
+                    } else if cell.btnSwichMode[index!].tag == 2 {
+                        cell.btnSwichMode[2].isSelected = !cell.btnSwichMode[2].isSelected
+                    } else {
+                        cell.btnSwichMode[3].isSelected = !cell.btnSwichMode[3].isSelected
+                    }
+                }
+            }
         }
     }
     
@@ -227,6 +241,8 @@ extension EditProfileViewController : UICollectionViewDataSource, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell : PhotoEmojiCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PhotoEmojiCell, for: indexPath) as! PhotoEmojiCell
+        
+        cell.btnClose.alpha = 1.0
         if indexPath.row == 0 {
             cell.userImgView.image = #imageLiteral(resourceName: "icn_add_photo")
             cell.emojiStackView.alpha = 0

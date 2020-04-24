@@ -26,7 +26,7 @@
                         <rect key="frame" x="5" y="5" width="256" height="215"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Sus-Tt-pq0">
-                                <rect key="frame" x="0.0" y="0.0" width="256" height="215"/>
+                                <rect key="frame" x="10" y="10" width="236" height="195"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -35,13 +35,13 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="RmE-ig-yNL">
-                                <rect key="frame" x="5" y="185" width="246" height="20"/>
+                                <rect key="frame" x="15" y="175" width="226" height="20"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B0W-e8-QpQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="75.5" height="20"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="68.5" height="20"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8zm-8V-M43">
-                                                <rect key="frame" x="0.0" y="0.0" width="75.5" height="20"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="68.5" height="20"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="6"/>
                                                 <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 <inset key="imageEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -64,10 +64,10 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kXR-zw-Wnd">
-                                        <rect key="frame" x="85.5" y="0.0" width="75" height="20"/>
+                                        <rect key="frame" x="78.5" y="0.0" width="69" height="20"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cWV-lL-zyF">
-                                                <rect key="frame" x="0.0" y="0.0" width="75" height="20"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="69" height="20"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="6"/>
                                                 <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 <inset key="imageEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -90,10 +90,10 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eMe-7h-rnX">
-                                        <rect key="frame" x="170.5" y="0.0" width="75.5" height="20"/>
+                                        <rect key="frame" x="157.5" y="0.0" width="68.5" height="20"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G0D-Vn-y92">
-                                                <rect key="frame" x="0.0" y="0.0" width="75.5" height="20"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="68.5" height="20"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="6"/>
                                                 <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 <inset key="imageEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -120,16 +120,29 @@
                                     <constraint firstAttribute="height" constant="20" id="5Ve-Wn-hIm"/>
                                 </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wXW-5r-4Ug">
+                                <rect key="frame" x="226" y="0.0" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="wXW-5r-4Ug" secondAttribute="height" multiplier="1:1" id="dfp-GK-NVH"/>
+                                    <constraint firstAttribute="width" constant="30" id="h9M-dO-Fk8"/>
+                                </constraints>
+                                <state key="normal" image="icn_close1"/>
+                                <connections>
+                                    <action selector="btnCloseAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="3wh-j1-Vz3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Sus-Tt-pq0" firstAttribute="leading" secondItem="6Fb-j0-W3y" secondAttribute="leading" id="1uG-9i-xxh"/>
-                            <constraint firstItem="Sus-Tt-pq0" firstAttribute="top" secondItem="6Fb-j0-W3y" secondAttribute="top" id="4Cs-fG-4wH"/>
-                            <constraint firstAttribute="trailing" secondItem="RmE-ig-yNL" secondAttribute="trailing" constant="5" id="4n8-xZ-Jqs"/>
-                            <constraint firstAttribute="bottom" secondItem="Sus-Tt-pq0" secondAttribute="bottom" id="7J8-Hf-dtU"/>
-                            <constraint firstAttribute="trailing" secondItem="Sus-Tt-pq0" secondAttribute="trailing" id="Y5Z-Bb-d5e"/>
-                            <constraint firstItem="RmE-ig-yNL" firstAttribute="leading" secondItem="6Fb-j0-W3y" secondAttribute="leading" constant="5" id="fBH-HN-HYz"/>
-                            <constraint firstAttribute="bottom" secondItem="RmE-ig-yNL" secondAttribute="bottom" constant="10" id="gdf-jS-oAh"/>
+                            <constraint firstItem="Sus-Tt-pq0" firstAttribute="leading" secondItem="6Fb-j0-W3y" secondAttribute="leading" constant="10" id="1uG-9i-xxh"/>
+                            <constraint firstItem="Sus-Tt-pq0" firstAttribute="top" secondItem="6Fb-j0-W3y" secondAttribute="top" constant="10" id="4Cs-fG-4wH"/>
+                            <constraint firstAttribute="bottom" secondItem="Sus-Tt-pq0" secondAttribute="bottom" constant="10" id="7J8-Hf-dtU"/>
+                            <constraint firstItem="wXW-5r-4Ug" firstAttribute="top" secondItem="6Fb-j0-W3y" secondAttribute="top" id="MWG-Oi-Yq2"/>
+                            <constraint firstAttribute="trailing" secondItem="Sus-Tt-pq0" secondAttribute="trailing" constant="10" id="Y5Z-Bb-d5e"/>
+                            <constraint firstItem="RmE-ig-yNL" firstAttribute="trailing" secondItem="Sus-Tt-pq0" secondAttribute="trailing" constant="-5" id="ev1-Td-crZ"/>
+                            <constraint firstItem="RmE-ig-yNL" firstAttribute="leading" secondItem="Sus-Tt-pq0" secondAttribute="leading" constant="5" id="iQz-nc-O9u"/>
+                            <constraint firstItem="RmE-ig-yNL" firstAttribute="bottom" secondItem="Sus-Tt-pq0" secondAttribute="bottom" constant="-10" id="ofZ-pe-zjn"/>
+                            <constraint firstAttribute="trailing" secondItem="wXW-5r-4Ug" secondAttribute="trailing" id="owg-nE-k7T"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -148,6 +161,7 @@
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="266" height="225"/>
             <connections>
+                <outlet property="btnClose" destination="wXW-5r-4Ug" id="q5H-RQ-hjH"/>
                 <outlet property="emojiStackView" destination="RmE-ig-yNL" id="3CB-wF-3pz"/>
                 <outlet property="userImgView" destination="Sus-Tt-pq0" id="iss-vD-VSq"/>
             </connections>
@@ -155,6 +169,7 @@
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="icn_close1" width="45" height="45"/>
         <image name="icn_kiss_smile" width="8" height="7.5"/>
         <image name="icn_love" width="8" height="7.5"/>
         <image name="icn_love_smile" width="8" height="7.5"/>

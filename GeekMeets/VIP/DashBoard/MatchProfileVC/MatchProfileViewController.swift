@@ -38,6 +38,8 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     
     @IBOutlet weak var pageControl: UIPageControl!
     
+    var alertView: CustomAlertView!
+    
     var objProfileData = MatchProfileData()
     var imageArray = [#imageLiteral(resourceName: "img_intro_2"), #imageLiteral(resourceName: "image_1"), #imageLiteral(resourceName: "Image 63"), #imageLiteral(resourceName: "Image 62")]
     
@@ -97,6 +99,15 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     }
     @IBAction func btnMatchAction(_ sender: UIButton) {
         self.presenter?.gotoMatchVC()
+    }
+    @IBAction func btnShareAction(_ sender: UIButton) {
+        shareInviteApp(message: "Google", link: "htttp://google.com", controller: self)
+    }
+    @IBAction func btnReportAction(_ sender: UIButton) {
+        self.presenter?.gotoReportVC()
+    }
+    @IBAction func btnBlockAction(_ sender: UIButton) {
+        self.showAlertView()
     }
 }
 
@@ -178,6 +189,25 @@ extension MatchProfileViewController : UICollectionViewDataSource, UICollectionV
                 cell.ReactEmojiView.alpha = 1.0
             }
         }
+        
+        cell.clickOnbtnKiss = {
+            cell.btnKissValue.setTitle(String(Int(cell.btnKissValue.titleLabel!.text!)! + 1), for: .normal)
+            cell.btnLike.isSelected = false
+            cell.ReactEmojiView.alpha = 0.0
+        }
+        
+        cell.clickOnbtnLove = {
+            cell.btnLoveValue.setTitle(String(Int(cell.btnLoveValue.titleLabel!.text!)! + 1), for: .normal)
+            cell.btnLike.isSelected = false
+            cell.ReactEmojiView.alpha = 0.0
+        }
+        
+        cell.clickOnbtnLoveSmile = {
+            cell.btnLoveSmileValue.setTitle(String(Int(cell.btnLoveSmileValue.titleLabel!.text!)! + 1), for: .normal)
+            cell.btnLike.isSelected = false
+            cell.ReactEmojiView.alpha = 0.0
+        }
+        
         return cell
     }
     
@@ -194,3 +224,21 @@ extension MatchProfileViewController : UICollectionViewDataSource, UICollectionV
     }
 }
 
+extension MatchProfileViewController {
+    func showAlertView() {
+      alertView = CustomAlertView.initAlertView(title: "Are you sure you want to block?", message: "User will not able to see your profile after blocking", btnRightStr: "Block", btnCancelStr: "Cancel")
+      alertView.delegate = self
+      alertView.frame = self.view.frame
+      self.view.addSubview(alertView)
+    }
+}
+
+extension MatchProfileViewController : AlertViewDelegate {
+    func OkButton() {
+        alertView.removeFromSuperview()
+    }
+    
+    func cancelButton() {
+        alertView.removeFromSuperview()
+    }
+}

@@ -10,6 +10,10 @@ import UIKit
 
 class EditProfilePrivacyCell: UITableViewCell {
 
+    typealias SwitchClickEvent = (_ index : Int?) -> Void
+    var clickOnBtnSwitch : SwitchClickEvent!
+    
+    @IBOutlet var btnSwichMode : [UIButton]!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -20,5 +24,8 @@ class EditProfilePrivacyCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    @IBAction func btnSwitchAction(_ sender: UIButton) {
+        self.clickOnBtnSwitch(sender.tag)
+    }
+    
 }

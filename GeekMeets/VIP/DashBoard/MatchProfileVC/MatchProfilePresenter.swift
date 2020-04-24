@@ -14,6 +14,7 @@ import UIKit
 
 protocol MatchProfilePresentationProtocol {
     func gotoMatchVC()
+    func gotoReportVC()
 }
 
 class MatchProfilePresenter: MatchProfilePresentationProtocol {
@@ -30,6 +31,18 @@ class MatchProfilePresenter: MatchProfilePresentationProtocol {
         {
             view.presentVC(controller)
             //            view.pushVC(controller)
+        }
+    }
+    
+    func gotoReportVC(){
+        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.ReportScreen)
+        
+        controller.modalTransitionStyle = .crossDissolve
+        controller.modalPresentationStyle = .overCurrentContext
+        
+        if let view = self.viewController as? UIViewController
+        {
+            view.presentVC(controller)
         }
     }
 }

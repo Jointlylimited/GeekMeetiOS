@@ -35,6 +35,7 @@ class ContactUS_LegalViewController: UIViewController, ContactUS_LegalProtocol {
     
     @IBOutlet weak var tblContactList: UITableView!
     @IBOutlet weak var tblLegalList: UITableView!
+    @IBOutlet weak var lblViewTitle: UILabel!
     
     var LegalTitleArray = ["Terms & Conditions", "Privacy Policy", "About Us", "Licenses"]
     var objContactData : [ContactUSModel] = []
@@ -77,14 +78,16 @@ class ContactUS_LegalViewController: UIViewController, ContactUS_LegalProtocol {
         super.viewDidLoad()
         
         if isForLegal {
+            self.lblViewTitle.text = "Legal"
             self.registerTableViewCell()
             self.tblContactList.alpha = 0.0
             self.tblLegalList.alpha = 1.0
         } else {
+            self.lblViewTitle.text = "Contact US"
             self.setContactUsData()
             self.tblContactList.alpha = 1.0
             self.tblLegalList.alpha = 0.0
-        }            
+        }
     }
     
     func registerTableViewCell(){
@@ -93,6 +96,10 @@ class ContactUS_LegalViewController: UIViewController, ContactUS_LegalProtocol {
     
     func setContactUsData(){
         self.objContactData = [ContactUSModel(title: "Email", image: #imageLiteral(resourceName: "icn_email"), text: "john@gmail.com"), ContactUSModel(title: "Phone Number", image: #imageLiteral(resourceName: "icn_call"), text: "+1 123 455 852")]
+    }
+    
+    @IBAction func btnBackAction(_ sender: UIButton) {
+        self.popVC()
     }
 }
 
@@ -111,10 +118,10 @@ extension ContactUS_LegalViewController : UITableViewDataSource, UITableViewDele
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if !isForLegal {
-            let cell : ContactUSCell = tableView.dequeueReusableCell(withIdentifier: "ContactUSCell", for: indexPath) as! ContactUSCell
+            let cell : ContactUSCell = self.tblContactList.dequeueReusableCell(withIdentifier: "ContactUSCell", for: indexPath) as! ContactUSCell
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: Cells.CommonTblListCell)
+            let cell = self.tblLegalList.dequeueReusableCell(withIdentifier: Cells.CommonTblListCell)
             return cell!
         }
     }
@@ -127,6 +134,7 @@ extension ContactUS_LegalViewController : UITableViewDataSource, UITableViewDele
                 cell.btnTitle.setImage(data.image, for: .normal)
                 cell.btnTitle.setTitle(data.title, for: .normal)
                 cell.lblText.text = data.text
+                cell.selectionStyle = .none
             }
         } else {
             if let cell = cell as? CommonTblListCell {
@@ -140,6 +148,25 @@ extension ContactUS_LegalViewController : UITableViewDataSource, UITableViewDele
             return UITableView.automaticDimension
         } else {
             return 70
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let index = indexPath.row
+        if tableView == self.tblContactList {
+            
+        } else {
+            let commonVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.CommonPagesScreen) as! CommonPagesViewController
+            if index == 0 {
+                commonVC.objCommonData = CommonModelData.Terms
+            } else if index == 1 {
+                commonVC.objCommonData = CommonModelData.Privacy
+            } else if index == 2 {
+                commonVC.objCommonData = CommonModelData.About
+            } else {
+                commonVC.objCommonData = CommonModelData.Licenses
+            }
+            self.pushVC(commonVC)
         }
     }
 }

@@ -244,11 +244,12 @@ extension ProfileViewController : UICollectionViewDataSource, UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell : PhotoEmojiCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PhotoEmojiCell, for: indexPath) as! PhotoEmojiCell
         cell.userImgView.image = imageArray[indexPath.row]
+        cell.btnClose.alpha = 0.0
         return cell
     }
 
        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-             let width = ScreenSize.width/3
+             let width = ScreenSize.width/3 + 10
              return CGSize(width: width, height: width)
      }
 }

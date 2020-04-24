@@ -152,6 +152,35 @@ extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
         
         return headerView
     }
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let more = UITableViewRowAction(style: .normal, title: "") { action, index in
+            //self.isEditing = false
+            print("more button tapped")
+        }
+        let image = #imageLiteral(resourceName: "instagram icon")
+        let size = CGSize(width: 25, height: 25)
+        UIGraphicsBeginImageContextWithOptions(size, true, 1)
+        image.draw(in: CGRect(origin: CGPoint.zero, size: size))
+        let resizeImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        more.backgroundColor = UIColor(patternImage: resizeImage!)
+        
+        
+        let favorite = UITableViewRowAction(style: .normal, title: "Favorite") { action, index in
+            //self.isEditing = false
+            print("favorite button tapped")
+        }
+        favorite.backgroundColor = UIColor.orange
+        
+        let share = UITableViewRowAction(style: .normal, title: "Share") { action, index in
+            //self.isEditing = false
+            print("share button tapped")
+        }
+        share.backgroundColor = UIColor.blue
+        
+        return [more]
+    }
 }
 
 extension MessagesViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {

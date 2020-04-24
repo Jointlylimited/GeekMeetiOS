@@ -73,6 +73,8 @@ struct GeekMeets_ViewController
     static let DiscoverySettingScreen = "DiscoverySettingViewController"
     static let CommonPagesScreen = "CommonPagesViewController"
     static let ContactUS_LegalScreen = "ContactUS_LegalViewController"
+    static let Share_EarnScreen = "Share_EarnViewController"
+    static let ReportScreen = "ReportViewController"
   
 }
 

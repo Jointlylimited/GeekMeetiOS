@@ -80,6 +80,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="btnArrow" destination="9Vt-SV-XvA" id="aOK-vc-nDH"/>
                 <outlet property="lblDesc" destination="I4T-KU-8a1" id="P6k-Dl-UIo"/>
                 <outlet property="lblTitle" destination="iA6-Dt-kTG" id="fuM-dW-qey"/>
             </connections>

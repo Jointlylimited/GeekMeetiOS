@@ -12,8 +12,11 @@ class PhotoEmojiCell: UICollectionViewCell {
 
     @IBOutlet weak var userImgView: UIImageView!
     @IBOutlet weak var emojiStackView: UIStackView!
+    @IBOutlet weak var btnClose: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+    }
+    @IBAction func btnCloseAction(_ sender: UIButton) {
     }
 }
