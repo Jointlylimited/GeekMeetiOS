@@ -16,6 +16,8 @@ protocol SelectAgeRangePresentationProtocol {
     func presentSomething()
     func callQuestionnaireRequest()
     func getQuestionnaireResponse(userData : [QuestionnaireModel]?)
+    func actionContinue()
+    func actionSkip()
 }
 
 class SelectAgeRangePresenter: SelectAgeRangePresentationProtocol {
@@ -34,4 +36,19 @@ class SelectAgeRangePresenter: SelectAgeRangePresentationProtocol {
     func presentSomething() {
         
     }
+  
+    func actionContinue() {
+        let controller = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectGender)
+        if let view = self.viewController as? UIViewController
+        {
+            view.pushVC(controller)
+        }
+    }
+    func actionSkip() {
+           let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter)
+           if let view = self.viewController as? UIViewController
+           {
+               view.pushVC(controller)
+           }
+       }
 }

@@ -48,6 +48,9 @@ struct GeekMeets_ViewController
     static let OTPEnter =  "OTPEnterViewController"
     static let UserProfile = "UserProfileViewController"
     static let SelectAgeRange = "SelectAgeRangeViewController"
+    static let SelectGender = "SelectGenderViewController"
+    static let SelectSocialMedia = "SelectSocialMediaViewController"
+    static let SelectCategories = "SelectCategoriesViewController"
     static let compeleteProfile = "CompleteProfileViewController"
     static let  sideMenu = "SideMenuViewController"
     static let SelectLanguageScreen = "SelectLanguageViewController"
@@ -110,7 +113,6 @@ struct AppCommonColor {
     static let placeHolderColor = #colorLiteral(red: 0.6990235448, green: 0.7155820727, blue: 0.719522655, alpha: 1)
     static let firstGradient = #colorLiteral(red: 0.606272161, green: 0.2928337753, blue: 0.8085166812, alpha: 1)
     static let secondGradient = #colorLiteral(red: 0.8740701079, green: 0.5383403897, blue: 0.9913718104, alpha: 1)
-    
 }
 
 struct APPLANGUAGE {

@@ -24,7 +24,10 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
     //var interactor : SelectAgeRangeInteractorProtocol?
     var presenter : SelectAgeRangePresentationProtocol?
     var arrQuestionnaire:[QuestionnaireModel] = []
+    var intAgeSelected:Int = 0
     
+    @IBOutlet weak var clnSelectAge: UICollectionView!
+  
     // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -78,7 +81,67 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
     }
     func displayQuesionsData(Data: [QuestionnaireModel]) {
         print(Data)
-      arrQuestionnaire = Data
-      print(arrQuestionnaire)
+        arrQuestionnaire = Data
+        print( arrQuestionnaire[0].response_set?.response_option?[3].name!)
+    }
+  
+  //MARK: IBAction Method
+  
+    @IBAction func actionContinues(_ sender: Any) {
+           self.presenter?.actionContinue()
+     }
+    @IBAction func actionSkip(_ sender: Any) {
+           self.presenter?.actionContinue()
+     }
+}
+
+
+
+//MARK:UICollectionview
+
+extension SelectAgeRangeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,SelectAgeDelegate
+{
+ 
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+      return arrQuestionnaire[0].response_set?.response_option?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+    {
+        let cell : SelectAgeCell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectAgeCell", for: indexPath) as! SelectAgeCell
+        cell.delegate = self
+        cell.indexPath = indexPath
+        cell.btnSelectAge.setTitle(arrQuestionnaire[0].response_set?.response_option?[indexPath.row].name!, for: .normal)
+        cell.btnSelectAge.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+        cell.btnSelectAge.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5), for: .normal)
+      if intAgeSelected == indexPath.row{
+        cell.btnSelectAge.layer.borderColor = #colorLiteral(red: 0.7098039216, green: 0.3254901961, blue: 0.8941176471, alpha: 1)
+        cell.btnSelectAge.setTitleColor(#colorLiteral(red: 0.7098039216, green: 0.3254901961, blue: 0.8941176471, alpha: 1), for: .normal)
+      }
+          return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+      let yourWidth = collectionView.bounds.width/3.0
+      let yourHeight = CGFloat(50)
+      return CGSize(width: yourWidth, height: yourHeight)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets.zero
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+      
+        return 0
+      
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+   
+    func actionSelectAge(at index:IndexPath){
+      intAgeSelected = index.row
+      clnSelectAge.reloadData()
     }
 }
