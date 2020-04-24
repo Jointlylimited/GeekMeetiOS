@@ -78,5 +78,6 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
     }
     func displayQuesionsData(Data: [QuestionnaireModel]) {
       arrQuestionnaire = Data
+      print(arrQuestionnaire[0].field_code)
     }
 }

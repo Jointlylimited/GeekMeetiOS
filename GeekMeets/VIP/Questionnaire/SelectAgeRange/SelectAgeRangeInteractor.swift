@@ -39,6 +39,8 @@ class SelectAgeRangeInteractor: SelectAgeRangeInteractorProtocol, SelectAgeRange
                           // do stuff
                   print(jsonResult)
                   var abc:[QuestionnaireModel]?
+                  
+                  
                   abc = jsonResult as! [QuestionnaireModel]
 //                  let Data:QuestionnaireModel = QuestionnaireModel.init(dictionary: jsonResult)!
                   self.presenter?.getQuestionnaireResponse(userData: abc)
