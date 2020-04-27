@@ -15,7 +15,8 @@ import UIKit
 protocol SelectAgeRangePresentationProtocol {
     func presentSomething()
     func callQuestionnaireRequest()
-    func getQuestionnaireResponse(userData : [QuestionnaireModel]?)
+    func getQuestionnaireResponse(userData : [NSDictionary])
+//    func getQuestionnaireResponse(userData : [QuestionnaireModel]?)
     func actionContinue()
     func actionSkip()
 }
@@ -25,8 +26,8 @@ class SelectAgeRangePresenter: SelectAgeRangePresentationProtocol {
        self.interactor?.callQuestionnaireApi()
     }
     
-    func getQuestionnaireResponse(userData : [QuestionnaireModel]?){
-      self.viewController?.displayQuesionsData(Data: userData!)
+    func getQuestionnaireResponse(userData : [NSDictionary]){
+      self.viewController?.displayQuesionsData(Data: userData)
     }
   
     weak var viewController: SelectAgeRangeProtocol?
@@ -38,11 +39,16 @@ class SelectAgeRangePresenter: SelectAgeRangePresentationProtocol {
     }
   
     func actionContinue() {
-        let controller = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectGender)
+        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.TabbarScreen)
         if let view = self.viewController as? UIViewController
         {
             view.pushVC(controller)
         }
+//        let controller = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectGender)
+//        if let view = self.viewController as? UIViewController
+//        {
+//            view.pushVC(controller)
+//        }
     }
     func actionSkip() {
            let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter)

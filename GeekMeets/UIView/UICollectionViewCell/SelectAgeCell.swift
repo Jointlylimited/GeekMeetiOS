@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+
+
 protocol SelectAgeDelegate{
    
     func actionSelectAge(at index:IndexPath)
@@ -15,13 +17,19 @@ protocol SelectAgeDelegate{
 
 class SelectAgeCell: UICollectionViewCell {
 
+    typealias ClickEvent = () -> Void
+    var clickOnCell : ClickEvent!
+    
       var delegate:SelectAgeDelegate!
       var indexPath:IndexPath!
   
-      @IBOutlet weak var btnSelectAge: UIButton!
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var btnSelectAge: UIButton!
       @IBAction func actionSelectAge(_ sender: UIButton) {
-          
-          self.delegate?.actionSelectAge(at: indexPath)
+        
+        self.clickOnCell!()
+        
+//          self.delegate?.actionSelectAge(at: indexPath)
           
       }
     

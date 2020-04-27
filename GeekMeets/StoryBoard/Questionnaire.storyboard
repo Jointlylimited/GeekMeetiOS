@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -54,11 +54,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DTr-YG-LKa">
+                                                    <rect key="frame" x="10" y="0.0" width="80" height="80"/>
+                                                    <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                                                    <color key="textColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kMF-fX-1r1">
                                                     <rect key="frame" x="10" y="0.0" width="80" height="80"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
-                                                    <state key="normal" title="18-25">
+                                                    <state key="normal">
                                                         <color key="titleColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
                                                     <userDefinedRuntimeAttributes>
@@ -78,14 +84,19 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="DTr-YG-LKa" firstAttribute="bottom" secondItem="kMF-fX-1r1" secondAttribute="bottom" id="2lv-L2-V8n"/>
                                                 <constraint firstItem="kMF-fX-1r1" firstAttribute="top" secondItem="Bqb-qh-Xln" secondAttribute="top" id="8Cw-gj-GNe"/>
                                                 <constraint firstAttribute="trailing" secondItem="kMF-fX-1r1" secondAttribute="trailing" constant="10" id="Pmt-eE-b8b"/>
+                                                <constraint firstItem="DTr-YG-LKa" firstAttribute="leading" secondItem="kMF-fX-1r1" secondAttribute="leading" id="XgV-Rc-QXb"/>
                                                 <constraint firstItem="kMF-fX-1r1" firstAttribute="leading" secondItem="Bqb-qh-Xln" secondAttribute="leading" constant="10" id="jiW-Ra-XXm"/>
+                                                <constraint firstItem="DTr-YG-LKa" firstAttribute="top" secondItem="kMF-fX-1r1" secondAttribute="top" id="rni-R6-4vw"/>
                                                 <constraint firstAttribute="bottom" secondItem="kMF-fX-1r1" secondAttribute="bottom" constant="20" id="vRx-HD-OCF"/>
+                                                <constraint firstItem="DTr-YG-LKa" firstAttribute="trailing" secondItem="kMF-fX-1r1" secondAttribute="trailing" id="yD3-qJ-aoV"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <connections>
                                             <outlet property="btnSelectAge" destination="kMF-fX-1r1" id="qLh-vP-T7e"/>
+                                            <outlet property="lblTitle" destination="DTr-YG-LKa" id="XeC-2b-4tE"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -120,7 +131,7 @@
                                     <action selector="actionContinues:" destination="vJ4-jH-QFm" eventType="touchUpInside" id="Azq-FJ-SlJ"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 / 10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dTG-hj-8kl" customClass="LocalizedLabel" customModule="GeekMeets" customModuleProvider="target">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 / 10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dTG-hj-8kl">
                                 <rect key="frame" x="364" y="47" width="30" height="20"/>
                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -185,6 +196,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="clnSelectAge" destination="njK-3X-63H" id="zDI-UI-5t1"/>
+                        <outlet property="lblQuestionIndex" destination="dTG-hj-8kl" id="0Nj-Kf-hkP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ma-pf-EYF" userLabel="First Responder" sceneMemberID="firstResponder"/>
