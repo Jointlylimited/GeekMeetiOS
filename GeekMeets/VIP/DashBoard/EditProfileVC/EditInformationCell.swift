@@ -10,6 +10,8 @@ import UIKit
 
 class EditInformationCell: UITableViewCell {
 
+    @IBOutlet weak var txtAbout: UITextField!
+    @IBOutlet weak var txtDoB: UITextField!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -20,5 +22,4 @@ class EditInformationCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
 }

@@ -14,7 +14,7 @@ import UIKit
 
 enum EditProfileListCells {
     
-    case InformationCell
+    case InformationCell(obj : String)
     case InterestCell
     case PhotosCell
     case SocialCell
@@ -22,8 +22,9 @@ enum EditProfileListCells {
     
     var cellHeight  : CGFloat {
         switch self {
-            
-        case .InformationCell, .InterestCell, .PhotosCell, .SocialCell, .PrivacyCell:
+        case .InformationCell(let desc):
+            return desc.heightWithConstrainedWidth(width: 374 * _widthRatio,font: fontPoppins(fontType: .Poppins_Medium, fontSize: .sizeNormalTextField)) + 16
+        case .InterestCell, .PhotosCell, .SocialCell, .PrivacyCell:
             return 50
             
         }
@@ -87,7 +88,8 @@ struct EditProfileData {
   var cells: [EditProfileListCells] {
     var cell: [EditProfileListCells] = []
     
-    cell.append(.InformationCell)
+    let str = "Lady with fun loving personality and open- minded, Looking for Someone to hang out always open for hangout"
+    cell.append(.InformationCell(obj: str))
     cell.append(.InterestCell)
     cell.append(.PhotosCell)
     cell.append(.SocialCell)
@@ -106,6 +108,8 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
     
      @IBOutlet weak var tblEditProfileView: UITableView!
     
+    @IBOutlet weak var PickerView: UIView!
+    @IBOutlet weak var datePicker: UIDatePicker!
     var objEditProfileData = EditProfileData()
     var imageArray = [#imageLiteral(resourceName: "img_intro_2"), #imageLiteral(resourceName: "image_1"), #imageLiteral(resourceName: "Image 63"), #imageLiteral(resourceName: "Image 62")]
     
@@ -146,9 +150,22 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
         super.viewDidLoad()
     }
 
+    func setTheme(){
+        self.datePicker.maximumDate = Date()
+    }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.popVC()
+    }
+    @IBAction func btnUpdateAction(_ sender: GradientButton) {
+        self.popVC()
+    }
+    @IBAction func btnDonePickerAction(_ sender: UIBarButtonItem) {
+        self.PickerView.alpha = 0.0
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        let strDate = dateFormatter.string(from: datePicker.date)
+        print(strDate)
     }
 }
 
@@ -169,7 +186,10 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if objEditProfileData.cells[indexPath.section].cellID == "EditInformationCell" {
-            
+            if let cell = cell as? EditInformationCell {
+                cell.txtAbout.text = "Lady with fun loving personality and open- minded, Looking for Someone to hang out always open for hangout"
+                cell.txtDoB.delegate = self
+            }
         } else if objEditProfileData.cells[indexPath.section].cellID == "EditInterestCell" {
             
         } else if objEditProfileData.cells[indexPath.section].cellID == "EditPhotosCell" {
@@ -246,9 +266,11 @@ extension EditProfileViewController : UICollectionViewDataSource, UICollectionVi
         if indexPath.row == 0 {
             cell.userImgView.image = #imageLiteral(resourceName: "icn_add_photo")
             cell.emojiStackView.alpha = 0
+            cell.btnClose.alpha  = 0
             return cell
         } else {
             cell.userImgView.image = imageArray[indexPath.row - 1]
+            cell.btnClose.alpha  = 1
             return cell
         }
     }
@@ -257,4 +279,15 @@ extension EditProfileViewController : UICollectionViewDataSource, UICollectionVi
              let width = ScreenSize.width/3
              return CGSize(width: width, height: width)
      }
+}
+extension EditProfileViewController : UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        self.PickerView.alpha = 1.0
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

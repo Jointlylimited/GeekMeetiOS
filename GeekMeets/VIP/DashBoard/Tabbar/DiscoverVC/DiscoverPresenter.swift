@@ -13,7 +13,7 @@
 import UIKit
 
 protocol DiscoverPresentationProtocol {
-    func presentSomething()
+    func presentStoryScreen()
 }
 
 class DiscoverPresenter: DiscoverPresentationProtocol {
@@ -21,7 +21,7 @@ class DiscoverPresenter: DiscoverPresentationProtocol {
     var interactor: DiscoverInteractorProtocol?
     
     // MARK: Present something
-    func presentSomething() {
+    func presentStoryScreen() {
         
     }
 }

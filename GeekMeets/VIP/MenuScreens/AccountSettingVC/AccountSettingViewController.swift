@@ -82,6 +82,7 @@ extension AccountSettingViewController : UITableViewDataSource, UITableViewDeleg
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Cells.CommonTblListCell)
+        cell?.selectionStyle = .none
         return cell!
     }
     

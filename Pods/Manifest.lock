@@ -59,6 +59,7 @@ PODS:
   - GoogleUtilities/UserDefaults (6.5.2):
     - GoogleUtilities/Logger
   - IQKeyboardManagerSwift (6.5.5)
+  - JSONModel (1.8.0)
   - Moya (13.0.1):
     - Moya/Core (= 13.0.1)
   - Moya/Core (13.0.1):
@@ -77,6 +78,7 @@ PODS:
 DEPENDENCIES:
   - Firebase/Core
   - IQKeyboardManagerSwift
+  - JSONModel
   - Moya
   - ReachabilitySwift
   - SwiftyJSON
@@ -95,6 +97,7 @@ SPEC REPOS:
     - GoogleDataTransportCCTSupport
     - GoogleUtilities
     - IQKeyboardManagerSwift
+    - JSONModel
     - Moya
     - nanopb
     - PromisesObjC
@@ -115,6 +118,7 @@ SPEC CHECKSUMS:
   GoogleDataTransportCCTSupport: 6f15a89b0ca35d6fa523e1f752ef818588885988
   GoogleUtilities: ad0f3b691c67909d03a3327cc205222ab8f42e0e
   IQKeyboardManagerSwift: 0fb93310284665245591f50f7a5e38de615960b7
+  JSONModel: 02ab723958366a3fd27da57ea2af2113658762e9
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
@@ -122,6 +126,6 @@ SPEC CHECKSUMS:
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: cbf8c4bdbf49d8bcb602386f86fe0dab6e588cd2
+PODFILE CHECKSUM: e36d2f0d3c255d239a8e8aa4728ba68043ab7dcd
 
 COCOAPODS: 1.8.4

@@ -29,7 +29,9 @@ class ReportViewController: UIViewController, ReportProtocol {
     @IBOutlet weak var tblReasonList: UITableView!
     @IBOutlet weak var btnReportTitle: GradientButton!
     @IBOutlet weak var tblViewHeightConstant: NSLayoutConstraint!
+    @IBOutlet weak var txtReportView: UITextView!
     
+    var placeHolderText = "Write here..."
     var arrReportData : [CellData] = []
     
     // MARK: Object lifecycle
@@ -72,7 +74,7 @@ class ReportViewController: UIViewController, ReportProtocol {
     
     func registerTableViewCell(){
         self.tblReasonList.register(UINib.init(nibName: Cells.CommonTblListCell, bundle: Bundle.main), forCellReuseIdentifier: Cells.CommonTblListCell)
-        self.arrReportData = [CellData(opened: false, title: "Select a Reason", sectionData: ["Reason 1" , "Reason 2", "Reason 3"])]
+        self.arrReportData = [CellData(opened: false, title: "- Select Reason -", sectionData: ["Reason 1" , "Reason 2", "Reason 3"])]
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
@@ -103,6 +105,7 @@ extension ReportViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let cell = cell as? CommonTblListCell {
+            cell.btnArrow.setImage(#imageLiteral(resourceName: "icn_down_arrow"), for: .normal)
             if indexPath.row == 0 {
                 cell.lblTitle.text = arrReportData[0].title
                 cell.lblDesc.text = ""
@@ -148,6 +151,28 @@ extension ReportViewController : UITableViewDataSource, UITableViewDelegate {
             let sections = IndexSet.init(integer: indexPath.row)
             tableView.reloadSections(sections, with: .none)
             self.tblViewHeightConstant.constant = CGFloat(60*self.arrReportData[0].sectionData.count)
+        }
+    }
+}
+
+extension ReportViewController : UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if txtReportView.text == placeHolderText {
+            
+            txtReportView.text = ""
+            txtReportView.textColor = .black
+        } else {
+            txtReportView.textColor = .lightGray
+        }
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        
+        if txtReportView.text == "" {
+            
+            txtReportView.text = placeHolderText
+            txtReportView.textColor = .lightGray
+        } else {
+            txtReportView.textColor = .black
         }
     }
 }

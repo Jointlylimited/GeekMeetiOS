@@ -23,7 +23,7 @@ class DiscoverViewController: UIViewController, DiscoverProtocol {
     @IBOutlet weak var AllStoryCollView: UICollectionView!
     
     var objStoryData : [StoryViewModel] = []
-    
+    var arrayDetails :  [UserDetail] = []
     // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -62,6 +62,7 @@ class DiscoverViewController: UIViewController, DiscoverProtocol {
         super.viewDidLoad()
         self.registerCollectionViewCell()
         setStoryData()
+        fetchUserData()
     }
     
     func registerCollectionViewCell(){
@@ -80,6 +81,34 @@ class DiscoverViewController: UIViewController, DiscoverProtocol {
         self.objStoryData = [StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Linda Parker"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 63"), userName: "Sophia"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Linda Parker"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 64"), userName: "Linda Parker"),StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Linda Parker"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 64"), userName: "Sophia"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Linda Parker"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Sophia"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Linda Parker"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 62"), userName: "Linda Parker"),StoryViewModel(userImage: #imageLiteral(resourceName: "image_1"), userName: "Linda Parker"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Sophia")]
         self.StoryCollView.reloadData()
         self.AllStoryCollView.reloadData()
+    }
+    
+    func fetchUserData() {
+        
+        if let path = Bundle.main.path(forResource: "user-details", ofType: "json") {
+            do {
+                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
+                print(jsonResult)
+                let userDetails : NSArray = (jsonResult as! NSDictionary).object(forKey: "userDetails") as! NSArray
+                for object in userDetails {
+                    
+                    let userDetail : UserDetail = try UserDetail(dictionary: object as! [AnyHashable : Any])
+                    arrayDetails.append(userDetail)
+                }
+                print(userDetails)
+                
+            } catch {
+                // handle error
+            }
+        }
+    }
+
+    @IBAction func btnSearchAction(_ sender: UIButton) {
+        let searchVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.SearchScreen) as? SearchProfileViewController
+        searchVC?.objStoryData = self.objStoryData
+        searchVC?.isFromDiscover = true
+        self.pushVC(searchVC!)
     }
 }
 
@@ -104,6 +133,18 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
             let data = self.objStoryData[indexPath.row]
             cell.userImgView.image = data.userImage
             return cell
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath.item)
+        if collectionView == self.StoryCollView {
+            let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.StoryContentScreen) as? ContentViewController
+            controller!.modalTransitionStyle = .crossDissolve
+            controller!.modalPresentationStyle = .overCurrentContext
+            
+            controller?.pages = self.arrayDetails
+            self.presentVC(controller!)
         }
     }
     

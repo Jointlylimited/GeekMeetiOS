@@ -42,6 +42,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     
     var objProfileData = MatchProfileData()
     var imageArray = [#imageLiteral(resourceName: "img_intro_2"), #imageLiteral(resourceName: "image_1"), #imageLiteral(resourceName: "Image 63"), #imageLiteral(resourceName: "Image 62")]
+    var isFromHome : Bool = true
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -95,8 +96,17 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
         self.pageControl.currentPage = 0
     }
     @IBAction func btnBackAction(_ sender: UIButton) {
-        self.dismissVC(completion: nil)
+        if isFromHome {
+            self.dismissVC(completion: nil)
+        } else {
+            self.popVC()
+        }
     }
+    
+    @IBAction func btnViewStoriesAction(_ sender: UIButton) {
+        
+    }
+    
     @IBAction func btnMatchAction(_ sender: UIButton) {
         self.presenter?.gotoMatchVC()
     }

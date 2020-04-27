@@ -98,9 +98,15 @@ class MessagesViewController: UIViewController, MessagesProtocol {
     }
     
     func setStoryMsgViewData(){
-        self.objMsgData = [MessageViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Linda Parker", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"),MessageViewModel(userImage: #imageLiteral(resourceName: "img_intro_1"), userName: "Sophia", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "Image 64"), userName: "Linda Parker", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "Image 62"), userName: "Linda Parker", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Linda Parker", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"),MessageViewModel(userImage: #imageLiteral(resourceName: "img_intro_1"), userName: "Sophia", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm")]
+        self.objMsgData = [MessageViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Linda Parker", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"),MessageViewModel(userImage: #imageLiteral(resourceName: "img_intro_1"), userName: "Sophia", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "Image 64"), userName: "Sonia Mehta", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "Image 62"), userName: "Andrew Jackson", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Vina Parker", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"),MessageViewModel(userImage: #imageLiteral(resourceName: "img_intro_1"), userName: "Lily Ray", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm")]
         
         self.objStoryData = [StoryViewModel(userImage: #imageLiteral(resourceName: "Image 62"), userName: "Linda Parker"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Sophia"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 64"), userName: "Linda Parker"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 61"), userName: "Linda Parker"),StoryViewModel(userImage: #imageLiteral(resourceName: "Image 62"), userName: "Linda Parker"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Sophia")]
+    }
+    @IBAction func btnSearchAction(_ sender: UIButton) {
+        let searchVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.SearchScreen) as? SearchProfileViewController
+        searchVC?.objMsgData = self.objMsgData
+        searchVC?.isFromDiscover = false
+        self.pushVC(searchVC!)
     }
 }
 extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
@@ -152,34 +158,19 @@ extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
         
         return headerView
     }
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        
-        let more = UITableViewRowAction(style: .normal, title: "") { action, index in
-            //self.isEditing = false
-            print("more button tapped")
-        }
-        let image = #imageLiteral(resourceName: "instagram icon")
-        let size = CGSize(width: 25, height: 25)
-        UIGraphicsBeginImageContextWithOptions(size, true, 1)
-        image.draw(in: CGRect(origin: CGPoint.zero, size: size))
-        let resizeImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        more.backgroundColor = UIColor(patternImage: resizeImage!)
-        
-        
-        let favorite = UITableViewRowAction(style: .normal, title: "Favorite") { action, index in
-            //self.isEditing = false
-            print("favorite button tapped")
-        }
-        favorite.backgroundColor = UIColor.orange
-        
-        let share = UITableViewRowAction(style: .normal, title: "Share") { action, index in
-            //self.isEditing = false
-            print("share button tapped")
-        }
-        share.backgroundColor = UIColor.blue
-        
-        return [more]
+    
+    @available(iOS 11.0, *)
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .normal, title:  "", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            self.objMsgData.remove(at: indexPath.row)
+            self.tblMessageView.reloadData()
+            //whatever
+            success(true)
+        })
+        let theImage: UIImage? = UIImage(named:"icn_unmatch")?.withRenderingMode(.alwaysOriginal)
+        deleteAction.backgroundColor = #colorLiteral(red: 1, green: 0.8941176471, blue: 0.8941176471, alpha: 1)
+        deleteAction.image = theImage
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
 

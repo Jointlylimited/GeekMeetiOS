@@ -13,5 +13,5 @@ target 'GeekMeets' do
   pod 'IQKeyboardManagerSwift'
 
   pod 'Firebase/Core'
-
+  pod 'JSONModel'
 end

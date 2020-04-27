@@ -96,6 +96,7 @@ extension DiscoverySettingViewController : UITableViewDataSource, UITableViewDel
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Cells.CommonTblListCell)
+        cell?.selectionStyle = .none
         return cell!
     }
     
@@ -117,5 +118,19 @@ extension DiscoverySettingViewController : UITableViewDataSource, UITableViewDel
         } else {
             return 70
         }
+    }
+    
+     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let index = indexPath.row
+        let queVC = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange) as? SelectAgeRangeViewController
+        queVC?.isFromSignUp = false
+        if index == 0 {
+            queVC?.index = 1
+        } else if index == 1 {
+            queVC?.index = 2
+        } else {
+            queVC?.index = 3
+        }
+        self.pushVC(queVC!)
     }
 }

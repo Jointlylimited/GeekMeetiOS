@@ -40,6 +40,8 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
     var index : Int = 0
     var selectedCells = [Int]()
     
+    var isFromSignUp : Bool = true
+    
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -89,10 +91,14 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
     func displayQuesionsData(Data: [NSDictionary]) {
         print(Data)
         self.objQuestionModel.arrQuestionnaire = Data
-        self.objQuestionModel.objQuestionnaire = QuestionnaireModel(dictionary: Data[self.index])!
-        self.index = self.index + 1
-        self.lblQuestionIndex.text = "\(self.index)/\(self.objQuestionModel.arrQuestionnaire.count)"
-        self.lblTitle.text = "\(self.objQuestionModel.objQuestionnaire.title!)"
+        if isFromSignUp {
+            self.objQuestionModel.objQuestionnaire = QuestionnaireModel(dictionary: Data[self.index])!
+            self.index = self.index + 1
+            self.lblQuestionIndex.text = "\(self.index)/\(self.objQuestionModel.arrQuestionnaire.count)"
+            self.lblTitle.text = "\(self.objQuestionModel.objQuestionnaire.title!)"
+        } else {
+            setQuestionData(index: self.index)
+        }
         if self.objQuestionModel.objQuestionnaire.field_code == 100{
             self.lblDescription.isHidden = true
         }else{
@@ -119,22 +125,30 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
     
   //MARK: IBAction Method
     @IBAction func actionContinues(_ sender: Any) {
-        if self.index < self.objQuestionModel.arrQuestionnaire.count {
-            self.index = index + 1
-            self.setQuestionData(index: self.index)
+        if isFromSignUp {
+            if self.index < self.objQuestionModel.arrQuestionnaire.count {
+                self.index = index + 1
+                self.setQuestionData(index: self.index)
+            } else {
+                self.presenter?.actionContinue()
+            }
         } else {
-            self.presenter?.actionContinue()
+            self.popVC()
         }
      }
     
     @IBAction func actionSkip(_ sender: Any) {
-        if self.index < self.objQuestionModel.arrQuestionnaire.count {
-            self.index = index + 1
-            self.setQuestionData(index: self.index)
+        if isFromSignUp {
+            if self.index < self.objQuestionModel.arrQuestionnaire.count {
+                self.index = index + 1
+                self.setQuestionData(index: self.index)
+            } else {
+                self.presenter?.actionContinue()
+            }
         } else {
-            self.presenter?.actionContinue()
+            self.popVC()
         }
-     }
+    }
 }
 
 //MARK:UICollectionview

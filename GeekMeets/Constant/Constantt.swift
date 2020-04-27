@@ -75,7 +75,8 @@ struct GeekMeets_ViewController
     static let ContactUS_LegalScreen = "ContactUS_LegalViewController"
     static let Share_EarnScreen = "Share_EarnViewController"
     static let ReportScreen = "ReportViewController"
-  
+    static let SearchScreen = "SearchProfileViewController"
+    static let StoryContentScreen = "ContentView"
 }
 
 struct Cells {
@@ -85,6 +86,7 @@ struct Cells {
     static let DiscoverCollectionCell = "DiscoverCollectionCell"
     static let ReactEmojiCollectionCell = "ReactEmojiCollectionCell"
     static let CommonTblListCell = "CommonTblListCell"
+    static let SearchListCell = "SearchListCell"
 }
 
 struct DeviceType {
