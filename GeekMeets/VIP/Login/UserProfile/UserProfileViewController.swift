@@ -20,10 +20,10 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
     //var interactor : UserProfileInteractorProtocol?
     var presenter : UserProfilePresentationProtocol?
     @IBOutlet var scrollView: UIScrollView!
-    @IBOutlet weak var tfName: UITextField!
-    @IBOutlet weak var tfAge: UITextField!
-    @IBOutlet weak var tfCompanyDetail: UITextField!
-    @IBOutlet weak var tfAbout: UITextField!
+    @IBOutlet weak var tfName: BottomBorderTF!
+    @IBOutlet weak var tfAge: BottomBorderTF!
+    @IBOutlet weak var tfCompanyDetail: BottomBorderTF!
+    @IBOutlet weak var tfAbout: BottomBorderTF!
     @IBOutlet weak var imgprofile: UIImageView!
     @IBOutlet weak var btnContinue: GradientButton!
     @IBOutlet weak var btnWork: UIButton!
@@ -81,10 +81,6 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
       scrollView.delegate = self
       self.navigationController?.isNavigationBarHidden = false
       self.navigationItem.leftBarButtonItem = leftSideBackBarButton
-      tfName.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
-      tfAge.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
-      tfAbout.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
-      tfCompanyDetail.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
       imgprofile.setCornerRadius(radius: imgprofile.frame.size.width/2)
       
       let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))

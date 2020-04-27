@@ -20,10 +20,10 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
     //var interactor : SignUpVCInteractorProtocol?
     var presenter : SignUpVCPresentationProtocol?
     
-  @IBOutlet weak var tfEmailAddress: UITextField!
-  @IBOutlet weak var tfPassword: UITextField!
-  @IBOutlet weak var tfConfirmPassword: UITextField!
-  @IBOutlet weak var tfMobileNumber: UITextField!
+  @IBOutlet weak var tfEmailAddress: BottomBorderTF!
+  @IBOutlet weak var tfPassword: BottomBorderTF!
+  @IBOutlet weak var tfConfirmPassword: BottomBorderTF!
+  @IBOutlet weak var tfMobileNumber: BottomBorderTF!
   @IBOutlet weak var btnContinue: GradientButton!
   @IBOutlet weak var btnCountrycode: UIButton!
   // MARK: Object lifecycle
@@ -78,10 +78,6 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
             self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
             self.navigationItem.leftBarButtonItem = leftSideBackBarButton
             self.navigationController?.navigationBar.barTintColor = UIColor.white
-            tfEmailAddress.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
-            tfPassword.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
-            tfConfirmPassword.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
-            tfMobileNumber.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
       
     }
   

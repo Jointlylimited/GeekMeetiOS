@@ -12,7 +12,7 @@ import UIKit
 extension UITextField {
     func addBottomBorder(){
         let bottomLine = CALayer()
-        bottomLine.frame = CGRect(x: 0, y: self.frame.size.height - 1, width: self.frame.size.width, height: 1)
+        bottomLine.frame = CGRect(x: 0, y: self.frame.size.height - 5, width: self.frame.size.width, height: 5)
         bottomLine.backgroundColor = UIColor.gray.cgColor
         borderStyle = .none
         layer.addSublayer(bottomLine)
@@ -24,6 +24,15 @@ extension UITextField {
                                width: self.frame.size.width , height: width)
          self.layer.addSublayer(border)
      }
+  func useUnderline() -> Void {
+    let border = CALayer()
+    let borderWidth = CGFloat(1.0) // Border Width
+    border.borderColor = UIColor.lightGray.cgColor
+    border.frame = CGRect(origin: CGPoint(x: 0,y :self.frame.size.height - borderWidth), size: CGSize(width: self.frame.size.width, height: self.frame.size.height))
+    border.borderWidth = borderWidth
+    self.layer.addSublayer(border)
+    self.layer.masksToBounds = true
+  }
 }
 extension UIButton
 {

@@ -222,11 +222,11 @@ enum TutorialData {
     var pageTitle : String{
         switch self {
         case .firstPage:
-            return "Find people You Like nearby"
+            return "Find people You Like nearby     "
         case .secondPage:
-            return "Match & Chat with new people"
+            return "Match & Chat with new people     "
         case .thirdPage:
-            return "Meet your Match and have fun!!"
+            return "Meet your Match and have fun!!     "
         }
     }
     

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -163,12 +163,23 @@
                                 <color key="textColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can select multiple option" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CWO-U9-WCY">
+                                <rect key="frame" x="20" y="180" width="182.5" height="12"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="12" id="Ax8-h0-BP3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="12"/>
+                                <color key="textColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="PfB-8M-epI" firstAttribute="centerX" secondItem="5Lr-FH-cq4" secondAttribute="centerX" id="6br-56-R7j"/>
+                            <constraint firstItem="CWO-U9-WCY" firstAttribute="top" secondItem="k66-cs-Ng3" secondAttribute="bottom" constant="8" id="8Sx-l5-H4d"/>
                             <constraint firstItem="p49-Gs-54P" firstAttribute="leading" secondItem="zfT-ca-EyP" secondAttribute="leading" constant="20" id="F4g-II-WGI"/>
                             <constraint firstItem="PfB-8M-epI" firstAttribute="height" secondItem="PQv-Uy-61H" secondAttribute="height" id="JsG-ID-GTZ"/>
+                            <constraint firstItem="CWO-U9-WCY" firstAttribute="leading" secondItem="5Lr-FH-cq4" secondAttribute="leading" constant="20" id="LqP-cm-JeQ"/>
                             <constraint firstItem="uWV-Mu-aDp" firstAttribute="leading" secondItem="zfT-ca-EyP" secondAttribute="leading" constant="15" id="NdY-3C-HD6"/>
                             <constraint firstItem="zfT-ca-EyP" firstAttribute="bottom" secondItem="PQv-Uy-61H" secondAttribute="bottom" constant="10" id="NeI-ye-UNk"/>
                             <constraint firstItem="zfT-ca-EyP" firstAttribute="trailing" secondItem="njK-3X-63H" secondAttribute="trailing" id="Nt4-M2-hIP"/>
@@ -196,7 +207,9 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="clnSelectAge" destination="njK-3X-63H" id="zDI-UI-5t1"/>
+                        <outlet property="lblDescription" destination="CWO-U9-WCY" id="fqc-Wi-ur1"/>
                         <outlet property="lblQuestionIndex" destination="dTG-hj-8kl" id="0Nj-Kf-hkP"/>
+                        <outlet property="lblTitle" destination="k66-cs-Ng3" id="OY4-oS-5tq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ma-pf-EYF" userLabel="First Responder" sceneMemberID="firstResponder"/>

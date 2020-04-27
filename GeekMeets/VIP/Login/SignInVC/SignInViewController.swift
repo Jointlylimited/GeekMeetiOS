@@ -29,8 +29,8 @@ class SignInViewController: UIViewController,SignInProtocol
     //var interactor : SignInInteractorProtocol?
     var presenter : SignInPresentationProtocol?
     
-    @IBOutlet weak var tfEmail : UITextField!
-    @IBOutlet weak var tfPassword : UITextField!
+    @IBOutlet weak var tfEmail : BottomBorderTF!
+    @IBOutlet weak var tfPassword : BottomBorderTF!
     @IBOutlet weak var btnSignUp : UIButton?
     @IBOutlet weak var btnForgot: UIButton!
     @IBOutlet weak var btnSignIn: GradientButton!
@@ -79,9 +79,6 @@ class SignInViewController: UIViewController,SignInProtocol
             self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
             self.navigationItem.leftBarButtonItem = leftSideBackBarButton
             self.navigationController?.navigationBar.barTintColor = UIColor.white
-            tfEmail.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
-            tfPassword.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
-           
             let range = (btnSignUp!.currentTitle! as NSString).range(of: "Sign Up")
             let attributedString = NSMutableAttributedString(string:(btnSignUp?.currentTitle)!)
             attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: AppCommonColor.pinkColor , range: range)

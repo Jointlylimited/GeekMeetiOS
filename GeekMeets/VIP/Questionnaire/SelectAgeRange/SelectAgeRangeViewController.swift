@@ -30,6 +30,8 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
     var presenter : SelectAgeRangePresentationProtocol?
 
     @IBOutlet weak var lblQuestionIndex: UILabel!
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var lblDescription: UILabel!
     @IBOutlet weak var clnSelectAge: UICollectionView!
   
     var objQuestionModel = QuestionaryModel()
@@ -90,11 +92,26 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
         self.objQuestionModel.objQuestionnaire = QuestionnaireModel(dictionary: Data[self.index])!
         self.index = self.index + 1
         self.lblQuestionIndex.text = "\(self.index)/\(self.objQuestionModel.arrQuestionnaire.count)"
+        self.lblTitle.text = "\(self.objQuestionModel.objQuestionnaire.title!)"
+        if self.objQuestionModel.objQuestionnaire.field_code == 100{
+            self.lblDescription.isHidden = true
+        }else{
+            self.lblDescription.isHidden = false
+            self.lblDescription.text = "\(self.objQuestionModel.objQuestionnaire.description!)"
+        }
+     
     }
   
     func setQuestionData(index : Int){
         self.objQuestionModel.objQuestionnaire = QuestionnaireModel(dictionary: self.objQuestionModel.arrQuestionnaire[self.index - 1])!
         self.lblQuestionIndex.text = "\(self.index)/\(self.objQuestionModel.arrQuestionnaire.count)"
+        self.lblTitle.text = "\(self.objQuestionModel.objQuestionnaire.title!)"
+        if self.objQuestionModel.objQuestionnaire.field_code == 100{
+            self.lblDescription.isHidden = true
+        }else{
+            self.lblDescription.isHidden = false
+            self.lblDescription.text = "\(self.objQuestionModel.objQuestionnaire.description!)"
+        }
         self.selectedCells = []
         self.clnSelectAge.reloadData()
     }
@@ -145,9 +162,11 @@ extension SelectAgeRangeViewController: UICollectionViewDelegate, UICollectionVi
             if self.selectedCells.contains(indexPath.row) {
                 cell.btnSelectAge.layer.borderColor = #colorLiteral(red: 0.7098039216, green: 0.3254901961, blue: 0.8941176471, alpha: 1)
                 cell.btnSelectAge.setTitleColor(#colorLiteral(red: 0.7098039216, green: 0.3254901961, blue: 0.8941176471, alpha: 1), for: .normal)
+                cell.lblTitle.textColor = #colorLiteral(red: 0.7098039216, green: 0.3254901961, blue: 0.8941176471, alpha: 1)
             } else {
                 cell.btnSelectAge.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
                 cell.btnSelectAge.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5), for: .normal)
+                cell.lblTitle.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
             }
             
             cell.clickOnCell = {

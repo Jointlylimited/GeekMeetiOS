@@ -141,6 +141,8 @@
 		F76A8D842440396800ED9947 /* BlockClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76A8D7D2440396700ED9947 /* BlockClass.swift */; };
 		F76A8D862440396800ED9947 /* CustomerEnumaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76A8D7F2440396700ED9947 /* CustomerEnumaration.swift */; };
 		F76A8D872440396800ED9947 /* DocumentDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76A8D802440396700ED9947 /* DocumentDirectory.swift */; };
+		F77E311B2456AEC100A213FF /* OTPStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77E31192456AEC100A213FF /* OTPStackView.swift */; };
+		F77E311C2456AEC100A213FF /* OTPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77E311A2456AEC100A213FF /* OTPTextField.swift */; };
 		F79604BD244597A2002FFB79 /* TutorialCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79604BC244597A2002FFB79 /* TutorialCell.swift */; };
 		F79CA6F0244D9C5100C9A7EB /* UserProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79CA6ED244D9C5100C9A7EB /* UserProfilePresenter.swift */; };
 		F79CA6F1244D9C5100C9A7EB /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79CA6EE244D9C5100C9A7EB /* UserProfileViewController.swift */; };
@@ -369,6 +371,8 @@
 		F76A8D7D2440396700ED9947 /* BlockClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockClass.swift; sourceTree = "<group>"; };
 		F76A8D7F2440396700ED9947 /* CustomerEnumaration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerEnumaration.swift; sourceTree = "<group>"; };
 		F76A8D802440396700ED9947 /* DocumentDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentDirectory.swift; sourceTree = "<group>"; };
+		F77E31192456AEC100A213FF /* OTPStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTPStackView.swift; sourceTree = "<group>"; };
+		F77E311A2456AEC100A213FF /* OTPTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTPTextField.swift; sourceTree = "<group>"; };
 		F79604BC244597A2002FFB79 /* TutorialCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialCell.swift; sourceTree = "<group>"; };
 		F79CA6ED244D9C5100C9A7EB /* UserProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePresenter.swift; sourceTree = "<group>"; };
 		F79CA6EE244D9C5100C9A7EB /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
@@ -912,9 +916,19 @@
 			path = CustomHelper;
 			sourceTree = "<group>";
 		};
+		F77E31182456AE8B00A213FF /* OTPField */ = {
+			isa = PBXGroup;
+			children = (
+				F77E31192456AEC100A213FF /* OTPStackView.swift */,
+				F77E311A2456AEC100A213FF /* OTPTextField.swift */,
+			);
+			path = OTPField;
+			sourceTree = "<group>";
+		};
 		F79604BA24459767002FFB79 /* UIView */ = {
 			isa = PBXGroup;
 			children = (
+				F77E31182456AE8B00A213FF /* OTPField */,
 				0B3C75BB2453280200CEDBBA /* CustomAlertView */,
 				0B9499B32451DBA4001AD1C8 /* CommonTblListCell */,
 				F7C3CDB7245169B200980835 /* MyCustomTextField */,
@@ -1696,6 +1710,7 @@
 				F7D5259224481DB5002D3A42 /* InitialLoginInteractor.swift in Sources */,
 				F90B4CDE2032AAB8006ADAF6 /* AppDelegate.swift in Sources */,
 				F953B8D620467AFB00BE4F67 /* SettingsViewController.swift in Sources */,
+				F77E311B2456AEC100A213FF /* OTPStackView.swift in Sources */,
 				F7DFAE3724501192008863F3 /* Constant.swift in Sources */,
 				F96C2D262037E92B00F8CBC7 /* MirroringLabel.swift in Sources */,
 				0B31963A244DE7E100B38350 /* PhotoEmojiCell.swift in Sources */,
@@ -1800,6 +1815,7 @@
 				0B53566F2450870F005571AF /* MyMatchesInteractor.swift in Sources */,
 				0B535688245088DC005571AF /* EditProfilePresenter.swift in Sources */,
 				F7164AC0244EB78600853BFC /* ForgotPasswordPresenter.swift in Sources */,
+				F77E311C2456AEC100A213FF /* OTPTextField.swift in Sources */,
 				F7F8F5D12452F8CF00CA82E7 /* SelectCategoriesPresenter.swift in Sources */,
 				F7F8F5C52452EDDC00CA82E7 /* SelectGenderCell.swift in Sources */,
 				0B31965E244DE80500B38350 /* ProfileCompanyCell.swift in Sources */,

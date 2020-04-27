@@ -21,7 +21,7 @@ class ForgotPasswordViewController: UIViewController, ForgotPasswordProtocol {
     var presenter : ForgotPasswordPresentationProtocol?
     
     @IBOutlet weak var btnSend: GradientButton!
-    @IBOutlet weak var tfEmail: MyCustomTextField!
+    @IBOutlet weak var tfEmail: BottomBorderTF!
   // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -63,7 +63,7 @@ class ForgotPasswordViewController: UIViewController, ForgotPasswordProtocol {
     override func viewWillAppear(_ animated: Bool) {
        super.viewWillAppear(animated)
       self.navigationController?.isNavigationBarHidden = false
-      tfEmail.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
+      
     }
     
     

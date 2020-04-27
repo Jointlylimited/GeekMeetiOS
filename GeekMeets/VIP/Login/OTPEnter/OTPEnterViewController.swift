@@ -20,15 +20,19 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     //var interactor : OTPEnterInteractorProtocol?
     var presenter : OTPEnterPresentationProtocol?
     
-    @IBOutlet weak var tfOTP1: UITextField!
-    @IBOutlet weak var tfOTP2: UITextField!
-    @IBOutlet weak var tfOTP3: UITextField!
-    @IBOutlet weak var tfOTP4: UITextField!
-    @IBOutlet weak var tfOTP5: UITextField!
-    @IBOutlet weak var tfOTP6: UITextField!
+    @IBOutlet weak var tfOTP1: BottomBorderTF!
+    @IBOutlet weak var tfOTP2: BottomBorderTF!
+    @IBOutlet weak var tfOTP3: BottomBorderTF!
+    @IBOutlet weak var tfOTP4: BottomBorderTF!
+    @IBOutlet weak var tfOTP5: BottomBorderTF!
+    @IBOutlet weak var tfOTP6: BottomBorderTF!
     @IBOutlet weak var btnResend: UIButton!
     @IBOutlet weak var lblTime: UILabel!
     @IBOutlet weak var btnVerifyOTP: GradientButton!
+    @IBOutlet weak var otpContainerView: UIView!
+    
+       
+    let otpStackView = OTPStackView()
   // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -79,21 +83,37 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
                        let attributedString = NSMutableAttributedString(string:(btnResend?.currentTitle)!)
                        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: AppCommonColor.pinkColor , range: range)
                        btnResend?.setAttributedTitle(attributedString, for: .normal)
-            tfOTP1.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
-            tfOTP2.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
-            tfOTP3.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
-            tfOTP4.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
-            tfOTP5.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
-            tfOTP6.addBottomBorderWithColor(color: UIColor.lightGray, width: 0.5)
-    }
+      
+                    btnVerifyOTP.isHidden = true
+                    otpContainerView.addSubview(otpStackView)
+                    otpStackView.delegate = self
+                    otpStackView.heightAnchor.constraint(equalTo: otpContainerView.heightAnchor).isActive = true
+                    otpStackView.centerXAnchor.constraint(equalTo: otpContainerView.centerXAnchor).isActive = true
+                    otpStackView.centerYAnchor.constraint(equalTo: otpContainerView.centerYAnchor).isActive = true
+               
+
+               
+                
+            }
+
+       
     
     func displaySomething() {
         //nameTextField.text = viewModel.name
     }
   
   @IBAction func actionVerifyOTP(_ sender: Any) {
-      
+      print("Final OTP : ",otpStackView.getOTP())
+                        otpStackView.setAllFieldColor(isWarningColor: true, color: .yellow)
     self.presenter?.actionVerifyOTP()
     
   }
+}
+
+ extension OTPEnterViewController: OTPDelegate {
+            
+            func didChangeValidity(isValid: Bool) {
+                btnVerifyOTP.isHidden = !isValid
+            }
+  
 }
