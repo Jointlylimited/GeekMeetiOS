@@ -21,7 +21,7 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
     var presenter : UserProfilePresentationProtocol?
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet weak var tfName: BottomBorderTF!
-    @IBOutlet weak var tfAge: BottomBorderTF!
+    @IBOutlet weak var tfDoB: BottomBorderTF!
     @IBOutlet weak var tfCompanyDetail: BottomBorderTF!
     @IBOutlet weak var tfAbout: BottomBorderTF!
     @IBOutlet weak var imgprofile: UIImageView!
@@ -32,6 +32,10 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
     @IBOutlet weak var btnFemale: UIButton!
     @IBOutlet weak var btnOther: UIButton!
     @IBOutlet weak var btnPreferNottoSay: UIButton!
+  
+  // MARK: DatePicker
+    @IBOutlet weak var PickerView: UIView!
+    @IBOutlet weak var datePicker: UIDatePicker!
   
   // MARK: Object lifecycle
     
@@ -142,6 +146,15 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
           navigationController?.setNavigationBarHidden(false, animated: true)
        }
     }
+  
+  @IBAction func btnDonePickerAction(_ sender: UIBarButtonItem) {
+      self.PickerView.alpha = 0.0
+      let dateFormatter = DateFormatter()
+      dateFormatter.dateFormat = "dd/MM/yyyy"
+      let strDate = dateFormatter.string(from: datePicker.date)
+      tfDoB.text = strDate
+      
+  }
 }
 
 
@@ -207,4 +220,16 @@ extension UserProfileViewController:  UINavigationControllerDelegate, UIImagePic
       }
   }
 
+}
+
+extension UserProfileViewController : UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        self.PickerView.alpha = 1.0
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

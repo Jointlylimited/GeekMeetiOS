@@ -90,6 +90,10 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
           let tapAction = UITapGestureRecognizer(target: self, action: #selector(self.tapLabel(gesture:)))
           lblPrivacyTerm.isUserInteractionEnabled = true
           lblPrivacyTerm.addGestureRecognizer(tapAction)
+
+       
+        
+      
       }
   
      // MARK:- IBAction Method
@@ -102,11 +106,11 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
 
         if gesture.didTapAttributedTextInLabel(label: lblPrivacyTerm, inRange: termsRange) {
             print("Terms of service")
+          
         } else if gesture.didTapAttributedTextInLabel(label: lblPrivacyTerm, inRange: privacyRange) {
             print("Privacy policy")
-        } else {
-            print("Tapped none")
         }
+      
   }
   
   

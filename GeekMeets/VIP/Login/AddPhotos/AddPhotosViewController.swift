@@ -177,7 +177,7 @@ extension AddPhotosViewController:  UINavigationControllerDelegate, UIImagePicke
           let imagePicker = UIImagePickerController()
           imagePicker.delegate = self
           imagePicker.sourceType = UIImagePickerController.SourceType.camera
-          imagePicker.allowsEditing = false
+          imagePicker.allowsEditing = true
           self.present(imagePicker, animated: true, completion: nil)
       }
       else
@@ -192,7 +192,7 @@ extension AddPhotosViewController:  UINavigationControllerDelegate, UIImagePicke
       if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary){
           let imagePicker = UIImagePickerController()
           imagePicker.delegate = self
-          imagePicker.allowsEditing = false
+          imagePicker.allowsEditing = true
           imagePicker.sourceType = UIImagePickerController.SourceType.savedPhotosAlbum
           self.present(imagePicker, animated: true, completion: nil)
       }

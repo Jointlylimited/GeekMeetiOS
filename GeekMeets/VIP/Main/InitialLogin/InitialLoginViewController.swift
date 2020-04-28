@@ -19,7 +19,7 @@ protocol InitialLoginProtocol: class {
 class InitialLoginViewController: UIViewController, InitialLoginProtocol {
     //var interactor : InitialLoginInteractorProtocol?
     var presenter : InitialLoginPresentationProtocol?
-    
+    @IBOutlet weak var lblPrivacyTerm: UILabel!
     // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -64,11 +64,48 @@ class InitialLoginViewController: UIViewController, InitialLoginProtocol {
     //@IBOutlet weak var nameTextField: UITextField!
     
     func doSomething() {
-        
+        setupMultipleTapLabel()
     }
     
     func displaySomething() {
         //nameTextField.text = viewModel.name
+    }
+  
+  
+  func setupMultipleTapLabel() {
+            lblPrivacyTerm.text = "By clicking sign up, you agree to our Terms. Learn how weprocess your data in our privacy policy & Cookie Privacy"
+            let text = (lblPrivacyTerm.text)!
+            let underlineAttriString = NSMutableAttributedString(string: text)
+            let range1 = (text as NSString).range(of: "Terms")
+  //          underlineAttriString.addAttribute(.foregroundColor, value: UIColor.blue, range: range1)
+            underlineAttriString.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: range1)
+            let range2 = (text as NSString).range(of: "privacy policy")
+            underlineAttriString.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: range2)
+            let range3 = (text as NSString).range(of: "Cookie Privacy")
+            underlineAttriString.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: range3)
+            lblPrivacyTerm.attributedText = underlineAttriString
+            let tapAction = UITapGestureRecognizer(target: self, action: #selector(self.tapLabel(gesture:)))
+            lblPrivacyTerm.isUserInteractionEnabled = true
+            lblPrivacyTerm.addGestureRecognizer(tapAction)
+
+         
+          
+        
+        }
+    
+       // MARK:- IBAction Method
+    
+      @IBAction func tapLabel(gesture: UITapGestureRecognizer) {
+        
+          let text = (lblPrivacyTerm.text)!
+          let termsRange = (text as NSString).range(of: "Terms")
+          let privacyRange = (text as NSString).range(of: "privacy policy")
+
+          if gesture.didTapAttributedTextInLabel(label: lblPrivacyTerm, inRange: termsRange) {
+              print("Terms of service")
+          } else if gesture.didTapAttributedTextInLabel(label: lblPrivacyTerm, inRange: privacyRange) {
+              print("Privacy policy")
+          }
     }
   
     // MARK: IBAction Method
