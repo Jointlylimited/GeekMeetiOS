@@ -139,6 +139,7 @@ extension ContactUS_LegalViewController : UITableViewDataSource, UITableViewDele
         } else {
             if let cell = cell as? CommonTblListCell {
                 cell.lblTitle.text = self.LegalTitleArray[indexPath.row]
+                cell.selectionStyle = .none
             }
         }
     }

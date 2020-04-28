@@ -77,6 +77,9 @@ struct GeekMeets_ViewController
     static let ReportScreen = "ReportViewController"
     static let SearchScreen = "SearchProfileViewController"
     static let StoryContentScreen = "ContentView"
+    static let ChangePasswordScreen = "ChangePasswordViewController"
+    static let MessageScreen = "MessagesViewController"
+    static let ChangeEmailMobileScreen = "ChangeEmailMobileViewController"
 }
 
 struct Cells {

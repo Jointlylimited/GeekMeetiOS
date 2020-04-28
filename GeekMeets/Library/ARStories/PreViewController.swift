@@ -16,6 +16,7 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
     @IBOutlet weak var imagePreview: UIImageView!
     @IBOutlet weak var userProfileImage: UIImageView!
     @IBOutlet weak var lblUserName: UILabel!
+    @IBOutlet weak var deleteView: UIView!
     
     var pageIndex : Int = 0
     var items: [UserDetail] = []
@@ -174,6 +175,16 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
     }
     
     @IBAction func btnOptionAction(_ sender: UIButton) {
+        if self.deleteView.alpha == 0.0 {
+            self.deleteView.alpha = 1.0
+        } else {
+            self.deleteView.alpha = 0.0
+        }
+    }
+    @IBAction func btnDeleteAction(_ sender: UIButton) {
+        
+    }
+    @IBAction func btnViewStoryAction(_ sender: UIButton) {
         
     }
 }

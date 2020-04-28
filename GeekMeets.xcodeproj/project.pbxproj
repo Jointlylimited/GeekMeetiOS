@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B0AC39F24583EF600B91DF5 /* UIAlertControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0AC39E24583EF600B91DF5 /* UIAlertControllerExtension.swift */; };
 		0B31963A244DE7E100B38350 /* PhotoEmojiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B319638244DE7E000B38350 /* PhotoEmojiCell.swift */; };
 		0B31963B244DE7E100B38350 /* PhotoEmojiCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B319639244DE7E000B38350 /* PhotoEmojiCell.xib */; };
 		0B319654244DE80500B38350 /* MenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B31963D244DE80400B38350 /* MenuPresenter.swift */; };
@@ -36,6 +37,12 @@
 		0B3C75BA245327F000CEDBBA /* ReportPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C75B7245327F000CEDBBA /* ReportPresenter.swift */; };
 		0B3C75BE2453280200CEDBBA /* CustomAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B3C75BC2453280200CEDBBA /* CustomAlertView.xib */; };
 		0B3C75BF2453280200CEDBBA /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C75BD2453280200CEDBBA /* CustomAlertView.swift */; };
+		0B46B0C5245865F3006E0D87 /* ChangeEmailMobilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B46B0C2245865F3006E0D87 /* ChangeEmailMobilePresenter.swift */; };
+		0B46B0C6245865F3006E0D87 /* ChangeEmailMobileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B46B0C3245865F3006E0D87 /* ChangeEmailMobileViewController.swift */; };
+		0B46B0C7245865F3006E0D87 /* ChangeEmailMobileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B46B0C4245865F3006E0D87 /* ChangeEmailMobileInteractor.swift */; };
+		0B4CA0362457EA5200A3460B /* ChangePasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4CA0332457EA5200A3460B /* ChangePasswordPresenter.swift */; };
+		0B4CA0372457EA5200A3460B /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4CA0342457EA5200A3460B /* ChangePasswordViewController.swift */; };
+		0B4CA0382457EA5200A3460B /* ChangePasswordInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4CA0352457EA5200A3460B /* ChangePasswordInteractor.swift */; };
 		0B53566424508701005571AF /* Menu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B53566324508701005571AF /* Menu.storyboard */; };
 		0B53566E2450870F005571AF /* MyMatchesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5356672450870F005571AF /* MyMatchesViewController.swift */; };
 		0B53566F2450870F005571AF /* MyMatchesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5356682450870F005571AF /* MyMatchesInteractor.swift */; };
@@ -209,9 +216,6 @@
 		F90B4CE52032F4A6006ADAF6 /* SOService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90B4CE12032F4A6006ADAF6 /* SOService.swift */; };
 		F948AECA203E865500F5A852 /* AppdelegateNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = F948AEC9203E865500F5A852 /* AppdelegateNotification.swift */; };
 		F952382B2047BA3500BC0D49 /* RequestParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F952382A2047BA3400BC0D49 /* RequestParameter.swift */; };
-		F952382F2047D66B00BC0D49 /* ChangePasswordInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F952382C2047D66B00BC0D49 /* ChangePasswordInteractor.swift */; };
-		F95238302047D66B00BC0D49 /* ChangePasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F952382D2047D66B00BC0D49 /* ChangePasswordPresenter.swift */; };
-		F95238312047D66B00BC0D49 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F952382E2047D66B00BC0D49 /* ChangePasswordViewController.swift */; };
 		F953B8D420467AFB00BE4F67 /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F953B8D120467AFB00BE4F67 /* SettingsInteractor.swift */; };
 		F953B8D520467AFB00BE4F67 /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F953B8D220467AFB00BE4F67 /* SettingsPresenter.swift */; };
 		F953B8D620467AFB00BE4F67 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F953B8D320467AFB00BE4F67 /* SettingsViewController.swift */; };
@@ -247,6 +251,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B0AC39E24583EF600B91DF5 /* UIAlertControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertControllerExtension.swift; sourceTree = "<group>"; };
 		0B319638244DE7E000B38350 /* PhotoEmojiCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoEmojiCell.swift; sourceTree = "<group>"; };
 		0B319639244DE7E000B38350 /* PhotoEmojiCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoEmojiCell.xib; sourceTree = "<group>"; };
 		0B31963D244DE80400B38350 /* MenuPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuPresenter.swift; sourceTree = "<group>"; };
@@ -276,6 +281,12 @@
 		0B3C75B7245327F000CEDBBA /* ReportPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportPresenter.swift; sourceTree = "<group>"; };
 		0B3C75BC2453280200CEDBBA /* CustomAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomAlertView.xib; sourceTree = "<group>"; };
 		0B3C75BD2453280200CEDBBA /* CustomAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
+		0B46B0C2245865F3006E0D87 /* ChangeEmailMobilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailMobilePresenter.swift; sourceTree = "<group>"; };
+		0B46B0C3245865F3006E0D87 /* ChangeEmailMobileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailMobileViewController.swift; sourceTree = "<group>"; };
+		0B46B0C4245865F3006E0D87 /* ChangeEmailMobileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailMobileInteractor.swift; sourceTree = "<group>"; };
+		0B4CA0332457EA5200A3460B /* ChangePasswordPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordPresenter.swift; sourceTree = "<group>"; };
+		0B4CA0342457EA5200A3460B /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
+		0B4CA0352457EA5200A3460B /* ChangePasswordInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordInteractor.swift; sourceTree = "<group>"; };
 		0B53566324508701005571AF /* Menu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Menu.storyboard; sourceTree = "<group>"; };
 		0B5356672450870F005571AF /* MyMatchesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMatchesViewController.swift; sourceTree = "<group>"; };
 		0B5356682450870F005571AF /* MyMatchesInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMatchesInteractor.swift; sourceTree = "<group>"; };
@@ -461,9 +472,6 @@
 		F90B4CE12032F4A6006ADAF6 /* SOService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOService.swift; sourceTree = "<group>"; };
 		F948AEC9203E865500F5A852 /* AppdelegateNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppdelegateNotification.swift; sourceTree = "<group>"; };
 		F952382A2047BA3400BC0D49 /* RequestParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestParameter.swift; sourceTree = "<group>"; };
-		F952382C2047D66B00BC0D49 /* ChangePasswordInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordInteractor.swift; sourceTree = "<group>"; };
-		F952382D2047D66B00BC0D49 /* ChangePasswordPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordPresenter.swift; sourceTree = "<group>"; };
-		F952382E2047D66B00BC0D49 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		F953B8D120467AFB00BE4F67 /* SettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
 		F953B8D220467AFB00BE4F67 /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
 		F953B8D320467AFB00BE4F67 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -612,6 +620,26 @@
 				0B3C75BD2453280200CEDBBA /* CustomAlertView.swift */,
 			);
 			path = CustomAlertView;
+			sourceTree = "<group>";
+		};
+		0B46B0C1245865C9006E0D87 /* ChangeEmailMobileVC */ = {
+			isa = PBXGroup;
+			children = (
+				0B46B0C2245865F3006E0D87 /* ChangeEmailMobilePresenter.swift */,
+				0B46B0C3245865F3006E0D87 /* ChangeEmailMobileViewController.swift */,
+				0B46B0C4245865F3006E0D87 /* ChangeEmailMobileInteractor.swift */,
+			);
+			path = ChangeEmailMobileVC;
+			sourceTree = "<group>";
+		};
+		0B4CA0322457EA3300A3460B /* ChangePasswordVC */ = {
+			isa = PBXGroup;
+			children = (
+				0B4CA0332457EA5200A3460B /* ChangePasswordPresenter.swift */,
+				0B4CA0342457EA5200A3460B /* ChangePasswordViewController.swift */,
+				0B4CA0352457EA5200A3460B /* ChangePasswordInteractor.swift */,
+			);
+			path = ChangePasswordVC;
 			sourceTree = "<group>";
 		};
 		0B5356652450870F005571AF /* MenuScreens */ = {
@@ -776,6 +804,8 @@
 		0B9499C42451DBC3001AD1C8 /* AccountSettingVC */ = {
 			isa = PBXGroup;
 			children = (
+				0B46B0C1245865C9006E0D87 /* ChangeEmailMobileVC */,
+				0B4CA0322457EA3300A3460B /* ChangePasswordVC */,
 				0B9499C52451DBC3001AD1C8 /* AccountSettingPresenter.swift */,
 				0B9499C62451DBC3001AD1C8 /* AccountSettingViewController.swift */,
 				0B9499C72451DBC3001AD1C8 /* AccountSettingInteractor.swift */,
@@ -1403,22 +1433,11 @@
 		F953B8CE20467AE800BE4F67 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				F953B8CF20467AE800BE4F67 /* ChangePassword */,
 				F953B8D120467AFB00BE4F67 /* SettingsInteractor.swift */,
 				F953B8D220467AFB00BE4F67 /* SettingsPresenter.swift */,
 				F953B8D320467AFB00BE4F67 /* SettingsViewController.swift */,
 			);
 			path = Settings;
-			sourceTree = "<group>";
-		};
-		F953B8CF20467AE800BE4F67 /* ChangePassword */ = {
-			isa = PBXGroup;
-			children = (
-				F952382C2047D66B00BC0D49 /* ChangePasswordInteractor.swift */,
-				F952382D2047D66B00BC0D49 /* ChangePasswordPresenter.swift */,
-				F952382E2047D66B00BC0D49 /* ChangePasswordViewController.swift */,
-			);
-			path = ChangePassword;
 			sourceTree = "<group>";
 		};
 		F96C2D0B2037E75B00F8CBC7 /* Localization */ = {
@@ -1458,6 +1477,7 @@
 				F97A9A1521102E18007C45F5 /* UIApplicationExtensions.swift */,
 				F73002CA2446F0B600BDD7FD /* UITapGestureRecognizerExtensions.swift */,
 				F716F2A424495EDD0063680F /* UITextFieldExtensions.swift */,
+				0B0AC39E24583EF600B91DF5 /* UIAlertControllerExtension.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -1764,6 +1784,7 @@
 				0BF707FE244F1D1C003D6AB7 /* DiscoverViewController.swift in Sources */,
 				0BF707FF244F1D1C003D6AB7 /* DiscoverInteractor.swift in Sources */,
 				0B53567724508775005571AF /* GradientButton.swift in Sources */,
+				0B4CA0362457EA5200A3460B /* ChangePasswordPresenter.swift in Sources */,
 				F948AECA203E865500F5A852 /* AppdelegateNotification.swift in Sources */,
 				F97A9A2C21103FA7007C45F5 /* CGRectExtensions.swift in Sources */,
 				F9A453C9203AA74B0065C9FD /* SignUpPresenter.swift in Sources */,
@@ -1775,8 +1796,10 @@
 				F97A9A2E21103FAD007C45F5 /* CGFloatExtensions.swift in Sources */,
 				0B921C3324571C510010AE04 /* SearchProfilePresenter.swift in Sources */,
 				0B31965C244DE80500B38350 /* ProfilePhotosCell.swift in Sources */,
+				0B46B0C6245865F3006E0D87 /* ChangeEmailMobileViewController.swift in Sources */,
 				F79CA6F1244D9C5100C9A7EB /* UserProfileViewController.swift in Sources */,
 				0B9499D12451DBC4001AD1C8 /* ManageSubscriptionPresenter.swift in Sources */,
+				0B46B0C7245865F3006E0D87 /* ChangeEmailMobileInteractor.swift in Sources */,
 				F97A9A2A21103FA2007C45F5 /* UIViewControllerExtensions.swift in Sources */,
 				F9A453C0203AA74A0065C9FD /* LoginPresenter.swift in Sources */,
 				0B9499B62451DBA5001AD1C8 /* CommonTblListCell.swift in Sources */,
@@ -1818,6 +1841,7 @@
 				0B31965F244DE80500B38350 /* ProfileAboutCell.swift in Sources */,
 				0B319657244DE80500B38350 /* MenuViewController.swift in Sources */,
 				F7F8F5CB2452F87A00CA82E7 /* SelectSocialMediaViewController.swift in Sources */,
+				0B0AC39F24583EF600B91DF5 /* UIAlertControllerExtension.swift in Sources */,
 				0B31965D244DE80500B38350 /* ProfileSocialCell.swift in Sources */,
 				0B31965A244DE80500B38350 /* HomePresenter.swift in Sources */,
 				F716F2A924498F630063680F /* SignUpVCPresenter.swift in Sources */,
@@ -1832,6 +1856,7 @@
 				0B5356722450870F005571AF /* BoostInteractor.swift in Sources */,
 				F7F967972451ABF400BD7275 /* SelectAgeRangeInteractor.swift in Sources */,
 				0B9499E02451DBC4001AD1C8 /* ContactUSCell.swift in Sources */,
+				0B46B0C5245865F3006E0D87 /* ChangeEmailMobilePresenter.swift in Sources */,
 				0B921C2824571BE40010AE04 /* PreViewController.swift in Sources */,
 				F7D5259A244869FB002D3A42 /* SignInPresenter.swift in Sources */,
 				F9A453CF203AA74B0065C9FD /* SplashInteractor.swift in Sources */,
@@ -1893,7 +1918,6 @@
 				0B3C75B8245327F000CEDBBA /* ReportInteractor.swift in Sources */,
 				F96C2D232037E92B00F8CBC7 /* L102Language.swift in Sources */,
 				F7F8F5CA2452F87A00CA82E7 /* SelectSocialMediaPresenter.swift in Sources */,
-				F95238312047D66B00BC0D49 /* ChangePasswordViewController.swift in Sources */,
 				0B3C75B1245327DF00CEDBBA /* Share_EarnViewController.swift in Sources */,
 				F7F8F5BC2452BD3200CA82E7 /* SelectAgeCell.swift in Sources */,
 				0BF7081E244F1D6B003D6AB7 /* ReactEmojiCollectionCell.swift in Sources */,
@@ -1909,7 +1933,6 @@
 				0B3C75B9245327F000CEDBBA /* ReportViewController.swift in Sources */,
 				F7F8F5D22452F8CF00CA82E7 /* SelectCategoriesViewController.swift in Sources */,
 				F953B8D520467AFB00BE4F67 /* SettingsPresenter.swift in Sources */,
-				F95238302047D66B00BC0D49 /* ChangePasswordPresenter.swift in Sources */,
 				0B921C3424571C510010AE04 /* SearchListCell.swift in Sources */,
 				F76A8D862440396800ED9947 /* CustomerEnumaration.swift in Sources */,
 				0B319654244DE80500B38350 /* MenuPresenter.swift in Sources */,
@@ -1921,7 +1944,9 @@
 				0B535688245088DC005571AF /* EditProfilePresenter.swift in Sources */,
 				F7164AC0244EB78600853BFC /* ForgotPasswordPresenter.swift in Sources */,
 				F77E311C2456AEC100A213FF /* OTPTextField.swift in Sources */,
+				0B4CA0372457EA5200A3460B /* ChangePasswordViewController.swift in Sources */,
 				F7F8F5D12452F8CF00CA82E7 /* SelectCategoriesPresenter.swift in Sources */,
+				0B4CA0382457EA5200A3460B /* ChangePasswordInteractor.swift in Sources */,
 				F7F8F5C52452EDDC00CA82E7 /* SelectGenderCell.swift in Sources */,
 				0B31965E244DE80500B38350 /* ProfileCompanyCell.swift in Sources */,
 				0B9499D42451DBC4001AD1C8 /* DiscoverySettingViewController.swift in Sources */,
@@ -1945,7 +1970,6 @@
 				F96C2D202037E92B00F8CBC7 /* L012Localizer.swift in Sources */,
 				F7F8F5D72452FC0E00CA82E7 /* SelectCategories.swift in Sources */,
 				0B9499D32451DBC4001AD1C8 /* ManageSubscriptionViewController.swift in Sources */,
-				F952382F2047D66B00BC0D49 /* ChangePasswordInteractor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

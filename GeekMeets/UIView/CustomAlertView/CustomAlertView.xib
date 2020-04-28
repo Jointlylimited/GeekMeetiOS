@@ -22,7 +22,7 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wiE-Zr-9Mk" customClass="VDTouch" customModule="Watercolor" customModuleProvider="target">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wiE-Zr-9Mk" customClass="VDTouch" customModule="GeekMeets" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                 </view>
@@ -33,28 +33,28 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kb6-ru-MZC">
-                    <rect key="frame" x="13" y="342" width="388" height="212"/>
+                    <rect key="frame" x="20" y="342" width="374" height="212"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Are you sure you want to block?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JOO-Ln-yug">
-                            <rect key="frame" x="20" y="43" width="348" height="20"/>
+                            <rect key="frame" x="20" y="43" width="334" height="20"/>
                             <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User will not able to see your profile after blocking" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yyf-B0-ccq">
-                            <rect key="frame" x="20" y="74.5" width="348" height="17"/>
+                            <rect key="frame" x="20" y="74.5" width="334" height="17"/>
                             <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="12"/>
                             <color key="textColor" white="0.0" alpha="0.69935252569999995" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="VGF-op-0dD">
-                            <rect key="frame" x="12" y="144" width="365" height="50"/>
+                            <rect key="frame" x="12" y="144" width="351" height="50"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ESp-b8-GUs">
-                                    <rect key="frame" x="0.0" y="0.0" width="175" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="168" height="50"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lQ0-7u-isV">
-                                            <rect key="frame" x="0.0" y="0.0" width="175" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="168" height="50"/>
                                             <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
                                             <state key="normal" title="Cancel">
                                                 <color key="titleColor" red="0.70980392160000005" green="0.32549019610000002" blue="0.89411764709999997" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
@@ -87,10 +87,10 @@
                                     </userDefinedRuntimeAttributes>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9s1-CI-8fC">
-                                    <rect key="frame" x="190" y="0.0" width="175" height="50"/>
+                                    <rect key="frame" x="183" y="0.0" width="168" height="50"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hZN-8j-ZuP" customClass="GradientButton" customModule="GeekMeets" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="175" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="168" height="50"/>
                                             <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
                                             <state key="normal" title="Block">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -163,7 +163,9 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="ZYN-Sh-MpJ" firstAttribute="top" secondItem="wiE-Zr-9Mk" secondAttribute="top" id="ENs-p0-sok"/>
+                <constraint firstItem="kb6-ru-MZC" firstAttribute="leading" secondItem="ikD-00-sCp" secondAttribute="leading" constant="20" id="Jgt-am-lYK"/>
                 <constraint firstItem="ZYN-Sh-MpJ" firstAttribute="bottom" secondItem="Q87-Q8-bh2" secondAttribute="bottom" id="NZN-4T-zND"/>
+                <constraint firstItem="ikD-00-sCp" firstAttribute="trailing" secondItem="kb6-ru-MZC" secondAttribute="trailing" constant="20" id="OVQ-Le-X2G"/>
                 <constraint firstItem="wiE-Zr-9Mk" firstAttribute="top" secondItem="Q87-Q8-bh2" secondAttribute="top" id="VBO-9E-VVH"/>
                 <constraint firstItem="kb6-ru-MZC" firstAttribute="centerX" secondItem="Q87-Q8-bh2" secondAttribute="centerX" id="bP0-DV-cVp"/>
                 <constraint firstItem="ZYN-Sh-MpJ" firstAttribute="leading" secondItem="wiE-Zr-9Mk" secondAttribute="leading" id="cOK-RH-oir"/>

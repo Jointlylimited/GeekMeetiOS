@@ -36,6 +36,8 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     @IBOutlet weak var tblProfileView: UITableView!
     @IBOutlet weak var MatchProfileCollView: UICollectionView!
     
+    @IBOutlet weak var profileView: UIView!
+    @IBOutlet weak var profileViewHeightConstant: NSLayoutConstraint!
     @IBOutlet weak var pageControl: UIPageControl!
     
     var alertView: CustomAlertView!
@@ -43,6 +45,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     var objProfileData = MatchProfileData()
     var imageArray = [#imageLiteral(resourceName: "img_intro_2"), #imageLiteral(resourceName: "image_1"), #imageLiteral(resourceName: "Image 63"), #imageLiteral(resourceName: "Image 62")]
     var isFromHome : Bool = true
+    var arrayDetails :  [UserDetail] = []
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -78,8 +81,14 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setTheme()
         self.registerCollectionViewCell()
         self.MatchProfileCollView.reloadData()
+    }
+    
+    func setTheme(){
+        self.profileViewHeightConstant.constant = DeviceType.iPhone5orSE ? 400 : 500
+        self.arrayDetails = fetchUserData()
     }
     
     func registerCollectionViewCell(){
@@ -95,6 +104,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
         self.pageControl.numberOfPages = imageArray.count
         self.pageControl.currentPage = 0
     }
+    
     @IBAction func btnBackAction(_ sender: UIButton) {
         if isFromHome {
             self.dismissVC(completion: nil)
@@ -104,7 +114,12 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     }
     
     @IBAction func btnViewStoriesAction(_ sender: UIButton) {
+        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.StoryContentScreen) as? ContentViewController
+        controller!.modalTransitionStyle = .crossDissolve
+        controller!.modalPresentationStyle = .overCurrentContext
         
+        controller?.pages = self.arrayDetails
+        self.presentVC(controller!)
     }
     
     @IBAction func btnMatchAction(_ sender: UIButton) {

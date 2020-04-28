@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import Photos
 
 enum EditProfileListCells {
     
@@ -23,7 +24,7 @@ enum EditProfileListCells {
     var cellHeight  : CGFloat {
         switch self {
         case .InformationCell(let desc):
-            return desc.heightWithConstrainedWidth(width: 374 * _widthRatio,font: fontPoppins(fontType: .Poppins_Medium, fontSize: .sizeNormalTextField)) + 16
+           return 50 // return desc.heightWithConstrainedWidth(width: 374 * _widthRatio,font: fontPoppins(fontType: .Poppins_Medium, fontSize: .sizeNormalTextField)) + 16
         case .InterestCell, .PhotosCell, .SocialCell, .PrivacyCell:
             return 50
             
@@ -110,8 +111,13 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
     
     @IBOutlet weak var PickerView: UIView!
     @IBOutlet weak var datePicker: UIDatePicker!
+    
+    @IBOutlet weak var imgProfile: UIImageView!
+    
     var objEditProfileData = EditProfileData()
-    var imageArray = [#imageLiteral(resourceName: "img_intro_2"), #imageLiteral(resourceName: "image_1"), #imageLiteral(resourceName: "Image 63"), #imageLiteral(resourceName: "Image 62")]
+    var imageArray : [UIImage]  = [] //[#imageLiteral(resourceName: "img_intro_2"), #imageLiteral(resourceName: "image_1"), #imageLiteral(resourceName: "Image 63"), #imageLiteral(resourceName: "Image 62")]
+    var imagePicker: UIImagePickerController!
+    var image : UIImage?
     
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -166,6 +172,9 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
         dateFormatter.dateFormat = "dd/MM/yyyy"
         let strDate = dateFormatter.string(from: datePicker.date)
         print(strDate)
+    }
+    @IBAction func btnChooseProfileAction(_ sender: UIButton) {
+        self.openImagePickerActionSheet()
     }
 }
 
@@ -256,23 +265,38 @@ extension EditProfileViewController : UICollectionViewDataSource, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.imageArray != nil && self.imageArray.count != 0 ? self.imageArray.count + 1 : 0
+        return self.imageArray.count != 0 ? self.imageArray.count + 1 : 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell : PhotoEmojiCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PhotoEmojiCell, for: indexPath) as! PhotoEmojiCell
+        cell.emojiStackView.spacing = DeviceType.iPhone5orSE ? 2 : 10
         
-        cell.btnClose.alpha = 1.0
-        if indexPath.row == 0 {
+        if indexPath.row < self.imageArray.count {
+            cell.btnClose.alpha = 1.0
+            cell.userImgView.image = imageArray[indexPath.row]
+        } else {
             cell.userImgView.image = #imageLiteral(resourceName: "icn_add_photo")
             cell.emojiStackView.alpha = 0
             cell.btnClose.alpha  = 0
-            return cell
-        } else {
-            cell.userImgView.image = imageArray[indexPath.row - 1]
-            cell.btnClose.alpha  = 1
-            return cell
         }
+        
+        cell.clickOnImageButton = {
+            if self.image != nil {
+                self.openImagePickerActionSheet()
+            } else {
+                self.openImagePickerActionSheet()
+            }
+            self.tblEditProfileView.reloadData()
+        }
+        
+        cell.clickOnRemovePhoto = {
+            if self.imageArray.count != 0 {
+                self.imageArray.remove(at: indexPath.row)
+            }
+            self.tblEditProfileView.reloadData()
+        }
+        return cell
     }
 
        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -289,5 +313,89 @@ extension EditProfileViewController : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+// MARK: - UIImagePickerDelegate
+extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func openImagePickerActionSheet() {
+        let camera = "Camera"
+        let photoGallery = "Gallery"
+        let cancel = "Cancel"
+        UIAlertController.showAlertWith(title: nil, message: nil, style: .actionSheet, buttons: [camera,photoGallery,cancel], controller: self) { (action) in
+            if action == camera {
+                self.openCamera()
+            } else if action == photoGallery {
+                self.openLibrary()
+            }
+        }
+    }
+    
+    func openCamera(){
+        cameraAccess { [weak self] (status, isGrant) in
+            guard let `self` = self else {return}
+            if isGrant {
+                if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
+                    self.imagePicker = UIImagePickerController()
+                    self.imagePicker.delegate = self
+                    self.imagePicker.sourceType = UIImagePickerController.SourceType.camera;
+                    self.imagePicker.allowsEditing = true
+                    self.imagePicker.cameraCaptureMode = .photo
+                    self.imagePicker.cameraDevice = .front
+                    self.present(self.imagePicker, animated: true, completion: nil)
+                }
+            } else {
+                self.showAccessPopup(title: kCameraAccessTitle, msg: kCameraAccessMsg)
+            }
+        }
+    }
+    
+    func openLibrary(){
+        photoLibraryAccess { [weak self] (status, isGrant) in
+            guard let `self` = self else {return}
+            if isGrant {
+                if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
+                    self.imagePicker = UIImagePickerController()
+                    self.imagePicker.delegate = self
+                    self.imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary;
+                    self.imagePicker.allowsEditing = false
+                    self.present(self.imagePicker, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        if #available(iOS 11.0, *) {
+            if let asset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset{
+                if let fileName = asset.value(forKey: "filename") as? String{
+                    print(fileName)
+                }
+            }
+            if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                self.image = image
+                self.imageArray.append(image)
+                self.imgProfile.image = image
+            }
+            self.tblEditProfileView.reloadData()
+        } else {
+            if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                    self.imgProfile.image = image
+                self.image = image
+                self.imageArray.append(image)
+                if let imageURL = info[UIImagePickerController.InfoKey.referenceURL] as? URL {
+                    let result = PHAsset.fetchAssets(withALAssetURLs: [imageURL], options: nil)
+                    let assetResources = PHAssetResource.assetResources(for: result.firstObject!)
+                    
+                    print(assetResources.first!.originalFilename)
+                }
+            }
+        }
     }
 }

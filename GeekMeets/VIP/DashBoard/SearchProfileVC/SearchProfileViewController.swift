@@ -20,8 +20,8 @@ class SearchProfileViewController: UIViewController, SearchProfileProtocol {
     var presenter : SearchProfilePresentationProtocol?
     
     @IBOutlet weak var tblSearchList: UITableView!
-    @IBOutlet weak var searchField: UISearchBar!
     @IBOutlet weak var txtSearchField: UITextField!
+    @IBOutlet weak var btnSearch: UIButton!
     
     var objMsgData : [MessageViewModel] = []
     var objStoryData : [StoryViewModel] = []
@@ -78,6 +78,7 @@ class SearchProfileViewController: UIViewController, SearchProfileProtocol {
     }
     
     @objc func btnClearAllAction(){
+        self.btnSearch.alpha = 0.0
         self.txtSearchField.text = ""
         if !self.isFromDiscover {
             self.objFilterMsgData.removeAll()
@@ -123,7 +124,7 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
                 
                 cell.clickOnCloseBtn = {
                     print("Click on close button.")
-                    self.objFilterMsgData.remove(at: 0)
+//                    self.objFilterMsgData.remove(at: 0)
                     self.tblSearchList.reloadData()
                 }
             } else {
@@ -137,7 +138,7 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
                 }
                 cell.clickOnCloseBtn = {
                     print("Click on close button.")
-                    self.objFilterMsgData.remove(at: 0)
+//                    self.objFilterMsgData.remove(at: 0)
                     self.tblSearchList.reloadData()
                 }
             }
@@ -205,9 +206,11 @@ extension SearchProfileViewController : UITextFieldDelegate {
         
         if !self.isFromDiscover {
             if textField.text == "" {
+                self.btnSearch.alpha = 0.0
                 self.objFilterMsgData = self.objMsgData
                 print(self.objFilterMsgData.count)
             } else {
+                self.btnSearch.alpha = 1.0
                 self.objFilterMsgData.removeAll()
                 for data in self.objMsgData {
                     print(self.objFilterMsgData.count)
@@ -216,24 +219,15 @@ extension SearchProfileViewController : UITextFieldDelegate {
                             self.objFilterMsgData.append(data)
                         }
                     }
-                    //                if let vCard = appSingleton.fetchVCardOfFriend(receiverID: data.user_id!) {
-                    //                    if (vCard.nickname?.lowercased().contains(textField.text!))! {
-                    //                        if arrChatList.count == 0 {
-                    //                            self.arrChatList.append(data)
-                    //                        }
-                    //                        let fil_array = arrChatList.filter({$0.user_id! == data.user_id})
-                    //                        if  fil_array.count == 0 {
-                    //                            self.arrChatList.append(data)
-                    //                        }
-                    //                    }
-                    //                }
                 }
             }
         } else {
             if textField.text == "" {
+                self.btnSearch.alpha = 0.0
                 self.objFilterStoryData = self.objStoryData
                 print(self.objFilterStoryData.count)
             } else {
+                self.btnSearch.alpha = 1.0
                 self.objFilterStoryData.removeAll()
                 for data in self.objStoryData {
                     print(self.objFilterStoryData.count)

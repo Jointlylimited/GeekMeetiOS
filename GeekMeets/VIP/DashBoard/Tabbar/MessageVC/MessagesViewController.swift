@@ -167,10 +167,19 @@ extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
             //whatever
             success(true)
         })
-        let theImage: UIImage? = UIImage(named:"icn_unmatch")?.withRenderingMode(.alwaysOriginal)
+        let theImage: UIImage? = UIImage(named:"icn_trash")?.withRenderingMode(.alwaysOriginal)
         deleteAction.backgroundColor = #colorLiteral(red: 1, green: 0.8941176471, blue: 0.8941176471, alpha: 1)
         deleteAction.image = theImage
-        return UISwipeActionsConfiguration(actions: [deleteAction])
+        
+        let volAction = UIContextualAction(style: .normal, title:  "", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            //whatever
+            success(true)
+        })
+        let volImage: UIImage? = UIImage(named:"icn_volume")?.withRenderingMode(.alwaysOriginal)
+        volAction.backgroundColor = #colorLiteral(red: 0.9803921569, green: 0.937254902, blue: 0.9960784314, alpha: 1)
+        volAction.image = volImage
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction, volAction])
     }
 }
 

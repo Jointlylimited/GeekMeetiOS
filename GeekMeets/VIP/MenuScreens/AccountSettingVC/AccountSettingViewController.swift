@@ -105,4 +105,19 @@ extension AccountSettingViewController : UITableViewDataSource, UITableViewDeleg
             return 70
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let changeVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.ChangeEmailMobileScreen) as! ChangeEmailMobileViewController
+        
+        if indexPath.row == 0 {
+            changeVC.isForUpdateEmail = false
+            self.pushVC(changeVC)
+        } else if indexPath.row == 1 {
+            changeVC.isForUpdateEmail = true
+            self.pushVC(changeVC)
+        } else {
+            let changeVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.ChangePasswordScreen)
+            self.pushVC(changeVC)
+        }
+    }
 }

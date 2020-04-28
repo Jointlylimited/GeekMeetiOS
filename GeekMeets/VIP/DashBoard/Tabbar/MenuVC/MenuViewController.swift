@@ -106,7 +106,7 @@ class MenuViewController: UIViewController, MenuProtocol {
     }
     
     private func startTimer() {
-        self.totalTime = 600
+        self.totalTime = 60
         self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
        

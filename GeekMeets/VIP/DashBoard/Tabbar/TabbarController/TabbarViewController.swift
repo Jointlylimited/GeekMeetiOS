@@ -21,6 +21,7 @@ class TabbarViewController: UITabBarController, TabbarProtocol {
     var presenter : TabbarPresentationProtocol?
     
      
+    var isFromMatch : Bool = false
     
     // MARK: Object lifecycle
     
@@ -62,6 +63,10 @@ class TabbarViewController: UITabBarController, TabbarProtocol {
     }
     
     func SetTabbarItem(){
-        self.selectedIndex = 2
+        if !isFromMatch {
+            self.selectedIndex = 2
+        } else {
+            self.selectedIndex = 1
+        }
     }
 }

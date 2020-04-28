@@ -25,6 +25,15 @@ let kEnterConfirmPassword = "Please enter confirm password"
 let kPasswordNotMatch = "Confirm password not matching"
 let kPasswordWeak = "Password is very weak. It should be at least 8 character"
 
+//AppName
+let appName = Bundle.main.infoDictionary!["CFBundleName"] as! String
+
+// MARK: Permission
+let kCameraAccessTitle   = "No camera access"
+let kCameraAccessMsg     = "Please go to settings and switch on your Camera. settings -> \(appName) -> switch on camera"
+let kPhotosAccessTitle   = "No photos access"
+let kPhotosAccessMsg     = "Please go to settings and switch on your photos. settings -> \(appName) -> switch on photos"
+let kContactAccess       = "No contact access"
 
 class KeyMessages: NSObject {
 
