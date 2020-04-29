@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0B0AC39F24583EF600B91DF5 /* UIAlertControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0AC39E24583EF600B91DF5 /* UIAlertControllerExtension.swift */; };
+		0B1CB98F2459429200DA9264 /* NewMobileNumberPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1CB98C2459429200DA9264 /* NewMobileNumberPresenter.swift */; };
+		0B1CB9902459429200DA9264 /* NewMobileNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1CB98D2459429200DA9264 /* NewMobileNumberViewController.swift */; };
+		0B1CB9912459429200DA9264 /* NewMobileNumberInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1CB98E2459429200DA9264 /* NewMobileNumberInteractor.swift */; };
 		0B31963A244DE7E100B38350 /* PhotoEmojiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B319638244DE7E000B38350 /* PhotoEmojiCell.swift */; };
 		0B31963B244DE7E100B38350 /* PhotoEmojiCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B319639244DE7E000B38350 /* PhotoEmojiCell.xib */; };
 		0B319654244DE80500B38350 /* MenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B31963D244DE80400B38350 /* MenuPresenter.swift */; };
@@ -252,6 +255,9 @@
 
 /* Begin PBXFileReference section */
 		0B0AC39E24583EF600B91DF5 /* UIAlertControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertControllerExtension.swift; sourceTree = "<group>"; };
+		0B1CB98C2459429200DA9264 /* NewMobileNumberPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMobileNumberPresenter.swift; sourceTree = "<group>"; };
+		0B1CB98D2459429200DA9264 /* NewMobileNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMobileNumberViewController.swift; sourceTree = "<group>"; };
+		0B1CB98E2459429200DA9264 /* NewMobileNumberInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMobileNumberInteractor.swift; sourceTree = "<group>"; };
 		0B319638244DE7E000B38350 /* PhotoEmojiCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoEmojiCell.swift; sourceTree = "<group>"; };
 		0B319639244DE7E000B38350 /* PhotoEmojiCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoEmojiCell.xib; sourceTree = "<group>"; };
 		0B31963D244DE80400B38350 /* MenuPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuPresenter.swift; sourceTree = "<group>"; };
@@ -518,6 +524,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B1CB98B2459426F00DA9264 /* NewMobileNumberVC */ = {
+			isa = PBXGroup;
+			children = (
+				0B1CB98C2459429200DA9264 /* NewMobileNumberPresenter.swift */,
+				0B1CB98D2459429200DA9264 /* NewMobileNumberViewController.swift */,
+				0B1CB98E2459429200DA9264 /* NewMobileNumberInteractor.swift */,
+			);
+			path = NewMobileNumberVC;
+			sourceTree = "<group>";
+		};
 		0B319637244DE7E000B38350 /* PhotoEmojiCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -804,6 +820,7 @@
 		0B9499C42451DBC3001AD1C8 /* AccountSettingVC */ = {
 			isa = PBXGroup;
 			children = (
+				0B1CB98B2459426F00DA9264 /* NewMobileNumberVC */,
 				0B46B0C1245865C9006E0D87 /* ChangeEmailMobileVC */,
 				0B4CA0322457EA3300A3460B /* ChangePasswordVC */,
 				0B9499C52451DBC3001AD1C8 /* AccountSettingPresenter.swift */,
@@ -1837,6 +1854,7 @@
 				0B921C2D24571BE40010AE04 /* usersCollectionViewCell.swift in Sources */,
 				0B921C3524571C510010AE04 /* SearchProfileInteractor.swift in Sources */,
 				0B31963A244DE7E100B38350 /* PhotoEmojiCell.swift in Sources */,
+				0B1CB9912459429200DA9264 /* NewMobileNumberInteractor.swift in Sources */,
 				0BF7080C244F1D3C003D6AB7 /* MatchProfileInteractor.swift in Sources */,
 				0B31965F244DE80500B38350 /* ProfileAboutCell.swift in Sources */,
 				0B319657244DE80500B38350 /* MenuViewController.swift in Sources */,
@@ -1890,6 +1908,7 @@
 				F7F967962451ABF400BD7275 /* SelectAgeRangeViewController.swift in Sources */,
 				F73002CB2446F0B600BDD7FD /* UITapGestureRecognizerExtensions.swift in Sources */,
 				F7C3CDB9245169E500980835 /* MyCustomTextField.swift in Sources */,
+				0B1CB9902459429200DA9264 /* NewMobileNumberViewController.swift in Sources */,
 				0B921C2724571BE40010AE04 /* ARSupport.swift in Sources */,
 				F97A9A2F21103FAF007C45F5 /* UserDefaultsExtension.swift in Sources */,
 				F7CD7A4D24442F3A00E02A9E /* TutorialPagePresenter.swift in Sources */,
@@ -1951,6 +1970,7 @@
 				0B31965E244DE80500B38350 /* ProfileCompanyCell.swift in Sources */,
 				0B9499D42451DBC4001AD1C8 /* DiscoverySettingViewController.swift in Sources */,
 				0B921C2A24571BE40010AE04 /* Content.m in Sources */,
+				0B1CB98F2459429200DA9264 /* NewMobileNumberPresenter.swift in Sources */,
 				0B9499DA2451DBC4001AD1C8 /* AccountSettingPresenter.swift in Sources */,
 				F7164ACE244EE90700853BFC /* OTPEnterPresenter.swift in Sources */,
 				0B319660244DE80500B38350 /* ProfileInterestCell.swift in Sources */,

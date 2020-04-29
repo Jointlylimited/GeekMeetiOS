@@ -78,6 +78,11 @@ class ChangeEmailMobileViewController: UIViewController, ChangeEmailMobileProtoc
         self.popVC()
     }
     @IBAction func btnUpdateAction(_ sender: UIButton) {
-        self.popVC()
+        if isForUpdateEmail {
+            self.popVC()
+        } else {
+            let newMobVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.NewMobileScreen)
+            self.pushVC(newMobVC)
+        }
     }
 }

@@ -290,6 +290,15 @@ extension UIViewController {
         _ = navigationController?.popViewController(animated: true)
     }
 
+    func pop(toLast controller: AnyClass) {
+       for con in self.navigationController!.viewControllers as Array {
+            if con.isKind(of: controller.self) {
+                self.navigationController!.popToViewController(con, animated: true)
+                break
+            }
+        }
+    }
+    
     /// EZSE: Hide or show navigation bar
     public var isNavBarHidden: Bool {
         get {

@@ -37,7 +37,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     @IBOutlet weak var MatchProfileCollView: UICollectionView!
     
     @IBOutlet weak var profileView: UIView!
-    @IBOutlet weak var profileViewHeightConstant: NSLayoutConstraint!
+    
     @IBOutlet weak var pageControl: UIPageControl!
     
     var alertView: CustomAlertView!
@@ -87,7 +87,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     }
     
     func setTheme(){
-        self.profileViewHeightConstant.constant = DeviceType.iPhone5orSE ? 400 : 500
+        self.profileView.frame = DeviceType.iPhone5orSE ? CGRect(x: 0, y: 0, w: ScreenSize.width, h: 400) : CGRect(x: 0, y: 0, w: ScreenSize.width, h: 500)
         self.arrayDetails = fetchUserData()
     }
     
@@ -114,10 +114,11 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     }
     
     @IBAction func btnViewStoriesAction(_ sender: UIButton) {
+        
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.StoryContentScreen) as? ContentViewController
         controller!.modalTransitionStyle = .crossDissolve
         controller!.modalPresentationStyle = .overCurrentContext
-        
+        controller!.isFromMatchVC = true
         controller?.pages = self.arrayDetails
         self.presentVC(controller!)
     }
@@ -251,7 +252,7 @@ extension MatchProfileViewController : UICollectionViewDataSource, UICollectionV
 
 extension MatchProfileViewController {
     func showAlertView() {
-      alertView = CustomAlertView.initAlertView(title: "Are you sure you want to block?", message: "User will not able to see your profile after blocking", btnRightStr: "Block", btnCancelStr: "Cancel")
+      alertView = CustomAlertView.initAlertView(title: "Are you sure you want to block?", message: "User will not able to see your profile after blocking", btnRightStr: "Block", btnCancelStr: "Cancel", btnCenter: "", isSingleButton: false)
       alertView.delegate = self
       alertView.frame = self.view.frame
       self.view.addSubview(alertView)
@@ -259,11 +260,11 @@ extension MatchProfileViewController {
 }
 
 extension MatchProfileViewController : AlertViewDelegate {
-    func OkButton() {
+    func OkButtonAction() {
         alertView.removeFromSuperview()
     }
     
-    func cancelButton() {
+    func cancelButtonAction() {
         alertView.removeFromSuperview()
     }
 }

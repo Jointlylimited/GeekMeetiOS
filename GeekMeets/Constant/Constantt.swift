@@ -80,6 +80,7 @@ struct GeekMeets_ViewController
     static let ChangePasswordScreen = "ChangePasswordViewController"
     static let MessageScreen = "MessagesViewController"
     static let ChangeEmailMobileScreen = "ChangeEmailMobileViewController"
+    static let NewMobileScreen =  "NewMobileNumberViewController"
 }
 
 struct Cells {

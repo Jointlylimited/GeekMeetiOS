@@ -15,6 +15,8 @@ var ContentViewControllerVC = ContentViewController()
     @objc var pages: [UserDetail] = []
     @objc var currentIndex : Int = 0
     
+    var isFromMatchVC : Bool = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -78,6 +80,7 @@ var ContentViewControllerVC = ContentViewController()
         
         // Create a new view controller and pass suitable data.
         let vc = storyboard?.instantiateViewController(withIdentifier: "PreView") as! PreViewController
+        vc.isFromMatchVC = isFromMatchVC
         vc.pageIndex = index
         vc.items = pages
         currentIndex = index

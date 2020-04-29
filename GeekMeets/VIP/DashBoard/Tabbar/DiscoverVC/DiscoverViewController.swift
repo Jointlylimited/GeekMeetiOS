@@ -120,7 +120,7 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.StoryContentScreen) as? ContentViewController
         controller!.modalTransitionStyle = .crossDissolve
         controller!.modalPresentationStyle = .overCurrentContext
-        
+        controller?.isFromMatchVC = false
         controller?.pages = self.arrayDetails
         self.presentVC(controller!)
     }

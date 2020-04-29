@@ -212,7 +212,7 @@ extension MenuViewController : UITableViewDataSource, UITableViewDelegate {
 
 extension MenuViewController {
     func showAlertView() {
-      alertView = CustomAlertView.initAlertView(title: "Are you sure you want to Logout?", message: "", btnRightStr: "Logout", btnCancelStr: "Cancel")
+      alertView = CustomAlertView.initAlertView(title: "Are you sure you want to Logout?", message: "", btnRightStr: "Logout", btnCancelStr: "Cancel", btnCenter: "", isSingleButton: false)
       alertView.delegate = self
       alertView.frame = self.view.frame
       self.view.addSubview(alertView)
@@ -220,11 +220,11 @@ extension MenuViewController {
 }
 
 extension MenuViewController : AlertViewDelegate {
-    func OkButton() {
+    func OkButtonAction() {
         self.navigationController?.popToRootViewController(animated: true)
     }
     
-    func cancelButton() {
+    func cancelButtonAction() {
         alertView.removeFromSuperview()
     }
 }

@@ -18,16 +18,34 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
     @IBOutlet weak var lblUserName: UILabel!
     @IBOutlet weak var deleteView: UIView!
     
+    @IBOutlet weak var btnOption: UIButton!
+    @IBOutlet weak var lblViews: UILabel!
+    @IBOutlet weak var btnView: UIButton!
+    
     var pageIndex : Int = 0
     var items: [UserDetail] = []
     var item: [Content] = []
     var SPB: SegmentedProgressBar!
     var player: AVPlayer!
     let loader = ImageLoader()
+    var isFromMatchVC : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        if isFromMatchVC {
+            self.userProfileImage.alpha = 0
+            self.lblUserName.alpha = 0
+            self.btnOption.alpha = 0
+            self.lblViews.alpha = 0
+            self.btnView.alpha = 0
+        } else {
+            self.userProfileImage.alpha = 1
+            self.lblUserName.alpha = 1
+            self.btnOption.alpha = 1
+            self.lblViews.alpha = 1
+            self.btnView.alpha = 1
+        }
         userProfileImage.layer.cornerRadius = self.userProfileImage.frame.size.height / 2;
         userProfileImage.imageFromServerURL(items[pageIndex].imageUrl)
         lblUserName.text = items[pageIndex].name

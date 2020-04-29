@@ -33,6 +33,9 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     
        
     let otpStackView = OTPStackView()
+    var isFromNewMobile : Bool = false
+    var alertView: CustomAlertView!
+    
   // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -71,12 +74,17 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
         super.viewDidLoad()
         doSomething()
     }
-    
-    // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
+    override func viewWillDisappear(_ animated: Bool) {
+       
+        if !isFromNewMobile {
+            self.navigationController?.isNavigationBarHidden = false
+        } else {
+            self.navigationController?.isNavigationBarHidden = true
+        }
+    }
     
     func doSomething() {
+        
             self.navigationController?.isNavigationBarHidden = false
             self.navigationItem.leftBarButtonItem = leftSideBackBarButton
             let range = (btnResend!.currentTitle! as NSString).range(of: "Resend")
@@ -90,23 +98,22 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
                     otpStackView.heightAnchor.constraint(equalTo: otpContainerView.heightAnchor).isActive = true
                     otpStackView.centerXAnchor.constraint(equalTo: otpContainerView.centerXAnchor).isActive = true
                     otpStackView.centerYAnchor.constraint(equalTo: otpContainerView.centerYAnchor).isActive = true
-               
+  
+    }
 
-               
-                
-            }
-
-       
-    
     func displaySomething() {
         //nameTextField.text = viewModel.name
     }
   
   @IBAction func actionVerifyOTP(_ sender: Any) {
-      print("Final OTP : ",otpStackView.getOTP())
-                        otpStackView.setAllFieldColor(isWarningColor: true, color: .yellow)
-    self.presenter?.actionVerifyOTP()
-    
+    if !isFromNewMobile {
+        print("Final OTP : ",otpStackView.getOTP())
+        otpStackView.setAllFieldColor(isWarningColor: true, color: .yellow)
+        self.presenter?.actionVerifyOTP()
+    } else {
+        self.navigationController?.isNavigationBarHidden = true
+        self.showAlertView()
+    }
   }
 }
 
@@ -116,4 +123,21 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
                 btnVerifyOTP.isHidden = !isValid
             }
   
+}
+
+extension OTPEnterViewController {
+    func showAlertView() {
+      alertView = CustomAlertView.initAlertView(title: "Successful", message: "Your mobile is changed & verified Successfully", btnRightStr: "", btnCancelStr: "", btnCenter: "OK", isSingleButton: true)
+      alertView.delegate1 = self
+      alertView.frame = self.view.frame
+      self.view.addSubview(alertView)
+    }
+}
+
+extension OTPEnterViewController : AlertViewCentreButtonDelegate {
+    
+    func centerButtonAction() {
+        let accVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.AccountSettingScreen)
+        self.pop(toLast: accVC.classForCoder)
+    }
 }

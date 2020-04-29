@@ -139,19 +139,72 @@
                                 <constraint firstAttribute="height" constant="50" id="KSZ-8Y-71y"/>
                             </constraints>
                         </stackView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fk1-hC-3VO">
+                            <rect key="frame" x="102.5" y="144" width="170" height="50"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XdS-jF-D2H" customClass="GradientButton" customModule="GeekMeets" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="170" height="50"/>
+                                    <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
+                                    <state key="normal" title="Ok">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
+                                            <color key="value" red="0.52941176469999995" green="0.18039215689999999" blue="0.76470588240000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
+                                            <color key="value" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="thirdColor">
+                                            <color key="value" red="0.70980392160000005" green="0.32549019610000002" blue="0.89411764709999997" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHorizontal" value="YES"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="btnCentreAction:" destination="Q87-Q8-bh2" eventType="touchUpInside" id="pOy-6O-nZD"/>
+                                        <action selector="btnOkAction:" destination="Q87-Q8-bh2" eventType="touchUpInside" id="ysa-hh-kYe"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="XdS-jF-D2H" firstAttribute="top" secondItem="Fk1-hC-3VO" secondAttribute="top" id="Lc9-MR-Y59"/>
+                                <constraint firstAttribute="trailing" secondItem="XdS-jF-D2H" secondAttribute="trailing" id="UbK-JX-XPo"/>
+                                <constraint firstAttribute="width" constant="170" id="krZ-gn-dfc"/>
+                                <constraint firstItem="XdS-jF-D2H" firstAttribute="leading" secondItem="Fk1-hC-3VO" secondAttribute="leading" id="qHm-6h-iVe"/>
+                                <constraint firstAttribute="bottom" secondItem="XdS-jF-D2H" secondAttribute="bottom" id="rlJ-SI-4WD"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                    <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                    <size key="value" width="1" height="1"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                    <real key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                    <real key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="yyf-B0-ccq" firstAttribute="leading" secondItem="JOO-Ln-yug" secondAttribute="leading" id="2RN-4w-sFR"/>
+                        <constraint firstItem="Fk1-hC-3VO" firstAttribute="top" secondItem="VGF-op-0dD" secondAttribute="top" id="FZF-po-Hav"/>
                         <constraint firstAttribute="bottom" secondItem="VGF-op-0dD" secondAttribute="bottom" constant="18" id="GL7-TI-PQ7"/>
                         <constraint firstAttribute="height" constant="212" id="Jg5-Eu-nZh"/>
                         <constraint firstItem="yyf-B0-ccq" firstAttribute="top" secondItem="JOO-Ln-yug" secondAttribute="bottom" constant="11.5" id="MFc-zH-HMO"/>
                         <constraint firstAttribute="trailing" secondItem="JOO-Ln-yug" secondAttribute="trailing" constant="20" id="PGD-mz-ajY"/>
+                        <constraint firstItem="Fk1-hC-3VO" firstAttribute="bottom" secondItem="VGF-op-0dD" secondAttribute="bottom" id="SpU-sv-wPx"/>
                         <constraint firstItem="yyf-B0-ccq" firstAttribute="trailing" secondItem="JOO-Ln-yug" secondAttribute="trailing" id="UGa-Ag-f7X"/>
                         <constraint firstItem="VGF-op-0dD" firstAttribute="leading" secondItem="kb6-ru-MZC" secondAttribute="leading" constant="12" id="YG8-95-UEa"/>
                         <constraint firstItem="JOO-Ln-yug" firstAttribute="top" secondItem="kb6-ru-MZC" secondAttribute="top" constant="43" id="YMR-fe-y2Y"/>
                         <constraint firstItem="JOO-Ln-yug" firstAttribute="leading" secondItem="kb6-ru-MZC" secondAttribute="leading" constant="20" id="cdw-Do-nhd"/>
                         <constraint firstAttribute="trailing" secondItem="VGF-op-0dD" secondAttribute="trailing" constant="11" id="gzz-Pa-AaT"/>
+                        <constraint firstItem="Fk1-hC-3VO" firstAttribute="centerX" secondItem="VGF-op-0dD" secondAttribute="centerX" id="vne-60-LjS"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -177,13 +230,16 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="ikD-00-sCp"/>
             <connections>
+                <outlet property="BtnStackView" destination="VGF-op-0dD" id="WdI-yW-vIQ"/>
                 <outlet property="alertView" destination="kb6-ru-MZC" id="Jyu-5r-L3G"/>
                 <outlet property="btnCancel" destination="lQ0-7u-isV" id="V6m-Sx-1UT"/>
+                <outlet property="btnCentre" destination="XdS-jF-D2H" id="oYe-Vd-5vj"/>
                 <outlet property="btnClose" destination="ZYN-Sh-MpJ" id="Oen-Z1-HxE"/>
                 <outlet property="btnRight" destination="hZN-8j-ZuP" id="OlT-km-vH7"/>
                 <outlet property="lblDesc" destination="yyf-B0-ccq" id="E3n-Tl-w8T"/>
                 <outlet property="lblTitle" destination="JOO-Ln-yug" id="6Zz-Ab-jAr"/>
                 <outlet property="viewCancel" destination="ESp-b8-GUs" id="xE7-lw-B68"/>
+                <outlet property="viewCentre" destination="Fk1-hC-3VO" id="87b-gp-ebk"/>
                 <outlet property="viewRight" destination="9s1-CI-8fC" id="wkU-eF-xFI"/>
             </connections>
             <point key="canvasLocation" x="1011.5942028985507" y="169.41964285714286"/>
