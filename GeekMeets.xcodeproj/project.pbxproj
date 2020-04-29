@@ -191,8 +191,8 @@
 		F7DFAE3D24501192008863F3 /* CountryPickerWithSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DFAE3324501192008863F3 /* CountryPickerWithSectionViewController.swift */; };
 		F7DFAE3E24501192008863F3 /* tickMark.png in Resources */ = {isa = PBXBuildFile; fileRef = F7DFAE3424501192008863F3 /* tickMark.png */; };
 		F7DFAE3F24501192008863F3 /* CountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DFAE3624501192008863F3 /* CountryCell.swift */; };
-		F7E6DB4F2459A7FF0031A035 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E6DB4D2459A7FF0031A035 /* ViewController.swift */; };
-		F7E6DB502459A7FF0031A035 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E6DB4E2459A7FF0031A035 /* PreviewViewController.swift */; };
+		F7E6DB532459B3DA0031A035 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E6DB512459B3DA0031A035 /* PreviewViewController.swift */; };
+		F7E6DB542459B3DA0031A035 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E6DB522459B3DA0031A035 /* ViewController.swift */; };
 		F7F8F5BC2452BD3200CA82E7 /* SelectAgeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F8F5BB2452BD3200CA82E7 /* SelectAgeCell.swift */; };
 		F7F8F5C12452EAE400CA82E7 /* SelectGenderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F8F5BE2452EAE400CA82E7 /* SelectGenderPresenter.swift */; };
 		F7F8F5C22452EAE400CA82E7 /* SelectGenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F8F5BF2452EAE400CA82E7 /* SelectGenderViewController.swift */; };
@@ -446,8 +446,8 @@
 		F7DFAE3324501192008863F3 /* CountryPickerWithSectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryPickerWithSectionViewController.swift; sourceTree = "<group>"; };
 		F7DFAE3424501192008863F3 /* tickMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tickMark.png; sourceTree = "<group>"; };
 		F7DFAE3624501192008863F3 /* CountryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryCell.swift; sourceTree = "<group>"; };
-		F7E6DB4D2459A7FF0031A035 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		F7E6DB4E2459A7FF0031A035 /* PreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
+		F7E6DB512459B3DA0031A035 /* PreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
+		F7E6DB522459B3DA0031A035 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F7F8F5BB2452BD3200CA82E7 /* SelectAgeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAgeCell.swift; sourceTree = "<group>"; };
 		F7F8F5BE2452EAE400CA82E7 /* SelectGenderPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenderPresenter.swift; sourceTree = "<group>"; };
 		F7F8F5BF2452EAE400CA82E7 /* SelectGenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenderViewController.swift; sourceTree = "<group>"; };
@@ -1228,11 +1228,10 @@
 		F7E6DB4C2459A7FF0031A035 /* CameraVC */ = {
 			isa = PBXGroup;
 			children = (
-				F7E6DB4D2459A7FF0031A035 /* ViewController.swift */,
-				F7E6DB4E2459A7FF0031A035 /* PreviewViewController.swift */,
+				F7E6DB512459B3DA0031A035 /* PreviewViewController.swift */,
+				F7E6DB522459B3DA0031A035 /* ViewController.swift */,
 			);
 			name = CameraVC;
-			path = "../../../../back up/geekmeetsios/GeekMeets/VIP/DashBoard/CameraVC";
 			sourceTree = "<group>";
 		};
 		F7F8F5BD2452EAA400CA82E7 /* SelectGender */ = {
@@ -1874,7 +1873,6 @@
 				0B31965F244DE80500B38350 /* ProfileAboutCell.swift in Sources */,
 				0B319657244DE80500B38350 /* MenuViewController.swift in Sources */,
 				F7F8F5CB2452F87A00CA82E7 /* SelectSocialMediaViewController.swift in Sources */,
-				F7E6DB502459A7FF0031A035 /* PreviewViewController.swift in Sources */,
 				0B0AC39F24583EF600B91DF5 /* UIAlertControllerExtension.swift in Sources */,
 				0B31965D244DE80500B38350 /* ProfileSocialCell.swift in Sources */,
 				0B31965A244DE80500B38350 /* HomePresenter.swift in Sources */,
@@ -1897,6 +1895,7 @@
 				F7DFAE3A24501192008863F3 /* CountryPickerController.swift in Sources */,
 				0BBD65F92449C8A500CA178A /* MatchInteractor.swift in Sources */,
 				F7DFAE3F24501192008863F3 /* CountryCell.swift in Sources */,
+				F7E6DB532459B3DA0031A035 /* PreviewViewController.swift in Sources */,
 				0B319662244DE80500B38350 /* ProfileInteractor.swift in Sources */,
 				F7164AC5244EB86F00853BFC /* AddPhotosPresenter.swift in Sources */,
 				F952382B2047BA3500BC0D49 /* RequestParameter.swift in Sources */,
@@ -1965,11 +1964,11 @@
 				F9EDD434203BFF33008FA83F /* ProfileUrl.swift in Sources */,
 				F7164ABE244EB78600853BFC /* ForgotPasswordInteractor.swift in Sources */,
 				F7D5259124481DB5002D3A42 /* InitialLoginViewController.swift in Sources */,
+				F7E6DB542459B3DA0031A035 /* ViewController.swift in Sources */,
 				0B3C75B9245327F000CEDBBA /* ReportViewController.swift in Sources */,
 				F7F8F5D22452F8CF00CA82E7 /* SelectCategoriesViewController.swift in Sources */,
 				F953B8D520467AFB00BE4F67 /* SettingsPresenter.swift in Sources */,
 				0B921C3424571C510010AE04 /* SearchListCell.swift in Sources */,
-				F7E6DB4F2459A7FF0031A035 /* ViewController.swift in Sources */,
 				F76A8D862440396800ED9947 /* CustomerEnumaration.swift in Sources */,
 				0B319654244DE80500B38350 /* MenuPresenter.swift in Sources */,
 				F9A4539F203AA7200065C9FD /* Constantt.swift in Sources */,
