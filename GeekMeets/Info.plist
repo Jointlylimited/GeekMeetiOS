@@ -25,6 +25,10 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>$(PROJECT_NAME) required access camera for user profile</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>$(PROJECT_NAME) required access photo library for user profile</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Poppins-ExtraLight.ttf</string>
@@ -65,9 +69,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSCameraUsageDescription</key>
-    <string>$(PROJECT_NAME) required access camera for user profile</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>$(PROJECT_NAME) required access photo library for user profile</string>
 </dict>
 </plist>

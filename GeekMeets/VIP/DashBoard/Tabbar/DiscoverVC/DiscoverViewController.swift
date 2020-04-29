@@ -89,6 +89,11 @@ class DiscoverViewController: UIViewController, DiscoverProtocol {
         searchVC?.isFromDiscover = true
         self.pushVC(searchVC!)
     }
+    @IBAction func actionAddPhoto(_ sender: Any) {
+      let searchVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: "ViewController") as? ViewController
+          
+             self.pushVC(searchVC!)
+    }
 }
 
 extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
