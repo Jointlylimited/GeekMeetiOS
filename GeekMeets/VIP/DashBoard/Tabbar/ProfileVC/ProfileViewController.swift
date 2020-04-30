@@ -246,6 +246,7 @@ extension ProfileViewController : UICollectionViewDataSource, UICollectionViewDe
         cell.userImgView.image = imageArray[indexPath.row]
         cell.emojiStackView.spacing = DeviceType.iPhone5orSE ? 2 : 10
         cell.btnClose.alpha = 0.0
+        cell.btnChooseImage.alpha = 0.0
         return cell
     }
 

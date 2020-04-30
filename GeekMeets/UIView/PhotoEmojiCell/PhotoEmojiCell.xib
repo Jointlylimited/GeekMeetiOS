@@ -172,6 +172,7 @@
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="266" height="225"/>
             <connections>
+                <outlet property="btnChooseImage" destination="EFh-Iz-zlU" id="2g4-xe-Iun"/>
                 <outlet property="btnClose" destination="wXW-5r-4Ug" id="q5H-RQ-hjH"/>
                 <outlet property="btnKiss" destination="8zm-8V-M43" id="VLJ-Bd-HgT"/>
                 <outlet property="btnLove" destination="cWV-lL-zyF" id="4m9-V1-fXB"/>

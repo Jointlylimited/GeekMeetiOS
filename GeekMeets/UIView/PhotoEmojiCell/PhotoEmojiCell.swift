@@ -23,6 +23,7 @@ class PhotoEmojiCell: UICollectionViewCell {
     @IBOutlet weak var btnKiss: UIButton!
     @IBOutlet weak var btnLove: UIButton!
     @IBOutlet weak var btnLoveSmile: UIButton!
+    @IBOutlet weak var btnChooseImage: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
