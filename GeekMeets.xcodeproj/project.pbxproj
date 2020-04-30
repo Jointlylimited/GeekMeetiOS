@@ -106,6 +106,11 @@
 		0BBD66032449C8F100CA178A /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBD66002449C8F100CA178A /* CardView.swift */; };
 		0BBD66042449C8F100CA178A /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BBD66012449C8F100CA178A /* CardView.xib */; };
 		0BBD66072449C8FC00CA178A /* SwipeableCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBD66062449C8FB00CA178A /* SwipeableCards.swift */; };
+		0BCD4B28245B0C210054A805 /* ColorCollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCD4B25245B0C200054A805 /* ColorCollCell.swift */; };
+		0BCD4B29245B0C210054A805 /* ColorCollCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BCD4B26245B0C200054A805 /* ColorCollCell.xib */; };
+		0BCD4B2A245B0C210054A805 /* AddTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCD4B27245B0C200054A805 /* AddTextViewController.swift */; };
+		0BCD4B2E245B0C390054A805 /* RangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCD4B2C245B0C370054A805 /* RangeSlider.swift */; };
+		0BCD4B2F245B0C390054A805 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCD4B2D245B0C370054A805 /* CustomTextView.swift */; };
 		0BE21272244976AF004817BC /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BE21260244976AF004817BC /* Poppins-ExtraLight.ttf */; };
 		0BE21273244976AF004817BC /* Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BE21261244976AF004817BC /* Poppins-ThinItalic.ttf */; };
 		0BE21274244976AF004817BC /* Poppins-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BE21262244976AF004817BC /* Poppins-ExtraLightItalic.ttf */; };
@@ -376,6 +381,11 @@
 		0BBD66002449C8F100CA178A /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		0BBD66012449C8F100CA178A /* CardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardView.xib; sourceTree = "<group>"; };
 		0BBD66062449C8FB00CA178A /* SwipeableCards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeableCards.swift; sourceTree = "<group>"; };
+		0BCD4B25245B0C200054A805 /* ColorCollCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCollCell.swift; sourceTree = "<group>"; };
+		0BCD4B26245B0C200054A805 /* ColorCollCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColorCollCell.xib; sourceTree = "<group>"; };
+		0BCD4B27245B0C200054A805 /* AddTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTextViewController.swift; sourceTree = "<group>"; };
+		0BCD4B2C245B0C370054A805 /* RangeSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSlider.swift; sourceTree = "<group>"; };
+		0BCD4B2D245B0C370054A805 /* CustomTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		0BE21260244976AF004817BC /* Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
 		0BE21261244976AF004817BC /* Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
 		0BE21262244976AF004817BC /* Poppins-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
@@ -607,6 +617,7 @@
 		0B319645244DE80400B38350 /* DiscoverVC */ = {
 			isa = PBXGroup;
 			children = (
+				0BCD4B24245B0C200054A805 /* AddTextVC */,
 				0BF707FC244F1D1C003D6AB7 /* DiscoverInteractor.swift */,
 				0BF707FA244F1D1C003D6AB7 /* DiscoverPresenter.swift */,
 				0BF707FB244F1D1C003D6AB7 /* DiscoverViewController.swift */,
@@ -955,6 +966,25 @@
 			path = SwipeableCards;
 			sourceTree = "<group>";
 		};
+		0BCD4B24245B0C200054A805 /* AddTextVC */ = {
+			isa = PBXGroup;
+			children = (
+				0BCD4B25245B0C200054A805 /* ColorCollCell.swift */,
+				0BCD4B26245B0C200054A805 /* ColorCollCell.xib */,
+				0BCD4B27245B0C200054A805 /* AddTextViewController.swift */,
+			);
+			path = AddTextVC;
+			sourceTree = "<group>";
+		};
+		0BCD4B2B245B0C370054A805 /* RangeSlider */ = {
+			isa = PBXGroup;
+			children = (
+				0BCD4B2C245B0C370054A805 /* RangeSlider.swift */,
+				0BCD4B2D245B0C370054A805 /* CustomTextView.swift */,
+			);
+			path = RangeSlider;
+			sourceTree = "<group>";
+		};
 		0BE2125F244976AF004817BC /* poppins */ = {
 			isa = PBXGroup;
 			children = (
@@ -1146,6 +1176,7 @@
 		F79604BA24459767002FFB79 /* UIView */ = {
 			isa = PBXGroup;
 			children = (
+				0BCD4B2B245B0C370054A805 /* RangeSlider */,
 				F77E31182456AE8B00A213FF /* OTPField */,
 				0B3C75BB2453280200CEDBBA /* CustomAlertView */,
 				0B9499B32451DBA4001AD1C8 /* CommonTblListCell */,
@@ -1796,6 +1827,7 @@
 				0BE21275244976AF004817BC /* Poppins-BoldItalic.ttf in Resources */,
 				0BF7081D244F1D6B003D6AB7 /* ReactEmojiCollectionCell.xib in Resources */,
 				F96C2D102037E78800F8CBC7 /* Localizable.strings in Resources */,
+				0BCD4B29245B0C210054A805 /* ColorCollCell.xib in Resources */,
 				0BE21281244976AF004817BC /* Poppins-SemiBold.ttf in Resources */,
 				F90B4CD92032A87B006ADAF6 /* Structure_Guide.rtf in Resources */,
 			);
@@ -1998,8 +2030,10 @@
 				0BF70805244F1D2C003D6AB7 /* MessagesPresenter.swift in Sources */,
 				0BF70803244F1D2C003D6AB7 /* MessagesViewController.swift in Sources */,
 				F7DFAE3C24501192008863F3 /* CountryManager.swift in Sources */,
+				0BCD4B28245B0C210054A805 /* ColorCollCell.swift in Sources */,
 				0B319665244DE80500B38350 /* TabbarInteractor.swift in Sources */,
 				F9A453D5203AA74B0065C9FD /* SplashViewController.swift in Sources */,
+				0BCD4B2E245B0C390054A805 /* RangeSlider.swift in Sources */,
 				0BF7080B244F1D3C003D6AB7 /* MatchProfilePresenter.swift in Sources */,
 				F7F8F5D32452F8CF00CA82E7 /* SelectCategoriesInteractor.swift in Sources */,
 				0B535686245088DC005571AF /* EditProfileViewController.swift in Sources */,
@@ -2042,6 +2076,7 @@
 				F96C2D232037E92B00F8CBC7 /* L102Language.swift in Sources */,
 				F7F8F5CA2452F87A00CA82E7 /* SelectSocialMediaPresenter.swift in Sources */,
 				0B3C75B1245327DF00CEDBBA /* Share_EarnViewController.swift in Sources */,
+				0BCD4B2A245B0C210054A805 /* AddTextViewController.swift in Sources */,
 				F7F8F5BC2452BD3200CA82E7 /* SelectAgeCell.swift in Sources */,
 				F7780E3F245AD667003CA4BD /* Configuration.swift in Sources */,
 				0BF7081E244F1D6B003D6AB7 /* ReactEmojiCollectionCell.swift in Sources */,
@@ -2077,6 +2112,7 @@
 				0B4CA0382457EA5200A3460B /* ChangePasswordInteractor.swift in Sources */,
 				F7F8F5C52452EDDC00CA82E7 /* SelectGenderCell.swift in Sources */,
 				0B31965E244DE80500B38350 /* ProfileCompanyCell.swift in Sources */,
+				0BCD4B2F245B0C390054A805 /* CustomTextView.swift in Sources */,
 				0B9499D42451DBC4001AD1C8 /* DiscoverySettingViewController.swift in Sources */,
 				0B921C2A24571BE40010AE04 /* Content.m in Sources */,
 				0B1CB98F2459429200DA9264 /* NewMobileNumberPresenter.swift in Sources */,

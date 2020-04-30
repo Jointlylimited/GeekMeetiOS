@@ -81,6 +81,7 @@ struct GeekMeets_ViewController
     static let MessageScreen = "MessagesViewController"
     static let ChangeEmailMobileScreen = "ChangeEmailMobileViewController"
     static let NewMobileScreen =  "NewMobileNumberViewController"
+    static let AddTextScreen =  "AddTextViewController"
 }
 
 struct Cells {
@@ -91,6 +92,7 @@ struct Cells {
     static let ReactEmojiCollectionCell = "ReactEmojiCollectionCell"
     static let CommonTblListCell = "CommonTblListCell"
     static let SearchListCell = "SearchListCell"
+    static let ColorCollCell = "ColorCollCell"
 }
 
 struct DeviceType {

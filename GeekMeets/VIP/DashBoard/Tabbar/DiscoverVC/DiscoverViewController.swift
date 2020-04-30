@@ -12,6 +12,10 @@
 
 import UIKit
 
+protocol TextViewControllerDelegate {
+  func textViewDidFinishWithTextView(text:CustomTextView)
+}
+
 protocol DiscoverProtocol: class {
 }
 
@@ -90,9 +94,14 @@ class DiscoverViewController: UIViewController, DiscoverProtocol {
         self.pushVC(searchVC!)
     }
     @IBAction func actionAddPhoto(_ sender: Any) {
-      let searchVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: "ViewController") as? ViewController
-          
-             self.pushVC(searchVC!)
+        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.AddTextScreen) as? AddTextViewController
+        controller!.modalTransitionStyle = .crossDissolve
+        controller!.modalPresentationStyle = .overCurrentContext
+        controller!.delegate = self
+        self.presentVC(controller!)
+//      let searchVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: "ViewController") as? ViewController
+//
+//             self.pushVC(searchVC!)
     }
 }
 
@@ -137,5 +146,10 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
             let width = ScreenSize.width/2 - 12
             return CGSize(width: width, height: width)
         }
+    }
+}
+extension DiscoverViewController : TextViewControllerDelegate {
+    func textViewDidFinishWithTextView(text:CustomTextView) {
+        print(text)
     }
 }
