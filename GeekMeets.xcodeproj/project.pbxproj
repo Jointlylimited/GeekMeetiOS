@@ -164,6 +164,24 @@
 		F76A8D842440396800ED9947 /* BlockClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76A8D7D2440396700ED9947 /* BlockClass.swift */; };
 		F76A8D862440396800ED9947 /* CustomerEnumaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76A8D7F2440396700ED9947 /* CustomerEnumaration.swift */; };
 		F76A8D872440396800ED9947 /* DocumentDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76A8D802440396700ED9947 /* DocumentDirectory.swift */; };
+		F7780DF7245ABDBC003CA4BD /* SignUpUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7780DF6245ABDBC003CA4BD /* SignUpUserModel.swift */; };
+		F7780E30245AD667003CA4BD /* APIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7780E1E245AD666003CA4BD /* APIHelper.swift */; };
+		F7780E31245AD667003CA4BD /* AlamofireImplementations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7780E1F245AD666003CA4BD /* AlamofireImplementations.swift */; };
+		F7780E32245AD667003CA4BD /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7780E21245AD666003CA4BD /* UserAPI.swift */; };
+		F7780E33245AD667003CA4BD /* ContentPageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7780E22245AD666003CA4BD /* ContentPageAPI.swift */; };
+		F7780E34245AD667003CA4BD /* CodableHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7780E23245AD666003CA4BD /* CodableHelper.swift */; };
+		F7780E35245AD667003CA4BD /* JSONEncodableEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7780E24245AD666003CA4BD /* JSONEncodableEncoding.swift */; };
+		F7780E36245AD667003CA4BD /* APIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7780E25245AD666003CA4BD /* APIs.swift */; };
+		F7780E37245AD667003CA4BD /* CommonResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7780E27245AD666003CA4BD /* CommonResponse.swift */; };
+		F7780E38245AD667003CA4BD /* ContentPageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7780E28245AD666003CA4BD /* ContentPageResponse.swift */; };
+		F7780E39245AD667003CA4BD /* ContentPageResponseFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7780E29245AD666003CA4BD /* ContentPageResponseFields.swift */; };
+		F7780E3A245AD667003CA4BD /* UserAuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7780E2A245AD666003CA4BD /* UserAuthResponse.swift */; };
+		F7780E3B245AD667003CA4BD /* UserAuthResponseField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7780E2B245AD667003CA4BD /* UserAuthResponseField.swift */; };
+		F7780E3C245AD667003CA4BD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7780E2C245AD667003CA4BD /* Extensions.swift */; };
+		F7780E3D245AD667003CA4BD /* JSONEncodingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7780E2D245AD667003CA4BD /* JSONEncodingHelper.swift */; };
+		F7780E3E245AD667003CA4BD /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7780E2E245AD667003CA4BD /* Models.swift */; };
+		F7780E3F245AD667003CA4BD /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7780E2F245AD667003CA4BD /* Configuration.swift */; };
+		F7780E41245AE324003CA4BD /* UserProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7780E40245AE324003CA4BD /* UserProfileModel.swift */; };
 		F77E311B2456AEC100A213FF /* OTPStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77E31192456AEC100A213FF /* OTPStackView.swift */; };
 		F77E311C2456AEC100A213FF /* OTPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77E311A2456AEC100A213FF /* OTPTextField.swift */; };
 		F79604BD244597A2002FFB79 /* TutorialCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79604BC244597A2002FFB79 /* TutorialCell.swift */; };
@@ -419,6 +437,24 @@
 		F76A8D7D2440396700ED9947 /* BlockClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockClass.swift; sourceTree = "<group>"; };
 		F76A8D7F2440396700ED9947 /* CustomerEnumaration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerEnumaration.swift; sourceTree = "<group>"; };
 		F76A8D802440396700ED9947 /* DocumentDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentDirectory.swift; sourceTree = "<group>"; };
+		F7780DF6245ABDBC003CA4BD /* SignUpUserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpUserModel.swift; sourceTree = "<group>"; };
+		F7780E1E245AD666003CA4BD /* APIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIHelper.swift; sourceTree = "<group>"; };
+		F7780E1F245AD666003CA4BD /* AlamofireImplementations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireImplementations.swift; sourceTree = "<group>"; };
+		F7780E21245AD666003CA4BD /* UserAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
+		F7780E22245AD666003CA4BD /* ContentPageAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentPageAPI.swift; sourceTree = "<group>"; };
+		F7780E23245AD666003CA4BD /* CodableHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodableHelper.swift; sourceTree = "<group>"; };
+		F7780E24245AD666003CA4BD /* JSONEncodableEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONEncodableEncoding.swift; sourceTree = "<group>"; };
+		F7780E25245AD666003CA4BD /* APIs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIs.swift; sourceTree = "<group>"; };
+		F7780E27245AD666003CA4BD /* CommonResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonResponse.swift; sourceTree = "<group>"; };
+		F7780E28245AD666003CA4BD /* ContentPageResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentPageResponse.swift; sourceTree = "<group>"; };
+		F7780E29245AD666003CA4BD /* ContentPageResponseFields.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentPageResponseFields.swift; sourceTree = "<group>"; };
+		F7780E2A245AD666003CA4BD /* UserAuthResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAuthResponse.swift; sourceTree = "<group>"; };
+		F7780E2B245AD667003CA4BD /* UserAuthResponseField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAuthResponseField.swift; sourceTree = "<group>"; };
+		F7780E2C245AD667003CA4BD /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		F7780E2D245AD667003CA4BD /* JSONEncodingHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONEncodingHelper.swift; sourceTree = "<group>"; };
+		F7780E2E245AD667003CA4BD /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		F7780E2F245AD667003CA4BD /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		F7780E40245AE324003CA4BD /* UserProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileModel.swift; sourceTree = "<group>"; };
 		F77E31192456AEC100A213FF /* OTPStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTPStackView.swift; sourceTree = "<group>"; };
 		F77E311A2456AEC100A213FF /* OTPTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTPTextField.swift; sourceTree = "<group>"; };
 		F79604BC244597A2002FFB79 /* TutorialCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialCell.swift; sourceTree = "<group>"; };
@@ -1059,6 +1095,45 @@
 			path = CustomHelper;
 			sourceTree = "<group>";
 		};
+		F7780E1D245AD666003CA4BD /* Swaggers */ = {
+			isa = PBXGroup;
+			children = (
+				F7780E1E245AD666003CA4BD /* APIHelper.swift */,
+				F7780E1F245AD666003CA4BD /* AlamofireImplementations.swift */,
+				F7780E20245AD666003CA4BD /* APIs */,
+				F7780E23245AD666003CA4BD /* CodableHelper.swift */,
+				F7780E24245AD666003CA4BD /* JSONEncodableEncoding.swift */,
+				F7780E25245AD666003CA4BD /* APIs.swift */,
+				F7780E26245AD666003CA4BD /* Models */,
+				F7780E2C245AD667003CA4BD /* Extensions.swift */,
+				F7780E2D245AD667003CA4BD /* JSONEncodingHelper.swift */,
+				F7780E2E245AD667003CA4BD /* Models.swift */,
+				F7780E2F245AD667003CA4BD /* Configuration.swift */,
+			);
+			path = Swaggers;
+			sourceTree = "<group>";
+		};
+		F7780E20245AD666003CA4BD /* APIs */ = {
+			isa = PBXGroup;
+			children = (
+				F7780E21245AD666003CA4BD /* UserAPI.swift */,
+				F7780E22245AD666003CA4BD /* ContentPageAPI.swift */,
+			);
+			path = APIs;
+			sourceTree = "<group>";
+		};
+		F7780E26245AD666003CA4BD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F7780E27245AD666003CA4BD /* CommonResponse.swift */,
+				F7780E28245AD666003CA4BD /* ContentPageResponse.swift */,
+				F7780E29245AD666003CA4BD /* ContentPageResponseFields.swift */,
+				F7780E2A245AD666003CA4BD /* UserAuthResponse.swift */,
+				F7780E2B245AD667003CA4BD /* UserAuthResponseField.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		F77E31182456AE8B00A213FF /* OTPField */ = {
 			isa = PBXGroup;
 			children = (
@@ -1355,10 +1430,12 @@
 		F90B4CC82032A7C1006ADAF6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F7780DF6245ABDBC003CA4BD /* SignUpUserModel.swift */,
 				F952382A2047BA3400BC0D49 /* RequestParameter.swift */,
 				F9EDD42C203BFF33008FA83F /* BaseModel.swift */,
 				F9EDD42D203BFF33008FA83F /* ProfileUrl.swift */,
 				F9EDD42B203BFF32008FA83F /* ResponseData.swift */,
+				F7780E40245AE324003CA4BD /* UserProfileModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1455,6 +1532,7 @@
 		F90B4CDF2032E116006ADAF6 /* APIManager */ = {
 			isa = PBXGroup;
 			children = (
+				F7780E1D245AD666003CA4BD /* Swaggers */,
 				F90B4CE02032F4A6006ADAF6 /* SOAPI.swift */,
 				F90B4CE12032F4A6006ADAF6 /* SOService.swift */,
 			);
@@ -1811,6 +1889,7 @@
 				0BBD65F72449C8A500CA178A /* MatchViewController.swift in Sources */,
 				0B319655244DE80500B38350 /* MenuInteractor.swift in Sources */,
 				0B319664244DE80500B38350 /* TabbarViewController.swift in Sources */,
+				F7780E38245AD667003CA4BD /* ContentPageResponse.swift in Sources */,
 				0B3C75B2245327DF00CEDBBA /* Share_EarnInteractor.swift in Sources */,
 				0BF707FE244F1D1C003D6AB7 /* DiscoverViewController.swift in Sources */,
 				0BF707FF244F1D1C003D6AB7 /* DiscoverInteractor.swift in Sources */,
@@ -1829,12 +1908,14 @@
 				0B31965C244DE80500B38350 /* ProfilePhotosCell.swift in Sources */,
 				0B46B0C6245865F3006E0D87 /* ChangeEmailMobileViewController.swift in Sources */,
 				F79CA6F1244D9C5100C9A7EB /* UserProfileViewController.swift in Sources */,
+				F7780E39245AD667003CA4BD /* ContentPageResponseFields.swift in Sources */,
 				0B9499D12451DBC4001AD1C8 /* ManageSubscriptionPresenter.swift in Sources */,
 				0B46B0C7245865F3006E0D87 /* ChangeEmailMobileInteractor.swift in Sources */,
 				F97A9A2A21103FA2007C45F5 /* UIViewControllerExtensions.swift in Sources */,
 				F9A453C0203AA74A0065C9FD /* LoginPresenter.swift in Sources */,
 				0B9499B62451DBA5001AD1C8 /* CommonTblListCell.swift in Sources */,
 				F7164ABF244EB78600853BFC /* ForgotPasswordViewController.swift in Sources */,
+				F7780E3C245AD667003CA4BD /* Extensions.swift in Sources */,
 				F995BDC1204D1277005E5279 /* KeyMessages.swift in Sources */,
 				F716F2A524495EDD0063680F /* UITextFieldExtensions.swift in Sources */,
 				F9EDD431203BFF33008FA83F /* BaseModel.swift in Sources */,
@@ -1883,7 +1964,9 @@
 				F7D5259C244869FB002D3A42 /* SignInViewController.swift in Sources */,
 				0B53567A24508827005571AF /* CustomImageLayout.swift in Sources */,
 				0BF7081A244F1D6B003D6AB7 /* StoryCollectionCell.swift in Sources */,
+				F7780E32245AD667003CA4BD /* UserAPI.swift in Sources */,
 				F953B8D420467AFB00BE4F67 /* SettingsInteractor.swift in Sources */,
+				F7780E3D245AD667003CA4BD /* JSONEncodingHelper.swift in Sources */,
 				0B9499DE2451DBC4001AD1C8 /* TopGeeksPresenter.swift in Sources */,
 				0B5356722450870F005571AF /* BoostInteractor.swift in Sources */,
 				F7F967972451ABF400BD7275 /* SelectAgeRangeInteractor.swift in Sources */,
@@ -1894,13 +1977,17 @@
 				F9A453CF203AA74B0065C9FD /* SplashInteractor.swift in Sources */,
 				F7DFAE3A24501192008863F3 /* CountryPickerController.swift in Sources */,
 				0BBD65F92449C8A500CA178A /* MatchInteractor.swift in Sources */,
+				F7780E30245AD667003CA4BD /* APIHelper.swift in Sources */,
 				F7DFAE3F24501192008863F3 /* CountryCell.swift in Sources */,
+				F7780E3E245AD667003CA4BD /* Models.swift in Sources */,
 				F7E6DB532459B3DA0031A035 /* PreviewViewController.swift in Sources */,
 				0B319662244DE80500B38350 /* ProfileInteractor.swift in Sources */,
+				F7780E31245AD667003CA4BD /* AlamofireImplementations.swift in Sources */,
 				F7164AC5244EB86F00853BFC /* AddPhotosPresenter.swift in Sources */,
 				F952382B2047BA3500BC0D49 /* RequestParameter.swift in Sources */,
 				F9EDD42E203BFF33008FA83F /* ResponseData.swift in Sources */,
 				0BBD66022449C8F100CA178A /* GradientView.swift in Sources */,
+				F7780E36245AD667003CA4BD /* APIs.swift in Sources */,
 				F73002D02446F4D000BDD7FD /* InitialSignUpPresenter.swift in Sources */,
 				0B535687245088DC005571AF /* EditProfilePrivacyCell.swift in Sources */,
 				F97A9A2921103F9F007C45F5 /* UIViewExtensions.swift in Sources */,
@@ -1925,6 +2012,7 @@
 				F7C3CDB9245169E500980835 /* MyCustomTextField.swift in Sources */,
 				0B1CB9902459429200DA9264 /* NewMobileNumberViewController.swift in Sources */,
 				0B921C2724571BE40010AE04 /* ARSupport.swift in Sources */,
+				F7780E3A245AD667003CA4BD /* UserAuthResponse.swift in Sources */,
 				F97A9A2F21103FAF007C45F5 /* UserDefaultsExtension.swift in Sources */,
 				F7CD7A4D24442F3A00E02A9E /* TutorialPagePresenter.swift in Sources */,
 				F7164AD0244EE90700853BFC /* OTPEnterInteractor.swift in Sources */,
@@ -1947,6 +2035,7 @@
 				0B3C75B3245327DF00CEDBBA /* Share_EarnPresenter.swift in Sources */,
 				F7CD7A4E24442F3A00E02A9E /* TutorialPageViewController.swift in Sources */,
 				0B53566E2450870F005571AF /* MyMatchesViewController.swift in Sources */,
+				F7780E34245AD667003CA4BD /* CodableHelper.swift in Sources */,
 				F79CA6F2244D9C5100C9A7EB /* UserProfileInteractor.swift in Sources */,
 				0B9499DC2451DBC4001AD1C8 /* AccountSettingInteractor.swift in Sources */,
 				0B3C75B8245327F000CEDBBA /* ReportInteractor.swift in Sources */,
@@ -1954,6 +2043,7 @@
 				F7F8F5CA2452F87A00CA82E7 /* SelectSocialMediaPresenter.swift in Sources */,
 				0B3C75B1245327DF00CEDBBA /* Share_EarnViewController.swift in Sources */,
 				F7F8F5BC2452BD3200CA82E7 /* SelectAgeCell.swift in Sources */,
+				F7780E3F245AD667003CA4BD /* Configuration.swift in Sources */,
 				0BF7081E244F1D6B003D6AB7 /* ReactEmojiCollectionCell.swift in Sources */,
 				F7164ACF244EE90700853BFC /* OTPEnterViewController.swift in Sources */,
 				0B53568A245088DC005571AF /* EditInformationCell.swift in Sources */,
@@ -1962,6 +2052,7 @@
 				0BF7081B244F1D6B003D6AB7 /* DiscoverCollectionCell.swift in Sources */,
 				0B3C75BA245327F000CEDBBA /* ReportPresenter.swift in Sources */,
 				F9EDD434203BFF33008FA83F /* ProfileUrl.swift in Sources */,
+				F7780E33245AD667003CA4BD /* ContentPageAPI.swift in Sources */,
 				F7164ABE244EB78600853BFC /* ForgotPasswordInteractor.swift in Sources */,
 				F7D5259124481DB5002D3A42 /* InitialLoginViewController.swift in Sources */,
 				F7E6DB542459B3DA0031A035 /* ViewController.swift in Sources */,
@@ -1976,7 +2067,9 @@
 				F9A453BD203AA74A0065C9FD /* LoginInteractor.swift in Sources */,
 				0B53566F2450870F005571AF /* MyMatchesInteractor.swift in Sources */,
 				0B921C2C24571BE40010AE04 /* SegmentedProgressBar.swift in Sources */,
+				F7780E35245AD667003CA4BD /* JSONEncodableEncoding.swift in Sources */,
 				0B535688245088DC005571AF /* EditProfilePresenter.swift in Sources */,
+				F7780E3B245AD667003CA4BD /* UserAuthResponseField.swift in Sources */,
 				F7164AC0244EB78600853BFC /* ForgotPasswordPresenter.swift in Sources */,
 				F77E311C2456AEC100A213FF /* OTPTextField.swift in Sources */,
 				0B4CA0372457EA5200A3460B /* ChangePasswordViewController.swift in Sources */,
@@ -1989,15 +2082,18 @@
 				0B1CB98F2459429200DA9264 /* NewMobileNumberPresenter.swift in Sources */,
 				0B9499DA2451DBC4001AD1C8 /* AccountSettingPresenter.swift in Sources */,
 				F7164ACE244EE90700853BFC /* OTPEnterPresenter.swift in Sources */,
+				F7780E37245AD667003CA4BD /* CommonResponse.swift in Sources */,
 				0B319660244DE80500B38350 /* ProfileInterestCell.swift in Sources */,
 				F97A9A2B21103FA4007C45F5 /* StringExtensions.swift in Sources */,
 				F79604BD244597A2002FFB79 /* TutorialCell.swift in Sources */,
 				0B9499D82451DBC4001AD1C8 /* CommonPagesViewController.swift in Sources */,
 				0B9499DD2451DBC4001AD1C8 /* TopGeeksViewController.swift in Sources */,
+				F7780E41245AE324003CA4BD /* UserProfileModel.swift in Sources */,
 				F73002D12446F4D000BDD7FD /* InitialSignUpViewController.swift in Sources */,
 				0B5356702450870F005571AF /* MyMatchesPresenter.swift in Sources */,
 				0B535685245088DC005571AF /* EditSocialLinkCell.swift in Sources */,
 				0BF70804244F1D2C003D6AB7 /* MessagesInteractor.swift in Sources */,
+				F7780DF7245ABDBC003CA4BD /* SignUpUserModel.swift in Sources */,
 				F79CA6F0244D9C5100C9A7EB /* UserProfilePresenter.swift in Sources */,
 				0B9499D52451DBC4001AD1C8 /* DiscoverySettingInteractor.swift in Sources */,
 				0B53567624508775005571AF /* GradientLabel.swift in Sources */,
@@ -2108,7 +2204,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 87TR7NQ3SS;
+				DEVELOPMENT_TEAM = 9X86UPH4D8;
 				INFOPLIST_FILE = "$(SRCROOT)/GeekMeets/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2116,10 +2212,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Basecode/Library",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.org.geekmeets;
+				PRODUCT_BUNDLE_IDENTIFIER = com.org.lacy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "6fe03dd0-bb5b-416c-b4fe-1118ff86f17c";
-				PROVISIONING_PROFILE_SPECIFIER = "Wildcard Development";
+				PROVISIONING_PROFILE_SPECIFIER = Development_LacyApp;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PRODUCT_NAME)/Application/Basecode-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -2250,7 +2346,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 87TR7NQ3SS;
+				DEVELOPMENT_TEAM = 9X86UPH4D8;
 				INFOPLIST_FILE = "$(SRCROOT)/GeekMeets/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2258,10 +2354,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Basecode/Library",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.org.geekmeets;
+				PRODUCT_BUNDLE_IDENTIFIER = com.org.lacy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "6fe03dd0-bb5b-416c-b4fe-1118ff86f17c";
-				PROVISIONING_PROFILE_SPECIFIER = "Wildcard Development";
+				PROVISIONING_PROFILE_SPECIFIER = Development_LacyApp;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PRODUCT_NAME)/Application/Basecode-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -2277,7 +2373,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 87TR7NQ3SS;
+				DEVELOPMENT_TEAM = 9X86UPH4D8;
 				INFOPLIST_FILE = "$(SRCROOT)/GeekMeets/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2285,10 +2381,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Basecode/Library",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.org.geekmeets;
+				PRODUCT_BUNDLE_IDENTIFIER = com.org.lacy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "6fe03dd0-bb5b-416c-b4fe-1118ff86f17c";
-				PROVISIONING_PROFILE_SPECIFIER = "Wildcard Development";
+				PROVISIONING_PROFILE_SPECIFIER = Development_LacyApp;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PRODUCT_NAME)/Application/Basecode-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

@@ -14,6 +14,7 @@ import UIKit
 
 protocol UserProfileProtocol: class {
     func displaySomething()
+    func showAlertView(strMessage : String)
 }
 
 class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollViewDelegate {
@@ -32,6 +33,9 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
     @IBOutlet weak var btnFemale: UIButton!
     @IBOutlet weak var btnOther: UIButton!
     @IBOutlet weak var btnPreferNottoSay: UIButton!
+  
+    var requestModel = UserProfileModel()
+    var alertView: CustomAlertView!
   
   // MARK: DatePicker
     @IBOutlet weak var PickerView: UIView!
@@ -87,6 +91,7 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
       self.navigationItem.leftBarButtonItem = leftSideBackBarButton
       imgprofile.setCornerRadius(radius: imgprofile.frame.size.width/2)
       
+      
       let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
                imgprofile.isUserInteractionEnabled = true
                imgprofile.addGestureRecognizer(tapGestureRecognizer)
@@ -95,7 +100,6 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
       @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
       {
           let tappedImage = tapGestureRecognizer.view as! UIImageView
-
           print( "Your action")
           Getimage()
       }
@@ -132,7 +136,19 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
   
   @IBAction func actionContinue(_ sender: Any) {
     
-     self.presenter?.actionContinue()
+               requestModel.name = tfName.text
+               requestModel.DOB = tfDoB.text
+                requestModel.tfCompanyDetail = tfCompanyDetail.text
+               requestModel.about = tfAbout.text
+    
+    
+              if (self.presenter?.validateSignUpRequest(requestModel))!
+               {
+                  self.presenter?.actionContinue()
+              }
+    
+    
+     
   }
   func displaySomething() {
         //nameTextField.text = viewModel.name
@@ -231,5 +247,25 @@ extension UserProfileViewController : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+extension  UserProfileViewController{
+    func showAlertView(strMessage: String) {
+      alertView = CustomAlertView.initAlertView(title: "", message: strMessage, btnRightStr: "", btnCancelStr: "", btnCenter: "OK", isSingleButton: true)
+      alertView.delegate1 = self
+      alertView.frame = self.view.frame
+      let window = UIApplication.shared.keyWindow!
+     
+      window.addSubview(alertView)
+//      self.view.addSubview(alertView)
+    }
+}
+
+extension UserProfileViewController : AlertViewCentreButtonDelegate {
+    
+    func centerButtonAction() {
+
+      alertView.isHidden = true
     }
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -239,18 +239,6 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MNC-rg-HrL">
-                                        <rect key="frame" x="295" y="118.99999999999997" width="40" height="40"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="D2k-Dg-Ye3"/>
-                                            <constraint firstAttribute="width" constant="40" id="hTU-yK-6NI"/>
-                                        </constraints>
-                                        <state key="normal" image="icn_eye " backgroundImage=" "/>
-                                        <state key="selected" image="icn_eye_off"/>
-                                        <connections>
-                                            <action selector="btnPasswordShowHideClick:" destination="gTV-OF-HG0" eventType="touchUpInside" id="VaZ-fF-dea"/>
-                                        </connections>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lMO-Tr-kON">
                                         <rect key="frame" x="20" y="98.999999999999972" width="315" height="20"/>
                                         <constraints>
@@ -260,6 +248,17 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SoA-k7-C1I" customClass="BottomBorderTF" customModule="GeekMeets" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="118.99999999999997" width="315" height="40"/>
+                                        <color key="textColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholder_text_color">
+                                                <color key="value" red="0.69803921570000005" green="0.70980392160000005" blue="0.71372549019999998" alpha="1" colorSpace="custom" customColorSpace="adobeRGB1998"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4sR-0H-B87" customClass="GradientButton" customModule="GeekMeets" customModuleProvider="target">
                                         <rect key="frame" x="128.33333333333334" y="392.66666666666663" width="118.33333333333334" height="43.333333333333314"/>
                                         <color key="backgroundColor" red="0.70980392160000005" green="0.32549019610000002" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -362,6 +361,18 @@
                                             <action selector="btnAgreeDisagree:" destination="gTV-OF-HG0" eventType="touchUpInside" id="Wlo-d7-VeU"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MNC-rg-HrL">
+                                        <rect key="frame" x="295" y="118.99999999999997" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="D2k-Dg-Ye3"/>
+                                            <constraint firstAttribute="width" constant="40" id="hTU-yK-6NI"/>
+                                        </constraints>
+                                        <state key="normal" image="icn_eye " backgroundImage=" "/>
+                                        <state key="selected" image="icn_eye_off"/>
+                                        <connections>
+                                            <action selector="btnPasswordShowHideClick:" destination="gTV-OF-HG0" eventType="touchUpInside" id="VaZ-fF-dea"/>
+                                        </connections>
+                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By continuing you choose to agree to our Terms &amp; Conditions and Privacy Policy" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3KH-Pd-3oT">
                                         <rect key="frame" x="45" y="329" width="290" height="33.666666666666686"/>
                                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="12"/>
@@ -381,17 +392,6 @@
                                             <action selector="btnPasswordShowHideClick:" destination="6TS-Zq-nZl" eventType="touchUpInside" id="IPh-TJ-Woj"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SoA-k7-C1I" customClass="BottomBorderTF" customModule="GeekMeets" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="118.99999999999997" width="315" height="40"/>
-                                        <color key="textColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholder_text_color">
-                                                <color key="value" red="0.69803921570000005" green="0.70980392160000005" blue="0.71372549019999998" alpha="1" colorSpace="custom" customColorSpace="adobeRGB1998"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -704,7 +704,7 @@
                                                                 <rect key="frame" x="0.0" y="24.666666666666629" width="298.33333333333331" height="30"/>
                                                                 <color key="textColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
-                                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
+                                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholder_text_color">
                                                                         <color key="value" red="0.69803921570000005" green="0.70980392160000005" blue="0.71372549019999998" alpha="1" colorSpace="custom" customColorSpace="adobeRGB1998"/>
@@ -1084,13 +1084,13 @@
                                 <rect key="frame" x="15" y="0.0" width="32" height="32"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Photos" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ge-ue-h4Q" customClass="LocalizedLabel" customModule="GeekMeets" customModuleProvider="target">
-                                <rect key="frame" x="15" y="42" width="148" height="32.666666666666657"/>
+                                <rect key="frame" x="15" y="42" width="161.33333333333334" height="39.333333333333343"/>
                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="28"/>
                                 <color key="textColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uoX-DB-LEe">
-                                <rect key="frame" x="10" y="104.66666666666663" width="365" height="380"/>
+                                <rect key="frame" x="10" y="111.33333333333337" width="365" height="380"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="FL3-tZ-i3D">
                                     <size key="itemSize" width="100" height="100"/>
@@ -1118,7 +1118,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cmo-7K-a7J">
-                                                            <rect key="frame" x="0.0" y="0.0" width="126" height="126"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="126.00000000000003" height="126"/>
                                                             <state key="normal" backgroundImage="icn_add_photo"/>
                                                             <connections>
                                                                 <action selector="actionAddImg:" destination="bc4-cd-tPF" eventType="touchUpInside" id="naR-K2-GNM"/>
@@ -1198,7 +1198,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 / 3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wNn-RR-Bfk" customClass="LocalizedLabel" customModule="GeekMeets" customModuleProvider="target">
-                                <rect key="frame" x="326.66666666666669" y="50.333333333333343" width="28.333333333333314" height="16.333333333333329"/>
+                                <rect key="frame" x="326.66666666666669" y="52" width="28.333333333333314" height="19.666666666666671"/>
                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1379,7 +1379,7 @@
         <image name="icn_add_photo" width="98" height="111"/>
         <image name="icn_check" width="18" height="18"/>
         <image name="icn_close1" width="45" height="45"/>
-        <image name="icn_down_arrow" width="9" height="5"/>
+        <image name="icn_down_arrow" width="14.333333015441895" height="8"/>
         <image name="icn_edit " width="21" height="21"/>
         <image name="icn_eye " width="21.333333969116211" height="16"/>
         <image name="icn_eye_off" width="23" height="23"/>

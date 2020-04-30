@@ -14,9 +14,12 @@ import UIKit
 
 protocol SignUpVCProtocol: class {
     func displaySomething()
+    func showAlertView(strMessage : String)
 }
 
 class SignUpVCViewController: UIViewController, SignUpVCProtocol {
+
+  
     //var interactor : SignUpVCInteractorProtocol?
     var presenter : SignUpVCPresentationProtocol?
     
@@ -26,6 +29,9 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
   @IBOutlet weak var tfMobileNumber: BottomBorderTF!
   @IBOutlet weak var btnContinue: GradientButton!
   @IBOutlet weak var btnCountrycode: UIButton!
+  
+  var requestModel = SignUpUserModel()
+  var alertView: CustomAlertView!
   // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -96,7 +102,19 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
   
   @IBAction func actionContinue(_ sender: Any) {
     
-    self.presenter?.actionContinue()
+    
+    
+//           requestModel.confirmpassword = tfConfirmPassword.text
+//           requestModel.email = tfEmailAddress.text
+//           requestModel.mobile = tfMobileNumber.text
+//           requestModel.password = tfPassword.text
+//
+//
+//           if (self.presenter?.validateSignUpRequest(requestModel))!
+//           {
+//              self.presenter?.actionContinue()
+//          }
+        self.presenter?.actionContinue()
   }
   
   
@@ -119,5 +137,26 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
     {
         sender.isSelected = !sender.isSelected
         
+    }
+}
+
+extension  SignUpVCViewController{
+    func showAlertView(strMessage: String) {
+      alertView = CustomAlertView.initAlertView(title: "", message: strMessage, btnRightStr: "", btnCancelStr: "", btnCenter: "OK", isSingleButton: true)
+      alertView.delegate1 = self
+      alertView.frame = self.view.frame
+      let window = UIApplication.shared.keyWindow!
+     
+      window.addSubview(alertView)
+//      self.view.addSubview(alertView)
+    }
+}
+
+extension SignUpVCViewController : AlertViewCentreButtonDelegate {
+    
+    func centerButtonAction() {
+//        let accVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.AccountSettingScreen)
+//        self.pop(toLast: accVC.classForCoder)
+      alertView.isHidden = true
     }
 }

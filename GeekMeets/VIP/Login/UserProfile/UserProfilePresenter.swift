@@ -15,6 +15,7 @@ import UIKit
 protocol UserProfilePresentationProtocol {
     func presentSomething()
     func actionContinue()
+    func validateSignUpRequest(_ UserProfileModel: UserProfileModel) -> Bool
 }
 
 class UserProfilePresenter: UserProfilePresentationProtocol {
@@ -25,6 +26,37 @@ class UserProfilePresenter: UserProfilePresentationProtocol {
     func presentSomething() {
         
     }
+  
+      func validateSignUpRequest(_ UserProfileModel: UserProfileModel) -> Bool
+          {
+     
+              if UserProfileModel.name!.isEmpty
+              {
+                  self.viewController?.showAlertView(strMessage: kEnterEmail)
+                  return false
+              }
+             
+              if UserProfileModel.DOB!.isEmpty
+              {
+                  self.viewController?.showAlertView(strMessage: kEnterDoBProper)
+                  return false
+              }
+              
+              if UserProfileModel.tfCompanyDetail!.isEmpty
+              {
+                  self.viewController?.showAlertView(strMessage: kEnterCompanyDetail)
+                  return false
+              }
+              
+               if UserProfileModel.about!.isEmpty
+               {
+                   self.viewController?.showAlertView(strMessage: kEnterUserAbout)
+                   return false
+               }
+            
+              return true
+          }
+
   
     func actionContinue() {
            let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.AddPhotos)

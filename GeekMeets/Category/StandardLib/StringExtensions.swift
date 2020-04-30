@@ -642,6 +642,31 @@ extension String {
         return matches(pattern: "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
     }
     
+    public var isMobileNumber: Bool{
+           do {
+               let detector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.phoneNumber.rawValue)
+               let matches = detector.matches(in: self, options: [], range: NSMakeRange(0, self.count))
+               if let res = matches.first {
+                   return res.resultType == .phoneNumber && res.range.location == 0 && res.range.length == self.count
+               } else {
+                   return false
+               }
+           } catch {
+               return false
+           }
+       }
+    
+  func isValidDate(dateString: String) -> Bool {
+      let dateFormatterGet = DateFormatter()
+      dateFormatterGet.dateFormat = "yyyy-MM-dd hh:mm:ss"
+      if let _ = dateFormatterGet.date(from: dateString) {
+          //date parsing succeeded, if you need to do additional logic, replace _ with some variable name i.e date
+          return true
+      } else {
+          // Invalid date
+          return false
+      }
+  }
     /// SwifterSwift: Check if string is a valid URL.
     ///
     ///        "https://google.com".isValidUrl -> true

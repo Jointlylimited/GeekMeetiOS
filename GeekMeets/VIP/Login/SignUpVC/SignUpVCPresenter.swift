@@ -15,6 +15,7 @@ import UIKit
 protocol SignUpVCPresentationProtocol {
     func presentSomething()
     func actionContinue()
+    func validateSignUpRequest(_ signUpRequestModel: SignUpUserModel) -> Bool
 }
 
 class SignUpVCPresenter: SignUpVCPresentationProtocol {
@@ -25,6 +26,57 @@ class SignUpVCPresenter: SignUpVCPresentationProtocol {
     func presentSomething() {
         
     }
+  
+    func validateSignUpRequest(_ signUpRequestModel: SignUpUserModel) -> Bool
+    {
+        if signUpRequestModel.email!.isEmpty
+        {
+          self.viewController?.showAlertView(strMessage: kEnterEmail)
+          return false
+        }
+        else if signUpRequestModel.email!.isEmail == false
+        {
+            self.viewController?.showAlertView(strMessage: kEnterValidEmail)
+            return false
+        }
+
+        
+        if signUpRequestModel.password!.isEmpty
+        {
+            self.viewController?.showAlertView(strMessage: kEnterPassword)
+            return false
+        }
+        else if signUpRequestModel.password!.length < 6
+        {
+            self.viewController?.showAlertView(strMessage: kPasswordWeak)
+            return false
+        }
+        if signUpRequestModel.confirmpassword!.isEmpty
+        {
+                 self.viewController?.showAlertView(strMessage: kEnterConfirmPassword)
+                 return false
+        }
+      
+        if signUpRequestModel.password! !=  signUpRequestModel.confirmpassword!
+        {
+          self.viewController?.showAlertView(strMessage: kPasswordNotMatch)
+          return false
+        }
+        if signUpRequestModel.mobile!.isEmpty
+        {
+            self.viewController?.showAlertView(strMessage: KEnterMobileNo)
+            return false
+        }
+        else if signUpRequestModel.mobile?.isMobileNumber == false
+        {
+            self.viewController?.showAlertView(strMessage: KEnterValidMobileNo)
+            return false
+        }
+      
+        return true
+      
+    }
+
   
     func actionContinue() {
         let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.UserProfile)

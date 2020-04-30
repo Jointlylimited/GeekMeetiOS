@@ -7,6 +7,7 @@
 //
 
 import UIKit
+ import IQKeyboardManagerSwift
 
 let kSecret = ""
 let kPrivateKey = ""
@@ -19,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        IQKeyboardManager.shared.enable = true
         //Push Notification call
         self.registerForPushNotifications()
         

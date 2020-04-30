@@ -81,10 +81,13 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
     }
     
     func doSomething() {
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
         self.navigationController?.isNavigationBarHidden = true
         self.presenter?.callQuestionnaireRequest()
     }
-    
+  override func viewWillAppear(_ animated: Bool) {
+     self.navigationController?.isNavigationBarHidden = true
+  }
     func displaySomething() {
         //nameTextField.text = viewModel.name
     }
