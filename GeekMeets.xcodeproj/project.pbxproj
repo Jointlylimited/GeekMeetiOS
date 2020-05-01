@@ -189,6 +189,7 @@
 		F7780E41245AE324003CA4BD /* UserProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7780E40245AE324003CA4BD /* UserProfileModel.swift */; };
 		F77E311B2456AEC100A213FF /* OTPStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77E31192456AEC100A213FF /* OTPStackView.swift */; };
 		F77E311C2456AEC100A213FF /* OTPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77E311A2456AEC100A213FF /* OTPTextField.swift */; };
+		F795CDF1245BFB87009E8311 /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F795CDF0245BFB86009E8311 /* Authentication.swift */; };
 		F79604BD244597A2002FFB79 /* TutorialCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79604BC244597A2002FFB79 /* TutorialCell.swift */; };
 		F79CA6F0244D9C5100C9A7EB /* UserProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79CA6ED244D9C5100C9A7EB /* UserProfilePresenter.swift */; };
 		F79CA6F1244D9C5100C9A7EB /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79CA6EE244D9C5100C9A7EB /* UserProfileViewController.swift */; };
@@ -467,6 +468,7 @@
 		F7780E40245AE324003CA4BD /* UserProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileModel.swift; sourceTree = "<group>"; };
 		F77E31192456AEC100A213FF /* OTPStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTPStackView.swift; sourceTree = "<group>"; };
 		F77E311A2456AEC100A213FF /* OTPTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTPTextField.swift; sourceTree = "<group>"; };
+		F795CDF0245BFB86009E8311 /* Authentication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		F79604BC244597A2002FFB79 /* TutorialCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialCell.swift; sourceTree = "<group>"; };
 		F79CA6ED244D9C5100C9A7EB /* UserProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePresenter.swift; sourceTree = "<group>"; };
 		F79CA6EE244D9C5100C9A7EB /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
@@ -1566,6 +1568,7 @@
 				F7780E1D245AD666003CA4BD /* Swaggers */,
 				F90B4CE02032F4A6006ADAF6 /* SOAPI.swift */,
 				F90B4CE12032F4A6006ADAF6 /* SOService.swift */,
+				F795CDF0245BFB86009E8311 /* Authentication.swift */,
 			);
 			path = APIManager;
 			sourceTree = "<group>";
@@ -1738,6 +1741,7 @@
 				F90B4C9320329C45006ADAF6 /* Resources */,
 				F9F62EED20F479B900FD4D68 /* ShellScript */,
 				C212B685DE26D825EEA93103 /* [CP] Embed Pods Frameworks */,
+				5E0990E30DCB924B9FD701D4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1836,6 +1840,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		5E0990E30DCB924B9FD701D4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GeekMeets/Pods-GeekMeets-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GeekMeets/Pods-GeekMeets-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		C212B685DE26D825EEA93103 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1844,26 +1866,40 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-GeekMeets/Pods-GeekMeets-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookShare/FacebookShare.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/JSONModel/JSONModel.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
-				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookShare.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMAppAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSONModel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1959,6 +1995,7 @@
 				F7D5259B244869FB002D3A42 /* SignInInteractor.swift in Sources */,
 				F7164AC7244EB86F00853BFC /* AddPhotosInteractor.swift in Sources */,
 				0B319659244DE80500B38350 /* HomeViewController.swift in Sources */,
+				F795CDF1245BFB87009E8311 /* Authentication.swift in Sources */,
 				F9A453C3203AA74B0065C9FD /* LoginViewController.swift in Sources */,
 				F7F9679A2451B23F00BD7275 /* QuestionnaireModel.swift in Sources */,
 				F9A453CC203AA74B0065C9FD /* SignUpViewController.swift in Sources */,

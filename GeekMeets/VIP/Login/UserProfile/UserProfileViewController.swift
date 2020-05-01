@@ -217,6 +217,7 @@ extension UserProfileViewController:  UINavigationControllerDelegate, UIImagePic
           let alert  = UIAlertController(title: "Warning", message: "You don't have camera", preferredStyle: .alert)
           alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
           self.present(alert, animated: true, completion: nil)
+        
       }
   }
   func openGallery()
@@ -267,5 +268,6 @@ extension UserProfileViewController : AlertViewCentreButtonDelegate {
     func centerButtonAction() {
 
       alertView.isHidden = true
+      
     }
 }

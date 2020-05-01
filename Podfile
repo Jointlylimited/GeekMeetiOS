@@ -11,7 +11,11 @@ target 'GeekMeets' do
   pod 'ReachabilitySwift'
 
   pod 'IQKeyboardManagerSwift'
-
-  pod 'Firebase/Core'
+  pod 'FacebookCore'
+  pod 'FacebookLogin'
+  pod 'FacebookShare'
+  pod 'GoogleSignIn'
+#  pod 'Firebase/Core'
   pod 'JSONModel'
+ 
 end

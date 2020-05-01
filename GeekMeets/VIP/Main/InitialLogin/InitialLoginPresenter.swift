@@ -13,9 +13,16 @@
 import UIKit
 
 protocol InitialLoginPresentationProtocol {
+  
     func presentSomething()
     func actionSignUp()
     func actionSignIn()
+    func callSocialLoginRequest(loginParams : Dictionary<String, String>)
+    func callFacebookLoginRequest(objLoginVC : InitialLoginViewController)
+    
+  
+    
+    
 }
 
 class InitialLoginPresenter: InitialLoginPresentationProtocol {
@@ -43,12 +50,19 @@ class InitialLoginPresenter: InitialLoginPresentationProtocol {
           if let view = self.viewController as? UIViewController
           {
               view.pushVC(controller)
+              
           }
         
-         /* let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.TabbarScreen)
-          if let view = self.viewController as? UIViewController
-          {
-              view.pushVC(controller)
-          }*/
+         
       }
+    func callSocialLoginRequest(loginParams : Dictionary<String, String>){
+           self.interactor?.callSocialLoginApi(params: loginParams)
+       }
+    
+    func callFacebookLoginRequest(objLoginVC : InitialLoginViewController){
+      
+          self.interactor?.callFacebookLogin(objLoginVC : objLoginVC)
+      
+    }
+
 }

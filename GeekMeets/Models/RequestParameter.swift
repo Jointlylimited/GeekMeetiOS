@@ -62,6 +62,17 @@ class RequestParameter: NSObject {
         //print(requestDictionary)
         return requestDictionary
     }
+  
+    func socialLoginParam(accessToken : String, service: String) -> Dictionary<String,String> {
+        
+        var requestDictionary : Dictionary<String,String> = Dictionary()
+        requestDictionary["accessToken"] = accessToken;
+        requestDictionary["service"] = service
+        requestDictionary["eDeviceType"] = eDeviceType
+        
+        //print(requestDictionary)
+        return requestDictionary
+    }
     
 }
 

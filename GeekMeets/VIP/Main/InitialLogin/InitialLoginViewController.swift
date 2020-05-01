@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import GoogleSignIn
 
 protocol InitialLoginProtocol: class {
     func displaySomething()
@@ -64,6 +65,15 @@ class InitialLoginViewController: UIViewController, InitialLoginProtocol {
     //@IBOutlet weak var nameTextField: UITextField!
     
     func doSomething() {
+//        GIDSignIn.sharedInstance()?.presentingViewController
+        
+        GIDSignIn.sharedInstance().delegate = self
+        GIDSignIn.sharedInstance().clientID = "1058883482858-feo3v537akjippp47hcq8cs80ed3q8ti.apps.googleusercontent.com"
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+
+//        // Automatically sign in the user.
+//        GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+
         setupMultipleTapLabel()
     }
     
@@ -109,11 +119,55 @@ class InitialLoginViewController: UIViewController, InitialLoginProtocol {
     }
   
     // MARK: IBAction Method
+  @IBAction func actionGmailSignup(_ sender: Any) {
+    
+    GIDSignIn.sharedInstance().signIn()
+    
+  }
+  @IBAction func actionFacebookSignup(_ sender: Any){
+    
+      self.presenter?.callFacebookLoginRequest(objLoginVC : self)
+  
+  }
   
   @IBAction func actionSignup(_ sender: Any) {
+    
     self.presenter?.actionSignUp()
+    
   }
   @IBAction func actionSignIn(_ sender: Any) {
+    
     self.presenter?.actionSignIn()
+  
   }
+}
+
+extension InitialLoginViewController : GIDSignInDelegate{
+   
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
+              withError error: Error!) {
+      
+        if let error = error {
+          
+            print("\(error.localizedDescription)")
+          
+        } else {
+            // Perform any operations on signed in user here.
+            // ...
+            
+             let params = RequestParameter.sharedInstance().socialLoginParam(accessToken: user.authentication.accessToken, service: "google")
+      
+            self.presenter?.callSocialLoginRequest(loginParams: params)
+          
+          
+          
+        }
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
+              withError error: Error!) {
+        // Perform any operations when the user disconnects from app here.
+        // ...
+    }
+    
 }

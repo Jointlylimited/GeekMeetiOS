@@ -127,6 +127,7 @@ extension  InitialSignUpViewController{
           self.presenter?.actionSignUp()
       }
       @IBAction func actionFacebookSignUp(_ sender: Any) {
+        
       }
       @IBAction func actionInstagramSignUp(_ sender: Any) {
       }

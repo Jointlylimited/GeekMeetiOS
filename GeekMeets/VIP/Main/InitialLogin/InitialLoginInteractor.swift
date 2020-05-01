@@ -11,9 +11,14 @@
 //
 
 import UIKit
+import GoogleSignIn
+import FacebookLogin
+import FacebookCore
 
 protocol InitialLoginInteractorProtocol {
     func doSomething()
+    func callSocialLoginApi(params : Dictionary<String, String>)
+    func callFacebookLogin(objLoginVC : InitialLoginViewController)
 }
 
 protocol InitialLoginDataStore {
@@ -27,5 +32,44 @@ class InitialLoginInteractor: InitialLoginInteractorProtocol, InitialLoginDataSt
     // MARK: Do something
     func doSomething() {
         
+    }
+  
+    func callFacebookLogin(objLoginVC : InitialLoginViewController) {
+        
+            let loginManager = LoginManager()
+              loginManager.logIn(permissions: [.publicProfile, .email], viewController: objLoginVC) { (result) in
+
+               // self.loginManagerDidComplete(result)
+              switch result {
+                  case .cancelled:
+                    print("cancelled")
+              //      alertController = UIAlertController(title: "Login Cancelled", message: "User cancelled login.")
+                  case .failed(let error):
+              //      alertController = UIAlertController(title: "Login Fail", message: "Login failed with error \(error)")
+                    print("cancelled")
+
+                  case .success(let grantedPermissions, let declinedPermissions,let accesToken):
+              //      alertController = UIAlertController(title: "Login Success",
+              //                                          message: "Login succeeded with granted permissions: \(grantedPermissions)")
+                    print("Login succeeded with granted Token: \(accesToken.tokenString)")
+                    let params = RequestParameter.sharedInstance().socialLoginParam(accessToken: accesToken.tokenString, service: "facebook")
+                    self.callSocialLoginApi(params: params)
+                                    
+                  }
+          }
+         
+         
+            }
+  
+    func callSocialLoginApi(params : Dictionary<String, String>){
+
+      let authenticationObj = AuthenticationObj.getAutheticationToken()
+      UserAPI.socialSignin(nonce: authenticationObj.nonce, timestamp: 1234566, token: authenticationObj.token, language: "English", tiSocialType: UserAPI.TiSocialType_socialSignin(rawValue: "1")!, vAccessToken: "String", vTimeOffset: "12345", vTimeZone: "Kolkata", vDeviceToken: "12345", tiDeviceType: UserAPI.TiDeviceType_socialSignin(rawValue: 0)!, vDeviceName:
+      "", vDeviceUniqueId: "123", vApiVersion: "1.0", vAppVersion: "1.0", vOsVersion: "11.0", vIpAddress: "19.168.0.0"){ (userResponse, error) in
+          if error == nil
+          {
+           print(userResponse)
+          }
+      }
     }
 }

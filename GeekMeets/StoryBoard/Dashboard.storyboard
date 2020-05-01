@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -39,7 +39,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="dOF-MY-5v9">
-                                            <rect key="frame" x="0.0" y="43" width="414" height="117"/>
+                                            <rect key="frame" x="0.0" y="42.666666666666664" width="414" height="117.33333333333334"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="7bz-ZP-DzI">
                                                 <size key="itemSize" width="50" height="50"/>
@@ -63,7 +63,7 @@
                                             </connections>
                                         </collectionView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Matches (10)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vr8-yq-J2r">
-                                            <rect key="frame" x="20" y="15" width="374" height="20"/>
+                                            <rect key="frame" x="20" y="15.000000000000002" width="374" height="19.666666666666671"/>
                                             <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -105,7 +105,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GHJ-nm-K6H">
-                                        <rect key="frame" x="344" y="24.000000000000004" width="50" height="52.333333333333343"/>
+                                        <rect key="frame" x="344" y="23.999999999999996" width="50" height="52.666666666666657"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="2zz-jH-D5O"/>
                                             <constraint firstAttribute="width" secondItem="GHJ-nm-K6H" secondAttribute="height" multiplier="21:22" id="vAX-0P-ixD"/>
@@ -1149,7 +1149,7 @@
                                 <rect key="frame" x="15" y="167" width="384" height="536"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recommended" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FNO-yg-OjC">
-                                <rect key="frame" x="20" y="88" width="220" height="39.666666666666657"/>
+                                <rect key="frame" x="20" y="88.333333333333329" width="220" height="39.333333333333329"/>
                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="28"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -3253,7 +3253,7 @@
                                 <rect key="frame" x="10" y="44" width="394" height="85"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Report Shopie" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mNM-k0-Twl">
-                                        <rect key="frame" x="8" y="40.666666666666671" width="197.66666666666666" height="39.333333333333329"/>
+                                        <rect key="frame" x="8" y="47.333333333333329" width="180.66666666666666" height="32.666666666666671"/>
                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="28"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -3341,13 +3341,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/300" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rU0-y6-nlS">
-                                <rect key="frame" x="359.66666666666669" y="437" width="34.333333333333314" height="17"/>
+                                <rect key="frame" x="363" y="437" width="31" height="14"/>
                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="12"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W2K-EL-xcG">
-                                <rect key="frame" x="25" y="219" width="72.666666666666671" height="20"/>
+                                <rect key="frame" x="25" y="222.66666666666666" width="62" height="16.333333333333343"/>
                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -3649,13 +3649,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="200 views" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ihy-Qx-xb8">
-                                <rect key="frame" x="167.66666666666666" y="821.66666666666663" width="78.666666666666657" height="22.333333333333371"/>
+                                <rect key="frame" x="168" y="821.33333333333337" width="78.333333333333314" height="22.666666666666629"/>
                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="prc-So-VSL">
-                                <rect key="frame" x="196.33333333333334" y="794.66666666666663" width="21.333333333333343" height="22"/>
+                                <rect key="frame" x="196.33333333333334" y="794.33333333333337" width="21.333333333333343" height="22"/>
                                 <state key="normal" image="eye (1)"/>
                                 <connections>
                                     <action selector="btnViewStoryAction:" destination="3sL-cS-1YP" eventType="touchUpInside" id="zoe-gB-ZSf"/>
@@ -3929,7 +3929,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S5J-gy-nCw">
-                                        <rect key="frame" x="346" y="3.6666666666666643" width="60" height="38"/>
+                                        <rect key="frame" x="346" y="6" width="60" height="33"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="U4X-HA-RKW"/>
                                         </constraints>

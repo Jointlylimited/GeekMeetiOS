@@ -10,6 +10,7 @@ import UIKit
 
 
 let AppDelObj : AppDelegate = AppDelegate.shared
+let AuthenticationObj : Authentication = Authentication.sharedInstanceClass()
 
 class Constant: NSObject {
 
