@@ -13,7 +13,7 @@
 import UIKit
 
 protocol ForgotPasswordProtocol: class {
-    func displaySomething()
+    func getForgotPasswordResponse(response : CommonResponse)
 }
 
 class ForgotPasswordViewController: UIViewController, ForgotPasswordProtocol {
@@ -61,36 +61,32 @@ class ForgotPasswordViewController: UIViewController, ForgotPasswordProtocol {
         doSomething()
     }
     override func viewWillAppear(_ animated: Bool) {
-       super.viewWillAppear(animated)
-      self.navigationController?.isNavigationBarHidden = false
-      
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = false
+        
     }
-    
-    
-    // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
+
     func doSomething() {
-//            self.navigationController?.setNavigationBarHidden(false, animated: true)
-//            self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
-            self.navigationItem.leftBarButtonItem = leftSideBackBarButton
-            self.navigationController?.navigationBar.barTintColor = UIColor.white
-            
-    }
-    
-    func displaySomething() {
-        //nameTextField.text = viewModel.name
+        //            self.navigationController?.setNavigationBarHidden(false, animated: true)
+        //            self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
+        self.navigationItem.leftBarButtonItem = leftSideBackBarButton
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
     }
   }
 
 //MARK: IBAction Method
 extension ForgotPasswordViewController{
     @IBAction func actionSend(_ sender: Any) {
-      
-      
+        self.presenter?.callForgotPasswordAPI(email : "nik@gmail.com")
     }
+}
 
-  
-  
+extension ForgotPasswordViewController{
+    func getForgotPasswordResponse(response : CommonResponse) {
+        if response.responseCode == 200 {
+            print(response)
+        } else {
+        }
+         self.popVC()
+    }
 }

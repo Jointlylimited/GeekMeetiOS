@@ -10,7 +10,7 @@ import UIKit
 
 
 let AppDelObj : AppDelegate = AppDelegate.shared
-let AuthenticationObj : Authentication = Authentication.sharedInstanceClass()
+let authToken = Authentication.sharedInstance().getAutheticationToken()
 
 class Constant: NSObject {
 
@@ -83,6 +83,7 @@ struct GeekMeets_ViewController
     static let ChangeEmailMobileScreen = "ChangeEmailMobileViewController"
     static let NewMobileScreen =  "NewMobileNumberViewController"
     static let AddTextScreen =  "AddTextViewController"
+    static let SubscriptionScreen =  "SubscriptionVC"
 }
 
 struct Cells {
@@ -143,4 +144,39 @@ struct AppResponseCode {
     static let MEHOD_NOT_ALLOW = 405
     static let NO_DATA_FOUND = 204
 
+}
+class AppSingleton: NSObject {
+    
+    //MARK: - Variables and IBOutlets
+    static var instance: AppSingleton!
+    
+    override init() {
+        
+    }
+    
+    //MARK: - SHARED INSTANCE
+    class func sharedInstance() -> AppSingleton {
+        self.instance = (self.instance ?? AppSingleton())
+        return self.instance
+    }
+    
+    func showAlert(_ defaultMsg:String, okTitle:String) {
+        
+        if defaultMsg == "The network connection was lost." {
+            return
+        }
+        
+        let alertController = UIAlertController(title: appName, message: defaultMsg, preferredStyle: .alert)
+        
+        let OKAction = UIAlertAction(title: okTitle, style: .default) { (String) in
+            
+        }
+        alertController.addAction(OKAction)
+        
+        AppDelObj.window!.rootViewController!.present(alertController, animated: true, completion: nil)
+    }
+    
+    func logout()
+    {
+    }
 }

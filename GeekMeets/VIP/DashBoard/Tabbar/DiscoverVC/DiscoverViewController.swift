@@ -94,14 +94,14 @@ class DiscoverViewController: UIViewController, DiscoverProtocol {
         self.pushVC(searchVC!)
     }
     @IBAction func actionAddPhoto(_ sender: Any) {
-        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.AddTextScreen) as? AddTextViewController
-        controller!.modalTransitionStyle = .crossDissolve
-        controller!.modalPresentationStyle = .overCurrentContext
-        controller!.delegate = self
-        self.presentVC(controller!)
-//      let searchVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: "ViewController") as? ViewController
-//
-//             self.pushVC(searchVC!)
+//        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.AddTextScreen) as? AddTextViewController
+//        controller!.modalTransitionStyle = .crossDissolve
+//        controller!.modalPresentationStyle = .overCurrentContext
+//        controller!.delegate = self
+//        self.presentVC(controller!)
+      let searchVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: "PreviewViewController") as? PreviewViewController
+
+             self.pushVC(searchVC!)
     }
 }
 
@@ -148,8 +148,4 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
         }
     }
 }
-extension DiscoverViewController : TextViewControllerDelegate {
-    func textViewDidFinishWithTextView(text:CustomTextView) {
-        print(text)
-    }
-}
+

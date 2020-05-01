@@ -11,24 +11,16 @@ import Reachability
 
 class Authentication : NSObject
 {
-    static var instanceBlockClass: Authentication!
     
-    class func sharedInstanceClass() -> Authentication {
-        self.instanceBlockClass = (self.instanceBlockClass ?? Authentication())
-        return self.instanceBlockClass
+    static var instance: Authentication!
+    
+    // SHARED INSTANCE
+    class func sharedInstance() -> Authentication {
+        self.instance = (self.instance ?? Authentication())
+        return self.instance
     }
     
-    
-    public func getAutheticationToken() -> (nonce : String, timeStamp : String, token : String){
-        let nonce = 6.randomString
-        let timestamp = AuthenticationObj.GetCurrentTimeStamp()
-        let token = AuthenticationObj.createHashedTokenString(timeStemp: timestamp, randomStr: nonce)
-        return (nonce,timestamp,token)
-    }
-    
-    
-    func GetCurrentTimeStamp() -> String
-    {
+    public func GetCurrentTimeStamp() -> String {
         let df = DateFormatter()
         let date = NSDate()
         df.dateFormat = "yyyyMMddhhmmss"
@@ -37,14 +29,40 @@ class Authentication : NSObject
     }
     
     //MARK: Create Token
-    func createHashedTokenString(timeStemp : String , randomStr :  String) -> String
-    {
+    public func createHashedTokenString(timeStemp : String , randomStr :  String) -> String {
         var str = String(format: "%@=%@&%@=%@","nonce", randomStr, "timestamp",timeStemp)
         
         str = str.appending("|")
         str = str.appending(kSecret)
         str = str.hmac(algorithm: .SHA256, key:kPrivateKey)
         return str
+    }
+    
+    public func getAutheticationToken() -> (nonce : String, timeStamp : String, token : String){
+        let nonce = 6.randomString
+        let timestamp = Authentication.sharedInstance().GetCurrentTimeStamp()
+        let token = Authentication.sharedInstance().createHashedTokenString(timeStemp: timestamp, randomStr: nonce)
+        return (nonce,timestamp,token)
+    }
+    
+    class func setVAuthKey(_ strkey:String?)
+    {
+        if strkey == nil{
+            print("You should use the remove auth key method.")
+            return
+        }
+        UserDefaults.standard.set(strkey, forKey: "vAuthKey")
+        UserDefaults.standard.synchronize()
+    }
+    class func getVAuthKey()-> String?
+    {
+        let vAuthKey = UserDefaults.standard.object(forKey: "vAuthKey")
+        if vAuthKey != nil{
+            return vAuthKey as! String     //(userData as AnyObject).object(forKey: "vAuthKey") as! String
+        }
+        else{
+            return ""
+        }
     }
 }
 

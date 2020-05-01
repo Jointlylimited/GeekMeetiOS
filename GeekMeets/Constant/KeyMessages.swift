@@ -65,6 +65,9 @@ let kPhotosAccessTitle   = "No photos access"
 let kPhotosAccessMsg     = "Please go to settings and switch on your photos. settings -> \(appName) -> switch on photos"
 let kContactAccess       = "No contact access"
 
+let kSomethingWentWrong = "Something went wrong...Please try again"
+let kLoogedIntoOtherDevice = "It is look like you logged in another device."
+
 class KeyMessages: NSObject {
 
 }

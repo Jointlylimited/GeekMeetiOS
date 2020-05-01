@@ -64,6 +64,8 @@
 		0B535689245088DC005571AF /* EditProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B535681245088DB005571AF /* EditProfileInteractor.swift */; };
 		0B53568A245088DC005571AF /* EditInformationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B535682245088DB005571AF /* EditInformationCell.swift */; };
 		0B53568B245088DC005571AF /* EditPhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B535683245088DB005571AF /* EditPhotosCell.swift */; };
+		0B59586E245C632F006D500A /* SubscriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B59586D245C632E006D500A /* SubscriptionVC.swift */; };
+		0B595871245C642B006D500A /* StickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B595870245C642B006D500A /* StickerView.swift */; };
 		0B921C1624571BC70010AE04 /* Dashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B921C1524571BC70010AE04 /* Dashboard.storyboard */; };
 		0B921C2624571BE40010AE04 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B921C1824571BE30010AE04 /* ContentViewController.swift */; };
 		0B921C2724571BE40010AE04 /* ARSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B921C1A24571BE30010AE04 /* ARSupport.swift */; };
@@ -337,6 +339,8 @@
 		0B535681245088DB005571AF /* EditProfileInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileInteractor.swift; sourceTree = "<group>"; };
 		0B535682245088DB005571AF /* EditInformationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditInformationCell.swift; sourceTree = "<group>"; };
 		0B535683245088DB005571AF /* EditPhotosCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPhotosCell.swift; sourceTree = "<group>"; };
+		0B59586D245C632E006D500A /* SubscriptionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionVC.swift; sourceTree = "<group>"; };
+		0B595870245C642B006D500A /* StickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickerView.swift; sourceTree = "<group>"; };
 		0B921C1524571BC70010AE04 /* Dashboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Dashboard.storyboard; sourceTree = "<group>"; };
 		0B921C1824571BE30010AE04 /* ContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		0B921C1A24571BE30010AE04 /* ARSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARSupport.swift; sourceTree = "<group>"; };
@@ -619,6 +623,7 @@
 		0B319645244DE80400B38350 /* DiscoverVC */ = {
 			isa = PBXGroup;
 			children = (
+				0B59586C245C632E006D500A /* SubscriptionScreen */,
 				0BCD4B24245B0C200054A805 /* AddTextVC */,
 				0BF707FC244F1D1C003D6AB7 /* DiscoverInteractor.swift */,
 				0BF707FA244F1D1C003D6AB7 /* DiscoverPresenter.swift */,
@@ -768,6 +773,22 @@
 				0B535683245088DB005571AF /* EditPhotosCell.swift */,
 			);
 			path = EditProfileVC;
+			sourceTree = "<group>";
+		};
+		0B59586C245C632E006D500A /* SubscriptionScreen */ = {
+			isa = PBXGroup;
+			children = (
+				0B59586D245C632E006D500A /* SubscriptionVC.swift */,
+			);
+			path = SubscriptionScreen;
+			sourceTree = "<group>";
+		};
+		0B59586F245C642B006D500A /* StickerView */ = {
+			isa = PBXGroup;
+			children = (
+				0B595870245C642B006D500A /* StickerView.swift */,
+			);
+			path = StickerView;
 			sourceTree = "<group>";
 		};
 		0B921C1724571BE30010AE04 /* ARStories */ = {
@@ -1476,6 +1497,7 @@
 		F90B4CC92032A7C1006ADAF6 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				0B59586F245C642B006D500A /* StickerView */,
 				0B921C1724571BE30010AE04 /* ARStories */,
 				F7DFAE2924501191008863F3 /* CountryPicker */,
 				0BBD66052449C8FB00CA178A /* SwipeableCards */,
@@ -1957,6 +1979,7 @@
 				0BBD65F72449C8A500CA178A /* MatchViewController.swift in Sources */,
 				0B319655244DE80500B38350 /* MenuInteractor.swift in Sources */,
 				0B319664244DE80500B38350 /* TabbarViewController.swift in Sources */,
+				0B59586E245C632F006D500A /* SubscriptionVC.swift in Sources */,
 				F7780E38245AD667003CA4BD /* ContentPageResponse.swift in Sources */,
 				0B3C75B2245327DF00CEDBBA /* Share_EarnInteractor.swift in Sources */,
 				0BF707FE244F1D1C003D6AB7 /* DiscoverViewController.swift in Sources */,
@@ -2071,6 +2094,7 @@
 				0B319665244DE80500B38350 /* TabbarInteractor.swift in Sources */,
 				F9A453D5203AA74B0065C9FD /* SplashViewController.swift in Sources */,
 				0BCD4B2E245B0C390054A805 /* RangeSlider.swift in Sources */,
+				0B595871245C642B006D500A /* StickerView.swift in Sources */,
 				0BF7080B244F1D3C003D6AB7 /* MatchProfilePresenter.swift in Sources */,
 				F7F8F5D32452F8CF00CA82E7 /* SelectCategoriesInteractor.swift in Sources */,
 				0B535686245088DC005571AF /* EditProfileViewController.swift in Sources */,

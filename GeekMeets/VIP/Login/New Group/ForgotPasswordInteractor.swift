@@ -13,7 +13,7 @@
 import UIKit
 
 protocol ForgotPasswordInteractorProtocol {
-    func doSomething()
+    func callForgotPasswordAPI(email : String)
 }
 
 protocol ForgotPasswordDataStore {
@@ -25,7 +25,20 @@ class ForgotPasswordInteractor: ForgotPasswordInteractorProtocol, ForgotPassword
     //var name: String = ""
     
     // MARK: Do something
-    func doSomething() {
-        
+    func callForgotPasswordAPI(email : String) {
+        UserAPI.forgotPassword(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, vEmail: email) { (response, error) in
+            
+            if response?.responseCode == 200 {
+                self.presenter?.getForgotPasswordResponse(response: response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getForgotPasswordResponse(response : response!)
+                }
+            }
+        }
     }
 }

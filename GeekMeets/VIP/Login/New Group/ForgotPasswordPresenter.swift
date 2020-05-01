@@ -13,7 +13,8 @@
 import UIKit
 
 protocol ForgotPasswordPresentationProtocol {
-    func presentSomething()
+    func callForgotPasswordAPI(email : String)
+    func getForgotPasswordResponse(response : CommonResponse)
 }
 
 class ForgotPasswordPresenter: ForgotPasswordPresentationProtocol {
@@ -21,7 +22,11 @@ class ForgotPasswordPresenter: ForgotPasswordPresentationProtocol {
     var interactor: ForgotPasswordInteractorProtocol?
     
     // MARK: Present something
-    func presentSomething() {
-        
+    func callForgotPasswordAPI(email : String) {
+        self.interactor?.callForgotPasswordAPI(email : email)
+    }
+    
+    func getForgotPasswordResponse(response : CommonResponse) {
+        self.viewController?.getForgotPasswordResponse(response: response)
     }
 }

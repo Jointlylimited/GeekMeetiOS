@@ -15,6 +15,7 @@ class CustomTextView : UIView {
     var viewSize : CGSize = CGSize(width: 0, height: 0)
     var attributeDict : NSDictionary = [:]
     var attributedString : NSAttributedString = NSAttributedString(string: "")
+    var fontSize : CGFloat = 0
     
     override init(frame: CGRect){
         super.init(frame: frame)
@@ -29,7 +30,7 @@ class CustomTextView : UIView {
 //        fatalError("init(coder:) has not been implemented")
 //    }
     
-    func initwithFrame(frame : CGRect, text : String, color : UIColor, size : CGSize){
+    func initwithFrame(frame : CGRect, text : String, color : UIColor, size : CGSize, fontSize : CGFloat){
         self.frame = frame
         self.text = text
         self.color = color
@@ -43,6 +44,7 @@ class CustomTextView : UIView {
         view.text = view1.text
         view.color = view1.color
         view.viewSize = view1.viewSize
+        view.fontSize = view1.fontSize
         view = view1
         return view
     }

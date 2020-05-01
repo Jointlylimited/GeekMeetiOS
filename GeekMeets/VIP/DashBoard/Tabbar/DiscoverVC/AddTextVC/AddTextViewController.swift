@@ -13,22 +13,39 @@ class AddTextViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var ColorCollView: UICollectionView!
     @IBOutlet weak var cusTextView: CustomTextView!
+    @IBOutlet weak var textViewHeightConstant: NSLayoutConstraint!
     
+    @IBOutlet weak var colorCollBottomConstraint: NSLayoutConstraint!
+    var fontSize : CGFloat = 14
     var textSizeSlider: RangeSlider!
     var colors : [UIColor] = [#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), #colorLiteral(red: 0.7098039216, green: 0.3254901961, blue: 0.8941176471, alpha: 0.5), #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1), #colorLiteral(red: 0.06274510175, green: 0, blue: 0.1921568662, alpha: 1), #colorLiteral(red: 0.1921568662, green: 0.007843137719, blue: 0.09019608051, alpha: 1), #colorLiteral(red: 0.3098039329, green: 0.2039215714, blue: 0.03921568766, alpha: 1), #colorLiteral(red: 0.1294117719, green: 0.2156862766, blue: 0.06666667014, alpha: 1), #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1), #colorLiteral(red: 0.09019608051, green: 0, blue: 0.3019607961, alpha: 1), #colorLiteral(red: 0.3098039329, green: 0.01568627544, blue: 0.1294117719, alpha: 1), #colorLiteral(red: 0.521568656, green: 0.1098039225, blue: 0.05098039284, alpha: 1), #colorLiteral(red: 0.5058823824, green: 0.3372549117, blue: 0.06666667014, alpha: 1), #colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1), #colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1), #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1), #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1), #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)]
     var dictAttribute : NSMutableDictionary!
     var delegate : TextViewControllerDelegate!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setTheme()
         setTextTheme()
+//        setLabel()
         // Do any additional setup after loading the view.
     }
     
     
     func setTheme(){
         
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow(_:)),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide(notification:)),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
         self.ColorCollView.register(UINib.init(nibName: Cells.ColorCollCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.ColorCollCell)
         self.ColorCollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
@@ -42,25 +59,51 @@ class AddTextViewController: UIViewController {
         self.view.addSubview(textSizeSlider)
         dictAttribute = NSMutableDictionary(object: UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 16.0)!, forKey: NSAttributedString.Key.font as NSCopying)
     }
+    
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.dismissVC(completion: nil)
     }
 
     @IBAction func btnDoneAction(_ sender: UIButton) {
-//        cusTextView.initwithView(view1: cusTextView)
         self.delegate.textViewDidFinishWithTextView(text: cusTextView)
         self.dismissVC(completion: nil)
+    }
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            self.animateTextField(up: true, height : keyboardHeight)
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        self.animateTextField(up: false, height : 0)
+    }
+    
+    func animateTextField(up: Bool, height : CGFloat) {
+        let movement = (up ? -height : height)
+        if up == true {
+            self.colorCollBottomConstraint?.constant = ScreenSize.height + movement - 160
+        } else {
+            self.colorCollBottomConstraint?.constant = 0
+            self.ColorCollView!.contentInset.bottom = 0
+            self.ColorCollView!.scrollIndicatorInsets.bottom = 0
+        }
+        self.view.layoutIfNeeded()
     }
 }
 extension AddTextViewController : TextSizeSelectDelegate {
     func selectTextSize(size : CGFloat) {
         print("value is" ,size)
-        self.textView.font = UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: size)
-        
-        cusTextView.attributedString = NSAttributedString.init(string: textView.text, attributes: dictAttribute as? [NSAttributedString.Key : Any])
-        cusTextView.text = textView.text
-//        textView.size = CGSize(width: <#T##CGFloat#>, height: <#T##CGFloat#>)
-        textView.sizeToFit()
+        fontSize = size
+        adjustTextViewHeight()
+        if self.textViewHeightConstant.constant < ScreenSize.height {
+            self.textView.font = UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: size)
+            cusTextView.attributedString = NSAttributedString.init(string: textView.text, attributes: dictAttribute as? [NSAttributedString.Key : Any])
+            cusTextView.text = textView.text
+            cusTextView.fontSize = size
+        }
     }
 }
 
@@ -97,6 +140,8 @@ extension AddTextViewController : UICollectionViewDataSource, UICollectionViewDe
 extension AddTextViewController : UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         textView.checkPlaceholder()
+        adjustTextViewHeight()
+        
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -120,6 +165,16 @@ extension AddTextViewController : UITextViewDelegate {
         else{
             return true
         }
+    }
+    
+    func adjustTextViewHeight() {
+        let fixedWidth = textView.frame.size.width
+        let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+        if newSize.height < ScreenSize.height {
+            print(newSize.height)
+            self.textViewHeightConstant.constant = newSize.height
+        }
+        self.view.layoutIfNeeded()
     }
 }
 
@@ -146,10 +201,12 @@ extension UITextView{
             
         }
         else{
-            self.text.removeLast()
+//            self.text.removeLast()
         }
         let placeholderLabel = self.viewWithTag(222) as! UILabel
         placeholderLabel.isHidden = !self.text.isEmpty
     }
     
 }
+
+
