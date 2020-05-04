@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -767,6 +767,11 @@
                                                 <constraint firstItem="iDp-JP-pfA" firstAttribute="leading" secondItem="X1N-Um-Ub0" secondAttribute="leading" constant="20" id="ueu-XP-9Cm"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="lblAbout" destination="iDp-JP-pfA" id="92R-4t-3ds"/>
+                                            <outlet property="lblCity" destination="hkW-bZ-uy9" id="k2D-S1-uzk"/>
+                                            <outlet property="lblGender" destination="kxC-bI-gYI" id="tqU-mG-aJG"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProfileCompanyCell" rowHeight="31" id="YMU-DR-QD4" customClass="ProfileCompanyCell" customModule="GeekMeets" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="472" width="414" height="31"/>
@@ -789,6 +794,9 @@
                                                 <constraint firstAttribute="bottom" secondItem="aBd-pt-DZJ" secondAttribute="bottom" constant="5" id="gPg-yE-aCj"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="lblCompanyDetail" destination="aBd-pt-DZJ" id="itY-lb-Y9v"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProfileInterestCell" rowHeight="170" id="nbT-x4-JhD" customClass="ProfileInterestCell" customModule="GeekMeets" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="503" width="414" height="170"/>
@@ -2453,7 +2461,10 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="txtAbout" destination="tGQ-eP-3Ec" id="ztS-ey-RAZ"/>
+                                            <outlet property="txtCity" destination="qbV-VG-B0r" id="YTw-CO-AFV"/>
+                                            <outlet property="txtCompanyDetail" destination="dzD-4n-Ulr" id="h0g-wB-abl"/>
                                             <outlet property="txtDoB" destination="eQt-hf-bf4" id="j5a-vc-RPt"/>
+                                            <outlet property="txtGender" destination="3iD-ey-g0L" id="X6i-m0-PqQ"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="EditInterestCell" rowHeight="208" id="IiH-zw-57R" customClass="EditInterestCell" customModule="GeekMeets" customModuleProvider="target">
@@ -2640,6 +2651,11 @@
                                                 <constraint firstItem="0ll-Vj-Wq4" firstAttribute="leading" secondItem="FU5-YW-wnM" secondAttribute="leading" id="pBc-4j-y1c"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="txtInterestAge" destination="d0V-lh-G3g" id="j1A-fr-CDo"/>
+                                            <outlet property="txtInterestGender" destination="fxU-wF-GgM" id="sqg-vO-4br"/>
+                                            <outlet property="txtLikedSocialPlatform" destination="2gP-zF-yo5" id="zQZ-l6-KED"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="EditPhotosCell" rowHeight="215" id="wsx-lS-Fcd" customClass="EditPhotosCell" customModule="GeekMeets" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="922" width="414" height="215"/>
@@ -2900,6 +2916,11 @@
                                                 <constraint firstAttribute="trailing" secondItem="XVD-QA-Tmh" secondAttribute="trailing" id="wyW-wZ-OaP"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="txtFacebookLink" destination="hOH-HD-nES" id="iz7-dF-Auf"/>
+                                            <outlet property="txtInstagramLink" destination="oKc-TK-HhM" id="LkL-6y-sOE"/>
+                                            <outlet property="txtSnapchatLink" destination="HRp-RO-Q23" id="hMb-Ah-mvB"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="EditProfilePrivacyCell" rowHeight="197" id="BqE-HM-sT9" customClass="EditProfilePrivacyCell" customModule="GeekMeets" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="1345" width="414" height="197"/>

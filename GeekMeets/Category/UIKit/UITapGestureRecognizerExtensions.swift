@@ -38,8 +38,30 @@ extension UITapGestureRecognizer {
 
        return NSLocationInRange(indexOfCharacter, targetRange)
    }
- 
+}
 
-  
+extension TimeZone {
 
+    func offsetFromUTC() -> String
+    {
+        let localTimeZoneFormatter = DateFormatter()
+        localTimeZoneFormatter.timeZone = self
+        localTimeZoneFormatter.dateFormat = "Z"
+        return localTimeZoneFormatter.string(from: Date())
+    }
+
+    func offsetInHours() -> String
+    {
+
+        let hours = secondsFromGMT()/3600
+        let minutes = abs(secondsFromGMT()/60) % 60
+        let tz_hr = String(format: "%+.2d:%.2d", hours, minutes) // "+hh:mm"
+        return tz_hr
+    }
+    
+    func getCurrentTimeZone() -> String {
+        let localTimeZoneAbbreviation: Int = TimeZone.current.secondsFromGMT()
+        let items = (localTimeZoneAbbreviation / 3600)
+        return "\(items)"
+    }
 }

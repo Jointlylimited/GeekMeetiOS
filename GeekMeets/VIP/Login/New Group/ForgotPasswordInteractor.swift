@@ -36,7 +36,7 @@ class ForgotPasswordInteractor: ForgotPasswordInteractorProtocol, ForgotPassword
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
                 } else {
-                    self.presenter?.getForgotPasswordResponse(response : response!)
+                    AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
                 }
             }
         }

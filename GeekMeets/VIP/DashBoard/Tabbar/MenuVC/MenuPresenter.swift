@@ -13,7 +13,8 @@
 import UIKit
 
 protocol MenuPresentationProtocol {
-    func presentSomething()
+    func callSignoutAPI()
+    func getSignoutResponse(response : UserAuthResponse)
 }
 
 class MenuPresenter: MenuPresentationProtocol {
@@ -21,7 +22,11 @@ class MenuPresenter: MenuPresentationProtocol {
     var interactor: MenuInteractorProtocol?
     
     // MARK: Present something
-    func presentSomething() {
-        
+    func callSignoutAPI() {
+        self.interactor?.callSignoutAPI()
+    }
+    
+    func getSignoutResponse(response : UserAuthResponse){
+        self.viewController?.getSignOutResponse(response : response)
     }
 }

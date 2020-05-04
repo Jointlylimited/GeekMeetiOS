@@ -10,6 +10,7 @@ import UIKit
 
 class ProfileCompanyCell: UITableViewCell {
 
+    @IBOutlet weak var lblCompanyDetail: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

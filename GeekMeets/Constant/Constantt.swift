@@ -11,6 +11,19 @@ import UIKit
 
 let AppDelObj : AppDelegate = AppDelegate.shared
 let authToken = Authentication.sharedInstance().getAutheticationToken()
+let vDeviceToken = (UserDefaults.standard[kDeviceToken] as? String) ?? "123456"
+
+let vDeviceUniqueId = UIDevice.current.identifierForVendor?.uuidString
+let tiDeviceType = 1 // 0-Web, 1-IOS, 2-Android
+let vDeviceName = "iPhone"
+let vApiVersion = "v1"
+let vAppVersion = "1.0"
+let vOSVersion = "13.0"
+let vIPAddress = "127.0.0.1"
+let vTimeOffset = TimeZone.current.offsetFromUTC()
+let vTimeZone = TimeZone.current.getCurrentTimeZone()
+
+let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
 
 class Constant: NSObject {
 

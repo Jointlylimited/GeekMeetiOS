@@ -10,6 +10,11 @@ import UIKit
 
 class EditInterestCell: UITableViewCell {
 
+    @IBOutlet weak var txtInterestAge: UITextField!
+    @IBOutlet weak var txtInterestGender: UITextField!
+    @IBOutlet weak var txtLikedSocialPlatform: UITextField!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

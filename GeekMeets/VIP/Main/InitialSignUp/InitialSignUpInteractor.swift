@@ -13,7 +13,9 @@
 import UIKit
 
 protocol InitialSignUpInteractorProtocol {
-    func doSomething()
+    func callFBLogin()
+    
+    func callSocialSignInAPI(params : Dictionary<String, String>)
 }
 
 protocol InitialSignUpDataStore {
@@ -23,9 +25,51 @@ protocol InitialSignUpDataStore {
 class InitialSignUpInteractor: InitialSignUpInteractorProtocol, InitialSignUpDataStore {
     var presenter: InitialSignUpPresentationProtocol?
     //var name: String = ""
+    let objConfig = SOGoogleConfig()
     
-    // MARK: Do something
-    func doSomething() {
+    func callFBLogin() {
+        HSFacebookLoginManager.manager.loginWithFacebook(in: AppDelObj.window!.rootViewController!) { (result, isLogout, error) -> (Void) in
+            
+            print("result:= \(String(describing: result))")
+            print("isLogout:= \(isLogout)")
+            print("error:= \(String(describing: error))")
+            
+            guard let _ = result else {
+                
+                var errorrr = "Please try again"
+                
+                if error != nil {
+                    errorrr = error!.localizedDescription
+                }
+                
+                if !isLogout {
+                    AppSingleton.sharedInstance().showAlert("Facebook Error", okTitle: errorrr)
+                }
+                return;
+            }
+            
+            self.presenter?.getFBResponse(response: result!)
+        }
+    }
+    
+    func callSocialSignInAPI(params: Dictionary<String, String>) {
         
+        UserAPI.socialSignin(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language:APPLANGUAGE.english , tiSocialType: UserAPI.TiSocialType_socialSignin(rawValue: params["tiSocialType"]!)!, vAccessToken: params["accessKey"]!, vTimeOffset: "", vTimeZone: "", vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_socialSignin(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: "", vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress) { (response, error) in
+            
+            if response?.responseCode == 200 {
+                self.presenter?.getLoginResponse(userData : response)
+            } else if response?.responseCode == 203 {
+                self.objConfig.googleSignOut()
+                AppSingleton.sharedInstance().logout()
+            } else {
+                self.objConfig.googleSignOut()
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+                }
+            }
+
+        }
     }
 }

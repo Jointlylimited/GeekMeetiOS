@@ -108,16 +108,16 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
     var presenter : EditProfilePresentationProtocol?
     
      @IBOutlet weak var tblEditProfileView: UITableView!
-    
     @IBOutlet weak var PickerView: UIView!
     @IBOutlet weak var datePicker: UIDatePicker!
-    
     @IBOutlet weak var imgProfile: UIImageView!
     
     var objEditProfileData = EditProfileData()
     var imageArray : [UIImage]  = [] //[#imageLiteral(resourceName: "img_intro_2"), #imageLiteral(resourceName: "image_1"), #imageLiteral(resourceName: "Image 63"), #imageLiteral(resourceName: "Image 62")]
     var imagePicker: UIImagePickerController!
     var image : UIImage?
+    
+     var userProfileModel : UserProfileModel!
     
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -172,6 +172,8 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
         dateFormatter.dateFormat = "dd/MM/yyyy"
         let strDate = dateFormatter.string(from: datePicker.date)
         print(strDate)
+        self.userProfileModel.vAge = strDate
+        self.tblEditProfileView.reloadData()
     }
     @IBAction func btnChooseProfileAction(_ sender: UIButton) {
         self.openImagePickerActionSheet()
@@ -198,6 +200,7 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
             if let cell = cell as? EditInformationCell {
                 cell.txtAbout.text = "Lady with fun loving personality and open- minded, Looking for Someone to hang out always open for hangout"
                 cell.txtDoB.delegate = self
+                cell.txtDoB.text = userProfileModel.vAge
             }
         } else if objEditProfileData.cells[indexPath.section].cellID == "EditInterestCell" {
             
@@ -222,12 +225,16 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
                     print(indexPath.row)
                     if cell.btnSwichMode[index!].tag == 0 {
                         cell.btnSwichMode[0].isSelected = !cell.btnSwichMode[0].isSelected
+                        self.userProfileModel.vShowAge = cell.btnSwichMode[0].isSelected
                     } else if cell.btnSwichMode[index!].tag == 1 {
                         cell.btnSwichMode[1].isSelected = !cell.btnSwichMode[1].isSelected
+                        self.userProfileModel.vShowDistance = cell.btnSwichMode[1].isSelected
                     } else if cell.btnSwichMode[index!].tag == 2 {
                         cell.btnSwichMode[2].isSelected = !cell.btnSwichMode[2].isSelected
+                        self.userProfileModel.vShowContactNo = cell.btnSwichMode[2].isSelected
                     } else {
                         cell.btnSwichMode[3].isSelected = !cell.btnSwichMode[3].isSelected
+                        self.userProfileModel.vShowProfiletoLiked = cell.btnSwichMode[3].isSelected
                     }
                 }
             }

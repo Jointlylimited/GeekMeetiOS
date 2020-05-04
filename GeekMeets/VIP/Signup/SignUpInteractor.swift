@@ -27,17 +27,9 @@ class SignUpInteractor: SignUpInteractorProtocol, SignUpDataStore {
     // MARK: Do something
     func callSignUpApi(params : Dictionary<String, Any>) {
                 
-        SOService.callAPI(SOAPI.signUp(params: params)) { (code, error, result) in
-            print(code , error ?? "", result ?? "")
-            //print(code, error ?? "", result ?? "")
-            if error == nil && code == 1 {
-                let objUser = BaseModel(json: result!)
-                print(objUser)
-                UserDefaults.standard.set(objUser.responseData?.vAuthKey, forKey: kAuthKey)
-                self.presenter?.getSignUpResponse(userData : objUser)
-            } else {
-                self.presenter?.getSignUpResponse(userData : nil)
-            }
-        }
+//        UserAPI.signUp(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, tiIsSocialLogin: UserAPI.TiIsSocialLogin_signUp(rawValue: "0"), vEmail: <#T##String#>, vPassword: <#T##String#>, vCountryCode: <#T##String#>, vPhone: <#T##String#>, vName: <#T##String#>, dDob: <#T##String#>, tiAge: <#T##String#>, tiGender: <#T##UserAPI.TiGender_signUp#>, iCurrentStatus: <#T##UserAPI.ICurrentStatus_signUp#>, txCompanyDetail: <#T##String#>, txAbout: <#T##String#>, photos: <#T##String#>, vTimeOffset: <#T##String#>, vTimeZone: <#T##String#>, vDeviceToken: <#T##String#>, tiDeviceType: <#T##UserAPI.TiDeviceType_signUp#>, vDeviceName: <#T##String#>, vDeviceUniqueId: <#T##String#>, vApiVersion: <#T##String#>, vAppVersion: <#T##String#>, vOsVersion: <#T##String#>, vIpAddress: <#T##String#>) { (response, error) in
+//            
+//            
+//        }
     }
 }

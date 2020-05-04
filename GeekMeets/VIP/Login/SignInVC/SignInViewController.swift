@@ -14,7 +14,7 @@ import UIKit
 
 //MARK:- Protocol and Method
 protocol SignInProtocol: class{
-    func displayAlert(strMessage : String)
+    func displayAlert(strTitle : String, strMessage : String)
 }
 
 
@@ -22,10 +22,7 @@ protocol SignInProtocol: class{
 
 class SignInViewController: UIViewController,SignInProtocol
 {
-  func displayAlert(strMessage: String) {
-    print(strMessage)
-  }
-  
+    
     //var interactor : SignInInteractorProtocol?
     var presenter : SignInPresentationProtocol?
     
@@ -34,7 +31,7 @@ class SignInViewController: UIViewController,SignInProtocol
     @IBOutlet weak var btnSignUp : UIButton?
     @IBOutlet weak var btnForgot: UIButton!
     @IBOutlet weak var btnSignIn: GradientButton!
-  // MARK:- Object lifecycle
+    // MARK:- Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -58,7 +55,7 @@ class SignInViewController: UIViewController,SignInProtocol
         //viewController.interactor = interactor
         
         //Presenter will communicate with Interector and Viewcontroller
-      presenter.viewController = viewController
+        presenter.viewController = viewController
         presenter.interactor = interactor
         
         //Interactor will communucate with only presenter.
@@ -70,47 +67,45 @@ class SignInViewController: UIViewController,SignInProtocol
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       doSomething()
-      
+        doSomething()
+        
     }
     func doSomething(){
-      
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
-            self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
-            self.navigationItem.leftBarButtonItem = leftSideBackBarButton
-            self.navigationController?.navigationBar.barTintColor = UIColor.white
-            let range = (btnSignUp!.currentTitle! as NSString).range(of: "Sign Up")
-            let attributedString = NSMutableAttributedString(string:(btnSignUp?.currentTitle)!)
-            attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: AppCommonColor.pinkColor , range: range)
-            btnSignUp?.setAttributedTitle(attributedString, for: .normal)
-      
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
+        self.navigationItem.leftBarButtonItem = leftSideBackBarButton
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
+        let range = (btnSignUp!.currentTitle! as NSString).range(of: "Sign Up")
+        let attributedString = NSMutableAttributedString(string:(btnSignUp?.currentTitle)!)
+        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: AppCommonColor.pinkColor , range: range)
+        btnSignUp?.setAttributedTitle(attributedString, for: .normal)
     }
     
-  
+    
     override func viewDidAppear(_ animated: Bool)
     {
-      super.viewDidAppear(animated)
+        super.viewDidAppear(animated)
     }
-  
+    
     override func viewWillDisappear(_ animated: Bool){
-      self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    func displayAlert(strTitle : String, strMessage : String) {
+        self.showAlert(title: strTitle, message: strMessage)
     }
 }
 
 //MARK:- IBAction Method
 extension SignInViewController
 {
-    @IBAction func btnSignUpClick(_ sender : UIButton)
-    {
-//        self.presenter?.actionSignUp()
-    }
 
     @IBAction func btnSignInClick(_ sender : UIButton)
     {
-        self.presenter?.gotoHomeScreen()
-//        self.presenter?.callSignInAPI(tfEmail.text ?? "", password: tfPassword.text ?? "")
+//        self.presenter?.gotoHomeScreen()
+        self.presenter?.callSignInAPI(tfEmail.text ?? "", password: tfPassword.text ?? "")
     }
-
+    
     @IBAction func btnForgotPWClick(_ sender : UIButton)
     {
         self.presenter?.actionForgotPassword()

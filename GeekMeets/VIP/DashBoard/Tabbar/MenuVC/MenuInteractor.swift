@@ -13,7 +13,7 @@
 import UIKit
 
 protocol MenuInteractorProtocol {
-    func doSomething()
+    func callSignoutAPI()
 }
 
 protocol MenuDataStore {
@@ -25,7 +25,20 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
     //var name: String = ""
     
     // MARK: Do something
-    func doSomething() {
-        
+    func callSignoutAPI() {
+        UserAPI.signout(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
+            
+            if response?.responseCode == 200 {
+                self.presenter?.getSignoutResponse(response : response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+            } else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+                }
+            }
+        }
     }
 }

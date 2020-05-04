@@ -46,6 +46,10 @@
 		0B4CA0362457EA5200A3460B /* ChangePasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4CA0332457EA5200A3460B /* ChangePasswordPresenter.swift */; };
 		0B4CA0372457EA5200A3460B /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4CA0342457EA5200A3460B /* ChangePasswordViewController.swift */; };
 		0B4CA0382457EA5200A3460B /* ChangePasswordInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4CA0352457EA5200A3460B /* ChangePasswordInteractor.swift */; };
+		0B51D28F245FE0A0005C7B88 /* HSFacebookLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B51D28E245FE0A0005C7B88 /* HSFacebookLoginManager.swift */; };
+		0B51D293245FE2B6005C7B88 /* ReadMeGoogleSignin.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 0B51D291245FE2B6005C7B88 /* ReadMeGoogleSignin.rtf */; };
+		0B51D294245FE2B6005C7B88 /* SOGoogleConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B51D292245FE2B6005C7B88 /* SOGoogleConfig.swift */; };
+		0B51D29624602424005C7B88 /* UserDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B51D29524602424005C7B88 /* UserDataModel.swift */; };
 		0B53566424508701005571AF /* Menu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B53566324508701005571AF /* Menu.storyboard */; };
 		0B53566E2450870F005571AF /* MyMatchesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5356672450870F005571AF /* MyMatchesViewController.swift */; };
 		0B53566F2450870F005571AF /* MyMatchesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5356682450870F005571AF /* MyMatchesInteractor.swift */; };
@@ -321,6 +325,10 @@
 		0B4CA0332457EA5200A3460B /* ChangePasswordPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordPresenter.swift; sourceTree = "<group>"; };
 		0B4CA0342457EA5200A3460B /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		0B4CA0352457EA5200A3460B /* ChangePasswordInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordInteractor.swift; sourceTree = "<group>"; };
+		0B51D28E245FE0A0005C7B88 /* HSFacebookLoginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSFacebookLoginManager.swift; sourceTree = "<group>"; };
+		0B51D291245FE2B6005C7B88 /* ReadMeGoogleSignin.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = ReadMeGoogleSignin.rtf; sourceTree = "<group>"; };
+		0B51D292245FE2B6005C7B88 /* SOGoogleConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOGoogleConfig.swift; sourceTree = "<group>"; };
+		0B51D29524602424005C7B88 /* UserDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataModel.swift; sourceTree = "<group>"; };
 		0B53566324508701005571AF /* Menu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Menu.storyboard; sourceTree = "<group>"; };
 		0B5356672450870F005571AF /* MyMatchesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMatchesViewController.swift; sourceTree = "<group>"; };
 		0B5356682450870F005571AF /* MyMatchesInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMatchesInteractor.swift; sourceTree = "<group>"; };
@@ -714,6 +722,23 @@
 				0B4CA0352457EA5200A3460B /* ChangePasswordInteractor.swift */,
 			);
 			path = ChangePasswordVC;
+			sourceTree = "<group>";
+		};
+		0B51D28D245FE08C005C7B88 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				0B51D28E245FE0A0005C7B88 /* HSFacebookLoginManager.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		0B51D290245FE2B6005C7B88 /* SOGoogleSignIn */ = {
+			isa = PBXGroup;
+			children = (
+				0B51D291245FE2B6005C7B88 /* ReadMeGoogleSignin.rtf */,
+				0B51D292245FE2B6005C7B88 /* SOGoogleConfig.swift */,
+			);
+			path = SOGoogleSignIn;
 			sourceTree = "<group>";
 		};
 		0B5356652450870F005571AF /* MenuScreens */ = {
@@ -1475,6 +1500,7 @@
 		F90B4CC62032A7C1006ADAF6 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				0B51D28D245FE08C005C7B88 /* Classes */,
 				F90B4CDB2032AAB8006ADAF6 /* AppDelegate */,
 				F90B4CCC2032A7EA006ADAF6 /* Basecode-Bridging-Header.h */,
 			);
@@ -1490,6 +1516,7 @@
 				F9EDD42D203BFF33008FA83F /* ProfileUrl.swift */,
 				F9EDD42B203BFF32008FA83F /* ResponseData.swift */,
 				F7780E40245AE324003CA4BD /* UserProfileModel.swift */,
+				0B51D29524602424005C7B88 /* UserDataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1497,6 +1524,7 @@
 		F90B4CC92032A7C1006ADAF6 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				0B51D290245FE2B6005C7B88 /* SOGoogleSignIn */,
 				0B59586F245C642B006D500A /* StickerView */,
 				0B921C1724571BE30010AE04 /* ARStories */,
 				F7DFAE2924501191008863F3 /* CountryPicker */,
@@ -1825,6 +1853,7 @@
 				0BE2127B244976AF004817BC /* Poppins-BlackItalic.ttf in Resources */,
 				F7DFAE3E24501192008863F3 /* tickMark.png in Resources */,
 				0B3C75BE2453280200CEDBBA /* CustomAlertView.xib in Resources */,
+				0B51D293245FE2B6005C7B88 /* ReadMeGoogleSignin.rtf in Resources */,
 				0B921C1624571BC70010AE04 /* Dashboard.storyboard in Resources */,
 				0BE2127D244976AF004817BC /* Poppins-LightItalic.ttf in Resources */,
 				0B9499B72451DBA5001AD1C8 /* CommonTblListCell.xib in Resources */,
@@ -2088,6 +2117,7 @@
 				F9A453D2203AA74B0065C9FD /* SplashPresenter.swift in Sources */,
 				0BBD66032449C8F100CA178A /* CardView.swift in Sources */,
 				0BF70805244F1D2C003D6AB7 /* MessagesPresenter.swift in Sources */,
+				0B51D28F245FE0A0005C7B88 /* HSFacebookLoginManager.swift in Sources */,
 				0BF70803244F1D2C003D6AB7 /* MessagesViewController.swift in Sources */,
 				F7DFAE3C24501192008863F3 /* CountryManager.swift in Sources */,
 				0BCD4B28245B0C210054A805 /* ColorCollCell.swift in Sources */,
@@ -2124,6 +2154,7 @@
 				F7D5259024481DB5002D3A42 /* InitialLoginPresenter.swift in Sources */,
 				F7F8F5C12452EAE400CA82E7 /* SelectGenderPresenter.swift in Sources */,
 				F90B4CE22032F4A6006ADAF6 /* SOAPI.swift in Sources */,
+				0B51D294245FE2B6005C7B88 /* SOGoogleConfig.swift in Sources */,
 				0B31965B244DE80500B38350 /* ProfilePresenter.swift in Sources */,
 				0B535689245088DC005571AF /* EditProfileInteractor.swift in Sources */,
 				0B9499D62451DBC4001AD1C8 /* DiscoverySettingPresenter.swift in Sources */,
@@ -2192,6 +2223,7 @@
 				0BF70804244F1D2C003D6AB7 /* MessagesInteractor.swift in Sources */,
 				F7780DF7245ABDBC003CA4BD /* SignUpUserModel.swift in Sources */,
 				F79CA6F0244D9C5100C9A7EB /* UserProfilePresenter.swift in Sources */,
+				0B51D29624602424005C7B88 /* UserDataModel.swift in Sources */,
 				0B9499D52451DBC4001AD1C8 /* DiscoverySettingInteractor.swift in Sources */,
 				0B53567624508775005571AF /* GradientLabel.swift in Sources */,
 				F7F8F5C32452EAE400CA82E7 /* SelectGenderInteractor.swift in Sources */,

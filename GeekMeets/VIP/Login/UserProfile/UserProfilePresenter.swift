@@ -13,56 +13,55 @@
 import UIKit
 
 protocol UserProfilePresentationProtocol {
-    func presentSomething()
-    func actionContinue()
-    func validateSignUpRequest(_ UserProfileModel: UserProfileModel) -> Bool
+    func callSignUpRequest(signUpParams : Dictionary<String, String>)
 }
 
 class UserProfilePresenter: UserProfilePresentationProtocol {
     weak var viewController: UserProfileProtocol?
     var interactor: UserProfileInteractorProtocol?
     
-    // MARK: Present something
-    func presentSomething() {
-        
+    
+    func callSignUpRequest(signUpParams : Dictionary<String, String>){
+        if validateSignUpParams(param: signUpParams) {
+            self.actionContinue(signUpParams : signUpParams)
+        }
     }
-  
-      func validateSignUpRequest(_ UserProfileModel: UserProfileModel) -> Bool
-          {
-     
-              if UserProfileModel.name!.isEmpty
-              {
-                  self.viewController?.showAlertView(strMessage: kEnterEmail)
-                  return false
-              }
-             
-              if UserProfileModel.DOB!.isEmpty
-              {
-                  self.viewController?.showAlertView(strMessage: kEnterDoBProper)
-                  return false
-              }
-              
-              if UserProfileModel.tfCompanyDetail!.isEmpty
-              {
-                  self.viewController?.showAlertView(strMessage: kEnterCompanyDetail)
-                  return false
-              }
-              
-               if UserProfileModel.about!.isEmpty
-               {
-                   self.viewController?.showAlertView(strMessage: kEnterUserAbout)
-                   return false
-               }
-            
-              return true
-          }
-
-  
-    func actionContinue() {
-           let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.AddPhotos)
-           if let view = self.viewController as? UIViewController
-           {
-               view.pushVC(controller)
-           }
-       }
+    
+    func validateSignUpParams(param : Dictionary<String, String>) -> Bool {
+        
+        if String(describing: param["vName"]!).isEmpty {
+            self.viewController?.displayAlert(strTitle: "", strMessage: kEnterUserName)
+            return false
+        }
+        
+        if String(describing: param["dDob"]!).isEmpty {
+            self.viewController?.displayAlert(strTitle: "", strMessage: kEnterDoBProper)
+            return false
+        }
+        
+        if String(describing: param["txCompanyDetail"]!).isEmpty {
+            self.viewController?.displayAlert(strTitle: "", strMessage: kEnterCompanyDetail)
+            return false
+        }
+        
+        if String(describing: param["txAbout"]!).isEmpty {
+            self.viewController?.displayAlert(strTitle: "", strMessage: kEnterUserAbout)
+            return false
+        }
+        
+        if String(describing: param["vProfileImage"]!).isEmpty {
+            self.viewController?.displayAlert(strTitle: "", strMessage: kSelectUserProfile)
+            return false
+        }
+        return true
+    }
+    
+    func actionContinue(signUpParams : Dictionary<String, String>) {
+        let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.AddPhotos)  as! AddPhotosViewController
+        controller.signUpParams = signUpParams
+        if let view = self.viewController as? UIViewController
+        {
+            view.pushVC(controller)
+        }
+    }
 }

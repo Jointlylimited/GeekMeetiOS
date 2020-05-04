@@ -77,7 +77,7 @@ class ForgotPasswordViewController: UIViewController, ForgotPasswordProtocol {
 //MARK: IBAction Method
 extension ForgotPasswordViewController{
     @IBAction func actionSend(_ sender: Any) {
-        self.presenter?.callForgotPasswordAPI(email : "nik@gmail.com")
+        self.presenter?.callForgotPasswordAPI(email : tfEmail.text ?? "")
     }
 }
 

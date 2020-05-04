@@ -10,6 +10,10 @@ import UIKit
 
 class ProfileInterestCell: UITableViewCell {
 
+    @IBOutlet weak var lblInterestAge: UILabel!
+    @IBOutlet weak var lblInterestGender: UILabel!
+    @IBOutlet weak var lblLikedSocialPlatform: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

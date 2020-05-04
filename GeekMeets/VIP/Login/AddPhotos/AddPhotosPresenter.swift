@@ -13,23 +13,26 @@
 import UIKit
 
 protocol AddPhotosPresentationProtocol {
-    func presentSomething()
-    func actionDone()
+    func callUserSignUpAPI(signParams : Dictionary<String, String>, photos : [NSDictionary])
+    func getSignUpResponse(response : UserAuthResponse)
 }
 
 class AddPhotosPresenter: AddPhotosPresentationProtocol {
     weak var viewController: AddPhotosProtocol?
     var interactor: AddPhotosInteractorProtocol?
     
-    // MARK: Present something
-    func presentSomething() {
-        
+    func callUserSignUpAPI(signParams : Dictionary<String, String>, photos : [NSDictionary]) {
+        self.interactor?.callUserSignUpAPI(signParams : signParams, photos : photos)
     }
-  func actionDone() {
-           let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter)
-           if let view = self.viewController as? UIViewController
-           {
-               view.pushVC(controller)
-           }
-       }
+    
+    func getSignUpResponse(response : UserAuthResponse) {
+        
+        UserDataModel.currentUser = response.responseData
+        
+        let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter)
+        if let view = self.viewController as? UIViewController
+        {
+            view.pushVC(controller)
+        }
+    }
 }

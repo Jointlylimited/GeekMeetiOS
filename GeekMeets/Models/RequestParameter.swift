@@ -21,13 +21,28 @@ class RequestParameter: NSObject {
         return self.instance
     }
     
-    func signUpParam(vUserName : String, vFirstName: String, vLastName: String, vEmailId: String, vPassword: String, images: [UIImage]?) -> Dictionary<String, Any> {
-        var requestDictionary : Dictionary<String, Any> = Dictionary()
-        requestDictionary["vUserName"] = vUserName
-        requestDictionary["vFirstName"] = vFirstName
-        requestDictionary["vLastName"] = vLastName
-        requestDictionary["vEmailId"] = vEmailId
+    func signUpParam(vEmail: String, vPassword:String, vConfirmPassword:String, vCountryCode: String, vPhone : String, termsChecked : String, vProfileImage:String, vName:String, dDob:String, tiAge:String, tiGender:String, iCurrentStatus:String, txCompanyDetail:String, txAbout:String, photos:String, vTimeOffset:String, vTimeZone:String) -> Dictionary<String, String> {
+        var requestDictionary : Dictionary<String, String> = Dictionary()
+        requestDictionary["vEmail"] = vEmail
         requestDictionary["vPassword"] = vPassword
+        requestDictionary["vConfirmPassword"] = vConfirmPassword
+        requestDictionary["vCountryCode"] = vCountryCode
+        requestDictionary["vPhone"] = vPhone
+        requestDictionary["termsChecked"] = termsChecked
+        
+        requestDictionary["vProfileImage"] = vProfileImage
+        requestDictionary["vName"] = vName
+        requestDictionary["dDob"] = dDob
+        requestDictionary["tiAge"] = tiAge
+        requestDictionary["tiGender"] = tiGender
+        requestDictionary["iCurrentStatus"] = iCurrentStatus
+        requestDictionary["txCompanyDetail"] = txCompanyDetail
+        requestDictionary["txAbout"] = txAbout
+        requestDictionary["photos"] = photos
+        requestDictionary["vTimeOffset"] = vTimeOffset
+        requestDictionary["vTimeZone"] = vTimeZone
+        
+        
         requestDictionary["vDeviceToken"] = vDeviceToken
         requestDictionary["eDeviceType"] = eDeviceType
         
@@ -74,5 +89,32 @@ class RequestParameter: NSObject {
         return requestDictionary
     }
     
+    func googleSigninParams(tiSocialType : String, accessKey:String, service:String, vUserName:String, vEmailId:String, vSocialId:String, vImageUrl:String) -> Dictionary<String,String> {
+        
+        var requestDictionary : Dictionary<String,String> = Dictionary()
+        requestDictionary["tiSocialType"] = tiSocialType
+        requestDictionary["vDeviceToken"] = vDeviceToken
+        requestDictionary["eDeviceType"] = eDeviceType
+        
+        requestDictionary["accessKey"] = accessKey
+        requestDictionary["service"] = service
+        requestDictionary["vUserName"] = vUserName
+        requestDictionary["vEmailId"] = vEmailId
+        requestDictionary["vSocialId"] = vSocialId
+        requestDictionary["vImageUrl"] = vImageUrl
+        
+        return requestDictionary
+    }
+    
+    func socialSigninParams(tiSocialType : String, accessKey:String, service:String) -> Dictionary<String,String> {
+        
+        var requestDictionary : Dictionary<String,String> = Dictionary()
+        requestDictionary["tiSocialType"] = tiSocialType
+        
+        requestDictionary["accessKey"] = accessKey
+        requestDictionary["service"] = service
+        
+        return requestDictionary
+    }
 }
 

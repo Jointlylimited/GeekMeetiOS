@@ -13,8 +13,7 @@
 import UIKit
 
 protocol SignUpVCProtocol: class {
-    func displaySomething()
-    func showAlertView(strMessage : String)
+    func displayAlert(strTitle : String, strMessage : String)
 }
 
 class SignUpVCViewController: UIViewController, SignUpVCProtocol {
@@ -30,8 +29,8 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
   @IBOutlet weak var btnContinue: GradientButton!
   @IBOutlet weak var btnCountrycode: UIButton!
   
-  var requestModel = SignUpUserModel()
-  var alertView: CustomAlertView!
+  var termsChecked : String = "0"
+    
   // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -87,11 +86,6 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
       
     }
   
-    func displaySomething() {
-        //nameTextField.text = viewModel.name
-      
-    }
-  
     func setCountryPickerData(_ country : Country)
       {
         
@@ -99,22 +93,14 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
 //          btnCountryCode.setImage(country.flag?.resizeImage(targetSize:  CGSize(width: btnCountryCode.frame.height / 2, height: btnCountryCode.frame.height / 2)).withRenderingMode(.alwaysOriginal), for: .normal)
       }
   //MARK: IBAction Method
-  
+  func displayAlert(strTitle : String, strMessage : String) {
+      self.showAlert(title: strTitle, message: strMessage)
+  }
   @IBAction func actionContinue(_ sender: Any) {
     
+    let params = RequestParameter.sharedInstance().signUpParam(vEmail: tfEmailAddress.text ?? "", vPassword: tfPassword?.text ?? "", vConfirmPassword : tfConfirmPassword.text ?? "", vCountryCode: btnCountrycode.titleLabel?.text ?? "", vPhone: tfMobileNumber.text ?? "", termsChecked : termsChecked, vProfileImage: "", vName: "", dDob: "", tiAge: "", tiGender: "", iCurrentStatus: "", txCompanyDetail: "", txAbout: "", photos: "", vTimeOffset: "", vTimeZone: "")
     
-    
-         /*  requestModel.confirmpassword = tfConfirmPassword.text
-           requestModel.email = tfEmailAddress.text
-           requestModel.mobile = tfMobileNumber.text
-           requestModel.password = tfPassword.text
-
-
-           if (self.presenter?.validateSignUpRequest(requestModel))!
-           {
-              self.presenter?.actionContinue()
-          }*/
-            self.presenter?.actionContinue()
+    self.presenter?.callSignUpRequest(signUpParams: params)
   }
   
   
@@ -136,27 +122,6 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
     @IBAction func btnAgreeDisagree(_ sender : UIButton)
     {
         sender.isSelected = !sender.isSelected
-        
-    }
-}
-
-extension  SignUpVCViewController{
-    func showAlertView(strMessage: String) {
-      alertView = CustomAlertView.initAlertView(title: "", message: strMessage, btnRightStr: "", btnCancelStr: "", btnCenter: "OK", isSingleButton: true)
-      alertView.delegate1 = self
-      alertView.frame = self.view.frame
-      let window = UIApplication.shared.keyWindow!
-     
-      window.addSubview(alertView)
-//      self.view.addSubview(alertView)
-    }
-}
-
-extension SignUpVCViewController : AlertViewCentreButtonDelegate {
-    
-    func centerButtonAction() {
-//        let accVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.AccountSettingScreen)
-//        self.pop(toLast: accVC.classForCoder)
-      alertView.isHidden = true
+        self.termsChecked = sender.isSelected == true ? "1" : "0"
     }
 }

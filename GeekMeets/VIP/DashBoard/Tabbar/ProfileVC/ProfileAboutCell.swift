@@ -10,6 +10,10 @@ import UIKit
 
 class ProfileAboutCell: UITableViewCell {
 
+    @IBOutlet weak var lblAbout: UILabel!
+    @IBOutlet weak var lblCity: UILabel!
+    @IBOutlet weak var lblGender: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

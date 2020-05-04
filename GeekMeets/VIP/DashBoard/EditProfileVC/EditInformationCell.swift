@@ -12,6 +12,10 @@ class EditInformationCell: UITableViewCell {
 
     @IBOutlet weak var txtAbout: UITextField!
     @IBOutlet weak var txtDoB: UITextField!
+    @IBOutlet weak var txtCity: UITextField!
+    @IBOutlet weak var txtGender: UITextField!
+    @IBOutlet weak var txtCompanyDetail: UITextField!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

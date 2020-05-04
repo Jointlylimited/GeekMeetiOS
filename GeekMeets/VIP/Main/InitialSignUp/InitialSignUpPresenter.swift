@@ -13,26 +13,58 @@
 import UIKit
 
 protocol InitialSignUpPresentationProtocol {
-    func presentSomething()
     func actionSignUp()
+    func actionLogin()
+    
+    func callFBLogin()
+    func getFBResponse(response:SignupSocialDM)
+    
+    func callGoogleSigninAPI(loginParams : Dictionary<String, String>)
+    
+    func getLoginResponse(userData : UserAuthResponse?)
 }
 
 class InitialSignUpPresenter: InitialSignUpPresentationProtocol {
     weak var viewController: InitialSignUpProtocol?
     var interactor: InitialSignUpInteractorProtocol?
     
-    // MARK: Present something
-    func presentSomething() {
+    func actionSignUp()
+    {
+        let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.SignUpScreen)
+        if let view = self.viewController as? UIViewController
+        {
+            view.pushVC(controller)
+        }
+    }
+    
+    func actionLogin()
+    {
+        let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.SignInScreen)
+        if let view = self.viewController as? UIViewController
+        {
+            view.pushVC(controller)
+        }
+    }
+    
+    func callFBLogin() {
+        self.interactor?.callFBLogin()
+    }
+    
+    func getFBResponse(response: SignupSocialDM) {
+        print(response.email ?? "")
+        print(response.firstName ?? "")
+        print(response.token)
+        
+        let param = RequestParameter.sharedInstance().socialSigninParams(tiSocialType: "1", accessKey: response.token, service: "facebook")
+        self.interactor?.callSocialSignInAPI(params: param)
+    }
+
+    func callGoogleSigninAPI(loginParams : Dictionary<String, String>) {
+        self.interactor?.callSocialSignInAPI(params: loginParams)
+    }
+    
+    func getLoginResponse(userData : UserAuthResponse?) {
         
     }
     
-    func actionSignUp()
-      {
-          let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.SignUpScreen)
-          if let view = self.viewController as? UIViewController
-          {
-              view.pushVC(controller)
-          }
-          
-      }
 }

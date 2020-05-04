@@ -11,17 +11,24 @@
 //
 
 import UIKit
+import GoogleSignIn
+import FBSDKCoreKit
+import FBSDKLoginKit
+import AuthenticationServices
 
 protocol InitialSignUpProtocol: class {
-    func displaySomething()
 }
 
 class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
     //var interactor : InitialSignUpInteractorProtocol?
     var presenter : InitialSignUpPresentationProtocol?
     
+    @IBOutlet weak var btnSignUpWithGoogle: UIButton!
     @IBOutlet weak var lblPrivacyTerm: UILabel!
-  // MARK: Object lifecycle
+    @IBOutlet weak var btnLogin: UIButton!
+    // MARK: Object lifecycle
+    
+    let objConfig = SOGoogleConfig()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -57,24 +64,23 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        doSomething()
+        setTheme()
     }
-    
-    // MARK: Do something
-  
-  
-  
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
-    func doSomething() {
-      setupMultipleTapLabel()
+
+    func setTheme() {
+        GIDSignIn.sharedInstance().delegate = self
+        GIDSignIn.sharedInstance().clientID = "1058883482858-feo3v537akjippp47hcq8cs80ed3q8ti.apps.googleusercontent.com"
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        
+        setupMultipleTapLabel()
+        
+        
+        //Facebook Logout
+        let loginManager = LoginManager()
+        loginManager.logOut()
+        AccessToken.current = nil
     }
-    
-    func displaySomething() {
-        //nameTextField.text = viewModel.name
-    }
-  
+
     func setupMultipleTapLabel() {
           lblPrivacyTerm.text = "By clicking sign up, you agree to our Terms. Learn how weprocess your data in our privacy policy & Cookie Privacy"
           let text = (lblPrivacyTerm.text)!
@@ -90,14 +96,9 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
           let tapAction = UITapGestureRecognizer(target: self, action: #selector(self.tapLabel(gesture:)))
           lblPrivacyTerm.isUserInteractionEnabled = true
           lblPrivacyTerm.addGestureRecognizer(tapAction)
-
-       
-        
-      
       }
   
      // MARK:- IBAction Method
-  
     @IBAction func tapLabel(gesture: UITapGestureRecognizer) {
       
         let text = (lblPrivacyTerm.text)!
@@ -112,27 +113,65 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
         }
       
   }
-  
-  
-  
-  
 }
 
 //MARK: IBAction Methods
 
 extension  InitialSignUpViewController{
-      
-  
-      @IBAction func actionGoogleSignUp(_ sender: Any) {
-          self.presenter?.actionSignUp()
-      }
-      @IBAction func actionFacebookSignUp(_ sender: Any) {
+    @IBAction func btnLoginAction(_ sender: UIButton) {
+        if sender.titleLabel?.text == "Login" {
+            self.btnLogin.setTitle("Sign Up", for: .normal)
+            self.btnSignUpWithGoogle.setTitle("Login with Google", for: .normal)
+        } else {
+            self.presenter?.actionSignUp()
+        }
+    }
+    
+    @IBAction func actionGoogleSignUp(_ sender: UIButton) {
+        if self.btnLogin.titleLabel?.text != "Login" {
+            self.presenter?.actionLogin()
+        } else {
+             GIDSignIn.sharedInstance().signIn()
+        }
+    }
+    @IBAction func actionFacebookSignUp(_ sender: Any) {
+        self.presenter?.callFBLogin()
+    }
+    @IBAction func actionInstagramSignUp(_ sender: Any) {
         
-      }
-      @IBAction func actionInstagramSignUp(_ sender: Any) {
-      }
-      @IBAction func actionSnapchatSignUp(_ sender: Any) {
-      }
-      @IBAction func actionAppleSignUp(_ sender: Any) {
-      }
+    }
+    @IBAction func actionSnapchatSignUp(_ sender: Any) {
+        
+    }
+    @IBAction func actionAppleSignUp(_ sender: Any) {
+        
+    }
+}
+
+
+extension InitialSignUpViewController : GIDSignInDelegate {
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        
+        //        LoaderView.sharedInstance.hideLoader()
+        
+        if (error == nil) {
+            
+            print(user.authentication)
+            print(user.profile.givenName)
+            print(user.profile.familyName)
+            print(user.profile.email)
+                        
+            let param = RequestParameter.sharedInstance().googleSigninParams(tiSocialType : "2", accessKey: user.authentication.accessToken, service: "google", vUserName: user.profile.givenName, vEmailId: user.profile.email, vSocialId: user.userID, vImageUrl: user.profile.imageURL(withDimension: 120).absoluteString)
+            
+            self.presenter?.callGoogleSigninAPI(loginParams: param)
+        }
+        else {
+            print("\(error.localizedDescription)")
+        }
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+//        LoaderView.sharedInstance.hideLoader()
+        print(error?.localizedDescription ?? "")
+    }
 }

@@ -24,52 +24,19 @@ class SignInInteractor: SignInInteractorProtocol {
     // MARK: Do something
     func callSignInAPI(_ userName : String, password : String)
     {
-//        let authentication = AuthenticationObj.getAutheticationToken()
-//        AppsingtonObj.showActivityIndicatior()
-//        
-//        UserAPI.signIn(nonce: authentication.nonce, timestamp: authentication.timeStamp, token: authentication.token, tiUserType: APPUser.Customer, username: userName, cPassword: password, vLangISOCode: selectLanguage?.languageCode, vDeviceToken: UserDefaults.standard.getDeviceToken(), tiDeviceType: 1, vDeviceName: "") { (userResponse, error) in
-//            if error == nil
-//            {
-//                AppsingtonObj.removeActivityIndicatior()
-//                if let response = userResponse
-//                {
-//                    if response.responseCode == AppResponseCode.UNAUTHORIZE
-//                    {
-//                        AppDelObj.window?.rootViewController!.showAlert(title: AppName, message: response.responseMessage!, buttonTitles: ["Ok".localized], highlightedButtonIndex: 0) { (buttonIndex) in
-//                            if buttonIndex == 0
-//                            {
-//                                AppDelObj.window?.unauthoriseLogout()
-//                            }
-//                        }
-//                        return
-//                    }
-//                    if response.responseCode == AppResponseCode.SUCCESS
-//                    {
-//                        UserDefaults.standard.setLanguage(language: response.responseData?.vLangISOCode ?? "")
-//                        CRSingleton.shared.customerUserDetails = response
-//                        
-//                        if currentCustomerUser.tiIsMobileVerified == 0
-//                        {
-//                            self.presenter?.actionOTPVerifyClick()
-//                        }
-//                        else
-//                        {
-//                            AppDelObj.window?.userLogin()
-//                        }
-//                        
-//                    }
-//                    else
-//                    {
-//                        self.presenter?.signAPIFailure(response.responseMessage!)
-//                    }
-//                }
-//            }
-//            else
-//            {
-//                print(error!.localizedDescription)
-//                AppsingtonObj.removeActivityIndicatior()
-//
-//            }
-//        }
+        UserAPI.signIn(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, vEmail: userName, vPassword: password, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signIn(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId!, vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress) { (response, error) in
+            
+            if response?.responseCode == 200 {
+                        self.presenter?.getSignInResponse(response : response!)
+                       } else if response?.responseCode == 203 {
+                           AppSingleton.sharedInstance().logout()
+                       } else {
+                           if error != nil {
+                               AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                           } else {
+                               AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+                           }
+                       }
+        }
     }
 }

@@ -15,7 +15,7 @@ import UIKit
 protocol SignInPresentationProtocol
 {
     func callSignInAPI(_ userName : String, password : String)
-    func signAPIFailure(_ message : String)
+    func getSignInResponse(response : UserAuthResponse)
     
     func actionSignUp()
     func actionForgotPassword()
@@ -44,22 +44,27 @@ class SignInPresenter: SignInPresentationProtocol {
 //            self.viewController?.displayAlert(strMessage: kInternetConnection)
 //            return false
 //        }
-//        if userName.isEmpty
-//        {
-//            self.viewController?.displayAlert(strMessage: kEnterUsername)
-//            return false
-//        }
-//        if password.isEmpty
-//        {
-//            self.viewController?.displayAlert(strMessage: kEnterPassword)
-//            return false
-//        }
+        if userName.isEmpty
+        {
+            self.viewController?.displayAlert(strTitle: "", strMessage: kEnterUsername)
+            return false
+        }
+        if password.isEmpty
+        {
+            self.viewController?.displayAlert(strTitle: "", strMessage: kEnterPassword)
+            return false
+        }
         return true
     }
     
-    func signAPIFailure(_ message: String)
+    func getSignInResponse(response : UserAuthResponse)
     {
-        self.viewController?.displayAlert(strMessage: message)
+        if response.responseCode == 200 {
+            UserDataModel.currentUser = response.responseData
+            self.gotoHomeScreen()
+        } else {
+            self.viewController?.displayAlert(strTitle: "", strMessage: response.responseMessage!) 
+        }
     }
     
     // MARK: Present something

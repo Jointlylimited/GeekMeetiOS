@@ -25,6 +25,7 @@ class MenuViewModel {
 }
 
 protocol MenuProtocol: class {
+    func getSignOutResponse(response : UserAuthResponse)
 }
 
 class MenuViewController: UIViewController, MenuProtocol {
@@ -136,6 +137,7 @@ class MenuViewController: UIViewController, MenuProtocol {
         return String(format: "%02d:%02d", minutes, seconds)
     }
     @IBAction func btnLogOutAction(_ sender: UIButton) {
+        stopTimer()
         self.showAlertView()
     }
 }
@@ -211,6 +213,14 @@ extension MenuViewController : UITableViewDataSource, UITableViewDelegate {
 }
 
 extension MenuViewController {
+    
+    func callSignoutAPI(){
+        self.presenter?.callSignoutAPI()
+    }
+    
+    func getSignOutResponse(response : UserAuthResponse){
+        self.navigationController?.popToRootViewController(animated: true)
+    }
     func showAlertView() {
       alertView = CustomAlertView.initAlertView(title: "Are you sure you want to Logout?", message: "", btnRightStr: "Logout", btnCancelStr: "Cancel", btnCenter: "", isSingleButton: false)
       alertView.delegate = self
@@ -221,7 +231,8 @@ extension MenuViewController {
 
 extension MenuViewController : AlertViewDelegate {
     func OkButtonAction() {
-        self.navigationController?.popToRootViewController(animated: true)
+        self.callSignoutAPI()
+//        self.navigationController?.popToRootViewController(animated: true)
     }
     
     func cancelButtonAction() {

@@ -10,6 +10,10 @@ import UIKit
 
 class EditSocialLinkCell: UITableViewCell {
 
+    @IBOutlet weak var txtInstagramLink: UITextField!
+    @IBOutlet weak var txtSnapchatLink: UITextField!
+    @IBOutlet weak var txtFacebookLink: UITextField!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

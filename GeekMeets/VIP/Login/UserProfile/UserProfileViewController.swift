@@ -11,10 +11,10 @@
 //
 
 import UIKit
+import Photos
 
 protocol UserProfileProtocol: class {
-    func displaySomething()
-    func showAlertView(strMessage : String)
+    func displayAlert(strTitle : String, strMessage : String)
 }
 
 class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollViewDelegate {
@@ -33,15 +33,18 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
     @IBOutlet weak var btnFemale: UIButton!
     @IBOutlet weak var btnOther: UIButton!
     @IBOutlet weak var btnPreferNottoSay: UIButton!
-  
-    var requestModel = UserProfileModel()
-    var alertView: CustomAlertView!
-  
-  // MARK: DatePicker
+    
+    var signUpParams : Dictionary<String, String>?
+    var selectedGender : String = "0"
+    var currentStatus : String = "0"
+    var imgString : String = ""
+    var tiAge : Int = 0
+    
+    // MARK: DatePicker
     @IBOutlet weak var PickerView: UIView!
     @IBOutlet weak var datePicker: UIDatePicker!
-  
-  // MARK: Object lifecycle
+    
+    // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -85,93 +88,89 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
     //@IBOutlet weak var nameTextField: UITextField!
     
     func doSomething() {
-
-      scrollView.delegate = self
-      self.navigationController?.isNavigationBarHidden = false
-      self.navigationItem.leftBarButtonItem = leftSideBackBarButton
-      imgprofile.setCornerRadius(radius: imgprofile.frame.size.width/2)
-      
-      
-      let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
-               imgprofile.isUserInteractionEnabled = true
-               imgprofile.addGestureRecognizer(tapGestureRecognizer)
-      }
-
-      @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
-      {
-          let tappedImage = tapGestureRecognizer.view as! UIImageView
-          print( "Your action")
-          Getimage()
-      }
-      
-  
+        
+        self.datePicker.maximumDate = Date()
+        scrollView.delegate = self
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationItem.leftBarButtonItem = leftSideBackBarButton
+        imgprofile.setCornerRadius(radius: imgprofile.frame.size.width/2)
+        
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        imgprofile.isUserInteractionEnabled = true
+        imgprofile.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        let tappedImage = tapGestureRecognizer.view as! UIImageView
+        print( "Your action")
+        Getimage()
+    }
+    
+    
     @IBAction func btnSelectGender(sender:UIButton){
-
+        
         let buttonArray = [btnMale,btnFemale,btnOther,btnPreferNottoSay]
-
+        
         buttonArray.forEach{
-
+            
             $0?.isSelected = false
         }
-
+        
         sender.isSelected = true
-
-
+        selectedGender = "\(sender.tag)"
+        
     }
-      
+    
     @IBAction func btnCurrentStatusClicked(sender:UIButton){
-
+        
         let buttonArray = [btnWork,btnStudy]
-
+        
         buttonArray.forEach{
-
+            
             $0?.isSelected = false
         }
-
+        
         sender.isSelected = true
-
-
+        currentStatus = "\(sender.tag)"
+        
     }
-  
-  
-  @IBAction func actionContinue(_ sender: Any) {
     
-//               requestModel.name = tfName.text
-//               requestModel.DOB = tfDoB.text
-//                requestModel.tfCompanyDetail = tfCompanyDetail.text
-//               requestModel.about = tfAbout.text
-//
-//
-//              if (self.presenter?.validateSignUpRequest(requestModel))!
-//               {
-//                  self.presenter?.actionContinue()
-//              }
     
-      self.presenter?.actionContinue()
-    
-     
-  }
-  func displaySomething() {
-        //nameTextField.text = viewModel.name
+    @IBAction func actionContinue(_ sender: Any) {
+        
+        let params = RequestParameter.sharedInstance().signUpParam(vEmail: signUpParams!["vEmail"]!, vPassword: signUpParams!["vPassword"]!, vConfirmPassword : signUpParams!["vConfirmPassword"]!, vCountryCode: signUpParams!["vCountryCode"]!, vPhone: signUpParams!["vPhone"]!, termsChecked : signUpParams!["termsChecked"]!, vProfileImage: self.imgString, vName: tfName.text ?? "", dDob: tfDoB.text ?? "", tiAge: "\(tiAge)", tiGender: selectedGender, iCurrentStatus: currentStatus, txCompanyDetail: tfCompanyDetail.text ?? "", txAbout: tfAbout.text ?? "", photos: "", vTimeOffset: "", vTimeZone: "")
+        
+        self.presenter?.callSignUpRequest(signUpParams: params)
     }
     
     func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
-       if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0 {
-          navigationController?.setNavigationBarHidden(true, animated: true)
-
-       } else {
-          navigationController?.setNavigationBarHidden(false, animated: true)
-       }
+        if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0 {
+            navigationController?.setNavigationBarHidden(true, animated: true)
+            
+        } else {
+            navigationController?.setNavigationBarHidden(false, animated: true)
+        }
     }
-  
-  @IBAction func btnDonePickerAction(_ sender: UIBarButtonItem) {
-      self.PickerView.alpha = 0.0
-      let dateFormatter = DateFormatter()
-      dateFormatter.dateFormat = "dd/MM/yyyy"
-      let strDate = dateFormatter.string(from: datePicker.date)
-      tfDoB.text = strDate
-      
-  }
+    
+    @IBAction func btnDonePickerAction(_ sender: UIBarButtonItem) {
+        self.PickerView.alpha = 0.0
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        let strDate = dateFormatter.string(from: datePicker.date)
+        tfDoB.text = strDate
+        tiAge = datePicker.date.age
+    }
+    func displayAlert(strTitle : String, strMessage : String) {
+        self.showAlert(title: strTitle, message: strMessage)
+    }
+    
+    func hideKeyboard() {
+        tfName?.resignFirstResponder()
+        tfCompanyDetail?.resignFirstResponder()
+        tfAbout?.resignFirstResponder()
+    }
 }
 
 
@@ -181,9 +180,31 @@ extension UserProfileViewController:  UINavigationControllerDelegate, UIImagePic
   
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
      let image = info[UIImagePickerController.InfoKey.originalImage]
-    imgprofile.image = image as! UIImage
-     picker.dismiss(animated: true, completion: nil);
-     
+//    imgprofile.image = image as! UIImage
+//     picker.dismiss(animated: true, completion: nil);
+     picker.dismiss(animated: true, completion: nil)
+     if #available(iOS 11.0, *) {
+         if let asset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset{
+             if let fileName = asset.value(forKey: "filename") as? String{
+                 print(fileName)
+                 self.imgString = fileName
+             }
+         }
+         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+             self.imgprofile.image = image
+         }
+     } else {
+         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                 self.imgprofile.image = image
+             if let imageURL = info[UIImagePickerController.InfoKey.referenceURL] as? URL {
+                 let result = PHAsset.fetchAssets(withALAssetURLs: [imageURL], options: nil)
+                 let assetResources = PHAssetResource.assetResources(for: result.firstObject!)
+                 
+                 print(assetResources.first!.originalFilename)
+                 self.imgString = assetResources.first!.originalFilename
+             }
+         }
+     }
   }
   
   func Getimage(){
@@ -242,6 +263,14 @@ extension UserProfileViewController:  UINavigationControllerDelegate, UIImagePic
 
 extension UserProfileViewController : UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if textField != tfDoB {
+                   self.PickerView.alpha = 0.0
+                   
+               } else {
+                   self.PickerView.alpha = 1.0
+                   self.hideKeyboard()
+                   return false
+               }
         self.PickerView.alpha = 1.0
         return true
     }
@@ -251,24 +280,6 @@ extension UserProfileViewController : UITextFieldDelegate {
         return true
     }
 }
-
-extension  UserProfileViewController{
-    func showAlertView(strMessage: String) {
-      alertView = CustomAlertView.initAlertView(title: "", message: strMessage, btnRightStr: "", btnCancelStr: "", btnCenter: "OK", isSingleButton: true)
-      alertView.delegate1 = self
-      alertView.frame = self.view.frame
-      let window = UIApplication.shared.keyWindow!
-     
-      window.addSubview(alertView)
-//      self.view.addSubview(alertView)
-    }
-}
-
-extension UserProfileViewController : AlertViewCentreButtonDelegate {
-    
-    func centerButtonAction() {
-
-      alertView.isHidden = true
-      
-    }
+extension Date {
+    var age: Int { Calendar.current.dateComponents([.year], from: self, to: Date()).year! }
 }
