@@ -14,9 +14,13 @@ import UIKit
 
 protocol OTPEnterProtocol: class {
     func displaySomething()
+    func getVerifyOTPResponse(response : CommonResponse)
+    func getResendOTPResponse(response : CommonResponse)
 }
 
 class OTPEnterViewController: UIViewController, OTPEnterProtocol {
+  
+  
     //var interactor : OTPEnterInteractorProtocol?
     var presenter : OTPEnterPresentationProtocol?
     
@@ -30,11 +34,18 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     @IBOutlet weak var lblTime: UILabel!
     @IBOutlet weak var btnVerifyOTP: GradientButton!
     @IBOutlet weak var otpContainerView: UIView!
-    
+    @IBOutlet weak var lblMobileNumber: UILabel!
+  
        
     let otpStackView = OTPStackView()
     var isFromNewMobile : Bool = false
     var alertView: CustomAlertView!
+    var timer: Timer?
+    var totalTime = 300
+  
+  var strCountryCode: String?
+  var strPhonenumber: String?
+  
     
   // MARK: Object lifecycle
     
@@ -98,27 +109,76 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
                     otpStackView.heightAnchor.constraint(equalTo: otpContainerView.heightAnchor).isActive = true
                     otpStackView.centerXAnchor.constraint(equalTo: otpContainerView.centerXAnchor).isActive = true
                     otpStackView.centerYAnchor.constraint(equalTo: otpContainerView.centerYAnchor).isActive = true
-  
+            startTimer()
+           
     }
 
     func displaySomething() {
         //nameTextField.text = viewModel.name
     }
   
+    
+  
+    private func startTimer() {
+        self.totalTime = 60
+        self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+    }
+       
+    @objc func updateTimer() {
+        
+        self.lblTime.text = self.timeFormatted(self.totalTime) // will show timer
+        if totalTime != 0 {
+            totalTime -= 1
+        } else {
+            if let timer = self.timer {
+                self.btnResend.isUserInteractionEnabled = true
+              
+                timer.invalidate()
+                self.timer = nil
+            }
+        }
+    }
+       
+    func stopTimer(){
+        if self.timer != nil {
+            timer!.invalidate()
+        }
+    }
+    func timeFormatted(_ totalSeconds: Int) -> String {
+        let seconds: Int = totalSeconds % 60
+        let minutes: Int = (totalSeconds / 60) % 60
+        return String(format: "%02d:%02d", minutes, seconds)
+    }
+    
+  
+  @IBAction func actionEditMobileNumber(_ sender: Any) {
+    
+    
+  }
   @IBAction func actionVerifyOTP(_ sender: Any) {
     if !isFromNewMobile {
         print("Final OTP : ",otpStackView.getOTP())
         otpStackView.setAllFieldColor(isWarningColor: true, color: .yellow)
-        self.presenter?.actionVerifyOTP()
+      self.presenter?.callVerifyOTPAPI(iOTP : otpStackView.getOTP(),vCountryCode : strCountryCode ?? "+91",vPhone : strPhonenumber ?? "7567173373")
+        
     } else {
         self.navigationController?.isNavigationBarHidden = true
         self.showAlertView()
     }
   }
+  
+  @IBAction func btnResendOTP(_ sender : UIButton)
+  {
+//      self.tfOTP.text = ""
+//      self.btnNext.isEnabled = false
+//      btnNext.alpha = 0.5
+      otpStackView.clearTextField()
+      self.presenter?.callResendOTPAPI(vCountryCode : strCountryCode ?? "+91",vPhone : strPhonenumber ?? "7567173373")
+  }
 }
 
  extension OTPEnterViewController: OTPDelegate {
-            
+  
             func didChangeValidity(isValid: Bool) {
                 btnVerifyOTP.isHidden = !isValid
             }
@@ -131,6 +191,27 @@ extension OTPEnterViewController {
       alertView.delegate1 = self
       alertView.frame = self.view.frame
       self.view.addSubview(alertView)
+    }
+  
+    func getVerifyOTPResponse(response : CommonResponse) {
+           
+            alertView = CustomAlertView.initAlertView(title: "", message: response.responseMessage!, btnRightStr: "", btnCancelStr: "", btnCenter: "OK", isSingleButton: true)
+               alertView.delegate1 = self
+               alertView.frame = self.view.frame
+               self.view.addSubview(alertView)
+          
+            
+    }
+    func getResendOTPResponse(response: CommonResponse) {
+          if response.responseCode == 200  {
+            startTimer()
+            btnResend.isUserInteractionEnabled = false
+           
+          }
+          alertView = CustomAlertView.initAlertView(title: "", message: response.responseMessage!, btnRightStr: "", btnCancelStr: "", btnCenter: "OK", isSingleButton: true)
+          alertView.delegate1 = self
+          alertView.frame = self.view.frame
+          self.view.addSubview(alertView)
     }
 }
 

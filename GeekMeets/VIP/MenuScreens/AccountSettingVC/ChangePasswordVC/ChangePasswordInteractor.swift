@@ -14,6 +14,7 @@ import UIKit
 
 protocol ChangePasswordInteractorProtocol {
     func doSomething()
+    func callChangePasswordAPI(vCurrentPassword : String,vNewPassword : String)
 }
 
 protocol ChangePasswordDataStore {
@@ -27,5 +28,23 @@ class ChangePasswordInteractor: ChangePasswordInteractorProtocol, ChangePassword
     // MARK: Do something
     func doSomething() {
         
+    }
+    func callChangePasswordAPI(vCurrentPassword : String,vNewPassword : String) {
+      
+      UserAPI.changePassword(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, authorization: "abccc", vCurrentPassword: vCurrentPassword, vNewPassword: vNewPassword ){ (response, error) in
+            
+            if response?.responseCode == 200 {
+                self.presenter?.getChangePasswordResponse(response: response!)
+            } else if response?.responseCode == 400 {
+                self.presenter?.getChangePasswordResponse(response: response!)
+              
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getChangePasswordResponse(response: response!)
+                }
+            }
+        }
     }
 }

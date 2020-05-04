@@ -14,6 +14,8 @@ import UIKit
 
 protocol OTPEnterInteractorProtocol {
     func doSomething()
+    func callVerifyOTPAPI(iOTP : String,vCountryCode : String,vPhone : String)
+    func callResendOTPAPI(vCountryCode : String,vPhone : String)
 }
 
 protocol OTPEnterDataStore {
@@ -28,4 +30,44 @@ class OTPEnterInteractor: OTPEnterInteractorProtocol, OTPEnterDataStore {
     func doSomething() {
         
     }
+  
+    func callVerifyOTPAPI(iOTP : String,vCountryCode : String,vPhone : String) {
+      
+      
+      UserAPI.verifyOtp(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, iUserId: "123", iOTP: iOTP, vCountryCode: vCountryCode, vPhone:vPhone ){ (response, error) in
+            
+            if response?.responseCode == 200 {
+                self.presenter?.getVerifyOTPResponse(response: response!)
+            } else if response?.responseCode == 400 {
+                self.presenter?.getVerifyOTPResponse(response: response!)
+              
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getVerifyOTPResponse(response: response!)
+                }
+            }
+        }
+    }
+  
+      func callResendOTPAPI(vCountryCode : String,vPhone : String) {
+      
+        UserAPI.requestForOtp(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, iUserId: "123", vCountryCode: vCountryCode, vPhone:vPhone){ (response, error) in
+            
+            if response?.responseCode == 200 {
+                self.presenter?.getResendOTPResponse(response: response!)
+            } else if response?.responseCode == 400 {
+                self.presenter?.getResendOTPResponse(response: response!)
+              
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getResendOTPResponse(response: response!)
+                }
+            }
+        }
+    }
+      
 }

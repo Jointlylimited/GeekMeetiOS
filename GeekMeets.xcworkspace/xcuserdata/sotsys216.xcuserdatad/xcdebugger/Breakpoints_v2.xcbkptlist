@@ -100,5 +100,101 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "589234A6-4E4E-4FA4-A131-0A2AC9673B60"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GeekMeets/VIP/Login/OTPEnter/OTPEnterViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "OTPEnterViewController"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "97363FA2-3004-4FF6-B4D6-4C3B7038D2E7"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GeekMeets/VIP/MenuScreens/AccountSettingVC/ChangePasswordVC/ChangePasswordInteractor.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "callChangePasswordAPI(vCurrentPassword:vNewPassword:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "97363FA2-3004-4FF6-B4D6-4C3B7038D2E7 - 4cbe6a03a2915364"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GeekMeets.ChangePasswordInteractor.callChangePasswordAPI(vCurrentPassword: Swift.String, vNewPassword: Swift.String) -&gt; ()"
+                  moduleName = "GeekMeets"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sotsys216/Documents/GeekMeets/geekmeetsios/GeekMeets/VIP/MenuScreens/AccountSettingVC/ChangePasswordVC/ChangePasswordInteractor.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "191">
+               </Location>
+               <Location
+                  uuid = "97363FA2-3004-4FF6-B4D6-4C3B7038D2E7 - 965cdd9415357946"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;GeekMeets.CommonResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in GeekMeets.ChangePasswordInteractor.callChangePasswordAPI(vCurrentPassword: Swift.String, vNewPassword: Swift.String) -&gt; ()"
+                  moduleName = "GeekMeets"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sotsys216/Documents/GeekMeets/geekmeetsios/GeekMeets/VIP/MenuScreens/AccountSettingVC/ChangePasswordVC/ChangePasswordInteractor.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "210">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "971BF4D5-6AD2-4722-B321-2F7823656F95"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GeekMeets/VIP/MenuScreens/AccountSettingVC/ChangePasswordVC/ChangePasswordInteractor.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "callChangePasswordAPI(vCurrentPassword:vNewPassword:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "12B8997B-1D68-40D5-9E44-80BAE0D6DBAF"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GeekMeets/VIP/MenuScreens/AccountSettingVC/ChangePasswordVC/ChangePasswordPresenter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "callChangePasswordAPI(vCurrentPassword:vNewPassword:vConfirmPassword:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

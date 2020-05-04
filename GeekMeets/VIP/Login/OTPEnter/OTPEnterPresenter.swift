@@ -15,15 +15,32 @@ import UIKit
 protocol OTPEnterPresentationProtocol {
     func presentSomething()
     func actionVerifyOTP()
+    func callVerifyOTPAPI(iOTP : String,vCountryCode : String,vPhone : String)
+    func getVerifyOTPResponse(response : CommonResponse)
+    func getResendOTPResponse(response : CommonResponse)
+    func callResendOTPAPI(vCountryCode : String,vPhone : String)
 }
 
 class OTPEnterPresenter: OTPEnterPresentationProtocol {
+  
+  
+  
+  
+  
+  
     weak var viewController: OTPEnterProtocol?
     var interactor: OTPEnterInteractorProtocol?
     
     // MARK: Present something
     func presentSomething() {
         
+    }
+    func callVerifyOTPAPI(iOTP : String,vCountryCode : String,vPhone : String) {
+        self.interactor?.callVerifyOTPAPI(iOTP : iOTP,vCountryCode : vCountryCode,vPhone : vPhone)
+    }
+  
+    func callResendOTPAPI(vCountryCode: String, vPhone: String) {
+       self.interactor?.callResendOTPAPI(vCountryCode: vCountryCode, vPhone: vPhone)
     }
     
     func actionVerifyOTP() {
@@ -33,4 +50,22 @@ class OTPEnterPresenter: OTPEnterPresentationProtocol {
             view.pushVC(controller)
         }
     }
+    func getResendOTPResponse(response : CommonResponse) {
+      
+      
+        self.viewController?.getResendOTPResponse(response: response)
+      
+    }
+  func getVerifyOTPResponse(response : CommonResponse) {
+        
+        if response.responseCode == 400{
+          self.viewController?.getVerifyOTPResponse(response: response)
+        }else{
+          
+  //        self.viewController?.getForgotPasswordResponse(response: response)
+          self.actionVerifyOTP()
+          
+        }
+      }
+      
 }

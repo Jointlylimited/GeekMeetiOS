@@ -13,6 +13,8 @@
 import UIKit
 
 protocol ChangePasswordProtocol: class {
+      func getChangePasswordResponse(response : CommonResponse)
+      func displayAlert(_ success : Bool, message : String)
 }
 
 class ChangePasswordViewController: UIViewController, ChangePasswordProtocol {
@@ -22,6 +24,8 @@ class ChangePasswordViewController: UIViewController, ChangePasswordProtocol {
     @IBOutlet weak var txtOldPassword : UITextField?
     @IBOutlet weak var txtNewPassword : UITextField?
     @IBOutlet weak var txtConfirmPassword : UITextField?
+  
+    var alertView: CustomAlertView!
     
     // MARK: Object lifecycle
     
@@ -89,6 +93,35 @@ class ChangePasswordViewController: UIViewController, ChangePasswordProtocol {
         }
     }
     @IBAction func btnChangePasswordAction(_ sender: GradientButton) {
-        self.popVC()
+      
+        self.presenter?.callChangePasswordAPI(vCurrentPassword: txtOldPassword!.text!, vNewPassword:  txtNewPassword!.text!, vConfirmPassword:  txtConfirmPassword!.text!)
+      
+//        self.popVC()
+    }
+  
+    func getChangePasswordResponse(response : CommonResponse) {
+        
+         alertView = CustomAlertView.initAlertView(title: "", message: response.responseMessage!, btnRightStr: "", btnCancelStr: "", btnCenter: "OK", isSingleButton: true)
+            alertView.delegate1 = self
+            alertView.frame = self.view.frame
+            self.view.addSubview(alertView)
+       
+         
+    }
+  func displayAlert(_ success: Bool, message: String) {
+      alertView = CustomAlertView.initAlertView(title: "", message: message, btnRightStr: "", btnCancelStr: "", btnCenter: "OK", isSingleButton: true)
+        alertView.delegate1 = self
+        alertView.frame = self.view.frame
+        self.view.addSubview(alertView)
+  }
+}
+
+extension ChangePasswordViewController : AlertViewCentreButtonDelegate {
+    
+    func centerButtonAction() {
+      alertView.isHidden = true
+      
+//        let accVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.AccountSettingScreen)
+//        self.pop(toLast: accVC.classForCoder)
     }
 }

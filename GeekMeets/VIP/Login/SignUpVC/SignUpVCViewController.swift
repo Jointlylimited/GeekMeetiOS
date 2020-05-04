@@ -104,17 +104,17 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
     
     
     
-//           requestModel.confirmpassword = tfConfirmPassword.text
-//           requestModel.email = tfEmailAddress.text
-//           requestModel.mobile = tfMobileNumber.text
-//           requestModel.password = tfPassword.text
-//
-//
-//           if (self.presenter?.validateSignUpRequest(requestModel))!
-//           {
-//              self.presenter?.actionContinue()
-//          }
-        self.presenter?.actionContinue()
+         /*  requestModel.confirmpassword = tfConfirmPassword.text
+           requestModel.email = tfEmailAddress.text
+           requestModel.mobile = tfMobileNumber.text
+           requestModel.password = tfPassword.text
+
+
+           if (self.presenter?.validateSignUpRequest(requestModel))!
+           {
+              self.presenter?.actionContinue()
+          }*/
+            self.presenter?.actionContinue()
   }
   
   

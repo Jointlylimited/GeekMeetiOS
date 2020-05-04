@@ -115,6 +115,14 @@ class OTPStackView: UIStackView {
         }
         showsWarningColor = isWarningColor
     }
+    // textfieldClear
+    func clearTextField()  {
+       
+        for textField in textFieldsCollection{
+             textField.text  = ""
+        }
+        
+    }
     
 }
 

@@ -136,17 +136,18 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
   
   @IBAction func actionContinue(_ sender: Any) {
     
-               requestModel.name = tfName.text
-               requestModel.DOB = tfDoB.text
-                requestModel.tfCompanyDetail = tfCompanyDetail.text
-               requestModel.about = tfAbout.text
+//               requestModel.name = tfName.text
+//               requestModel.DOB = tfDoB.text
+//                requestModel.tfCompanyDetail = tfCompanyDetail.text
+//               requestModel.about = tfAbout.text
+//
+//
+//              if (self.presenter?.validateSignUpRequest(requestModel))!
+//               {
+//                  self.presenter?.actionContinue()
+//              }
     
-    
-              if (self.presenter?.validateSignUpRequest(requestModel))!
-               {
-                  self.presenter?.actionContinue()
-              }
-    
+      self.presenter?.actionContinue()
     
      
   }
