@@ -33,8 +33,9 @@ class OTPEnterInteractor: OTPEnterInteractorProtocol, OTPEnterDataStore {
   
     func callVerifyOTPAPI(iOTP : String,vCountryCode : String,vPhone : String) {
       
-      
-      UserAPI.verifyOtp(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, iUserId: "123", iOTP: iOTP, vCountryCode: vCountryCode, vPhone:vPhone ){ (response, error) in
+     
+      let intiUserId: Int = UserDataModel.currentUser!.iUserId!
+      UserAPI.verifyOtp(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, iUserId: String(intiUserId), iOTP: iOTP, vCountryCode: vCountryCode, vPhone:vPhone ){ (response, error) in
             
             if response?.responseCode == 200 {
                 self.presenter?.getVerifyOTPResponse(response: response!)
@@ -52,19 +53,26 @@ class OTPEnterInteractor: OTPEnterInteractorProtocol, OTPEnterDataStore {
     }
   
       func callResendOTPAPI(vCountryCode : String,vPhone : String) {
-      
-        UserAPI.requestForOtp(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, iUserId: "123", vCountryCode: vCountryCode, vPhone:vPhone){ (response, error) in
+        
+        let intiUserId: Int = UserDataModel.currentUser!.iUserId!
+        UserAPI.requestForOtp(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, iUserId: String(intiUserId), vCountryCode: vCountryCode, vPhone:vPhone){ (response, error) in
             
             if response?.responseCode == 200 {
                 self.presenter?.getResendOTPResponse(response: response!)
             } else if response?.responseCode == 400 {
+                
                 self.presenter?.getResendOTPResponse(response: response!)
-              
+                
             }  else {
                 if error != nil {
+                  
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                  
+                  
                 } else {
+                  
                     self.presenter?.getResendOTPResponse(response: response!)
+                  
                 }
             }
         }

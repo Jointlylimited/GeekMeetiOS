@@ -14,7 +14,7 @@ import UIKit
 
 protocol ChangePasswordPresentationProtocol {
     func presentSomething()
-  func callChangePasswordAPI(vCurrentPassword : String,vNewPassword : String,vConfirmPassword: String)
+    func callChangePasswordAPI(vCurrentPassword : String,vNewPassword : String,vConfirmPassword: String)
     func getChangePasswordResponse(response : CommonResponse)
 }
 
@@ -31,23 +31,23 @@ class ChangePasswordPresenter: ChangePasswordPresentationProtocol {
       
             if vCurrentPassword.isEmpty
             {
-                self.viewController?.displayAlert(false, message: kEnterOldPassword)
+                self.viewController?.displayAlert(strTitle: "", strMessage: kEnterOldPassword)
             }
             else if vNewPassword.isEmpty
             {
-                self.viewController?.displayAlert(false, message: kEnterNewPassword)
+                self.viewController?.displayAlert(strTitle: "", strMessage: kEnterNewPassword)
             }
             else if vNewPassword.length < 6
             {
-                self.viewController?.displayAlert(false, message: kPasswordWeak)
+                self.viewController?.displayAlert(strTitle: "", strMessage: kPasswordWeak)
             }
             else if vConfirmPassword.isEmpty
             {
-                self.viewController?.displayAlert(false, message: kEnterConfirmPassword)
+                self.viewController?.displayAlert(strTitle: "", strMessage: kEnterConfirmPassword)
             }
             else if vNewPassword != vConfirmPassword
             {
-                self.viewController?.displayAlert(false, message: kPasswordNotMatch)
+                self.viewController?.displayAlert(strTitle: "", strMessage: kPasswordNotMatch)
             }
             else
             {

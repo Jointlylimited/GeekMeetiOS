@@ -15,6 +15,7 @@ import UIKit
 protocol ChangePasswordProtocol: class {
       func getChangePasswordResponse(response : CommonResponse)
       func displayAlert(_ success : Bool, message : String)
+      func displayAlert(strTitle : String, strMessage : String)
 }
 
 class ChangePasswordViewController: UIViewController, ChangePasswordProtocol {
@@ -114,6 +115,10 @@ class ChangePasswordViewController: UIViewController, ChangePasswordProtocol {
         alertView.frame = self.view.frame
         self.view.addSubview(alertView)
   }
+  func displayAlert(strTitle : String, strMessage : String) {
+      self.showAlert(title: strTitle, message: strMessage)
+  }
+  
 }
 
 extension ChangePasswordViewController : AlertViewCentreButtonDelegate {

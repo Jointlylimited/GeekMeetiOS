@@ -189,9 +189,14 @@ extension UserProfileViewController:  UINavigationControllerDelegate, UIImagePic
                  print(fileName)
                  self.imgString = fileName
              }
-         }
+         }else{
+                self.imgString = info[UIImagePickerController.InfoKey.imageURL] as! String
+          
+              }
          if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
              self.imgprofile.image = image
+              
+           
          }
      } else {
          if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {

@@ -35,6 +35,8 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     @IBOutlet weak var btnVerifyOTP: GradientButton!
     @IBOutlet weak var otpContainerView: UIView!
     @IBOutlet weak var lblMobileNumber: UILabel!
+    @IBOutlet weak var tfMobileNumber: BottomBorderTF!
+    @IBOutlet weak var btnCountrycode: UIButton!
   
        
     let otpStackView = OTPStackView()
@@ -43,8 +45,8 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     var timer: Timer?
     var totalTime = 300
   
-  var strCountryCode: String?
-  var strPhonenumber: String?
+  var strCountryCode: String = UserDataModel.currentUser?.vCountryCode ?? "+91"
+  var strPhonenumber: String? = UserDataModel.currentUser?.vPhone ?? "756713373"
   
     
   // MARK: Object lifecycle
@@ -109,6 +111,11 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
                     otpStackView.heightAnchor.constraint(equalTo: otpContainerView.heightAnchor).isActive = true
                     otpStackView.centerXAnchor.constraint(equalTo: otpContainerView.centerXAnchor).isActive = true
                     otpStackView.centerYAnchor.constraint(equalTo: otpContainerView.centerYAnchor).isActive = true
+           
+            btnCountrycode.setTitle(strCountryCode, for: .normal)
+            tfMobileNumber.text = strPhonenumber
+            btnCountrycode.isUserInteractionEnabled = false
+            tfMobileNumber.isUserInteractionEnabled = false
             startTimer()
            
     }
@@ -152,14 +159,33 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     
   
   @IBAction func actionEditMobileNumber(_ sender: Any) {
-    
+                  displayAlert(strTitle : "", strMessage : "Now you can Edit phone number")
+                  btnCountrycode.isUserInteractionEnabled = true
+                  tfMobileNumber.isUserInteractionEnabled = true
     
   }
+  
+  @IBAction func actionSelectCountryCode(_ sender: Any) {
+        CountryPickerWithSectionViewController.presentController(on: self) { (country: Country) in
+                        self.setCountryPickerData(country)
+                    }
+  }
+  
+  func setCountryPickerData(_ country : Country)
+        {
+            strCountryCode = country.dialingCode!
+            btnCountrycode.setTitle(country.dialingCode, for: .normal)
+  //          btnCountryCode.setImage(country.flag?.resizeImage(targetSize:  CGSize(width: btnCountryCode.frame.height / 2, height: btnCountryCode.frame.height / 2)).withRenderingMode(.alwaysOriginal), for: .normal)
+        }
+  
   @IBAction func actionVerifyOTP(_ sender: Any) {
+        btnCountrycode.isUserInteractionEnabled = false
+        tfMobileNumber.isUserInteractionEnabled = false
     if !isFromNewMobile {
+        strPhonenumber = tfMobileNumber.text
         print("Final OTP : ",otpStackView.getOTP())
         otpStackView.setAllFieldColor(isWarningColor: true, color: .yellow)
-      self.presenter?.callVerifyOTPAPI(iOTP : otpStackView.getOTP(),vCountryCode : strCountryCode ?? "+91",vPhone : strPhonenumber ?? "7567173373")
+        self.presenter?.callVerifyOTPAPI(iOTP : otpStackView.getOTP(),vCountryCode : strCountryCode ?? "+91",vPhone : strPhonenumber ?? "7567173373")
         
     } else {
         self.navigationController?.isNavigationBarHidden = true
@@ -169,11 +195,16 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
   
   @IBAction func btnResendOTP(_ sender : UIButton)
   {
-//      self.tfOTP.text = ""
-//      self.btnNext.isEnabled = false
-//      btnNext.alpha = 0.5
+      btnCountrycode.isUserInteractionEnabled = false
+      tfMobileNumber.isUserInteractionEnabled = false
+      strPhonenumber = tfMobileNumber.text
       otpStackView.clearTextField()
       self.presenter?.callResendOTPAPI(vCountryCode : strCountryCode ?? "+91",vPhone : strPhonenumber ?? "7567173373")
+  }
+  
+  func displayAlert(strTitle : String, strMessage : String) {
+      //nameTextField.text = viewModel.name
+      self.showAlert(title: strTitle, message: strMessage)
   }
 }
 
@@ -217,8 +248,11 @@ extension OTPEnterViewController {
 
 extension OTPEnterViewController : AlertViewCentreButtonDelegate {
     
-    func centerButtonAction() {
+    func centerButtonAction(){
+        
         let accVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.AccountSettingScreen)
         self.pop(toLast: accVC.classForCoder)
+      
     }
+  
 }

@@ -57,6 +57,7 @@ class UserProfilePresenter: UserProfilePresentationProtocol {
     }
     
     func actionContinue(signUpParams : Dictionary<String, String>) {
+        
         let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.AddPhotos)  as! AddPhotosViewController
         controller.signUpParams = signUpParams
         if let view = self.viewController as? UIViewController

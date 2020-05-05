@@ -94,7 +94,6 @@ class SignUpViewController: UIViewController, SignUpProtocol {
     }
     
     func displayAlert(strTitle : String, strMessage : String) {
-        //nameTextField.text = viewModel.name
         self.showAlert(title: strTitle, message: strMessage)
     }
     

@@ -31,7 +31,7 @@ class ChangePasswordInteractor: ChangePasswordInteractorProtocol, ChangePassword
     }
     func callChangePasswordAPI(vCurrentPassword : String,vNewPassword : String) {
       
-      UserAPI.changePassword(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, authorization: "abccc", vCurrentPassword: vCurrentPassword, vNewPassword: vNewPassword ){ (response, error) in
+      UserAPI.changePassword(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.currentUser!.vAuthKey!, vCurrentPassword: vCurrentPassword, vNewPassword: vNewPassword ){ (response, error) in
             
             if response?.responseCode == 200 {
                 self.presenter?.getChangePasswordResponse(response: response!)
@@ -42,6 +42,7 @@ class ChangePasswordInteractor: ChangePasswordInteractorProtocol, ChangePassword
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
                 } else {
+                          
                     self.presenter?.getChangePasswordResponse(response: response!)
                 }
             }

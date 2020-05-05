@@ -118,6 +118,7 @@ extension AccountSettingViewController : UITableViewDataSource, UITableViewDeleg
         } else {
             let changeVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.ChangePasswordScreen)
             self.pushVC(changeVC)
+          
         }
     }
 }

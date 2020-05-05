@@ -88,7 +88,7 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
   
     func setCountryPickerData(_ country : Country)
       {
-        
+
           btnCountrycode.setTitle(country.dialingCode, for: .normal)
 //          btnCountryCode.setImage(country.flag?.resizeImage(targetSize:  CGSize(width: btnCountryCode.frame.height / 2, height: btnCountryCode.frame.height / 2)).withRenderingMode(.alwaysOriginal), for: .normal)
       }
