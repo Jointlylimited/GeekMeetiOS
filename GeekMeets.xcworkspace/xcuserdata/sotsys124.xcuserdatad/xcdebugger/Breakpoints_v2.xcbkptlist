@@ -71,80 +71,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C69C86AC-B570-4FD1-8F6C-250BDDC3649A"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GeekMeets/VIP/Login/UserProfile/UserProfileViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "181"
-            endingLineNumber = "181"
-            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3DBFCA00-1C85-4FED-B4B2-2DBBD70427B3"
+            uuid = "45A36C77-2302-4680-A87B-0C6AE6BCF611"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeekMeets/VIP/Login/AddPhotos/AddPhotosInteractor.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
-            landmarkName = "callUserSignUpAPI(signParams:photos:)"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "callUserSignUpAPI(signParams:location:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "3DBFCA00-1C85-4FED-B4B2-2DBBD70427B3 - f58ede503615a1ee"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "GeekMeets.AddPhotosInteractor.callUserSignUpAPI(signParams: Swift.Dictionary&lt;Swift.String, Swift.String&gt;, photos: Swift.Array&lt;__C.NSDictionary&gt;) -&gt; ()"
-                  moduleName = "GeekMeets"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sotsys124/Documents/Divya/GitLab_Project/DatingApp/Code/Daveloment/geekmeetsios/GeekMeets/VIP/Login/AddPhotos/AddPhotosInteractor.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "29"
-                  endingLineNumber = "29"
-                  offsetFromSymbolStart = "176">
-               </Location>
-               <Location
-                  uuid = "3DBFCA00-1C85-4FED-B4B2-2DBBD70427B3 - 2c55c7b173ba6558"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;GeekMeets.UserAuthResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in GeekMeets.AddPhotosInteractor.callUserSignUpAPI(signParams: Swift.Dictionary&lt;Swift.String, Swift.String&gt;, photos: Swift.Array&lt;__C.NSDictionary&gt;) -&gt; ()"
-                  moduleName = "GeekMeets"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sotsys124/Documents/Divya/GitLab_Project/DatingApp/Code/Daveloment/geekmeetsios/GeekMeets/VIP/Login/AddPhotos/AddPhotosInteractor.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "31"
-                  endingLineNumber = "31"
-                  offsetFromSymbolStart = "172">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7D4B8602-23E1-4362-A39E-BC37195AB295"
+            uuid = "FAB934E3-9662-4F39-9111-309441021634"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeekMeets/VIP/Login/AddPhotos/AddPhotosInteractor.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
-            landmarkName = "callUserSignUpAPI(signParams:photos:)"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "callUserSignUpAPI(signParams:location:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

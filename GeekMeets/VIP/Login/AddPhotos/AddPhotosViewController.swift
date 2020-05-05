@@ -14,6 +14,7 @@ import UIKit
 import Photos
 
 protocol AddPhotosProtocol: class {
+    func displayAlert(strTitle : String, strMessage : String)
 }
 
 class AddPhotosViewController: UIViewController, AddPhotosProtocol {
@@ -28,6 +29,7 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
     var imgsUserPhotos:[UIImage] = []
     var imgsUserPhotosDict:[NSDictionary] = []
     var signUpParams : Dictionary<String, String>?
+    var location:CLLocation?
     
     // MARK: Object lifecycle
     
@@ -78,14 +80,52 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
     @IBAction func actionDone(_ sender: Any) {
        
         
-        let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter)
+        let photoJsonString = json(from: self.imgsUserPhotosDict)
+        let params = RequestParameter.sharedInstance().signUpParam(vEmail: signUpParams!["vEmail"]!, vPassword: signUpParams!["vPassword"]!, vConfirmPassword : signUpParams!["vConfirmPassword"]!, vCountryCode: signUpParams!["vCountryCode"]!, vPhone: signUpParams!["vPhone"]!, termsChecked : signUpParams!["termsChecked"]!, vProfileImage: signUpParams!["vProfileImage"]!, vName: signUpParams!["vName"]!, dDob: signUpParams!["dDob"]!, tiAge: signUpParams!["tiAge"]!, tiGender: signUpParams!["tiGender"]!, iCurrentStatus: signUpParams!["iCurrentStatus"]!, txCompanyDetail: signUpParams!["txCompanyDetail"]!, txAbout: signUpParams!["txAbout"]!, photos: self.imgsUserPhotos.count > 0 ? photoJsonString! : "", vTimeOffset: vTimeOffset, vTimeZone: vTimeZone)
         
-            self.pushVC(controller)
-        
-//        let params = RequestParameter.sharedInstance().signUpParam(vEmail: signUpParams!["vEmail"]!, vPassword: signUpParams!["vPassword"]!, vConfirmPassword : signUpParams!["vConfirmPassword"]!, vCountryCode: signUpParams!["vCountryCode"]!, vPhone: signUpParams!["vPhone"]!, termsChecked : signUpParams!["termsChecked"]!, vProfileImage: signUpParams!["vProfileImage"]!, vName: signUpParams!["vName"]!, dDob: signUpParams!["dDob"]!, tiAge: signUpParams!["tiAge"]!, tiGender: signUpParams!["tiGender"]!, iCurrentStatus: signUpParams!["iCurrentStatus"]!, txCompanyDetail: signUpParams!["txCompanyDetail"]!, txAbout: signUpParams!["txAbout"]!, photos: self.imgsUserPhotosStr.map { String($0) }.joined(separator: ", "), vTimeOffset: vTimeOffset, vTimeZone: vTimeZone)
-//        
-//        self.presenter?.callUserSignUpAPI(signParams: params, photos : imgsUserPhotosDict)
+        self.presenter?.callUserSignUpAPI(signParams: params, location : self.location!)
     }
+    
+    func json(from object:[NSDictionary]) -> String? {
+            var yourString : String = ""
+            do
+            {
+                if let postData : NSData = try JSONSerialization.data(withJSONObject: object, options: JSONSerialization.WritingOptions.prettyPrinted) as NSData
+                {
+                    yourString = NSString(data: postData as Data, encoding: String.Encoding.utf8.rawValue)! as String
+                    return yourString
+                }
+            }
+            catch
+            {
+                print(error)
+            }
+            return yourString
+        }
+        
+        func displayAlert(strTitle : String, strMessage : String) {
+            self.showAlert(title: strTitle, message: strMessage)
+        }
+        
+        func getUserCurrentLocation() {
+    //          LoaderView.sharedInstance.showLoader()
+              LocationManager.sharedInstance.getLocation { (currLocation, error) in
+                  if error != nil {
+    //                  LoaderView.sharedInstance.hideLoader()
+                      print(error?.localizedDescription ?? "")
+                      self.showAccessPopup(title: kLocationAccessTitle, msg: kLocationAccessMsg)
+                      return
+                  }
+                  guard let _ = currLocation else {
+                      return
+                  }
+                  if error == nil {
+    //                  LoaderView.sharedInstance.hideLoader()
+                      self.location = currLocation
+                    //UserDataModel.setUserLocation(location: self.location!)
+                  }
+              }
+          }
 }
 extension AddPhotosViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,OptionButtonsDelegate
 {

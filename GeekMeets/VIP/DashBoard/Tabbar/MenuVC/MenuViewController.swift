@@ -231,8 +231,8 @@ extension MenuViewController {
 
 extension MenuViewController : AlertViewDelegate {
     func OkButtonAction() {
-        self.callSignoutAPI()
-//        self.navigationController?.popToRootViewController(animated: true)
+//        self.callSignoutAPI()
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     func cancelButtonAction() {

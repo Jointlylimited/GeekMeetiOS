@@ -79,6 +79,7 @@ class SignInViewController: UIViewController,SignInProtocol
         let attributedString = NSMutableAttributedString(string:(btnSignUp?.currentTitle)!)
         attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: AppCommonColor.pinkColor , range: range)
         btnSignUp?.setAttributedTitle(attributedString, for: .normal)
+        btnSignUp?.addTarget(self, action:#selector(clickOnSignUpBtn) , for: .touchUpInside)
     }
     
     
@@ -94,6 +95,10 @@ class SignInViewController: UIViewController,SignInProtocol
     func displayAlert(strTitle : String, strMessage : String) {
         self.showAlert(title: strTitle, message: strMessage)
     }
+    
+    @objc func clickOnSignUpBtn(){
+        self.popVC()
+    }
 }
 
 //MARK:- IBAction Method
@@ -102,8 +107,8 @@ extension SignInViewController
 
     @IBAction func btnSignInClick(_ sender : UIButton)
     {
-//        self.presenter?.gotoHomeScreen()
-        self.presenter?.callSignInAPI(tfEmail.text ?? "", password: tfPassword.text ?? "")
+        self.presenter?.gotoHomeScreen()
+//        self.presenter?.callSignInAPI(tfEmail.text ?? "", password: tfPassword.text ?? "")
     }
     
     @IBAction func btnForgotPWClick(_ sender : UIButton)

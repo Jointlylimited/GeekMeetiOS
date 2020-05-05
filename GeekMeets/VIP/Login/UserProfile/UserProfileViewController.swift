@@ -196,7 +196,6 @@ extension UserProfileViewController:  UINavigationControllerDelegate, UIImagePic
          if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
              self.imgprofile.image = image
               
-           
          }
      } else {
          if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {

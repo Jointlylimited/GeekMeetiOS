@@ -107,7 +107,7 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
     //var interactor : EditProfileInteractorProtocol?
     var presenter : EditProfilePresentationProtocol?
     
-     @IBOutlet weak var tblEditProfileView: UITableView!
+    @IBOutlet weak var tblEditProfileView: UITableView!
     @IBOutlet weak var PickerView: UIView!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var imgProfile: UIImageView!
@@ -117,7 +117,8 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
     var imagePicker: UIImagePickerController!
     var image : UIImage?
     
-     var userProfileModel : UserProfileModel!
+    var userProfileModel : UserProfileModel?
+    var isForProfile : Bool = true
     
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -154,6 +155,7 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setTheme()
     }
 
     func setTheme(){
@@ -172,10 +174,11 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
         dateFormatter.dateFormat = "dd/MM/yyyy"
         let strDate = dateFormatter.string(from: datePicker.date)
         print(strDate)
-        self.userProfileModel.vAge = strDate
+        self.userProfileModel?.vAge = strDate
         self.tblEditProfileView.reloadData()
     }
     @IBAction func btnChooseProfileAction(_ sender: UIButton) {
+        self.isForProfile = true
         self.openImagePickerActionSheet()
     }
 }
@@ -200,7 +203,7 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
             if let cell = cell as? EditInformationCell {
                 cell.txtAbout.text = "Lady with fun loving personality and open- minded, Looking for Someone to hang out always open for hangout"
                 cell.txtDoB.delegate = self
-                cell.txtDoB.text = userProfileModel.vAge
+                cell.txtDoB.text = userProfileModel != nil ? userProfileModel?.vAge : "20-30"
             }
         } else if objEditProfileData.cells[indexPath.section].cellID == "EditInterestCell" {
             
@@ -225,16 +228,16 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
                     print(indexPath.row)
                     if cell.btnSwichMode[index!].tag == 0 {
                         cell.btnSwichMode[0].isSelected = !cell.btnSwichMode[0].isSelected
-                        self.userProfileModel.vShowAge = cell.btnSwichMode[0].isSelected
+                        self.userProfileModel?.vShowAge = cell.btnSwichMode[0].isSelected
                     } else if cell.btnSwichMode[index!].tag == 1 {
                         cell.btnSwichMode[1].isSelected = !cell.btnSwichMode[1].isSelected
-                        self.userProfileModel.vShowDistance = cell.btnSwichMode[1].isSelected
+                        self.userProfileModel?.vShowDistance = cell.btnSwichMode[1].isSelected
                     } else if cell.btnSwichMode[index!].tag == 2 {
                         cell.btnSwichMode[2].isSelected = !cell.btnSwichMode[2].isSelected
-                        self.userProfileModel.vShowContactNo = cell.btnSwichMode[2].isSelected
+                        self.userProfileModel?.vShowContactNo = cell.btnSwichMode[2].isSelected
                     } else {
                         cell.btnSwichMode[3].isSelected = !cell.btnSwichMode[3].isSelected
-                        self.userProfileModel.vShowProfiletoLiked = cell.btnSwichMode[3].isSelected
+                        self.userProfileModel?.vShowProfiletoLiked = cell.btnSwichMode[3].isSelected
                     }
                 }
             }
@@ -289,6 +292,7 @@ extension EditProfileViewController : UICollectionViewDataSource, UICollectionVi
         }
         
         cell.clickOnImageButton = {
+            self.isForProfile = false
             if self.image != nil {
                 self.openImagePickerActionSheet()
             } else {
@@ -386,16 +390,22 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
                 }
             }
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-                self.image = image
-                self.imageArray.append(image)
-                self.imgProfile.image = image
+                if self.isForProfile {
+                    self.image = image
+                    self.imgProfile.image = image
+                } else {
+                    self.imageArray.append(image)
+                }
             }
             self.tblEditProfileView.reloadData()
         } else {
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                if self.isForProfile {
                     self.imgProfile.image = image
-                self.image = image
-                self.imageArray.append(image)
+                    self.image = image
+                } else {
+                    self.imageArray.append(image)
+                }
                 if let imageURL = info[UIImagePickerController.InfoKey.referenceURL] as? URL {
                     let result = PHAsset.fetchAssets(withALAssetURLs: [imageURL], options: nil)
                     let assetResources = PHAssetResource.assetResources(for: result.firstObject!)

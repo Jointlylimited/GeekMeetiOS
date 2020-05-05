@@ -412,6 +412,8 @@ open class AlamofireDecodableRequestBuilder<T:Decodable>: AlamofireRequestBuilde
                 let decodeResult: (decodableObj: T?, error: Error?) = CodableHelper.decode(T.self, from: data)
                 if decodeResult.error == nil {
                     responseObj = Response(response: httpResponse, body: decodeResult.decodableObj)
+                    print("Response Object : \(httpResponse)")
+                    print("Response data",String(decoding: data, as: UTF8.self))
                 }
 
                 completion(responseObj, decodeResult.error)

@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import CoreLocation
 
 class UserDataModel : Codable {
     
@@ -39,6 +40,14 @@ class UserDataModel : Codable {
     static var authorization : String {
         let auth = "Bearer \(UserDataModel.currentUser!.vAuthKey ?? "")"
         return auth
+    }
+    
+    @objc static func setUserLocation(location: CLLocation){
+        UserDefaults.standard.set(location, forKey: kUserCurrentLocation)
+    }
+    
+    @objc static func getUserLocation() -> CLLocation{
+        return UserDefaults.standard.value(forKey: kUserCurrentLocation) as! CLLocation
     }
     
 //    @objc static func setNotificationCount(count: Int){

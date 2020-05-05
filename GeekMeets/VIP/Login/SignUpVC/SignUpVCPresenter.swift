@@ -53,6 +53,11 @@ class SignUpVCPresenter: SignUpVCPresentationProtocol {
             return false
         }
         
+        if param["vPassword"] as! String != param["vConfirmPassword"] as! String {
+            self.viewController?.displayAlert(strTitle: "", strMessage: kPasswordNotMatch)
+            return false
+        }
+        
         if String(describing: param["vCountryCode"]!).isEmpty {
             self.viewController?.displayAlert(strTitle: "", strMessage: kSelectCountryCode)
             return false

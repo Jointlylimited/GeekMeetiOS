@@ -27,7 +27,7 @@ let kEnterPassword = "Please enter Password"
 let kEnterOldPassword = "Please enter current Password"
 let kEnterNewPassword = "Please enter new Password"
 let kEnterConfirmPassword = "Please enter confirm password"
-let kPasswordNotMatch = "Confirm password not matching"
+let kPasswordNotMatch = "Password and Confirm Password must be same"
 let kPasswordWeak = "Please enter password at least 6 characters"
 let kConfirmPasswordWeak = "Please enter Confirm Password at least 6 characters"
 let kSelectCountryCode = "Select country code"
@@ -48,6 +48,7 @@ let kEnterCompanyDetail = "Please enter Company Detail"
 let kEnterUserAbout = "Please enter user Info"
 let kEnterDoBProper = "Please select date of birth "
 let kEnterUserName = "Please enter user name"
+let kAddPhotos = "Please add photos"
 
 //let kEnterUsername = "Please enter Username"
 let kEnterFirstname = "Please enter Firstname"
@@ -68,10 +69,13 @@ let kCameraAccessMsg     = "Please go to settings and switch on your Camera. set
 let kPhotosAccessTitle   = "No photos access"
 let kPhotosAccessMsg     = "Please go to settings and switch on your photos. settings -> \(appName) -> switch on photos"
 let kContactAccess       = "No contact access"
+let kLocationAccessTitle   = "No Location access"
+let kLocationAccessMsg     = "Please go to settings and allow your Location. settings -> \(appName) -> Allow Location"
 
 let kSomethingWentWrong = "Something went wrong...Please try again"
 let kLoogedIntoOtherDevice = "It is look like you logged in another device."
-
+let kUserCurrentLocation = "kUserCurrentLocation"
+let kMobileVerifySucc = "Your mobile is changed & verified Successfully"
 class KeyMessages: NSObject {
 
 }

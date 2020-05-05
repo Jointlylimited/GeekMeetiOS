@@ -9,8 +9,8 @@
 import UIKit
  import IQKeyboardManagerSwift
 
-let kSecret = ""
-let kPrivateKey = ""
+let kSecret = "BmECMMDZdXM8VhKIw4EKLY8nx0uC4Jtt@geekmeets"
+let kPrivateKey = "QOUATaUA24pIFBPiIHr2Nu3BTcjFS8DA@geekmeets"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

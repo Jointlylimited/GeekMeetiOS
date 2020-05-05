@@ -152,6 +152,7 @@
 		0BF7081E244F1D6B003D6AB7 /* ReactEmojiCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF70815244F1D6B003D6AB7 /* ReactEmojiCollectionCell.swift */; };
 		0BF7081F244F1D6B003D6AB7 /* MessageListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF70817244F1D6B003D6AB7 /* MessageListCell.swift */; };
 		0BF70820244F1D6B003D6AB7 /* MessageListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BF70818244F1D6B003D6AB7 /* MessageListCell.xib */; };
+		0BFF2B612461779000DECEDD /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFF2B602461779000DECEDD /* LocationManager.swift */; };
 		E5B521D13F02F46FBABC5C21 /* Pods_GeekMeets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC146BF9C834F09E88494EB4 /* Pods_GeekMeets.framework */; };
 		F7164ABE244EB78600853BFC /* ForgotPasswordInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7164ABB244EB78500853BFC /* ForgotPasswordInteractor.swift */; };
 		F7164ABF244EB78600853BFC /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7164ABC244EB78500853BFC /* ForgotPasswordViewController.swift */; };
@@ -434,6 +435,7 @@
 		0BF70815244F1D6B003D6AB7 /* ReactEmojiCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactEmojiCollectionCell.swift; sourceTree = "<group>"; };
 		0BF70817244F1D6B003D6AB7 /* MessageListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageListCell.swift; sourceTree = "<group>"; };
 		0BF70818244F1D6B003D6AB7 /* MessageListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageListCell.xib; sourceTree = "<group>"; };
+		0BFF2B602461779000DECEDD /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		0E5083CE45B37361B6D908A2 /* Pods-GeekMeets.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeekMeets.release.xcconfig"; path = "Target Support Files/Pods-GeekMeets/Pods-GeekMeets.release.xcconfig"; sourceTree = "<group>"; };
 		36A8046D3032A36E9F05BAA1 /* Pods-GeekMeets.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeekMeets.debug.xcconfig"; path = "Target Support Files/Pods-GeekMeets/Pods-GeekMeets.debug.xcconfig"; sourceTree = "<group>"; };
 		CF4F6DE0B0DBDFACF78C5DE6 /* Pods-GeekMeets.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeekMeets.staging.xcconfig"; path = "Target Support Files/Pods-GeekMeets/Pods-GeekMeets.staging.xcconfig"; sourceTree = "<group>"; };
@@ -1104,6 +1106,14 @@
 			path = MessageListCell;
 			sourceTree = "<group>";
 		};
+		0BFF2B5F2461779000DECEDD /* LocationManager */ = {
+			isa = PBXGroup;
+			children = (
+				0BFF2B602461779000DECEDD /* LocationManager.swift */,
+			);
+			path = LocationManager;
+			sourceTree = "<group>";
+		};
 		726C361F901BCA60F229557E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1524,6 +1534,7 @@
 		F90B4CC92032A7C1006ADAF6 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				0BFF2B5F2461779000DECEDD /* LocationManager */,
 				0B51D290245FE2B6005C7B88 /* SOGoogleSignIn */,
 				0B59586F245C642B006D500A /* StickerView */,
 				0B921C1724571BE30010AE04 /* ARStories */,
@@ -2082,6 +2093,7 @@
 				0B319658244DE80500B38350 /* HomeInteractor.swift in Sources */,
 				0BF7081F244F1D6B003D6AB7 /* MessageListCell.swift in Sources */,
 				0B9499D72451DBC4001AD1C8 /* CommonPagesPresenter.swift in Sources */,
+				0BFF2B612461779000DECEDD /* LocationManager.swift in Sources */,
 				F7D5259C244869FB002D3A42 /* SignInViewController.swift in Sources */,
 				0B53567A24508827005571AF /* CustomImageLayout.swift in Sources */,
 				0BF7081A244F1D6B003D6AB7 /* StoryCollectionCell.swift in Sources */,

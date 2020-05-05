@@ -123,7 +123,7 @@ class ProfileViewController: UIViewController, ProfileProtocol {
     var objProfileData = ProfileData()
     var imageArray = [#imageLiteral(resourceName: "img_intro_2"), #imageLiteral(resourceName: "image_1"), #imageLiteral(resourceName: "Image 63"), #imageLiteral(resourceName: "Image 62")]
     
-    var userProfileModel : UserProfileModel!
+    var userProfileModel = UserProfileModel(vFullName: UserDataModel.currentUser?.vName, vAge: "\(UserDataModel.currentUser?.tiAge)", vAbout: UserDataModel.currentUser?.txAbout, vCity: UserDataModel.currentUser?.vLiveIn, vGender: "\(UserDataModel.currentUser?.tiAge)", vCompanyDetail: UserDataModel.currentUser?.txCompanyDetail, vInterestAge: "", vInterestGender: "", vLikedSocialPlatform: "", vPhotos: "", vInstagramLink: "", vSnapchatLink: "", vFacebookLink: "", vShowAge: false, vShowDistance: false, vShowContactNo: false, vShowProfiletoLiked:false)
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -163,7 +163,10 @@ class ProfileViewController: UIViewController, ProfileProtocol {
     }
     
     @IBAction func btnEditProfileAction(_ sender: UIButton) {
-        self.presenter?.gotoEditProfile()
+//        self.presenter?.gotoEditProfile()
+        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.EditProfileScreen) as! EditProfileViewController
+        controller.userProfileModel = self.userProfileModel
+        self.pushVC(controller)
     }
 }
 
