@@ -15,7 +15,7 @@ import CoreLocation
 
 protocol AddPhotosPresentationProtocol {
     
-    func callUserSignUpAPI(signParams : Dictionary<String, String>, location : CLLocation)
+    func callUserSignUpAPI(signParams : Dictionary<String, String>)
     func getSignUpResponse(response : UserAuthResponse)
 }
 
@@ -23,12 +23,12 @@ class AddPhotosPresenter: AddPhotosPresentationProtocol {
     weak var viewController: AddPhotosProtocol?
     var interactor: AddPhotosInteractorProtocol?
     
-    func callUserSignUpAPI(signParams : Dictionary<String, String>, location : CLLocation) {
+    func callUserSignUpAPI(signParams : Dictionary<String, String>) {
         if String(describing: signParams["photos"]!).isEmpty {
             self.viewController?.displayAlert(strTitle: "", strMessage: kAddPhotos)
             return
         } else {
-            self.interactor?.callUserSignUpAPI(signParams : signParams, location : location)
+            self.interactor?.callUserSignUpAPI(signParams : signParams)
         }
     }
     

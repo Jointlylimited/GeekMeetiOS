@@ -73,11 +73,7 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
     override func viewWillDisappear(_ animated: Bool) {
        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
-    
-    // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
+
     func doSomething() {
             self.navigationController?.setNavigationBarHidden(false, animated: true)
             self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
@@ -92,6 +88,7 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
           btnCountrycode.setTitle(country.dialingCode, for: .normal)
 //          btnCountryCode.setImage(country.flag?.resizeImage(targetSize:  CGSize(width: btnCountryCode.frame.height / 2, height: btnCountryCode.frame.height / 2)).withRenderingMode(.alwaysOriginal), for: .normal)
       }
+    
   //MARK: IBAction Method
   func displayAlert(strTitle : String, strMessage : String) {
       self.showAlert(title: strTitle, message: strMessage)

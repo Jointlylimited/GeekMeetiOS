@@ -26,40 +26,38 @@ class ChangePasswordPresenter: ChangePasswordPresentationProtocol {
     func presentSomething() {
         
     }
-  
-    func callChangePasswordAPI(vCurrentPassword : String,vNewPassword : String,vConfirmPassword: String) {
-      
-            if vCurrentPassword.isEmpty
-            {
-                self.viewController?.displayAlert(strTitle: "", strMessage: kEnterOldPassword)
-            }
-            else if vNewPassword.isEmpty
-            {
-                self.viewController?.displayAlert(strTitle: "", strMessage: kEnterNewPassword)
-            }
-            else if vNewPassword.length < 6
-            {
-                self.viewController?.displayAlert(strTitle: "", strMessage: kPasswordWeak)
-            }
-            else if vConfirmPassword.isEmpty
-            {
-                self.viewController?.displayAlert(strTitle: "", strMessage: kEnterConfirmPassword)
-            }
-            else if vNewPassword != vConfirmPassword
-            {
-                self.viewController?.displayAlert(strTitle: "", strMessage: kPasswordNotMatch)
-            }
-            else
-            {
-                self.interactor?.callChangePasswordAPI(vCurrentPassword : vCurrentPassword,vNewPassword : vNewPassword)
-            }
     
+    func callChangePasswordAPI(vCurrentPassword : String,vNewPassword : String,vConfirmPassword: String) {
+        
+        if vCurrentPassword.isEmpty
+        {
+            self.viewController?.displayAlert(strTitle: "", strMessage: kEnterOldPassword)
+        }
+        else if vNewPassword.isEmpty
+        {
+            self.viewController?.displayAlert(strTitle: "", strMessage: kEnterNewPassword)
+        }
+        else if vNewPassword.length < 6
+        {
+            self.viewController?.displayAlert(strTitle: "", strMessage: kPasswordWeak)
+        }
+        else if vConfirmPassword.isEmpty
+        {
+            self.viewController?.displayAlert(strTitle: "", strMessage: kEnterConfirmPassword)
+        }
+        else if vNewPassword != vConfirmPassword
+        {
+            self.viewController?.displayAlert(strTitle: "", strMessage: kPasswordNotMatch)
+        }
+        else
+        {
+            self.interactor?.callChangePasswordAPI(vCurrentPassword : vCurrentPassword,vNewPassword : vNewPassword)
         }
         
-        
+    }
+    
+    
     func getChangePasswordResponse(response : CommonResponse) {
-             
-              self.viewController?.displayAlert(false, message: response.responseMessage!)
-      
-           }
+        self.viewController?.getChangePasswordResponse(response: response)
+    }
 }

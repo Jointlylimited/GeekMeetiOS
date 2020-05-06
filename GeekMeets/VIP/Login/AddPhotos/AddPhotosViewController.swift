@@ -83,7 +83,7 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
         let photoJsonString = json(from: self.imgsUserPhotosDict)
         let params = RequestParameter.sharedInstance().signUpParam(vEmail: signUpParams!["vEmail"]!, vPassword: signUpParams!["vPassword"]!, vConfirmPassword : signUpParams!["vConfirmPassword"]!, vCountryCode: signUpParams!["vCountryCode"]!, vPhone: signUpParams!["vPhone"]!, termsChecked : signUpParams!["termsChecked"]!, vProfileImage: signUpParams!["vProfileImage"]!, vName: signUpParams!["vName"]!, dDob: signUpParams!["dDob"]!, tiAge: signUpParams!["tiAge"]!, tiGender: signUpParams!["tiGender"]!, iCurrentStatus: signUpParams!["iCurrentStatus"]!, txCompanyDetail: signUpParams!["txCompanyDetail"]!, txAbout: signUpParams!["txAbout"]!, photos: self.imgsUserPhotos.count > 0 ? photoJsonString! : "", vTimeOffset: vTimeOffset, vTimeZone: vTimeZone)
         
-        self.presenter?.callUserSignUpAPI(signParams: params, location : self.location!)
+        self.presenter?.callUserSignUpAPI(signParams: params)
     }
     
     func json(from object:[NSDictionary]) -> String? {

@@ -59,11 +59,18 @@ class SignInPresenter: SignInPresentationProtocol {
     
     func getSignInResponse(response : UserAuthResponse)
     {
+        UserDataModel.currentUser = response.responseData
         if response.responseCode == 200 {
-            UserDataModel.currentUser = response.responseData
+            Authentication.setLoggedInStatus(true)
             self.gotoHomeScreen()
+        } else if response.responseCode == 203 {
+            let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter)
+            if let view = self.viewController as? UIViewController
+            {
+                view.pushVC(controller)
+            }
         } else {
-            self.viewController?.displayAlert(strTitle: "", strMessage: response.responseMessage!) 
+            self.viewController?.displayAlert(strTitle: "", strMessage: response.responseMessage!)
         }
     }
     

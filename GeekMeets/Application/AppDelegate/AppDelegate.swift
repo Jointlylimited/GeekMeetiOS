@@ -25,6 +25,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Push Notification call
         self.registerForPushNotifications()
         
+        if Authentication.getLoggedInStatus() == true {
+            AppSingleton.sharedInstance().showHomeVC()
+        }
+        
         return true
     }
 
