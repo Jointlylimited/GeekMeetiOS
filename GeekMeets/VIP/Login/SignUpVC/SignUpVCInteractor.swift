@@ -13,7 +13,7 @@
 import UIKit
 
 protocol SignUpVCInteractorProtocol {
-    func doSomething()
+    func callEmailAvailabilityAPI(email : String)
 }
 
 protocol SignUpVCDataStore {
@@ -25,7 +25,20 @@ class SignUpVCInteractor: SignUpVCInteractorProtocol, SignUpVCDataStore {
     //var name: String = ""
     
     // MARK: Do something
-    func doSomething() {
-        
+    func callEmailAvailabilityAPI(email : String) {
+        UserAPI.checkEmailAvailability(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, vEmail: email) { (response, error) in
+            
+            if response?.responseCode == 200 {
+                self.presenter?.getEmailAvailResponse(response : response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+            } else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+                }
+            }
+        }
     }
 }

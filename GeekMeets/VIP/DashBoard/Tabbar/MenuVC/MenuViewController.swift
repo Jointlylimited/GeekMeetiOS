@@ -140,6 +140,10 @@ class MenuViewController: UIViewController, MenuProtocol {
         stopTimer()
         self.showAlertView()
     }
+    
+    func displayAlert(strTitle : String, strMessage : String) {
+        self.showAlert(title: strTitle, message: strMessage)
+    }
 }
 
 extension MenuViewController : UITableViewDataSource, UITableViewDelegate {
@@ -219,23 +223,26 @@ extension MenuViewController {
     }
     
     func getSignOutResponse(response : UserAuthResponse){
+        Authentication.setLoggedInStatus(false)
         self.navigationController?.popToRootViewController(animated: true)
+        //        self.displayAlert(strTitle: "", strMessage: response.responseMessage!)
     }
     func showAlertView() {
-      alertView = CustomAlertView.initAlertView(title: "Are you sure you want to Logout?", message: "", btnRightStr: "Logout", btnCancelStr: "Cancel", btnCenter: "", isSingleButton: false)
-      alertView.delegate = self
-      alertView.frame = self.view.frame
-      self.view.addSubview(alertView)
+        alertView = CustomAlertView.initAlertView(title: "Are you sure you want to Logout?", message: "", btnRightStr: "Logout", btnCancelStr: "Cancel", btnCenter: "", isSingleButton: false)
+        alertView.delegate = self
+        alertView.frame = self.view.frame
+        AppDelObj.window?.addSubview(alertView)
     }
 }
 
 extension MenuViewController : AlertViewDelegate {
     func OkButtonAction() {
-//        self.callSignoutAPI()
-        self.navigationController?.popToRootViewController(animated: true)
+        alertView.alpha = 0.0
+        self.callSignoutAPI()
+//        self.navigationController?.popToRootViewController(animated: true)
     }
     
     func cancelButtonAction() {
-        alertView.removeFromSuperview()
+        alertView.alpha = 0.0
     }
 }

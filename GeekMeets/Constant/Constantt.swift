@@ -54,6 +54,7 @@ struct GeekMeets_StoryBoard
 }
 struct GeekMeets_ViewController
 {
+    static let InitialSignInScreen = "InitialSignUpViewController"
     static let SignInScreen = "SignInViewController"
     static let SignUpScreen = "SignUpVCViewController"
     static let OTPScreen = "OTPViewController"
@@ -189,7 +190,25 @@ class AppSingleton: NSObject {
         AppDelObj.window!.rootViewController!.present(alertController, animated: true, completion: nil)
     }
     
+    func showHomeVC(){
+        UserDataModel.currentUser = UserDataModel.lastLoginUser
+        if UserDataModel.currentUser == nil {
+            logout()
+            return
+        }
+        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.TabbarScreen) as! TabbarViewController
+        let navController = UINavigationController.init(rootViewController: controller)
+        navController.navigationBar.isHidden = true
+        AppDelObj.window?.rootViewController = navController
+    }
+    
     func logout()
     {
+        UserDataModel.currentUser = nil
+        Authentication.setLoggedInStatus(false)
+        let controller = GeekMeets_StoryBoard.Main.instantiateViewController(withIdentifier: GeekMeets_ViewController.InitialSignInScreen) as! InitialSignUpViewController
+        let navController = UINavigationController.init(rootViewController: controller)
+        navController.navigationBar.isHidden = true
+        AppDelObj.window?.rootViewController = navController
     }
 }

@@ -107,8 +107,8 @@ extension SignInViewController
 
     @IBAction func btnSignInClick(_ sender : UIButton)
     {
-        self.presenter?.gotoHomeScreen()
-//        self.presenter?.callSignInAPI(tfEmail.text ?? "", password: tfPassword.text ?? "")
+//        self.presenter?.gotoHomeScreen()
+        self.presenter?.callSignInAPI(tfEmail.text ?? "", password: tfPassword.text ?? "")
     }
     
     @IBAction func btnForgotPWClick(_ sender : UIButton)

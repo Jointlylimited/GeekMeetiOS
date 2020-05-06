@@ -27,16 +27,17 @@ class SignInInteractor: SignInInteractorProtocol {
         UserAPI.signIn(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, vEmail: userName, vPassword: password, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signIn(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId!, vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress) { (response, error) in
             
             if response?.responseCode == 200 {
-                        self.presenter?.getSignInResponse(response : response!)
-                       } else if response?.responseCode == 203 {
-                           AppSingleton.sharedInstance().logout()
-                       } else {
-                           if error != nil {
-                               AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
-                           } else {
-                               AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
-                           }
-                       }
+                self.presenter?.getSignInResponse(response : response!)
+            } else if response?.responseCode == 203 {
+                self.presenter?.getSignInResponse(response : response!)
+//                AppSingleton.sharedInstance().logout()
+            } else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+                }
+            }
         }
     }
 }

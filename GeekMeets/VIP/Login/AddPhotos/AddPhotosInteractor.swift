@@ -14,7 +14,7 @@ import UIKit
 import CoreLocation
 
 protocol AddPhotosInteractorProtocol {
-    func callUserSignUpAPI(signParams : Dictionary<String, String>, location : CLLocation)
+    func callUserSignUpAPI(signParams : Dictionary<String, String>)
 }
 
 protocol AddPhotosDataStore {
@@ -26,7 +26,7 @@ class AddPhotosInteractor: AddPhotosInteractorProtocol, AddPhotosDataStore {
     //var name: String = ""
     
     // MARK: Do something
-    func callUserSignUpAPI(signParams : Dictionary<String, String>, location : CLLocation) {
+    func callUserSignUpAPI(signParams : Dictionary<String, String>) {
         UserAPI.signUp(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, tiIsSocialLogin: UserAPI.TiIsSocialLogin_signUp(rawValue: "0")!, vEmail: signParams["vEmail"]!, vPassword: signParams["vPassword"]!, vCountryCode: signParams["vCountryCode"]!, vPhone: signParams["vPhone"]!, vName: signParams["vName"]!, dDob: signParams["dDob"]!, tiAge: signParams["tiAge"]!, tiGender: UserAPI.TiGender_signUp(rawValue: signParams["tiGender"]!)!, iCurrentStatus: UserAPI.ICurrentStatus_signUp(rawValue: signParams["iCurrentStatus"]!)!, txCompanyDetail: signParams["txCompanyDetail"]!, txAbout: signParams["txAbout"]!, photos: signParams["photos"]!, vTimeOffset: signParams["vTimeOffset"]!, vTimeZone: signParams["vTimeZone"]!, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signUp(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId ?? "", vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress)
 /*, vSocialId: "", tiSocialType: UserAPI.TiSocialType_signUp(rawValue: "0")!, vProfileImage: signParams["vProfileImage"]!, fLatitude: Float(location.coordinate.latitude), fLongitude: Float(location.coordinate.longitude)*/ { (response, error) in
             

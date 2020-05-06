@@ -226,12 +226,11 @@ extension OTPEnterViewController {
   
     func getVerifyOTPResponse(response : CommonResponse) {
            
-            alertView = CustomAlertView.initAlertView(title: "", message: response.responseMessage!, btnRightStr: "", btnCancelStr: "", btnCenter: "OK", isSingleButton: true)
-               alertView.delegate1 = self
-               alertView.frame = self.view.frame
-               self.view.addSubview(alertView)
-          
-            
+        self.displayAlert(strTitle: "", strMessage: response.responseMessage!)
+//            alertView = CustomAlertView.initAlertView(title: "", message: response.responseMessage!, btnRightStr: "", btnCancelStr: "", btnCenter: "OK", isSingleButton: true)
+//               alertView.delegate1 = self
+//               alertView.frame = self.view.frame
+//               self.view.addSubview(alertView)
     }
     func getResendOTPResponse(response: CommonResponse) {
           if response.responseCode == 200  {
@@ -239,10 +238,11 @@ extension OTPEnterViewController {
             btnResend.isUserInteractionEnabled = false
            
           }
-          alertView = CustomAlertView.initAlertView(title: "", message: response.responseMessage!, btnRightStr: "", btnCancelStr: "", btnCenter: "OK", isSingleButton: true)
-          alertView.delegate1 = self
-          alertView.frame = self.view.frame
-          self.view.addSubview(alertView)
+        self.displayAlert(strTitle: "", strMessage: response.responseMessage!)
+//          alertView = CustomAlertView.initAlertView(title: "", message: response.responseMessage!, btnRightStr: "", btnCancelStr: "", btnCenter: "OK", isSingleButton: true)
+//          alertView.delegate1 = self
+//          alertView.frame = self.view.frame
+//          self.view.addSubview(alertView)
     }
 }
 

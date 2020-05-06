@@ -190,13 +190,12 @@ extension UserProfileViewController:  UINavigationControllerDelegate, UIImagePic
                  self.imgString = fileName
              }
          }else{
-                self.imgString = info[UIImagePickerController.InfoKey.imageURL] as! String
-          
-              }
-         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-             self.imgprofile.image = image
-              
-         }
+            self.imgString = (info[UIImagePickerController.InfoKey.imageURL] as! URL).lastPathComponent
+            
+            if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                self.imgprofile.image = image
+            }
+        }
      } else {
          if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                  self.imgprofile.image = image

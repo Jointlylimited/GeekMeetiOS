@@ -13,17 +13,21 @@
 import UIKit
 
 protocol SignUpVCPresentationProtocol {
-   
+    
     func callSignUpRequest(signUpParams : Dictionary<String, String>)
+    func getEmailAvailResponse(response : UserAuthResponse)
 }
 
 class SignUpVCPresenter: SignUpVCPresentationProtocol {
     weak var viewController: SignUpVCProtocol?
     var interactor: SignUpVCInteractorProtocol?
+    var signUpParams : Dictionary<String, String>?
     
     func callSignUpRequest(signUpParams : Dictionary<String, String>){
         if validateSignUpParams(param: signUpParams) {
-            self.actionContinue(signUpParams : signUpParams)
+            self.signUpParams = signUpParams
+            self.interactor?.callEmailAvailabilityAPI(email : signUpParams["vEmail"]!)
+//            self.actionContinue(signUpParams : signUpParams)
         }
     }
     
@@ -76,6 +80,12 @@ class SignUpVCPresenter: SignUpVCPresentationProtocol {
         return true
     }
   
+    func getEmailAvailResponse(response : UserAuthResponse) {
+        if response.responseCode == 200 {
+            self.actionContinue(signUpParams: self.signUpParams!)
+        }
+    }
+    
     func actionContinue(signUpParams : Dictionary<String, String>) {
         let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.UserProfile) as! UserProfileViewController
         controller.signUpParams = signUpParams

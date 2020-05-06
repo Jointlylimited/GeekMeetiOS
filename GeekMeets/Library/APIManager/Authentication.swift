@@ -64,6 +64,26 @@ class Authentication : NSObject
             return ""
         }
     }
+    
+    class func setLoggedInStatus(_ status:Bool?)
+       {
+           if status == nil{
+               print("You should use the remove auth key method.")
+               return
+           }
+           UserDefaults.standard.set(status, forKey: "isUserLoggedIn")
+           UserDefaults.standard.synchronize()
+       }
+       class func getLoggedInStatus()-> Bool?
+       {
+           let vAuthKey = UserDefaults.standard.object(forKey: "isUserLoggedIn")
+           if vAuthKey != nil{
+               return vAuthKey as! Bool     //(userData as AnyObject).object(forKey: "vAuthKey") as! String
+           }
+           else{
+               return false
+           }
+       }
 }
 
 

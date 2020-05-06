@@ -22,12 +22,12 @@ protocol OTPEnterPresentationProtocol {
 }
 
 class OTPEnterPresenter: OTPEnterPresentationProtocol {
-  
-  
-  
-  
-  
-  
+    
+    
+    
+    
+    
+    
     weak var viewController: OTPEnterProtocol?
     var interactor: OTPEnterInteractorProtocol?
     
@@ -38,9 +38,9 @@ class OTPEnterPresenter: OTPEnterPresentationProtocol {
     func callVerifyOTPAPI(iOTP : String,vCountryCode : String,vPhone : String) {
         self.interactor?.callVerifyOTPAPI(iOTP : iOTP,vCountryCode : vCountryCode,vPhone : vPhone)
     }
-  
+    
     func callResendOTPAPI(vCountryCode: String, vPhone: String) {
-       self.interactor?.callResendOTPAPI(vCountryCode: vCountryCode, vPhone: vPhone)
+        self.interactor?.callResendOTPAPI(vCountryCode: vCountryCode, vPhone: vPhone)
     }
     
     func actionVerifyOTP() {
@@ -51,21 +51,21 @@ class OTPEnterPresenter: OTPEnterPresentationProtocol {
         }
     }
     func getResendOTPResponse(response : CommonResponse) {
-      
-      
+        
+        
         self.viewController?.getResendOTPResponse(response: response)
-      
+        
     }
-  func getVerifyOTPResponse(response : CommonResponse) {
+    func getVerifyOTPResponse(response : CommonResponse) {
         
         if response.responseCode == 400{
-          self.viewController?.getVerifyOTPResponse(response: response)
+            self.viewController?.getVerifyOTPResponse(response: response)
         }else{
-          
-  //        self.viewController?.getForgotPasswordResponse(response: response)
-          self.actionVerifyOTP()
-          
+            
+            //        self.viewController?.getForgotPasswordResponse(response: response)
+            self.actionVerifyOTP()
+            
         }
-      }
-      
+    }
+    
 }
