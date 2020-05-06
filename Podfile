@@ -17,5 +17,6 @@ target 'GeekMeets' do
   pod 'GoogleSignIn'
 #  pod 'Firebase/Core'
   pod 'JSONModel'
+  pod 'SnapSDK'
  
 end

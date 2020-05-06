@@ -65,6 +65,22 @@
 		<string>fbauth2</string>
 		<string>fbshareextension</string>
 	</array>
+  <key>SCSDKClientId</key>
+  <string>7e23dee1-6072-4d4f-85c0-e9d034a15ccf</string>
+  <key>SCSDKRedirectUrl</key>
+  <string>https://geekmeets.com/snap_auth</string>
+  <key>SCSDKScopes</key>
+  <array>
+    <string>https://auth.snapchat.com/oauth2/api/user.display_name</string>
+    <string>https://auth.snapchat.com/oauth2/api/user.external_id</string>
+    <string>https://auth.snapchat.com/oauth2/api/user.bitmoji.avatar</string>
+  </array>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+       <string>snapchat</string>
+       <string>bitmoji-sdk</string>
+       <string>itms-apps</string>
+    </array>
 	<key>NSCameraUsageDescription</key>
 	<string>$(PROJECT_NAME) required access camera for user profile</string>
 	<key>NSPhotoLibraryUsageDescription</key>

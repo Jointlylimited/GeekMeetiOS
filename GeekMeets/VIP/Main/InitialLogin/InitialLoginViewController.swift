@@ -13,6 +13,7 @@
 import UIKit
 import GoogleSignIn
 
+
 protocol InitialLoginProtocol: class {
     func displaySomething()
 }
@@ -140,6 +141,13 @@ class InitialLoginViewController: UIViewController, InitialLoginProtocol {
     self.presenter?.actionSignIn()
   
   }
+  @IBAction func actionSnapChatSignUp(_ sender: Any) {
+    
+    self.presenter?.callSnapchatLoginRequest(objLoginVC : self)
+  
+  }
+  
+  
 }
 
 extension InitialLoginViewController : GIDSignInDelegate{

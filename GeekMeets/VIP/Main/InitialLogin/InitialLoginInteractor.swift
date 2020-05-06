@@ -14,11 +14,13 @@ import UIKit
 import GoogleSignIn
 import FacebookLogin
 import FacebookCore
+import SCSDKLoginKit
 
 protocol InitialLoginInteractorProtocol {
     func doSomething()
     func callSocialLoginApi(params : Dictionary<String, String>)
     func callFacebookLogin(objLoginVC : InitialLoginViewController)
+    func callSnapchatLogin(objLoginVC : InitialLoginViewController)
 }
 
 protocol InitialLoginDataStore {
@@ -60,6 +62,45 @@ class InitialLoginInteractor: InitialLoginInteractorProtocol, InitialLoginDataSt
          
          
             }
+  
+    func callSnapchatLogin(objLoginVC : InitialLoginViewController) {
+    
+        SCSDKLoginClient.login(from: objLoginVC, completion: { success, error in
+
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+
+            if success {
+                self.fetchSnapUserInfo() //used in the demo app to get user info
+            }
+        })
+     
+     
+        }
+    
+  
+    private func fetchSnapUserInfo(){
+        let graphQLQuery = "{me{displayName, bitmoji{avatar}}}"
+
+        SCSDKLoginClient
+            .fetchUserData(
+                withQuery: graphQLQuery,
+                variables: nil,
+                success: { userInfo in
+
+                    if let userInfo = userInfo,
+                        let data = try? JSONSerialization.data(withJSONObject: userInfo, options: .prettyPrinted) {
+                          print(data)
+//                        DispatchQueue.main.async {
+//                            self.goToLoginConfirm(userEntity)
+//                        }
+                    }
+            }) { (error, isUserLoggedOut) in
+                print(error?.localizedDescription ?? "")
+        }
+    }
   
     func callSocialLoginApi(params : Dictionary<String, String>){
 

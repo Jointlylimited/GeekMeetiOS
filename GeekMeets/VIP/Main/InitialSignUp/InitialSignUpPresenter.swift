@@ -22,6 +22,7 @@ protocol InitialSignUpPresentationProtocol {
     func callGoogleSigninAPI(loginParams : Dictionary<String, String>)
     
     func getLoginResponse(userData : UserAuthResponse?)
+    func callSnapchatLoginRequest(objLoginVC : InitialSignUpViewController)
 }
 
 class InitialSignUpPresenter: InitialSignUpPresentationProtocol {
@@ -66,5 +67,11 @@ class InitialSignUpPresenter: InitialSignUpPresentationProtocol {
     func getLoginResponse(userData : UserAuthResponse?) {
         
     }
+    
+    func callSnapchatLoginRequest(objLoginVC : InitialSignUpViewController){
+            
+                self.interactor?.callSnapchatLogin(objLoginVC : objLoginVC)
+            
+          }
     
 }

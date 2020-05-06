@@ -48,8 +48,21 @@ PODS:
   - Moya/Core (13.0.1):
     - Alamofire (~> 4.1)
     - Result (~> 4.1)
+  - PINCache (2.3)
+  - PINOperation (1.1.2)
   - ReachabilitySwift (5.0.0)
   - Result (4.1.0)
+  - SnapSDK (1.4.4):
+    - SnapSDK/SCSDKBitmojiKit (= 1.4.4)
+    - SnapSDK/SCSDKCreativeKit (= 1.4.4)
+    - SnapSDK/SCSDKLoginKit (= 1.4.4)
+    - SnapSDK/SCSDKStoryKit (= 1.4.4)
+  - SnapSDK/SCSDKBitmojiKit (1.4.4):
+    - PINCache (< 3.1, >= 2.3)
+    - PINOperation (~> 1.1)
+  - SnapSDK/SCSDKCreativeKit (1.4.4)
+  - SnapSDK/SCSDKLoginKit (1.4.4)
+  - SnapSDK/SCSDKStoryKit (1.4.4)
   - SwiftyJSON (5.0.0)
 
 DEPENDENCIES:
@@ -61,6 +74,7 @@ DEPENDENCIES:
   - JSONModel
   - Moya
   - ReachabilitySwift
+  - SnapSDK
   - SwiftyJSON
 
 SPEC REPOS:
@@ -79,8 +93,11 @@ SPEC REPOS:
     - IQKeyboardManagerSwift
     - JSONModel
     - Moya
+    - PINCache
+    - PINOperation
     - ReachabilitySwift
     - Result
+    - SnapSDK
     - SwiftyJSON
 
 SPEC CHECKSUMS:
@@ -98,10 +115,13 @@ SPEC CHECKSUMS:
   IQKeyboardManagerSwift: 0fb93310284665245591f50f7a5e38de615960b7
   JSONModel: 02ab723958366a3fd27da57ea2af2113658762e9
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
+  PINCache: ce36ed282031b92fc7733ffe831f474ff80fddc2
+  PINOperation: 24b774353ca248fcf87d67b2d61eef42087c125a
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
+  SnapSDK: 9ea8d26ca876b7f1d85fad2f2ec09852f3b156d0
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: c4443d7b6d9b71567109af91c93a8a10bd544744
+PODFILE CHECKSUM: 062089fd0da11322e68aee05b5b5e68dd055d93b
 
 COCOAPODS: 1.8.4

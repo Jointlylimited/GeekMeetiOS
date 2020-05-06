@@ -8,6 +8,7 @@
 
 import UIKit
 import UserNotifications
+import SCSDKLoginKit
 
 extension AppDelegate : UNUserNotificationCenterDelegate {
     func registerForPushNotifications() {
@@ -106,4 +107,6 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         // Or
         // If your app was running or suspended in the background and the user brings it to the foreground by tapping the push notification
     }
+  
+  
 }

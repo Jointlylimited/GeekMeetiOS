@@ -141,7 +141,7 @@ extension  InitialSignUpViewController{
         
     }
     @IBAction func actionSnapchatSignUp(_ sender: Any) {
-        
+        self.presenter?.callSnapchatLoginRequest(objLoginVC : self)
     }
     @IBAction func actionAppleSignUp(_ sender: Any) {
         

@@ -19,6 +19,7 @@ protocol InitialLoginPresentationProtocol {
     func actionSignIn()
     func callSocialLoginRequest(loginParams : Dictionary<String, String>)
     func callFacebookLoginRequest(objLoginVC : InitialLoginViewController)
+    func callSnapchatLoginRequest(objLoginVC : InitialLoginViewController)
     
   
     
@@ -64,5 +65,10 @@ class InitialLoginPresenter: InitialLoginPresentationProtocol {
           self.interactor?.callFacebookLogin(objLoginVC : objLoginVC)
       
     }
+    func callSnapchatLoginRequest(objLoginVC : InitialLoginViewController){
+         
+             self.interactor?.callSnapchatLogin(objLoginVC : objLoginVC)
+         
+       }
 
 }
