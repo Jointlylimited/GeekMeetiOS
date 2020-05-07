@@ -24,8 +24,15 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
     var presenter : InitialSignUpPresentationProtocol?
     
     @IBOutlet weak var btnSignUpWithGoogle: UIButton!
+    @IBOutlet weak var btnFacebook: UIButton!
+    @IBOutlet weak var btnInstagram: UIButton!
+    @IBOutlet weak var btnSnapchat: UIButton!
+    @IBOutlet weak var btnApple: UIButton!
+    
     @IBOutlet weak var lblPrivacyTerm: UILabel!
     @IBOutlet weak var btnLogin: UIButton!
+    
+    
     // MARK: Object lifecycle
     
     let objConfig = SOGoogleConfig()
@@ -64,16 +71,24 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpUI()
         setTheme()
     }
 
+    func setUpUI(){
+        self.btnSignUpWithGoogle.titleEdgeInsets = DeviceType.iPhoneXRMax || DeviceType.iPhoneX ? UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        self.btnFacebook.titleEdgeInsets = DeviceType.iPhoneXRMax || DeviceType.iPhoneX ? UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        self.btnSnapchat.titleEdgeInsets = DeviceType.iPhoneXRMax || DeviceType.iPhoneX ? UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        self.btnInstagram.titleEdgeInsets = DeviceType.iPhoneXRMax || DeviceType.iPhoneX ? UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        self.btnApple.titleEdgeInsets = DeviceType.iPhoneXRMax || DeviceType.iPhoneX ? UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+    }
+    
     func setTheme() {
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().clientID = "1058883482858-feo3v537akjippp47hcq8cs80ed3q8ti.apps.googleusercontent.com"
         GIDSignIn.sharedInstance()?.presentingViewController = self
         
         setupMultipleTapLabel()
-        
         
         //Facebook Logout
         let loginManager = LoginManager()

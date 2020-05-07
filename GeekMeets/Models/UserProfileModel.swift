@@ -11,7 +11,8 @@ import UIKit
 class UserProfileModel: NSObject {
 
     public var vFullName: String?
-    public var vAge: String?
+    public var vAge: Int?
+    public var vDoB: String?
     public var vAbout: String?
     public var vCity : String?
     public var vGender: String?
@@ -28,10 +29,11 @@ class UserProfileModel: NSObject {
     public var vShowContactNo: Bool?
     public var vShowProfiletoLiked: Bool?
     
-    public init(vFullName: String?, vAge: String?, vAbout: String?, vCity : String?, vGender: String?, vCompanyDetail: String?, vInterestAge: String?, vInterestGender: String?, vLikedSocialPlatform: String?, vPhotos : String?, vInstagramLink: String?, vSnapchatLink: String?, vFacebookLink: String?, vShowAge : Bool?, vShowDistance: Bool?, vShowContactNo: Bool?, vShowProfiletoLiked: Bool?) {
+    public init(vFullName: String?, vAge: Int?, vDoB: String?, vAbout: String?, vCity : String?, vGender: String?, vCompanyDetail: String?, vInterestAge: String?, vInterestGender: String?, vLikedSocialPlatform: String?, vPhotos : String?, vInstagramLink: String?, vSnapchatLink: String?, vFacebookLink: String?, vShowAge : Bool?, vShowDistance: Bool?, vShowContactNo: Bool?, vShowProfiletoLiked: Bool?) {
         
         self.vFullName = vFullName
         self.vAge = vAge
+        self.vDoB = vDoB
         self.vAbout = vAbout
         self.vCity = vCity
         self.vGender = vGender

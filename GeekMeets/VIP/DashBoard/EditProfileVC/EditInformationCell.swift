@@ -10,6 +10,10 @@ import UIKit
 
 class EditInformationCell: UITableViewCell {
 
+    typealias ChangeGenderClickEvent = () -> Void
+    var clickOnChangeGender : ChangeGenderClickEvent!
+    
+    @IBOutlet weak var txtUserName: UITextField!
     @IBOutlet weak var txtAbout: UITextField!
     @IBOutlet weak var txtDoB: UITextField!
     @IBOutlet weak var txtCity: UITextField!
@@ -25,5 +29,8 @@ class EditInformationCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    @IBAction func btnChangeGenderAction(_ sender: UIButton) {
+        self.clickOnChangeGender!()
     }
 }

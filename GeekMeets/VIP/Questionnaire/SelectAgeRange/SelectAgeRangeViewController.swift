@@ -24,23 +24,24 @@ struct QuestionaryModel {
 }
 
 class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
-  
-  
+    
+    
     //var interactor : SelectAgeRangeInteractorProtocol?
     var presenter : SelectAgeRangePresentationProtocol?
-
+    
     @IBOutlet weak var lblQuestionIndex: UILabel!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblDescription: UILabel!
     @IBOutlet weak var clnSelectAge: UICollectionView!
-  
+    
     var objQuestionModel = QuestionaryModel()
     
     var intAgeSelected:Int = 0
     var index : Int = 0
     var selectedCells = [Int]()
-    
+    var selectedCellValues = [String]()
     var isFromSignUp : Bool = true
+    var interest_delegate : SelectInterestAgeGenderDelegate!
     
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -85,9 +86,10 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
         self.navigationController?.isNavigationBarHidden = true
         self.presenter?.callQuestionnaireRequest()
     }
-  override func viewWillAppear(_ animated: Bool) {
-     self.navigationController?.isNavigationBarHidden = true
-  }
+    override func viewWillAppear(_ animated: Bool) {
+        //     self.navigationController?.isNavigationBarHidden = true
+        doSomething()
+    }
     func displaySomething() {
         //nameTextField.text = viewModel.name
     }
@@ -108,9 +110,8 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
             self.lblDescription.isHidden = false
             self.lblDescription.text = "\(self.objQuestionModel.objQuestionnaire.description!)"
         }
-     
     }
-  
+    
     func setQuestionData(index : Int){
         self.objQuestionModel.objQuestionnaire = QuestionnaireModel(dictionary: self.objQuestionModel.arrQuestionnaire[self.index - 1])!
         self.lblQuestionIndex.text = "\(self.index)/\(self.objQuestionModel.arrQuestionnaire.count)"
@@ -122,11 +123,12 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
             self.lblDescription.text = "\(self.objQuestionModel.objQuestionnaire.description!)"
         }
         self.selectedCells = []
+        self.selectedCellValues = []
         self.clnSelectAge.reloadData()
     }
     
     
-  //MARK: IBAction Method
+    //MARK: IBAction Method
     @IBAction func actionContinues(_ sender: Any) {
         if isFromSignUp {
             if self.index < self.objQuestionModel.arrQuestionnaire.count {
@@ -136,9 +138,12 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
                 self.presenter?.actionContinue()
             }
         } else {
+            let data = self.selectedCellValues.map { String($0) }
+            .joined(separator: ", ")
+            self.interest_delegate.getSelectedValue(index : self.index, data: data)
             self.popVC()
         }
-     }
+    }
     
     @IBAction func actionSkip(_ sender: Any) {
         if isFromSignUp {
@@ -158,7 +163,7 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
 
 extension SelectAgeRangeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,SelectAgeDelegate
 {
- 
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.objQuestionModel.objQuestionnaire.response_set!.response_option?.count ?? 0
     }
@@ -167,7 +172,7 @@ extension SelectAgeRangeViewController: UICollectionViewDelegate, UICollectionVi
     {
         let cell : SelectAgeCell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectAgeCell", for: indexPath) as! SelectAgeCell
         cell.delegate = self
-          return cell
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -194,15 +199,19 @@ extension SelectAgeRangeViewController: UICollectionViewDelegate, UICollectionVi
                         }
                         if self.selectedCells.contains(indexPath.row) {
                             self.selectedCells.remove(at: index!)
+                            self.selectedCellValues.remove(at: index!)
                         } else {
                             self.selectedCells.removeAll()
+                            self.selectedCellValues.removeAll()
                             if self.selectedCells.count == 0 {
                                 self.selectedCells.append(indexPath.row)
+                                self.selectedCellValues.append(name!)
                             }
                         }
                     } else {
                         if self.selectedCells.count == 0 {
                             self.selectedCells.append(indexPath.row)
+                            self.selectedCellValues.append(name!)
                         }
                     }
                 } else {
@@ -211,8 +220,10 @@ extension SelectAgeRangeViewController: UICollectionViewDelegate, UICollectionVi
                             return index == indexPath.row
                         }
                         self.selectedCells.remove(at: index!)
+                        self.selectedCellValues.remove(at: index!)
                     } else {
                         self.selectedCells.append(indexPath.row)
+                        self.selectedCellValues.append(name!)
                     }
                 }
                 self.clnSelectAge.reloadData()
@@ -220,26 +231,26 @@ extension SelectAgeRangeViewController: UICollectionViewDelegate, UICollectionVi
         }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-      let yourWidth = collectionView.bounds.width/3.0
-      let yourHeight = CGFloat(50)
-      return CGSize(width: yourWidth, height: yourHeight)
+        let yourWidth = collectionView.bounds.width/3.0
+        let yourHeight = CGFloat(50)
+        return CGSize(width: yourWidth, height: yourHeight)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets.zero
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-      
+        
         return 0
-      
+        
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
-   
+    
     func actionSelectAge(at index:IndexPath){
-      intAgeSelected = index.row
-      clnSelectAge.reloadData()
+        intAgeSelected = index.row
+        clnSelectAge.reloadData()
     }
 }

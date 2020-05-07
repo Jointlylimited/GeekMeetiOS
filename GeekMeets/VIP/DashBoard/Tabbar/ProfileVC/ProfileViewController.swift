@@ -117,13 +117,14 @@ class ProfileViewController: UIViewController, ProfileProtocol {
     var presenter : ProfilePresentationProtocol?
     
     @IBOutlet weak var tblProfile: UITableView!
+    @IBOutlet weak var lblUserNameAge: UILabel!
     
     // MARK: Object lifecycle
     
     var objProfileData = ProfileData()
     var imageArray = [#imageLiteral(resourceName: "img_intro_2"), #imageLiteral(resourceName: "image_1"), #imageLiteral(resourceName: "Image 63"), #imageLiteral(resourceName: "Image 62")]
     
-    var userProfileModel = UserProfileModel(vFullName: UserDataModel.currentUser?.vName, vAge: "\(UserDataModel.currentUser?.tiAge)", vAbout: UserDataModel.currentUser?.txAbout, vCity: UserDataModel.currentUser?.vLiveIn, vGender: "\(UserDataModel.currentUser?.tiAge)", vCompanyDetail: UserDataModel.currentUser?.txCompanyDetail, vInterestAge: "", vInterestGender: "", vLikedSocialPlatform: "", vPhotos: "", vInstagramLink: "", vSnapchatLink: "", vFacebookLink: "", vShowAge: false, vShowDistance: false, vShowContactNo: false, vShowProfiletoLiked:false)
+    var userProfileModel = UserProfileModel(vFullName: UserDataModel.currentUser?.vName, vAge: UserDataModel.currentUser?.tiAge ?? 0, vDoB : "03/02/1998", vAbout: UserDataModel.currentUser?.txAbout, vCity: UserDataModel.currentUser?.vLiveIn, vGender: "\(UserDataModel.currentUser?.tiAge ?? 0)", vCompanyDetail: UserDataModel.currentUser?.txCompanyDetail, vInterestAge: "", vInterestGender: "", vLikedSocialPlatform: "", vPhotos: "", vInstagramLink: "", vSnapchatLink: "", vFacebookLink: "", vShowAge: false, vShowDistance: false, vShowContactNo: false, vShowProfiletoLiked:false)
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -159,9 +160,17 @@ class ProfileViewController: UIViewController, ProfileProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tblProfile.reloadData()
+        setProfileData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setProfileData()
+    }
+    func setProfileData(){
+        self.lblUserNameAge.text = "\(userProfileModel.vFullName ?? ""), \(userProfileModel.vAge ?? 25)"
+        self.tblProfile.reloadData()
+    }
     @IBAction func btnEditProfileAction(_ sender: UIButton) {
 //        self.presenter?.gotoEditProfile()
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.EditProfileScreen) as! EditProfileViewController
@@ -186,11 +195,20 @@ extension ProfileViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if objProfileData.cells[indexPath.section].cellID == "ProfileAboutCell" {
-            
+            if let cell = cell as? ProfileAboutCell  {
+                cell.lblAbout.text = userProfileModel.vAbout
+                cell.lblCity.text = userProfileModel.vCity
+                cell.lblGender.text = userProfileModel.vGender
+            }
         } else if objProfileData.cells[indexPath.section].cellID == "ProfileCompanyCell" {
-            
+            if let cell = cell as? ProfileCompanyCell  {
+                cell.lblCompanyDetail.text = userProfileModel.vCompanyDetail
+            }
         } else if objProfileData.cells[indexPath.section].cellID == "ProfileInterestCell" {
-            
+            if let cell = cell as? ProfileInterestCell  {
+                cell.lblInterestAge.text = userProfileModel.vInterestAge
+                cell.lblInterestGender.text = userProfileModel.vInterestGender
+            }
         } else if objProfileData.cells[indexPath.section].cellID == "ProfilePhotosCell" {
             if let cell = cell as? ProfilePhotosCell  {
                 

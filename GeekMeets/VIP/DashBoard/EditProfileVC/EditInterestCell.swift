@@ -10,6 +10,12 @@ import UIKit
 
 class EditInterestCell: UITableViewCell {
 
+    typealias ChangeInterestAgeClickEvent = () -> Void
+    var clickOnChangeInterestAge : ChangeInterestAgeClickEvent!
+    
+    typealias ChangeInterestGenderClickEvent = () -> Void
+    var clickOnChangeInterestGender : ChangeInterestGenderClickEvent!
+    
     @IBOutlet weak var txtInterestAge: UITextField!
     @IBOutlet weak var txtInterestGender: UITextField!
     @IBOutlet weak var txtLikedSocialPlatform: UITextField!
@@ -26,4 +32,10 @@ class EditInterestCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    @IBAction func btnChangeInterestAgeAction(_ sender: UIButton) {
+        self.clickOnChangeInterestAge!()
+    }
+    @IBAction func btnChangeInterestGenderAction(_ sender: UIButton) {
+        self.clickOnChangeInterestGender!()
+    }
 }

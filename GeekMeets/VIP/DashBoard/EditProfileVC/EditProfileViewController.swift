@@ -13,6 +13,9 @@
 import UIKit
 import Photos
 
+protocol SelectInterestAgeGenderDelegate {
+    func getSelectedValue(index : Int, data : String)
+}
 enum EditProfileListCells {
     
     case InformationCell(obj : String)
@@ -48,7 +51,12 @@ enum EditProfileListCells {
     }
     
     var headerHeight: CGFloat {
+        switch self {
+//        case .PrivacyCell:
+//            return 90
+        case .InformationCell, .InterestCell, .PhotosCell, .SocialCell, .PrivacyCell:
         return 45
+        }
     }
     
     var cellID: String {
@@ -111,6 +119,9 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
     @IBOutlet weak var PickerView: UIView!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var imgProfile: UIImageView!
+    @IBOutlet weak var lblUserNameAge: UILabel!
+    @IBOutlet weak var genderPicker: UIPickerView!
+    @IBOutlet weak var genderPickerView: UIView!
     
     var objEditProfileData = EditProfileData()
     var imageArray : [UIImage]  = [] //[#imageLiteral(resourceName: "img_intro_2"), #imageLiteral(resourceName: "image_1"), #imageLiteral(resourceName: "Image 63"), #imageLiteral(resourceName: "Image 62")]
@@ -119,6 +130,8 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
     
     var userProfileModel : UserProfileModel?
     var isForProfile : Bool = true
+    var objQuestionModel = QuestionaryModel()
+    
     
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -160,6 +173,12 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
 
     func setTheme(){
         self.datePicker.maximumDate = Date()
+        self.lblUserNameAge.text = "\(self.userProfileModel?.vFullName ?? ""), \(self.userProfileModel?.vAge ?? 0)"
+        
+        self.objQuestionModel.arrQuestionnaire = callQuestionnaireApi()
+        self.objQuestionModel.objQuestionnaire = QuestionnaireModel(dictionary: self.objQuestionModel.arrQuestionnaire[1])!
+        
+        self.tblEditProfileView.reloadData()
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
@@ -169,12 +188,18 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
         self.popVC()
     }
     @IBAction func btnDonePickerAction(_ sender: UIBarButtonItem) {
-        self.PickerView.alpha = 0.0
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy"
-        let strDate = dateFormatter.string(from: datePicker.date)
-        print(strDate)
-        self.userProfileModel?.vAge = strDate
+        
+        if sender.tag == 0 {
+            self.PickerView.alpha = 0.0
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd/MM/yyyy"
+            let strDate = dateFormatter.string(from: datePicker.date)
+            print(strDate)
+            self.userProfileModel?.vDoB = strDate
+            self.userProfileModel?.vAge = datePicker.date.age
+        } else {
+            self.genderPickerView.alpha = 0.0
+        }
         self.tblEditProfileView.reloadData()
     }
     @IBAction func btnChooseProfileAction(_ sender: UIButton) {
@@ -183,7 +208,16 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
     }
 }
 
-
+extension EditProfileViewController : SelectInterestAgeGenderDelegate {
+    func getSelectedValue(index : Int, data : String){
+        if index == 1 {
+            self.userProfileModel?.vInterestAge = data
+        } else {
+            self.userProfileModel?.vInterestGender = data
+        }
+       self.tblEditProfileView.reloadData()
+    }
+}
 extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.objEditProfileData.cells.count
@@ -201,12 +235,52 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if objEditProfileData.cells[indexPath.section].cellID == "EditInformationCell" {
             if let cell = cell as? EditInformationCell {
-                cell.txtAbout.text = "Lady with fun loving personality and open- minded, Looking for Someone to hang out always open for hangout"
+                
+                cell.txtUserName.delegate = self
+                cell.txtUserName.tag = 0
                 cell.txtDoB.delegate = self
-                cell.txtDoB.text = userProfileModel != nil ? userProfileModel?.vAge : "20-30"
+                cell.txtDoB.tag = 1
+                cell.txtCity.delegate = self
+                cell.txtCity.tag = 2
+                cell.txtCompanyDetail.delegate = self
+                cell.txtCompanyDetail.tag = 3
+                cell.txtAbout.delegate = self
+                cell.txtAbout.tag = 4
+                
+                cell.txtUserName.text = userProfileModel?.vFullName
+                cell.txtAbout.text = userProfileModel?.vAbout
+                
+                cell.txtDoB.text = userProfileModel != nil ? userProfileModel?.vDoB : "02/01/1999"
+                cell.txtCity.text = userProfileModel?.vCity
+                cell.txtGender.text = userProfileModel?.vGender
+                cell.txtCompanyDetail.text = userProfileModel?.vCompanyDetail
+                
+                
+                cell.clickOnChangeGender = {
+                    self.genderPickerView.alpha = 1.0
+                }
             }
         } else if objEditProfileData.cells[indexPath.section].cellID == "EditInterestCell" {
-            
+            if let cell = cell as? EditInterestCell {
+                cell.txtInterestAge.text = userProfileModel?.vInterestAge
+                cell.txtInterestGender.text = userProfileModel?.vInterestGender
+                cell.txtLikedSocialPlatform.text = userProfileModel?.vLikedSocialPlatform
+                
+                let queVC = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange) as? SelectAgeRangeViewController
+                queVC?.isFromSignUp = false
+                
+                cell.clickOnChangeInterestAge = {
+                    queVC?.index = 1
+                    queVC?.interest_delegate = self
+                    self.pushVC(queVC!)
+                }
+                
+                cell.clickOnChangeInterestGender = {
+                    queVC?.interest_delegate = self
+                    queVC?.index = 2
+                    self.pushVC(queVC!)
+                }
+            }
         } else if objEditProfileData.cells[indexPath.section].cellID == "EditPhotosCell" {
             if let cell = cell as? EditPhotosCell  {
                 
@@ -220,7 +294,11 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
                 cell.AddPhotosCollView.reloadData()
             }
         } else if objEditProfileData.cells[indexPath.section].cellID == "EditSocialLinkCell" {
-            
+            if let cell = cell as? EditSocialLinkCell {
+                cell.txtFacebookLink.text = userProfileModel?.vFacebookLink
+                cell.txtSnapchatLink.text = userProfileModel?.vSnapchatLink
+                cell.txtInstagramLink.text = userProfileModel?.vInstagramLink
+            }
         } else {
              if let cell = cell as? EditProfilePrivacyCell  {
                 
@@ -256,10 +334,10 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
         let headerView:UIView =  UIView()
         headerView.backgroundColor = .white
         
-        
         let headerTitle = UILabel()
         headerTitle.frame = CGRect(x: 20, y: headerView.frame.origin.y + 10, w: ScreenSize.width - 60, h: 30)
         headerTitle.text = objEditProfileData.cells[section].sectionTitle
+        headerTitle.lineBreakMode = .byWordWrapping
         headerTitle.textColor = .black
         headerTitle.font = UIFont(name: "Poppins-SemiBold", size: 14)
         headerView.addSubview(headerTitle)
@@ -317,8 +395,26 @@ extension EditProfileViewController : UICollectionViewDataSource, UICollectionVi
 }
 extension EditProfileViewController : UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        self.PickerView.alpha = 1.0
+        self.PickerView.alpha = 0.0
+        if textField.tag == 1 {
+            textField.resignFirstResponder()
+            self.PickerView.alpha = 1.0
+        }
         return true
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField.tag == 0 {
+            self.userProfileModel?.vFullName = textField.text
+        } else if textField.tag == 2 {
+            self.userProfileModel?.vCity = textField.text
+        } else if textField.tag == 3 {
+             self.userProfileModel?.vCompanyDetail = textField.text
+        } else if textField.tag == 4 {
+            self.userProfileModel?.vAbout = textField.text
+        } else {
+            
+        }
+        self.tblEditProfileView.reloadData()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -414,5 +510,26 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
                 }
             }
         }
+    }
+}
+
+extension EditProfileViewController : UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return self.objQuestionModel.objQuestionnaire.response_set!.response_option?.count ?? 0
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        
+        let title = self.objQuestionModel.objQuestionnaire.response_set?.response_option?[row].name!
+        return title
+    }
+
+    func pickerView(_ pickerView:UIPickerView,didSelectRow row: Int,inComponent component: Int){
+        let title = self.objQuestionModel.objQuestionnaire.response_set?.response_option?[row].name!
+        self.userProfileModel?.vGender = title
     }
 }

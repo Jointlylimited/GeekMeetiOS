@@ -36,6 +36,8 @@ class MenuViewController: UIViewController, MenuProtocol {
     @IBOutlet weak var RemainTimeView: UIView!
     @IBOutlet weak var lblRemainTime: UILabel!
     @IBOutlet weak var remainTimeViewHeightConstant: NSLayoutConstraint!
+    @IBOutlet weak var headerViewHeightConstant: NSLayoutConstraint!
+    @IBOutlet weak var profileView: UIView!
     
     var alertView: CustomAlertView!
     var arrMenuModel : [MenuViewModel] = []
@@ -120,8 +122,10 @@ class MenuViewController: UIViewController, MenuProtocol {
             if let timer = self.timer {
                 self.RemainTimeView.alpha = 0.0
                 self.remainTimeViewHeightConstant.constant = 0
+                self.profileView.frame = CGRect(x: 0, y: 0, w: ScreenSize.width, h: 250)
                 timer.invalidate()
-                self.timer = nil                
+                self.timer = nil
+                self.tblMenuList.reloadData()
             }
         }
     }

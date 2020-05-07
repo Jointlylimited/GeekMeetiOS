@@ -14,7 +14,7 @@ import UIKit
 
 class CommonCellModel {
     var title: String
-    let description: String?
+    var description: String?
     var isDescAvailable : Bool = false
     
     init(title: String, description: String, isDescAvailable : Bool = false) {
@@ -124,13 +124,28 @@ extension DiscoverySettingViewController : UITableViewDataSource, UITableViewDel
         let index = indexPath.row
         let queVC = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange) as? SelectAgeRangeViewController
         queVC?.isFromSignUp = false
+        queVC?.interest_delegate = self
         if index == 0 {
             queVC?.index = 1
+            
         } else if index == 1 {
             queVC?.index = 2
         } else {
             queVC?.index = 3
         }
         self.pushVC(queVC!)
+    }
+}
+
+extension DiscoverySettingViewController : SelectInterestAgeGenderDelegate {
+    func getSelectedValue(index: Int, data: String) {
+        if index == 1 {
+            self.objDiscoverData[0].description = data
+        } else if index == 2 {
+            self.objDiscoverData[1].description = data
+        } else {
+            self.objDiscoverData[2].description = data
+        }
+        self.tblDiscoverList.reloadData()
     }
 }
