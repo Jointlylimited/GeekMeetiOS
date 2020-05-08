@@ -8,13 +8,8 @@
 
 import UIKit
 
-//protocol CardListDelegate: NSObjectProtocol {
-//    func complitionDelegate(with obj: Any?)
-//}
-//
-
 public class CardView: UIView {
-
+    
     typealias CloseClickEvent = () -> Void
     var clickOnClose : CloseClickEvent!
     
@@ -31,9 +26,6 @@ public class CardView: UIView {
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var lblView: GradientLabel!
     
-    /// Variables
-//    weak var delegate: CardListDelegate?
-    
     override public func awakeFromNib() {
         super.awakeFromNib()
         
@@ -44,16 +36,17 @@ public class CardView: UIView {
             self.removeFromSuperview()
         }
     }
-  
-  class func initCoachingAlertView() -> CardView {
-    let view = Bundle.main.loadNibNamed("CardView", owner: nil, options: nil)?.first as! CardView
     
-    view.imgView.layer.cornerRadius = 10
-    view.imgView.layer.masksToBounds = true
-    
-    view.layoutIfNeeded()
-    return view
-  }
+    class func initCoachingAlertView() -> CardView {
+        let view = Bundle.main.loadNibNamed("CardView", owner: nil, options: nil)?.first as! CardView
+        
+        view.layer.cornerRadius = 25
+        view.imgView.layer.cornerRadius = 10
+        view.imgView.layer.masksToBounds = true
+        
+        view.layoutIfNeeded()
+        return view
+    }
     @IBAction func btnCloseAction(_ sender: UIButton) {
         self.clickOnClose!()
     }
@@ -63,6 +56,4 @@ public class CardView: UIView {
     @IBAction func btnViewAction(_ sender: UIButton) {
         self.clickOnView!()
     }
-    
-    
 }

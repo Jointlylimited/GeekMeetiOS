@@ -15,6 +15,7 @@ import GoogleSignIn
 import FBSDKCoreKit
 import FBSDKLoginKit
 import AuthenticationServices
+import ActiveLabel
 
 protocol InitialSignUpProtocol: class {
 }
@@ -29,7 +30,7 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
     @IBOutlet weak var btnSnapchat: UIButton!
     @IBOutlet weak var btnApple: UIButton!
     
-    @IBOutlet weak var lblPrivacyTerm: UILabel!
+    @IBOutlet weak var lblPrivacyTerm: ActiveLabel!
     @IBOutlet weak var btnLogin: UIButton!
     
     
@@ -88,46 +89,64 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
         GIDSignIn.sharedInstance().clientID = "1058883482858-feo3v537akjippp47hcq8cs80ed3q8ti.apps.googleusercontent.com"
         GIDSignIn.sharedInstance()?.presentingViewController = self
         
-        setupMultipleTapLabel()
-        
+        setLink()
         //Facebook Logout
         let loginManager = LoginManager()
         loginManager.logOut()
         AccessToken.current = nil
     }
 
-    func setupMultipleTapLabel() {
-          lblPrivacyTerm.text = "By clicking sign up, you agree to our Terms. Learn how weprocess your data in our privacy policy & Cookie Privacy"
-          let text = (lblPrivacyTerm.text)!
-          let underlineAttriString = NSMutableAttributedString(string: text)
-          let range1 = (text as NSString).range(of: "Terms")
-//          underlineAttriString.addAttribute(.foregroundColor, value: UIColor.blue, range: range1)
-          underlineAttriString.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: range1)
-          let range2 = (text as NSString).range(of: "privacy policy")
-          underlineAttriString.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: range2)
-          let range3 = (text as NSString).range(of: "Cookie Privacy")
-          underlineAttriString.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: range3)
-          lblPrivacyTerm.attributedText = underlineAttriString
-          let tapAction = UITapGestureRecognizer(target: self, action: #selector(self.tapLabel(gesture:)))
-          lblPrivacyTerm.isUserInteractionEnabled = true
-          lblPrivacyTerm.addGestureRecognizer(tapAction)
-      }
-  
-     // MARK:- IBAction Method
-    @IBAction func tapLabel(gesture: UITapGestureRecognizer) {
-      
-        let text = (lblPrivacyTerm.text)!
-        let termsRange = (text as NSString).range(of: "Terms")
-        let privacyRange = (text as NSString).range(of: "privacy policy")
-
-        if gesture.didTapAttributedTextInLabel(label: lblPrivacyTerm, inRange: termsRange) {
-            print("Terms of service")
-          
-        } else if gesture.didTapAttributedTextInLabel(label: lblPrivacyTerm, inRange: privacyRange) {
-            print("Privacy policy")
+    func setLink(){
+        
+        let customType = ActiveType.custom(pattern: "\\sTerms\\b") //Looks for "Terms of Service"
+        let customType1 = ActiveType.custom(pattern: "\\sPrivacy Policy\\b") //Looks for "Privacy Policy"
+        let customType2 = ActiveType.custom(pattern: "\\sCookie Privacy\\b")
+        
+        lblPrivacyTerm.enabledTypes.append(customType)
+        lblPrivacyTerm.enabledTypes.append(customType1)
+        lblPrivacyTerm.enabledTypes.append(customType2)
+        
+        lblPrivacyTerm.customize { label in
+            label.text = "By clicking sign up, you agree to our Terms. Learn how we process your data in our privacy policy & Cookie Privacy"
+            label.numberOfLines = 3
+            label.lineSpacing = 0
+            
+            label.textColor = UIColor.white
+            
+            label.customColor[customType] =  #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            label.customColor[customType1] =  #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            label.customColor[customType2] =  #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            
+            label.highlightFontName = FontTypePoppins.Poppins_Medium.rawValue
+            label.highlightFontSize = 12
+            
+            label.font = UIFont.init(name: FontTypePoppins.Poppins_Medium.rawValue, size: 12)
+            
+            label.configureLinkAttribute = { (type, attributes, isSelected) in
+                var atts = attributes
+                atts[NSAttributedString.Key.underlineStyle] = NSUnderlineStyle.thick.rawValue
+                return atts
+            }
+            
+            label.handleCustomTap(for: customType) {_ in
+                let commonVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.CommonPagesScreen) as! CommonPagesViewController
+                commonVC.objCommonData = CommonModelData.Terms
+                self.pushVC(commonVC)
+            }
+            
+            label.handleCustomTap(for: customType1) {_ in
+                let commonVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.CommonPagesScreen) as! CommonPagesViewController
+                commonVC.objCommonData = CommonModelData.Privacy
+                self.pushVC(commonVC)
+            }
+            
+            label.handleCustomTap(for: customType2) {_ in
+                let commonVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.CommonPagesScreen) as! CommonPagesViewController
+                commonVC.objCommonData = CommonModelData.Privacy
+                self.pushVC(commonVC)
+            }
         }
-      
-  }
+    }
 }
 
 //MARK: IBAction Methods

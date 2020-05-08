@@ -1,4 +1,5 @@
 PODS:
+  - ActiveLabel (1.0.1)
   - Alamofire (4.9.1)
   - AppAuth (1.3.0):
     - AppAuth/Core (= 1.3.0)
@@ -66,6 +67,7 @@ PODS:
   - SwiftyJSON (5.0.0)
 
 DEPENDENCIES:
+  - ActiveLabel
   - FacebookCore
   - FacebookLogin
   - FacebookShare
@@ -79,6 +81,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - ActiveLabel
     - Alamofire
     - AppAuth
     - FacebookCore
@@ -101,6 +104,7 @@ SPEC REPOS:
     - SwiftyJSON
 
 SPEC CHECKSUMS:
+  ActiveLabel: b8b2396fe25308d563601437d6605bf691c3b5db
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   AppAuth: 73574f3013a1e65b9601a3ddc8b3158cce68c09d
   FacebookCore: ba86524b66cfa86d0f8e65d08faa8504a9f732dd
@@ -122,6 +126,6 @@ SPEC CHECKSUMS:
   SnapSDK: 9ea8d26ca876b7f1d85fad2f2ec09852f3b156d0
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: 062089fd0da11322e68aee05b5b5e68dd055d93b
+PODFILE CHECKSUM: bd7e2417864f876bf37272edf8eec908b1a4a439
 
 COCOAPODS: 1.8.4

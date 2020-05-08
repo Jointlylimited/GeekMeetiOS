@@ -18,5 +18,5 @@ target 'GeekMeets' do
 #  pod 'Firebase/Core'
   pod 'JSONModel'
   pod 'SnapSDK'
- 
+  pod 'ActiveLabel'
 end

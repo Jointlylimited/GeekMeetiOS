@@ -84,7 +84,8 @@ class AddTextViewController: UIViewController {
     func animateTextField(up: Bool, height : CGFloat) {
         let movement = (up ? -height : height)
         if up == true {
-            self.colorCollBottomConstraint?.constant = ScreenSize.height + movement - 160
+            self.colorCollBottomConstraint?.constant = ScreenSize.frame.y + (ScreenSize.height/2 - (DeviceType.iPhone5orSE ? 30 : 70))
+                //ScreenSize.height + movement - (DeviceType.iPhone678 ? 150 : 160)
         } else {
             self.colorCollBottomConstraint?.constant = 0
             self.ColorCollView!.contentInset.bottom = 0

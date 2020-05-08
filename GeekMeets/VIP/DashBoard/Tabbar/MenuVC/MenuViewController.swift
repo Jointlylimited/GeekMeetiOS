@@ -85,14 +85,15 @@ class MenuViewController: UIViewController, MenuProtocol {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        stopTimer()
+//        stopTimer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        startTimer()
+//        startTimer()
     }
     func setTheme() {
+        self.navigationController?.isNavigationBarHidden = true
         startTimer()
         arrMenuModel = [MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_my_match"), label: "My Matches (122)", rightImage: #imageLiteral(resourceName: "icn_arrow")),
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_manage_subscription"), label: "Manage Subscription", rightImage: #imageLiteral(resourceName: "icn_arrow")),

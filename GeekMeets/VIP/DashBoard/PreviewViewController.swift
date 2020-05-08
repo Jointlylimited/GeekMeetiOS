@@ -54,8 +54,7 @@ class PreviewViewController: UIViewController {
    
     
     @IBAction func cancelButtonTouch(_ sender: Any) {
-     
-     
+        self.popVC()
     }
     
     @IBAction func saveButtonTouch(_ sender: Any) {

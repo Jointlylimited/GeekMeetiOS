@@ -27,7 +27,7 @@ enum EditProfileListCells {
     var cellHeight  : CGFloat {
         switch self {
         case .InformationCell(let desc):
-           return 50 // return desc.heightWithConstrainedWidth(width: 374 * _widthRatio,font: fontPoppins(fontType: .Poppins_Medium, fontSize: .sizeNormalTextField)) + 16
+           return /*50  return */ desc.heightWithConstrainedWidth(width: 374 * _widthRatio,font: fontPoppins(fontType: .Poppins_Medium, fontSize: .sizeNormalTextField)) + 16
         case .InterestCell, .PhotosCell, .SocialCell, .PrivacyCell:
             return 50
             
@@ -399,6 +399,7 @@ extension EditProfileViewController : UITextFieldDelegate {
         if textField.tag == 1 {
             textField.resignFirstResponder()
             self.PickerView.alpha = 1.0
+            return false
         }
         return true
     }
