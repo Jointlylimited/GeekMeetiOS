@@ -24,6 +24,7 @@ class ChangeEmailMobileViewController: UIViewController, ChangeEmailMobileProtoc
     @IBOutlet weak var btnUpdate: UIButton!
     
     var isForUpdateEmail : Bool = false
+    var objAccountData : CommonCellModel!
     
     // MARK: Object lifecycle
     
@@ -69,8 +70,10 @@ class ChangeEmailMobileViewController: UIViewController, ChangeEmailMobileProtoc
         if isForUpdateEmail {
             self.lblTitle.text = "Email Address"
             self.lblEmail.text = "Verified Email Address"
-            self.txtEmail.text = "john@gmail.com"
+            self.txtEmail.text = self.objAccountData.description ?? "john@gmail.com"
             self.btnUpdate.setTitle("Send Email Verification", for: .normal)
+        } else {
+            self.txtEmail.text = self.objAccountData.description ?? "+1123456789"
         }
     }
     

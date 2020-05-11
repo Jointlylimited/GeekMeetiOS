@@ -63,7 +63,7 @@ class AccountSettingViewController: UIViewController, AccountSettingProtocol {
     func registerTableViewCell(){
         self.tblAccountList.register(UINib.init(nibName: Cells.CommonTblListCell, bundle: Bundle.main), forCellReuseIdentifier: Cells.CommonTblListCell)
         
-        self.objAccountData = [CommonCellModel(title: "Mobile Number", description: "+1 123 455 852", isDescAvailable: true), CommonCellModel(title: "Email Address", description: "john@gmail.com", isDescAvailable: true), CommonCellModel(title: "Change Password", description: "", isDescAvailable: false)]
+        self.objAccountData = [CommonCellModel(title: "Mobile Number", description: "\(UserDataModel.currentUser?.vCountryCode ?? "")  \(UserDataModel.currentUser?.vPhone ?? "")", isDescAvailable: true), CommonCellModel(title: "Email Address", description: "\(UserDataModel.currentUser?.vEmail ?? "")", isDescAvailable: true), CommonCellModel(title: "Change Password", description: "", isDescAvailable: false)]
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
@@ -108,6 +108,7 @@ extension AccountSettingViewController : UITableViewDataSource, UITableViewDeleg
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let changeVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.ChangeEmailMobileScreen) as! ChangeEmailMobileViewController
+        changeVC.objAccountData = self.objAccountData[indexPath.row]
         
         if indexPath.row == 0 {
             changeVC.isForUpdateEmail = false

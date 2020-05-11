@@ -65,7 +65,15 @@ class InitialSignUpPresenter: InitialSignUpPresentationProtocol {
     }
     
     func getLoginResponse(userData : UserAuthResponse?) {
-        
+        if userData != nil {
+            Authentication.setLoggedInStatus(true)
+            UserDataModel.currentUser = userData?.responseData
+            let controller = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange)
+            if let view = self.viewController as? UIViewController
+            {
+                view.pushVC(controller)
+            }
+        }
     }
     
     func callSnapchatLoginRequest(objLoginVC : InitialSignUpViewController){

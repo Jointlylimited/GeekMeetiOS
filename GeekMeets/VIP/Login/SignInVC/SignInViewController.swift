@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import Crashlytics
 
 //MARK:- Protocol and Method
 protocol SignInProtocol: class{
@@ -107,6 +108,7 @@ extension SignInViewController
 
     @IBAction func btnSignInClick(_ sender : UIButton)
     {
+//        Crashlytics.sharedInstance().crash()
 //        self.presenter?.gotoHomeScreen()
         self.presenter?.callSignInAPI(tfEmail.text ?? "", password: tfPassword.text ?? "")
     }

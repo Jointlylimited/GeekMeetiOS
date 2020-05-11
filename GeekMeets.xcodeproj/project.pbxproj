@@ -112,6 +112,7 @@
 		0BBD66032449C8F100CA178A /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBD66002449C8F100CA178A /* CardView.swift */; };
 		0BBD66042449C8F100CA178A /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BBD66012449C8F100CA178A /* CardView.xib */; };
 		0BBD66072449C8FC00CA178A /* SwipeableCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBD66062449C8FB00CA178A /* SwipeableCards.swift */; };
+		0BBF9D0624694BD600E2A590 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0BBF9D0524694BD500E2A590 /* GoogleService-Info.plist */; };
 		0BCD4B28245B0C210054A805 /* ColorCollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCD4B25245B0C200054A805 /* ColorCollCell.swift */; };
 		0BCD4B29245B0C210054A805 /* ColorCollCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BCD4B26245B0C200054A805 /* ColorCollCell.xib */; };
 		0BCD4B2A245B0C210054A805 /* AddTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCD4B27245B0C200054A805 /* AddTextViewController.swift */; };
@@ -395,6 +396,7 @@
 		0BBD66002449C8F100CA178A /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		0BBD66012449C8F100CA178A /* CardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardView.xib; sourceTree = "<group>"; };
 		0BBD66062449C8FB00CA178A /* SwipeableCards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeableCards.swift; sourceTree = "<group>"; };
+		0BBF9D0524694BD500E2A590 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0BCD4B25245B0C200054A805 /* ColorCollCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCollCell.swift; sourceTree = "<group>"; };
 		0BCD4B26245B0C200054A805 /* ColorCollCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColorCollCell.xib; sourceTree = "<group>"; };
 		0BCD4B27245B0C200054A805 /* AddTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTextViewController.swift; sourceTree = "<group>"; };
@@ -532,7 +534,7 @@
 		F9031F1A2035A534002EBE92 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		F9031F1E2035A548002EBE92 /* Staging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Staging.xcconfig; sourceTree = "<group>"; };
 		F9031F222035A562002EBE92 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
-		F90B4C9520329C45006ADAF6 /* GeekMeets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeekMeets.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F90B4C9520329C45006ADAF6 /* Jointly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jointly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F90B4C9D20329C45006ADAF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F90B4C9F20329C45006ADAF6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F90B4CA220329C45006ADAF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -1016,6 +1018,14 @@
 			path = SwipeableCards;
 			sourceTree = "<group>";
 		};
+		0BBF9D0424694BBA00E2A590 /* Google_Plist */ = {
+			isa = PBXGroup;
+			children = (
+				0BBF9D0524694BD500E2A590 /* GoogleService-Info.plist */,
+			);
+			path = Google_Plist;
+			sourceTree = "<group>";
+		};
 		0BCD4B24245B0C200054A805 /* AddTextVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -1481,7 +1491,7 @@
 		F90B4C9620329C45006ADAF6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F90B4C9520329C45006ADAF6 /* GeekMeets.app */,
+				F90B4C9520329C45006ADAF6 /* Jointly.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1600,6 +1610,7 @@
 		F90B4CD72032A87B006ADAF6 /* Documents */ = {
 			isa = PBXGroup;
 			children = (
+				0BBF9D0424694BBA00E2A590 /* Google_Plist */,
 				F7F9679B2451B90900BD7275 /* questionnaire.json */,
 				F90B4CD82032A87B006ADAF6 /* Structure_Guide.rtf */,
 			);
@@ -1803,6 +1814,7 @@
 				F9F62EED20F479B900FD4D68 /* ShellScript */,
 				C212B685DE26D825EEA93103 /* [CP] Embed Pods Frameworks */,
 				5E0990E30DCB924B9FD701D4 /* [CP] Copy Pods Resources */,
+				0BDA4B6E2469573D004B795A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1810,7 +1822,7 @@
 			);
 			name = GeekMeets;
 			productName = Basecode;
-			productReference = F90B4C9520329C45006ADAF6 /* GeekMeets.app */;
+			productReference = F90B4C9520329C45006ADAF6 /* Jointly.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1894,6 +1906,7 @@
 				0BF7081D244F1D6B003D6AB7 /* ReactEmojiCollectionCell.xib in Resources */,
 				F96C2D102037E78800F8CBC7 /* Localizable.strings in Resources */,
 				0BCD4B29245B0C210054A805 /* ColorCollCell.xib in Resources */,
+				0BBF9D0624694BD600E2A590 /* GoogleService-Info.plist in Resources */,
 				0BE21281244976AF004817BC /* Poppins-SemiBold.ttf in Resources */,
 				F90B4CD92032A87B006ADAF6 /* Structure_Guide.rtf in Resources */,
 			);
@@ -1902,6 +1915,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0BDA4B6E2469573D004B795A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
 		5E0990E30DCB924B9FD701D4 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1938,11 +1968,13 @@
 				"${BUILT_PRODUCTS_DIR}/FacebookShare/FacebookShare.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/JSONModel/JSONModel.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/PINCache/PINCache.framework",
 				"${BUILT_PRODUCTS_DIR}/PINOperation/PINOperation.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${PODS_ROOT}/SnapSDK/SCSDKBitmojiKit.framework",
@@ -1951,6 +1983,7 @@
 				"${PODS_ROOT}/SnapSDK/SCSDKLoginKit.framework",
 				"${PODS_ROOT}/SnapSDK/SCSDKStoryKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -1965,11 +1998,13 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookShare.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMAppAuth.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSONModel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINCache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINOperation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCSDKBitmojiKit.framework",
@@ -1978,6 +2013,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCSDKStoryKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2369,11 +2405,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Basecode/Library",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.org.lacy;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.org.geekmeets;
+				PRODUCT_NAME = Jointly;
 				PROVISIONING_PROFILE = "6fe03dd0-bb5b-416c-b4fe-1118ff86f17c";
 				PROVISIONING_PROFILE_SPECIFIER = Development_LacyApp;
-				SWIFT_OBJC_BRIDGING_HEADER = "$(PRODUCT_NAME)/Application/Basecode-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_NAME)/Application/Basecode-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2511,11 +2547,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Basecode/Library",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.org.lacy;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.org.geekmeets;
+				PRODUCT_NAME = Jointly;
 				PROVISIONING_PROFILE = "6fe03dd0-bb5b-416c-b4fe-1118ff86f17c";
 				PROVISIONING_PROFILE_SPECIFIER = Development_LacyApp;
-				SWIFT_OBJC_BRIDGING_HEADER = "$(PRODUCT_NAME)/Application/Basecode-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_NAME)/Application/Basecode-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2538,11 +2574,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Basecode/Library",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.org.lacy;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.org.geekmeets;
+				PRODUCT_NAME = Jointly;
 				PROVISIONING_PROFILE = "6fe03dd0-bb5b-416c-b4fe-1118ff86f17c";
 				PROVISIONING_PROFILE_SPECIFIER = Development_LacyApp;
-				SWIFT_OBJC_BRIDGING_HEADER = "$(PRODUCT_NAME)/Application/Basecode-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_NAME)/Application/Basecode-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

@@ -7,8 +7,10 @@
 //
 
 import UIKit
- import IQKeyboardManagerSwift
+import IQKeyboardManagerSwift
 import SCSDKLoginKit
+import GoogleSignIn
+import Firebase
 
 let kSecret = "BmECMMDZdXM8VhKIw4EKLY8nx0uC4Jtt@geekmeets"
 let kPrivateKey = "QOUATaUA24pIFBPiIHr2Nu3BTcjFS8DA@geekmeets"
@@ -22,6 +24,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         IQKeyboardManager.shared.enable = true
+        
+        let filePath = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist")!
+        let options = FirebaseOptions(contentsOfFile: filePath)
+        FirebaseApp.configure(options: options!)
+        GIDSignIn.sharedInstance().clientID = "784959084971-42nkai7mqrspe87v6euc5gfe5d77uodi.apps.googleusercontent.com"
+        
         //Push Notification call
         self.registerForPushNotifications()
         

@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIUserInterfaceStyle</key>
-	<string>Light</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -13,15 +11,11 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>$(PROJECT_NAME)</string>
+	<string>Jointly</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -29,7 +23,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>lacypp</string>
+				<string>Jointly</string>
 			</array>
 		</dict>
 		<dict>
@@ -37,7 +31,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb363370330855711</string>
+				<string>fb236969170892406</string>
 			</array>
 		</dict>
 		<dict>
@@ -45,46 +39,45 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.1058883482858-feo3v537akjippp47hcq8cs80ed3q8ti</string>
+				<string>com.googleusercontent.apps.784959084971-42nkai7mqrspe87v6euc5gfe5d77uodi</string>
 			</array>
 		</dict>
 	</array>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+	<key>FacebookAppID</key>
+	<string>236969170892406</string>
+	<key>FacebookDisplayName</key>
+	<string>$(PROJECT_NAME)</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>snapchat</string>
+		<string>bitmoji-sdk</string>
+		<string>itms-apps</string>
+	</array>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-	<key>FacebookAppID</key>
-	<string>363370330855711</string>
-	<key>FacebookDisplayName</key>
-	<string>$(PROJECT_NAME)</string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>fbapi</string>
-		<string>fb-messenger-api</string>
-		<string>fbauth2</string>
-		<string>fbshareextension</string>
-	</array>
-  <key>SCSDKClientId</key>
-  <string>7e23dee1-6072-4d4f-85c0-e9d034a15ccf</string>
-  <key>SCSDKRedirectUrl</key>
-  <string>https://geekmeets.com/snap_auth</string>
-  <key>SCSDKScopes</key>
-  <array>
-    <string>https://auth.snapchat.com/oauth2/api/user.display_name</string>
-    <string>https://auth.snapchat.com/oauth2/api/user.external_id</string>
-    <string>https://auth.snapchat.com/oauth2/api/user.bitmoji.avatar</string>
-  </array>
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-       <string>snapchat</string>
-       <string>bitmoji-sdk</string>
-       <string>itms-apps</string>
-    </array>
 	<key>NSCameraUsageDescription</key>
 	<string>$(PROJECT_NAME) required access camera for user profile</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>$(PROJECT_NAME) required access camera for user location</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>$(PROJECT_NAME) required access photo library for user profile</string>
+	<key>SCSDKClientId</key>
+	<string>7e23dee1-6072-4d4f-85c0-e9d034a15ccf</string>
+	<key>SCSDKRedirectUrl</key>
+	<string>https://geekmeets.com/snap_auth</string>
+	<key>SCSDKScopes</key>
+	<array>
+		<string>https://auth.snapchat.com/oauth2/api/user.display_name</string>
+		<string>https://auth.snapchat.com/oauth2/api/user.external_id</string>
+		<string>https://auth.snapchat.com/oauth2/api/user.bitmoji.avatar</string>
+	</array>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Poppins-ExtraLight.ttf</string>
@@ -125,7 +118,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>$(PROJECT_NAME) required access camera for user location</string>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
 </dict>
 </plist>

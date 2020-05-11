@@ -87,7 +87,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     }
     
     func setTheme(){
-        self.profileView.frame = DeviceType.iPhone5orSE ? CGRect(x: 0, y: 0, w: ScreenSize.width, h: 400) : (DeviceType.iPhoneXRMax || DeviceType.iPhoneX || DeviceType.iPhone678 || DeviceType.iPhone678p ? CGRect(x: 0, y: 0, w: ScreenSize.width, h: 500) : CGRect(x: 0, y: 0, w: ScreenSize.width, h: 450))
+        self.profileView.frame = DeviceType.iPhone5orSE ? CGRect(x: 0, y: 0, w: ScreenSize.width, h: 400) : (DeviceType.iPhoneXRMax || DeviceType.iPhone678 || DeviceType.iPhone678p ? CGRect(x: 0, y: 0, w: ScreenSize.width, h: 500) : CGRect(x: 0, y: 0, w: ScreenSize.width, h: 450))
         self.arrayDetails = fetchUserData()
     }
     

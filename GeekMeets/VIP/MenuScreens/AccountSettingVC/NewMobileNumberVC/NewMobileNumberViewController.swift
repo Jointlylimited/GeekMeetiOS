@@ -20,6 +20,7 @@ class NewMobileNumberViewController: UIViewController, NewMobileNumberProtocol {
     var presenter : NewMobileNumberPresentationProtocol?
     
     @IBOutlet weak var txtCountryCode: UITextField!
+    @IBOutlet weak var txtMobNo: UITextField!
     // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -56,8 +57,13 @@ class NewMobileNumberViewController: UIViewController, NewMobileNumberProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setData()
     }
 
+    func setData(){
+        self.txtCountryCode.text = UserDataModel.currentUser?.vCountryCode ?? ""
+        self.txtMobNo.text = UserDataModel.currentUser?.vPhone ?? ""
+    }
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.popVC()
     }

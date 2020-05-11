@@ -15,7 +15,13 @@ target 'GeekMeets' do
   pod 'FacebookLogin'
   pod 'FacebookShare'
   pod 'GoogleSignIn'
-#  pod 'Firebase/Core'
+  
+  pod 'Firebase/Core'
+  pod 'Firebase/Crashlytics'
+  pod 'Crashlytics'
+  # Recommended: Add the Firebase pod for Google Analytics
+  pod 'Firebase/Analytics'
+  
   pod 'JSONModel'
   pod 'SnapSDK'
   pod 'ActiveLabel'

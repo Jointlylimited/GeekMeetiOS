@@ -86,7 +86,7 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
     
     func setTheme() {
         GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance().clientID = "1058883482858-feo3v537akjippp47hcq8cs80ed3q8ti.apps.googleusercontent.com"
+        GIDSignIn.sharedInstance().clientID = "784959084971-42nkai7mqrspe87v6euc5gfe5d77uodi.apps.googleusercontent.com"
         GIDSignIn.sharedInstance()?.presentingViewController = self
         
         setLink()
@@ -153,20 +153,20 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
 
 extension  InitialSignUpViewController{
     @IBAction func btnLoginAction(_ sender: UIButton) {
-        if sender.titleLabel?.text == "Login" {
+        /*if sender.titleLabel?.text == "Login" {
             self.btnLogin.setTitle("Sign Up", for: .normal)
-            self.btnSignUpWithGoogle.setTitle("Login with Google", for: .normal)
-        } else {
+            self.btnSignUpWithGoogle.setTitle("Login", for: .normal)
+        } else {*/
             self.presenter?.actionSignUp()
-        }
+       // }
     }
     
     @IBAction func actionGoogleSignUp(_ sender: UIButton) {
-        if self.btnLogin.titleLabel?.text != "Login" {
+       // if self.btnLogin.titleLabel?.text != "Login" {
             self.presenter?.actionLogin()
-        } else {
-             GIDSignIn.sharedInstance().signIn()
-        }
+       /* } else {
+          //   GIDSignIn.sharedInstance().signIn()
+        }*/
     }
     @IBAction func actionFacebookSignUp(_ sender: Any) {
         self.presenter?.callFBLogin()
