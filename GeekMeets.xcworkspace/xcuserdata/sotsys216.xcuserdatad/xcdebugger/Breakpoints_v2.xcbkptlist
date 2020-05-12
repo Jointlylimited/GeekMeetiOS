@@ -24,7 +24,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "A3DCD988-B619-4CBD-8A0F-98A1B9A4CEE2"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeekMeets/VIP/Main/InitialSignUp/InitialSignUpViewController.swift"
@@ -32,8 +32,40 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "108"
             endingLineNumber = "108"
-            landmarkName = "tapLabel(gesture:)"
+            landmarkName = "setLink()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A3DCD988-B619-4CBD-8A0F-98A1B9A4CEE2 - cc530d19d305abef"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Jointly.InitialSignUpViewController.setLink() -&gt; ()"
+                  moduleName = "Jointly"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sotsys216/Documents/GeekMeets/geekmeetsios/GeekMeets/VIP/Main/InitialSignUp/InitialSignUpViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "109"
+                  endingLineNumber = "109"
+                  offsetFromSymbolStart = "1434">
+               </Location>
+               <Location
+                  uuid = "A3DCD988-B619-4CBD-8A0F-98A1B9A4CEE2 - 543c693c54fc1f1a"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (ActiveLabel.ActiveLabel) -&gt; () in Jointly.InitialSignUpViewController.setLink() -&gt; ()"
+                  moduleName = "Jointly"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sotsys216/Documents/GeekMeets/geekmeetsios/GeekMeets/VIP/Main/InitialSignUp/InitialSignUpViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "110"
+                  endingLineNumber = "110"
+                  offsetFromSymbolStart = "87">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -100,34 +132,34 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "97363FA2-3004-4FF6-B4D6-4C3B7038D2E7 - 4cbe6a03a2915364"
+                  uuid = "97363FA2-3004-4FF6-B4D6-4C3B7038D2E7 - 66bcccf10ddec2f0"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "GeekMeets.ChangePasswordInteractor.callChangePasswordAPI(vCurrentPassword: Swift.String, vNewPassword: Swift.String) -&gt; ()"
-                  moduleName = "GeekMeets"
+                  symbolName = "Jointly.ChangePasswordInteractor.callChangePasswordAPI(vCurrentPassword: Swift.String, vNewPassword: Swift.String) -&gt; ()"
+                  moduleName = "Jointly"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/sotsys216/Documents/GeekMeets/geekmeetsios/GeekMeets/VIP/MenuScreens/AccountSettingVC/ChangePasswordVC/ChangePasswordInteractor.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "34"
                   endingLineNumber = "34"
-                  offsetFromSymbolStart = "168">
+                  offsetFromSymbolStart = "191">
                </Location>
                <Location
-                  uuid = "97363FA2-3004-4FF6-B4D6-4C3B7038D2E7 - 965cdd9415357946"
+                  uuid = "97363FA2-3004-4FF6-B4D6-4C3B7038D2E7 - d454be48ecda7eac"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;GeekMeets.CommonResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in GeekMeets.ChangePasswordInteractor.callChangePasswordAPI(vCurrentPassword: Swift.String, vNewPassword: Swift.String) -&gt; ()"
-                  moduleName = "GeekMeets"
+                  symbolName = "closure #1 (Swift.Optional&lt;Jointly.CommonResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Jointly.ChangePasswordInteractor.callChangePasswordAPI(vCurrentPassword: Swift.String, vNewPassword: Swift.String) -&gt; ()"
+                  moduleName = "Jointly"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/sotsys216/Documents/GeekMeets/geekmeetsios/GeekMeets/VIP/MenuScreens/AccountSettingVC/ChangePasswordVC/ChangePasswordInteractor.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "36"
                   endingLineNumber = "36"
-                  offsetFromSymbolStart = "180">
+                  offsetFromSymbolStart = "210">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -196,34 +228,34 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "6DEFF3DA-D742-4385-8E6B-496050C811F8 - ab14e1e96bc0d146"
+                  uuid = "6DEFF3DA-D742-4385-8E6B-496050C811F8 - 1d013a8314f7dff7"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "GeekMeets.InitialLoginInteractor.callSnapchatLogin(objLoginVC: GeekMeets.InitialLoginViewController) -&gt; ()"
-                  moduleName = "GeekMeets"
+                  symbolName = "Jointly.InitialLoginInteractor.callSnapchatLogin(objLoginVC: Jointly.InitialLoginViewController) -&gt; ()"
+                  moduleName = "Jointly"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/sotsys216/Documents/GeekMeets/geekmeetsios/GeekMeets/VIP/Main/InitialLogin/InitialLoginInteractor.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "68"
                   endingLineNumber = "68"
-                  offsetFromSymbolStart = "116">
+                  offsetFromSymbolStart = "34">
                </Location>
                <Location
-                  uuid = "6DEFF3DA-D742-4385-8E6B-496050C811F8 - fc5265bf026528f1"
+                  uuid = "6DEFF3DA-D742-4385-8E6B-496050C811F8 - 2bb20e4bf9fb0529"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Bool, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in GeekMeets.InitialLoginInteractor.callSnapchatLogin(objLoginVC: GeekMeets.InitialLoginViewController) -&gt; ()"
-                  moduleName = "GeekMeets"
+                  symbolName = "closure #1 (Swift.Bool, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Jointly.InitialLoginInteractor.callSnapchatLogin(objLoginVC: Jointly.InitialLoginViewController) -&gt; ()"
+                  moduleName = "Jointly"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/sotsys216/Documents/GeekMeets/geekmeetsios/GeekMeets/VIP/Main/InitialLogin/InitialLoginInteractor.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "70"
                   endingLineNumber = "70"
-                  offsetFromSymbolStart = "172">
+                  offsetFromSymbolStart = "148">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -256,7 +288,39 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "82"
             endingLineNumber = "82"
-            landmarkName = "callSocialSignInAPI(params:)"
+            landmarkName = "fetchSnapUserInfo()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D2237290-1A65-4835-8E06-DB9468E55F11"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GeekMeets/Application/AppDelegate/AppDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "application(_:open:options:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F6C2CB27-D0A5-430E-AF28-0D0A7DFBDDDD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GeekMeets/VIP/Main/InitialSignUp/InitialSignUpInteractor.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "callFBLogin()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

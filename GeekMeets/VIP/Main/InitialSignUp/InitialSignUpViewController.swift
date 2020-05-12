@@ -107,6 +107,7 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
         lblPrivacyTerm.enabledTypes.append(customType2)
         
         lblPrivacyTerm.customize { label in
+          
             label.text = "By clicking sign up, you agree to our Terms. Learn how we process your data in our privacy policy & Cookie Privacy"
             label.numberOfLines = 3
             label.lineSpacing = 0
@@ -167,6 +168,7 @@ extension  InitialSignUpViewController{
        /* } else {
           //   GIDSignIn.sharedInstance().signIn()
         }*/
+      
     }
     @IBAction func actionFacebookSignUp(_ sender: Any) {
         self.presenter?.callFBLogin()
@@ -178,7 +180,7 @@ extension  InitialSignUpViewController{
         self.presenter?.callSnapchatLoginRequest(objLoginVC : self)
     }
     @IBAction func actionAppleSignUp(_ sender: Any) {
-        
+      
     }
 }
 
@@ -188,16 +190,18 @@ extension InitialSignUpViewController : GIDSignInDelegate {
         
         //        LoaderView.sharedInstance.hideLoader()
         
-        if (error == nil) {
+        if (error == nil){
             
             print(user.authentication)
             print(user.profile.givenName)
             print(user.profile.familyName)
             print(user.profile.email)
-                        
+          
+            
             let param = RequestParameter.sharedInstance().googleSigninParams(tiSocialType : "2", accessKey: user.authentication.accessToken, service: "google", vUserName: user.profile.givenName, vEmailId: user.profile.email, vSocialId: user.userID, vImageUrl: user.profile.imageURL(withDimension: 120).absoluteString)
             
             self.presenter?.callGoogleSigninAPI(loginParams: param)
+          
         }
         else {
             print("\(error.localizedDescription)")
@@ -206,6 +210,8 @@ extension InitialSignUpViewController : GIDSignInDelegate {
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
 //        LoaderView.sharedInstance.hideLoader()
+      
         print(error?.localizedDescription ?? "")
+      
     }
 }
