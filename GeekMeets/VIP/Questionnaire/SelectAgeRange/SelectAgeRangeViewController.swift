@@ -13,9 +13,7 @@
 import UIKit
 
 protocol SelectAgeRangeProtocol: class {
-    func displaySomething()
     func displayQuesionsData(Data : [NSDictionary])
-   
 }
 
 struct QuestionaryModel {
@@ -78,21 +76,20 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        doSomething()
+//        doSomething()
     }
     
     func doSomething() {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         self.navigationController?.isNavigationBarHidden = true
-        self.presenter?.callQuestionnaireRequest()
+        self.objQuestionModel.arrQuestionnaire = callQuestionnaireApi()
+        self.displayQuesionsData(Data: self.objQuestionModel.arrQuestionnaire)
     }
+    
     override func viewWillAppear(_ animated: Bool) {
-        //     self.navigationController?.isNavigationBarHidden = true
         doSomething()
     }
-    func displaySomething() {
-        //nameTextField.text = viewModel.name
-    }
+
     func displayQuesionsData(Data: [NSDictionary]) {
         print(Data)
         self.objQuestionModel.arrQuestionnaire = Data
@@ -101,6 +98,7 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
             self.index = self.index + 1
             self.lblQuestionIndex.text = "\(self.index)/\(self.objQuestionModel.arrQuestionnaire.count)"
             self.lblTitle.text = "\(self.objQuestionModel.objQuestionnaire.title!)"
+            setQuestionData(index: self.index)
         } else {
             setQuestionData(index: self.index)
         }
@@ -126,7 +124,6 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
         self.selectedCellValues = []
         self.clnSelectAge.reloadData()
     }
-    
     
     //MARK: IBAction Method
     @IBAction func actionContinues(_ sender: Any) {

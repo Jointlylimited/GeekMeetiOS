@@ -17,6 +17,10 @@ import FBSDKLoginKit
 import AuthenticationServices
 import ActiveLabel
 
+protocol InstagramAuthenticationDelegate {
+    func fetchAuthToken(token : String)
+}
+
 protocol InitialSignUpProtocol: class {
 }
 
@@ -173,9 +177,13 @@ extension  InitialSignUpViewController{
     @IBAction func actionFacebookSignUp(_ sender: Any) {
         self.presenter?.callFBLogin()
     }
+    
     @IBAction func actionInstagramSignUp(_ sender: Any) {
-        
+        let instaVC = GeekMeets_StoryBoard.Main.instantiateViewController(withIdentifier: GeekMeets_ViewController.InstagramLoginScreen) as! InstagramLoginVC
+        instaVC.delegate = self
+        self.presentVC(instaVC)
     }
+    
     @IBAction func actionSnapchatSignUp(_ sender: Any) {
         self.presenter?.callSnapchatLoginRequest(objLoginVC : self)
     }
@@ -184,6 +192,11 @@ extension  InitialSignUpViewController{
     }
 }
 
+extension InitialSignUpViewController : InstagramAuthenticationDelegate {
+    func fetchAuthToken(token: String) {
+        print(token)
+    }
+}
 
 extension InitialSignUpViewController : GIDSignInDelegate {
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {

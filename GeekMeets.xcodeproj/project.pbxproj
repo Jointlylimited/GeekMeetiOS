@@ -153,6 +153,7 @@
 		0BF7081E244F1D6B003D6AB7 /* ReactEmojiCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF70815244F1D6B003D6AB7 /* ReactEmojiCollectionCell.swift */; };
 		0BF7081F244F1D6B003D6AB7 /* MessageListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF70817244F1D6B003D6AB7 /* MessageListCell.swift */; };
 		0BF70820244F1D6B003D6AB7 /* MessageListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BF70818244F1D6B003D6AB7 /* MessageListCell.xib */; };
+		0BFCD80F246A9847004A2282 /* InstagramLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFCD80E246A9847004A2282 /* InstagramLoginVC.swift */; };
 		0BFF2B612461779000DECEDD /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFF2B602461779000DECEDD /* LocationManager.swift */; };
 		E5B521D13F02F46FBABC5C21 /* Pods_GeekMeets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC146BF9C834F09E88494EB4 /* Pods_GeekMeets.framework */; };
 		F7164ABE244EB78600853BFC /* ForgotPasswordInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7164ABB244EB78500853BFC /* ForgotPasswordInteractor.swift */; };
@@ -437,6 +438,7 @@
 		0BF70815244F1D6B003D6AB7 /* ReactEmojiCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactEmojiCollectionCell.swift; sourceTree = "<group>"; };
 		0BF70817244F1D6B003D6AB7 /* MessageListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageListCell.swift; sourceTree = "<group>"; };
 		0BF70818244F1D6B003D6AB7 /* MessageListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageListCell.xib; sourceTree = "<group>"; };
+		0BFCD80E246A9847004A2282 /* InstagramLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramLoginVC.swift; sourceTree = "<group>"; };
 		0BFF2B602461779000DECEDD /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		0E5083CE45B37361B6D908A2 /* Pods-GeekMeets.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeekMeets.release.xcconfig"; path = "Target Support Files/Pods-GeekMeets/Pods-GeekMeets.release.xcconfig"; sourceTree = "<group>"; };
 		36A8046D3032A36E9F05BAA1 /* Pods-GeekMeets.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeekMeets.debug.xcconfig"; path = "Target Support Files/Pods-GeekMeets/Pods-GeekMeets.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1116,6 +1118,14 @@
 			path = MessageListCell;
 			sourceTree = "<group>";
 		};
+		0BFCD80D246A9819004A2282 /* InstagramLoginVC */ = {
+			isa = PBXGroup;
+			children = (
+				0BFCD80E246A9847004A2282 /* InstagramLoginVC.swift */,
+			);
+			path = InstagramLoginVC;
+			sourceTree = "<group>";
+		};
 		0BFF2B5F2461779000DECEDD /* LocationManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -1304,6 +1314,7 @@
 		F7CD7A4924442BCA00E02A9E /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				0BFCD80D246A9819004A2282 /* InstagramLoginVC */,
 				F7D5258C24481D73002D3A42 /* InitialLogin */,
 				F73002CC2446F49A00BDD7FD /* InitialSignUp */,
 				F7CD7A5024442F5100E02A9E /* TutorialPage */,
@@ -2259,6 +2270,7 @@
 				0B53566F2450870F005571AF /* MyMatchesInteractor.swift in Sources */,
 				0B921C2C24571BE40010AE04 /* SegmentedProgressBar.swift in Sources */,
 				F7780E35245AD667003CA4BD /* JSONEncodableEncoding.swift in Sources */,
+				0BFCD80F246A9847004A2282 /* InstagramLoginVC.swift in Sources */,
 				0B535688245088DC005571AF /* EditProfilePresenter.swift in Sources */,
 				F7780E3B245AD667003CA4BD /* UserAuthResponseField.swift in Sources */,
 				F7164AC0244EB78600853BFC /* ForgotPasswordPresenter.swift in Sources */,

@@ -42,6 +42,14 @@
 				<string>com.googleusercontent.apps.784959084971-42nkai7mqrspe87v6euc5gfe5d77uodi</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>https://geekmeets.com/snap_auth</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>

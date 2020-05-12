@@ -98,6 +98,7 @@ struct GeekMeets_ViewController
     static let NewMobileScreen =  "NewMobileNumberViewController"
     static let AddTextScreen =  "AddTextViewController"
     static let SubscriptionScreen =  "SubscriptionVC"
+    static let InstagramLoginScreen = "InstagramLoginVC"
 }
 
 struct Cells {
@@ -159,6 +160,17 @@ struct AppResponseCode {
     static let NO_DATA_FOUND = 204
 
 }
+
+struct INSTAGRAM_IDS {
+    static let INSTAGRAM_AUTHURL = "https://api.instagram.com/oauth/authorize/"
+    static let INSTAGRAM_APIURl  = "https://api.instagram.com/v1/users/"
+    static let INSTAGRAM_CLIENT_ID  = "274396683687750"
+    static let INSTAGRAM_CLIENTSERCRET = "4eeac737c36ea3bdf3e5df4725bba574"
+    static let INSTAGRAM_REDIRECT_URI = "REPLACE_YOUR_REDIRECT_URI_HERE"
+    static let INSTAGRAM_ACCESS_TOKEN =  "access_token"
+    static let INSTAGRAM_SCOPE = "likes+comments+relationships"
+}
+
 class AppSingleton: NSObject {
     
     //MARK: - Variables and IBOutlets

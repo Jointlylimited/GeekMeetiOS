@@ -55,7 +55,7 @@ class InitialSignUpInteractor: InitialSignUpInteractorProtocol, InitialSignUpDat
     }
   
     func callSnapchatLogin(objLoginVC : InitialSignUpViewController) {
-        SCSDKLoginClient.login(from: objLoginVC, completion: { success, error in
+        SCSDKLoginClient.login(from: AppDelObj.window!.rootViewController!, completion: { success, error in
 
             if let error = error {
                 print(error.localizedDescription)
