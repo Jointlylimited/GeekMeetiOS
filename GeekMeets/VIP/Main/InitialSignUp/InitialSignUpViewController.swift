@@ -94,6 +94,7 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
         GIDSignIn.sharedInstance()?.presentingViewController = self
         
         setLink()
+        
         //Facebook Logout
         let loginManager = LoginManager()
         loginManager.logOut()

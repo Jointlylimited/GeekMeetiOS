@@ -82,7 +82,7 @@ class DiscoverViewController: UIViewController, DiscoverProtocol {
     }
     
     func setStoryData(){
-        self.objStoryData = [StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Linda Parker"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 63"), userName: "Sophia"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Linda Parker"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 64"), userName: "Linda Parker"),StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Linda Parker"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 64"), userName: "Sophia"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Linda Parker"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Sophia"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Linda Parker"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 62"), userName: "Linda Parker"),StoryViewModel(userImage: #imageLiteral(resourceName: "image_1"), userName: "Linda Parker"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Sophia")]
+        self.objStoryData = [StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Linda Parker"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 63"), userName: "Sophia"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Lilly Ray"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 64"), userName: "Andre Jackson"),StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Vault Shade"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 64"), userName: "Sonia Parker"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Lipcy Kate"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Jack Man"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Paule Walker"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 62"), userName: "Cally Turner"),StoryViewModel(userImage: #imageLiteral(resourceName: "image_1"), userName: "Andy San"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Anny Ray")]
         self.StoryCollView.reloadData()
         self.AllStoryCollView.reloadData()
     }
@@ -99,9 +99,9 @@ class DiscoverViewController: UIViewController, DiscoverProtocol {
 //        controller!.modalPresentationStyle = .overCurrentContext
 //        controller!.delegate = self
 //        self.presentVC(controller!)
-      let searchVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: "PreviewViewController") as? PreviewViewController
+        let preViewVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.PreviewViewScreen) as? PreviewViewController
 
-             self.pushVC(searchVC!)
+        self.pushVC(preViewVC!)
     }
 }
 

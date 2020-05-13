@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0B0AC39F24583EF600B91DF5 /* UIAlertControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0AC39E24583EF600B91DF5 /* UIAlertControllerExtension.swift */; };
+		0B170D8A246BC7EF00CCDB53 /* UserEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B170D89246BC7EF00CCDB53 /* UserEntity.swift */; };
 		0B1CB98F2459429200DA9264 /* NewMobileNumberPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1CB98C2459429200DA9264 /* NewMobileNumberPresenter.swift */; };
 		0B1CB9902459429200DA9264 /* NewMobileNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1CB98D2459429200DA9264 /* NewMobileNumberViewController.swift */; };
 		0B1CB9912459429200DA9264 /* NewMobileNumberInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1CB98E2459429200DA9264 /* NewMobileNumberInteractor.swift */; };
@@ -290,6 +291,7 @@
 
 /* Begin PBXFileReference section */
 		0B0AC39E24583EF600B91DF5 /* UIAlertControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertControllerExtension.swift; sourceTree = "<group>"; };
+		0B170D89246BC7EF00CCDB53 /* UserEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntity.swift; sourceTree = "<group>"; };
 		0B1CB98C2459429200DA9264 /* NewMobileNumberPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMobileNumberPresenter.swift; sourceTree = "<group>"; };
 		0B1CB98D2459429200DA9264 /* NewMobileNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMobileNumberViewController.swift; sourceTree = "<group>"; };
 		0B1CB98E2459429200DA9264 /* NewMobileNumberInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMobileNumberInteractor.swift; sourceTree = "<group>"; };
@@ -1548,6 +1550,7 @@
 				F9EDD42B203BFF32008FA83F /* ResponseData.swift */,
 				F7780E40245AE324003CA4BD /* UserProfileModel.swift */,
 				0B51D29524602424005C7B88 /* UserDataModel.swift */,
+				0B170D89246BC7EF00CCDB53 /* UserEntity.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2166,6 +2169,7 @@
 				0B9499DE2451DBC4001AD1C8 /* TopGeeksPresenter.swift in Sources */,
 				0B5356722450870F005571AF /* BoostInteractor.swift in Sources */,
 				F7F967972451ABF400BD7275 /* SelectAgeRangeInteractor.swift in Sources */,
+				0B170D8A246BC7EF00CCDB53 /* UserEntity.swift in Sources */,
 				0B9499E02451DBC4001AD1C8 /* ContactUSCell.swift in Sources */,
 				0B46B0C5245865F3006E0D87 /* ChangeEmailMobilePresenter.swift in Sources */,
 				0B921C2824571BE40010AE04 /* PreViewController.swift in Sources */,

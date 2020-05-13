@@ -7,7 +7,8 @@
 //
 
 import UIKit
-
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 let AppDelObj : AppDelegate = AppDelegate.shared
 let authToken = Authentication.sharedInstance().getAutheticationToken()
@@ -92,6 +93,7 @@ struct GeekMeets_ViewController
     static let ReportScreen = "ReportViewController"
     static let SearchScreen = "SearchProfileViewController"
     static let StoryContentScreen = "ContentView"
+    static let PreviewViewScreen = "PreviewViewController"
     static let ChangePasswordScreen = "ChangePasswordViewController"
     static let MessageScreen = "MessagesViewController"
     static let ChangeEmailMobileScreen = "ChangeEmailMobileViewController"
@@ -166,7 +168,7 @@ struct INSTAGRAM_IDS {
     static let INSTAGRAM_APIURl  = "https://api.instagram.com/v1/users/"
     static let INSTAGRAM_CLIENT_ID  = "274396683687750"
     static let INSTAGRAM_CLIENTSERCRET = "4eeac737c36ea3bdf3e5df4725bba574"
-    static let INSTAGRAM_REDIRECT_URI = "REPLACE_YOUR_REDIRECT_URI_HERE"
+    static let INSTAGRAM_REDIRECT_URI = "http://yourcallback.com" //"REPLACE_YOUR_REDIRECT_URI_HERE"
     static let INSTAGRAM_ACCESS_TOKEN =  "access_token"
     static let INSTAGRAM_SCOPE = "likes+comments+relationships"
 }
@@ -218,6 +220,12 @@ class AppSingleton: NSObject {
     {
         UserDataModel.currentUser = nil
         Authentication.setLoggedInStatus(false)
+        
+        //Facebook Logout
+        let loginManager = LoginManager()
+        loginManager.logOut()
+        AccessToken.current = nil
+        
         let controller = GeekMeets_StoryBoard.Main.instantiateViewController(withIdentifier: GeekMeets_ViewController.InitialSignInScreen) as! InitialSignUpViewController
         let navController = UINavigationController.init(rootViewController: controller)
         navController.navigationBar.isHidden = true

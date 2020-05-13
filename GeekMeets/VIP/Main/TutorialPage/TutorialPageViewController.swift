@@ -84,7 +84,7 @@ class TutorialPageViewController: UIViewController, TutorialPageProtocol {
   {
       if pageControl.currentPage == self.tutorialData.count - 1
       {
-        
+        btnNext.setTitle("Continue",for: .normal)
 //          if UserResponse.isUserLoggedIn
 //          {
 //              self.navBar?.isHidden = false
@@ -106,9 +106,9 @@ class TutorialPageViewController: UIViewController, TutorialPageProtocol {
           if nextItem.row < tutorialData.count {
               self.clViewTutorial.scrollToItem(at: nextItem, at: .left, animated: true)
               pageControl.currentPage = nextItem.row
-            if nextItem.row == 2{
-              btnNext.setTitle("Continue",for: .normal)
-            }
+//            if nextItem.row == 2{
+              btnNext.setTitle("Next",for: .normal)
+//            }
           }
       }
   }
@@ -116,7 +116,6 @@ class TutorialPageViewController: UIViewController, TutorialPageProtocol {
     {
         
     }
-  
 }
 
 
@@ -139,15 +138,18 @@ extension TutorialPageViewController : UICollectionViewDelegate, UICollectionVie
              return screenSize
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView)
-    {
-      pageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-//        for cell in self.clViewTutorial.visibleCells
-//        {
-//          let indexpath = self.clViewTutorial.indexPath(for: cell)
-//          pageController.set(progress: (indexpath?.row)!, animated: true)
-//      }
-      
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // Parallax visible cells
+        let center = CGPoint(x: scrollView.contentOffset.x + (scrollView.frame.width / 2), y: (scrollView.frame.height / 2))
+        if let ip = clViewTutorial.indexPathForItem(at: center) {
+            self.pageControl.currentPage = ip.row
+            
+            if pageControl.currentPage == self.tutorialData.count - 1
+            {
+                btnNext.setTitle("Continue",for: .normal)
+            } else {
+                btnNext.setTitle("Next",for: .normal)
+            }
+        }
     }
- 
 }

@@ -57,38 +57,45 @@ class InitialSignUpInteractor: InitialSignUpInteractorProtocol, InitialSignUpDat
     func callSnapchatLogin(objLoginVC : InitialSignUpViewController) {
         SCSDKLoginClient.login(from: AppDelObj.window!.rootViewController!, completion: { success, error in
 
+            let authToken = SCSDKLoginClient.getAccessToken()
             if let error = error {
                 print(error.localizedDescription)
+                AppSingleton.sharedInstance().showAlert(error.localizedDescription, okTitle: "OK")
                 return
             }
 
             if success {
-                self.fetchSnapUserInfo() //example code
+                self.fetchSnapUserInfo({ (userEntity, error) in
+                    
+                    if let userEntity = userEntity {
+                        DispatchQueue.main.async {
+                            print(userEntity)
+                            self.presenter?.callSnapchatLoginResponse(token: authToken, entity: userEntity)
+                        }
+                    }
+                })
             }
         })
     }
         
-      
-        private func fetchSnapUserInfo(){
-            let graphQLQuery = "{me{displayName, bitmoji{avatar}}}"
-
-            SCSDKLoginClient
-                .fetchUserData(
-                    withQuery: graphQLQuery,
-                    variables: nil,
-                    success: { userInfo in
-
-                        if let userInfo = userInfo,
-                            let data = try? JSONSerialization.data(withJSONObject: userInfo, options: .prettyPrinted) {
-                              print(data)
-    //                        DispatchQueue.main.async {
-    //                            self.goToLoginConfirm(userEntity)
-    //                        }
-                        }
-                }) { (error, isUserLoggedOut) in
-                    print(error?.localizedDescription ?? "")
-            }
-        }
+      private func fetchSnapUserInfo(_ completion: @escaping ((UserEntity?, Error?) -> ())){
+          let graphQLQuery = "{me{displayName, bitmoji{avatar}}}"
+          
+          SCSDKLoginClient
+              .fetchUserData(
+                  withQuery: graphQLQuery,
+                  variables: nil,
+                  success: { userInfo in
+                      
+                      if let userInfo = userInfo,
+                          let data = try? JSONSerialization.data(withJSONObject: userInfo, options: .prettyPrinted),
+                          let userEntity = try? JSONDecoder().decode(UserEntity.self, from: data) {
+                          completion(userEntity, nil)
+                      }
+              }) { (error, isUserLoggedOut) in
+                  completion(nil, error)
+          }
+      }
     
     func callSocialSignInAPI(params: Dictionary<String, String>) {
         
@@ -96,7 +103,7 @@ class InitialSignUpInteractor: InitialSignUpInteractorProtocol, InitialSignUpDat
             
             if response?.responseCode == 200 {
                 self.presenter?.getLoginResponse(userData : response)
-            } else if response?.responseCode == 203 {
+            } else if response?.responseCode == 203 || response?.responseCode == 209 {
                 self.objConfig.googleSignOut()
                 AppSingleton.sharedInstance().logout()
             } else {

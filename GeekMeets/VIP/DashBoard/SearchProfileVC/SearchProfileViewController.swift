@@ -215,9 +215,9 @@ extension SearchProfileViewController : UITextFieldDelegate {
                 for data in self.objMsgData {
                     print(self.objFilterMsgData.count)
                     if data.userName.lowercased().contains(textField.text!) {
-                        if objFilterMsgData.count == 0 {
+//                        if objFilterMsgData.count == 0 {
                             self.objFilterMsgData.append(data)
-                        }
+//                        }
                     }
                 }
             }

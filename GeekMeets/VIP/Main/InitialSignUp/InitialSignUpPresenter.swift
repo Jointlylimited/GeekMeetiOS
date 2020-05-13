@@ -23,6 +23,7 @@ protocol InitialSignUpPresentationProtocol {
     
     func getLoginResponse(userData : UserAuthResponse?)
     func callSnapchatLoginRequest(objLoginVC : InitialSignUpViewController)
+    func callSnapchatLoginResponse(token: String, entity : UserEntity)
 }
 
 class InitialSignUpPresenter: InitialSignUpPresentationProtocol {
@@ -77,9 +78,11 @@ class InitialSignUpPresenter: InitialSignUpPresentationProtocol {
     }
     
     func callSnapchatLoginRequest(objLoginVC : InitialSignUpViewController){
-            
-                self.interactor?.callSnapchatLogin(objLoginVC : objLoginVC)
-            
-          }
+        self.interactor?.callSnapchatLogin(objLoginVC : objLoginVC)
+    }
     
+    func callSnapchatLoginResponse(token: String, entity : UserEntity){
+        let param = RequestParameter.sharedInstance().socialSigninParams(tiSocialType: "1", accessKey: token, service: "snapchat")
+        self.interactor?.callSocialSignInAPI(params: param)
+    }
 }

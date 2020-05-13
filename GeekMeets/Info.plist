@@ -23,7 +23,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>Jointly</string>
+				<string>jointly</string>
 			</array>
 		</dict>
 		<dict>
@@ -47,7 +47,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>https://geekmeets.com/snap_auth</string>
+				<string>jointly://snap-kit/auth2</string>
 			</array>
 		</dict>
 	</array>
@@ -77,9 +77,9 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>$(PROJECT_NAME) required access photo library for user profile</string>
 	<key>SCSDKClientId</key>
-	<string>7e23dee1-6072-4d4f-85c0-e9d034a15ccf</string>
+	<string>d80d6997-e6ce-436b-8bda-582e3f3cb95e</string>
 	<key>SCSDKRedirectUrl</key>
-	<string>https://geekmeets.com/snap_auth</string>
+	<string>jointly://snap-kit/auth2</string>
 	<key>SCSDKScopes</key>
 	<array>
 		<string>https://auth.snapchat.com/oauth2/api/user.display_name</string>
