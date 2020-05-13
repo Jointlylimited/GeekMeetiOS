@@ -32,7 +32,8 @@ class SignUpVCPresenter: SignUpVCPresentationProtocol {
     }
     
     func validateSignUpParams(param : Dictionary<String, String>) -> Bool {
-        
+        let Password = String(describing: param["vPassword"]!)
+        let ConfirmPassword = String(describing: param["vConfirmPassword"]!)
         if String(describing: param["vEmail"]!).isEmpty {
             self.viewController?.displayAlert(strTitle: "", strMessage: kEnterEmail)
             return false
@@ -44,7 +45,7 @@ class SignUpVCPresenter: SignUpVCPresentationProtocol {
         if String(describing: param["vPassword"]!).isEmpty {
             self.viewController?.displayAlert(strTitle: "", strMessage: kEnterPassword)
             return false
-        } else if String(describing: param["vPassword"]!).length < 6  {
+        } else if !Password.isPassword  {
             self.viewController?.displayAlert(strTitle: "", strMessage: kPasswordWeak)
             return false
         }
@@ -52,7 +53,7 @@ class SignUpVCPresenter: SignUpVCPresentationProtocol {
         if String(describing: param["vConfirmPassword"]!).isEmpty {
             self.viewController?.displayAlert(strTitle: "", strMessage: kEnterConfirmPassword)
             return false
-        } else if String(describing: param["vConfirmPassword"]!).length < 6  {
+        } else if !ConfirmPassword.isPassword {
             self.viewController?.displayAlert(strTitle: "", strMessage: kConfirmPasswordWeak)
             return false
         }
@@ -69,6 +70,9 @@ class SignUpVCPresenter: SignUpVCPresentationProtocol {
         
         if String(describing: param["vPhone"]!).isEmpty {
             self.viewController?.displayAlert(strTitle: "", strMessage: KEnterMobileNo)
+            return false
+        }else if !String(describing: param["vPhone"]!).isMobileNumber {
+            self.viewController?.displayAlert(strTitle: "", strMessage: KEnterValidMobileNo)
             return false
         }
         

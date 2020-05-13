@@ -46,7 +46,7 @@ class SignInPresenter: SignInPresentationProtocol {
 //        }
         if userName.isEmpty
         {
-            self.viewController?.displayAlert(strTitle: "", strMessage: kEnterUsername)
+            self.viewController?.displayAlert(strTitle: "", strMessage: kEnterEmail)
             return false
         }
         if password.isEmpty

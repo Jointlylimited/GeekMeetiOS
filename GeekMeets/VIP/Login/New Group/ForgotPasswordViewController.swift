@@ -14,6 +14,7 @@ import UIKit
 
 protocol ForgotPasswordProtocol: class {
     func getForgotPasswordResponse(response : CommonResponse)
+    func displayAlert(strTitle : String, strMessage : String)
 }
 
 class ForgotPasswordViewController: UIViewController, ForgotPasswordProtocol {
@@ -82,6 +83,10 @@ extension ForgotPasswordViewController{
 }
 
 extension ForgotPasswordViewController{
+  
+    func displayAlert(strTitle : String, strMessage : String) {
+        self.showAlert(title: strTitle, message: strMessage)
+    }
     func getForgotPasswordResponse(response : CommonResponse) {
         if response.responseCode == 200 {
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")

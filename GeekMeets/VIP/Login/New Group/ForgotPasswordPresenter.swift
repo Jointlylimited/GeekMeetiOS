@@ -23,8 +23,29 @@ class ForgotPasswordPresenter: ForgotPasswordPresentationProtocol {
     
     // MARK: Present something
     func callForgotPasswordAPI(email : String) {
+      if validateForgotPasswordRequest(email : email)
+      {
         self.interactor?.callForgotPasswordAPI(email : email)
+      }
     }
+  func validateForgotPasswordRequest(email : String) -> Bool
+      {
+  //        if !RechableObj.isNetwork()
+  //        {
+  //            self.viewController?.displayAlert(strMessage: kInternetConnection)
+  //            return false
+  //        }
+          if email.isEmpty
+          {
+              self.viewController?.displayAlert(strTitle: "", strMessage: kEnterEmail)
+              return false
+          }else if email.isEmail {
+              self.viewController?.displayAlert(strTitle: "", strMessage: kEnterValidEmail)
+              return false
+          }
+          
+          return true
+      }
     
     func getForgotPasswordResponse(response : CommonResponse) {
         self.viewController?.getForgotPasswordResponse(response: response)

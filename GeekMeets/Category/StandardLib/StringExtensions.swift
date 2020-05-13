@@ -641,7 +641,22 @@ extension String {
         // http://stackoverflow.com/questions/25471114/how-to-validate-an-e-mail-address-in-swift
         return matches(pattern: "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
     }
+  var isPassword: Bool {
+      // http://stackoverflow.com/questions/25471114/how-to-validate-an-e-mail-address-in-swift
+      return validpassword(mypassword : self)
+  }
+  
+  
     
+
+    func validpassword(mypassword : String) -> Bool
+        {
+
+            let passwordreg =  ("(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[@#$%^&*]).{8,20}")
+            let passwordtesting = NSPredicate(format: "SELF MATCHES %@", passwordreg)
+            return passwordtesting.evaluate(with: mypassword)
+        }
+  
     public var isMobileNumber: Bool{
            do {
                let detector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.phoneNumber.rawValue)
