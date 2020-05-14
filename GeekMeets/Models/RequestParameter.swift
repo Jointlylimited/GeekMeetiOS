@@ -21,7 +21,7 @@ class RequestParameter: NSObject {
         return self.instance
     }
     
-    func signUpParam(vEmail: String, vPassword:String, vConfirmPassword:String, vCountryCode: String, vPhone : String, termsChecked : String, vProfileImage:String, vName:String, dDob:String, tiAge:String, tiGender:String, iCurrentStatus:String, txCompanyDetail:String, txAbout:String, photos:String, vTimeOffset:String, vTimeZone:String) -> Dictionary<String, String> {
+    func signUpParam(vEmail: String, vPassword:String, vConfirmPassword:String, vCountryCode: String, vPhone : String, termsChecked : String, vProfileImage:String, vName:String, dDob:String, tiAge:String, tiGender:String, iCurrentStatus:String, txCompanyDetail:String, txAbout:String, photos:String, vTimeOffset:String, vTimeZone:String, vSocialId : String, fLatitude : String, fLongitude: String) -> Dictionary<String, String> {
         var requestDictionary : Dictionary<String, String> = Dictionary()
         requestDictionary["vEmail"] = vEmail
         requestDictionary["vPassword"] = vPassword
@@ -41,7 +41,9 @@ class RequestParameter: NSObject {
         requestDictionary["photos"] = photos
         requestDictionary["vTimeOffset"] = vTimeOffset
         requestDictionary["vTimeZone"] = vTimeZone
-        
+        requestDictionary["vSocialId"] = vSocialId
+        requestDictionary["fLatitude"] = fLatitude
+        requestDictionary["fLongitude"] = fLongitude
         
         requestDictionary["vDeviceToken"] = vDeviceToken
         requestDictionary["eDeviceType"] = eDeviceType

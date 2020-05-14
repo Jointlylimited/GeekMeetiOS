@@ -15,7 +15,7 @@ let kAuthKey = "vAuthKey"
 
 
 //Messages
-
+let NoInternetConnection = "No internet connection"
 let kInternetConnection = "Please check your internet connection"
 let kEnterFullName = "Please enter full name"
 let kEnterFirstName = "Please enter first name"
@@ -28,7 +28,8 @@ let kEnterOldPassword = "Please enter current Password"
 let kEnterNewPassword = "Please enter new Password"
 let kEnterConfirmPassword = "Confirm password cannot be blank"
 let kPasswordNotMatch = "Password doesn’t match"
-let kPasswordWeak = "Password must contain at least 8 characters including UPPER/Lowercase,Number,Spacial Character"
+let kPasswordWeak = "Password should contain min. 8 characters, One digit, Special characters, Upper case & Lower case letter" // "Password must contain at least 8 characters including UPPER/Lowercase,Number,Spacial Character"
+let kNewPasswordWeak = "New Password should contain min. 8 characters, One digit, Special characters, Upper case & Lower case letter"
 let kConfirmPasswordWeak = "Please enter Confirm Password at least 6 characters"
 let kSelectCountryCode = "Select country code"
 let kSelectUserProfile = "Select User Profile"

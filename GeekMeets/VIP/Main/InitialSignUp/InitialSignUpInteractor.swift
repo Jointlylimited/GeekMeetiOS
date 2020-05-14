@@ -79,7 +79,7 @@ class InitialSignUpInteractor: InitialSignUpInteractorProtocol, InitialSignUpDat
     }
         
       private func fetchSnapUserInfo(_ completion: @escaping ((UserEntity?, Error?) -> ())){
-          let graphQLQuery = "{me{displayName, bitmoji{avatar}}}"
+          let graphQLQuery = "{me{displayName bitmoji{avatar} externalId}}" // "{me{displayName, bitmoji{avatar}}}"
           
           SCSDKLoginClient
               .fetchUserData(
@@ -103,10 +103,14 @@ class InitialSignUpInteractor: InitialSignUpInteractorProtocol, InitialSignUpDat
             
             if response?.responseCode == 200 {
                 self.presenter?.getLoginResponse(userData : response)
-            } else if response?.responseCode == 203 || response?.responseCode == 209 {
+            } else if response?.responseCode == 203 {
                 self.objConfig.googleSignOut()
                 AppSingleton.sharedInstance().logout()
-            } else {
+            } else if response?.responseCode == 209 {
+                let data = response?.responseData
+                self.presenter?.gotoSignUpScreen(signParams : data!)
+            }
+            else {
                 self.objConfig.googleSignOut()
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")

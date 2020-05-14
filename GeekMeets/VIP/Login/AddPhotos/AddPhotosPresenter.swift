@@ -28,7 +28,11 @@ class AddPhotosPresenter: AddPhotosPresentationProtocol {
             self.viewController?.displayAlert(strTitle: "", strMessage: kAddPhotos)
             return
         } else {
+            if signParams["vSocialId"]! != "" {
+                self.interactor?.callSocialSignUpAPI(signParams : signParams)
+            } else {
             self.interactor?.callUserSignUpAPI(signParams : signParams)
+            }
         }
     }
     

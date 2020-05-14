@@ -90,6 +90,12 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
     
     func doSomething() {
         
+        if UserDataModel.currentUser != nil {
+            let user = UserDataModel.currentUser
+            self.tfName.text = user?.vName
+            self.tfDoB.text = user?.dDob
+        }
+        
         self.datePicker.maximumDate = Date()
         scrollView.delegate = self
         self.navigationController?.isNavigationBarHidden = false
@@ -149,7 +155,7 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
     
     @IBAction func actionContinue(_ sender: Any) {
         
-        let params = RequestParameter.sharedInstance().signUpParam(vEmail: signUpParams!["vEmail"]!, vPassword: signUpParams!["vPassword"]!, vConfirmPassword : signUpParams!["vConfirmPassword"]!, vCountryCode: signUpParams!["vCountryCode"]!, vPhone: signUpParams!["vPhone"]!, termsChecked : signUpParams!["termsChecked"]!, vProfileImage: self.imgString, vName: tfName.text ?? "", dDob: tfDoB.text ?? "", tiAge: "\(tiAge)", tiGender: selectedGender, iCurrentStatus: currentStatus, txCompanyDetail: tfCompanyDetail.text ?? "", txAbout: tfAbout.text ?? "", photos: "", vTimeOffset: "", vTimeZone: "")
+       let params = RequestParameter.sharedInstance().signUpParam(vEmail: signUpParams!["vEmail"]!, vPassword: signUpParams!["vPassword"]!, vConfirmPassword : signUpParams!["vConfirmPassword"]!, vCountryCode: signUpParams!["vCountryCode"]!, vPhone: signUpParams!["vPhone"]!, termsChecked : signUpParams!["termsChecked"]!, vProfileImage: self.imgString, vName: tfName.text ?? "", dDob: tfDoB.text?.inputDateStrToAPIDateStr(dateStr: tfDoB.text!) ?? "", tiAge: "\(tiAge)", tiGender: selectedGender, iCurrentStatus: currentStatus, txCompanyDetail: tfCompanyDetail.text ?? "", txAbout: tfAbout.text ?? "", photos: "", vTimeOffset: "", vTimeZone: "", vSocialId : signUpParams!["vSocialId"]!, fLatitude : signUpParams!["fLatitude"]!, fLongitude: signUpParams!["fLongitude"]!)
         
       self.presenter?.callSignUpRequest(signUpParams: params,profileimg: imgprofile.image!)
     }

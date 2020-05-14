@@ -24,6 +24,8 @@ protocol InitialSignUpPresentationProtocol {
     func getLoginResponse(userData : UserAuthResponse?)
     func callSnapchatLoginRequest(objLoginVC : InitialSignUpViewController)
     func callSnapchatLoginResponse(token: String, entity : UserEntity)
+    
+    func gotoSignUpScreen(signParams : UserAuthResponseField)
 }
 
 class InitialSignUpPresenter: InitialSignUpPresentationProtocol {
@@ -84,5 +86,15 @@ class InitialSignUpPresenter: InitialSignUpPresentationProtocol {
     func callSnapchatLoginResponse(token: String, entity : UserEntity){
         let param = RequestParameter.sharedInstance().socialSigninParams(tiSocialType: "1", accessKey: token, service: "snapchat")
         self.interactor?.callSocialSignInAPI(params: param)
+    }
+    
+    //MARK: If user not registered go to sign up screen
+    func gotoSignUpScreen(signParams : UserAuthResponseField){
+        let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.SignUpScreen) as? SignUpVCViewController
+        UserDataModel.currentUser = signParams
+        if let view = self.viewController as? UIViewController
+        {
+            view.pushVC(controller!)
+        }
     }
 }

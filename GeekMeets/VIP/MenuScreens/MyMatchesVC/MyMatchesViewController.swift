@@ -73,6 +73,13 @@ class MyMatchesViewController: UIViewController, MyMatchesProtocol {
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.popVC()
     }
+    
+    @IBAction func btnSearchAction(_ sender: UIButton) {
+        let searchVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.SearchScreen) as? SearchProfileViewController
+        searchVC?.objMsgData = self.objMsgData
+        searchVC?.isFromDiscover = false
+        self.pushVC(searchVC!)
+    }
 }
 
 extension MyMatchesViewController : UITableViewDataSource, UITableViewDelegate {

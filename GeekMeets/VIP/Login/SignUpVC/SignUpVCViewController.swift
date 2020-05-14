@@ -17,21 +17,22 @@ protocol SignUpVCProtocol: class {
 }
 
 class SignUpVCViewController: UIViewController, SignUpVCProtocol {
-
-  
+    
+    
     //var interactor : SignUpVCInteractorProtocol?
     var presenter : SignUpVCPresentationProtocol?
     
-  @IBOutlet weak var tfEmailAddress: BottomBorderTF!
-  @IBOutlet weak var tfPassword: BottomBorderTF!
-  @IBOutlet weak var tfConfirmPassword: BottomBorderTF!
-  @IBOutlet weak var tfMobileNumber: BottomBorderTF!
-  @IBOutlet weak var btnContinue: GradientButton!
-  @IBOutlet weak var btnCountrycode: UIButton!
-  
-  var termsChecked : String = "0"
+    @IBOutlet weak var tfEmailAddress: BottomBorderTF!
+    @IBOutlet weak var tfPassword: BottomBorderTF!
+    @IBOutlet weak var tfConfirmPassword: BottomBorderTF!
+    @IBOutlet weak var tfMobileNumber: BottomBorderTF!
+    @IBOutlet weak var btnContinue: GradientButton!
+    @IBOutlet weak var btnCountrycode: UIButton!
     
-  // MARK: Object lifecycle
+    var termsChecked : String = "0"
+    var authResponse : UserAuthResponseField!
+    
+    // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -71,51 +72,57 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-       self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
-
+    
     func doSomething() {
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
-            self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
-            self.navigationItem.leftBarButtonItem = leftSideBackBarButton
-            self.navigationController?.navigationBar.barTintColor = UIColor.white
-      
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
+        self.navigationItem.leftBarButtonItem = leftSideBackBarButton
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
+        
+        if UserDataModel.currentUser != nil {
+            let user = UserDataModel.currentUser
+            self.tfEmailAddress.text = user?.vEmail
+            self.btnCountrycode.titleLabel?.text = user?.vCountryCode
+            self.tfMobileNumber.text = user?.vPhone
+        }
     }
-  
+    
     func setCountryPickerData(_ country : Country)
-      {
-
-          btnCountrycode.setTitle(country.dialingCode, for: .normal)
-//          btnCountryCode.setImage(country.flag?.resizeImage(targetSize:  CGSize(width: btnCountryCode.frame.height / 2, height: btnCountryCode.frame.height / 2)).withRenderingMode(.alwaysOriginal), for: .normal)
-      }
+    {
+        
+        btnCountrycode.setTitle(country.dialingCode, for: .normal)
+        //          btnCountryCode.setImage(country.flag?.resizeImage(targetSize:  CGSize(width: btnCountryCode.frame.height / 2, height: btnCountryCode.frame.height / 2)).withRenderingMode(.alwaysOriginal), for: .normal)
+    }
     
-  //MARK: IBAction Method
-  func displayAlert(strTitle : String, strMessage : String) {
-      self.showAlert(title: strTitle, message: strMessage)
-  }
-  @IBAction func actionContinue(_ sender: Any) {
+    //MARK: IBAction Method
+    func displayAlert(strTitle : String, strMessage : String) {
+        self.showAlert(title: strTitle, message: strMessage)
+    }
+    @IBAction func actionContinue(_ sender: Any) {
+        
+        let params = RequestParameter.sharedInstance().signUpParam(vEmail: tfEmailAddress.text ?? "", vPassword: tfPassword?.text ?? "", vConfirmPassword : tfConfirmPassword.text ?? "", vCountryCode: btnCountrycode.titleLabel?.text ?? "", vPhone: tfMobileNumber.text ?? "", termsChecked : termsChecked, vProfileImage: "", vName: "", dDob: "", tiAge: "", tiGender: "", iCurrentStatus: "", txCompanyDetail: "", txAbout: "", photos: "", vTimeOffset: "", vTimeZone: "", vSocialId : UserDataModel.currentUser == nil ? "" : (UserDataModel.currentUser?.vSocialId!)!, fLatitude : "0.0", fLongitude: "0.0")
+        
+        self.presenter?.callSignUpRequest(signUpParams: params)
+    }
     
-    let params = RequestParameter.sharedInstance().signUpParam(vEmail: tfEmailAddress.text ?? "", vPassword: tfPassword?.text ?? "", vConfirmPassword : tfConfirmPassword.text ?? "", vCountryCode: btnCountrycode.titleLabel?.text ?? "", vPhone: tfMobileNumber.text ?? "", termsChecked : termsChecked, vProfileImage: "", vName: "", dDob: "", tiAge: "", tiGender: "", iCurrentStatus: "", txCompanyDetail: "", txAbout: "", photos: "", vTimeOffset: "", vTimeZone: "")
     
-    self.presenter?.callSignUpRequest(signUpParams: params)
-  }
-  
-  
-  @IBAction func actionSelectCountryCode(_ sender: Any) {
+    @IBAction func actionSelectCountryCode(_ sender: Any) {
         CountryPickerWithSectionViewController.presentController(on: self) { (country: Country) in
-                        self.setCountryPickerData(country)
-                    }
-  }
-  @IBAction func btnPasswordShowHideClick(_ sender : UIButton)
-     {
-         sender.isSelected = !sender.isSelected
-         tfPassword.isSecureTextEntry = !sender.isSelected
-     }
-  @IBAction func btnConfirmPasswordShowHideClick(_ sender : UIButton)
-     {
-         sender.isSelected = !sender.isSelected
-         tfConfirmPassword.isSecureTextEntry = !sender.isSelected
-     }
+            self.setCountryPickerData(country)
+        }
+    }
+    @IBAction func btnPasswordShowHideClick(_ sender : UIButton)
+    {
+        sender.isSelected = !sender.isSelected
+        tfPassword.isSecureTextEntry = !sender.isSelected
+    }
+    @IBAction func btnConfirmPasswordShowHideClick(_ sender : UIButton)
+    {
+        sender.isSelected = !sender.isSelected
+        tfConfirmPassword.isSecureTextEntry = !sender.isSelected
+    }
     @IBAction func btnAgreeDisagree(_ sender : UIButton)
     {
         sender.isSelected = !sender.isSelected

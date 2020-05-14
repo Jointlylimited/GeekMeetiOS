@@ -1566,5 +1566,53 @@ extension String {
         return (self as NSString).appendingPathExtension(str)
     }
     
+    func strDateTODateStr(dateStr : String) -> String {
+        if dateStr != "" {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd" //"2014-01-12"
+            let date = dateFormatter.date(from: dateStr)!
+            print(date)
+            
+            //CONVERT FROM NSDate to String
+            let dateFormatter1 = DateFormatter()
+            dateFormatter1.dateFormat = "dd/MM/yyyy"
+            let dateStr = dateFormatter1.string(from: date)
+            
+            return dateStr
+        } else {
+            return ""
+        }
+    }
+    
+    func inputDateStrToAPIDateStr(dateStr : String) -> String {
+        if dateStr != "" {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd/MM/yyyy" //"May 04, 2012"
+            let date = dateFormatter.date(from: dateStr)!
+            print(date)
+            
+            //CONVERT FROM NSDate to String
+            let dateFormatter1 = DateFormatter()
+            dateFormatter1.dateFormat = "yyyy-MM-dd"
+            let dateStr = dateFormatter1.string(from: date)
+            
+            return dateStr
+        } else {
+            return ""
+        }
+    }
+    
+    func strDateTODate(dateStr : String) -> Date {
+        if dateStr != "" {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd" //"2014-01-12"
+            let date = dateFormatter.date(from: dateStr)!
+            print(date)
+            
+            return date
+        } else {
+            return Date()
+        }
+    }
 }
 
