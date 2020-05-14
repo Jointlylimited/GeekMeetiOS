@@ -29,6 +29,7 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
     var imgsUserPhotos:[UIImage] = []
     var imgsUserPhotosDict:[NSDictionary] = []
     var signUpParams : Dictionary<String, String>?
+    var imgProfile : UIImage?
     var location:CLLocation?
     
     // MARK: Object lifecycle
@@ -74,6 +75,11 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
         self.navigationController?.isNavigationBarHidden = false
         self.navigationItem.leftBarButtonItem = leftSideBackBarButton
         self.navigationController?.navigationBar.barTintColor = UIColor.white
+      
+        // Profile image set
+      
+      imgsUserPhotos.append(imgProfile!)
+      imgsUserPhotosStr.append(signUpParams!["vProfileImage"]!)
     }
 
     //MARK: IBAction Method
@@ -130,7 +136,10 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
 extension AddPhotosViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,OptionButtonsDelegate
 {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 9
+      if imgsUserPhotos.count == 20{
+        return imgsUserPhotos.count
+      }
+      return imgsUserPhotos.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
@@ -186,7 +195,9 @@ extension AddPhotosViewController: UICollectionViewDelegate, UICollectionViewDat
 extension AddPhotosViewController:  UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        picker.dismiss(animated: true, completion: nil)
+        let image = info[UIImagePickerController.InfoKey.originalImage]
+             picker.dismiss(animated: true, completion: nil)
+            var imgTemp:UIImage = image as! UIImage
         if #available(iOS 11.0, *) {
             if let asset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset{
                 if let fileName = asset.value(forKey: "filename") as? String{
@@ -196,13 +207,18 @@ extension AddPhotosViewController:  UINavigationControllerDelegate, UIImagePicke
                     imgsUserPhotosDict.append(dict as NSDictionary)
                 }
             }
+             let imgString = (info[UIImagePickerController.InfoKey.imageURL] as! URL).lastPathComponent
+            imgsUserPhotosStr.append(imgString)
+          
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-                self.imgsUserPhotos.append(image)
+//                self.imgsUserPhotos.append(image)
+              imgTemp = image
             }
             self.clnAddPhoto.reloadData()
         } else {
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-                self.imgsUserPhotos.append(image)
+//                self.imgsUserPhotos.append(image)
+                  imgTemp = image
                 if let imageURL = info[UIImagePickerController.InfoKey.referenceURL] as? URL {
                     let result = PHAsset.fetchAssets(withALAssetURLs: [imageURL], options: nil)
                     let assetResources = PHAssetResource.assetResources(for: result.firstObject!)
@@ -215,6 +231,23 @@ extension AddPhotosViewController:  UINavigationControllerDelegate, UIImagePicke
                 }
             }
         }
+      
+      
+      
+      let imgData = NSData(data: (imgTemp).jpegData(compressionQuality: 1)!)
+         var imageSize: Int = imgData.count
+         print("actual size of image in KB: %f ", Double(imageSize) / 1000.0)
+         
+         if (Double(imageSize) / 1000.0) > 5000{
+           let imgDataa = NSData(data: (imgTemp).jpegData(compressionQuality: 0.5)!)
+           let image = UIImage(data: imgDataa as Data)
+            self.imgsUserPhotos.append(image!)
+         }else{
+           self.imgsUserPhotos.append(imgTemp)
+         }
+      
+      
+      
         clnAddPhoto.reloadData()
     }
     

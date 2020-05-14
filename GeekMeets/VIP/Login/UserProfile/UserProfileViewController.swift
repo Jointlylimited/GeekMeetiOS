@@ -34,9 +34,10 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
     @IBOutlet weak var btnOther: UIButton!
     @IBOutlet weak var btnPreferNottoSay: UIButton!
     
-    var signUpParams : Dictionary<String, String>?
+  @IBOutlet weak var lblCompanynsdSchoolDetail: UILabel!
+  var signUpParams : Dictionary<String, String>?
     var selectedGender : String = "0"
-    var currentStatus : String = "0"
+    var currentStatus : String = "1"
     var imgString : String = ""
     var tiAge : Int = 0
     
@@ -134,6 +135,14 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
         
         sender.isSelected = true
         currentStatus = "\(sender.tag)"
+      if currentStatus == "1"{
+        lblCompanynsdSchoolDetail.text = "Enter Company Detail"
+        tfCompanyDetail.placeholder = "Enter Company Name / Designation Name"
+      }else{
+        
+        lblCompanynsdSchoolDetail.text = "Enter College/School Detail"
+        tfCompanyDetail.placeholder = "Enter College/School Name"
+      }
         
     }
     
@@ -142,7 +151,7 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
         
         let params = RequestParameter.sharedInstance().signUpParam(vEmail: signUpParams!["vEmail"]!, vPassword: signUpParams!["vPassword"]!, vConfirmPassword : signUpParams!["vConfirmPassword"]!, vCountryCode: signUpParams!["vCountryCode"]!, vPhone: signUpParams!["vPhone"]!, termsChecked : signUpParams!["termsChecked"]!, vProfileImage: self.imgString, vName: tfName.text ?? "", dDob: tfDoB.text ?? "", tiAge: "\(tiAge)", tiGender: selectedGender, iCurrentStatus: currentStatus, txCompanyDetail: tfCompanyDetail.text ?? "", txAbout: tfAbout.text ?? "", photos: "", vTimeOffset: "", vTimeZone: "")
         
-        self.presenter?.callSignUpRequest(signUpParams: params)
+      self.presenter?.callSignUpRequest(signUpParams: params,profileimg: imgprofile.image!)
     }
     
     func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
@@ -183,6 +192,7 @@ extension UserProfileViewController:  UINavigationControllerDelegate, UIImagePic
 //    imgprofile.image = image as! UIImage
 //     picker.dismiss(animated: true, completion: nil);
      picker.dismiss(animated: true, completion: nil)
+    var imgTemp:UIImage = image as! UIImage
      if #available(iOS 11.0, *) {
          if let asset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset{
              if let fileName = asset.value(forKey: "filename") as? String{
@@ -190,15 +200,18 @@ extension UserProfileViewController:  UINavigationControllerDelegate, UIImagePic
                  self.imgString = fileName
              }
          }else{
+          
             self.imgString = (info[UIImagePickerController.InfoKey.imageURL] as! URL).lastPathComponent
             
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-                self.imgprofile.image = image
+                            imgTemp = image
+
+              
             }
         }
      } else {
          if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-                 self.imgprofile.image = image
+                 imgTemp = image
              if let imageURL = info[UIImagePickerController.InfoKey.referenceURL] as? URL {
                  let result = PHAsset.fetchAssets(withALAssetURLs: [imageURL], options: nil)
                  let assetResources = PHAssetResource.assetResources(for: result.firstObject!)
@@ -208,8 +221,20 @@ extension UserProfileViewController:  UINavigationControllerDelegate, UIImagePic
              }
          }
      }
-  }
-  
+    
+    
+    let imgData = NSData(data: (imgTemp).jpegData(compressionQuality: 1)!)
+    var imageSize: Int = imgData.count
+    print("actual size of image in KB: %f ", Double(imageSize) / 1000.0)
+    
+    if (Double(imageSize) / 1000.0) > 5000{
+      let imgDataa = NSData(data: (imgTemp).jpegData(compressionQuality: 0.5)!)
+      let image = UIImage(data: imgDataa as Data)
+      self.imgprofile.image = image
+    }else{
+      self.imgprofile.image = imgTemp
+    }
+}
   func Getimage(){
     let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
            alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in

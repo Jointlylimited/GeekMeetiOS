@@ -13,17 +13,19 @@
 import UIKit
 
 protocol UserProfilePresentationProtocol {
-    func callSignUpRequest(signUpParams : Dictionary<String, String>)
+    func callSignUpRequest(signUpParams : Dictionary<String, String>,profileimg: UIImage)
 }
 
 class UserProfilePresenter: UserProfilePresentationProtocol {
     weak var viewController: UserProfileProtocol?
     var interactor: UserProfileInteractorProtocol?
+  
     
     
-    func callSignUpRequest(signUpParams : Dictionary<String, String>){
+  func callSignUpRequest(signUpParams : Dictionary<String, String>,profileimg: UIImage){
         if validateSignUpParams(param: signUpParams) {
-            self.actionContinue(signUpParams : signUpParams)
+           
+            self.actionContinue(signUpParams : signUpParams,profileimg: profileimg)
         }
     }
     
@@ -40,8 +42,14 @@ class UserProfilePresenter: UserProfilePresentationProtocol {
         }
         
         if String(describing: param["txCompanyDetail"]!).isEmpty {
-            self.viewController?.displayAlert(strTitle: "", strMessage: kEnterCompanyDetail)
+            if String(describing: param["iCurrentStatus"]!) == "1" {
+                self.viewController?.displayAlert(strTitle: "", strMessage: kEnterCompanyDetail)
+                return false
+            }else{
+          
+            self.viewController?.displayAlert(strTitle: "", strMessage: kEnterCollageSchoolDetail)
             return false
+          }
         }
         
         if String(describing: param["txAbout"]!).isEmpty {
@@ -56,10 +64,11 @@ class UserProfilePresenter: UserProfilePresentationProtocol {
         return true
     }
     
-    func actionContinue(signUpParams : Dictionary<String, String>) {
+    func actionContinue(signUpParams : Dictionary<String, String>,profileimg: UIImage){
         
         let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.AddPhotos)  as! AddPhotosViewController
         controller.signUpParams = signUpParams
+        controller.imgProfile = profileimg
         if let view = self.viewController as? UIViewController
         {
             view.pushVC(controller)
