@@ -206,9 +206,24 @@ extension AddPhotosViewController:  UINavigationControllerDelegate, UIImagePicke
                     let dict = ["vMedia":fileName, "tiMediaType":1, "fHeight":asset.pixelHeight, "fWidth": asset.pixelWidth] as [String : Any]
                     imgsUserPhotosDict.append(dict as NSDictionary)
                 }
-            }
-             let imgString = (info[UIImagePickerController.InfoKey.imageURL] as! URL).lastPathComponent
-            imgsUserPhotosStr.append(imgString)
+            }else{
+              if (picker.sourceType == UIImagePickerController.SourceType.camera) {
+
+                      let imgName = UUID().uuidString
+                      let documentDirectory = NSTemporaryDirectory()
+                      let localPath = documentDirectory.appending(imgName)
+
+                let data = (info[UIImagePickerController.InfoKey.originalImage] as? UIImage)!.jpegData(compressionQuality: 0.3)! as NSData
+                      data.write(toFile: localPath, atomically: true)
+                      let photoURL = URL.init(fileURLWithPath: localPath)
+                      imgsUserPhotosStr.append(localPath)
+
+                  }else{
+                    let imgString = (info[UIImagePickerController.InfoKey.imageURL] as! URL).lastPathComponent
+                    imgsUserPhotosStr.append(imgString)
+                    }
+              }
+             
           
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
 //                self.imgsUserPhotos.append(image)

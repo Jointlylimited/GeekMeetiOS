@@ -206,15 +206,28 @@ extension UserProfileViewController:  UINavigationControllerDelegate, UIImagePic
                  self.imgString = fileName
              }
          }else{
-          
-            self.imgString = (info[UIImagePickerController.InfoKey.imageURL] as! URL).lastPathComponent
-            
+         if (picker.sourceType == UIImagePickerController.SourceType.camera) {
+
+                 let imgName = UUID().uuidString
+                 let documentDirectory = NSTemporaryDirectory()
+                 let localPath = documentDirectory.appending(imgName)
+
+           let data = (info[UIImagePickerController.InfoKey.originalImage] as? UIImage)!.jpegData(compressionQuality: 0.3)! as NSData
+                 data.write(toFile: localPath, atomically: true)
+                 let photoURL = URL.init(fileURLWithPath: localPath)
+                  self.imgString = localPath
+
+             }else{
+               let imgString = (info[UIImagePickerController.InfoKey.imageURL] as! URL).lastPathComponent
+                self.imgString = imgString
+               }
+         }
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                             imgTemp = image
 
-              
-            }
-        }
+          }
+            
+        
      } else {
          if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                  imgTemp = image
