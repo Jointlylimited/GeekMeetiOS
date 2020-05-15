@@ -90,11 +90,20 @@ class InitialSignUpPresenter: InitialSignUpPresentationProtocol {
     
     //MARK: If user not registered go to sign up screen
     func gotoSignUpScreen(signParams : UserAuthResponseField){
-        let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.SignUpScreen) as? SignUpVCViewController
-        UserDataModel.currentUser = signParams
-        if let view = self.viewController as? UIViewController
-        {
-            view.pushVC(controller!)
+        if signParams.vEmail == "" || signParams.vPhone == "" {
+            let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.SignUpScreen) as? SignUpVCViewController
+            UserDataModel.currentUser = signParams
+            if let view = self.viewController as? UIViewController
+            {
+                view.pushVC(controller!)
+            }
+        } else {
+            let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.UserProfile) as! UserProfileViewController
+            
+            if let view = self.viewController as? UIViewController
+            {
+                view.pushVC(controller)
+            }
         }
     }
 }

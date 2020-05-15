@@ -24,7 +24,6 @@ class CommonCellModel {
     }
 }
 
-
 protocol DiscoverySettingProtocol: class {
 }
 
@@ -33,10 +32,15 @@ class DiscoverySettingViewController: UIViewController, DiscoverySettingProtocol
     var presenter : DiscoverySettingPresentationProtocol?
     
     @IBOutlet weak var tblDiscoverList: UITableView!
-    // MARK: Object lifecycle
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var viewHeightConstant: NSLayoutConstraint!
+    @IBOutlet weak var btnChange: GradientButton!
     
+    var isFromMenu : Bool = true
     var objDiscoverData : [CommonCellModel] = []
+    var userProfileModel : UserProfileModel?
     
+    // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -75,12 +79,27 @@ class DiscoverySettingViewController: UIViewController, DiscoverySettingProtocol
     }
     
     func registerTableViewCell(){
+        if !isFromMenu {
+            self.lblTitle.text = "Edit Interests & Preferences"
+            self.viewHeightConstant.constant = 135
+            self.btnChange.alpha = 1.0
+        } else {
+            self.lblTitle.text = "Discovery Settings"
+            self.viewHeightConstant.constant = 85
+            self.btnChange.alpha = 0.0
+        }
         self.tblDiscoverList.register(UINib.init(nibName: Cells.CommonTblListCell, bundle: Bundle.main), forCellReuseIdentifier: Cells.CommonTblListCell)
         
         self.objDiscoverData = [CommonCellModel(title: "Interested Age Range", description: "20-30", isDescAvailable: true), CommonCellModel(title: "Interested In Gender", description: "Male, Female", isDescAvailable: true), CommonCellModel(title: "Most liked social media platforms", description: "Whats App, Instagram, Snapchat", isDescAvailable: true)]
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
+        self.popVC()
+    }
+    @IBAction func btnChangeAction(_ sender: GradientButton) {
+        self.userProfileModel?.vInterestAge = self.objDiscoverData[0].description
+        self.userProfileModel?.vInterestGender = self.objDiscoverData[1].description
+        self.userProfileModel?.vLikedSocialPlatform = self.objDiscoverData[2].description
         self.popVC()
     }
 }

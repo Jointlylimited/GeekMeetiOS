@@ -44,7 +44,8 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     var alertView: CustomAlertView!
     var timer: Timer?
     var totalTime = 300
-  
+    var signUpParams : Dictionary<String, String>?
+    
   var strCountryCode: String = UserDataModel.currentUser?.vCountryCode ?? "+91"
   var strPhonenumber: String? = UserDataModel.currentUser?.vPhone ?? "756713373"
   

@@ -27,7 +27,7 @@ enum EditProfileListCells {
     var cellHeight  : CGFloat {
         switch self {
         case .InformationCell(let desc):
-           return /*50  return */ desc.heightWithConstrainedWidth(width: 374 * _widthRatio,font: fontPoppins(fontType: .Poppins_Medium, fontSize: .sizeNormalTextField)) + 16
+           return 50  //return */ desc.heightWithConstrainedWidth(width: 374 * _widthRatio,font: fontPoppins(fontType: .Poppins_Medium, fontSize: .sizeNormalTextField)) + 16
         case .InterestCell, .PhotosCell, .SocialCell, .PrivacyCell:
             return 50
             
@@ -37,8 +37,8 @@ enum EditProfileListCells {
     var cellRowHeight  : CGFloat {
         switch self {
             
-        case .InformationCell:
-            return 480
+        case .InformationCell(let desc):
+            return desc.heightWithConstrainedWidth(width: 374 * _widthRatio,font: fontPoppins(fontType: .Poppins_Medium, fontSize: .sizeNormalTextField)) + 450//480
         case .InterestCell:
             return 225
         case .PhotosCell:
@@ -90,6 +90,15 @@ enum EditProfileListCells {
             return "Profile Privacy Settings (only for subscribers)"
         }
     }
+    
+    var isHeaderAvailable : Bool {
+        switch self {
+        case .InterestCell, .SocialCell:
+            return true
+        case .InformationCell, .PhotosCell, .PrivacyCell:
+            return false
+        }
+    }
 }
 
 struct EditProfileData {
@@ -131,7 +140,7 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
     var userProfileModel : UserProfileModel?
     var isForProfile : Bool = true
     var objQuestionModel = QuestionaryModel()
-    
+    var customProfileView: RecommandedProfileView!
     
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -171,6 +180,11 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
         setTheme()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tblEditProfileView.reloadData()
+    }
+    
     func setTheme(){
         self.datePicker.maximumDate = Date()
         self.lblUserNameAge.text = "\(self.userProfileModel?.vFullName ?? ""), \(self.userProfileModel?.vAge ?? 0)"
@@ -203,8 +217,39 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
         self.tblEditProfileView.reloadData()
     }
     @IBAction func btnChooseProfileAction(_ sender: UIButton) {
-        self.isForProfile = true
-        self.openImagePickerActionSheet()
+        self.showSetProfileView()
+//        self.isForProfile = true
+//        self.openImagePickerActionSheet()
+    }
+    
+    @objc func btnChangeAction(sender : UIButton){
+        if sender.tag == 1 {
+            let discVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.DiscoverySettingScreen) as! DiscoverySettingViewController
+            discVC.userProfileModel = self.userProfileModel
+            discVC.isFromMenu = false
+            self.pushVC(discVC)
+        } else {
+            let socialVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.SocialMediaLink) as! SocialMediaLinkVC
+            socialVC.userProfileModel = self.userProfileModel
+            self.pushVC(socialVC)
+        }
+    }
+    
+    func showSetProfileView() {
+        customProfileView = RecommandedProfileView.initAlertView()
+        customProfileView.delegate = self
+        customProfileView.frame = self.view.frame
+        AppDelObj.window?.addSubview(customProfileView)
+    }
+}
+
+extension EditProfileViewController : RecommandedProfileViewDelegate {
+    func SetProfileButtonAction() {
+        self.customProfileView.alpha = 0.0
+    }
+    
+    func NoButtonAction() {
+        self.customProfileView.alpha = 0.0
     }
 }
 
@@ -254,7 +299,8 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
                 cell.txtCity.text = userProfileModel?.vCity
                 cell.txtGender.text = userProfileModel?.vGender
                 cell.txtCompanyDetail.text = userProfileModel?.vCompanyDetail
-                
+                cell.lblCharCount.text = "\(userProfileModel!.vAbout!.count)/\(300)"
+                cell.btnChange.underlineButton(text: "Change", font: UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 12)!, color: #colorLiteral(red: 0.5294117647, green: 0.1803921569, blue: 0.7647058824, alpha: 1))
                 
                 cell.clickOnChangeGender = {
                     self.genderPickerView.alpha = 1.0
@@ -269,17 +315,6 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
                 let queVC = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange) as? SelectAgeRangeViewController
                 queVC?.isFromSignUp = false
                 
-                cell.clickOnChangeInterestAge = {
-                    queVC?.index = 1
-                    queVC?.interest_delegate = self
-                    self.pushVC(queVC!)
-                }
-                
-                cell.clickOnChangeInterestGender = {
-                    queVC?.interest_delegate = self
-                    queVC?.index = 2
-                    self.pushVC(queVC!)
-                }
             }
         } else if objEditProfileData.cells[indexPath.section].cellID == "EditPhotosCell" {
             if let cell = cell as? EditPhotosCell  {
@@ -339,9 +374,17 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
         headerTitle.text = objEditProfileData.cells[section].sectionTitle
         headerTitle.lineBreakMode = .byWordWrapping
         headerTitle.textColor = .black
-        headerTitle.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        headerTitle.font = UIFont(name: FontTypePoppins.Poppins_SemiBold.rawValue, size: 14)
         headerView.addSubview(headerTitle)
         
+        if objEditProfileData.cells[section].isHeaderAvailable {
+            let buttonClr = UIButton(frame: CGRect(x: ScreenSize.width - 100, y: headerView.frame.origin.y + 10, w: 100, h: 30))
+            buttonClr.backgroundColor = .clear
+            buttonClr.underlineButton(text: "Change", font: UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 12)!, color: #colorLiteral(red: 0.5294117647, green: 0.1803921569, blue: 0.7647058824, alpha: 1))
+            buttonClr.tag = section
+            buttonClr.addTarget(self, action: #selector(btnChangeAction(sender:)), for: .touchUpInside)
+            headerView.addSubview(buttonClr)
+        }
         return headerView
     }
 }
@@ -395,11 +438,16 @@ extension EditProfileViewController : UICollectionViewDataSource, UICollectionVi
 }
 extension EditProfileViewController : UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        textField.addTarget(self, action: #selector(textFieldDidChange(textField:)), for: .editingChanged)
         self.PickerView.alpha = 0.0
         if textField.tag == 1 {
             textField.resignFirstResponder()
             self.PickerView.alpha = 1.0
             return false
+        } else if textField.tag == 4 {
+            if (textField.text?.count)! < 300 {
+                return true
+            }
         }
         return true
     }
@@ -416,6 +464,14 @@ extension EditProfileViewController : UITextFieldDelegate {
             
         }
         self.tblEditProfileView.reloadData()
+    }
+    
+    @objc func textFieldDidChange(textField : UITextField){
+        if (textField.text?.count)! < 300 {
+            textField.isUserInteractionEnabled = true
+        } else {
+            textField.isUserInteractionEnabled = false
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

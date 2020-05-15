@@ -1,19 +1,17 @@
 //
-//  EditInterestCell.swift
+//  SocialLinkCell.swift
 //  GeekMeets
 //
-//  Created by SOTSYS124 on 22/04/20.
+//  Created by SOTSYS124 on 15/05/20.
 //  Copyright © 2020 SOTSYS203. All rights reserved.
 //
 
 import UIKit
 
-class EditInterestCell: UITableViewCell {
+class SocialLinkCell: UITableViewCell {
 
-    @IBOutlet weak var txtInterestAge: UITextField!
-    @IBOutlet weak var txtInterestGender: UITextField!
-    @IBOutlet weak var txtLikedSocialPlatform: UITextField!
-    
+    @IBOutlet weak var btnTitle: UIButton!
+    @IBOutlet weak var txtSocialLink: UITextField!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,4 +23,5 @@ class EditInterestCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
 }

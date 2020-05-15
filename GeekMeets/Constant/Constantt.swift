@@ -68,7 +68,7 @@ struct GeekMeets_ViewController
     static let SelectSocialMedia = "SelectSocialMediaViewController"
     static let SelectCategories = "SelectCategoriesViewController"
     static let compeleteProfile = "CompleteProfileViewController"
-    static let  sideMenu = "SideMenuViewController"
+    static let sideMenu = "SideMenuViewController"
     static let SelectLanguageScreen = "SelectLanguageViewController"
     static let BusinessInformationVC = "BusinessInformationViewController"
     static let AddressLandMarkVC = "AddressLandMarkViewController"
@@ -101,6 +101,9 @@ struct GeekMeets_ViewController
     static let AddTextScreen =  "AddTextViewController"
     static let SubscriptionScreen =  "SubscriptionVC"
     static let InstagramLoginScreen = "InstagramLoginVC"
+    static let TutorialScreen = "TutorialPageViewController"
+    static let SocialMediaLink = "SocialMediaLinkVC"
+    static let NotificationScreen = "NotificationListViewController"
 }
 
 struct Cells {
@@ -112,6 +115,8 @@ struct Cells {
     static let CommonTblListCell = "CommonTblListCell"
     static let SearchListCell = "SearchListCell"
     static let ColorCollCell = "ColorCollCell"
+    static let SocialLinkCell = "SocialLinkCell"
+    static let NotificationListCell = "NotificationListCell"
 }
 
 struct DeviceType {
@@ -205,6 +210,7 @@ class AppSingleton: NSObject {
     }
     
     func showHomeVC(){
+        Authentication.setLoggedInStatus(true)
         UserDataModel.currentUser = UserDataModel.lastLoginUser
         if UserDataModel.currentUser == nil {
             logout()

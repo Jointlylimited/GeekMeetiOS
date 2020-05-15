@@ -86,16 +86,26 @@ class SignUpVCPresenter: SignUpVCPresentationProtocol {
   
     func getEmailAvailResponse(response : UserAuthResponse) {
         if response.responseCode == 200 {
+            UserDataModel.currentUser = response.responseData
             self.actionContinue(signUpParams: self.signUpParams!)
         }
     }
     
     func actionContinue(signUpParams : Dictionary<String, String>) {
-        let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.UserProfile) as! UserProfileViewController
-        controller.signUpParams = signUpParams
-        if let view = self.viewController as? UIViewController
-        {
-            view.pushVC(controller)
+        if UserDataModel.currentUser?.tiSocialType == 0 {
+            let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter) as? OTPEnterViewController
+            controller?.signUpParams = signUpParams
+            if let view = self.viewController as? UIViewController
+            {
+                view.pushVC(controller!)
+            }
+        } else {
+            let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.UserProfile) as! UserProfileViewController
+            
+            if let view = self.viewController as? UIViewController
+            {
+                view.pushVC(controller)
+            }
         }
     }
 }

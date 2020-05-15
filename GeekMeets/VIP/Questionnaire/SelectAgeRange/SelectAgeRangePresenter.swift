@@ -39,16 +39,16 @@ class SelectAgeRangePresenter: SelectAgeRangePresentationProtocol {
     }
   
     func actionContinue() {
-        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.TabbarScreen)
-        if let view = self.viewController as? UIViewController
-        {
-            view.pushVC(controller)
-        }
-//        let controller = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectGender)
+//        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.TabbarScreen)
 //        if let view = self.viewController as? UIViewController
 //        {
 //            view.pushVC(controller)
 //        }
+        let controller = GeekMeets_StoryBoard.Main.instantiateViewController(withIdentifier: GeekMeets_ViewController.TutorialScreen)
+        if let view = self.viewController as? UIViewController
+        {
+            view.pushVC(controller)
+        }
     }
     func actionSkip() {
            let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter)

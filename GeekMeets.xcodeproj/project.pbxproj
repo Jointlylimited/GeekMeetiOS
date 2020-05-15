@@ -71,7 +71,17 @@
 		0B53568B245088DC005571AF /* EditPhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B535683245088DB005571AF /* EditPhotosCell.swift */; };
 		0B59586E245C632F006D500A /* SubscriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B59586D245C632E006D500A /* SubscriptionVC.swift */; };
 		0B595871245C642B006D500A /* StickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B595870245C642B006D500A /* StickerView.swift */; };
-		0B921C1624571BC70010AE04 /* Dashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B921C1524571BC70010AE04 /* Dashboard.storyboard */; };
+		0B7F33BD246ED7D1007ADF8D /* Dashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B7F33BC246ED7D0007ADF8D /* Dashboard.storyboard */; };
+		0B7F33C7246ED80D007ADF8D /* RecommandedProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B7F33BF246ED80C007ADF8D /* RecommandedProfileView.xib */; };
+		0B7F33C8246ED80D007ADF8D /* RecommandedProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F33C0246ED80C007ADF8D /* RecommandedProfileView.swift */; };
+		0B7F33C9246ED80D007ADF8D /* NotificationListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F33C2246ED80C007ADF8D /* NotificationListCell.swift */; };
+		0B7F33CA246ED80D007ADF8D /* NotificationListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B7F33C3246ED80C007ADF8D /* NotificationListCell.xib */; };
+		0B7F33CB246ED80D007ADF8D /* SocialLinkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F33C5246ED80D007ADF8D /* SocialLinkCell.swift */; };
+		0B7F33CC246ED80D007ADF8D /* SocialLinkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B7F33C6246ED80D007ADF8D /* SocialLinkCell.xib */; };
+		0B7F33CF246ED86E007ADF8D /* SocialMediaLinkVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F33CE246ED86E007ADF8D /* SocialMediaLinkVC.swift */; };
+		0B7F33D4246ED8AE007ADF8D /* NotificationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F33D1246ED8AE007ADF8D /* NotificationListViewController.swift */; };
+		0B7F33D5246ED8AE007ADF8D /* NotificationListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F33D2246ED8AE007ADF8D /* NotificationListInteractor.swift */; };
+		0B7F33D6246ED8AE007ADF8D /* NotificationListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F33D3246ED8AE007ADF8D /* NotificationListPresenter.swift */; };
 		0B921C2624571BE40010AE04 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B921C1824571BE30010AE04 /* ContentViewController.swift */; };
 		0B921C2724571BE40010AE04 /* ARSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B921C1A24571BE30010AE04 /* ARSupport.swift */; };
 		0B921C2824571BE40010AE04 /* PreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B921C1B24571BE30010AE04 /* PreViewController.swift */; };
@@ -355,7 +365,17 @@
 		0B535683245088DB005571AF /* EditPhotosCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPhotosCell.swift; sourceTree = "<group>"; };
 		0B59586D245C632E006D500A /* SubscriptionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionVC.swift; sourceTree = "<group>"; };
 		0B595870245C642B006D500A /* StickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickerView.swift; sourceTree = "<group>"; };
-		0B921C1524571BC70010AE04 /* Dashboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Dashboard.storyboard; sourceTree = "<group>"; };
+		0B7F33BC246ED7D0007ADF8D /* Dashboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Dashboard.storyboard; sourceTree = "<group>"; };
+		0B7F33BF246ED80C007ADF8D /* RecommandedProfileView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecommandedProfileView.xib; sourceTree = "<group>"; };
+		0B7F33C0246ED80C007ADF8D /* RecommandedProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommandedProfileView.swift; sourceTree = "<group>"; };
+		0B7F33C2246ED80C007ADF8D /* NotificationListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationListCell.swift; sourceTree = "<group>"; };
+		0B7F33C3246ED80C007ADF8D /* NotificationListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationListCell.xib; sourceTree = "<group>"; };
+		0B7F33C5246ED80D007ADF8D /* SocialLinkCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialLinkCell.swift; sourceTree = "<group>"; };
+		0B7F33C6246ED80D007ADF8D /* SocialLinkCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialLinkCell.xib; sourceTree = "<group>"; };
+		0B7F33CE246ED86E007ADF8D /* SocialMediaLinkVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialMediaLinkVC.swift; sourceTree = "<group>"; };
+		0B7F33D1246ED8AE007ADF8D /* NotificationListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationListViewController.swift; sourceTree = "<group>"; };
+		0B7F33D2246ED8AE007ADF8D /* NotificationListInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationListInteractor.swift; sourceTree = "<group>"; };
+		0B7F33D3246ED8AE007ADF8D /* NotificationListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationListPresenter.swift; sourceTree = "<group>"; };
 		0B921C1824571BE30010AE04 /* ContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		0B921C1A24571BE30010AE04 /* ARSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARSupport.swift; sourceTree = "<group>"; };
 		0B921C1B24571BE30010AE04 /* PreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreViewController.swift; sourceTree = "<group>"; };
@@ -754,6 +774,7 @@
 		0B5356652450870F005571AF /* MenuScreens */ = {
 			isa = PBXGroup;
 			children = (
+				0B7F33D0246ED8AE007ADF8D /* NotificationVC */,
 				0B3C75AD245327DF00CEDBBA /* Share&EarnVC */,
 				0B9499C42451DBC3001AD1C8 /* AccountSettingVC */,
 				0B9499C02451DBC2001AD1C8 /* CommonPagesVC */,
@@ -798,6 +819,7 @@
 		0B53567B245088DB005571AF /* EditProfileVC */ = {
 			isa = PBXGroup;
 			children = (
+				0B7F33CD246ED86E007ADF8D /* SocialMediaLinkVC */,
 				0B53567C245088DB005571AF /* EditInterestCell.swift */,
 				0B53567D245088DB005571AF /* EditSocialLinkCell.swift */,
 				0B53567E245088DB005571AF /* EditProfileViewController.swift */,
@@ -824,6 +846,51 @@
 				0B595870245C642B006D500A /* StickerView.swift */,
 			);
 			path = StickerView;
+			sourceTree = "<group>";
+		};
+		0B7F33BE246ED80C007ADF8D /* RecommandedProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				0B7F33BF246ED80C007ADF8D /* RecommandedProfileView.xib */,
+				0B7F33C0246ED80C007ADF8D /* RecommandedProfileView.swift */,
+			);
+			path = RecommandedProfileView;
+			sourceTree = "<group>";
+		};
+		0B7F33C1246ED80C007ADF8D /* NotificationListCell */ = {
+			isa = PBXGroup;
+			children = (
+				0B7F33C2246ED80C007ADF8D /* NotificationListCell.swift */,
+				0B7F33C3246ED80C007ADF8D /* NotificationListCell.xib */,
+			);
+			path = NotificationListCell;
+			sourceTree = "<group>";
+		};
+		0B7F33C4246ED80D007ADF8D /* SocialLinkCell */ = {
+			isa = PBXGroup;
+			children = (
+				0B7F33C5246ED80D007ADF8D /* SocialLinkCell.swift */,
+				0B7F33C6246ED80D007ADF8D /* SocialLinkCell.xib */,
+			);
+			path = SocialLinkCell;
+			sourceTree = "<group>";
+		};
+		0B7F33CD246ED86E007ADF8D /* SocialMediaLinkVC */ = {
+			isa = PBXGroup;
+			children = (
+				0B7F33CE246ED86E007ADF8D /* SocialMediaLinkVC.swift */,
+			);
+			path = SocialMediaLinkVC;
+			sourceTree = "<group>";
+		};
+		0B7F33D0246ED8AE007ADF8D /* NotificationVC */ = {
+			isa = PBXGroup;
+			children = (
+				0B7F33D1246ED8AE007ADF8D /* NotificationListViewController.swift */,
+				0B7F33D2246ED8AE007ADF8D /* NotificationListInteractor.swift */,
+				0B7F33D3246ED8AE007ADF8D /* NotificationListPresenter.swift */,
+			);
+			path = NotificationVC;
 			sourceTree = "<group>";
 		};
 		0B921C1724571BE30010AE04 /* ARStories */ = {
@@ -1258,6 +1325,9 @@
 		F79604BA24459767002FFB79 /* UIView */ = {
 			isa = PBXGroup;
 			children = (
+				0B7F33C1246ED80C007ADF8D /* NotificationListCell */,
+				0B7F33BE246ED80C007ADF8D /* RecommandedProfileView */,
+				0B7F33C4246ED80D007ADF8D /* SocialLinkCell */,
 				0BCD4B2B245B0C370054A805 /* RangeSlider */,
 				F77E31182456AE8B00A213FF /* OTPField */,
 				0B3C75BB2453280200CEDBBA /* CustomAlertView */,
@@ -1794,7 +1864,7 @@
 		F9A453DB203AA8220065C9FD /* StoryBoard */ = {
 			isa = PBXGroup;
 			children = (
-				0B921C1524571BC70010AE04 /* Dashboard.storyboard */,
+				0B7F33BC246ED7D0007ADF8D /* Dashboard.storyboard */,
 				0B53566324508701005571AF /* Menu.storyboard */,
 				F90B4C9C20329C45006ADAF6 /* Main.storyboard */,
 				F90B4CA120329C45006ADAF6 /* LaunchScreen.storyboard */,
@@ -1885,16 +1955,17 @@
 				F90B4CA320329C45006ADAF6 /* LaunchScreen.storyboard in Resources */,
 				F90B4CA020329C45006ADAF6 /* Assets.xcassets in Resources */,
 				0BE21274244976AF004817BC /* Poppins-ExtraLightItalic.ttf in Resources */,
+				0B7F33BD246ED7D1007ADF8D /* Dashboard.storyboard in Resources */,
 				0B53566424508701005571AF /* Menu.storyboard in Resources */,
 				0BE2127F244976AF004817BC /* Poppins-Black.ttf in Resources */,
 				0BE2127C244976AF004817BC /* Poppins-Regular.ttf in Resources */,
 				0BF70820244F1D6B003D6AB7 /* MessageListCell.xib in Resources */,
+				0B7F33CA246ED80D007ADF8D /* NotificationListCell.xib in Resources */,
 				0BF70819244F1D6B003D6AB7 /* StoryCollectionCell.xib in Resources */,
 				0BE2127B244976AF004817BC /* Poppins-BlackItalic.ttf in Resources */,
 				F7DFAE3E24501192008863F3 /* tickMark.png in Resources */,
 				0B3C75BE2453280200CEDBBA /* CustomAlertView.xib in Resources */,
 				0B51D293245FE2B6005C7B88 /* ReadMeGoogleSignin.rtf in Resources */,
-				0B921C1624571BC70010AE04 /* Dashboard.storyboard in Resources */,
 				0BE2127D244976AF004817BC /* Poppins-LightItalic.ttf in Resources */,
 				0B9499B72451DBA5001AD1C8 /* CommonTblListCell.xib in Resources */,
 				F7F9679C2451B90A00BD7275 /* questionnaire.json in Resources */,
@@ -1905,6 +1976,7 @@
 				0BE21277244976AF004817BC /* Poppins-Medium.ttf in Resources */,
 				F7D52594244858F3002D3A42 /* LoginSingUp.storyboard in Resources */,
 				0B31963B244DE7E100B38350 /* PhotoEmojiCell.xib in Resources */,
+				0B7F33CC246ED80D007ADF8D /* SocialLinkCell.xib in Resources */,
 				F7DFAE3B24501192008863F3 /* CountryPickerController.bundle in Resources */,
 				F7F9678F2451AAF200BD7275 /* Questionnaire.storyboard in Resources */,
 				F953B8DE20467B3300BE4F67 /* Settings.storyboard in Resources */,
@@ -1919,6 +1991,7 @@
 				0BE21282244976AF004817BC /* Poppins-Italic.ttf in Resources */,
 				0BF7081C244F1D6B003D6AB7 /* DiscoverCollectionCell.xib in Resources */,
 				0BE2127A244976AF004817BC /* Poppins-ExtraBold.ttf in Resources */,
+				0B7F33C7246ED80D007ADF8D /* RecommandedProfileView.xib in Resources */,
 				0BE21275244976AF004817BC /* Poppins-BoldItalic.ttf in Resources */,
 				0BF7081D244F1D6B003D6AB7 /* ReactEmojiCollectionCell.xib in Resources */,
 				F96C2D102037E78800F8CBC7 /* Localizable.strings in Resources */,
@@ -2079,6 +2152,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B7F33D5246ED8AE007ADF8D /* NotificationListInteractor.swift in Sources */,
 				F76A8D832440396800ED9947 /* CustomerWindowExtension.swift in Sources */,
 				0B9499D22451DBC4001AD1C8 /* ManageSubscriptionInteractor.swift in Sources */,
 				F7F967952451ABF400BD7275 /* SelectAgeRangePresenter.swift in Sources */,
@@ -2103,9 +2177,11 @@
 				0B319661244DE80500B38350 /* ProfileViewController.swift in Sources */,
 				0B5356732450870F005571AF /* BoostPresenter.swift in Sources */,
 				F9A453C6203AA74B0065C9FD /* SignUpInteractor.swift in Sources */,
+				0B7F33D4246ED8AE007ADF8D /* NotificationListViewController.swift in Sources */,
 				0BF707FD244F1D1C003D6AB7 /* DiscoverPresenter.swift in Sources */,
 				F97A9A2E21103FAD007C45F5 /* CGFloatExtensions.swift in Sources */,
 				0B921C3324571C510010AE04 /* SearchProfilePresenter.swift in Sources */,
+				0B7F33C8246ED80D007ADF8D /* RecommandedProfileView.swift in Sources */,
 				0B31965C244DE80500B38350 /* ProfilePhotosCell.swift in Sources */,
 				0B46B0C6245865F3006E0D87 /* ChangeEmailMobileViewController.swift in Sources */,
 				F79CA6F1244D9C5100C9A7EB /* UserProfileViewController.swift in Sources */,
@@ -2128,6 +2204,7 @@
 				F7D5259B244869FB002D3A42 /* SignInInteractor.swift in Sources */,
 				F7164AC7244EB86F00853BFC /* AddPhotosInteractor.swift in Sources */,
 				0B319659244DE80500B38350 /* HomeViewController.swift in Sources */,
+				0B7F33C9246ED80D007ADF8D /* NotificationListCell.swift in Sources */,
 				F795CDF1245BFB87009E8311 /* Authentication.swift in Sources */,
 				F9A453C3203AA74B0065C9FD /* LoginViewController.swift in Sources */,
 				F7F9679A2451B23F00BD7275 /* QuestionnaireModel.swift in Sources */,
@@ -2152,12 +2229,14 @@
 				0B921C3524571C510010AE04 /* SearchProfileInteractor.swift in Sources */,
 				0B31963A244DE7E100B38350 /* PhotoEmojiCell.swift in Sources */,
 				0B1CB9912459429200DA9264 /* NewMobileNumberInteractor.swift in Sources */,
+				0B7F33D6246ED8AE007ADF8D /* NotificationListPresenter.swift in Sources */,
 				0BF7080C244F1D3C003D6AB7 /* MatchProfileInteractor.swift in Sources */,
 				0B31965F244DE80500B38350 /* ProfileAboutCell.swift in Sources */,
 				0B319657244DE80500B38350 /* MenuViewController.swift in Sources */,
 				F7F8F5CB2452F87A00CA82E7 /* SelectSocialMediaViewController.swift in Sources */,
 				0B0AC39F24583EF600B91DF5 /* UIAlertControllerExtension.swift in Sources */,
 				0B31965D244DE80500B38350 /* ProfileSocialCell.swift in Sources */,
+				0B7F33CB246ED80D007ADF8D /* SocialLinkCell.swift in Sources */,
 				0B31965A244DE80500B38350 /* HomePresenter.swift in Sources */,
 				F716F2A924498F630063680F /* SignUpVCPresenter.swift in Sources */,
 				0B319658244DE80500B38350 /* HomeInteractor.swift in Sources */,
@@ -2272,6 +2351,7 @@
 				0B921C3424571C510010AE04 /* SearchListCell.swift in Sources */,
 				F76A8D862440396800ED9947 /* CustomerEnumaration.swift in Sources */,
 				0B319654244DE80500B38350 /* MenuPresenter.swift in Sources */,
+				0B7F33CF246ED86E007ADF8D /* SocialMediaLinkVC.swift in Sources */,
 				F9A4539F203AA7200065C9FD /* Constantt.swift in Sources */,
 				0BBD65F82449C8A500CA178A /* MatchPresenter.swift in Sources */,
 				F9A453BD203AA74A0065C9FD /* LoginInteractor.swift in Sources */,
@@ -2425,7 +2505,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Basecode/Library",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.org.lacy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.org.jointly;
 				PRODUCT_NAME = Jointly;
 				PROVISIONING_PROFILE = "6fe03dd0-bb5b-416c-b4fe-1118ff86f17c";
 				PROVISIONING_PROFILE_SPECIFIER = Development_LacyApp;
@@ -2567,7 +2647,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Basecode/Library",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.org.lacy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.org.jointly;
 				PRODUCT_NAME = Jointly;
 				PROVISIONING_PROFILE = "6fe03dd0-bb5b-416c-b4fe-1118ff86f17c";
 				PROVISIONING_PROFILE_SPECIFIER = Development_LacyApp;
@@ -2594,7 +2674,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Basecode/Library",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.org.lacy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.org.jointly;
 				PRODUCT_NAME = Jointly;
 				PROVISIONING_PROFILE = "6fe03dd0-bb5b-416c-b4fe-1118ff86f17c";
 				PROVISIONING_PROFILE_SPECIFIER = Development_LacyApp;

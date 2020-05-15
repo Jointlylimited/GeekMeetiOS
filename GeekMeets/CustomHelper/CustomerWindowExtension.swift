@@ -65,7 +65,8 @@ extension UIWindow
     
     func setRootViewController()
     {
-        let controller : UINavigationController = GeekMeets_StoryBoard.Main.instantiateViewController(withIdentifier: "navigationLogin") as! UINavigationController
+        let controller : UINavigationController = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: "navigationLogin") as! UINavigationController
+        Authentication.setLoggedInStatus(true)
         AppDelObj.window?.rootViewController = controller
     }
 }

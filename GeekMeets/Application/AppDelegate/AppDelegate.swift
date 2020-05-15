@@ -34,7 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Push Notification call
         self.registerForPushNotifications()
-        
         if Authentication.getLoggedInStatus() == true {
             AppSingleton.sharedInstance().showHomeVC()
         }
@@ -47,12 +46,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         return SCSDKLoginClient.application(app, open: url, options: options)
     }
-
-//    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool
-//    {
-//        return ApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
-//        //        return ApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
-//    }
     
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

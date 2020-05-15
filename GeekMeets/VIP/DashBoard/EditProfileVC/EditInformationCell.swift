@@ -19,6 +19,8 @@ class EditInformationCell: UITableViewCell {
     @IBOutlet weak var txtCity: UITextField!
     @IBOutlet weak var txtGender: UITextField!
     @IBOutlet weak var txtCompanyDetail: UITextField!
+    @IBOutlet weak var lblCharCount: UILabel!
+    @IBOutlet weak var btnChange: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

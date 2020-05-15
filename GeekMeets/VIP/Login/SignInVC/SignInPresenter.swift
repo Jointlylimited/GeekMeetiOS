@@ -61,8 +61,7 @@ class SignInPresenter: SignInPresentationProtocol {
     {
         UserDataModel.currentUser = response.responseData
         if response.responseCode == 200 {
-            Authentication.setLoggedInStatus(true)
-            self.gotoHomeScreen()
+            AppSingleton.sharedInstance().showHomeVC()
         } else if response.responseCode == 203 {
             let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter)
             if let view = self.viewController as? UIViewController

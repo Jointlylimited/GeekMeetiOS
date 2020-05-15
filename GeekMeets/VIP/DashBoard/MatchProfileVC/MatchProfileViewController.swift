@@ -16,8 +16,8 @@ struct MatchProfileData {
   
   var cells: [ProfileListCells] {
     var cell: [ProfileListCells] = []
-    
-    cell.append(.AboutCell)
+    let str = "Lady with fun loving personality and open- minded, Looking for Someone to hang out always open for hangout"
+    cell.append(.AboutCell(obj: str))
     cell.append(.CompanyCell)
     cell.append(.SocialCell)
     

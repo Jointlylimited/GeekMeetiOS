@@ -46,6 +46,18 @@ extension UIButton
         gradientLayer.cornerRadius = 5
         self.layer.insertSublayer(gradientLayer, at: 0)
     }
+    
+    func underlineButton(text: String, font : UIFont, color:UIColor) {
+        let titleString = NSMutableAttributedString(string: "")
+        let attrs = [
+            NSAttributedString.Key.font : font,
+        NSAttributedString.Key.foregroundColor : color,
+        NSAttributedString.Key.underlineStyle : 1] as [NSAttributedString.Key : Any]
+        
+        let buttonTitleStr = NSMutableAttributedString(string:text, attributes:attrs)
+        titleString.append(buttonTitleStr)
+        self.setAttributedTitle(titleString, for: .normal)
+    }
 }
 extension UILabel
 {

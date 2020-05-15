@@ -14,7 +14,7 @@ import UIKit
 
 enum ProfileListCells {
     
-    case AboutCell
+    case AboutCell(obj : String)
     case CompanyCell
     case InterestCell
     case PhotosCell
@@ -32,7 +32,9 @@ enum ProfileListCells {
     var cellRowHeight  : CGFloat {
         switch self {
             
-        case .AboutCell, .CompanyCell, .InterestCell, .SocialCell:
+        case .AboutCell(let desc):
+            return desc.heightWithConstrainedWidth(width: 400 * _widthRatio,font: fontPoppins(fontType: .Poppins_Medium, fontSize: .sizeNormalTextField)) + 120
+        case .CompanyCell, .InterestCell, .SocialCell:
             return UITableView.automaticDimension
         case .PhotosCell:
             let width = ScreenSize.width/3
@@ -97,8 +99,8 @@ struct ProfileData {
   
   var cells: [ProfileListCells] {
     var cell: [ProfileListCells] = []
-    
-    cell.append(.AboutCell)
+    let str = "Lady with fun loving personality and open- minded, Looking for Someone to hang out always open for hangout"
+    cell.append(.AboutCell(obj:str))
     cell.append(.CompanyCell)
     cell.append(.InterestCell)
     cell.append(.PhotosCell)
@@ -124,7 +126,7 @@ class ProfileViewController: UIViewController, ProfileProtocol {
     var objProfileData = ProfileData()
     var imageArray = [#imageLiteral(resourceName: "img_intro_2"), #imageLiteral(resourceName: "image_1"), #imageLiteral(resourceName: "Image 63"), #imageLiteral(resourceName: "Image 62")]
     
-    var userProfileModel = UserProfileModel(vFullName: UserDataModel.currentUser?.vName, vAge: UserDataModel.currentUser?.tiAge ?? 0, vDoB : UserDataModel.currentUser?.dDob, vAbout: UserDataModel.currentUser?.txAbout, vCity: UserDataModel.currentUser?.vLiveIn, vGender: "\(UserDataModel.currentUser?.tiAge ?? 0)", vCompanyDetail: UserDataModel.currentUser?.txCompanyDetail, vInterestAge: "", vInterestGender: "", vLikedSocialPlatform: "", vPhotos: "", vInstagramLink: "", vSnapchatLink: "", vFacebookLink: "", vShowAge: false, vShowDistance: false, vShowContactNo: false, vShowProfiletoLiked:false)
+    var userProfileModel = UserProfileModel(vFullName: UserDataModel.currentUser?.vName, vAge: UserDataModel.currentUser?.tiAge ?? 0, vDoB : UserDataModel.currentUser?.dDob?.strDateTODateStr(dateStr: UserDataModel.currentUser!.dDob!), vAbout: UserDataModel.currentUser?.txAbout, vCity: UserDataModel.currentUser?.vLiveIn, vGender: "\(UserDataModel.currentUser?.tiAge ?? 0)", vCompanyDetail: UserDataModel.currentUser?.txCompanyDetail, vInterestAge: "", vInterestGender: "", vLikedSocialPlatform: "", vPhotos: "", vInstagramLink: "", vSnapchatLink: "", vFacebookLink: "", vShowAge: false, vShowDistance: false, vShowContactNo: false, vShowProfiletoLiked:false)
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)

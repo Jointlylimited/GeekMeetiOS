@@ -38,12 +38,14 @@ class MenuViewController: UIViewController, MenuProtocol {
     @IBOutlet weak var remainTimeViewHeightConstant: NSLayoutConstraint!
     @IBOutlet weak var headerViewHeightConstant: NSLayoutConstraint!
     @IBOutlet weak var profileView: UIView!
+    @IBOutlet weak var btnEditProfile: UIButton!
+    @IBOutlet weak var lblUserNameAge: UILabel!
     
     var alertView: CustomAlertView!
     var arrMenuModel : [MenuViewModel] = []
     var timer: Timer?
     var totalTime = 600
-    
+    var userProfileModel = UserProfileModel(vFullName: UserDataModel.currentUser?.vName, vAge: UserDataModel.currentUser?.tiAge ?? 0, vDoB : UserDataModel.currentUser?.dDob?.strDateTODateStr(dateStr: UserDataModel.currentUser!.dDob!), vAbout: UserDataModel.currentUser?.txAbout, vCity: UserDataModel.currentUser?.vLiveIn, vGender: "\(UserDataModel.currentUser?.tiAge ?? 0)", vCompanyDetail: UserDataModel.currentUser?.txCompanyDetail, vInterestAge: "", vInterestGender: "", vLikedSocialPlatform: "", vPhotos: "", vInstagramLink: "", vSnapchatLink: "", vFacebookLink: "", vShowAge: false, vShowDistance: false, vShowContactNo: false, vShowProfiletoLiked:false)
     // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -95,6 +97,8 @@ class MenuViewController: UIViewController, MenuProtocol {
     func setTheme() {
         self.navigationController?.isNavigationBarHidden = true
         startTimer()
+        self.lblUserNameAge.text = "\(self.userProfileModel.vFullName ?? ""), \(self.userProfileModel.vAge ?? 0)"
+        self.btnEditProfile.underlineButton(text: "Edit Profile", font: UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 12)!, color: #colorLiteral(red: 0.5294117647, green: 0.1803921569, blue: 0.7647058824, alpha: 1))
         arrMenuModel = [MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_my_match"), label: "My Matches (122)", rightImage: #imageLiteral(resourceName: "icn_arrow")),
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_manage_subscription"), label: "Manage Subscription", rightImage: #imageLiteral(resourceName: "icn_arrow")),
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_boosts_purple"), label: "Boosts (2)", rightImage: #imageLiteral(resourceName: "icn_arrow")),
@@ -144,6 +148,15 @@ class MenuViewController: UIViewController, MenuProtocol {
     @IBAction func btnLogOutAction(_ sender: UIButton) {
         stopTimer()
         self.showAlertView()
+    }
+    @IBAction func btnEditProfileAction(_ sender: UIButton) {
+        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.EditProfileScreen) as! EditProfileViewController
+        controller.userProfileModel = self.userProfileModel
+        self.pushVC(controller)
+    }
+    @IBAction func btnNotificationAction(_ sender: UIButton) {
+        let controller = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.NotificationScreen)
+        self.pushVC(controller)
     }
     
     func displayAlert(strTitle : String, strMessage : String) {
@@ -200,8 +213,9 @@ extension MenuViewController : UITableViewDataSource, UITableViewDelegate {
             let accVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.AccountSettingScreen)
             self.pushVC(accVC)
         } else if indexPath.row == 5 {
-            let discVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.DiscoverySettingScreen)
-            self.pushVC(discVC)
+            let discVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.DiscoverySettingScreen) as? DiscoverySettingViewController
+            discVC?.isFromMenu = true
+            self.pushVC(discVC!)
         }  else if indexPath.row == 8 {
             let shareVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.Share_EarnScreen)
             self.pushVC(shareVC)
