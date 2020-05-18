@@ -157,7 +157,7 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
         
        let params = RequestParameter.sharedInstance().signUpParam(vEmail: signUpParams!["vEmail"]!, vPassword: signUpParams!["vPassword"]!, vConfirmPassword : signUpParams!["vConfirmPassword"]!, vCountryCode: signUpParams!["vCountryCode"]!, vPhone: signUpParams!["vPhone"]!, termsChecked : signUpParams!["termsChecked"]!, vProfileImage: self.imgString, vName: tfName.text ?? "", dDob: tfDoB.text?.inputDateStrToAPIDateStr(dateStr: tfDoB.text!) ?? "", tiAge: "\(tiAge)", tiGender: selectedGender, iCurrentStatus: currentStatus, txCompanyDetail: tfCompanyDetail.text ?? "", txAbout: tfAbout.text ?? "", photos: "", vTimeOffset: "", vTimeZone: "", vSocialId : signUpParams!["vSocialId"]!, fLatitude : signUpParams!["fLatitude"]!, fLongitude: signUpParams!["fLongitude"]!)
         
-      self.presenter?.callSignUpRequest(signUpParams: params,profileimg: imgprofile.image!)
+        self.presenter?.callSignUpRequest(signUpParams: params,profileimg: imgprofile.image!)
     }
     
     func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
