@@ -95,7 +95,6 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
             self.tfName.text = user?.vName
             self.tfDoB.text = user?.dDob
         }
-        print(signUpParams)
         self.datePicker.maximumDate = Date()
         scrollView.delegate = self
         self.navigationController?.isNavigationBarHidden = false

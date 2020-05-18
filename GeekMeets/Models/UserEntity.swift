@@ -11,7 +11,7 @@ import Foundation
 struct UserEntity {
     let displayName: String?
     let avatar: String?
-    let externalID : String?
+    let externalId : String?
     
     private enum CodingKeys: String, CodingKey {
         case data
@@ -24,7 +24,7 @@ struct UserEntity {
     private enum MeKeys: String, CodingKey {
         case displayName
         case bitmoji
-        case externalID
+        case externalId
     }
     
     private enum BitmojiKeys: String, CodingKey {
@@ -43,6 +43,6 @@ extension UserEntity: Decodable {
         
         let bitmoji = try me.nestedContainer(keyedBy: BitmojiKeys.self, forKey: .bitmoji)
         avatar = try? bitmoji.decode(String.self, forKey: .avatar)
-        externalID = try? me.decode(String.self, forKey: .externalID)
+        externalId = try? me.decode(String.self, forKey: .externalId)
     }
 }

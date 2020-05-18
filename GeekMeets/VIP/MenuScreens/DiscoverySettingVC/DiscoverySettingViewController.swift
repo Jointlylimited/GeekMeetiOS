@@ -145,10 +145,10 @@ extension DiscoverySettingViewController : UITableViewDataSource, UITableViewDel
         queVC?.isFromSignUp = false
         queVC?.interest_delegate = self
         if index == 0 {
-            queVC?.index = 1
+            queVC?.index = 10
             
         } else if index == 1 {
-            queVC?.index = 2
+            queVC?.index = 8
         } else {
             queVC?.index = 3
         }
@@ -158,9 +158,9 @@ extension DiscoverySettingViewController : UITableViewDataSource, UITableViewDel
 
 extension DiscoverySettingViewController : SelectInterestAgeGenderDelegate {
     func getSelectedValue(index: Int, data: String) {
-        if index == 1 {
+        if index == 10 {
             self.objDiscoverData[0].description = data
-        } else if index == 2 {
+        } else if index == 8 {
             self.objDiscoverData[1].description = data
         } else {
             self.objDiscoverData[2].description = data

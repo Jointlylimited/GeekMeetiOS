@@ -299,6 +299,124 @@ open class UserAPI {
     }
 
     /**
+     * enum for parameter tiDeviceType
+     */
+    public enum TiDeviceType_normalSignUp: Int {
+        case _0 = 0
+        case _1 = 1
+        case _2 = 2
+    }
+
+    /**
+     Normal SignUp User
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter vEmail: (form) Email Id of user
+     - parameter vPassword: (form) Provide account password
+     - parameter vCountryCode: (form) ISD Code of mobile
+     - parameter vPhone: (form) Mobile Number of User
+     - parameter vTimeOffset: (form) Time Offset
+     - parameter vTimeZone: (form) e.g : Asia/Kolkata
+     - parameter vDeviceToken: (form) Token of device
+     - parameter tiDeviceType: (form) 0 - Web, 1 - IOS, 2 - Android
+     - parameter vDeviceName: (form) Name of device
+     - parameter vDeviceUniqueId: (form) Device Unique ID
+     - parameter vApiVersion: (form) Version of api endpoint
+     - parameter vAppVersion: (form) App Version
+     - parameter vOsVersion: (form) Phone OS Version
+     - parameter vIpAddress: (form) Device IP Address
+     - parameter fLatitude: (form) Latitude (optional, default to 23.12356)
+     - parameter fLongitude: (form) Longitude (optional, default to 72.12356)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func normalSignUp(nonce: String, timestamp: String, token: String, vEmail: String, vPassword: String, vCountryCode: String, vPhone: String, vTimeOffset: String, vTimeZone: String, vDeviceToken: String, tiDeviceType: TiDeviceType_normalSignUp, vDeviceName: String, vDeviceUniqueId: String, vApiVersion: String, vAppVersion: String, vOsVersion: String, vIpAddress: String, fLatitude: Float? = nil, fLongitude: Float? = nil, completion: @escaping ((_ data: UserAuthResponse?,_ error: Error?) -> Void)) {
+        normalSignUpWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, vEmail: vEmail, vPassword: vPassword, vCountryCode: vCountryCode, vPhone: vPhone, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: tiDeviceType, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId, vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOsVersion, vIpAddress: vIpAddress, fLatitude: fLatitude, fLongitude: fLongitude).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Normal SignUp User
+     - POST /user/normal-signup
+     - examples: [{contentType=application/json, example=""}]
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter vEmail: (form) Email Id of user
+     - parameter vPassword: (form) Provide account password
+     - parameter vCountryCode: (form) ISD Code of mobile
+     - parameter vPhone: (form) Mobile Number of User
+     - parameter vTimeOffset: (form) Time Offset
+     - parameter vTimeZone: (form) e.g : Asia/Kolkata
+     - parameter vDeviceToken: (form) Token of device
+     - parameter tiDeviceType: (form) 0 - Web, 1 - IOS, 2 - Android
+     - parameter vDeviceName: (form) Name of device
+     - parameter vDeviceUniqueId: (form) Device Unique ID
+     - parameter vApiVersion: (form) Version of api endpoint
+     - parameter vAppVersion: (form) App Version
+     - parameter vOsVersion: (form) Phone OS Version
+     - parameter vIpAddress: (form) Device IP Address
+     - parameter fLatitude: (form) Latitude (optional, default to 23.12356)
+     - parameter fLongitude: (form) Longitude (optional, default to 72.12356)
+
+     - returns: RequestBuilder<UserAuthResponse>
+     */
+    open class func normalSignUpWithRequestBuilder(nonce: String, timestamp: String, token: String, vEmail: String, vPassword: String, vCountryCode: String, vPhone: String, vTimeOffset: String, vTimeZone: String, vDeviceToken: String, tiDeviceType: TiDeviceType_normalSignUp, vDeviceName: String, vDeviceUniqueId: String, vApiVersion: String, vAppVersion: String, vOsVersion: String, vIpAddress: String, fLatitude: Float? = nil, fLongitude: Float? = nil) -> RequestBuilder<UserAuthResponse> {
+        let path = "/user/normal-signup"
+        let URLString = SwaggerClientAPI.basePath + path
+        let formParams: [String:Any?] = [
+            "vEmail": vEmail,
+            "vPassword": vPassword,
+            "vCountryCode": vCountryCode,
+            "vPhone": vPhone,
+            "fLatitude": fLatitude,
+            "fLongitude": fLongitude,
+            "vTimeOffset": vTimeOffset,
+            "vTimeZone": vTimeZone,
+            "vDeviceToken": vDeviceToken,
+            "tiDeviceType": tiDeviceType.rawValue,
+            "vDeviceName": vDeviceName,
+            "vDeviceUniqueId": vDeviceUniqueId,
+            "vApiVersion": vApiVersion,
+            "vAppVersion": vAppVersion,
+            "vOsVersion": vOsVersion,
+            "vIpAddress": vIpAddress
+        ]
+
+        let nonNullParameters = APIHelper.rejectNil(formParams)
+        let parameters = APIHelper.convertBoolToString(nonNullParameters)
+        
+        let url = URLComponents(string: URLString)
+        let nillableHeaders: [String: Any?] = [
+            "nonce": nonce,
+            "timestamp": timestamp,
+            "token": token
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<UserAuthResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
+    }
+
+    /**
+     request-for-otp
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter language: (header) en&#x3D;English, fr&#x3D;French
+     - parameter iUserId: (form) iUserId
+     - parameter vCountryCode: (form) Country code
+     - parameter vPhone: (form) Phone number (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    
+    /**
      request-for-otp
      
      - parameter nonce: (header)  

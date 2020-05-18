@@ -16,6 +16,7 @@ protocol SignUpVCPresentationProtocol {
     
     func callSignUpRequest(signUpParams : Dictionary<String, String>)
     func getEmailAvailResponse(response : UserAuthResponse)
+    func getNormalSignupResponse(response : UserAuthResponse)
 }
 
 class SignUpVCPresenter: SignUpVCPresentationProtocol {
@@ -93,12 +94,7 @@ class SignUpVCPresenter: SignUpVCPresentationProtocol {
     
     func actionContinue(signUpParams : Dictionary<String, String>) {
         if signUpParams["vSocialId"]! == "" {
-            let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter) as? OTPEnterViewController
-            controller?.signUpParams = signUpParams
-            if let view = self.viewController as? UIViewController
-            {
-                view.pushVC(controller!)
-            }
+            self.interactor?.callNormalSignupAPI(params : signUpParams)
         } else {
             let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.UserProfile) as! UserProfileViewController
             controller.signUpParams = signUpParams
@@ -106,6 +102,21 @@ class SignUpVCPresenter: SignUpVCPresentationProtocol {
             {
                 view.pushVC(controller)
             }
+        }
+    }
+    
+    func getNormalSignupResponse(response : UserAuthResponse) {
+        UserDataModel.currentUser = response.responseData
+        if response.responseCode == 200 {
+            self.goToOTPScreen()
+        }
+    }
+    func goToOTPScreen(){
+        let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter) as? OTPEnterViewController
+        controller?.signUpParams = signUpParams
+        if let view = self.viewController as? UIViewController
+        {
+            view.pushVC(controller!)
         }
     }
 }

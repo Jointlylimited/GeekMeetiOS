@@ -15,7 +15,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommonTblListCell" rowHeight="92" id="KGk-i7-Jjw" customClass="CommonTblListCell" customModule="GeekMeets" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommonTblListCell" rowHeight="92" id="KGk-i7-Jjw" customClass="CommonTblListCell" customModule="Jointly" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="425" height="92"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -41,7 +41,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="+1 123 455 852" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I4T-KU-8a1">
-                        <rect key="frame" x="20" y="41" width="101.5" height="21"/>
+                        <rect key="frame" x="20" y="41" width="385" height="21"/>
                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="15"/>
                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
@@ -57,6 +57,7 @@
                     <constraint firstAttribute="trailing" secondItem="9Vt-SV-XvA" secondAttribute="trailing" constant="20" id="41X-7S-ypR"/>
                     <constraint firstAttribute="trailing" secondItem="5Qs-zZ-b9D" secondAttribute="trailing" constant="20" id="EbK-lb-BYP"/>
                     <constraint firstItem="5Qs-zZ-b9D" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="GVZ-9O-ndQ"/>
+                    <constraint firstItem="I4T-KU-8a1" firstAttribute="trailing" secondItem="9Vt-SV-XvA" secondAttribute="trailing" id="Hsx-5r-Tzg"/>
                     <constraint firstItem="iA6-Dt-kTG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="ILN-w9-itQ"/>
                     <constraint firstItem="iA6-Dt-kTG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="N6f-EW-lus"/>
                     <constraint firstItem="9Vt-SV-XvA" firstAttribute="top" secondItem="iA6-Dt-kTG" secondAttribute="top" id="c95-N4-erf"/>

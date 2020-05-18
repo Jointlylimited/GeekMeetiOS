@@ -548,6 +548,9 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
                     self.imgProfile.image = image
                 } else {
                     self.imageArray.append(image)
+                    self.image = image
+                    self.imgProfile.image = self.imageArray[0]
+                    
                 }
             }
             self.tblEditProfileView.reloadData()
@@ -558,6 +561,8 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
                     self.image = image
                 } else {
                     self.imageArray.append(image)
+                    self.imgProfile.image = self.imageArray[0]
+                    self.image = image
                 }
                 if let imageURL = info[UIImagePickerController.InfoKey.referenceURL] as? URL {
                     let result = PHAsset.fetchAssets(withALAssetURLs: [imageURL], options: nil)

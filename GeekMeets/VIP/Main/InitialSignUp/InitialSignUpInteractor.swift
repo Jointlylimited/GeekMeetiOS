@@ -70,7 +70,7 @@ class InitialSignUpInteractor: InitialSignUpInteractorProtocol, InitialSignUpDat
                     if let userEntity = userEntity {
                         DispatchQueue.main.async {
                             print(userEntity)
-                            self.presenter?.callSnapchatLoginResponse(token: authToken, entity: userEntity)
+                            self.presenter?.callSnapchatLoginResponse(token: userEntity.externalId!, entity: userEntity)
                         }
                     }
                 })
@@ -90,6 +90,8 @@ class InitialSignUpInteractor: InitialSignUpInteractorProtocol, InitialSignUpDat
                       if let userInfo = userInfo,
                           let data = try? JSONSerialization.data(withJSONObject: userInfo, options: .prettyPrinted),
                           let userEntity = try? JSONDecoder().decode(UserEntity.self, from: data) {
+//                         let data1 = userInfo["data"] as? [String: Any]
+//                        userEntity.externalID = data1
                           completion(userEntity, nil)
                       }
               }) { (error, isUserLoggedOut) in
