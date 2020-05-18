@@ -13,7 +13,8 @@
 import UIKit
 
 protocol SelectAgeRangeProtocol: class {
-    func displayQuesionsData(Data : [NSDictionary])
+//    func displayQuesionsData(Data : [NSDictionary])
+    func displayPreferenceData(response : PreferencesResponse)
 }
 
 struct QuestionaryModel {
@@ -21,6 +22,10 @@ struct QuestionaryModel {
     var objQuestionnaire:QuestionnaireModel!
 }
 
+struct PrefrenceModel {
+    var arrPrefrenceData:[PreferencesField]!
+    var objPrefrence:PreferencesField!
+}
 class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
     
     
@@ -33,7 +38,7 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
     @IBOutlet weak var clnSelectAge: UICollectionView!
     
     var objQuestionModel = QuestionaryModel()
-    
+    var objPreModel = PrefrenceModel()
     var intAgeSelected:Int = 0
     var index : Int = 0
     var selectedCells = [Int]()
@@ -76,61 +81,91 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        doSomething()
+        doSomething()
     }
     
     func doSomething() {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         self.navigationController?.isNavigationBarHidden = true
-        self.objQuestionModel.arrQuestionnaire = callQuestionnaireApi()
-        self.displayQuesionsData(Data: self.objQuestionModel.arrQuestionnaire)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        doSomething()
+        self.presenter?.callQuestionaryAPI()
+//        self.objQuestionModel.arrQuestionnaire = callQuestionnaireApi()
+//        self.displayQuesionsData(Data: self.objQuestionModel.arrQuestionnaire)
     }
 
-    func displayQuesionsData(Data: [NSDictionary]) {
-        print(Data)
-        self.objQuestionModel.arrQuestionnaire = Data
+    func displayPreferenceData(response : PreferencesResponse) {
+        
+        self.objPreModel.arrPrefrenceData = response.responseData
         if isFromSignUp {
-            self.objQuestionModel.objQuestionnaire = QuestionnaireModel(dictionary: Data[self.index])!
+            self.objPreModel.objPrefrence = self.objPreModel.arrPrefrenceData[self.index]
+            self.lblTitle.text = "\(self.objPreModel.arrPrefrenceData[self.index].txPreference!)"
             self.index = self.index + 1
-            self.lblQuestionIndex.text = "\(self.index)/\(self.objQuestionModel.arrQuestionnaire.count)"
-            self.lblTitle.text = "\(self.objQuestionModel.objQuestionnaire.title!)"
-            setQuestionData(index: self.index)
+            self.lblQuestionIndex.text = "\(self.index)/\(self.objPreModel.arrPrefrenceData.count)"
+            setPreferenceData(index: self.index)
         } else {
-            setQuestionData(index: self.index)
-        }
-        if self.objQuestionModel.objQuestionnaire.field_code == 100{
-            self.lblDescription.isHidden = true
-        }else{
-            self.lblDescription.isHidden = false
-            self.lblDescription.text = "\(self.objQuestionModel.objQuestionnaire.description!)"
-        }
-    }
-    
-    func setQuestionData(index : Int){
-        self.objQuestionModel.objQuestionnaire = QuestionnaireModel(dictionary: self.objQuestionModel.arrQuestionnaire[self.index - 1])!
-        self.lblQuestionIndex.text = "\(self.index)/\(self.objQuestionModel.arrQuestionnaire.count)"
-        self.lblTitle.text = "\(self.objQuestionModel.objQuestionnaire.title!)"
-        if self.objQuestionModel.objQuestionnaire.field_code == 100{
-            self.lblDescription.isHidden = true
-        }else{
-            self.lblDescription.isHidden = false
-            self.lblDescription.text = "\(self.objQuestionModel.objQuestionnaire.description!)"
+            setPreferenceData(index: self.index)
         }
         self.selectedCells = []
         self.selectedCellValues = []
         self.clnSelectAge.reloadData()
     }
     
+//    func displayQuesionsData(Data: [NSDictionary]) {
+//        print(Data)
+//        self.objQuestionModel.arrQuestionnaire = Data
+//        if isFromSignUp {
+//            self.objQuestionModel.objQuestionnaire = QuestionnaireModel(dictionary: Data[self.index])!
+//            self.index = self.index + 1
+//            self.lblQuestionIndex.text = "\(self.index)/\(self.objQuestionModel.arrQuestionnaire.count)"
+//            self.lblTitle.text = "\(self.objQuestionModel.objQuestionnaire.title!)"
+//            setQuestionData(index: self.index)
+//        } else {
+//            setQuestionData(index: self.index)
+//        }
+//        if self.objQuestionModel.objQuestionnaire.field_code == 100{
+//            self.lblDescription.isHidden = true
+//        }else{
+//            self.lblDescription.isHidden = false
+//            self.lblDescription.text = "\(self.objQuestionModel.objQuestionnaire.description!)"
+//        }
+//    }
+    
+    func setPreferenceData(index : Int){
+        self.objPreModel.objPrefrence = self.objPreModel.arrPrefrenceData[self.index - 1]
+        self.lblQuestionIndex.text = "\(self.index)/\(self.objPreModel.arrPrefrenceData.count)"
+        self.lblTitle.text = "\(self.objPreModel.objPrefrence.txPreference!)"
+        if self.objPreModel.objPrefrence.tiPreferenceType == 0{
+            self.lblDescription.isHidden = true
+        }else{
+            self.lblDescription.isHidden = false
+//            self.lblDescription.text = "\(self.objPreModel.objPrefrence.txPreference!)"
+        }
+        self.selectedCells = []
+        self.selectedCellValues = []
+        self.clnSelectAge.reloadData()
+    }
+    
+//    func setQuestionData(index : Int){
+//        self.objQuestionModel.objQuestionnaire = QuestionnaireModel(dictionary: self.objQuestionModel.arrQuestionnaire[self.index - 1])!
+//        self.lblQuestionIndex.text = "\(self.index)/\(self.objQuestionModel.arrQuestionnaire.count)"
+//        self.lblTitle.text = "\(self.objQuestionModel.objQuestionnaire.title!)"
+//        if self.objQuestionModel.objQuestionnaire.field_code == 100{
+//            self.lblDescription.isHidden = true
+//        }else{
+//            self.lblDescription.isHidden = false
+//            self.lblDescription.text = "\(self.objQuestionModel.objQuestionnaire.description!)"
+//        }
+//        self.selectedCells = []
+//        self.selectedCellValues = []
+//        self.clnSelectAge.reloadData()
+//    }
+    
     //MARK: IBAction Method
     @IBAction func actionContinues(_ sender: Any) {
+        
         if isFromSignUp {
-            if self.index < self.objQuestionModel.arrQuestionnaire.count {
+            if self.index < self.objPreModel.arrPrefrenceData.count /*self.objQuestionModel.arrQuestionnaire.count*/ {
                 self.index = index + 1
-                self.setQuestionData(index: self.index)
+                self.setPreferenceData(index: self.index)
             } else {
                 self.presenter?.actionContinue()
             }
@@ -144,9 +179,9 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
     
     @IBAction func actionSkip(_ sender: Any) {
         if isFromSignUp {
-            if self.index < self.objQuestionModel.arrQuestionnaire.count {
+            if self.index < self.objPreModel.arrPrefrenceData.count /* self.objQuestionModel.arrQuestionnaire.count*/ {
                 self.index = index + 1
-                self.setQuestionData(index: self.index)
+                self.setPreferenceData(index: self.index)
             } else {
                 self.presenter?.actionContinue()
             }
@@ -162,7 +197,7 @@ extension SelectAgeRangeViewController: UICollectionViewDelegate, UICollectionVi
 {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.objQuestionModel.objQuestionnaire.response_set!.response_option?.count ?? 0
+        return self.objPreModel.objPrefrence != nil ? self.objPreModel.objPrefrence.preferenceOption!.count : 0 //self.objQuestionModel.objQuestionnaire.response_set!.response_option?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
@@ -175,7 +210,7 @@ extension SelectAgeRangeViewController: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let cell = cell as? SelectAgeCell {
             cell.indexPath = indexPath
-            let name = self.objQuestionModel.objQuestionnaire.response_set?.response_option?[indexPath.row].name!
+            let name = self.objPreModel.objPrefrence.preferenceOption![indexPath.row].vOption //self.objQuestionModel.objQuestionnaire.response_set?.response_option?[indexPath.row].name!
             cell.lblTitle.text = name
             
             if self.selectedCells.contains(indexPath.row) {
@@ -189,7 +224,7 @@ extension SelectAgeRangeViewController: UICollectionViewDelegate, UICollectionVi
             }
             
             cell.clickOnCell = {
-                if self.objQuestionModel.objQuestionnaire.field_code == 100 {
+                if self.objPreModel.objPrefrence.tiPreferenceType == 0 {
                     if self.selectedCells.count != 0 {
                         let index = self.selectedCells.firstIndex { (index) -> Bool in
                             return index == indexPath.row
@@ -228,9 +263,18 @@ extension SelectAgeRangeViewController: UICollectionViewDelegate, UICollectionVi
         }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let name = self.objPreModel.objPrefrence.preferenceOption![indexPath.row].vOption
         let yourWidth = collectionView.bounds.width/3.0
         let yourHeight = CGFloat(50)
-        return CGSize(width: yourWidth, height: yourHeight)
+        let size = (name! as NSString).size(withAttributes: [
+            NSAttributedString.Key.font : UIFont(name: FontTypePoppins.Poppins_Medium.rawValue, size: FontSizePoppins.sizePopupMenuTitle.rawValue)!
+        ])
+        
+        if size.width > yourWidth {
+            return CGSize(width: size.width, height: yourHeight)
+        } else {
+            return CGSize(width: yourWidth, height: yourHeight)
+        }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets.zero

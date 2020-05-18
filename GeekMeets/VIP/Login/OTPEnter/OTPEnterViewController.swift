@@ -98,27 +98,29 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     }
     
     func doSomething() {
+        print(signUpParams)
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationItem.leftBarButtonItem = leftSideBackBarButton
+        let range = (btnResend!.currentTitle! as NSString).range(of: "Resend")
+        let attributedString = NSMutableAttributedString(string:(btnResend?.currentTitle)!)
+        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: AppCommonColor.pinkColor , range: range)
+        btnResend?.setAttributedTitle(attributedString, for: .normal)
         
-            self.navigationController?.isNavigationBarHidden = false
-            self.navigationItem.leftBarButtonItem = leftSideBackBarButton
-            let range = (btnResend!.currentTitle! as NSString).range(of: "Resend")
-                       let attributedString = NSMutableAttributedString(string:(btnResend?.currentTitle)!)
-                       attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: AppCommonColor.pinkColor , range: range)
-                       btnResend?.setAttributedTitle(attributedString, for: .normal)
-      
-                    btnVerifyOTP.isHidden = true
-                    otpContainerView.addSubview(otpStackView)
-                    otpStackView.delegate = self
-                    otpStackView.heightAnchor.constraint(equalTo: otpContainerView.heightAnchor).isActive = true
-                    otpStackView.centerXAnchor.constraint(equalTo: otpContainerView.centerXAnchor).isActive = true
-                    otpStackView.centerYAnchor.constraint(equalTo: otpContainerView.centerYAnchor).isActive = true
-           
-            btnCountrycode.setTitle(strCountryCode, for: .normal)
-            tfMobileNumber.text = strPhonenumber
-            btnCountrycode.isUserInteractionEnabled = false
-            tfMobileNumber.isUserInteractionEnabled = false
-            startTimer()
-           
+        btnVerifyOTP.isHidden = true
+        otpContainerView.addSubview(otpStackView)
+        otpStackView.delegate = self
+        otpStackView.heightAnchor.constraint(equalTo: otpContainerView.heightAnchor).isActive = true
+        otpStackView.centerXAnchor.constraint(equalTo: otpContainerView.centerXAnchor).isActive = true
+        otpStackView.centerYAnchor.constraint(equalTo: otpContainerView.centerYAnchor).isActive = true
+        
+        strCountryCode = signUpParams!["vCountryCode"]!
+        strPhonenumber = signUpParams!["vPhone"]!
+        btnCountrycode.setTitle(strCountryCode, for: .normal)
+        tfMobileNumber.text = strPhonenumber
+        btnCountrycode.isUserInteractionEnabled = false
+        tfMobileNumber.isUserInteractionEnabled = false
+        startTimer()
+        
     }
 
     func displaySomething() {
@@ -186,7 +188,7 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
         strPhonenumber = tfMobileNumber.text
         print("Final OTP : ",otpStackView.getOTP())
         otpStackView.setAllFieldColor(isWarningColor: true, color: .yellow)
-        self.presenter?.callVerifyOTPAPI(iOTP : otpStackView.getOTP(),vCountryCode : strCountryCode ?? "+91",vPhone : strPhonenumber ?? "7567173373")
+        self.presenter?.callVerifyOTPAPI(iOTP : otpStackView.getOTP(),vCountryCode : strCountryCode ?? "+91",vPhone : strPhonenumber ?? "7567173373", signUpParams : signUpParams)
         
     } else {
         self.navigationController?.isNavigationBarHidden = true
@@ -200,7 +202,7 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
       tfMobileNumber.isUserInteractionEnabled = false
       strPhonenumber = tfMobileNumber.text
       otpStackView.clearTextField()
-      self.presenter?.callResendOTPAPI(vCountryCode : strCountryCode ?? "+91",vPhone : strPhonenumber ?? "7567173373")
+    self.presenter?.callResendOTPAPI(vCountryCode : strCountryCode ?? "+91",vPhone : strPhonenumber ?? "7567173373")
   }
   
   func displayAlert(strTitle : String, strMessage : String) {

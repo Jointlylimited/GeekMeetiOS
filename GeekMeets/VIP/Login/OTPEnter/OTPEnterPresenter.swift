@@ -15,7 +15,7 @@ import UIKit
 protocol OTPEnterPresentationProtocol {
     func presentSomething()
     func actionVerifyOTP()
-    func callVerifyOTPAPI(iOTP : String,vCountryCode : String,vPhone : String)
+    func callVerifyOTPAPI(iOTP : String,vCountryCode : String,vPhone : String, signUpParams : Dictionary<String, String>?)
     func getVerifyOTPResponse(response : CommonResponse)
     func getResendOTPResponse(response : CommonResponse)
     func callResendOTPAPI(vCountryCode : String,vPhone : String)
@@ -23,19 +23,16 @@ protocol OTPEnterPresentationProtocol {
 
 class OTPEnterPresenter: OTPEnterPresentationProtocol {
     
-    
-    
-    
-    
-    
     weak var viewController: OTPEnterProtocol?
     var interactor: OTPEnterInteractorProtocol?
+    var signParams : Dictionary<String, String>?
     
     // MARK: Present something
     func presentSomething() {
         
     }
-    func callVerifyOTPAPI(iOTP : String,vCountryCode : String,vPhone : String) {
+    func callVerifyOTPAPI(iOTP : String,vCountryCode : String,vPhone : String, signUpParams : Dictionary<String, String>?) {
+        self.signParams = signUpParams
         self.interactor?.callVerifyOTPAPI(iOTP : iOTP,vCountryCode : vCountryCode,vPhone : vPhone)
     }
     
@@ -44,11 +41,17 @@ class OTPEnterPresenter: OTPEnterPresentationProtocol {
     }
     
     func actionVerifyOTP() {
-        let controller = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange)
+        let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.UserProfile) as! UserProfileViewController
+        controller.signUpParams = self.signParams
         if let view = self.viewController as? UIViewController
         {
             view.pushVC(controller)
         }
+//        let controller = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange)
+//        if let view = self.viewController as? UIViewController
+//        {
+//            view.pushVC(controller)
+//        }
     }
     func getResendOTPResponse(response : CommonResponse) {
         

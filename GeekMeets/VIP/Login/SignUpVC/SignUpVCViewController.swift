@@ -31,6 +31,7 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
     
     var termsChecked : String = "0"
     var authResponse : UserAuthResponseField!
+    var socialType : Bool = false
     
     // MARK: Object lifecycle
     

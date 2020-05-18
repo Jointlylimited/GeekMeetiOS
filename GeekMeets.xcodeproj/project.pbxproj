@@ -116,6 +116,10 @@
 		0B9499E12451DBC4001AD1C8 /* ContactUS_LegalInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9499CE2451DBC4001AD1C8 /* ContactUS_LegalInteractor.swift */; };
 		0B9499E22451DBC4001AD1C8 /* ContactUS_LegalPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9499CF2451DBC4001AD1C8 /* ContactUS_LegalPresenter.swift */; };
 		0B9499E32451DBC4001AD1C8 /* ContactUS_LegalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9499D02451DBC4001AD1C8 /* ContactUS_LegalViewController.swift */; };
+		0BABEADC247244F1000BC5E7 /* PreferencesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BABEADB247244F1000BC5E7 /* PreferencesAPI.swift */; };
+		0BABEAE02472451A000BC5E7 /* PreferenceOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BABEADD24724519000BC5E7 /* PreferenceOption.swift */; };
+		0BABEAE22472451A000BC5E7 /* PreferencesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BABEADF24724519000BC5E7 /* PreferencesResponse.swift */; };
+		0BABEAE424727264000BC5E7 /* PreferencesField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BABEAE324727264000BC5E7 /* PreferencesField.swift */; };
 		0BBD65F72449C8A500CA178A /* MatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBD65F02449C8A400CA178A /* MatchViewController.swift */; };
 		0BBD65F82449C8A500CA178A /* MatchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBD65F12449C8A400CA178A /* MatchPresenter.swift */; };
 		0BBD65F92449C8A500CA178A /* MatchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBD65F22449C8A400CA178A /* MatchInteractor.swift */; };
@@ -413,6 +417,10 @@
 		0B9499CE2451DBC4001AD1C8 /* ContactUS_LegalInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactUS_LegalInteractor.swift; sourceTree = "<group>"; };
 		0B9499CF2451DBC4001AD1C8 /* ContactUS_LegalPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactUS_LegalPresenter.swift; sourceTree = "<group>"; };
 		0B9499D02451DBC4001AD1C8 /* ContactUS_LegalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactUS_LegalViewController.swift; sourceTree = "<group>"; };
+		0BABEADB247244F1000BC5E7 /* PreferencesAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesAPI.swift; sourceTree = "<group>"; };
+		0BABEADD24724519000BC5E7 /* PreferenceOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceOption.swift; sourceTree = "<group>"; };
+		0BABEADF24724519000BC5E7 /* PreferencesResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesResponse.swift; sourceTree = "<group>"; };
+		0BABEAE324727264000BC5E7 /* PreferencesField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesField.swift; sourceTree = "<group>"; };
 		0BBD65F02449C8A400CA178A /* MatchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchViewController.swift; sourceTree = "<group>"; };
 		0BBD65F12449C8A400CA178A /* MatchPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchPresenter.swift; sourceTree = "<group>"; };
 		0BBD65F22449C8A400CA178A /* MatchInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchInteractor.swift; sourceTree = "<group>"; };
@@ -1295,6 +1303,7 @@
 		F7780E20245AD666003CA4BD /* APIs */ = {
 			isa = PBXGroup;
 			children = (
+				0BABEADB247244F1000BC5E7 /* PreferencesAPI.swift */,
 				F7780E21245AD666003CA4BD /* UserAPI.swift */,
 				F7780E22245AD666003CA4BD /* ContentPageAPI.swift */,
 			);
@@ -1304,6 +1313,9 @@
 		F7780E26245AD666003CA4BD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0BABEAE324727264000BC5E7 /* PreferencesField.swift */,
+				0BABEADD24724519000BC5E7 /* PreferenceOption.swift */,
+				0BABEADF24724519000BC5E7 /* PreferencesResponse.swift */,
 				F7780E27245AD666003CA4BD /* CommonResponse.swift */,
 				F7780E28245AD666003CA4BD /* ContentPageResponse.swift */,
 				F7780E29245AD666003CA4BD /* ContentPageResponseFields.swift */,
@@ -2168,6 +2180,7 @@
 				0B3C75B2245327DF00CEDBBA /* Share_EarnInteractor.swift in Sources */,
 				0BF707FE244F1D1C003D6AB7 /* DiscoverViewController.swift in Sources */,
 				0BF707FF244F1D1C003D6AB7 /* DiscoverInteractor.swift in Sources */,
+				0BABEAE22472451A000BC5E7 /* PreferencesResponse.swift in Sources */,
 				0B53567724508775005571AF /* GradientButton.swift in Sources */,
 				0B4CA0362457EA5200A3460B /* ChangePasswordPresenter.swift in Sources */,
 				F948AECA203E865500F5A852 /* AppdelegateNotification.swift in Sources */,
@@ -2219,6 +2232,7 @@
 				0B921C3624571C510010AE04 /* SearchProfileViewController.swift in Sources */,
 				F7164AC6244EB86F00853BFC /* AddPhotosViewController.swift in Sources */,
 				0B9499E22451DBC4001AD1C8 /* ContactUS_LegalPresenter.swift in Sources */,
+				0BABEAE424727264000BC5E7 /* PreferencesField.swift in Sources */,
 				F7D5259224481DB5002D3A42 /* InitialLoginInteractor.swift in Sources */,
 				F90B4CDE2032AAB8006ADAF6 /* AppDelegate.swift in Sources */,
 				F953B8D620467AFB00BE4F67 /* SettingsViewController.swift in Sources */,
@@ -2282,6 +2296,7 @@
 				0B51D28F245FE0A0005C7B88 /* HSFacebookLoginManager.swift in Sources */,
 				0BF70803244F1D2C003D6AB7 /* MessagesViewController.swift in Sources */,
 				F7DFAE3C24501192008863F3 /* CountryManager.swift in Sources */,
+				0BABEAE02472451A000BC5E7 /* PreferenceOption.swift in Sources */,
 				0BCD4B28245B0C210054A805 /* ColorCollCell.swift in Sources */,
 				0B319665244DE80500B38350 /* TabbarInteractor.swift in Sources */,
 				F9A453D5203AA74B0065C9FD /* SplashViewController.swift in Sources */,
@@ -2355,6 +2370,7 @@
 				F9A4539F203AA7200065C9FD /* Constantt.swift in Sources */,
 				0BBD65F82449C8A500CA178A /* MatchPresenter.swift in Sources */,
 				F9A453BD203AA74A0065C9FD /* LoginInteractor.swift in Sources */,
+				0BABEADC247244F1000BC5E7 /* PreferencesAPI.swift in Sources */,
 				0B53566F2450870F005571AF /* MyMatchesInteractor.swift in Sources */,
 				0B921C2C24571BE40010AE04 /* SegmentedProgressBar.swift in Sources */,
 				F7780E35245AD667003CA4BD /* JSONEncodableEncoding.swift in Sources */,

@@ -13,8 +13,7 @@
 import UIKit
 
 protocol SelectAgeRangeInteractorProtocol {
-    func doSomething()
-    func callQuestionnaireApi()
+    func callQuestionaryAPI()
 }
 
 protocol SelectAgeRangeDataStore {
@@ -26,33 +25,21 @@ class SelectAgeRangeInteractor: SelectAgeRangeInteractorProtocol, SelectAgeRange
     //var name: String = ""
     
     // MARK: Do something
-    func doSomething() {
-        
-    }
-    func callQuestionnaireApi() {
-      
-        if let path = Bundle.main.path(forResource: "questionnaire", ofType: "json") {
-            do {
-                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-                let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
-                if let jsonResult = jsonResult as? NSArray {
-                    // do stuff
-                    print(jsonResult)
-                    var abc:[QuestionnaireModel]? = []
-                    
-                    let data = (jsonResult as! NSArray)
-                    print(data)
-                    let dict = data as! [NSDictionary]
-                    print(dict)
-                    abc = [QuestionnaireModel(dictionary: dict[0])!]
-                    print(abc)
-                    //                  let Data:QuestionnaireModel = QuestionnaireModel.init(dictionary: jsonResult)!
-                    self.presenter?.getQuestionnaireResponse(userData: dict)
+    func callQuestionaryAPI() {
+        PreferencesAPI.list(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization) { (response, error) in
+            
+            if response?.responseCode == 200 {
+                self.presenter?.getQuestionaryResponse(response : response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+            } else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
                 }
-            } catch {
-                // handle error
             }
+            
         }
-      
-  }
+    }
 }

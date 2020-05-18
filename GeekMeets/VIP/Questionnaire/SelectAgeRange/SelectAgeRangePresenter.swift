@@ -13,29 +13,27 @@
 import UIKit
 
 protocol SelectAgeRangePresentationProtocol {
-    func presentSomething()
-    func callQuestionnaireRequest()
-    func getQuestionnaireResponse(userData : [NSDictionary])
-//    func getQuestionnaireResponse(userData : [QuestionnaireModel]?)
+    func callQuestionaryAPI()
+    func getQuestionaryResponse(response : PreferencesResponse)
+    
     func actionContinue()
     func actionSkip()
 }
 
 class SelectAgeRangePresenter: SelectAgeRangePresentationProtocol {
-    func callQuestionnaireRequest() {
-       self.interactor?.callQuestionnaireApi()
-    }
     
-    func getQuestionnaireResponse(userData : [NSDictionary]){
-      self.viewController?.displayQuesionsData(Data: userData)
-    }
-  
+    
     weak var viewController: SelectAgeRangeProtocol?
     var interactor: SelectAgeRangeInteractorProtocol?
     
     // MARK: Present something
-    func presentSomething() {
-        
+    func callQuestionaryAPI() {
+       self.interactor?.callQuestionaryAPI()
+    }
+    
+    func getQuestionaryResponse(response : PreferencesResponse) {
+        UserDataModel.PreferenceData = response
+        self.viewController?.displayPreferenceData(response : response)
     }
   
     func actionContinue() {

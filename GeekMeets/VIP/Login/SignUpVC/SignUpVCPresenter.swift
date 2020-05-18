@@ -92,7 +92,7 @@ class SignUpVCPresenter: SignUpVCPresentationProtocol {
     }
     
     func actionContinue(signUpParams : Dictionary<String, String>) {
-        if UserDataModel.currentUser?.tiSocialType == 0 {
+        if signUpParams["vSocialId"]! == "" {
             let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter) as? OTPEnterViewController
             controller?.signUpParams = signUpParams
             if let view = self.viewController as? UIViewController
@@ -101,7 +101,7 @@ class SignUpVCPresenter: SignUpVCPresentationProtocol {
             }
         } else {
             let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.UserProfile) as! UserProfileViewController
-            
+            controller.signUpParams = signUpParams
             if let view = self.viewController as? UIViewController
             {
                 view.pushVC(controller)

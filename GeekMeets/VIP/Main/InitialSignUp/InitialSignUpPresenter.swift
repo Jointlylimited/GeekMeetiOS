@@ -34,7 +34,8 @@ class InitialSignUpPresenter: InitialSignUpPresentationProtocol {
     
     func actionSignUp()
     {
-        let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.SignUpScreen)
+        let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.SignUpScreen) as! SignUpVCViewController
+        controller.socialType = false
         if let view = self.viewController as? UIViewController
         {
             view.pushVC(controller)
@@ -93,6 +94,7 @@ class InitialSignUpPresenter: InitialSignUpPresentationProtocol {
         if signParams.vEmail == "" || signParams.vPhone == "" {
             let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.SignUpScreen) as? SignUpVCViewController
             UserDataModel.currentUser = signParams
+            controller?.socialType = true
             if let view = self.viewController as? UIViewController
             {
                 view.pushVC(controller!)

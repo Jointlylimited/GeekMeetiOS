@@ -34,8 +34,8 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
     @IBOutlet weak var btnOther: UIButton!
     @IBOutlet weak var btnPreferNottoSay: UIButton!
     
-  @IBOutlet weak var lblCompanynsdSchoolDetail: UILabel!
-  var signUpParams : Dictionary<String, String>?
+    @IBOutlet weak var lblCompanynsdSchoolDetail: UILabel!
+    var signUpParams : Dictionary<String, String>?
     var selectedGender : String = "0"
     var currentStatus : String = "1"
     var imgString : String = ""
@@ -95,7 +95,7 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
             self.tfName.text = user?.vName
             self.tfDoB.text = user?.dDob
         }
-        
+        print(signUpParams)
         self.datePicker.maximumDate = Date()
         scrollView.delegate = self
         self.navigationController?.isNavigationBarHidden = false
@@ -218,8 +218,9 @@ extension UserProfileViewController:  UINavigationControllerDelegate, UIImagePic
                   self.imgString = localPath
 
              }else{
-               let imgString = (info[UIImagePickerController.InfoKey.imageURL] as! URL).lastPathComponent
+            let imgString = (info[UIImagePickerController.InfoKey.imageURL] as! URL).absoluteString
                 self.imgString = imgString
+                self.imgString = "IMG001.jpeg"
                }
          }
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {

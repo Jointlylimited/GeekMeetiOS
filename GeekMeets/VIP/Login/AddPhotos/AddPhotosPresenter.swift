@@ -40,7 +40,7 @@ class AddPhotosPresenter: AddPhotosPresentationProtocol {
         
         UserDataModel.currentUser = response.responseData
         
-        let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter)
+        let controller = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange)
         if let view = self.viewController as? UIViewController
         {
             view.pushVC(controller)

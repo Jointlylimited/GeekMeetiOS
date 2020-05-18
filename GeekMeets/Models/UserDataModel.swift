@@ -50,6 +50,16 @@ class UserDataModel : Codable {
         return UserDefaults.standard.value(forKey: kUserCurrentLocation) as! CLLocation
     }
     
+    static var PreferenceData : PreferencesResponse? {
+        didSet{
+            let encoder = JSONEncoder()
+            if let encoded = try? encoder.encode(PreferenceData) {
+                let defaults = UserDefaults.standard
+                defaults.set(encoded, forKey: "PreferenceData")
+            }
+        }
+    }
+    
 //    @objc static func setNotificationCount(count: Int){
 //        UserDefaults.standard.set(count, forKey: kNotificationCount)
 //    }
