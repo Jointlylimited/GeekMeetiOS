@@ -85,7 +85,7 @@ class InitialSignUpPresenter: InitialSignUpPresentationProtocol {
     }
     
     func callSnapchatLoginResponse(token: String, entity : UserEntity){
-        let param = RequestParameter.sharedInstance().socialSigninParams(tiSocialType: "1", accessKey: token, service: "snapchat")
+        let param = RequestParameter.sharedInstance().socialSigninParams(tiSocialType: "4", accessKey: token, service: "snapchat")
         self.interactor?.callSocialSignInAPI(params: param)
     }
     

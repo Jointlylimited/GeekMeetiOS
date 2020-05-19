@@ -35,6 +35,7 @@ enum CommonModelData {
         }
     }
 }
+
 protocol CommonPagesProtocol: class {
 }
 

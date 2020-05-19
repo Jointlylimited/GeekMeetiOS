@@ -17,6 +17,7 @@ public struct UserAuthResponseField: Codable {
     public var vAuthKey: String?
     public var vName: String?
     public var tiAge: Int?
+    public var tiGender: Int?
     public var dDob: String?
     public var vProfileImage: String?
     public var vEmail: String?
@@ -27,14 +28,23 @@ public struct UserAuthResponseField: Codable {
     public var txCompanyDetail: String?
     public var vLiveIn: String?
     public var tiIsSocialLogin: Int?
+    public var vInstaLink: String?
+    public var vSnapLink: String?
+    public var vFbLink: String?
+    public var tiIsShowAge: Int?
+    public var tiIsShowDistance: Int?
+    public var tiIsShowContactNumber: Int?
+    public var tiIsShowProfileToLikedUser: Int?
+    public var tiIsSubscribed: Int?
 
-    public init(iUserId: Int?, vSocialId: String?, tiSocialType: Int?, vAuthKey: String?, vName: String?, tiAge: Int?, dDob: String?, vProfileImage: String?, vEmail: String?, txAbout: String?, vCountryCode: String?, vPhone: String?, vUserDeviceLanguage: String?, txCompanyDetail: String?, vLiveIn: String?, tiIsSocialLogin: Int?) {
+    public init(iUserId: Int?, vSocialId: String?, tiSocialType: Int?, vAuthKey: String?, vName: String?, tiAge: Int?, tiGender: Int?, dDob: String?, vProfileImage: String?, vEmail: String?, txAbout: String?, vCountryCode: String?, vPhone: String?, vUserDeviceLanguage: String?, txCompanyDetail: String?, vLiveIn: String?, tiIsSocialLogin: Int?, vInstaLink: String?, vSnapLink: String?, vFbLink: String?, tiIsShowAge: Int?, tiIsShowDistance: Int?, tiIsShowContactNumber: Int?, tiIsShowProfileToLikedUser: Int?, tiIsSubscribed: Int?) {
         self.iUserId = iUserId
         self.vSocialId = vSocialId
         self.tiSocialType = tiSocialType
         self.vAuthKey = vAuthKey
         self.vName = vName
         self.tiAge = tiAge
+        self.tiGender = tiGender
         self.dDob = dDob
         self.vProfileImage = vProfileImage
         self.vEmail = vEmail
@@ -45,6 +55,14 @@ public struct UserAuthResponseField: Codable {
         self.txCompanyDetail = txCompanyDetail
         self.vLiveIn = vLiveIn
         self.tiIsSocialLogin = tiIsSocialLogin
+        self.vInstaLink = vInstaLink
+        self.vSnapLink = vSnapLink
+        self.vFbLink = vFbLink
+        self.tiIsShowAge = tiIsShowAge
+        self.tiIsShowDistance = tiIsShowDistance
+        self.tiIsShowContactNumber = tiIsShowContactNumber
+        self.tiIsShowProfileToLikedUser = tiIsShowProfileToLikedUser
+        self.tiIsSubscribed = tiIsSubscribed
     }
 
 

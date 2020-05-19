@@ -131,6 +131,9 @@ PODS:
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
+  - NVActivityIndicatorView (4.8.0):
+    - NVActivityIndicatorView/Presenter (= 4.8.0)
+  - NVActivityIndicatorView/Presenter (4.8.0)
   - PINCache (2.3)
   - PINOperation (1.1.2)
   - PromisesObjC (1.2.8)
@@ -162,6 +165,7 @@ DEPENDENCIES:
   - IQKeyboardManagerSwift
   - JSONModel
   - Moya
+  - NVActivityIndicatorView
   - ReachabilitySwift
   - SnapSDK
   - SwiftyJSON
@@ -198,6 +202,7 @@ SPEC REPOS:
     - JSONModel
     - Moya
     - nanopb
+    - NVActivityIndicatorView
     - PINCache
     - PINOperation
     - PromisesObjC
@@ -237,6 +242,7 @@ SPEC CHECKSUMS:
   JSONModel: 02ab723958366a3fd27da57ea2af2113658762e9
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
+  NVActivityIndicatorView: d24b7ebcf80af5dcd994adb650e2b6c93379270f
   PINCache: ce36ed282031b92fc7733ffe831f474ff80fddc2
   PINOperation: 24b774353ca248fcf87d67b2d61eef42087c125a
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
@@ -245,6 +251,6 @@ SPEC CHECKSUMS:
   SnapSDK: 9ea8d26ca876b7f1d85fad2f2ec09852f3b156d0
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: 6a542bf2534abe3c66a0a21a8221eb389f7b6cba
+PODFILE CHECKSUM: 00eecf1e3684381fb75245060e5853ee39a3e9cb
 
 COCOAPODS: 1.8.4

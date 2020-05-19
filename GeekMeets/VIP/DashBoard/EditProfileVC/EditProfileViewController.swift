@@ -15,6 +15,7 @@ import Photos
 
 protocol SelectInterestAgeGenderDelegate {
     func getSelectedValue(index : Int, data : String)
+    
 }
 enum EditProfileListCells {
     
@@ -118,6 +119,7 @@ struct EditProfileData {
 }
 
 protocol EditProfileProtocol: class {
+    func getEditProfileResponse(response: UserAuthResponse)
 }
 
 class EditProfileViewController: UIViewController, EditProfileProtocol {
@@ -141,6 +143,8 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
     var isForProfile : Bool = true
     var objQuestionModel = QuestionaryModel()
     var customProfileView: RecommandedProfileView!
+    var genderArray : [String] = ["Male", "Female", "Others", "Prefer not to say"]
+    var delegate : ProfileDataDelegate!
     
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -187,11 +191,16 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
     
     func setTheme(){
         self.datePicker.maximumDate = Date()
-        self.lblUserNameAge.text = "\(self.userProfileModel?.vFullName ?? ""), \(self.userProfileModel?.vAge ?? 0)"
+        self.lblUserNameAge.text = "\(UserDataModel.currentUser?.vName ?? ""), \(UserDataModel.currentUser?.tiAge ?? 0)"
         
+        if self.userProfileModel == nil {
+            self.userProfileModel = UserDataModel.getProfileData()
+            /*UserProfileModel(vEmail: UserDataModel.currentUser?.vEmail, vProfileImage: UserDataModel.currentUser?.vProfileImage, vFullName: UserDataModel.currentUser?.vName, vAge: UserDataModel.currentUser?.tiAge ?? 0, vDoB : UserDataModel.currentUser?.dDob != "" ? UserDataModel.currentUser?.dDob?.strDateTODateStr(dateStr: UserDataModel.currentUser!.dDob!) : "", vAbout: UserDataModel.currentUser?.txAbout, vCity: UserDataModel.currentUser?.vLiveIn, vGender: self.genderArray[(UserDataModel.currentUser?.tiGender!)!], vGenderIndex: "0", vCompanyDetail: UserDataModel.currentUser?.txCompanyDetail, vInterestAge: "20-30", vInterestGender: "Male", vLikedSocialPlatform: "Whatsapp, Snapchat, Instagram", vPhotos: "", vInstagramLink: UserDataModel.currentUser?.vInstaLink, vSnapchatLink: UserDataModel.currentUser?.vSnapLink, vFacebookLink: UserDataModel.currentUser?.vFbLink, vShowAge: UserDataModel.currentUser?.tiIsShowAge, vShowDistance: UserDataModel.currentUser?.tiIsShowDistance, vShowContactNo: UserDataModel.currentUser?.tiIsShowContactNumber, vShowProfiletoLiked:UserDataModel.currentUser?.tiIsShowProfileToLikedUser, vProfileImg: nil, vProfileImageArray: [])*/
+        }
+        self.imgProfile.image = userProfileModel!.vProfileImg != nil ? userProfileModel!.vProfileImg : nil
+        self.imageArray = userProfileModel!.vProfileImageArray != nil ? userProfileModel!.vProfileImageArray! : []
         self.objQuestionModel.arrQuestionnaire = callQuestionnaireApi()
         self.objQuestionModel.objQuestionnaire = QuestionnaireModel(dictionary: self.objQuestionModel.arrQuestionnaire[1])!
-        
         self.tblEditProfileView.reloadData()
     }
     
@@ -199,7 +208,10 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
         self.popVC()
     }
     @IBAction func btnUpdateAction(_ sender: GradientButton) {
-        self.popVC()
+        
+        let params = RequestParameter.sharedInstance().editProfileParam(vEmail: userProfileModel?.vEmail ?? "", vProfileImage: userProfileModel?.vProfileImage ?? "", vName: userProfileModel?.vFullName ?? "", dDob: userProfileModel?.vDoB?.inputDateStrToAPIDateStr(dateStr: userProfileModel!.vDoB!) ?? "", tiAge: "\(userProfileModel?.vAge ?? 0)", tiGender: userProfileModel?.vGenderIndex ?? "0", vLiveIn: userProfileModel?.vCity ?? "", txCompanyDetail: userProfileModel?.vCompanyDetail ?? "", txAbout: userProfileModel?.vAbout ?? "", photos: userProfileModel?.vPhotos ?? "", vInstaLink: userProfileModel?.vInstagramLink ?? "", vSnapLink: userProfileModel?.vSnapchatLink ?? "", vFbLink: userProfileModel?.vFacebookLink ?? "", tiIsShowAge: "\(userProfileModel?.vShowAge ?? 0)", tiIsShowDistance: "\(userProfileModel?.vShowDistance ?? 0)", tiIsShowContactNumber: "\(userProfileModel?.vShowContactNo ?? 0)", tiIsShowProfileToLikedUser: "\(userProfileModel?.vShowProfiletoLiked ?? 0)")
+        
+        self.presenter?.callEdirProfileAPI(params: params)
     }
     @IBAction func btnDonePickerAction(_ sender: UIBarButtonItem) {
         
@@ -240,6 +252,18 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
         customProfileView.delegate = self
         customProfileView.frame = self.view.frame
         AppDelObj.window?.addSubview(customProfileView)
+    }
+    
+    func getEditProfileResponse(response: UserAuthResponse){
+        if response.responseCode == 200 {
+            userProfileModel?.vProfileImg = self.imageArray[0]
+            userProfileModel?.vProfileImageArray = self.imageArray
+            UserDataModel.currentUser = response.responseData
+//            UserDataModel.setProfileData(data: self.userProfileModel!)
+            self.delegate.profiledetails(data : userProfileModel!)
+            self.popVC()
+            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        }
     }
 }
 
@@ -337,20 +361,25 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
         } else {
              if let cell = cell as? EditProfilePrivacyCell  {
                 
+                cell.btnSwichMode[0].isSelected = userProfileModel?.vShowAge == 1 ? true : false
+                cell.btnSwichMode[1].isSelected = userProfileModel?.vShowDistance == 1 ? true : false
+                cell.btnSwichMode[2].isSelected = userProfileModel?.vShowContactNo == 1 ? true : false
+                cell.btnSwichMode[3].isSelected = userProfileModel?.vShowProfiletoLiked == 1 ? true : false
+                
                 cell.clickOnBtnSwitch = { (index) in
                     print(indexPath.row)
                     if cell.btnSwichMode[index!].tag == 0 {
                         cell.btnSwichMode[0].isSelected = !cell.btnSwichMode[0].isSelected
-                        self.userProfileModel?.vShowAge = cell.btnSwichMode[0].isSelected
+                        self.userProfileModel?.vShowAge = cell.btnSwichMode[0].isSelected == true ? 1 : 0
                     } else if cell.btnSwichMode[index!].tag == 1 {
                         cell.btnSwichMode[1].isSelected = !cell.btnSwichMode[1].isSelected
-                        self.userProfileModel?.vShowDistance = cell.btnSwichMode[1].isSelected
+                        self.userProfileModel?.vShowDistance = cell.btnSwichMode[1].isSelected == true ? 1 : 0
                     } else if cell.btnSwichMode[index!].tag == 2 {
                         cell.btnSwichMode[2].isSelected = !cell.btnSwichMode[2].isSelected
-                        self.userProfileModel?.vShowContactNo = cell.btnSwichMode[2].isSelected
+                        self.userProfileModel?.vShowContactNo = cell.btnSwichMode[2].isSelected == true ? 1 : 0
                     } else {
                         cell.btnSwichMode[3].isSelected = !cell.btnSwichMode[3].isSelected
-                        self.userProfileModel?.vShowProfiletoLiked = cell.btnSwichMode[3].isSelected
+                        self.userProfileModel?.vShowProfiletoLiked = cell.btnSwichMode[3].isSelected == true ? 1 : 0
                     }
                 }
             }
@@ -406,6 +435,7 @@ extension EditProfileViewController : UICollectionViewDataSource, UICollectionVi
         if indexPath.row < self.imageArray.count {
             cell.btnClose.alpha = 1.0
             cell.userImgView.image = imageArray[indexPath.row]
+            cell.emojiStackView.alpha = 0
         } else {
             cell.userImgView.image = #imageLiteral(resourceName: "icn_add_photo")
             cell.emojiStackView.alpha = 0
@@ -581,17 +611,19 @@ extension EditProfileViewController : UIPickerViewDelegate, UIPickerViewDataSour
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return self.objQuestionModel.objQuestionnaire.response_set!.response_option?.count ?? 0
+        return self.genderArray.count // self.objQuestionModel.objQuestionnaire.response_set!.response_option?.count ?? 0
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
-        let title = self.objQuestionModel.objQuestionnaire.response_set?.response_option?[row].name!
+        let title = self.genderArray[row] // self.objQuestionModel.objQuestionnaire.response_set?.response_option?[row].name!
         return title
     }
 
     func pickerView(_ pickerView:UIPickerView,didSelectRow row: Int,inComponent component: Int){
-        let title = self.objQuestionModel.objQuestionnaire.response_set?.response_option?[row].name!
+        let title = self.genderArray[row] //self.objQuestionModel.objQuestionnaire.response_set?.response_option?[row].name!
         self.userProfileModel?.vGender = title
+        self.userProfileModel?.vGenderIndex = "\(row == 3 ? 4 : row)"
+        
     }
 }

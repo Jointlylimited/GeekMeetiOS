@@ -118,5 +118,30 @@ class RequestParameter: NSObject {
         
         return requestDictionary
     }
+    
+    func editProfileParam(vEmail: String, vProfileImage: String, vName: String, dDob: String, tiAge: String, tiGender: String,  vLiveIn: String, txCompanyDetail:String, txAbout:String, photos:String, vInstaLink : String, vSnapLink: String, vFbLink: String, tiIsShowAge: String, tiIsShowDistance: String, tiIsShowContactNumber: String, tiIsShowProfileToLikedUser: String) -> Dictionary<String, String> {
+        
+            var requestDictionary : Dictionary<String, String> = Dictionary()
+            requestDictionary["vEmail"] = vEmail
+            requestDictionary["vProfileImage"] = vProfileImage
+            requestDictionary["vName"] = vName
+            requestDictionary["dDob"] = dDob
+            requestDictionary["tiAge"] = tiAge
+            requestDictionary["tiGender"] = tiGender
+            
+            requestDictionary["vLiveIn"] = vLiveIn
+            requestDictionary["txCompanyDetail"] = txCompanyDetail
+            requestDictionary["txAbout"] = txAbout
+            requestDictionary["photos"] = photos
+            requestDictionary["vInstaLink"] = vInstaLink
+            requestDictionary["vSnapLink"] = vSnapLink
+            requestDictionary["vFbLink"] = vFbLink
+            requestDictionary["tiIsShowAge"] = tiIsShowAge
+            requestDictionary["tiIsShowDistance"] = tiIsShowDistance
+            requestDictionary["tiIsShowContactNumber"] = tiIsShowContactNumber
+            requestDictionary["tiIsShowProfileToLikedUser"] = tiIsShowProfileToLikedUser
+
+            return requestDictionary
+        }
 }
 

@@ -37,8 +37,23 @@ class UserDataModel : Codable {
         return nil
     }
     
+    @objc static func setProfileData(data: UserProfileModel){
+        let encodedData = NSKeyedArchiver.archivedData(withRootObject: data)
+        UserDefaults.standard.set(encodedData, forKey: "UserProfileModel")
+    }
+    
+    @objc static func getProfileData() -> UserProfileModel {
+        let decoded  = UserDefaults.standard.object(forKey: "UserProfileModel") as! Data
+        let decodedTeams = NSKeyedUnarchiver.unarchiveObject(with: decoded) as! UserProfileModel
+        return decodedTeams
+    }
+    
+    @objc static func setAuthKey(key: String){
+        UserDefaults.standard.set(key, forKey: kAuthKey)
+    }
+    
     static var authorization : String {
-        let auth = "Bearer \(UserDataModel.currentUser!.vAuthKey ?? "")"
+        let auth = "Bearer \(UserDefaults.standard.value(forKey: kAuthKey) ?? "")"
         return auth
     }
     
@@ -59,6 +74,7 @@ class UserDataModel : Codable {
             }
         }
     }
+    
     
 //    @objc static func setNotificationCount(count: Int){
 //        UserDefaults.standard.set(count, forKey: kNotificationCount)

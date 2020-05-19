@@ -30,9 +30,10 @@ class ChangePasswordInteractor: ChangePasswordInteractorProtocol, ChangePassword
         
     }
     func callChangePasswordAPI(vCurrentPassword : String,vNewPassword : String) {
-      
+        LoaderView.sharedInstance.showLoader()
       UserAPI.changePassword(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization, vCurrentPassword: vCurrentPassword, vNewPassword: vNewPassword ){ (response, error) in
             
+        LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.presenter?.getChangePasswordResponse(response: response!)
             } else if response?.responseCode == 400 {

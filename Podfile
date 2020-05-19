@@ -25,4 +25,5 @@ target 'GeekMeets' do
   pod 'JSONModel'
   pod 'SnapSDK'
   pod 'ActiveLabel'
+  pod 'NVActivityIndicatorView'
 end

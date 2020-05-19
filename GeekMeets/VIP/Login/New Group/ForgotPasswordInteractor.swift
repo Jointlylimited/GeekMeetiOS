@@ -26,8 +26,10 @@ class ForgotPasswordInteractor: ForgotPasswordInteractorProtocol, ForgotPassword
     
     // MARK: Do something
     func callForgotPasswordAPI(email : String) {
+        LoaderView.sharedInstance.showLoader()
         UserAPI.forgotPassword(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, vEmail: email) { (response, error) in
             
+            LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.presenter?.getForgotPasswordResponse(response: response!)
             } else if response?.responseCode == 203 {

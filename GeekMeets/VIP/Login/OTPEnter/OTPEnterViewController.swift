@@ -35,7 +35,7 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     @IBOutlet weak var btnVerifyOTP: GradientButton!
     @IBOutlet weak var otpContainerView: UIView!
     @IBOutlet weak var lblMobileNumber: UILabel!
-    @IBOutlet weak var tfMobileNumber: BottomBorderTF!
+    @IBOutlet weak var tfMobileNumber: UITextField!
     @IBOutlet weak var btnCountrycode: UIButton!
   
        
@@ -116,7 +116,7 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
         strCountryCode = signUpParams!["vCountryCode"]!
         strPhonenumber = signUpParams!["vPhone"]!
         btnCountrycode.setTitle(strCountryCode, for: .normal)
-        tfMobileNumber.text = strPhonenumber
+        tfMobileNumber.text = "\(strCountryCode) \(strPhonenumber ?? "")"
         btnCountrycode.isUserInteractionEnabled = false
         tfMobileNumber.isUserInteractionEnabled = false
         startTimer()
@@ -162,9 +162,10 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     
   
   @IBAction func actionEditMobileNumber(_ sender: Any) {
-                  displayAlert(strTitle : "", strMessage : "Now you can Edit phone number")
+    self.popVC()
+                /*  displayAlert(strTitle : "", strMessage : "Now you can Edit phone number")
                   btnCountrycode.isUserInteractionEnabled = true
-                  tfMobileNumber.isUserInteractionEnabled = true
+                  tfMobileNumber.isUserInteractionEnabled = true*/
     
   }
   
@@ -188,7 +189,7 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
         strPhonenumber = tfMobileNumber.text
         print("Final OTP : ",otpStackView.getOTP())
         otpStackView.setAllFieldColor(isWarningColor: true, color: .yellow)
-        self.presenter?.callVerifyOTPAPI(iOTP : otpStackView.getOTP(),vCountryCode : strCountryCode ?? "+91",vPhone : strPhonenumber ?? "7567173373", signUpParams : signUpParams)
+        self.presenter?.callVerifyOTPAPI(iOTP : otpStackView.getOTP(),vCountryCode : strCountryCode,vPhone : strPhonenumber ?? "7567173373", signUpParams : signUpParams)
         
     } else {
         self.navigationController?.isNavigationBarHidden = true
@@ -202,7 +203,7 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
       tfMobileNumber.isUserInteractionEnabled = false
       strPhonenumber = tfMobileNumber.text
       otpStackView.clearTextField()
-    self.presenter?.callResendOTPAPI(vCountryCode : strCountryCode ?? "+91",vPhone : strPhonenumber ?? "7567173373")
+    self.presenter?.callResendOTPAPI(vCountryCode : strCountryCode ,vPhone : strPhonenumber ?? "7567173373")
   }
   
   func displayAlert(strTitle : String, strMessage : String) {

@@ -17,6 +17,7 @@ protocol SignUpVCPresentationProtocol {
     func callSignUpRequest(signUpParams : Dictionary<String, String>)
     func getEmailAvailResponse(response : UserAuthResponse)
     func getNormalSignupResponse(response : UserAuthResponse)
+    func goToOTPScreen()
 }
 
 class SignUpVCPresenter: SignUpVCPresentationProtocol {
@@ -27,8 +28,15 @@ class SignUpVCPresenter: SignUpVCPresentationProtocol {
     func callSignUpRequest(signUpParams : Dictionary<String, String>){
         if validateSignUpParams(param: signUpParams) {
             self.signUpParams = signUpParams
-            self.interactor?.callEmailAvailabilityAPI(email : signUpParams["vEmail"]!)
-//            self.actionContinue(signUpParams : signUpParams)
+            if signUpParams["vSocialId"]! == "" || signUpParams["vSocialId"]! == "0" {
+                if UserDataModel.currentUser?.iUserId != nil {
+                    self.goToOTPScreen()
+                } else {
+                    self.interactor?.callEmailAvailabilityAPI(email : signUpParams["vEmail"]!)
+                }
+            } else {
+                self.interactor?.callEmailAvailabilityAPI(email : signUpParams["vEmail"]!)
+            }
         }
     }
     

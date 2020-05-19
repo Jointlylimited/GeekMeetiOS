@@ -78,6 +78,7 @@ let kSomethingWentWrong = "Something went wrong...Please try again"
 let kLoogedIntoOtherDevice = "It is look like you logged in another device."
 let kUserCurrentLocation = "kUserCurrentLocation"
 let kMobileVerifySucc = "Your mobile is changed & verified Successfully"
+
 class KeyMessages: NSObject {
 
 }

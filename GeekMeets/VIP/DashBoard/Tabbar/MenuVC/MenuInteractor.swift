@@ -26,8 +26,10 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
     
     // MARK: Do something
     func callSignoutAPI() {
+        LoaderView.sharedInstance.showLoader()
         UserAPI.signout(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
+            LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.presenter?.getSignoutResponse(response : response!)
             } else if response?.responseCode == 203 {

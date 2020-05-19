@@ -27,8 +27,10 @@ class SignUpVCInteractor: SignUpVCInteractorProtocol, SignUpVCDataStore {
     
     // MARK: Do something
     func callEmailAvailabilityAPI(email : String) {
+        LoaderView.sharedInstance.showLoader()
         UserAPI.checkEmailAvailability(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, vEmail: email) { (response, error) in
             
+            LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.presenter?.getEmailAvailResponse(response : response!)
             } else if response?.responseCode == 203 {
@@ -44,8 +46,10 @@ class SignUpVCInteractor: SignUpVCInteractorProtocol, SignUpVCDataStore {
     }
     
     func callNormalSignupAPI(params : Dictionary<String, String>){
+        LoaderView.sharedInstance.showLoader()
         UserAPI.normalSignUp(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, vEmail: params["vEmail"]!, vPassword: params["vPassword"]!, vCountryCode: params["vCountryCode"]!, vPhone: params["vPhone"]!, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_normalSignUp(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId ?? "", vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress) { (response, error) in
             
+            LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.presenter?.getNormalSignupResponse(response : response!)
             } else if response?.responseCode == 203 {

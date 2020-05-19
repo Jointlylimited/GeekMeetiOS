@@ -13,7 +13,7 @@
 import UIKit
 
 protocol EditProfileInteractorProtocol {
-    func doSomething()
+    func callEdirProfileAPI(params : Dictionary<String, String>)
 }
 
 protocol EditProfileDataStore {
@@ -25,7 +25,23 @@ class EditProfileInteractor: EditProfileInteractorProtocol, EditProfileDataStore
     //var name: String = ""
     
     // MARK: Do something
-    func doSomething() {
+    func callEdirProfileAPI(params : Dictionary<String, String>) {
         
+        LoaderView.sharedInstance.showLoader()
+        UserAPI.editProfile(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vName: params["vName"]!, dDob: params["dDob"]!, tiAge: params["tiAge"]!, tiGender: UserAPI.TiGender_editProfile(rawValue: params["tiGender"]!)!, txCompanyDetail: params["txCompanyDetail"]!, txAbout: params["txAbout"]!, vEmail: params["vEmail"]!, vProfileImage: params["vProfileImage"]!, vLiveIn: params["vLiveIn"]!, photos: params["photos"]!, vInstaLink: params["vInstaLink"]!, vSnapLink: params["vSnapLink"]!, vFbLink: params["vFbLink"]!, tiIsShowAge: UserAPI.TiIsShowAge_editProfile(rawValue: params["tiIsShowAge"]!)!, tiIsShowDistance: UserAPI.TiIsShowDistance_editProfile(rawValue: params["tiIsShowDistance"]!), tiIsShowContactNumber: UserAPI.TiIsShowContactNumber_editProfile(rawValue: params["tiIsShowContactNumber"]!)!, tiIsShowProfileToLikedUser: UserAPI.TiIsShowProfileToLikedUser_editProfile(rawValue: params["tiIsShowProfileToLikedUser"]!)!) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                          self.presenter?.getEditProfileResponse(response: response!)
+                      } else if response?.responseCode == 203 {
+                          AppSingleton.sharedInstance().logout()
+                      }  else {
+                          if error != nil {
+                              AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                          } else {
+                              AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+                          }
+                      }
+        }
     }
 }

@@ -36,6 +36,13 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblDescription: UILabel!
     @IBOutlet weak var clnSelectAge: UICollectionView!
+    @IBOutlet weak var txtChooseHeight: UITextField!
+    @IBOutlet weak var heightPickerView: UIView!
+    @IBOutlet weak var heightPicker: UIDatePicker!
+    @IBOutlet weak var HeightSliderView: UIView!
+    @IBOutlet weak var lblMinHeight: UILabel!
+    @IBOutlet weak var lblMaxHeight: UILabel!
+    @IBOutlet weak var heightSlider: UISlider!
     
     var objQuestionModel = QuestionaryModel()
     var objPreModel = PrefrenceModel()
@@ -45,6 +52,7 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
     var selectedCellValues = [String]()
     var isFromSignUp : Bool = true
     var interest_delegate : SelectInterestAgeGenderDelegate!
+    fileprivate let gregorian = Calendar(identifier: .gregorian)
     
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -88,10 +96,27 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         self.navigationController?.isNavigationBarHidden = true
         self.presenter?.callQuestionaryAPI()
-//        self.objQuestionModel.arrQuestionnaire = callQuestionnaireApi()
-//        self.displayQuesionsData(Data: self.objQuestionModel.arrQuestionnaire)
     }
 
+    func setHeightPickerData(){
+        
+        heightSlider.minimumValue = 0
+        heightSlider.maximumValue = 10
+        
+        heightSlider.addTarget(self, action: #selector(changeVlaue(_:)), for: .valueChanged)
+//        heightSlider.setThumbImage(#imageLiteral(resourceName: "icn_rect_1"), for: .normal)
+//        heightSlider.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
+        
+        let imgView = UIImageView(frame: CGRect(x: heightSlider.frame.x, y: heightSlider.frame.y - heightSlider.frame.height/2 - 10, w: heightSlider.frame.height, h: heightSlider.frame.height))
+        imgView.image = #imageLiteral(resourceName: "icn_rect_1")
+        imgView.addPinchGesture(target: self, action: #selector(changeVlaue(_:)))
+        heightSlider.addSubview(imgView)
+        
+        let imgView2 = UIImageView(frame: CGRect(x: heightSlider.frame.width - heightSlider.frame.height/2, y: heightSlider.frame.y - heightSlider.frame.height/2 - 10, w: heightSlider.frame.height, h: heightSlider.frame.height))
+        imgView2.image = #imageLiteral(resourceName: "icn_rect_1")
+        imgView2.addPinchGesture(target: self, action: #selector(changeVlaue(_:)))
+        heightSlider.addSubview(imgView2)
+    }
     func displayPreferenceData(response : PreferencesResponse) {
         
         self.objPreModel.arrPrefrenceData = response.responseData
@@ -109,55 +134,38 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
         self.clnSelectAge.reloadData()
     }
     
-//    func displayQuesionsData(Data: [NSDictionary]) {
-//        print(Data)
-//        self.objQuestionModel.arrQuestionnaire = Data
-//        if isFromSignUp {
-//            self.objQuestionModel.objQuestionnaire = QuestionnaireModel(dictionary: Data[self.index])!
-//            self.index = self.index + 1
-//            self.lblQuestionIndex.text = "\(self.index)/\(self.objQuestionModel.arrQuestionnaire.count)"
-//            self.lblTitle.text = "\(self.objQuestionModel.objQuestionnaire.title!)"
-//            setQuestionData(index: self.index)
-//        } else {
-//            setQuestionData(index: self.index)
-//        }
-//        if self.objQuestionModel.objQuestionnaire.field_code == 100{
-//            self.lblDescription.isHidden = true
-//        }else{
-//            self.lblDescription.isHidden = false
-//            self.lblDescription.text = "\(self.objQuestionModel.objQuestionnaire.description!)"
-//        }
-//    }
-    
     func setPreferenceData(index : Int){
         self.objPreModel.objPrefrence = self.objPreModel.arrPrefrenceData[self.index - 1]
         self.lblQuestionIndex.text = "\(self.index)/\(self.objPreModel.arrPrefrenceData.count)"
         self.lblTitle.text = "\(self.objPreModel.objPrefrence.txPreference!)"
-        if self.objPreModel.objPrefrence.tiPreferenceType == 0{
-            self.lblDescription.isHidden = true
+        if self.objPreModel.objPrefrence.tiPreferenceType == 0 {
+//            self.lblDescription.isHidden = true
+            
         }else{
             self.lblDescription.isHidden = false
 //            self.lblDescription.text = "\(self.objPreModel.objPrefrence.txPreference!)"
+        }
+        if index == 5 || index == 6 {
+            setHeightPickerData()
+            self.txtChooseHeight.alpha = 1
+            self.HeightSliderView.alpha = 1
+            self.clnSelectAge.alpha = 0
+        } else {
+            self.txtChooseHeight.alpha = 0
+            self.HeightSliderView.alpha = 0
+            self.clnSelectAge.alpha = 1
         }
         self.selectedCells = []
         self.selectedCellValues = []
         self.clnSelectAge.reloadData()
     }
     
-//    func setQuestionData(index : Int){
-//        self.objQuestionModel.objQuestionnaire = QuestionnaireModel(dictionary: self.objQuestionModel.arrQuestionnaire[self.index - 1])!
-//        self.lblQuestionIndex.text = "\(self.index)/\(self.objQuestionModel.arrQuestionnaire.count)"
-//        self.lblTitle.text = "\(self.objQuestionModel.objQuestionnaire.title!)"
-//        if self.objQuestionModel.objQuestionnaire.field_code == 100{
-//            self.lblDescription.isHidden = true
-//        }else{
-//            self.lblDescription.isHidden = false
-//            self.lblDescription.text = "\(self.objQuestionModel.objQuestionnaire.description!)"
-//        }
-//        self.selectedCells = []
-//        self.selectedCellValues = []
-//        self.clnSelectAge.reloadData()
-//    }
+    @objc func changeVlaue(_ sender: UISlider) {
+        let value = CGFloat(sender.value)
+        print("value is" ,value)
+         self.lblMinHeight.text = "\(sender.minimumValue)"
+        self.lblMaxHeight.text = "\(sender.maximumValue)"
+    }
     
     //MARK: IBAction Method
     @IBAction func actionContinues(_ sender: Any) {
@@ -188,6 +196,15 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
         } else {
             self.popVC()
         }
+    }
+    @IBAction func btnSelectHeightAction(_ sender: UIBarButtonItem) {
+        self.heightPickerView.alpha = 0
+        let dateFormatter2 = DateFormatter()
+        dateFormatter2.dateFormat = "HH:mm"
+        let utcTimeFormat = dateFormatter2.string(from: heightPicker.date)
+        print(utcTimeFormat)
+        self.txtChooseHeight.text = utcTimeFormat
+        
     }
 }
 
@@ -293,5 +310,11 @@ extension SelectAgeRangeViewController: UICollectionViewDelegate, UICollectionVi
     func actionSelectAge(at index:IndexPath){
         intAgeSelected = index.row
         clnSelectAge.reloadData()
+    }
+}
+
+extension SelectAgeRangeViewController : UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.HeightSliderView.alpha = 0
     }
 }

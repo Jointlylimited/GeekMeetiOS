@@ -82,6 +82,7 @@
 		0B7F33D4246ED8AE007ADF8D /* NotificationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F33D1246ED8AE007ADF8D /* NotificationListViewController.swift */; };
 		0B7F33D5246ED8AE007ADF8D /* NotificationListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F33D2246ED8AE007ADF8D /* NotificationListInteractor.swift */; };
 		0B7F33D6246ED8AE007ADF8D /* NotificationListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F33D3246ED8AE007ADF8D /* NotificationListPresenter.swift */; };
+		0B912A412473989B005D5412 /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B912A402473989B005D5412 /* LoaderView.swift */; };
 		0B921C2624571BE40010AE04 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B921C1824571BE30010AE04 /* ContentViewController.swift */; };
 		0B921C2724571BE40010AE04 /* ARSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B921C1A24571BE30010AE04 /* ARSupport.swift */; };
 		0B921C2824571BE40010AE04 /* PreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B921C1B24571BE30010AE04 /* PreViewController.swift */; };
@@ -380,6 +381,7 @@
 		0B7F33D1246ED8AE007ADF8D /* NotificationListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationListViewController.swift; sourceTree = "<group>"; };
 		0B7F33D2246ED8AE007ADF8D /* NotificationListInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationListInteractor.swift; sourceTree = "<group>"; };
 		0B7F33D3246ED8AE007ADF8D /* NotificationListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationListPresenter.swift; sourceTree = "<group>"; };
+		0B912A402473989B005D5412 /* LoaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
 		0B921C1824571BE30010AE04 /* ContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		0B921C1A24571BE30010AE04 /* ARSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARSupport.swift; sourceTree = "<group>"; };
 		0B921C1B24571BE30010AE04 /* PreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreViewController.swift; sourceTree = "<group>"; };
@@ -765,6 +767,7 @@
 		0B51D28D245FE08C005C7B88 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				0B912A3F24739871005D5412 /* LoaderView */,
 				0B51D28E245FE0A0005C7B88 /* HSFacebookLoginManager.swift */,
 			);
 			path = Classes;
@@ -899,6 +902,14 @@
 				0B7F33D3246ED8AE007ADF8D /* NotificationListPresenter.swift */,
 			);
 			path = NotificationVC;
+			sourceTree = "<group>";
+		};
+		0B912A3F24739871005D5412 /* LoaderView */ = {
+			isa = PBXGroup;
+			children = (
+				0B912A402473989B005D5412 /* LoaderView.swift */,
+			);
+			path = LoaderView;
 			sourceTree = "<group>";
 		};
 		0B921C1724571BE30010AE04 /* ARStories */ = {
@@ -2074,6 +2085,7 @@
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/JSONModel/JSONModel.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
+				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/PINCache/PINCache.framework",
 				"${BUILT_PRODUCTS_DIR}/PINOperation/PINOperation.framework",
 				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
@@ -2104,6 +2116,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSONModel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINCache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINOperation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
@@ -2193,6 +2206,7 @@
 				0B7F33D4246ED8AE007ADF8D /* NotificationListViewController.swift in Sources */,
 				0BF707FD244F1D1C003D6AB7 /* DiscoverPresenter.swift in Sources */,
 				F97A9A2E21103FAD007C45F5 /* CGFloatExtensions.swift in Sources */,
+				0B912A412473989B005D5412 /* LoaderView.swift in Sources */,
 				0B921C3324571C510010AE04 /* SearchProfilePresenter.swift in Sources */,
 				0B7F33C8246ED80D007ADF8D /* RecommandedProfileView.swift in Sources */,
 				0B31965C244DE80500B38350 /* ProfilePhotosCell.swift in Sources */,

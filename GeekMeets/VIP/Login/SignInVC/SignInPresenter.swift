@@ -60,6 +60,8 @@ class SignInPresenter: SignInPresentationProtocol {
     func getSignInResponse(response : UserAuthResponse)
     {
         UserDataModel.currentUser = response.responseData
+        UserDataModel.setAuthKey(key: (response.responseData?.vAuthKey)!)
+        
         if response.responseCode == 200 {
             AppSingleton.sharedInstance().showHomeVC()
         } else if response.responseCode == 203 {

@@ -103,7 +103,7 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
     }
     @IBAction func actionContinue(_ sender: Any) {
         
-        let params = RequestParameter.sharedInstance().signUpParam(vEmail: tfEmailAddress.text ?? "", vPassword: tfPassword?.text ?? "", vConfirmPassword : tfConfirmPassword.text ?? "", vCountryCode: btnCountrycode.titleLabel?.text ?? "", vPhone: tfMobileNumber.text ?? "", termsChecked : termsChecked, vProfileImage: "", vName: "", dDob: "", tiAge: "", tiGender: "", iCurrentStatus: "", txCompanyDetail: "", txAbout: "", photos: "", vTimeOffset: "", vTimeZone: "", vSocialId : UserDataModel.currentUser == nil ? "" : (UserDataModel.currentUser?.vSocialId!)!, fLatitude : "0.0", fLongitude: "0.0")
+        let params = RequestParameter.sharedInstance().signUpParam(vEmail: tfEmailAddress.text ?? "", vPassword: tfPassword?.text ?? "", vConfirmPassword : tfConfirmPassword.text ?? "", vCountryCode: btnCountrycode.titleLabel?.text ?? "", vPhone: tfMobileNumber.text ?? "", termsChecked : termsChecked, vProfileImage: "", vName: "", dDob: "", tiAge: "", tiGender: "", iCurrentStatus: "", txCompanyDetail: "", txAbout: "", photos: "", vTimeOffset: "", vTimeZone: "", vSocialId : (UserDataModel.currentUser == nil || UserDataModel.currentUser?.tiIsSocialLogin == nil) ? "" : (UserDataModel.currentUser?.vSocialId!)!, fLatitude : "0.0", fLongitude: "0.0")
         
         self.presenter?.callSignUpRequest(signUpParams: params)
     }

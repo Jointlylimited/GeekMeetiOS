@@ -43,9 +43,10 @@ class MenuViewController: UIViewController, MenuProtocol {
     
     var alertView: CustomAlertView!
     var arrMenuModel : [MenuViewModel] = []
+    var genderArray : [String] = ["Male", "Female", "Others", "Prefer not to say"]
     var timer: Timer?
     var totalTime = 600
-    var userProfileModel = UserProfileModel(vFullName: UserDataModel.currentUser?.vName, vAge: UserDataModel.currentUser?.tiAge ?? 0, vDoB : UserDataModel.currentUser?.dDob?.strDateTODateStr(dateStr: UserDataModel.currentUser!.dDob!), vAbout: UserDataModel.currentUser?.txAbout, vCity: UserDataModel.currentUser?.vLiveIn, vGender: "\(UserDataModel.currentUser?.tiAge ?? 0)", vCompanyDetail: UserDataModel.currentUser?.txCompanyDetail, vInterestAge: "", vInterestGender: "", vLikedSocialPlatform: "", vPhotos: "", vInstagramLink: "", vSnapchatLink: "", vFacebookLink: "", vShowAge: false, vShowDistance: false, vShowContactNo: false, vShowProfiletoLiked:false)
+    
     // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -97,7 +98,7 @@ class MenuViewController: UIViewController, MenuProtocol {
     func setTheme() {
         self.navigationController?.isNavigationBarHidden = true
         startTimer()
-        self.lblUserNameAge.text = "\(self.userProfileModel.vFullName ?? ""), \(self.userProfileModel.vAge ?? 0)"
+        self.lblUserNameAge.text = "\(UserDataModel.currentUser?.vName ?? ""), \(UserDataModel.currentUser?.tiAge ?? 0)"
         self.btnEditProfile.underlineButton(text: "Edit Profile", font: UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 12)!, color: #colorLiteral(red: 0.5294117647, green: 0.1803921569, blue: 0.7647058824, alpha: 1))
         arrMenuModel = [MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_my_match"), label: "My Matches (122)", rightImage: #imageLiteral(resourceName: "icn_arrow")),
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_manage_subscription"), label: "Manage Subscription", rightImage: #imageLiteral(resourceName: "icn_arrow")),
@@ -151,7 +152,6 @@ class MenuViewController: UIViewController, MenuProtocol {
     }
     @IBAction func btnEditProfileAction(_ sender: UIButton) {
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.EditProfileScreen) as! EditProfileViewController
-        controller.userProfileModel = self.userProfileModel
         self.pushVC(controller)
     }
     @IBAction func btnNotificationAction(_ sender: UIButton) {
@@ -242,9 +242,11 @@ extension MenuViewController {
     }
     
     func getSignOutResponse(response : UserAuthResponse){
-        Authentication.setLoggedInStatus(false)
-        self.navigationController?.popToRootViewController(animated: true)
-        //        self.displayAlert(strTitle: "", strMessage: response.responseMessage!)
+        if response.responseCode == 200 {
+            AppSingleton.sharedInstance().logout()
+        } else {
+            self.displayAlert(strTitle: "", strMessage: response.responseMessage!)
+        }
     }
     func showAlertView() {
         alertView = CustomAlertView.initAlertView(title: "Are you sure you want to Logout?", message: "", btnRightStr: "Logout", btnCancelStr: "Cancel", btnCenter: "", isSingleButton: false)
