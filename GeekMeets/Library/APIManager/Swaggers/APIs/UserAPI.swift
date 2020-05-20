@@ -386,61 +386,61 @@ open class UserAPI {
        }
 
     /**
-     Forgot Password
-     
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter language: (header) en&#x3D;English, fr&#x3D;French 
-     - parameter vEmail: (form) Email Id of user 
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    open class func forgotPassword(nonce: String, timestamp: Int, token: String, language: String, vEmail: String, completion: @escaping ((_ data: CommonResponse?,_ error: Error?) -> Void)) {
-        forgotPasswordWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, language: language, vEmail: vEmail).execute { (response, error) -> Void in
-            completion(response?.body, error)
+         Forgot Password
+         
+         - parameter nonce: (header)
+         - parameter timestamp: (header)
+         - parameter token: (header)
+         - parameter language: (header) en&#x3D;English, fr&#x3D;French
+         - parameter vEmail: (form) Email Id of user
+         - parameter completion: completion handler to receive the data and the error objects
+         */
+        open class func forgotPassword(nonce: String, timestamp: Int, token: String, language: String, vEmail: String, completion: @escaping ((_ data: CommonResponse?,_ error: Error?) -> Void)) {
+            forgotPasswordWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, language: language, vEmail: vEmail).execute { (response, error) -> Void in
+                completion(response?.body, error)
+            }
         }
-    }
 
 
-    /**
-     Forgot Password
-     - POST /user/forgot-password
-     - examples: [{contentType=application/json, example={
-  "responseMessage" : "responseMessage",
-  "responseCode" : 0
-}}]
-     
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter language: (header) en&#x3D;English, fr&#x3D;French 
-     - parameter vEmail: (form) Email Id of user 
+        /**
+         Forgot Password
+         - POST /user/forgot-password
+         - examples: [{contentType=application/json, example={
+      "responseMessage" : "responseMessage",
+      "responseCode" : 0
+    }}]
+         
+         - parameter nonce: (header)
+         - parameter timestamp: (header)
+         - parameter token: (header)
+         - parameter language: (header) en&#x3D;English, fr&#x3D;French
+         - parameter vEmail: (form) Email Id of user
 
-     - returns: RequestBuilder<CommonResponse> 
-     */
-    open class func forgotPasswordWithRequestBuilder(nonce: String, timestamp: Int, token: String, language: String, vEmail: String) -> RequestBuilder<CommonResponse> {
-        let path = "/user/forgot-password"
-        let URLString = SwaggerClientAPI.basePath + path
-        let formParams: [String:Any?] = [
-            "vEmail": vEmail
-        ]
+         - returns: RequestBuilder<CommonResponse>
+         */
+        open class func forgotPasswordWithRequestBuilder(nonce: String, timestamp: Int, token: String, language: String, vEmail: String) -> RequestBuilder<CommonResponse> {
+            let path = "/user/forgot-password"
+            let URLString = SwaggerClientAPI.basePath + path
+            let formParams: [String:Any?] = [
+                "vEmail": vEmail
+            ]
 
-        let nonNullParameters = APIHelper.rejectNil(formParams)
-        let parameters = APIHelper.convertBoolToString(nonNullParameters)
-        
-        let url = URLComponents(string: URLString)
-        let nillableHeaders: [String: Any?] = [
-            "nonce": nonce,
-            "timestamp": timestamp.encodeToJSON(),
-            "token": token,
-            "language": language
-        ]
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+            let nonNullParameters = APIHelper.rejectNil(formParams)
+            let parameters = APIHelper.convertBoolToString(nonNullParameters)
+            
+            let url = URLComponents(string: URLString)
+            let nillableHeaders: [String: Any?] = [
+                "nonce": nonce,
+                "timestamp": timestamp.encodeToJSON(),
+                "token": token,
+                "language": language
+            ]
+            let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
 
-        let requestBuilder: RequestBuilder<CommonResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+            let requestBuilder: RequestBuilder<CommonResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
-    }
+            return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
+        }
 
     /**
      * enum for parameter tiDeviceType

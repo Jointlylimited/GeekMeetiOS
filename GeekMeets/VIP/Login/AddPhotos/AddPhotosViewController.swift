@@ -84,7 +84,6 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
 
     //MARK: IBAction Method
     @IBAction func actionDone(_ sender: Any) {
-       
         
         let photoJsonString = json(from: self.imgsUserPhotosDict)
         let params = RequestParameter.sharedInstance().signUpParam(vEmail: signUpParams!["vEmail"]!, vPassword: signUpParams!["vPassword"]!, vConfirmPassword : signUpParams!["vConfirmPassword"]!, vCountryCode: signUpParams!["vCountryCode"]!, vPhone: signUpParams!["vPhone"]!, termsChecked : signUpParams!["termsChecked"]!, vProfileImage: signUpParams!["vProfileImage"]!, vName: signUpParams!["vName"]!, dDob: signUpParams!["dDob"]!, tiAge: signUpParams!["tiAge"]!, tiGender: signUpParams!["tiGender"]!, iCurrentStatus: signUpParams!["iCurrentStatus"]!, txCompanyDetail: signUpParams!["txCompanyDetail"]!, txAbout: signUpParams!["txAbout"]!, photos: self.imgsUserPhotos.count > 0 ? photoJsonString! : "", vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vSocialId : signUpParams!["vSocialId"]!, fLatitude : self.location != nil ? "\(self.location?.coordinate.latitude ?? 0.0)" : "0.0", fLongitude: self.location != nil ? "\(self.location?.coordinate.longitude ?? 0.0)" : "0.0")

@@ -57,6 +57,14 @@ class UserDataModel : Codable {
         return auth
     }
     
+    @objc static func setSocialType(socialType: String){
+        UserDefaults.standard.set(socialType, forKey: kSocialType)
+    }
+    
+    @objc static func getSocialType() -> String {
+        return UserDefaults.standard.value(forKey: kSocialType) as! String
+    }
+    
     @objc static func setUserLocation(location: CLLocation){
         UserDefaults.standard.set(location, forKey: kUserCurrentLocation)
     }

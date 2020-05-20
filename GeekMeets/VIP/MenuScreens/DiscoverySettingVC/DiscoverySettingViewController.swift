@@ -12,6 +12,84 @@
 
 import UIKit
 
+enum Interest_PreferenceData {
+
+    case Ethernity
+    case Preference_Ethernity
+    case Personality
+    case Preference_Personality
+    case Height
+    case Preference_Height
+    case SexualOrientation
+    case Preference_SexualOrientation
+    case LookingFor
+    case AgeRange
+    case Region
+    case BodyType
+    case Preference_BodyType
+    case TurnsMost
+    case Communication
+    case Important
+    case Accountable
+    case Indoor_Outdoor
+    case Sex_Important
+    case Morning_Night
+    case Pets
+    case Kids
+    case Decision_Making
+    
+    var Title : String {
+        switch self {
+        case .Ethernity:
+            return "Your Ethnicity?"
+        case .Preference_Ethernity:
+            return "Your desired partner’s Ethnicity would be?"
+        case .Personality:
+            return "What is your personality type?"
+        case .Preference_Personality:
+            return "Personality of your desired partner would be?"
+        case .Height:
+            return "Your Height?"
+        case .Preference_Height:
+            return "Your Height preference?"
+        case .SexualOrientation:
+            return "Your Sexual orientation?"
+        case .Preference_SexualOrientation:
+            return "Sexual Orientation of your desired partner"
+        case .LookingFor:
+            return "Are you looking for.."
+        case .AgeRange:
+            return "Select age range of your preferred partner?"
+        case .Region:
+            return "What is your religion?"
+        case .BodyType:
+            return "Your Body Type?"
+        case .Preference_BodyType:
+            return "Body type of your desired partner?"
+        case .TurnsMost:
+            return "What turns you on the most?"
+        case .Communication:
+            return "How important is communication in a relationship?"
+        case .Important:
+            return "Which is more important?"
+        case .Accountable:
+            return "It is important to be accountable in a relationship?"
+        case .Indoor_Outdoor:
+            return "Are you A indoors or outdoors person?"
+        case .Sex_Important:
+            return "How important is the element of sex in a relationship?"
+        case .Morning_Night:
+            return "Are you a morning or night person?"
+        case .Pets:
+            return "Do you have pets?"
+        case .Kids:
+            return "Do you have Kids?"
+        case .Decision_Making:
+            return "How Important is decision making as a couple?"
+        }
+    }
+}
+
 class CommonCellModel {
     var title: String
     var description: String?
@@ -90,7 +168,7 @@ class DiscoverySettingViewController: UIViewController, DiscoverySettingProtocol
         }
         self.tblDiscoverList.register(UINib.init(nibName: Cells.CommonTblListCell, bundle: Bundle.main), forCellReuseIdentifier: Cells.CommonTblListCell)
         
-        self.objDiscoverData = [CommonCellModel(title: "Interested Age Range", description: "20-30", isDescAvailable: true), CommonCellModel(title: "Interested In Gender", description: "Male, Female", isDescAvailable: true), CommonCellModel(title: "Most liked social media platforms", description: "Whats App, Instagram, Snapchat", isDescAvailable: true)]
+        self.objDiscoverData = [CommonCellModel(title: "Yourself", description: "", isDescAvailable: false), CommonCellModel(title: "Your Desired Partner", description: "", isDescAvailable: false), CommonCellModel(title: "Your Interests", description: "", isDescAvailable: true)]
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
@@ -122,7 +200,6 @@ extension DiscoverySettingViewController : UITableViewDataSource, UITableViewDel
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let cell = cell as? CommonTblListCell {
             
-            
             let data = self.objDiscoverData[indexPath.row]
             
             cell.lblTitle.text = data.title
@@ -141,30 +218,18 @@ extension DiscoverySettingViewController : UITableViewDataSource, UITableViewDel
     
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let index = indexPath.row
-        let queVC = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange) as? SelectAgeRangeViewController
-        queVC?.isFromSignUp = false
-        queVC?.interest_delegate = self
+        let intVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.Interest_PreferenceScreen) as? Interest_PreferenceViewController
+
         if index == 0 {
-            queVC?.index = 10
+            intVC?.header_title = self.objDiscoverData[0].title
+            intVC?.objDiscoverData =  [CommonCellModel(title: Interest_PreferenceData.Ethernity.Title, description: "", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Height.Title, description: "", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.BodyType.Title, description: "", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Indoor_Outdoor.Title, description: "", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Morning_Night.Title, description: "", isDescAvailable: true)]
             
         } else if index == 1 {
-            queVC?.index = 8
+            intVC?.header_title = self.objDiscoverData[1].title
         } else {
-            queVC?.index = 3
+            intVC?.header_title = self.objDiscoverData[2].title
         }
-        self.pushVC(queVC!)
+        self.pushVC(intVC!)
     }
 }
 
-extension DiscoverySettingViewController : SelectInterestAgeGenderDelegate {
-    func getSelectedValue(index: Int, data: String) {
-        if index == 10 {
-            self.objDiscoverData[0].description = data
-        } else if index == 8 {
-            self.objDiscoverData[1].description = data
-        } else {
-            self.objDiscoverData[2].description = data
-        }
-        self.tblDiscoverList.reloadData()
-    }
-}

@@ -36,13 +36,11 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblDescription: UILabel!
     @IBOutlet weak var clnSelectAge: UICollectionView!
-    @IBOutlet weak var txtChooseHeight: UITextField!
-    @IBOutlet weak var heightPickerView: UIView!
-    @IBOutlet weak var heightPicker: UIDatePicker!
     @IBOutlet weak var HeightSliderView: UIView!
     @IBOutlet weak var lblMinHeight: UILabel!
     @IBOutlet weak var lblMaxHeight: UILabel!
-    @IBOutlet weak var heightSlider: UISlider!
+    @IBOutlet weak var heightSeekSlider: RangeSeekSlider!
+    @IBOutlet weak var lblHeight: UILabel!
     
     var objQuestionModel = QuestionaryModel()
     var objPreModel = PrefrenceModel()
@@ -53,6 +51,8 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
     var isFromSignUp : Bool = true
     var interest_delegate : SelectInterestAgeGenderDelegate!
     fileprivate let gregorian = Calendar(identifier: .gregorian)
+    var feet:Int = 0
+    var inch:Int = 0
     
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -98,25 +98,24 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
         self.presenter?.callQuestionaryAPI()
     }
 
-    func setHeightPickerData(){
+    func setHeightPickerData(index : Int){
         
-        heightSlider.minimumValue = 0
-        heightSlider.maximumValue = 10
+        heightSeekSlider.delegate = self
         
-        heightSlider.addTarget(self, action: #selector(changeVlaue(_:)), for: .valueChanged)
-//        heightSlider.setThumbImage(#imageLiteral(resourceName: "icn_rect_1"), for: .normal)
-//        heightSlider.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
+        heightSeekSlider.hideLabels = true
+        heightSeekSlider.tintColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        heightSeekSlider.colorBetweenHandles = #colorLiteral(red: 0.606272161, green: 0.2928337753, blue: 0.8085166812, alpha: 1)
+        heightSeekSlider.handleImage = #imageLiteral(resourceName: "icn_rect_1")
+        heightSeekSlider.minValue = 0.0
+        heightSeekSlider.maxValue = 10.0
         
-        let imgView = UIImageView(frame: CGRect(x: heightSlider.frame.x, y: heightSlider.frame.y - heightSlider.frame.height/2 - 10, w: heightSlider.frame.height, h: heightSlider.frame.height))
-        imgView.image = #imageLiteral(resourceName: "icn_rect_1")
-        imgView.addPinchGesture(target: self, action: #selector(changeVlaue(_:)))
-        heightSlider.addSubview(imgView)
-        
-        let imgView2 = UIImageView(frame: CGRect(x: heightSlider.frame.width - heightSlider.frame.height/2, y: heightSlider.frame.y - heightSlider.frame.height/2 - 10, w: heightSlider.frame.height, h: heightSlider.frame.height))
-        imgView2.image = #imageLiteral(resourceName: "icn_rect_1")
-        imgView2.addPinchGesture(target: self, action: #selector(changeVlaue(_:)))
-        heightSlider.addSubview(imgView2)
+        if index == 5 {
+            heightSeekSlider.disableRange = true
+        } else {
+            heightSeekSlider.disableRange = false
+        }
     }
+    
     func displayPreferenceData(response : PreferencesResponse) {
         
         self.objPreModel.arrPrefrenceData = response.responseData
@@ -138,20 +137,27 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
         self.objPreModel.objPrefrence = self.objPreModel.arrPrefrenceData[self.index - 1]
         self.lblQuestionIndex.text = "\(self.index)/\(self.objPreModel.arrPrefrenceData.count)"
         self.lblTitle.text = "\(self.objPreModel.objPrefrence.txPreference!)"
-        if self.objPreModel.objPrefrence.tiPreferenceType == 0 {
-//            self.lblDescription.isHidden = true
+        if self.objPreModel.objPrefrence.tiPreferenceType == 0 || index == 5 || index == 6 || index == 10 {
+            self.lblDescription.isHidden = true
             
         }else{
             self.lblDescription.isHidden = false
-//            self.lblDescription.text = "\(self.objPreModel.objPrefrence.txPreference!)"
         }
-        if index == 5 || index == 6 {
-            setHeightPickerData()
-            self.txtChooseHeight.alpha = 1
+        if index == 5 {
+            setHeightPickerData(index : index)
             self.HeightSliderView.alpha = 1
             self.clnSelectAge.alpha = 0
-        } else {
-            self.txtChooseHeight.alpha = 0
+            self.lblHeight.alpha = 1
+            self.lblMinHeight.alpha = 0
+            self.lblMaxHeight.alpha = 0
+        } else if index == 6 {
+            setHeightPickerData(index : index)
+            self.HeightSliderView.alpha = 1
+            self.clnSelectAge.alpha = 0
+            self.lblHeight.alpha = 0
+            self.lblMinHeight.alpha = 1
+            self.lblMaxHeight.alpha = 1
+        }else {
             self.HeightSliderView.alpha = 0
             self.clnSelectAge.alpha = 1
         }
@@ -159,6 +165,7 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
         self.selectedCellValues = []
         self.clnSelectAge.reloadData()
     }
+    
     
     @objc func changeVlaue(_ sender: UISlider) {
         let value = CGFloat(sender.value)
@@ -180,7 +187,8 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
         } else {
             let data = self.selectedCellValues.map { String($0) }
             .joined(separator: ", ")
-            self.interest_delegate.getSelectedValue(index : self.index, data: data)
+            let value = self.index == 5 ? self.lblHeight.text : (self.index == 6 ? "\(self.lblMinHeight.text ?? "") -\(self.lblMaxHeight.text ?? "")" : data)
+            self.interest_delegate.getSelectedValue(index : self.index, data: value!)
             self.popVC()
         }
     }
@@ -197,15 +205,6 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
             self.popVC()
         }
     }
-    @IBAction func btnSelectHeightAction(_ sender: UIBarButtonItem) {
-        self.heightPickerView.alpha = 0
-        let dateFormatter2 = DateFormatter()
-        dateFormatter2.dateFormat = "HH:mm"
-        let utcTimeFormat = dateFormatter2.string(from: heightPicker.date)
-        print(utcTimeFormat)
-        self.txtChooseHeight.text = utcTimeFormat
-        
-    }
 }
 
 //MARK:UICollectionview
@@ -214,7 +213,7 @@ extension SelectAgeRangeViewController: UICollectionViewDelegate, UICollectionVi
 {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.objPreModel.objPrefrence != nil ? self.objPreModel.objPrefrence.preferenceOption!.count : 0 //self.objQuestionModel.objQuestionnaire.response_set!.response_option?.count ?? 0
+        return self.objPreModel.objPrefrence != nil ? self.objPreModel.objPrefrence.preferenceOption!.count : 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
@@ -313,8 +312,40 @@ extension SelectAgeRangeViewController: UICollectionViewDelegate, UICollectionVi
     }
 }
 
-extension SelectAgeRangeViewController : UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        self.HeightSliderView.alpha = 0
+extension SelectAgeRangeViewController: RangeSeekSliderDelegate {
+
+    func rangeSeekSlider(_ slider: RangeSeekSlider, didChange minValue: CGFloat, maxValue: CGFloat) {
+        if slider === heightSeekSlider {
+            print("Standard slider updated. Min Value: \(minValue) Max Value: \(maxValue)")
+            
+            let min_value = String(format: "%.2f",Double(minValue /**100).rounded()/100*/))
+            let max_value = String(format: "%.2f",Double(maxValue/**100).rounded()/100*/))
+            
+            let minvalue = String(format: "%.2f",Double(minValue/* *100).rounded()/100*/)).split(".").last
+            let maxvalue = String(format: "%.2f",Double(maxValue/* *100).rounded()/100*/)).split(".").last
+            
+            if minvalue! == 10 || minvalue! == 11 {
+                self.lblMinHeight.text = min_value
+            } else {
+                self.lblMinHeight.text = String(format: "%.1f",minValue)
+            }
+            
+            if maxvalue! == 10 ||  maxvalue! == 11 {
+                self.lblHeight.text = max_value
+                self.lblMaxHeight.text = max_value
+            } else {
+                self.lblHeight.text = String(format: "%.1f",maxValue)
+                self.lblMaxHeight.text = String(format: "%.1f",maxValue)
+            }
+        }
+    }
+
+    func didStartTouches(in slider: RangeSeekSlider) {
+        print("did start touches")
+    }
+
+    func didEndTouches(in slider: RangeSeekSlider) {
+        print("did end touches")
     }
 }
+

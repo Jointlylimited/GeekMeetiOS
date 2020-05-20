@@ -78,41 +78,9 @@
             filePath = "GeekMeets/VIP/Main/InitialSignUp/InitialSignUpInteractor.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
             landmarkName = "callSocialSignInAPI(params:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E153D8DA-F0E8-47AB-B47A-BA3762BA8EFF"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GeekMeets/VIP/Questionnaire/SelectAgeRange/SelectAgeRangeViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
-            landmarkName = "changeVlaue(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F5A0A58C-9322-4C0C-AD9E-8B2F03C51DCD"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GeekMeets/VIP/Login/SignUpVC/SignUpVCPresenter.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
-            landmarkName = "actionContinue(signUpParams:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -130,6 +98,134 @@
             endingLineNumber = "31"
             landmarkName = "callSignUpRequest(signUpParams:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "84C77152-A1B5-435B-A376-460462273652"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GeekMeets/VIP/DashBoard/EditProfileVC/EditProfileInteractor.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "callEdirProfileAPI(params:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "84C77152-A1B5-435B-A376-460462273652 - cc00ca8bc5a46d7f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Jointly.EditProfileInteractor.callEdirProfileAPI(params: Swift.Dictionary&lt;Swift.String, Swift.String&gt;) -&gt; ()"
+                  moduleName = "Jointly"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sotsys124/Documents/Divya/GitLab_Project/DatingApp/Code/Daveloment/geekmeetsios/GeekMeets/VIP/DashBoard/EditProfileVC/EditProfileInteractor.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "250">
+               </Location>
+               <Location
+                  uuid = "84C77152-A1B5-435B-A376-460462273652 - c1702082b38e5558"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Jointly.UserAuthResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Jointly.EditProfileInteractor.callEdirProfileAPI(params: Swift.Dictionary&lt;Swift.String, Swift.String&gt;) -&gt; ()"
+                  moduleName = "Jointly"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sotsys124/Documents/Divya/GitLab_Project/DatingApp/Code/Daveloment/geekmeetsios/GeekMeets/VIP/DashBoard/EditProfileVC/EditProfileInteractor.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "172">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A442B37E-AD7B-4C78-B095-737F9D1EC2F2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GeekMeets/Library/APIManager/Swaggers/APIs/UserAPI.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1060"
+            endingLineNumber = "1060"
+            landmarkName = "socialSigninWithRequestBuilder(nonce:timestamp:token:language:tiSocialType:vAccessToken:vTimeOffset:vTimeZone:vDeviceToken:tiDeviceType:vDeviceName:vDeviceUniqueId:vApiVersion:vAppVersion:vOsVersion:vIpAddress:fLatitude:fLongitude:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4BE591B4-70B5-4778-BD90-693014725DAE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GeekMeets/Library/APIManager/Swaggers/APIs/UserAPI.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "900"
+            endingLineNumber = "900"
+            landmarkName = "signUpWithRequestBuilder(nonce:timestamp:token:tiIsSocialLogin:vEmail:vPassword:vCountryCode:vPhone:vName:dDob:tiAge:tiGender:iCurrentStatus:txCompanyDetail:txAbout:photos:vTimeOffset:vTimeZone:vDeviceToken:tiDeviceType:vDeviceName:vDeviceUniqueId:vApiVersion:vAppVersion:vOsVersion:vIpAddress:vSocialId:tiSocialType:vProfileImage:fLatitude:fLongitude:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "962DB7CA-AC5E-46D1-B0B2-E92C29C972F8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GeekMeets/VIP/Main/InitialSignUp/InitialSignUpInteractor.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "callSocialSignInAPI(params:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "962DB7CA-AC5E-46D1-B0B2-E92C29C972F8 - 8b85a010ff2e67fd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Jointly.InitialSignUpInteractor.callSocialSignInAPI(params: Swift.Dictionary&lt;Swift.String, Swift.String&gt;) -&gt; ()"
+                  moduleName = "Jointly"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sotsys124/Documents/Divya/GitLab_Project/DatingApp/Code/Daveloment/geekmeetsios/GeekMeets/VIP/Main/InitialSignUp/InitialSignUpInteractor.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "105"
+                  endingLineNumber = "105"
+                  offsetFromSymbolStart = "593">
+               </Location>
+               <Location
+                  uuid = "962DB7CA-AC5E-46D1-B0B2-E92C29C972F8 - aa183e315214c69e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Jointly.UserAuthResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Jointly.InitialSignUpInteractor.callSocialSignInAPI(params: Swift.Dictionary&lt;Swift.String, Swift.String&gt;) -&gt; ()"
+                  moduleName = "Jointly"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sotsys124/Documents/Divya/GitLab_Project/DatingApp/Code/Daveloment/geekmeetsios/GeekMeets/VIP/Main/InitialSignUp/InitialSignUpInteractor.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "107"
+                  endingLineNumber = "107"
+                  offsetFromSymbolStart = "205">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

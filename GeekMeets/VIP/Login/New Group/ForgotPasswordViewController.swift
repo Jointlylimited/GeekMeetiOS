@@ -89,10 +89,9 @@ extension ForgotPasswordViewController{
     }
     func getForgotPasswordResponse(response : CommonResponse) {
         if response.responseCode == 200 {
+            self.popVC()
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
-            print(response)
         } else {
         }
-         self.popVC()
     }
 }

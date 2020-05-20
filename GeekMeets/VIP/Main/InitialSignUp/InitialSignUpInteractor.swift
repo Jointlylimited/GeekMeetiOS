@@ -101,6 +101,7 @@ class InitialSignUpInteractor: InitialSignUpInteractorProtocol, InitialSignUpDat
     
     func callSocialSignInAPI(params: Dictionary<String, String>) {
         LoaderView.sharedInstance.showLoader()
+        UserDataModel.setSocialType(socialType: params["tiSocialType"]!)
         UserAPI.socialSignin(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language:APPLANGUAGE.english , tiSocialType: UserAPI.TiSocialType_socialSignin(rawValue: params["tiSocialType"]!)!, vAccessToken: params["accessKey"]!, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_socialSignin(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId ?? "", vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress) { (response, error) in
             
             LoaderView.sharedInstance.hideLoader()

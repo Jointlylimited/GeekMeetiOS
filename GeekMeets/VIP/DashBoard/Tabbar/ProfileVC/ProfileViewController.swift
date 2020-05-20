@@ -19,7 +19,7 @@ enum ProfileListCells {
     
     case AboutCell(obj : String)
     case CompanyCell
-    case InterestCell
+    case InterestCell(collapsed : Bool)
     case PhotosCell
     case SocialCell
     
@@ -37,8 +37,10 @@ enum ProfileListCells {
             
         case .AboutCell(let desc):
             return desc.heightWithConstrainedWidth(width: 400 * _widthRatio,font: fontPoppins(fontType: .Poppins_Medium, fontSize: .sizeNormalTextField)) + 120
-        case .CompanyCell, .InterestCell, .SocialCell:
+        case .CompanyCell, .SocialCell:
             return UITableView.automaticDimension
+        case .InterestCell(let collapsed):
+            return collapsed == true ? UITableView.automaticDimension : 0
         case .PhotosCell:
             let width = ScreenSize.width/3
             return width
@@ -99,18 +101,20 @@ enum ProfileListCells {
 }
 
 struct ProfileData {
-  
-  var cells: [ProfileListCells] {
-    var cell: [ProfileListCells] = []
-    let str = "Lady with fun loving personality and open- minded, Looking for Someone to hang out always open for hangout"
-    cell.append(.AboutCell(obj:str))
-    cell.append(.CompanyCell)
-    cell.append(.InterestCell)
-    cell.append(.PhotosCell)
-    cell.append(.SocialCell)
     
-    return cell
-  }
+    var isCellCollpsed : Bool = false
+    
+    var cells: [ProfileListCells] {
+        var cell: [ProfileListCells] = []
+        let str = "Lady with fun loving personality and open- minded, Looking for Someone to hang out always open for hangout"
+        cell.append(.AboutCell(obj:str))
+        cell.append(.CompanyCell)
+        cell.append(.InterestCell(collapsed : isCellCollpsed))
+        cell.append(.PhotosCell)
+        cell.append(.SocialCell)
+        
+        return cell
+    }
 }
 
 protocol ProfileProtocol: class {
@@ -206,6 +210,7 @@ extension ProfileViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: objProfileData.cells[indexPath.section].cellID)
+        cell?.selectionStyle = .none
         return cell!
     }
     
@@ -221,10 +226,7 @@ extension ProfileViewController : UITableViewDataSource, UITableViewDelegate {
                 cell.lblCompanyDetail.text = userProfileModel?.vCompanyDetail
             }
         } else if objProfileData.cells[indexPath.section].cellID == "ProfileInterestCell" {
-            if let cell = cell as? ProfileInterestCell  {
-                cell.lblInterestAge.text = userProfileModel?.vInterestAge
-                cell.lblInterestGender.text = userProfileModel?.vInterestGender
-            }
+            
         } else if objProfileData.cells[indexPath.section].cellID == "ProfilePhotosCell" {
             if let cell = cell as? ProfilePhotosCell  {
                 
@@ -267,7 +269,47 @@ extension ProfileViewController : UITableViewDataSource, UITableViewDelegate {
         headerTitle.font = UIFont(name: "Poppins-SemiBold", size: 14)
         headerView.addSubview(headerTitle)
         
+        if section == 2 {
+            let expandImg = UIImageView()
+            expandImg.frame = CGRect(x: ScreenSize.width - 35, y: headerView.frame.origin.y + 25, w: 10, h: 8)
+            let myImg: UIImage = objProfileData.isCellCollpsed ? #imageLiteral(resourceName: "icn_up") : #imageLiteral(resourceName: "icn_down")
+            expandImg.image = myImg
+            headerView.addSubview(expandImg)
+            
+            let tapGestre = UITapGestureRecognizer(target: self, action: #selector(headerSelectionAction))
+            headerView.isUserInteractionEnabled = true
+            headerView.addGestureRecognizer(tapGestre)
+        }
         return headerView
+    }
+    
+    @objc func headerSelectionAction() {
+        if objProfileData.isCellCollpsed == true {
+            print("isCollapsed!")
+            objProfileData.isCellCollpsed = false
+        } else {
+            print("not isCollapsed!")
+            objProfileData.isCellCollpsed = true
+        }
+        self.tblProfile.reloadData()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if indexPath.section == 2 {
+            let intVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.Interest_PreferenceScreen) as? Interest_PreferenceViewController
+            
+            if indexPath.row == 0 {
+                intVC?.header_title = "Yourself"
+                intVC?.objDiscoverData =  [CommonCellModel(title: Interest_PreferenceData.Ethernity.Title, description: "African American/African", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Height.Title, description: "5.2", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.BodyType.Title, description: "Fit", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Indoor_Outdoor.Title, description: "I love inddors", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Morning_Night.Title, description: "Night", isDescAvailable: true)]
+                
+            } else if indexPath.row == 1 {
+                intVC?.header_title = "Your Desired Partner"
+            } else {
+                intVC?.header_title = "Your Interests"
+            }
+            self.pushVC(intVC!)
+        }
     }
 }
 

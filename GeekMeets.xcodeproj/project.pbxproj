@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		0B0AC39F24583EF600B91DF5 /* UIAlertControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0AC39E24583EF600B91DF5 /* UIAlertControllerExtension.swift */; };
+		0B0B4B0C247504F70047EB11 /* RangeSeekSliderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0B4B09247504F70047EB11 /* RangeSeekSliderDelegate.swift */; };
+		0B0B4B0D247504F80047EB11 /* RangeSeekSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0B4B0A247504F70047EB11 /* RangeSeekSlider.swift */; };
+		0B0B4B0E247504F80047EB11 /* TapticEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0B4B0B247504F70047EB11 /* TapticEngine.swift */; };
+		0B0B4B132475245E0047EB11 /* Interest_PreferencePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0B4B102475245E0047EB11 /* Interest_PreferencePresenter.swift */; };
+		0B0B4B142475245E0047EB11 /* Interest_PreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0B4B112475245E0047EB11 /* Interest_PreferenceViewController.swift */; };
+		0B0B4B152475245E0047EB11 /* Interest_PreferenceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0B4B122475245E0047EB11 /* Interest_PreferenceInteractor.swift */; };
 		0B170D8A246BC7EF00CCDB53 /* UserEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B170D89246BC7EF00CCDB53 /* UserEntity.swift */; };
 		0B1CB98F2459429200DA9264 /* NewMobileNumberPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1CB98C2459429200DA9264 /* NewMobileNumberPresenter.swift */; };
 		0B1CB9902459429200DA9264 /* NewMobileNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1CB98D2459429200DA9264 /* NewMobileNumberViewController.swift */; };
@@ -307,6 +313,12 @@
 
 /* Begin PBXFileReference section */
 		0B0AC39E24583EF600B91DF5 /* UIAlertControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertControllerExtension.swift; sourceTree = "<group>"; };
+		0B0B4B09247504F70047EB11 /* RangeSeekSliderDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSeekSliderDelegate.swift; sourceTree = "<group>"; };
+		0B0B4B0A247504F70047EB11 /* RangeSeekSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSeekSlider.swift; sourceTree = "<group>"; };
+		0B0B4B0B247504F70047EB11 /* TapticEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapticEngine.swift; sourceTree = "<group>"; };
+		0B0B4B102475245E0047EB11 /* Interest_PreferencePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interest_PreferencePresenter.swift; sourceTree = "<group>"; };
+		0B0B4B112475245E0047EB11 /* Interest_PreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interest_PreferenceViewController.swift; sourceTree = "<group>"; };
+		0B0B4B122475245E0047EB11 /* Interest_PreferenceInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interest_PreferenceInteractor.swift; sourceTree = "<group>"; };
 		0B170D89246BC7EF00CCDB53 /* UserEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntity.swift; sourceTree = "<group>"; };
 		0B1CB98C2459429200DA9264 /* NewMobileNumberPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMobileNumberPresenter.swift; sourceTree = "<group>"; };
 		0B1CB98D2459429200DA9264 /* NewMobileNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMobileNumberViewController.swift; sourceTree = "<group>"; };
@@ -628,6 +640,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B0B4B08247504F70047EB11 /* RangeSlider */ = {
+			isa = PBXGroup;
+			children = (
+				0B0B4B09247504F70047EB11 /* RangeSeekSliderDelegate.swift */,
+				0B0B4B0A247504F70047EB11 /* RangeSeekSlider.swift */,
+				0B0B4B0B247504F70047EB11 /* TapticEngine.swift */,
+			);
+			path = RangeSlider;
+			sourceTree = "<group>";
+		};
+		0B0B4B0F247524150047EB11 /* InterestVC */ = {
+			isa = PBXGroup;
+			children = (
+				0B0B4B102475245E0047EB11 /* Interest_PreferencePresenter.swift */,
+				0B0B4B112475245E0047EB11 /* Interest_PreferenceViewController.swift */,
+				0B0B4B122475245E0047EB11 /* Interest_PreferenceInteractor.swift */,
+			);
+			path = InterestVC;
+			sourceTree = "<group>";
+		};
 		0B1CB98B2459426F00DA9264 /* NewMobileNumberVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -995,6 +1027,7 @@
 		0B9499BC2451DBC2001AD1C8 /* DiscoverySettingVC */ = {
 			isa = PBXGroup;
 			children = (
+				0B0B4B0F247524150047EB11 /* InterestVC */,
 				0B9499BD2451DBC2001AD1C8 /* DiscoverySettingViewController.swift */,
 				0B9499BE2451DBC2001AD1C8 /* DiscoverySettingInteractor.swift */,
 				0B9499BF2451DBC2001AD1C8 /* DiscoverySettingPresenter.swift */,
@@ -1653,6 +1686,7 @@
 		F90B4CC92032A7C1006ADAF6 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				0B0B4B08247504F70047EB11 /* RangeSlider */,
 				0BFF2B5F2461779000DECEDD /* LocationManager */,
 				0B51D290245FE2B6005C7B88 /* SOGoogleSignIn */,
 				0B59586F245C642B006D500A /* StickerView */,
@@ -2209,6 +2243,7 @@
 				0B912A412473989B005D5412 /* LoaderView.swift in Sources */,
 				0B921C3324571C510010AE04 /* SearchProfilePresenter.swift in Sources */,
 				0B7F33C8246ED80D007ADF8D /* RecommandedProfileView.swift in Sources */,
+				0B0B4B0E247504F80047EB11 /* TapticEngine.swift in Sources */,
 				0B31965C244DE80500B38350 /* ProfilePhotosCell.swift in Sources */,
 				0B46B0C6245865F3006E0D87 /* ChangeEmailMobileViewController.swift in Sources */,
 				F79CA6F1244D9C5100C9A7EB /* UserProfileViewController.swift in Sources */,
@@ -2258,6 +2293,7 @@
 				0B31963A244DE7E100B38350 /* PhotoEmojiCell.swift in Sources */,
 				0B1CB9912459429200DA9264 /* NewMobileNumberInteractor.swift in Sources */,
 				0B7F33D6246ED8AE007ADF8D /* NotificationListPresenter.swift in Sources */,
+				0B0B4B0C247504F70047EB11 /* RangeSeekSliderDelegate.swift in Sources */,
 				0BF7080C244F1D3C003D6AB7 /* MatchProfileInteractor.swift in Sources */,
 				0B31965F244DE80500B38350 /* ProfileAboutCell.swift in Sources */,
 				0B319657244DE80500B38350 /* MenuViewController.swift in Sources */,
@@ -2305,6 +2341,7 @@
 				0B921C2B24571BE40010AE04 /* UserDetailCell.m in Sources */,
 				0B535684245088DC005571AF /* EditInterestCell.swift in Sources */,
 				F9A453D2203AA74B0065C9FD /* SplashPresenter.swift in Sources */,
+				0B0B4B142475245E0047EB11 /* Interest_PreferenceViewController.swift in Sources */,
 				0BBD66032449C8F100CA178A /* CardView.swift in Sources */,
 				0BF70805244F1D2C003D6AB7 /* MessagesPresenter.swift in Sources */,
 				0B51D28F245FE0A0005C7B88 /* HSFacebookLoginManager.swift in Sources */,
@@ -2362,6 +2399,7 @@
 				0BCD4B2A245B0C210054A805 /* AddTextViewController.swift in Sources */,
 				F7F8F5BC2452BD3200CA82E7 /* SelectAgeCell.swift in Sources */,
 				F7780E3F245AD667003CA4BD /* Configuration.swift in Sources */,
+				0B0B4B0D247504F80047EB11 /* RangeSeekSlider.swift in Sources */,
 				0BF7081E244F1D6B003D6AB7 /* ReactEmojiCollectionCell.swift in Sources */,
 				F7164ACF244EE90700853BFC /* OTPEnterViewController.swift in Sources */,
 				0B53568A245088DC005571AF /* EditInformationCell.swift in Sources */,
@@ -2408,6 +2446,7 @@
 				0B319660244DE80500B38350 /* ProfileInterestCell.swift in Sources */,
 				F97A9A2B21103FA4007C45F5 /* StringExtensions.swift in Sources */,
 				F79604BD244597A2002FFB79 /* TutorialCell.swift in Sources */,
+				0B0B4B152475245E0047EB11 /* Interest_PreferenceInteractor.swift in Sources */,
 				0B9499D82451DBC4001AD1C8 /* CommonPagesViewController.swift in Sources */,
 				0B9499DD2451DBC4001AD1C8 /* TopGeeksViewController.swift in Sources */,
 				F7780E41245AE324003CA4BD /* UserProfileModel.swift in Sources */,
@@ -2419,6 +2458,7 @@
 				F79CA6F0244D9C5100C9A7EB /* UserProfilePresenter.swift in Sources */,
 				0B51D29624602424005C7B88 /* UserDataModel.swift in Sources */,
 				0B9499D52451DBC4001AD1C8 /* DiscoverySettingInteractor.swift in Sources */,
+				0B0B4B132475245E0047EB11 /* Interest_PreferencePresenter.swift in Sources */,
 				0B53567624508775005571AF /* GradientLabel.swift in Sources */,
 				F7F8F5C32452EAE400CA82E7 /* SelectGenderInteractor.swift in Sources */,
 				F7164AC9244EBD4F00853BFC /* AddPhotoCollectionViewCell.swift in Sources */,

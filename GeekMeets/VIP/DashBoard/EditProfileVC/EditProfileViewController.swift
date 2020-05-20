@@ -41,7 +41,7 @@ enum EditProfileListCells {
         case .InformationCell(let desc):
             return desc.heightWithConstrainedWidth(width: 374 * _widthRatio,font: fontPoppins(fontType: .Poppins_Medium, fontSize: .sizeNormalTextField)) + 450//480
         case .InterestCell:
-            return 225
+            return 130
         case .PhotosCell:
             return 390
         case .SocialCell:
@@ -194,8 +194,7 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
         self.lblUserNameAge.text = "\(UserDataModel.currentUser?.vName ?? ""), \(UserDataModel.currentUser?.tiAge ?? 0)"
         
         if self.userProfileModel == nil {
-            self.userProfileModel = UserDataModel.getProfileData()
-            /*UserProfileModel(vEmail: UserDataModel.currentUser?.vEmail, vProfileImage: UserDataModel.currentUser?.vProfileImage, vFullName: UserDataModel.currentUser?.vName, vAge: UserDataModel.currentUser?.tiAge ?? 0, vDoB : UserDataModel.currentUser?.dDob != "" ? UserDataModel.currentUser?.dDob?.strDateTODateStr(dateStr: UserDataModel.currentUser!.dDob!) : "", vAbout: UserDataModel.currentUser?.txAbout, vCity: UserDataModel.currentUser?.vLiveIn, vGender: self.genderArray[(UserDataModel.currentUser?.tiGender!)!], vGenderIndex: "0", vCompanyDetail: UserDataModel.currentUser?.txCompanyDetail, vInterestAge: "20-30", vInterestGender: "Male", vLikedSocialPlatform: "Whatsapp, Snapchat, Instagram", vPhotos: "", vInstagramLink: UserDataModel.currentUser?.vInstaLink, vSnapchatLink: UserDataModel.currentUser?.vSnapLink, vFacebookLink: UserDataModel.currentUser?.vFbLink, vShowAge: UserDataModel.currentUser?.tiIsShowAge, vShowDistance: UserDataModel.currentUser?.tiIsShowDistance, vShowContactNo: UserDataModel.currentUser?.tiIsShowContactNumber, vShowProfiletoLiked:UserDataModel.currentUser?.tiIsShowProfileToLikedUser, vProfileImg: nil, vProfileImageArray: [])*/
+            self.userProfileModel = UserProfileModel(vEmail: UserDataModel.currentUser?.vEmail, vProfileImage: UserDataModel.currentUser?.vProfileImage, vFullName: UserDataModel.currentUser?.vName, vAge: UserDataModel.currentUser?.tiAge ?? 0, vDoB : UserDataModel.currentUser?.dDob != "" ? UserDataModel.currentUser?.dDob?.strDateTODateStr(dateStr: UserDataModel.currentUser!.dDob!) : "", vAbout: UserDataModel.currentUser?.txAbout, vCity: UserDataModel.currentUser?.vLiveIn, vGender: self.genderArray[(UserDataModel.currentUser?.tiGender!)!], vGenderIndex: "0", vCompanyDetail: UserDataModel.currentUser?.txCompanyDetail, vInterestAge: "20-30", vInterestGender: "Male", vLikedSocialPlatform: "Whatsapp, Snapchat, Instagram", vPhotos: "", vInstagramLink: UserDataModel.currentUser?.vInstaLink, vSnapchatLink: UserDataModel.currentUser?.vSnapLink, vFacebookLink: UserDataModel.currentUser?.vFbLink, vShowAge: UserDataModel.currentUser?.tiIsShowAge, vShowDistance: UserDataModel.currentUser?.tiIsShowDistance, vShowContactNo: UserDataModel.currentUser?.tiIsShowContactNumber, vShowProfiletoLiked:UserDataModel.currentUser?.tiIsShowProfileToLikedUser, vProfileImg: nil, vProfileImageArray: [])
         }
         self.imgProfile.image = userProfileModel!.vProfileImg != nil ? userProfileModel!.vProfileImg : nil
         self.imageArray = userProfileModel!.vProfileImageArray != nil ? userProfileModel!.vProfileImageArray! : []
@@ -259,8 +258,9 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
             userProfileModel?.vProfileImg = self.imageArray[0]
             userProfileModel?.vProfileImageArray = self.imageArray
             UserDataModel.currentUser = response.responseData
-//            UserDataModel.setProfileData(data: self.userProfileModel!)
-            self.delegate.profiledetails(data : userProfileModel!)
+            if self.delegate != nil {
+                self.delegate.profiledetails(data : userProfileModel!)
+            }
             self.popVC()
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }
@@ -332,9 +332,6 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
             }
         } else if objEditProfileData.cells[indexPath.section].cellID == "EditInterestCell" {
             if let cell = cell as? EditInterestCell {
-                cell.txtInterestAge.text = userProfileModel?.vInterestAge
-                cell.txtInterestGender.text = userProfileModel?.vInterestGender
-                cell.txtLikedSocialPlatform.text = userProfileModel?.vLikedSocialPlatform
                 
                 let queVC = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange) as? SelectAgeRangeViewController
                 queVC?.isFromSignUp = false

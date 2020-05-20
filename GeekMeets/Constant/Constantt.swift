@@ -104,6 +104,7 @@ struct GeekMeets_ViewController
     static let TutorialScreen = "TutorialPageViewController"
     static let SocialMediaLink = "SocialMediaLinkVC"
     static let NotificationScreen = "NotificationListViewController"
+    static let Interest_PreferenceScreen = "Interest_PreferenceViewController"
 }
 
 struct Cells {

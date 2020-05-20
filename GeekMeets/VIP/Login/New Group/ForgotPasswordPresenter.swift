@@ -39,7 +39,7 @@ class ForgotPasswordPresenter: ForgotPasswordPresentationProtocol {
           {
               self.viewController?.displayAlert(strTitle: "", strMessage: kEnterEmail)
               return false
-          }else if email.lowercased().isEmail {
+          }else if !email.lowercased().isEmail {
               self.viewController?.displayAlert(strTitle: "", strMessage: kEnterValidEmail)
               return false
           }
