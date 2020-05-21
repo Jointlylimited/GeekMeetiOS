@@ -68,7 +68,6 @@ class Interest_PreferenceViewController: UIViewController, Interest_PreferencePr
         
         self.lblTitle.text = header_title
         self.tblInterestList.register(UINib.init(nibName: Cells.CommonTblListCell, bundle: Bundle.main), forCellReuseIdentifier: Cells.CommonTblListCell)
-        
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
@@ -98,16 +97,6 @@ extension Interest_PreferenceViewController : UITableViewDataSource, UITableView
         return cell!
     }
     
-  /*  func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let cell = cell as? CommonTblListCell {
-            
-            let data = self.objDiscoverData[indexPath.row]
-            
-            cell.lblTitle.text = data.title
-            cell.lblDesc.text = data.description
-        }
-    }
-    */
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let data = self.objDiscoverData[indexPath.row]
         if data.isDescAvailable {

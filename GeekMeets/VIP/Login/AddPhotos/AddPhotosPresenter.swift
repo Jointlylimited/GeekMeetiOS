@@ -15,7 +15,7 @@ import CoreLocation
 
 protocol AddPhotosPresentationProtocol {
     
-    func callUserSignUpAPI(signParams : Dictionary<String, String>)
+    func callUserSignUpAPI(signParams : Dictionary<String, String>, images : [UIImage])
     func getSignUpResponse(response : UserAuthResponse)
 }
 
@@ -23,15 +23,23 @@ class AddPhotosPresenter: AddPhotosPresentationProtocol {
     weak var viewController: AddPhotosProtocol?
     var interactor: AddPhotosInteractorProtocol?
     
-    func callUserSignUpAPI(signParams : Dictionary<String, String>) {
+    func callUserSignUpAPI(signParams : Dictionary<String, String>, images : [UIImage]) {
         if String(describing: signParams["photos"]!).isEmpty {
             self.viewController?.displayAlert(strTitle: "", strMessage: kAddPhotos)
             return
         } else {
             if signParams["vSocialId"]! != "" {
-                self.interactor?.callSocialSignUpAPI(signParams : signParams)
+                if images.count > 0 {
+                    self.interactor?.uploadImgToS3(with: signParams, images: images)
+                } else {
+                    self.interactor?.callSocialSignUpAPI(signParams : signParams)
+                }
             } else {
-            self.interactor?.callUserSignUpAPI(signParams : signParams)
+                if images.count > 0 {
+                    self.interactor?.uploadImgToS3(with: signParams, images: images)
+                } else {
+                    self.interactor?.callUserSignUpAPI(signParams : signParams)
+                }
             }
         }
     }

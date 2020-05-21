@@ -12,84 +12,6 @@
 
 import UIKit
 
-enum Interest_PreferenceData {
-
-    case Ethernity
-    case Preference_Ethernity
-    case Personality
-    case Preference_Personality
-    case Height
-    case Preference_Height
-    case SexualOrientation
-    case Preference_SexualOrientation
-    case LookingFor
-    case AgeRange
-    case Region
-    case BodyType
-    case Preference_BodyType
-    case TurnsMost
-    case Communication
-    case Important
-    case Accountable
-    case Indoor_Outdoor
-    case Sex_Important
-    case Morning_Night
-    case Pets
-    case Kids
-    case Decision_Making
-    
-    var Title : String {
-        switch self {
-        case .Ethernity:
-            return "Your Ethnicity?"
-        case .Preference_Ethernity:
-            return "Your desired partner’s Ethnicity would be?"
-        case .Personality:
-            return "What is your personality type?"
-        case .Preference_Personality:
-            return "Personality of your desired partner would be?"
-        case .Height:
-            return "Your Height?"
-        case .Preference_Height:
-            return "Your Height preference?"
-        case .SexualOrientation:
-            return "Your Sexual orientation?"
-        case .Preference_SexualOrientation:
-            return "Sexual Orientation of your desired partner"
-        case .LookingFor:
-            return "Are you looking for.."
-        case .AgeRange:
-            return "Select age range of your preferred partner?"
-        case .Region:
-            return "What is your religion?"
-        case .BodyType:
-            return "Your Body Type?"
-        case .Preference_BodyType:
-            return "Body type of your desired partner?"
-        case .TurnsMost:
-            return "What turns you on the most?"
-        case .Communication:
-            return "How important is communication in a relationship?"
-        case .Important:
-            return "Which is more important?"
-        case .Accountable:
-            return "It is important to be accountable in a relationship?"
-        case .Indoor_Outdoor:
-            return "Are you A indoors or outdoors person?"
-        case .Sex_Important:
-            return "How important is the element of sex in a relationship?"
-        case .Morning_Night:
-            return "Are you a morning or night person?"
-        case .Pets:
-            return "Do you have pets?"
-        case .Kids:
-            return "Do you have Kids?"
-        case .Decision_Making:
-            return "How Important is decision making as a couple?"
-        }
-    }
-}
-
 class CommonCellModel {
     var title: String
     var description: String?
@@ -168,16 +90,16 @@ class DiscoverySettingViewController: UIViewController, DiscoverySettingProtocol
         }
         self.tblDiscoverList.register(UINib.init(nibName: Cells.CommonTblListCell, bundle: Bundle.main), forCellReuseIdentifier: Cells.CommonTblListCell)
         
-        self.objDiscoverData = [CommonCellModel(title: "Yourself", description: "", isDescAvailable: false), CommonCellModel(title: "Your Desired Partner", description: "", isDescAvailable: false), CommonCellModel(title: "Your Interests", description: "", isDescAvailable: true)]
+        self.objDiscoverData = [CommonCellModel(title: "Yourself", description: "", isDescAvailable: false), CommonCellModel(title: "Your Desired Partner", description: "", isDescAvailable: false), CommonCellModel(title: "Your Interests", description: "", isDescAvailable: false)]
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.popVC()
     }
     @IBAction func btnChangeAction(_ sender: GradientButton) {
-        self.userProfileModel?.vInterestAge = self.objDiscoverData[0].description
-        self.userProfileModel?.vInterestGender = self.objDiscoverData[1].description
-        self.userProfileModel?.vLikedSocialPlatform = self.objDiscoverData[2].description
+//        self.userProfileModel?.vInterestAge = self.objDiscoverData[0].description
+//        self.userProfileModel?.vInterestGender = self.objDiscoverData[1].description
+//        self.userProfileModel?.vLikedSocialPlatform = self.objDiscoverData[2].description
         self.popVC()
     }
 }

@@ -88,6 +88,7 @@
 		0B7F33D4246ED8AE007ADF8D /* NotificationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F33D1246ED8AE007ADF8D /* NotificationListViewController.swift */; };
 		0B7F33D5246ED8AE007ADF8D /* NotificationListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F33D2246ED8AE007ADF8D /* NotificationListInteractor.swift */; };
 		0B7F33D6246ED8AE007ADF8D /* NotificationListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F33D3246ED8AE007ADF8D /* NotificationListPresenter.swift */; };
+		0B80CFCF24768DA9001BE106 /* UserProfileMediaList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B80CFCE24768DA8001BE106 /* UserProfileMediaList.swift */; };
 		0B912A412473989B005D5412 /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B912A402473989B005D5412 /* LoaderView.swift */; };
 		0B921C2624571BE40010AE04 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B921C1824571BE30010AE04 /* ContentViewController.swift */; };
 		0B921C2724571BE40010AE04 /* ARSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B921C1A24571BE30010AE04 /* ARSupport.swift */; };
@@ -140,6 +141,8 @@
 		0BCD4B2A245B0C210054A805 /* AddTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCD4B27245B0C200054A805 /* AddTextViewController.swift */; };
 		0BCD4B2E245B0C390054A805 /* RangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCD4B2C245B0C370054A805 /* RangeSlider.swift */; };
 		0BCD4B2F245B0C390054A805 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCD4B2D245B0C370054A805 /* CustomTextView.swift */; };
+		0BDB9DA02476405000BA2F39 /* iOSawsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 0BDB9D9F2476405000BA2F39 /* iOSawsconfiguration.json */; };
+		0BDB9DA2247640A800BA2F39 /* AWSHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDB9DA1247640A800BA2F39 /* AWSHelper.swift */; };
 		0BE21272244976AF004817BC /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BE21260244976AF004817BC /* Poppins-ExtraLight.ttf */; };
 		0BE21273244976AF004817BC /* Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BE21261244976AF004817BC /* Poppins-ThinItalic.ttf */; };
 		0BE21274244976AF004817BC /* Poppins-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BE21262244976AF004817BC /* Poppins-ExtraLightItalic.ttf */; };
@@ -393,6 +396,7 @@
 		0B7F33D1246ED8AE007ADF8D /* NotificationListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationListViewController.swift; sourceTree = "<group>"; };
 		0B7F33D2246ED8AE007ADF8D /* NotificationListInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationListInteractor.swift; sourceTree = "<group>"; };
 		0B7F33D3246ED8AE007ADF8D /* NotificationListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationListPresenter.swift; sourceTree = "<group>"; };
+		0B80CFCE24768DA8001BE106 /* UserProfileMediaList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileMediaList.swift; sourceTree = "<group>"; };
 		0B912A402473989B005D5412 /* LoaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
 		0B921C1824571BE30010AE04 /* ContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		0B921C1A24571BE30010AE04 /* ARSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARSupport.swift; sourceTree = "<group>"; };
@@ -448,6 +452,8 @@
 		0BCD4B27245B0C200054A805 /* AddTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTextViewController.swift; sourceTree = "<group>"; };
 		0BCD4B2C245B0C370054A805 /* RangeSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSlider.swift; sourceTree = "<group>"; };
 		0BCD4B2D245B0C370054A805 /* CustomTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
+		0BDB9D9F2476405000BA2F39 /* iOSawsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = iOSawsconfiguration.json; sourceTree = "<group>"; };
+		0BDB9DA1247640A800BA2F39 /* AWSHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSHelper.swift; sourceTree = "<group>"; };
 		0BE21260244976AF004817BC /* Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
 		0BE21261244976AF004817BC /* Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
 		0BE21262244976AF004817BC /* Poppins-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
@@ -1170,6 +1176,14 @@
 			path = RangeSlider;
 			sourceTree = "<group>";
 		};
+		0BDB9D9E2476401300BA2F39 /* AWS */ = {
+			isa = PBXGroup;
+			children = (
+				0BDB9D9F2476405000BA2F39 /* iOSawsconfiguration.json */,
+			);
+			path = AWS;
+			sourceTree = "<group>";
+		};
 		0BE2125F244976AF004817BC /* poppins */ = {
 			isa = PBXGroup;
 			children = (
@@ -1357,6 +1371,7 @@
 		F7780E26245AD666003CA4BD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0B80CFCE24768DA8001BE106 /* UserProfileMediaList.swift */,
 				0BABEAE324727264000BC5E7 /* PreferencesField.swift */,
 				0BABEADD24724519000BC5E7 /* PreferenceOption.swift */,
 				0BABEADF24724519000BC5E7 /* PreferencesResponse.swift */,
@@ -1710,6 +1725,7 @@
 		F90B4CCB2032A7C1006ADAF6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0BDB9D9E2476401300BA2F39 /* AWS */,
 				0B921C3724571D1A0010AE04 /* StoryData */,
 				F90B4CDA2032AAAB006ADAF6 /* Fonts */,
 				F90B4CD72032A87B006ADAF6 /* Documents */,
@@ -1863,6 +1879,7 @@
 				0B3C75AB245327AD00CEDBBA /* GlobalMethods.swift */,
 				F995BDC0204D1277005E5279 /* KeyMessages.swift */,
 				F9A4539E203AA7200065C9FD /* Constantt.swift */,
+				0BDB9DA1247640A800BA2F39 /* AWSHelper.swift */,
 			);
 			path = Constant;
 			sourceTree = "<group>";
@@ -2039,6 +2056,7 @@
 				F953B8DE20467B3300BE4F67 /* Settings.storyboard in Resources */,
 				0BE21272244976AF004817BC /* Poppins-ExtraLight.ttf in Resources */,
 				F90B4C9E20329C45006ADAF6 /* Main.storyboard in Resources */,
+				0BDB9DA02476405000BA2F39 /* iOSawsconfiguration.json in Resources */,
 				F7DFAE3824501192008863F3 /* Countries.bundle in Resources */,
 				0BE21279244976AF004817BC /* Poppins-ExtraBoldItalic.ttf in Resources */,
 				0BBD66042449C8F100CA178A /* CardView.xib in Resources */,
@@ -2104,6 +2122,9 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-GeekMeets/Pods-GeekMeets-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AWSCognito/AWSCognito.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSCore/AWSCore.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSS3/AWSS3.framework",
 				"${BUILT_PRODUCTS_DIR}/ActiveLabel/ActiveLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework",
@@ -2118,6 +2139,7 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/JSONModel/JSONModel.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/PINCache/PINCache.framework",
@@ -2125,6 +2147,7 @@
 				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${PODS_ROOT}/SnapSDK/SCSDKBitmojiKit.framework",
 				"${PODS_ROOT}/SnapSDK/SCSDKCoreKit.framework",
 				"${PODS_ROOT}/SnapSDK/SCSDKCreativeKit.framework",
@@ -2135,6 +2158,9 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCognito.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSS3.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ActiveLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
@@ -2149,6 +2175,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSONModel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINCache.framework",
@@ -2156,6 +2183,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCSDKBitmojiKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCSDKCreativeKit.framework",
@@ -2308,6 +2336,7 @@
 				0B9499D72451DBC4001AD1C8 /* CommonPagesPresenter.swift in Sources */,
 				0BFF2B612461779000DECEDD /* LocationManager.swift in Sources */,
 				F7D5259C244869FB002D3A42 /* SignInViewController.swift in Sources */,
+				0B80CFCF24768DA9001BE106 /* UserProfileMediaList.swift in Sources */,
 				0B53567A24508827005571AF /* CustomImageLayout.swift in Sources */,
 				0BF7081A244F1D6B003D6AB7 /* StoryCollectionCell.swift in Sources */,
 				F7780E32245AD667003CA4BD /* UserAPI.swift in Sources */,
@@ -2391,6 +2420,7 @@
 				0B53566E2450870F005571AF /* MyMatchesViewController.swift in Sources */,
 				F7780E34245AD667003CA4BD /* CodableHelper.swift in Sources */,
 				F79CA6F2244D9C5100C9A7EB /* UserProfileInteractor.swift in Sources */,
+				0BDB9DA2247640A800BA2F39 /* AWSHelper.swift in Sources */,
 				0B9499DC2451DBC4001AD1C8 /* AccountSettingInteractor.swift in Sources */,
 				0B3C75B8245327F000CEDBBA /* ReportInteractor.swift in Sources */,
 				F96C2D232037E92B00F8CBC7 /* L102Language.swift in Sources */,

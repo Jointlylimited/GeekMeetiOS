@@ -12,30 +12,6 @@
 
 import UIKit
 
-enum CommonModelData {
-
-    case Tips
-    case Terms
-    case Privacy
-    case About
-    case Licenses
-
-    var Title : String {
-        switch self {
-        case .Tips:
-            return "Tips"
-        case .Terms:
-            return "Terms & Conditions"
-        case .Privacy:
-            return "Privacy Policy"
-        case .About:
-            return "About Us"
-        case .Licenses:
-            return "Licenses"
-        }
-    }
-}
-
 protocol CommonPagesProtocol: class {
 }
 

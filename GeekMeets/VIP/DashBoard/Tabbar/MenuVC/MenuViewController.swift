@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class MenuViewModel {
     let leftImage: UIImage?
@@ -40,6 +41,7 @@ class MenuViewController: UIViewController, MenuProtocol {
     @IBOutlet weak var profileView: UIView!
     @IBOutlet weak var btnEditProfile: UIButton!
     @IBOutlet weak var lblUserNameAge: UILabel!
+    @IBOutlet weak var imgProfile: UIImageView!
     
     var alertView: CustomAlertView!
     var arrMenuModel : [MenuViewModel] = []
@@ -99,6 +101,17 @@ class MenuViewController: UIViewController, MenuProtocol {
         self.navigationController?.isNavigationBarHidden = true
         startTimer()
         self.lblUserNameAge.text = "\(UserDataModel.currentUser?.vName ?? ""), \(UserDataModel.currentUser?.tiAge ?? 0)"
+        
+        SDImageCache.shared.clearMemory()
+        SDImageCache.shared.clearDisk()
+        
+        //ProfileImage setup
+        if UserDataModel.currentUser?.vProfileImage != "" {
+            let url = URL(string:"\(fileUploadURL)\(user_Profile)\(UserDataModel.currentUser!.vProfileImage!)")
+            print(url!)
+            self.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile"))
+        }
+        
         self.btnEditProfile.underlineButton(text: "Edit Profile", font: UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 12)!, color: #colorLiteral(red: 0.5294117647, green: 0.1803921569, blue: 0.7647058824, alpha: 1))
         arrMenuModel = [MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_my_match"), label: "My Matches (122)", rightImage: #imageLiteral(resourceName: "icn_arrow")),
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_manage_subscription"), label: "Manage Subscription", rightImage: #imageLiteral(resourceName: "icn_arrow")),

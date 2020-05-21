@@ -14,6 +14,7 @@ import UIKit
 import CoreLocation
 
 protocol AddPhotosInteractorProtocol {
+    func uploadImgToS3(with obj: Dictionary<String, Any>, images : [UIImage])
     func callUserSignUpAPI(signParams : Dictionary<String, String>)
     func callSocialSignUpAPI(signParams : Dictionary<String, String>)
 }
@@ -25,6 +26,65 @@ protocol AddPhotosDataStore {
 class AddPhotosInteractor: AddPhotosInteractorProtocol, AddPhotosDataStore {
     var presenter: AddPhotosPresentationProtocol?
     //var name: String = ""
+    
+    var paramDetails : Dictionary<String, Any>!
+    var thumbURlUpload: (path: String, name: String) {
+        let folderName = user_Profile
+        let timeStamp = authToken.timeStamp
+        let imgExtension = ".jpeg"
+        let path = "\(folderName)\(timeStamp)\(imgExtension)"
+        return (path: path, name: "\(timeStamp)\(imgExtension)")
+    }
+    
+    func uploadImgToS3(with obj: Dictionary<String, Any>, images : [UIImage]) {
+        if images.count == 0 {
+            _ = AppSingleton.sharedInstance().showAlert(kSelectUserProfile, okTitle: "OK")
+            return
+        }
+
+        for indexValue in 0..<images.count {
+            let task = images[0]
+        
+            DispatchQueue.main.async {
+                LoaderView.sharedInstance.showLoader()
+            }
+            AWSHelper.setup()
+            AWSHelper.shared.upload(img: task, imgPath: thumbURlUpload.path, imgName: thumbURlUpload.name) { [weak self] (isUploaded, path, error) in
+                DispatchQueue.main.async {
+                    LoaderView.sharedInstance.hideLoader()
+                }
+                print(path)
+                guard let `self` = self else {return}
+                if let err = error {
+                    print("ERROR : \(err.localizedDescription)")
+                    _ = AppSingleton.sharedInstance().showAlert(err.localizedDescription, okTitle: "OK")
+                } else if isUploaded {
+                    var imgsUserPhotosDict:[NSDictionary] = []
+                    self.paramDetails = obj
+//                    if indexValue == 0 {
+                        self.paramDetails["vProfileImage"] = self.thumbURlUpload.name
+                        let dict = ["vMedia":self.thumbURlUpload.name, "tiMediaType":1, "fHeight":images[indexValue].size.height, "fWidth": images[indexValue].size.height] as [String : Any]
+                        imgsUserPhotosDict.append(dict as NSDictionary)
+//                    } else {
+//                        let dict = ["vMedia":self.thumbURlUpload.name, "tiMediaType":1, "fHeight":images[indexValue].size.height, "fWidth": images[indexValue].size.height] as [String : Any]
+//                        imgsUserPhotosDict.append(dict as NSDictionary)
+//                    }
+//
+//                    if indexValue == images.count - 1 {
+//                        let photoJsonString = json(from: imgsUserPhotosDict)
+//                        self.paramDetails["photos"] = photoJsonString
+                        if obj["vSocialId"] as! String != "" {
+                            self.callSocialSignUpAPI(signParams: self.paramDetails as! Dictionary<String, String>)
+                        } else {
+                            self.callUserSignUpAPI(signParams: self.paramDetails as! Dictionary<String, String>)
+                        }
+//                    }
+                } else {
+                    _ = AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                }
+            }
+        }
+    }
     
     // MARK: Do something
     func callUserSignUpAPI(signParams : Dictionary<String, String>) {

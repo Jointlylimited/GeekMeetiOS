@@ -36,8 +36,9 @@ public struct UserAuthResponseField: Codable {
     public var tiIsShowContactNumber: Int?
     public var tiIsShowProfileToLikedUser: Int?
     public var tiIsSubscribed: Int?
+    public var photos: [UserProfileMediaList]?
 
-    public init(iUserId: Int?, vSocialId: String?, tiSocialType: Int?, vAuthKey: String?, vName: String?, tiAge: Int?, tiGender: Int?, dDob: String?, vProfileImage: String?, vEmail: String?, txAbout: String?, vCountryCode: String?, vPhone: String?, vUserDeviceLanguage: String?, txCompanyDetail: String?, vLiveIn: String?, tiIsSocialLogin: Int?, vInstaLink: String?, vSnapLink: String?, vFbLink: String?, tiIsShowAge: Int?, tiIsShowDistance: Int?, tiIsShowContactNumber: Int?, tiIsShowProfileToLikedUser: Int?, tiIsSubscribed: Int?) {
+    public init(iUserId: Int?, vSocialId: String?, tiSocialType: Int?, vAuthKey: String?, vName: String?, tiAge: Int?, tiGender: Int?, dDob: String?, vProfileImage: String?, vEmail: String?, txAbout: String?, vCountryCode: String?, vPhone: String?, vUserDeviceLanguage: String?, txCompanyDetail: String?, vLiveIn: String?, tiIsSocialLogin: Int?, vInstaLink: String?, vSnapLink: String?, vFbLink: String?, tiIsShowAge: Int?, tiIsShowDistance: Int?, tiIsShowContactNumber: Int?, tiIsShowProfileToLikedUser: Int?, tiIsSubscribed: Int?, photos: [UserProfileMediaList]?) {
         self.iUserId = iUserId
         self.vSocialId = vSocialId
         self.tiSocialType = tiSocialType
@@ -63,6 +64,7 @@ public struct UserAuthResponseField: Codable {
         self.tiIsShowContactNumber = tiIsShowContactNumber
         self.tiIsShowProfileToLikedUser = tiIsShowProfileToLikedUser
         self.tiIsSubscribed = tiIsSubscribed
+        self.photos = photos
     }
 
 

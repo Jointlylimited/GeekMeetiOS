@@ -137,11 +137,10 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
         self.objPreModel.objPrefrence = self.objPreModel.arrPrefrenceData[self.index - 1]
         self.lblQuestionIndex.text = "\(self.index)/\(self.objPreModel.arrPrefrenceData.count)"
         self.lblTitle.text = "\(self.objPreModel.objPrefrence.txPreference!)"
-        if self.objPreModel.objPrefrence.tiPreferenceType == 0 || index == 5 || index == 6 || index == 10 {
-            self.lblDescription.isHidden = true
-            
-        }else{
+        if self.objPreModel.objPrefrence.tiPreferenceType == 1 {
             self.lblDescription.isHidden = false
+        }else{
+            self.lblDescription.isHidden = true
         }
         if index == 5 {
             setHeightPickerData(index : index)

@@ -17,9 +17,7 @@ protocol SignInPresentationProtocol
     func callSignInAPI(_ userName : String, password : String)
     func getSignInResponse(response : UserAuthResponse)
     
-    func actionSignUp()
     func actionForgotPassword()
-    func actionOTPVerifyClick()
     
     func gotoHomeScreen()
 }
@@ -75,31 +73,12 @@ class SignInPresenter: SignInPresentationProtocol {
         }
     }
     
-    // MARK: Present something
-    func actionSignUp()
-    {
-//        let controller = NearBy_Customer_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: NearBy_Provider_ViewController.SignUpVC)
-//        if let view = self.viewController as? UIViewController
-//        {
-//            view.pushVC(controller)
-//        }
-    }
-    
     func actionForgotPassword() {
         let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.ForgotPassword)
         if let view = self.viewController as? UIViewController
         {
             view.pushVC(controller)
         }
-    }
-    
-    func actionOTPVerifyClick()
-    {
-//        let controller = NearBy_Customer_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: NearBy_Provider_ViewController.OTPVerificationVC) as! OTPVerificationViewController
-//        if let view = self.viewController as? UIViewController
-//        {
-//            view.pushVC(controller)
-//        }
     }
     
     func gotoHomeScreen(){

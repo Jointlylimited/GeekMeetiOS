@@ -58,7 +58,6 @@ class RecommandedProfileView: UIView {
     
     class func initAlertView() -> RecommandedProfileView {
         let view = Bundle.main.loadNibNamed("RecommandedProfileView", owner: nil, options: nil)?.first as! RecommandedProfileView
-
         view.layoutIfNeeded()
         return view
     }

@@ -26,4 +26,12 @@ target 'GeekMeets' do
   pod 'SnapSDK'
   pod 'ActiveLabel'
   pod 'NVActivityIndicatorView'
+  
+  #  Amazon S3 Bucket for file upload
+  pod 'AWSS3'
+  pod 'AWSCognito'
+  
+  #  images manage
+  pod 'Kingfisher'
+  pod 'SDWebImage'
 end

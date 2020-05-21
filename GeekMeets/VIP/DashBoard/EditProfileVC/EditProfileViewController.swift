@@ -12,6 +12,7 @@
 
 import UIKit
 import Photos
+import SDWebImage
 
 protocol SelectInterestAgeGenderDelegate {
     func getSelectedValue(index : Int, data : String)
@@ -190,13 +191,22 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
     }
     
     func setTheme(){
+        
+        SDImageCache.shared.clearMemory()
+        SDImageCache.shared.clearDisk()
+        
         self.datePicker.maximumDate = Date()
         self.lblUserNameAge.text = "\(UserDataModel.currentUser?.vName ?? ""), \(UserDataModel.currentUser?.tiAge ?? 0)"
         
         if self.userProfileModel == nil {
             self.userProfileModel = UserProfileModel(vEmail: UserDataModel.currentUser?.vEmail, vProfileImage: UserDataModel.currentUser?.vProfileImage, vFullName: UserDataModel.currentUser?.vName, vAge: UserDataModel.currentUser?.tiAge ?? 0, vDoB : UserDataModel.currentUser?.dDob != "" ? UserDataModel.currentUser?.dDob?.strDateTODateStr(dateStr: UserDataModel.currentUser!.dDob!) : "", vAbout: UserDataModel.currentUser?.txAbout, vCity: UserDataModel.currentUser?.vLiveIn, vGender: self.genderArray[(UserDataModel.currentUser?.tiGender!)!], vGenderIndex: "0", vCompanyDetail: UserDataModel.currentUser?.txCompanyDetail, vInterestAge: "20-30", vInterestGender: "Male", vLikedSocialPlatform: "Whatsapp, Snapchat, Instagram", vPhotos: "", vInstagramLink: UserDataModel.currentUser?.vInstaLink, vSnapchatLink: UserDataModel.currentUser?.vSnapLink, vFacebookLink: UserDataModel.currentUser?.vFbLink, vShowAge: UserDataModel.currentUser?.tiIsShowAge, vShowDistance: UserDataModel.currentUser?.tiIsShowDistance, vShowContactNo: UserDataModel.currentUser?.tiIsShowContactNumber, vShowProfiletoLiked:UserDataModel.currentUser?.tiIsShowProfileToLikedUser, vProfileImg: nil, vProfileImageArray: [])
         }
-        self.imgProfile.image = userProfileModel!.vProfileImg != nil ? userProfileModel!.vProfileImg : nil
+        //ProfileImage setup
+        if userProfileModel?.vProfileImage != "" {
+            let url = URL(string:"\(fileUploadURL)\(user_Profile)\(userProfileModel!.vProfileImage!)")
+            print(url!)
+            self.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile"))
+        }
         self.imageArray = userProfileModel!.vProfileImageArray != nil ? userProfileModel!.vProfileImageArray! : []
         self.objQuestionModel.arrQuestionnaire = callQuestionnaireApi()
         self.objQuestionModel.objQuestionnaire = QuestionnaireModel(dictionary: self.objQuestionModel.arrQuestionnaire[1])!
@@ -209,8 +219,7 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
     @IBAction func btnUpdateAction(_ sender: GradientButton) {
         
         let params = RequestParameter.sharedInstance().editProfileParam(vEmail: userProfileModel?.vEmail ?? "", vProfileImage: userProfileModel?.vProfileImage ?? "", vName: userProfileModel?.vFullName ?? "", dDob: userProfileModel?.vDoB?.inputDateStrToAPIDateStr(dateStr: userProfileModel!.vDoB!) ?? "", tiAge: "\(userProfileModel?.vAge ?? 0)", tiGender: userProfileModel?.vGenderIndex ?? "0", vLiveIn: userProfileModel?.vCity ?? "", txCompanyDetail: userProfileModel?.vCompanyDetail ?? "", txAbout: userProfileModel?.vAbout ?? "", photos: userProfileModel?.vPhotos ?? "", vInstaLink: userProfileModel?.vInstagramLink ?? "", vSnapLink: userProfileModel?.vSnapchatLink ?? "", vFbLink: userProfileModel?.vFacebookLink ?? "", tiIsShowAge: "\(userProfileModel?.vShowAge ?? 0)", tiIsShowDistance: "\(userProfileModel?.vShowDistance ?? 0)", tiIsShowContactNumber: "\(userProfileModel?.vShowContactNo ?? 0)", tiIsShowProfileToLikedUser: "\(userProfileModel?.vShowProfiletoLiked ?? 0)")
-        
-        self.presenter?.callEdirProfileAPI(params: params)
+        self.presenter?.callEdirProfileAPI(params: params, images : self.imageArray)
     }
     @IBAction func btnDonePickerAction(_ sender: UIBarButtonItem) {
         

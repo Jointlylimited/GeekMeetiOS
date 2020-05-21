@@ -10,6 +10,9 @@ import UIKit
 
 class ProfileInterestCell: UITableViewCell {
 
+    typealias ButtonClickEvent = (_ title : String?) -> Void
+    var clickOnBtnNext : ButtonClickEvent!
+    
     @IBOutlet var lblInterest: [UILabel]!
     
     override func awakeFromNib() {
@@ -22,5 +25,8 @@ class ProfileInterestCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    @IBAction func btnInterestAction(_ sender: UIButton) {
+        self.clickOnBtnNext(lblInterest[sender.tag].text)
+    }
+    
 }

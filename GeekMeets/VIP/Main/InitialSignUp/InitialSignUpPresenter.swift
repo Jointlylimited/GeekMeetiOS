@@ -69,9 +69,10 @@ class InitialSignUpPresenter: InitialSignUpPresentationProtocol {
     }
     
     func getLoginResponse(userData : UserAuthResponse?) {
-        if userData != nil {
+        if userData?.responseCode == 200 {
             Authentication.setLoggedInStatus(true)
             UserDataModel.currentUser = userData?.responseData
+//            AppSingleton.sharedInstance().showHomeVC()
             let controller = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange)
             if let view = self.viewController as? UIViewController
             {

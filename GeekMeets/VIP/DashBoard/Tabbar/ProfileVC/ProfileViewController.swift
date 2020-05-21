@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 protocol ProfileDataDelegate {
     func profiledetails(data : UserProfileModel)
@@ -179,10 +180,20 @@ class ProfileViewController: UIViewController, ProfileProtocol {
         setProfileData()
     }
     func setProfileData(){
+        
+        SDImageCache.shared.clearMemory()
+        SDImageCache.shared.clearDisk()
+        
         self.lblUserNameAge.text = "\(UserDataModel.currentUser!.vName ?? ""), \(UserDataModel.currentUser!.tiAge ?? 25)"
         self.userProfileModel = UserProfileModel(vEmail: UserDataModel.currentUser?.vEmail, vProfileImage: UserDataModel.currentUser?.vProfileImage, vFullName: UserDataModel.currentUser?.vName, vAge: UserDataModel.currentUser?.tiAge ?? 0, vDoB : UserDataModel.currentUser?.dDob != "" ? UserDataModel.currentUser?.dDob?.strDateTODateStr(dateStr: UserDataModel.currentUser!.dDob!) : "", vAbout: UserDataModel.currentUser?.txAbout, vCity: UserDataModel.currentUser?.vLiveIn, vGender: self.genderArray[(UserDataModel.currentUser?.tiGender!)!], vGenderIndex: "0", vCompanyDetail: UserDataModel.currentUser?.txCompanyDetail, vInterestAge: "20-30", vInterestGender: "Male", vLikedSocialPlatform: "Whatsapp, Snapchat, Instagram", vPhotos: "", vInstagramLink: UserDataModel.currentUser?.vInstaLink, vSnapchatLink: UserDataModel.currentUser?.vSnapLink, vFacebookLink: UserDataModel.currentUser?.vFbLink, vShowAge: UserDataModel.currentUser?.tiIsShowAge, vShowDistance: UserDataModel.currentUser?.tiIsShowDistance, vShowContactNo: UserDataModel.currentUser?.tiIsShowContactNumber, vShowProfiletoLiked:UserDataModel.currentUser?.tiIsShowProfileToLikedUser, vProfileImg: userProfileModel == nil ? nil : userProfileModel?.vProfileImg, vProfileImageArray: userProfileModel == nil ? nil : userProfileModel?.vProfileImageArray)
         self.imageArray = userProfileModel!.vProfileImageArray == nil ? imageArray : userProfileModel!.vProfileImageArray!
-        self.imgProfile.image = userProfileModel!.vProfileImg == nil ? imageArray[0] : userProfileModel!.vProfileImg
+        
+        //ProfileImage setup
+        if userProfileModel?.vProfileImage != "" {
+            let url = URL(string:"\(fileUploadURL)\(user_Profile)\(userProfileModel!.vProfileImage!)")
+            print(url!)
+            self.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile"))
+        }
         self.tblProfile.reloadData()
     }
     @IBAction func btnEditProfileAction(_ sender: UIButton) {
@@ -226,7 +237,22 @@ extension ProfileViewController : UITableViewDataSource, UITableViewDelegate {
                 cell.lblCompanyDetail.text = userProfileModel?.vCompanyDetail
             }
         } else if objProfileData.cells[indexPath.section].cellID == "ProfileInterestCell" {
-            
+            if let cell = cell as? ProfileInterestCell  {
+                cell.clickOnBtnNext = { (title) in
+                    let intVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.Interest_PreferenceScreen) as? Interest_PreferenceViewController
+                    
+                    if title == "Yourself" {
+                        intVC?.header_title = title!
+                        intVC?.objDiscoverData =  [CommonCellModel(title: Interest_PreferenceData.Ethernity.Title, description: "African American/African", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Height.Title, description: "5.2", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.BodyType.Title, description: "Fit", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Indoor_Outdoor.Title, description: "I love inddors", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Morning_Night.Title, description: "Night", isDescAvailable: true)]
+                    } else if title == "Your Desired Partner" {
+                        intVC?.header_title = title!
+                    } else {
+                        intVC?.header_title = title!
+                    }
+                    
+                    self.pushVC(intVC!)
+                }
+            }
         } else if objProfileData.cells[indexPath.section].cellID == "ProfilePhotosCell" {
             if let cell = cell as? ProfilePhotosCell  {
                 
@@ -271,7 +297,7 @@ extension ProfileViewController : UITableViewDataSource, UITableViewDelegate {
         
         if section == 2 {
             let expandImg = UIImageView()
-            expandImg.frame = CGRect(x: ScreenSize.width - 35, y: headerView.frame.origin.y + 25, w: 10, h: 8)
+            expandImg.frame = CGRect(x: ScreenSize.width - 40, y: headerView.frame.origin.y + 25, w: 10, h: 8)
             let myImg: UIImage = objProfileData.isCellCollpsed ? #imageLiteral(resourceName: "icn_up") : #imageLiteral(resourceName: "icn_down")
             expandImg.image = myImg
             headerView.addSubview(expandImg)
@@ -285,31 +311,11 @@ extension ProfileViewController : UITableViewDataSource, UITableViewDelegate {
     
     @objc func headerSelectionAction() {
         if objProfileData.isCellCollpsed == true {
-            print("isCollapsed!")
             objProfileData.isCellCollpsed = false
         } else {
-            print("not isCollapsed!")
             objProfileData.isCellCollpsed = true
         }
         self.tblProfile.reloadData()
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        if indexPath.section == 2 {
-            let intVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.Interest_PreferenceScreen) as? Interest_PreferenceViewController
-            
-            if indexPath.row == 0 {
-                intVC?.header_title = "Yourself"
-                intVC?.objDiscoverData =  [CommonCellModel(title: Interest_PreferenceData.Ethernity.Title, description: "African American/African", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Height.Title, description: "5.2", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.BodyType.Title, description: "Fit", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Indoor_Outdoor.Title, description: "I love inddors", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Morning_Night.Title, description: "Night", isDescAvailable: true)]
-                
-            } else if indexPath.row == 1 {
-                intVC?.header_title = "Your Desired Partner"
-            } else {
-                intVC?.header_title = "Your Interests"
-            }
-            self.pushVC(intVC!)
-        }
     }
 }
 

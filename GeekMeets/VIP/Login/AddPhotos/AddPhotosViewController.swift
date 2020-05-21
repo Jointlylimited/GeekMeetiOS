@@ -25,7 +25,6 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
     @IBOutlet weak var btnDone: GradientButton!
     
     //USER PHOTOS
-    var imgsUserPhotosStr:[String] = []
     var imgsUserPhotos:[UIImage] = []
     var imgsUserPhotosDict:[NSDictionary] = []
     var signUpParams : Dictionary<String, String>?
@@ -79,7 +78,6 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
         // Profile image set
         
         imgsUserPhotos.append(imgProfile!)
-        imgsUserPhotosStr.append(signUpParams!["vProfileImage"]!)
     }
 
     //MARK: IBAction Method
@@ -88,25 +86,8 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
         let photoJsonString = json(from: self.imgsUserPhotosDict)
         let params = RequestParameter.sharedInstance().signUpParam(vEmail: signUpParams!["vEmail"]!, vPassword: signUpParams!["vPassword"]!, vConfirmPassword : signUpParams!["vConfirmPassword"]!, vCountryCode: signUpParams!["vCountryCode"]!, vPhone: signUpParams!["vPhone"]!, termsChecked : signUpParams!["termsChecked"]!, vProfileImage: signUpParams!["vProfileImage"]!, vName: signUpParams!["vName"]!, dDob: signUpParams!["dDob"]!, tiAge: signUpParams!["tiAge"]!, tiGender: signUpParams!["tiGender"]!, iCurrentStatus: signUpParams!["iCurrentStatus"]!, txCompanyDetail: signUpParams!["txCompanyDetail"]!, txAbout: signUpParams!["txAbout"]!, photos: self.imgsUserPhotos.count > 0 ? photoJsonString! : "", vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vSocialId : signUpParams!["vSocialId"]!, fLatitude : self.location != nil ? "\(self.location?.coordinate.latitude ?? 0.0)" : "0.0", fLongitude: self.location != nil ? "\(self.location?.coordinate.longitude ?? 0.0)" : "0.0")
         
-        self.presenter?.callUserSignUpAPI(signParams: params)
+        self.presenter?.callUserSignUpAPI(signParams: params, images : imgsUserPhotos)
     }
-    
-    func json(from object:[NSDictionary]) -> String? {
-            var yourString : String = ""
-            do
-            {
-                if let postData : NSData = try JSONSerialization.data(withJSONObject: object, options: JSONSerialization.WritingOptions.prettyPrinted) as NSData
-                {
-                    yourString = NSString(data: postData as Data, encoding: String.Encoding.utf8.rawValue)! as String
-                    return yourString
-                }
-            }
-            catch
-            {
-                print(error)
-            }
-            return yourString
-        }
         
         func displayAlert(strTitle : String, strMessage : String) {
             self.showAlert(title: strTitle, message: strMessage)
@@ -185,7 +166,6 @@ extension AddPhotosViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func actionRemoveIMG(at index: IndexPath) {
-        imgsUserPhotosStr.remove(at: index.row)
         imgsUserPhotos.remove(at: index.row)
         clnAddPhoto.reloadData()
     }
@@ -201,7 +181,6 @@ extension AddPhotosViewController:  UINavigationControllerDelegate, UIImagePicke
             if let asset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset{
                 if let fileName = asset.value(forKey: "filename") as? String{
                     print(fileName)
-                    imgsUserPhotosStr.append(fileName)
                     let dict = ["vMedia":fileName, "tiMediaType":1, "fHeight":asset.pixelHeight, "fWidth": asset.pixelWidth] as [String : Any]
                     imgsUserPhotosDict.append(dict as NSDictionary)
                 }
@@ -215,11 +194,9 @@ extension AddPhotosViewController:  UINavigationControllerDelegate, UIImagePicke
                 let data = (info[UIImagePickerController.InfoKey.originalImage] as? UIImage)!.jpegData(compressionQuality: 0.3)! as NSData
                       data.write(toFile: localPath, atomically: true)
                       let photoURL = URL.init(fileURLWithPath: localPath)
-                      imgsUserPhotosStr.append(localPath)
 
                   }else{
                     let imgString = (info[UIImagePickerController.InfoKey.imageURL] as! URL).lastPathComponent
-                    imgsUserPhotosStr.append(imgString)
                     }
               }
              
@@ -238,7 +215,6 @@ extension AddPhotosViewController:  UINavigationControllerDelegate, UIImagePicke
                     let assetResources = PHAssetResource.assetResources(for: result.firstObject!)
                     let file = assetResources.first!.originalFilename
                     print(assetResources.first!.originalFilename)
-                    imgsUserPhotosStr.append(file)
                    
                     let dict = ["vMedia":file, "tiMediaType":1, "fHeight":image.size.height, "fWidth": image.size.width] as [String : Any]
                     imgsUserPhotosDict.append(dict as NSDictionary)
