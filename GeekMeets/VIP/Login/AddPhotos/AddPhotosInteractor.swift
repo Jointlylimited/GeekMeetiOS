@@ -61,24 +61,28 @@ class AddPhotosInteractor: AddPhotosInteractorProtocol, AddPhotosDataStore {
                 } else if isUploaded {
                     var imgsUserPhotosDict:[NSDictionary] = []
                     self.paramDetails = obj
-//                    if indexValue == 0 {
-                        self.paramDetails["vProfileImage"] = self.thumbURlUpload.name
-                        let dict = ["vMedia":self.thumbURlUpload.name, "tiMediaType":1, "fHeight":images[indexValue].size.height, "fWidth": images[indexValue].size.height] as [String : Any]
-                        imgsUserPhotosDict.append(dict as NSDictionary)
-//                    } else {
-//                        let dict = ["vMedia":self.thumbURlUpload.name, "tiMediaType":1, "fHeight":images[indexValue].size.height, "fWidth": images[indexValue].size.height] as [String : Any]
-//                        imgsUserPhotosDict.append(dict as NSDictionary)
-//                    }
-//
-//                    if indexValue == images.count - 1 {
-//                        let photoJsonString = json(from: imgsUserPhotosDict)
-//                        self.paramDetails["photos"] = photoJsonString
-                        if obj["vSocialId"] as! String != "" {
-                            self.callSocialSignUpAPI(signParams: self.paramDetails as! Dictionary<String, String>)
-                        } else {
-                            self.callUserSignUpAPI(signParams: self.paramDetails as! Dictionary<String, String>)
-                        }
-//                    }
+                    //                    if indexValue == 0 {
+                    self.paramDetails["vProfileImage"] = self.thumbURlUpload.name
+                    let dict = ["vMedia":self.thumbURlUpload.name,"tiMediaType":1,"fHeight":images[indexValue].size.height,"fWidth":images[indexValue].size.height] as [String : Any]
+                    imgsUserPhotosDict.append(dict as NSDictionary)
+                    //                    } else {
+                    //                        let dict = ["vMedia":self.thumbURlUpload.name, "tiMediaType":1, "fHeight":images[indexValue].size.height, "fWidth": images[indexValue].size.height] as [String : Any]
+                    //                        imgsUserPhotosDict.append(dict as NSDictionary)
+                    //                    }
+                    //
+                    //                    if indexValue == images.count - 1 {
+                    //                        let photoJsonString = json(from: imgsUserPhotosDict)
+                    //                        print(photoJsonString)
+                    //                        self.paramDetails["photos"] = "" //photoJsonString
+                    let ustr = "[{\"vMedia\":\"\(self.thumbURlUpload.name)\",\"tiMediaType\":\"1\",\"fHeight\":\"\(images[indexValue].size.height)\",\"fWidth\":\"\(images[indexValue].size.height)\"}]"
+                    self.paramDetails["photos"] = ustr
+                    print(ustr)
+                    if obj["vSocialId"] as! String != "" && obj["vSocialId"] as! String != "0" {
+                        self.callSocialSignUpAPI(signParams: self.paramDetails as! Dictionary<String, String>)
+                    } else {
+                        self.callUserSignUpAPI(signParams: self.paramDetails as! Dictionary<String, String>)
+                    }
+                    //                    }
                 } else {
                     _ = AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
                 }
@@ -92,7 +96,7 @@ class AddPhotosInteractor: AddPhotosInteractorProtocol, AddPhotosDataStore {
         DispatchQueue.main.async {
             LoaderView.sharedInstance.showLoader()
         }
-        UserAPI.signUp(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, tiIsSocialLogin: UserAPI.TiIsSocialLogin_signUp(rawValue: "0")!, vEmail: signParams["vEmail"]!, vPassword: signParams["vPassword"]!, vCountryCode: signParams["vCountryCode"]!, vPhone: signParams["vPhone"]!, vName: signParams["vName"]!, dDob: signParams["dDob"]!, tiAge: signParams["tiAge"]!, tiGender: UserAPI.TiGender_signUp(rawValue: signParams["tiGender"]!)!, iCurrentStatus: UserAPI.ICurrentStatus_signUp(rawValue: signParams["iCurrentStatus"]!)!, txCompanyDetail: signParams["txCompanyDetail"]!, txAbout: signParams["txAbout"]!, photos: signParams["photos"]!, vTimeOffset: signParams["vTimeOffset"]!, vTimeZone: signParams["vTimeZone"]!, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signUp(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId ?? "", vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress) { (response, error) in
+        UserAPI.signUp(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, tiIsSocialLogin: UserAPI.TiIsSocialLogin_signUp(rawValue: "0")!, vName: signParams["vName"]!, dDob: signParams["dDob"]!, tiAge: signParams["tiAge"]!, tiGender: UserAPI.TiGender_signUp(rawValue: signParams["tiGender"]!)!, iCurrentStatus: UserAPI.ICurrentStatus_signUp(rawValue: signParams["iCurrentStatus"]!)!, txCompanyDetail: signParams["txCompanyDetail"]!, txAbout: signParams["txAbout"]!, photos: signParams["photos"]!, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signUp(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId ?? "", vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress, iUserId: "\(UserDataModel.currentUser!.iUserId!)", vEmail: signParams["vEmail"]!, vPassword: signParams["vPassword"]!, vCountryCode: signParams["vCountryCode"]!, vPhone: signParams["vPhone"]!, vProfileImage: signParams["vProfileImage"]!, fLatitude:  Float(signParams["fLatitude"]!), fLongitude: Float(signParams["fLongitude"]!)) { (response, error) in
             DispatchQueue.main.async {
                 LoaderView.sharedInstance.hideLoader()
             }
@@ -112,10 +116,14 @@ class AddPhotosInteractor: AddPhotosInteractorProtocol, AddPhotosDataStore {
     
     func callSocialSignUpAPI(signParams : Dictionary<String, String>) {
         let socialType = UserDataModel.getSocialType()
-        LoaderView.sharedInstance.showLoader()
-           UserAPI.signUp(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, tiIsSocialLogin: UserAPI.TiIsSocialLogin_signUp(rawValue: "1")!, vEmail: signParams["vEmail"]!, vPassword: signParams["vPassword"]!, vCountryCode: signParams["vCountryCode"]!, vPhone: signParams["vPhone"]!, vName: signParams["vName"]!, dDob: signParams["dDob"]!, tiAge: signParams["tiAge"]!, tiGender: UserAPI.TiGender_signUp(rawValue: signParams["tiGender"]!)!, iCurrentStatus: UserAPI.ICurrentStatus_signUp(rawValue: signParams["iCurrentStatus"]!)!, txCompanyDetail: signParams["txCompanyDetail"]!, txAbout: signParams["txAbout"]!, photos: signParams["photos"]!, vTimeOffset: signParams["vTimeOffset"]!, vTimeZone: signParams["vTimeZone"]!, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signUp(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId ?? "", vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress, vSocialId: signParams["vSocialId"]!, tiSocialType: UserAPI.TiSocialType_signUp(rawValue: socialType)!, vProfileImage: signParams["vProfileImage"]!, fLatitude: Float(signParams["fLatitude"]!), fLongitude: Float(signParams["fLongitude"]!)) { (response, error) in
+        DispatchQueue.main.async {
+            LoaderView.sharedInstance.showLoader()
+        }
+        UserAPI.signUp(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, tiIsSocialLogin: UserAPI.TiIsSocialLogin_signUp(rawValue: "1")!, vName: signParams["vName"]!, dDob: signParams["dDob"]!, tiAge: signParams["tiAge"]!, tiGender: UserAPI.TiGender_signUp(rawValue: signParams["tiGender"]!)!, iCurrentStatus: UserAPI.ICurrentStatus_signUp(rawValue: signParams["iCurrentStatus"]!)!, txCompanyDetail: signParams["txCompanyDetail"]!, txAbout: signParams["txAbout"]!, photos: signParams["photos"]!, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signUp(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId ?? "", vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress, vSocialId: signParams["vSocialId"]!, tiSocialType: UserAPI.TiSocialType_signUp(rawValue: socialType)!, vEmail: signParams["vEmail"]!, vPassword: signParams["vPassword"]!, vCountryCode: signParams["vCountryCode"]!, vPhone: signParams["vPhone"]!, vProfileImage: signParams["vProfileImage"]!, fLatitude: Float(signParams["fLatitude"]!), fLongitude: Float(signParams["fLongitude"]!)) { (response, error) in
                
-            LoaderView.sharedInstance.hideLoader()
+            DispatchQueue.main.async {
+                LoaderView.sharedInstance.hideLoader()
+            }
                if response?.responseCode == 200 {
                    self.presenter?.getSignUpResponse(response : response!)
                } else if response?.responseCode == 203 {

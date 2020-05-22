@@ -133,7 +133,7 @@ class ProfileViewController: UIViewController, ProfileProtocol {
     // MARK: Object lifecycle
     
     var objProfileData = ProfileData()
-    var imageArray = [#imageLiteral(resourceName: "img_intro_2"), #imageLiteral(resourceName: "image_1"), #imageLiteral(resourceName: "Image 63"), #imageLiteral(resourceName: "Image 62")]
+    var imageArray : [UIImage] = [] // [#imageLiteral(resourceName: "img_intro_2"), #imageLiteral(resourceName: "image_1"), #imageLiteral(resourceName: "Image 63"), #imageLiteral(resourceName: "Image 62")]
     var genderArray : [String] = ["Male", "Female", "Others", "Prefer not to say"]
     
     var userProfileModel : UserProfileModel?
@@ -246,8 +246,11 @@ extension ProfileViewController : UITableViewDataSource, UITableViewDelegate {
                         intVC?.objDiscoverData =  [CommonCellModel(title: Interest_PreferenceData.Ethernity.Title, description: "African American/African", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Height.Title, description: "5.2", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.BodyType.Title, description: "Fit", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Indoor_Outdoor.Title, description: "I love inddors", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Morning_Night.Title, description: "Night", isDescAvailable: true)]
                     } else if title == "Your Desired Partner" {
                         intVC?.header_title = title!
+                        intVC?.objDiscoverData =  [CommonCellModel(title: Interest_PreferenceData.Ethernity.Title, description: "African American/African", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Height.Title, description: "5.2", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.BodyType.Title, description: "Fit", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Indoor_Outdoor.Title, description: "I love inddors", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Morning_Night.Title, description: "Night", isDescAvailable: true)]
+                        
                     } else {
                         intVC?.header_title = title!
+                        intVC?.objDiscoverData =  [CommonCellModel(title: Interest_PreferenceData.Ethernity.Title, description: "African American/African", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Height.Title, description: "5.2", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.BodyType.Title, description: "Fit", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Indoor_Outdoor.Title, description: "I love inddors", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Morning_Night.Title, description: "Night", isDescAvailable: true)]
                     }
                     
                     self.pushVC(intVC!)
@@ -326,12 +329,20 @@ extension ProfileViewController : UICollectionViewDataSource, UICollectionViewDe
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.imageArray != nil && self.imageArray.count != 0 ? self.imageArray.count : 0
+        return self.imageArray.count != 0 ? self.imageArray.count : (UserDataModel.currentUser?.photos != nil ? (UserDataModel.currentUser?.photos!.count)! : 0) //UserDataModel.currentUser?.photos != nil ? (UserDataModel.currentUser?.photos!.count)! : (self.imageArray != nil && self.imageArray.count != 0 ? self.imageArray.count : 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell : PhotoEmojiCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PhotoEmojiCell, for: indexPath) as! PhotoEmojiCell
-        cell.userImgView.image = imageArray[indexPath.row]
+        
+         if UserDataModel.currentUser?.photos == nil || UserDataModel.currentUser?.photos?.count == 0 {
+            cell.userImgView.image = imageArray[indexPath.row]
+         } else {
+            let photos = UserDataModel.currentUser!.photos!
+            let url = URL(string:"\(fileUploadURL)\(user_Profile)\(photos[indexPath.row].vMedia!)")
+            print(url!)
+            self.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile"))
+        }
         cell.emojiStackView.spacing = DeviceType.iPhone5orSE ? 2 : 10
         cell.btnClose.alpha = 0.0
         cell.btnChooseImage.alpha = 0.0

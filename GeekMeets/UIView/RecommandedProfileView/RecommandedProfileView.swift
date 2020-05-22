@@ -56,8 +56,15 @@ class RecommandedProfileView: UIView {
         }
     }
     
-    class func initAlertView() -> RecommandedProfileView {
+    class func initAlertView(imgString : String) -> RecommandedProfileView {
+        
         let view = Bundle.main.loadNibNamed("RecommandedProfileView", owner: nil, options: nil)?.first as! RecommandedProfileView
+        if imgString != "" {
+            let url = URL(string:"\(fileUploadURL)\(user_Profile)\(imgString)")
+            print(url!)
+            view.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "Image 64"))
+        }
+        
         view.layoutIfNeeded()
         return view
     }

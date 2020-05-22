@@ -765,7 +765,7 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_loginbg" translatesAutoresizingMaskIntoConstraints="NO" id="7kq-kf-8by">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_loginlogo" translatesAutoresizingMaskIntoConstraints="NO" id="nm4-Bb-6HI">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon_login" translatesAutoresizingMaskIntoConstraints="NO" id="nm4-Bb-6HI">
                                 <rect key="frame" x="119" y="246.66666666666663" width="137" height="116"/>
                             </imageView>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gsa-m9-hAQ">
@@ -1357,6 +1357,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Icon_login" width="101.33333587646484" height="142.66667175292969"/>
         <image name="icn_Instagaram" width="17.333333969116211" height="17.333333969116211"/>
         <image name="icn_apple" width="15" height="17.333333969116211"/>
         <image name="icn_close_white" width="14" height="14"/>

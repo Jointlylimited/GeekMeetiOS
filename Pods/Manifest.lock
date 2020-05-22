@@ -127,6 +127,7 @@ PODS:
   - IQKeyboardManagerSwift (6.5.5)
   - JSONModel (1.8.0)
   - Kingfisher (4.10.1)
+  - lottie-ios (3.1.8)
   - Moya (13.0.1):
     - Moya/Core (= 13.0.1)
   - Moya/Core (13.0.1):
@@ -176,6 +177,7 @@ DEPENDENCIES:
   - IQKeyboardManagerSwift
   - JSONModel
   - Kingfisher
+  - lottie-ios
   - Moya
   - NVActivityIndicatorView
   - ReachabilitySwift
@@ -217,6 +219,7 @@ SPEC REPOS:
     - IQKeyboardManagerSwift
     - JSONModel
     - Kingfisher
+    - lottie-ios
     - Moya
     - nanopb
     - NVActivityIndicatorView
@@ -262,6 +265,7 @@ SPEC CHECKSUMS:
   IQKeyboardManagerSwift: 0fb93310284665245591f50f7a5e38de615960b7
   JSONModel: 02ab723958366a3fd27da57ea2af2113658762e9
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
+  lottie-ios: 48fac6be217c76937e36e340e2d09cf7b10b7f5f
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   NVActivityIndicatorView: d24b7ebcf80af5dcd994adb650e2b6c93379270f
@@ -274,6 +278,6 @@ SPEC CHECKSUMS:
   SnapSDK: 9ea8d26ca876b7f1d85fad2f2ec09852f3b156d0
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: 8bc4f161ef97644cb66377a984cd9e1aaea16e18
+PODFILE CHECKSUM: 9d928931dad730423e861ce12b1317dc859aa5b6
 
 COCOAPODS: 1.8.4

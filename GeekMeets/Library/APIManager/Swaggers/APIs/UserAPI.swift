@@ -771,41 +771,42 @@ open class UserAPI {
     /**
      SignUp User
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter tiIsSocialLogin: (form) 0 - no, 1 - yes 
-     - parameter vEmail: (form) Email Id of user 
-     - parameter vPassword: (form) Provide account password 
-     - parameter vCountryCode: (form) ISD Code of mobile 
-     - parameter vPhone: (form) Mobile Number of User 
-     - parameter vName: (form) Enter your Name 
-     - parameter dDob: (form) Enter your DOB 
-     - parameter tiAge: (form) Enter your age 
-     - parameter tiGender: (form) 0 - male, 1 - female, 2 - Others, 3 - prefer not to say 
-     - parameter iCurrentStatus: (form) 0 - Work, 1 - Study 
-     - parameter txCompanyDetail: (form) Enter Company Name / Designation Name 
-     - parameter txAbout: (form) Describe about your self 
-     - parameter photos: (form) Before submit request please replace all single quotes with double quotes in swagger 
-     - parameter vTimeOffset: (form) Time Offset 
-     - parameter vTimeZone: (form) e.g : Asia/Kolkata 
-     - parameter vDeviceToken: (form) Token of device 
-     - parameter tiDeviceType: (form) 0 - Web, 1 - IOS, 2 - Android 
-     - parameter vDeviceName: (form) Name of device 
-     - parameter vDeviceUniqueId: (form) Device Unique ID 
-     - parameter vApiVersion: (form) Version of api endpoint 
-     - parameter vAppVersion: (form) App Version 
-     - parameter vOsVersion: (form) Phone OS Version 
-     - parameter vIpAddress: (form) Device IP Address 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter tiIsSocialLogin: (form) 0 - no, 1 - yes
+     - parameter vName: (form) Enter your Name
+     - parameter dDob: (form) Enter your DOB
+     - parameter tiAge: (form) Enter your age
+     - parameter tiGender: (form) 0 - male, 1 - female, 2 - Others, 3 - prefer not to say
+     - parameter iCurrentStatus: (form) 0 - Work, 1 - Study
+     - parameter txCompanyDetail: (form) Enter Company Name / Designation Name
+     - parameter txAbout: (form) Describe about your self
+     - parameter photos: (form) Before submit request please replace all single quotes with double quotes in swagger
+     - parameter vTimeOffset: (form) Time Offset
+     - parameter vTimeZone: (form) e.g : Asia/Kolkata
+     - parameter vDeviceToken: (form) Token of device
+     - parameter tiDeviceType: (form) 0 - Web, 1 - IOS, 2 - Android
+     - parameter vDeviceName: (form) Name of device
+     - parameter vDeviceUniqueId: (form) Device Unique ID
+     - parameter vApiVersion: (form) Version of api endpoint
+     - parameter vAppVersion: (form) App Version
+     - parameter vOsVersion: (form) Phone OS Version
+     - parameter vIpAddress: (form) Device IP Address
+     - parameter iUserId: (form) iUserId (optional)
      - parameter vSocialId: (form) Unique identication from social media (optional, default to abcdh345893476)
      - parameter tiSocialType: (form) 1 - Facebook, 2 - Google, 3 - Instagram, 4 - SnapChat, 5 - Apple (optional)
+     - parameter vEmail: (form) Email Id of user (optional, default to geekmeet@gmail.com)
+     - parameter vPassword: (form) Provide account password (optional, default to 123456)
+     - parameter vCountryCode: (form) ISD Code of mobile (optional, default to +91)
+     - parameter vPhone: (form) Mobile Number of User (optional, default to 9876543210)
      - parameter vProfileImage: (form) Select profile image (optional, default to default.png)
      - parameter fLatitude: (form) Latitude (optional, default to 23.12356)
      - parameter fLongitude: (form) Longitude (optional, default to 72.12356)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func signUp(nonce: String, timestamp: String, token: String, tiIsSocialLogin: TiIsSocialLogin_signUp, vEmail: String, vPassword: String, vCountryCode: String, vPhone: String, vName: String, dDob: String, tiAge: String, tiGender: TiGender_signUp, iCurrentStatus: ICurrentStatus_signUp, txCompanyDetail: String, txAbout: String, photos: String, vTimeOffset: String, vTimeZone: String, vDeviceToken: String, tiDeviceType: TiDeviceType_signUp, vDeviceName: String, vDeviceUniqueId: String, vApiVersion: String, vAppVersion: String, vOsVersion: String, vIpAddress: String, vSocialId: String? = nil, tiSocialType: TiSocialType_signUp? = nil, vProfileImage: String? = nil, fLatitude: Float? = nil, fLongitude: Float? = nil, completion: @escaping ((_ data: UserAuthResponse?,_ error: Error?) -> Void)) {
-        signUpWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, tiIsSocialLogin: tiIsSocialLogin, vEmail: vEmail, vPassword: vPassword, vCountryCode: vCountryCode, vPhone: vPhone, vName: vName, dDob: dDob, tiAge: tiAge, tiGender: tiGender, iCurrentStatus: iCurrentStatus, txCompanyDetail: txCompanyDetail, txAbout: txAbout, photos: photos, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: tiDeviceType, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId, vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOsVersion, vIpAddress: vIpAddress, vSocialId: vSocialId, tiSocialType: tiSocialType, vProfileImage: vProfileImage, fLatitude: fLatitude, fLongitude: fLongitude).execute { (response, error) -> Void in
+    open class func signUp(nonce: String, timestamp: String, token: String, tiIsSocialLogin: TiIsSocialLogin_signUp, vName: String, dDob: String, tiAge: String, tiGender: TiGender_signUp, iCurrentStatus: ICurrentStatus_signUp, txCompanyDetail: String, txAbout: String, photos: String, vTimeOffset: String, vTimeZone: String, vDeviceToken: String, tiDeviceType: TiDeviceType_signUp, vDeviceName: String, vDeviceUniqueId: String, vApiVersion: String, vAppVersion: String, vOsVersion: String, vIpAddress: String, iUserId: String? = nil, vSocialId: String? = nil, tiSocialType: TiSocialType_signUp? = nil, vEmail: String? = nil, vPassword: String? = nil, vCountryCode: String? = nil, vPhone: String? = nil, vProfileImage: String? = nil, fLatitude: Float? = nil, fLongitude: Float? = nil, completion: @escaping ((_ data: UserAuthResponse?,_ error: Error?) -> Void)) {
+        signUpWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, tiIsSocialLogin: tiIsSocialLogin, vName: vName, dDob: dDob, tiAge: tiAge, tiGender: tiGender, iCurrentStatus: iCurrentStatus, txCompanyDetail: txCompanyDetail, txAbout: txAbout, photos: photos, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: tiDeviceType, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId, vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOsVersion, vIpAddress: vIpAddress, iUserId: iUserId, vSocialId: vSocialId, tiSocialType: tiSocialType, vEmail: vEmail, vPassword: vPassword, vCountryCode: vCountryCode, vPhone: vPhone, vProfileImage: vProfileImage, fLatitude: fLatitude, fLongitude: fLongitude).execute { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
@@ -816,44 +817,46 @@ open class UserAPI {
      - POST /user/signup
      - examples: [{contentType=application/json, example=""}]
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter tiIsSocialLogin: (form) 0 - no, 1 - yes 
-     - parameter vEmail: (form) Email Id of user 
-     - parameter vPassword: (form) Provide account password 
-     - parameter vCountryCode: (form) ISD Code of mobile 
-     - parameter vPhone: (form) Mobile Number of User 
-     - parameter vName: (form) Enter your Name 
-     - parameter dDob: (form) Enter your DOB 
-     - parameter tiAge: (form) Enter your age 
-     - parameter tiGender: (form) 0 - male, 1 - female, 2 - Others, 3 - prefer not to say 
-     - parameter iCurrentStatus: (form) 0 - Work, 1 - Study 
-     - parameter txCompanyDetail: (form) Enter Company Name / Designation Name 
-     - parameter txAbout: (form) Describe about your self 
-     - parameter photos: (form) Before submit request please replace all single quotes with double quotes in swagger 
-     - parameter vTimeOffset: (form) Time Offset 
-     - parameter vTimeZone: (form) e.g : Asia/Kolkata 
-     - parameter vDeviceToken: (form) Token of device 
-     - parameter tiDeviceType: (form) 0 - Web, 1 - IOS, 2 - Android 
-     - parameter vDeviceName: (form) Name of device 
-     - parameter vDeviceUniqueId: (form) Device Unique ID 
-     - parameter vApiVersion: (form) Version of api endpoint 
-     - parameter vAppVersion: (form) App Version 
-     - parameter vOsVersion: (form) Phone OS Version 
-     - parameter vIpAddress: (form) Device IP Address 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter tiIsSocialLogin: (form) 0 - no, 1 - yes
+     - parameter vName: (form) Enter your Name
+     - parameter dDob: (form) Enter your DOB
+     - parameter tiAge: (form) Enter your age
+     - parameter tiGender: (form) 0 - male, 1 - female, 2 - Others, 3 - prefer not to say
+     - parameter iCurrentStatus: (form) 0 - Work, 1 - Study
+     - parameter txCompanyDetail: (form) Enter Company Name / Designation Name
+     - parameter txAbout: (form) Describe about your self
+     - parameter photos: (form) Before submit request please replace all single quotes with double quotes in swagger
+     - parameter vTimeOffset: (form) Time Offset
+     - parameter vTimeZone: (form) e.g : Asia/Kolkata
+     - parameter vDeviceToken: (form) Token of device
+     - parameter tiDeviceType: (form) 0 - Web, 1 - IOS, 2 - Android
+     - parameter vDeviceName: (form) Name of device
+     - parameter vDeviceUniqueId: (form) Device Unique ID
+     - parameter vApiVersion: (form) Version of api endpoint
+     - parameter vAppVersion: (form) App Version
+     - parameter vOsVersion: (form) Phone OS Version
+     - parameter vIpAddress: (form) Device IP Address
+     - parameter iUserId: (form) iUserId (optional)
      - parameter vSocialId: (form) Unique identication from social media (optional, default to abcdh345893476)
      - parameter tiSocialType: (form) 1 - Facebook, 2 - Google, 3 - Instagram, 4 - SnapChat, 5 - Apple (optional)
+     - parameter vEmail: (form) Email Id of user (optional, default to geekmeet@gmail.com)
+     - parameter vPassword: (form) Provide account password (optional, default to 123456)
+     - parameter vCountryCode: (form) ISD Code of mobile (optional, default to +91)
+     - parameter vPhone: (form) Mobile Number of User (optional, default to 9876543210)
      - parameter vProfileImage: (form) Select profile image (optional, default to default.png)
      - parameter fLatitude: (form) Latitude (optional, default to 23.12356)
      - parameter fLongitude: (form) Longitude (optional, default to 72.12356)
 
-     - returns: RequestBuilder<UserAuthResponse> 
+     - returns: RequestBuilder<UserAuthResponse>
      */
-    open class func signUpWithRequestBuilder(nonce: String, timestamp: String, token: String, tiIsSocialLogin: TiIsSocialLogin_signUp, vEmail: String, vPassword: String, vCountryCode: String, vPhone: String, vName: String, dDob: String, tiAge: String, tiGender: TiGender_signUp, iCurrentStatus: ICurrentStatus_signUp, txCompanyDetail: String, txAbout: String, photos: String, vTimeOffset: String, vTimeZone: String, vDeviceToken: String, tiDeviceType: TiDeviceType_signUp, vDeviceName: String, vDeviceUniqueId: String, vApiVersion: String, vAppVersion: String, vOsVersion: String, vIpAddress: String, vSocialId: String? = nil, tiSocialType: TiSocialType_signUp? = nil, vProfileImage: String? = nil, fLatitude: Float? = nil, fLongitude: Float? = nil) -> RequestBuilder<UserAuthResponse> {
+    open class func signUpWithRequestBuilder(nonce: String, timestamp: String, token: String, tiIsSocialLogin: TiIsSocialLogin_signUp, vName: String, dDob: String, tiAge: String, tiGender: TiGender_signUp, iCurrentStatus: ICurrentStatus_signUp, txCompanyDetail: String, txAbout: String, photos: String, vTimeOffset: String, vTimeZone: String, vDeviceToken: String, tiDeviceType: TiDeviceType_signUp, vDeviceName: String, vDeviceUniqueId: String, vApiVersion: String, vAppVersion: String, vOsVersion: String, vIpAddress: String, iUserId: String? = nil, vSocialId: String? = nil, tiSocialType: TiSocialType_signUp? = nil, vEmail: String? = nil, vPassword: String? = nil, vCountryCode: String? = nil, vPhone: String? = nil, vProfileImage: String? = nil, fLatitude: Float? = nil, fLongitude: Float? = nil) -> RequestBuilder<UserAuthResponse> {
         let path = "/user/signup"
         let URLString = SwaggerClientAPI.basePath + path
         let formParams: [String:Any?] = [
+            "iUserId": iUserId,
             "tiIsSocialLogin": tiIsSocialLogin.rawValue,
             "vSocialId": vSocialId,
             "tiSocialType": tiSocialType?.rawValue,
@@ -899,6 +902,7 @@ open class UserAPI {
 
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
     }
+
 
     /**
      sign out

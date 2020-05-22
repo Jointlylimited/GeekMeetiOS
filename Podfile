@@ -34,4 +34,7 @@ target 'GeekMeets' do
   #  images manage
   pod 'Kingfisher'
   pod 'SDWebImage'
+  
+  #  Animation
+  pod 'lottie-ios'
 end

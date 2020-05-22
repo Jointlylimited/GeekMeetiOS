@@ -203,6 +203,7 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
         }
         //ProfileImage setup
         if userProfileModel?.vProfileImage != "" {
+        
             let url = URL(string:"\(fileUploadURL)\(user_Profile)\(userProfileModel!.vProfileImage!)")
             print(url!)
             self.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile"))
@@ -217,7 +218,10 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
         self.popVC()
     }
     @IBAction func btnUpdateAction(_ sender: GradientButton) {
-        
+        if self.imageArray == [] {
+            AppSingleton.sharedInstance().showAlert("Select at least one image.", okTitle: "OK")
+            return
+        }
         let params = RequestParameter.sharedInstance().editProfileParam(vEmail: userProfileModel?.vEmail ?? "", vProfileImage: userProfileModel?.vProfileImage ?? "", vName: userProfileModel?.vFullName ?? "", dDob: userProfileModel?.vDoB?.inputDateStrToAPIDateStr(dateStr: userProfileModel!.vDoB!) ?? "", tiAge: "\(userProfileModel?.vAge ?? 0)", tiGender: userProfileModel?.vGenderIndex ?? "0", vLiveIn: userProfileModel?.vCity ?? "", txCompanyDetail: userProfileModel?.vCompanyDetail ?? "", txAbout: userProfileModel?.vAbout ?? "", photos: userProfileModel?.vPhotos ?? "", vInstaLink: userProfileModel?.vInstagramLink ?? "", vSnapLink: userProfileModel?.vSnapchatLink ?? "", vFbLink: userProfileModel?.vFacebookLink ?? "", tiIsShowAge: "\(userProfileModel?.vShowAge ?? 0)", tiIsShowDistance: "\(userProfileModel?.vShowDistance ?? 0)", tiIsShowContactNumber: "\(userProfileModel?.vShowContactNo ?? 0)", tiIsShowProfileToLikedUser: "\(userProfileModel?.vShowProfiletoLiked ?? 0)")
         self.presenter?.callEdirProfileAPI(params: params, images : self.imageArray)
     }
@@ -256,7 +260,9 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
     }
     
     func showSetProfileView() {
-        customProfileView = RecommandedProfileView.initAlertView()
+       
+        let imgString = userProfileModel!.vProfileImage != "" ? userProfileModel!.vProfileImage! : ""
+        customProfileView = RecommandedProfileView.initAlertView(imgString : imgString)
         customProfileView.delegate = self
         customProfileView.frame = self.view.frame
         AppDelObj.window?.addSubview(customProfileView)
@@ -264,7 +270,7 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
     
     func getEditProfileResponse(response: UserAuthResponse){
         if response.responseCode == 200 {
-            userProfileModel?.vProfileImg = self.imageArray[0]
+//            userProfileModel?.vProfileImg = self.imageArray[0]
             userProfileModel?.vProfileImageArray = self.imageArray
             UserDataModel.currentUser = response.responseData
             if self.delegate != nil {
@@ -431,21 +437,36 @@ extension EditProfileViewController : UICollectionViewDataSource, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.imageArray.count != 0 ? self.imageArray.count + 1 : 1
+        return self.imageArray.count != 0 ? self.imageArray.count + 1 : (UserDataModel.currentUser?.photos != nil ? (UserDataModel.currentUser?.photos!.count)! + 1 : 1)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell : PhotoEmojiCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PhotoEmojiCell, for: indexPath) as! PhotoEmojiCell
         cell.emojiStackView.spacing = DeviceType.iPhone5orSE ? 2 : 10
-        
-        if indexPath.row < self.imageArray.count {
-            cell.btnClose.alpha = 1.0
-            cell.userImgView.image = imageArray[indexPath.row]
-            cell.emojiStackView.alpha = 0
+        if UserDataModel.currentUser?.photos == nil || UserDataModel.currentUser?.photos?.count == 0 {
+            if indexPath.row < self.imageArray.count {
+                cell.btnClose.alpha = 1.0
+                cell.userImgView.image = imageArray[indexPath.row]
+                cell.emojiStackView.alpha = 0
+            } else {
+                cell.userImgView.image = #imageLiteral(resourceName: "icn_add_photo")
+                cell.emojiStackView.alpha = 0
+                cell.btnClose.alpha  = 0
+            }
         } else {
-            cell.userImgView.image = #imageLiteral(resourceName: "icn_add_photo")
-            cell.emojiStackView.alpha = 0
-            cell.btnClose.alpha  = 0
+            let photos = UserDataModel.currentUser!.photos!
+            if indexPath.row < photos.count {
+                cell.btnClose.alpha = 1.0
+                let url = URL(string:"\(fileUploadURL)\(user_Profile)\(photos[indexPath.row].vMedia!)")
+                print(url!)
+                self.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "icn_user"))
+                cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile")) //.image = imageArray[indexPath.row]
+                cell.emojiStackView.alpha = 0
+            } else {
+                cell.userImgView.image = #imageLiteral(resourceName: "icn_add_photo")
+                cell.emojiStackView.alpha = 0
+                cell.btnClose.alpha  = 0
+            }
         }
         
         cell.clickOnImageButton = {
@@ -461,6 +482,11 @@ extension EditProfileViewController : UICollectionViewDataSource, UICollectionVi
         cell.clickOnRemovePhoto = {
             if self.imageArray.count != 0 {
                 self.imageArray.remove(at: indexPath.row)
+            }
+            if UserDataModel.currentUser?.photos != nil {
+                if UserDataModel.currentUser?.photos?.count != 0 {
+                    UserDataModel.currentUser?.photos?.remove(at: indexPath.row)
+                }
             }
             self.tblEditProfileView.reloadData()
         }

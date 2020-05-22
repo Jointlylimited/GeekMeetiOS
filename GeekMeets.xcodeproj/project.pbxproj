@@ -38,6 +38,7 @@
 		0B319663244DE80500B38350 /* TabbarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B319651244DE80500B38350 /* TabbarPresenter.swift */; };
 		0B319664244DE80500B38350 /* TabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B319652244DE80500B38350 /* TabbarViewController.swift */; };
 		0B319665244DE80500B38350 /* TabbarInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B319653244DE80500B38350 /* TabbarInteractor.swift */; };
+		0B3A14A82478213700F7EA11 /* newheart.json in Resources */ = {isa = PBXBuildFile; fileRef = 0B3A14A72478213700F7EA11 /* newheart.json */; };
 		0B3C75AC245327B700CEDBBA /* GlobalMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C75AB245327AD00CEDBBA /* GlobalMethods.swift */; };
 		0B3C75B1245327DF00CEDBBA /* Share_EarnViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C75AE245327DF00CEDBBA /* Share_EarnViewController.swift */; };
 		0B3C75B2245327DF00CEDBBA /* Share_EarnInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C75AF245327DF00CEDBBA /* Share_EarnInteractor.swift */; };
@@ -346,6 +347,7 @@
 		0B319651244DE80500B38350 /* TabbarPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabbarPresenter.swift; sourceTree = "<group>"; };
 		0B319652244DE80500B38350 /* TabbarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabbarViewController.swift; sourceTree = "<group>"; };
 		0B319653244DE80500B38350 /* TabbarInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabbarInteractor.swift; sourceTree = "<group>"; };
+		0B3A14A72478213700F7EA11 /* newheart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = newheart.json; sourceTree = "<group>"; };
 		0B3C75AB245327AD00CEDBBA /* GlobalMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalMethods.swift; sourceTree = "<group>"; };
 		0B3C75AE245327DF00CEDBBA /* Share_EarnViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Share_EarnViewController.swift; sourceTree = "<group>"; };
 		0B3C75AF245327DF00CEDBBA /* Share_EarnInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Share_EarnInteractor.swift; sourceTree = "<group>"; };
@@ -751,6 +753,14 @@
 				0B319653244DE80500B38350 /* TabbarInteractor.swift */,
 			);
 			path = TabbarController;
+			sourceTree = "<group>";
+		};
+		0B3A14A62478211100F7EA11 /* Loader_JSON */ = {
+			isa = PBXGroup;
+			children = (
+				0B3A14A72478213700F7EA11 /* newheart.json */,
+			);
+			path = Loader_JSON;
 			sourceTree = "<group>";
 		};
 		0B3C75AD245327DF00CEDBBA /* Share&EarnVC */ = {
@@ -1725,6 +1735,7 @@
 		F90B4CCB2032A7C1006ADAF6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0B3A14A62478211100F7EA11 /* Loader_JSON */,
 				0BDB9D9E2476401300BA2F39 /* AWS */,
 				0B921C3724571D1A0010AE04 /* StoryData */,
 				F90B4CDA2032AAAB006ADAF6 /* Fonts */,
@@ -2066,6 +2077,7 @@
 				0BE21282244976AF004817BC /* Poppins-Italic.ttf in Resources */,
 				0BF7081C244F1D6B003D6AB7 /* DiscoverCollectionCell.xib in Resources */,
 				0BE2127A244976AF004817BC /* Poppins-ExtraBold.ttf in Resources */,
+				0B3A14A82478213700F7EA11 /* newheart.json in Resources */,
 				0B7F33C7246ED80D007ADF8D /* RecommandedProfileView.xib in Resources */,
 				0BE21275244976AF004817BC /* Poppins-BoldItalic.ttf in Resources */,
 				0BF7081D244F1D6B003D6AB7 /* ReactEmojiCollectionCell.xib in Resources */,
@@ -2154,6 +2166,7 @@
 				"${PODS_ROOT}/SnapSDK/SCSDKLoginKit.framework",
 				"${PODS_ROOT}/SnapSDK/SCSDKStoryKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -2190,6 +2203,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCSDKStoryKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

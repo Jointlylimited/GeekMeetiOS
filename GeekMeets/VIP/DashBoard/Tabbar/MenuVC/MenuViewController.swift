@@ -95,15 +95,13 @@ class MenuViewController: UIViewController, MenuProtocol {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setTheme()
 //        startTimer()
     }
     func setTheme() {
         self.navigationController?.isNavigationBarHidden = true
         startTimer()
         self.lblUserNameAge.text = "\(UserDataModel.currentUser?.vName ?? ""), \(UserDataModel.currentUser?.tiAge ?? 0)"
-        
-        SDImageCache.shared.clearMemory()
-        SDImageCache.shared.clearDisk()
         
         //ProfileImage setup
         if UserDataModel.currentUser?.vProfileImage != "" {

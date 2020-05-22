@@ -52,7 +52,6 @@ class EditProfileInteractor: EditProfileInteractorProtocol, EditProfileDataStore
                 DispatchQueue.main.async {
                     LoaderView.sharedInstance.hideLoader()
                 }
-                print(path)
                 guard let `self` = self else {return}
                 if let err = error {
                     print("ERROR : \(err.localizedDescription)")
@@ -60,21 +59,22 @@ class EditProfileInteractor: EditProfileInteractorProtocol, EditProfileDataStore
                 } else if isUploaded {
                     var imgsUserPhotosDict:[NSDictionary] = []
                     self.paramDetails = obj
-//                    if indexValue == 0 {
-                        self.paramDetails["vProfileImage"] = self.thumbURlUpload.name
-                        let dict = ["vMedia":self.thumbURlUpload.name, "tiMediaType":1, "fHeight":images[indexValue].size.height, "fWidth": images[indexValue].size.height] as [String : Any]
-                        imgsUserPhotosDict.append(dict as NSDictionary)
-                        self.callEdirProfileAPI(params: self.paramDetails as! Dictionary<String, String>)
-//                    } else {
-//                        print("Timestamp : \(self.thumbURlUpload.name)")
-//                        let dict = ["vMedia":path?.split("/").last!, "tiMediaType":1, "fHeight":images[indexValue].size.height, "fWidth": images[indexValue].size.height] as [String : Any]
-//                        imgsUserPhotosDict.append(dict as NSDictionary)
-//                    }
-//                    if indexValue == images.count - 1 {
-//                        let photoJsonString = json(from: imgsUserPhotosDict)
-//                        self.paramDetails["photos"] = photoJsonString
-//                    }
-                
+                    //                    if indexValue == 0 {
+                    self.paramDetails["vProfileImage"] = self.thumbURlUpload.name
+                    let ustr = "[{\"vMedia\":\"\(self.thumbURlUpload.name)\",\"tiMediaType\":\"1\",\"fHeight\":\"\(images[indexValue].size.height)\",\"fWidth\":\"\(images[indexValue].size.height)\"}]"
+                    self.paramDetails["photos"] = ustr
+                    print(ustr)
+                    self.callEdirProfileAPI(params: self.paramDetails as! Dictionary<String, String>)
+                    //                    } else {
+                    //                        print("Timestamp : \(self.thumbURlUpload.name)")
+                    //                        let dict = ["vMedia":path?.split("/").last!, "tiMediaType":1, "fHeight":images[indexValue].size.height, "fWidth": images[indexValue].size.height] as [String : Any]
+                    //                        imgsUserPhotosDict.append(dict as NSDictionary)
+                    //                    }
+                    //                    if indexValue == images.count - 1 {
+                    //                        let photoJsonString = json(from: imgsUserPhotosDict)
+                    //                        self.paramDetails["photos"] = photoJsonString
+                    //                    }
+                    
                 } else {
                     _ = AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
                 }
