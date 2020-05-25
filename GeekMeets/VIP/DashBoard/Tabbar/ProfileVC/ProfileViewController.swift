@@ -136,7 +136,7 @@ class ProfileViewController: UIViewController, ProfileProtocol {
     var imageArray : [UIImage] = [] // [#imageLiteral(resourceName: "img_intro_2"), #imageLiteral(resourceName: "image_1"), #imageLiteral(resourceName: "Image 63"), #imageLiteral(resourceName: "Image 62")]
     var genderArray : [String] = ["Male", "Female", "Others", "Prefer not to say"]
     
-    var userProfileModel : UserProfileModel?
+    var userProfileModel : UserAuthResponseField?// : UserProfileModel?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -185,9 +185,8 @@ class ProfileViewController: UIViewController, ProfileProtocol {
         SDImageCache.shared.clearDisk()
         
         self.lblUserNameAge.text = "\(UserDataModel.currentUser!.vName ?? ""), \(UserDataModel.currentUser!.tiAge ?? 25)"
-        self.userProfileModel = UserProfileModel(vEmail: UserDataModel.currentUser?.vEmail, vProfileImage: UserDataModel.currentUser?.vProfileImage, vFullName: UserDataModel.currentUser?.vName, vAge: UserDataModel.currentUser?.tiAge ?? 0, vDoB : UserDataModel.currentUser?.dDob != "" ? UserDataModel.currentUser?.dDob?.strDateTODateStr(dateStr: UserDataModel.currentUser!.dDob!) : "", vAbout: UserDataModel.currentUser?.txAbout, vCity: UserDataModel.currentUser?.vLiveIn, vGender: self.genderArray[(UserDataModel.currentUser?.tiGender!)!], vGenderIndex: "0", vCompanyDetail: UserDataModel.currentUser?.txCompanyDetail, vInterestAge: "20-30", vInterestGender: "Male", vLikedSocialPlatform: "Whatsapp, Snapchat, Instagram", vPhotos: "", vInstagramLink: UserDataModel.currentUser?.vInstaLink, vSnapchatLink: UserDataModel.currentUser?.vSnapLink, vFacebookLink: UserDataModel.currentUser?.vFbLink, vShowAge: UserDataModel.currentUser?.tiIsShowAge, vShowDistance: UserDataModel.currentUser?.tiIsShowDistance, vShowContactNo: UserDataModel.currentUser?.tiIsShowContactNumber, vShowProfiletoLiked:UserDataModel.currentUser?.tiIsShowProfileToLikedUser, vProfileImg: userProfileModel == nil ? nil : userProfileModel?.vProfileImg, vProfileImageArray: userProfileModel == nil ? nil : userProfileModel?.vProfileImageArray)
-        self.imageArray = userProfileModel!.vProfileImageArray == nil ? imageArray : userProfileModel!.vProfileImageArray!
-        
+        self.userProfileModel = UserDataModel.currentUser
+            
         //ProfileImage setup
         if userProfileModel?.vProfileImage != "" {
             let url = URL(string:"\(fileUploadURL)\(user_Profile)\(userProfileModel!.vProfileImage!)")
@@ -196,17 +195,18 @@ class ProfileViewController: UIViewController, ProfileProtocol {
         }
         self.tblProfile.reloadData()
     }
+    
     @IBAction func btnEditProfileAction(_ sender: UIButton) {
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.EditProfileScreen) as! EditProfileViewController
         controller.delegate = self
-        controller.userProfileModel = self.userProfileModel
+//        controller.userProfileModel = self.userProfileModel
         self.pushVC(controller)
     }
 }
 
 extension ProfileViewController : ProfileDataDelegate{
     func profiledetails(data : UserProfileModel){
-        self.userProfileModel = data
+//        self.userProfileModel = data
         setProfileData()
     }
 }
@@ -228,13 +228,13 @@ extension ProfileViewController : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if objProfileData.cells[indexPath.section].cellID == "ProfileAboutCell" {
             if let cell = cell as? ProfileAboutCell  {
-                cell.lblAbout.text = userProfileModel?.vAbout
-                cell.lblCity.text = userProfileModel?.vCity
-                cell.lblGender.text = userProfileModel?.vGender
+                cell.lblAbout.text = userProfileModel?.txAbout // userProfileModel?.vAbout
+                cell.lblCity.text = userProfileModel?.vLiveIn // userProfileModel?.vCity
+                cell.lblGender.text = genderArray[userProfileModel!.tiGender!] // userProfileModel?.vGender
             }
         } else if objProfileData.cells[indexPath.section].cellID == "ProfileCompanyCell" {
             if let cell = cell as? ProfileCompanyCell  {
-                cell.lblCompanyDetail.text = userProfileModel?.vCompanyDetail
+                cell.lblCompanyDetail.text = userProfileModel?.txCompanyDetail // userProfileModel?.vCompanyDetail
             }
         } else if objProfileData.cells[indexPath.section].cellID == "ProfileInterestCell" {
             if let cell = cell as? ProfileInterestCell  {
@@ -329,7 +329,7 @@ extension ProfileViewController : UICollectionViewDataSource, UICollectionViewDe
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.imageArray.count != 0 ? self.imageArray.count : (UserDataModel.currentUser?.photos != nil ? (UserDataModel.currentUser?.photos!.count)! : 0) //UserDataModel.currentUser?.photos != nil ? (UserDataModel.currentUser?.photos!.count)! : (self.imageArray != nil && self.imageArray.count != 0 ? self.imageArray.count : 0)
+        return self.imageArray.count != 0 ? self.imageArray.count : (UserDataModel.currentUser?.photos != nil ? (UserDataModel.currentUser?.photos!.count)! : 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -340,8 +340,8 @@ extension ProfileViewController : UICollectionViewDataSource, UICollectionViewDe
          } else {
             let photos = UserDataModel.currentUser!.photos!
             let url = URL(string:"\(fileUploadURL)\(user_Profile)\(photos[indexPath.row].vMedia!)")
+            cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile"))
             print(url!)
-            self.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile"))
         }
         cell.emojiStackView.spacing = DeviceType.iPhone5orSE ? 2 : 10
         cell.btnClose.alpha = 0.0

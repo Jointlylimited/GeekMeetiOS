@@ -247,7 +247,7 @@ extension CountryPickerController: UISearchBarDelegate {
             filterCountries = []
             let searchString = searchBar.text
             for country in countries {
-                if ((country.countryName.uppercased()) as NSString).hasPrefix((searchString?.uppercased())!) {
+                if ((country.countryName.uppercased()) as NSString).hasPrefix((searchString?.uppercased())!) || ((country.dialingCode)! as NSString).contains(searchString!){
                     self.filterCountries.append(country)
                 }
             }

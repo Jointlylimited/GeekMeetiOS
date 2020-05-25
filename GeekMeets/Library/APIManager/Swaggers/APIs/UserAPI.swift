@@ -14,13 +14,13 @@ open class UserAPI {
     /**
      Change Password
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter language: (header) en&#x3D;English, fr&#x3D;French 
-     - parameter authorization: (header)  
-     - parameter vCurrentPassword: (form) Enter current password 
-     - parameter vNewPassword: (form) Set new password 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter language: (header) en&#x3D;English, fr&#x3D;French
+     - parameter authorization: (header)
+     - parameter vCurrentPassword: (form) Enter current password
+     - parameter vNewPassword: (form) Set new password
      - parameter completion: completion handler to receive the data and the error objects
      */
     open class func changePassword(nonce: String, timestamp: Int, token: String, language: String, authorization: String, vCurrentPassword: String, vNewPassword: String, completion: @escaping ((_ data: CommonResponse?,_ error: Error?) -> Void)) {
@@ -38,15 +38,15 @@ open class UserAPI {
   "responseCode" : 0
 }}]
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter language: (header) en&#x3D;English, fr&#x3D;French 
-     - parameter authorization: (header)  
-     - parameter vCurrentPassword: (form) Enter current password 
-     - parameter vNewPassword: (form) Set new password 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter language: (header) en&#x3D;English, fr&#x3D;French
+     - parameter authorization: (header)
+     - parameter vCurrentPassword: (form) Enter current password
+     - parameter vNewPassword: (form) Set new password
 
-     - returns: RequestBuilder<CommonResponse> 
+     - returns: RequestBuilder<CommonResponse>
      */
     open class func changePasswordWithRequestBuilder(nonce: String, timestamp: Int, token: String, language: String, authorization: String, vCurrentPassword: String, vNewPassword: String) -> RequestBuilder<CommonResponse> {
         let path = "/user/change-password"
@@ -77,11 +77,11 @@ open class UserAPI {
     /**
      check-email-availability
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter language: (header) en&#x3D;English, fr&#x3D;French 
-     - parameter vEmail: (form) Email Id of user 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter language: (header) en&#x3D;English, fr&#x3D;French
+     - parameter vEmail: (form) Email Id of user
      - parameter completion: completion handler to receive the data and the error objects
      */
     open class func checkEmailAvailability(nonce: String, timestamp: Int, token: String, language: String, vEmail: String, completion: @escaping ((_ data: UserAuthResponse?,_ error: Error?) -> Void)) {
@@ -96,13 +96,13 @@ open class UserAPI {
      - POST /user/check-email-availability
      - examples: [{contentType=application/json, example=""}]
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter language: (header) en&#x3D;English, fr&#x3D;French 
-     - parameter vEmail: (form) Email Id of user 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter language: (header) en&#x3D;English, fr&#x3D;French
+     - parameter vEmail: (form) Email Id of user
 
-     - returns: RequestBuilder<UserAuthResponse> 
+     - returns: RequestBuilder<UserAuthResponse>
      */
     open class func checkEmailAvailabilityWithRequestBuilder(nonce: String, timestamp: Int, token: String, language: String, vEmail: String) -> RequestBuilder<UserAuthResponse> {
         let path = "/user/check-email-availability"
@@ -131,7 +131,7 @@ open class UserAPI {
     /**
      * enum for parameter tiSocialType
      */
-    public enum TiSocialType_checkSocialId: String { 
+    public enum TiSocialType_checkSocialId: String {
         case _1 = "1"
         case _2 = "2"
         case _3 = "3"
@@ -142,31 +142,31 @@ open class UserAPI {
     /**
      * enum for parameter tiDeviceType
      */
-    public enum TiDeviceType_checkSocialId: Int { 
+    public enum TiDeviceType_checkSocialId: Int {
         case _0 = 0
         case _1 = 1
         case _2 = 2
     }
 
     /**
-     In case of if user try to login with Apple or snapchat 
+     In case of if user try to login with Apple or snapchat
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter language: (header) en&#x3D;English, fr&#x3D;French 
-     - parameter tiSocialType: (form) 1 - Facebook, 2 - Google, 3 - Instagram, 4 - SnapChat, 5 - Apple 
-     - parameter vSocialId: (form) vSocialId 
-     - parameter vTimeOffset: (form) Time Offset 
-     - parameter vTimeZone: (form) e.g : Asia/Kolkata 
-     - parameter vDeviceToken: (form) Token of device 
-     - parameter tiDeviceType: (form) 0 - Web, 1 - IOS, 2 - Android 
-     - parameter vDeviceName: (form) Name of device 
-     - parameter vDeviceUniqueId: (form) Device Unique ID 
-     - parameter vApiVersion: (form) Version of api endpoint 
-     - parameter vAppVersion: (form) App Version 
-     - parameter vOsVersion: (form) Phone OS Version 
-     - parameter vIpAddress: (form) Device IP Address 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter language: (header) en&#x3D;English, fr&#x3D;French
+     - parameter tiSocialType: (form) 1 - Facebook, 2 - Google, 3 - Instagram, 4 - SnapChat, 5 - Apple
+     - parameter vSocialId: (form) vSocialId
+     - parameter vTimeOffset: (form) Time Offset
+     - parameter vTimeZone: (form) e.g : Asia/Kolkata
+     - parameter vDeviceToken: (form) Token of device
+     - parameter tiDeviceType: (form) 0 - Web, 1 - IOS, 2 - Android
+     - parameter vDeviceName: (form) Name of device
+     - parameter vDeviceUniqueId: (form) Device Unique ID
+     - parameter vApiVersion: (form) Version of api endpoint
+     - parameter vAppVersion: (form) App Version
+     - parameter vOsVersion: (form) Phone OS Version
+     - parameter vIpAddress: (form) Device IP Address
      - parameter fLatitude: (form) Latitude (optional, default to 23.12356)
      - parameter fLongitude: (form) Longitude (optional, default to 72.12356)
      - parameter completion: completion handler to receive the data and the error objects
@@ -179,30 +179,30 @@ open class UserAPI {
 
 
     /**
-     In case of if user try to login with Apple or snapchat 
+     In case of if user try to login with Apple or snapchat
      - POST /user/check-social-id
      - examples: [{contentType=application/json, example=""}]
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter language: (header) en&#x3D;English, fr&#x3D;French 
-     - parameter tiSocialType: (form) 1 - Facebook, 2 - Google, 3 - Instagram, 4 - SnapChat, 5 - Apple 
-     - parameter vSocialId: (form) vSocialId 
-     - parameter vTimeOffset: (form) Time Offset 
-     - parameter vTimeZone: (form) e.g : Asia/Kolkata 
-     - parameter vDeviceToken: (form) Token of device 
-     - parameter tiDeviceType: (form) 0 - Web, 1 - IOS, 2 - Android 
-     - parameter vDeviceName: (form) Name of device 
-     - parameter vDeviceUniqueId: (form) Device Unique ID 
-     - parameter vApiVersion: (form) Version of api endpoint 
-     - parameter vAppVersion: (form) App Version 
-     - parameter vOsVersion: (form) Phone OS Version 
-     - parameter vIpAddress: (form) Device IP Address 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter language: (header) en&#x3D;English, fr&#x3D;French
+     - parameter tiSocialType: (form) 1 - Facebook, 2 - Google, 3 - Instagram, 4 - SnapChat, 5 - Apple
+     - parameter vSocialId: (form) vSocialId
+     - parameter vTimeOffset: (form) Time Offset
+     - parameter vTimeZone: (form) e.g : Asia/Kolkata
+     - parameter vDeviceToken: (form) Token of device
+     - parameter tiDeviceType: (form) 0 - Web, 1 - IOS, 2 - Android
+     - parameter vDeviceName: (form) Name of device
+     - parameter vDeviceUniqueId: (form) Device Unique ID
+     - parameter vApiVersion: (form) Version of api endpoint
+     - parameter vAppVersion: (form) App Version
+     - parameter vOsVersion: (form) Phone OS Version
+     - parameter vIpAddress: (form) Device IP Address
      - parameter fLatitude: (form) Latitude (optional, default to 23.12356)
      - parameter fLongitude: (form) Longitude (optional, default to 72.12356)
 
-     - returns: RequestBuilder<UserAuthResponse> 
+     - returns: RequestBuilder<UserAuthResponse>
      */
     open class func checkSocialIdWithRequestBuilder(nonce: String, timestamp: Int, token: String, language: String, tiSocialType: TiSocialType_checkSocialId, vSocialId: String, vTimeOffset: String, vTimeZone: String, vDeviceToken: String, tiDeviceType: TiDeviceType_checkSocialId, vDeviceName: String, vDeviceUniqueId: String, vApiVersion: String, vAppVersion: String, vOsVersion: String, vIpAddress: String, fLatitude: Float? = nil, fLongitude: Float? = nil) -> RequestBuilder<UserAuthResponse> {
         let path = "/user/check-social-id"
@@ -242,205 +242,208 @@ open class UserAPI {
     }
 
     /**
-        * enum for parameter tiGender
-        */
-       public enum TiGender_editProfile: String {
-           case _0 = "0"
-           case _1 = "1"
-           case _2 = "2"
-           case _4 = "4"
-       }
-
-       /**
-        * enum for parameter tiIsShowAge
-        */
-       public enum TiIsShowAge_editProfile: String {
-           case _0 = "0"
-           case _1 = "1"
-       }
-
-       /**
-        * enum for parameter tiIsShowDistance
-        */
-       public enum TiIsShowDistance_editProfile: String {
-           case _0 = "0"
-           case _1 = "1"
-       }
-
-       /**
-        * enum for parameter tiIsShowContactNumber
-        */
-       public enum TiIsShowContactNumber_editProfile: String {
-           case _0 = "0"
-           case _1 = "1"
-       }
-
-       /**
-        * enum for parameter tiIsShowProfileToLikedUser
-        */
-       public enum TiIsShowProfileToLikedUser_editProfile: String {
-           case _0 = "0"
-           case _1 = "1"
-       }
-
-       /**
-        Edit Profile
-        
-        - parameter nonce: (header)
-        - parameter timestamp: (header)
-        - parameter token: (header)
-        - parameter authorization: (header)
-        - parameter vName: (form) Enter your Name
-        - parameter dDob: (form) Enter your DOB
-        - parameter tiAge: (form) Enter your age
-        - parameter tiGender: (form) 0 - male, 1 - female, 2 - Others, 3 - prefer not to say
-        - parameter txCompanyDetail: (form) Enter Company Name / Designation Name
-        - parameter txAbout: (form) Describe about your self
-        - parameter vEmail: (form) Email Id of user (optional, default to geekmeet@gmail.com)
-        - parameter vProfileImage: (form) Select profile image (optional, default to default.png)
-        - parameter vLiveIn: (form)  (optional, default to Newyork)
-        - parameter photos: (form) Before submit request please replace all single quotes with double quotes in swagger (optional, default to [{'vMedia':'153248_asd.jpg','tiMediaType':'1','fHeight':'500','fWidth':'600'},{'vMedia':'153248_asd.jpg','tiMediaType':'1','fHeight':'200','fWidth':'300'}])
-        - parameter vInstaLink: (form) insta link (optional)
-        - parameter vSnapLink: (form) snapchat link (optional)
-        - parameter vFbLink: (form) Facebook link (optional)
-        - parameter tiIsShowAge: (form) 0-No, 1-Yes (optional, default to 0)
-        - parameter tiIsShowDistance: (form) 0-No, 1-Yes (optional, default to 0)
-        - parameter tiIsShowContactNumber: (form) 0-No, 1-Yes (optional, default to 0)
-        - parameter tiIsShowProfileToLikedUser: (form) 0-No, 1-Yes (optional, default to 0)
-        - parameter completion: completion handler to receive the data and the error objects
-        */
-       open class func editProfile(nonce: String, timestamp: String, token: String, authorization: String, vName: String, dDob: String, tiAge: String, tiGender: TiGender_editProfile, txCompanyDetail: String, txAbout: String, vEmail: String? = nil, vProfileImage: String? = nil, vLiveIn: String? = nil, photos: String? = nil, vInstaLink: String? = nil, vSnapLink: String? = nil, vFbLink: String? = nil, tiIsShowAge: TiIsShowAge_editProfile? = nil, tiIsShowDistance: TiIsShowDistance_editProfile? = nil, tiIsShowContactNumber: TiIsShowContactNumber_editProfile? = nil, tiIsShowProfileToLikedUser: TiIsShowProfileToLikedUser_editProfile? = nil, completion: @escaping ((_ data: UserAuthResponse?,_ error: Error?) -> Void)) {
-           editProfileWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, vName: vName, dDob: dDob, tiAge: tiAge, tiGender: tiGender, txCompanyDetail: txCompanyDetail, txAbout: txAbout, vEmail: vEmail, vProfileImage: vProfileImage, vLiveIn: vLiveIn, photos: photos, vInstaLink: vInstaLink, vSnapLink: vSnapLink, vFbLink: vFbLink, tiIsShowAge: tiIsShowAge, tiIsShowDistance: tiIsShowDistance, tiIsShowContactNumber: tiIsShowContactNumber, tiIsShowProfileToLikedUser: tiIsShowProfileToLikedUser).execute { (response, error) -> Void in
-               completion(response?.body, error)
-           }
-       }
-
-
-       /**
-        Edit Profile
-        - POST /user/edit-profile
-        - examples: [{contentType=application/json, example=""}]
-        
-        - parameter nonce: (header)
-        - parameter timestamp: (header)
-        - parameter token: (header)
-        - parameter authorization: (header)
-        - parameter vName: (form) Enter your Name
-        - parameter dDob: (form) Enter your DOB
-        - parameter tiAge: (form) Enter your age
-        - parameter tiGender: (form) 0 - male, 1 - female, 2 - Others, 3 - prefer not to say
-        - parameter txCompanyDetail: (form) Enter Company Name / Designation Name
-        - parameter txAbout: (form) Describe about your self
-        - parameter vEmail: (form) Email Id of user (optional, default to geekmeet@gmail.com)
-        - parameter vProfileImage: (form) Select profile image (optional, default to default.png)
-        - parameter vLiveIn: (form)  (optional, default to Newyork)
-        - parameter photos: (form) Before submit request please replace all single quotes with double quotes in swagger (optional, default to [{'vMedia':'153248_asd.jpg','tiMediaType':'1','fHeight':'500','fWidth':'600'},{'vMedia':'153248_asd.jpg','tiMediaType':'1','fHeight':'200','fWidth':'300'}])
-        - parameter vInstaLink: (form) insta link (optional)
-        - parameter vSnapLink: (form) snapchat link (optional)
-        - parameter vFbLink: (form) Facebook link (optional)
-        - parameter tiIsShowAge: (form) 0-No, 1-Yes (optional, default to 0)
-        - parameter tiIsShowDistance: (form) 0-No, 1-Yes (optional, default to 0)
-        - parameter tiIsShowContactNumber: (form) 0-No, 1-Yes (optional, default to 0)
-        - parameter tiIsShowProfileToLikedUser: (form) 0-No, 1-Yes (optional, default to 0)
-
-        - returns: RequestBuilder<UserAuthResponse>
-        */
-       open class func editProfileWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, vName: String, dDob: String, tiAge: String, tiGender: TiGender_editProfile, txCompanyDetail: String, txAbout: String, vEmail: String? = nil, vProfileImage: String? = nil, vLiveIn: String? = nil, photos: String? = nil, vInstaLink: String? = nil, vSnapLink: String? = nil, vFbLink: String? = nil, tiIsShowAge: TiIsShowAge_editProfile? = nil, tiIsShowDistance: TiIsShowDistance_editProfile? = nil, tiIsShowContactNumber: TiIsShowContactNumber_editProfile? = nil, tiIsShowProfileToLikedUser: TiIsShowProfileToLikedUser_editProfile? = nil) -> RequestBuilder<UserAuthResponse> {
-           let path = "/user/edit-profile"
-           let URLString = SwaggerClientAPI.basePath + path
-           let formParams: [String:Any?] = [
-               "vEmail": vEmail,
-               "vProfileImage": vProfileImage,
-               "vName": vName,
-               "dDob": dDob,
-               "tiAge": tiAge,
-               "tiGender": tiGender.rawValue,
-               "vLiveIn": vLiveIn,
-               "txCompanyDetail": txCompanyDetail,
-               "txAbout": txAbout,
-               "photos": photos,
-               "vInstaLink": vInstaLink,
-               "vSnapLink": vSnapLink,
-               "vFbLink": vFbLink,
-               "tiIsShowAge": tiIsShowAge?.rawValue,
-               "tiIsShowDistance": tiIsShowDistance?.rawValue,
-               "tiIsShowContactNumber": tiIsShowContactNumber?.rawValue,
-               "tiIsShowProfileToLikedUser": tiIsShowProfileToLikedUser?.rawValue
-           ]
-
-           let nonNullParameters = APIHelper.rejectNil(formParams)
-           let parameters = APIHelper.convertBoolToString(nonNullParameters)
-           
-           let url = URLComponents(string: URLString)
-           let nillableHeaders: [String: Any?] = [
-               "nonce": nonce,
-               "timestamp": timestamp,
-               "token": token,
-               "authorization": authorization
-           ]
-           let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
-
-           let requestBuilder: RequestBuilder<UserAuthResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
-
-           return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
-       }
+     * enum for parameter tiGender
+     */
+    public enum TiGender_editProfile: String {
+        case _0 = "0"
+        case _1 = "1"
+        case _2 = "2"
+        case _4 = "4"
+    }
 
     /**
-         Forgot Password
-         
-         - parameter nonce: (header)
-         - parameter timestamp: (header)
-         - parameter token: (header)
-         - parameter language: (header) en&#x3D;English, fr&#x3D;French
-         - parameter vEmail: (form) Email Id of user
-         - parameter completion: completion handler to receive the data and the error objects
-         */
-        open class func forgotPassword(nonce: String, timestamp: Int, token: String, language: String, vEmail: String, completion: @escaping ((_ data: CommonResponse?,_ error: Error?) -> Void)) {
-            forgotPasswordWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, language: language, vEmail: vEmail).execute { (response, error) -> Void in
-                completion(response?.body, error)
-            }
+     * enum for parameter tiIsShowAge
+     */
+    public enum TiIsShowAge_editProfile: String {
+        case _0 = "0"
+        case _1 = "1"
+    }
+
+    /**
+     * enum for parameter tiIsShowDistance
+     */
+    public enum TiIsShowDistance_editProfile: String {
+        case _0 = "0"
+        case _1 = "1"
+    }
+
+    /**
+     * enum for parameter tiIsShowContactNumber
+     */
+    public enum TiIsShowContactNumber_editProfile: String {
+        case _0 = "0"
+        case _1 = "1"
+    }
+
+    /**
+     * enum for parameter tiIsShowProfileToLikedUser
+     */
+    public enum TiIsShowProfileToLikedUser_editProfile: String {
+        case _0 = "0"
+        case _1 = "1"
+    }
+
+    /**
+     Edit Profile
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter vName: (form) Enter your Name
+     - parameter dDob: (form) Enter your DOB
+     - parameter tiAge: (form) Enter your age
+     - parameter tiGender: (form) 0 - male, 1 - female, 2 - Others, 3 - prefer not to say
+     - parameter txCompanyDetail: (form) Enter Company Name / Designation Name
+     - parameter txAbout: (form) Describe about your self
+     - parameter vEmail: (form) Email Id of user (optional, default to geekmeet@gmail.com)
+     - parameter vProfileImage: (form) Select profile image (optional, default to default.png)
+     - parameter vLiveIn: (form)  (optional, default to Newyork)
+     - parameter deletephotos: (form) Deleted photos id (optional, default to 1,2)
+     - parameter photos: (form) Before submit request please replace all single quotes with double quotes in swagger (optional, default to [{'vMedia':'153248_asd.jpg','tiMediaType':'1','fHeight':'500','fWidth':'600','tiIsDefault':'1'},{'vMedia':'153248_asd.jpg','tiMediaType':'1','fHeight':'200','fWidth':'300','tiIsDefault':'0'}])
+     - parameter vInstaLink: (form) insta link (optional)
+     - parameter vSnapLink: (form) snapchat link (optional)
+     - parameter vFbLink: (form) Facebook link (optional)
+     - parameter tiIsShowAge: (form) 0-No, 1-Yes (optional, default to 0)
+     - parameter tiIsShowDistance: (form) 0-No, 1-Yes (optional, default to 0)
+     - parameter tiIsShowContactNumber: (form) 0-No, 1-Yes (optional, default to 0)
+     - parameter tiIsShowProfileToLikedUser: (form) 0-No, 1-Yes (optional, default to 0)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func editProfile(nonce: String, timestamp: String, token: String, authorization: String, vName: String, dDob: String, tiAge: String, tiGender: TiGender_editProfile, txCompanyDetail: String, txAbout: String, vEmail: String? = nil, vProfileImage: String? = nil, vLiveIn: String? = nil, deletephotos: String? = nil, photos: String? = nil, vInstaLink: String? = nil, vSnapLink: String? = nil, vFbLink: String? = nil, tiIsShowAge: TiIsShowAge_editProfile? = nil, tiIsShowDistance: TiIsShowDistance_editProfile? = nil, tiIsShowContactNumber: TiIsShowContactNumber_editProfile? = nil, tiIsShowProfileToLikedUser: TiIsShowProfileToLikedUser_editProfile? = nil, completion: @escaping ((_ data: UserAuthResponse?,_ error: Error?) -> Void)) {
+        editProfileWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, vName: vName, dDob: dDob, tiAge: tiAge, tiGender: tiGender, txCompanyDetail: txCompanyDetail, txAbout: txAbout, vEmail: vEmail, vProfileImage: vProfileImage, vLiveIn: vLiveIn, deletephotos: deletephotos, photos: photos, vInstaLink: vInstaLink, vSnapLink: vSnapLink, vFbLink: vFbLink, tiIsShowAge: tiIsShowAge, tiIsShowDistance: tiIsShowDistance, tiIsShowContactNumber: tiIsShowContactNumber, tiIsShowProfileToLikedUser: tiIsShowProfileToLikedUser).execute { (response, error) -> Void in
+            completion(response?.body, error)
         }
+    }
 
 
-        /**
-         Forgot Password
-         - POST /user/forgot-password
-         - examples: [{contentType=application/json, example={
-      "responseMessage" : "responseMessage",
-      "responseCode" : 0
-    }}]
-         
-         - parameter nonce: (header)
-         - parameter timestamp: (header)
-         - parameter token: (header)
-         - parameter language: (header) en&#x3D;English, fr&#x3D;French
-         - parameter vEmail: (form) Email Id of user
+    /**
+     Edit Profile
+     - POST /user/edit-profile
+     - examples: [{contentType=application/json, example=""}]
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter vName: (form) Enter your Name
+     - parameter dDob: (form) Enter your DOB
+     - parameter tiAge: (form) Enter your age
+     - parameter tiGender: (form) 0 - male, 1 - female, 2 - Others, 3 - prefer not to say
+     - parameter txCompanyDetail: (form) Enter Company Name / Designation Name
+     - parameter txAbout: (form) Describe about your self
+     - parameter vEmail: (form) Email Id of user (optional, default to geekmeet@gmail.com)
+     - parameter vProfileImage: (form) Select profile image (optional, default to default.png)
+     - parameter vLiveIn: (form)  (optional, default to Newyork)
+     - parameter deletephotos: (form) Deleted photos id (optional, default to 1,2)
+     - parameter photos: (form) Before submit request please replace all single quotes with double quotes in swagger (optional, default to [{'vMedia':'153248_asd.jpg','tiMediaType':'1','fHeight':'500','fWidth':'600','tiIsDefault':'1'},{'vMedia':'153248_asd.jpg','tiMediaType':'1','fHeight':'200','fWidth':'300','tiIsDefault':'0'}])
+     - parameter vInstaLink: (form) insta link (optional)
+     - parameter vSnapLink: (form) snapchat link (optional)
+     - parameter vFbLink: (form) Facebook link (optional)
+     - parameter tiIsShowAge: (form) 0-No, 1-Yes (optional, default to 0)
+     - parameter tiIsShowDistance: (form) 0-No, 1-Yes (optional, default to 0)
+     - parameter tiIsShowContactNumber: (form) 0-No, 1-Yes (optional, default to 0)
+     - parameter tiIsShowProfileToLikedUser: (form) 0-No, 1-Yes (optional, default to 0)
 
-         - returns: RequestBuilder<CommonResponse>
-         */
-        open class func forgotPasswordWithRequestBuilder(nonce: String, timestamp: Int, token: String, language: String, vEmail: String) -> RequestBuilder<CommonResponse> {
-            let path = "/user/forgot-password"
-            let URLString = SwaggerClientAPI.basePath + path
-            let formParams: [String:Any?] = [
-                "vEmail": vEmail
-            ]
+     - returns: RequestBuilder<UserAuthResponse>
+     */
+    open class func editProfileWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, vName: String, dDob: String, tiAge: String, tiGender: TiGender_editProfile, txCompanyDetail: String, txAbout: String, vEmail: String? = nil, vProfileImage: String? = nil, vLiveIn: String? = nil, deletephotos: String? = nil, photos: String? = nil, vInstaLink: String? = nil, vSnapLink: String? = nil, vFbLink: String? = nil, tiIsShowAge: TiIsShowAge_editProfile? = nil, tiIsShowDistance: TiIsShowDistance_editProfile? = nil, tiIsShowContactNumber: TiIsShowContactNumber_editProfile? = nil, tiIsShowProfileToLikedUser: TiIsShowProfileToLikedUser_editProfile? = nil) -> RequestBuilder<UserAuthResponse> {
+        let path = "/user/edit-profile"
+        let URLString = SwaggerClientAPI.basePath + path
+        let formParams: [String:Any?] = [
+            "vEmail": vEmail,
+            "vProfileImage": vProfileImage,
+            "vName": vName,
+            "dDob": dDob,
+            "tiAge": tiAge,
+            "tiGender": tiGender.rawValue,
+            "vLiveIn": vLiveIn,
+            "txCompanyDetail": txCompanyDetail,
+            "txAbout": txAbout,
+            "deletephotos": deletephotos,
+            "photos": photos,
+            "vInstaLink": vInstaLink,
+            "vSnapLink": vSnapLink,
+            "vFbLink": vFbLink,
+            "tiIsShowAge": tiIsShowAge?.rawValue,
+            "tiIsShowDistance": tiIsShowDistance?.rawValue,
+            "tiIsShowContactNumber": tiIsShowContactNumber?.rawValue,
+            "tiIsShowProfileToLikedUser": tiIsShowProfileToLikedUser?.rawValue
+        ]
 
-            let nonNullParameters = APIHelper.rejectNil(formParams)
-            let parameters = APIHelper.convertBoolToString(nonNullParameters)
-            
-            let url = URLComponents(string: URLString)
-            let nillableHeaders: [String: Any?] = [
-                "nonce": nonce,
-                "timestamp": timestamp.encodeToJSON(),
-                "token": token,
-                "language": language
-            ]
-            let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let nonNullParameters = APIHelper.rejectNil(formParams)
+        let parameters = APIHelper.convertBoolToString(nonNullParameters)
+        
+        let url = URLComponents(string: URLString)
+        let nillableHeaders: [String: Any?] = [
+            "nonce": nonce,
+            "timestamp": timestamp,
+            "token": token,
+            "authorization": authorization
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
 
-            let requestBuilder: RequestBuilder<CommonResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<UserAuthResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
 
-            return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
+    }
+
+    /**
+     Forgot Password
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter language: (header) en&#x3D;English, fr&#x3D;French
+     - parameter vEmail: (form) Email Id of user
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func forgotPassword(nonce: String, timestamp: Int, token: String, language: String, vEmail: String, completion: @escaping ((_ data: CommonResponse?,_ error: Error?) -> Void)) {
+        forgotPasswordWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, language: language, vEmail: vEmail).execute { (response, error) -> Void in
+            completion(response?.body, error)
         }
+    }
+
+
+    /**
+     Forgot Password
+     - POST /user/forgot-password
+     - examples: [{contentType=application/json, example={
+  "responseMessage" : "responseMessage",
+  "responseCode" : 0
+}}]
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter language: (header) en&#x3D;English, fr&#x3D;French
+     - parameter vEmail: (form) Email Id of user
+
+     - returns: RequestBuilder<CommonResponse>
+     */
+    open class func forgotPasswordWithRequestBuilder(nonce: String, timestamp: Int, token: String, language: String, vEmail: String) -> RequestBuilder<CommonResponse> {
+        let path = "/user/forgot-password"
+        let URLString = SwaggerClientAPI.basePath + path
+        let formParams: [String:Any?] = [
+            "vEmail": vEmail
+        ]
+
+        let nonNullParameters = APIHelper.rejectNil(formParams)
+        let parameters = APIHelper.convertBoolToString(nonNullParameters)
+        
+        let url = URLComponents(string: URLString)
+        let nillableHeaders: [String: Any?] = [
+            "nonce": nonce,
+            "timestamp": timestamp.encodeToJSON(),
+            "token": token,
+            "language": language
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<CommonResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
+    }
 
     /**
      * enum for parameter tiDeviceType
@@ -559,19 +562,6 @@ open class UserAPI {
      - parameter vPhone: (form) Phone number (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    
-    /**
-     request-for-otp
-     
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter language: (header) en&#x3D;English, fr&#x3D;French 
-     - parameter iUserId: (form) iUserId 
-     - parameter vCountryCode: (form) Country code 
-     - parameter vPhone: (form) Phone number (optional)
-     - parameter completion: completion handler to receive the data and the error objects
-     */
     open class func requestForOtp(nonce: String, timestamp: Int, token: String, language: String, iUserId: String, vCountryCode: String, vPhone: String? = nil, completion: @escaping ((_ data: CommonResponse?,_ error: Error?) -> Void)) {
         requestForOtpWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, language: language, iUserId: iUserId, vCountryCode: vCountryCode, vPhone: vPhone).execute { (response, error) -> Void in
             completion(response?.body, error)
@@ -587,15 +577,15 @@ open class UserAPI {
   "responseCode" : 0
 }}]
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter language: (header) en&#x3D;English, fr&#x3D;French 
-     - parameter iUserId: (form) iUserId 
-     - parameter vCountryCode: (form) Country code 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter language: (header) en&#x3D;English, fr&#x3D;French
+     - parameter iUserId: (form) iUserId
+     - parameter vCountryCode: (form) Country code
      - parameter vPhone: (form) Phone number (optional)
 
-     - returns: RequestBuilder<CommonResponse> 
+     - returns: RequestBuilder<CommonResponse>
      */
     open class func requestForOtpWithRequestBuilder(nonce: String, timestamp: Int, token: String, language: String, iUserId: String, vCountryCode: String, vPhone: String? = nil) -> RequestBuilder<CommonResponse> {
         let path = "/user/request-for-otp"
@@ -626,7 +616,7 @@ open class UserAPI {
     /**
      * enum for parameter tiDeviceType
      */
-    public enum TiDeviceType_signIn: Int { 
+    public enum TiDeviceType_signIn: Int {
         case _0 = 0
         case _1 = 1
         case _2 = 2
@@ -635,21 +625,21 @@ open class UserAPI {
     /**
      SignIn User
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter vEmail: (form) Email Id of user 
-     - parameter vPassword: (form) Provide account password 
-     - parameter vTimeOffset: (form) Time Offset 
-     - parameter vTimeZone: (form) e.g : Asia/Kolkata 
-     - parameter vDeviceToken: (form) Token of device 
-     - parameter tiDeviceType: (form) 0 - Web, 1 - IOS, 2 - Android 
-     - parameter vDeviceName: (form) Name of device 
-     - parameter vDeviceUniqueId: (form) Device Unique ID 
-     - parameter vApiVersion: (form) Version of api endpoint 
-     - parameter vAppVersion: (form) App Version 
-     - parameter vOsVersion: (form) Phone OS Version 
-     - parameter vIpAddress: (form) Device IP Address 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter vEmail: (form) Email Id of user
+     - parameter vPassword: (form) Provide account password
+     - parameter vTimeOffset: (form) Time Offset
+     - parameter vTimeZone: (form) e.g : Asia/Kolkata
+     - parameter vDeviceToken: (form) Token of device
+     - parameter tiDeviceType: (form) 0 - Web, 1 - IOS, 2 - Android
+     - parameter vDeviceName: (form) Name of device
+     - parameter vDeviceUniqueId: (form) Device Unique ID
+     - parameter vApiVersion: (form) Version of api endpoint
+     - parameter vAppVersion: (form) App Version
+     - parameter vOsVersion: (form) Phone OS Version
+     - parameter vIpAddress: (form) Device IP Address
      - parameter fLatitude: (form) Latitude (optional, default to 23.12356)
      - parameter fLongitude: (form) Longitude (optional, default to 72.12356)
      - parameter completion: completion handler to receive the data and the error objects
@@ -666,25 +656,25 @@ open class UserAPI {
      - POST /user/signin
      - examples: [{contentType=application/json, example=""}]
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter vEmail: (form) Email Id of user 
-     - parameter vPassword: (form) Provide account password 
-     - parameter vTimeOffset: (form) Time Offset 
-     - parameter vTimeZone: (form) e.g : Asia/Kolkata 
-     - parameter vDeviceToken: (form) Token of device 
-     - parameter tiDeviceType: (form) 0 - Web, 1 - IOS, 2 - Android 
-     - parameter vDeviceName: (form) Name of device 
-     - parameter vDeviceUniqueId: (form) Device Unique ID 
-     - parameter vApiVersion: (form) Version of api endpoint 
-     - parameter vAppVersion: (form) App Version 
-     - parameter vOsVersion: (form) Phone OS Version 
-     - parameter vIpAddress: (form) Device IP Address 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter vEmail: (form) Email Id of user
+     - parameter vPassword: (form) Provide account password
+     - parameter vTimeOffset: (form) Time Offset
+     - parameter vTimeZone: (form) e.g : Asia/Kolkata
+     - parameter vDeviceToken: (form) Token of device
+     - parameter tiDeviceType: (form) 0 - Web, 1 - IOS, 2 - Android
+     - parameter vDeviceName: (form) Name of device
+     - parameter vDeviceUniqueId: (form) Device Unique ID
+     - parameter vApiVersion: (form) Version of api endpoint
+     - parameter vAppVersion: (form) App Version
+     - parameter vOsVersion: (form) Phone OS Version
+     - parameter vIpAddress: (form) Device IP Address
      - parameter fLatitude: (form) Latitude (optional, default to 23.12356)
      - parameter fLongitude: (form) Longitude (optional, default to 72.12356)
 
-     - returns: RequestBuilder<UserAuthResponse> 
+     - returns: RequestBuilder<UserAuthResponse>
      */
     open class func signInWithRequestBuilder(nonce: String, timestamp: String, token: String, vEmail: String, vPassword: String, vTimeOffset: String, vTimeZone: String, vDeviceToken: String, tiDeviceType: TiDeviceType_signIn, vDeviceName: String, vDeviceUniqueId: String, vApiVersion: String, vAppVersion: String, vOsVersion: String, vIpAddress: String, fLatitude: Float? = nil, fLongitude: Float? = nil) -> RequestBuilder<UserAuthResponse> {
         let path = "/user/signin"
@@ -725,7 +715,7 @@ open class UserAPI {
     /**
      * enum for parameter tiIsSocialLogin
      */
-    public enum TiIsSocialLogin_signUp: String { 
+    public enum TiIsSocialLogin_signUp: String {
         case _0 = "0"
         case _1 = "1"
     }
@@ -733,7 +723,7 @@ open class UserAPI {
     /**
      * enum for parameter tiGender
      */
-    public enum TiGender_signUp: String { 
+    public enum TiGender_signUp: String {
         case _0 = "0"
         case _1 = "1"
         case _2 = "2"
@@ -743,7 +733,7 @@ open class UserAPI {
     /**
      * enum for parameter iCurrentStatus
      */
-    public enum ICurrentStatus_signUp: String { 
+    public enum ICurrentStatus_signUp: String {
         case _0 = "0"
         case _1 = "1"
     }
@@ -751,7 +741,7 @@ open class UserAPI {
     /**
      * enum for parameter tiDeviceType
      */
-    public enum TiDeviceType_signUp: Int { 
+    public enum TiDeviceType_signUp: Int {
         case _0 = 0
         case _1 = 1
         case _2 = 2
@@ -760,7 +750,7 @@ open class UserAPI {
     /**
      * enum for parameter tiSocialType
      */
-    public enum TiSocialType_signUp: String { 
+    public enum TiSocialType_signUp: String {
         case _1 = "1"
         case _2 = "2"
         case _3 = "3"
@@ -903,14 +893,13 @@ open class UserAPI {
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
     }
 
-
     /**
      sign out
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter authorization: (header)  
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
      - parameter completion: completion handler to receive the data and the error objects
      */
     open class func signout(nonce: String, timestamp: String, token: String, authorization: String, completion: @escaping ((_ data: UserAuthResponse?,_ error: Error?) -> Void)) {
@@ -925,12 +914,12 @@ open class UserAPI {
      - POST /user/sign-out
      - examples: [{contentType=application/json, example=""}]
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter authorization: (header)  
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
 
-     - returns: RequestBuilder<UserAuthResponse> 
+     - returns: RequestBuilder<UserAuthResponse>
      */
     open class func signoutWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String) -> RequestBuilder<UserAuthResponse> {
         let path = "/user/sign-out"
@@ -954,7 +943,7 @@ open class UserAPI {
     /**
      * enum for parameter tiSocialType
      */
-    public enum TiSocialType_socialSignin: String { 
+    public enum TiSocialType_socialSignin: String {
         case _1 = "1"
         case _2 = "2"
         case _3 = "3"
@@ -965,7 +954,7 @@ open class UserAPI {
     /**
      * enum for parameter tiDeviceType
      */
-    public enum TiDeviceType_socialSignin: Int { 
+    public enum TiDeviceType_socialSignin: Int {
         case _0 = 0
         case _1 = 1
         case _2 = 2
@@ -974,22 +963,22 @@ open class UserAPI {
     /**
      social-signin
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter language: (header) en&#x3D;English, fr&#x3D;French 
-     - parameter tiSocialType: (form) 1 - Facebook, 2 - Google, 3 - Instagram, 4 - SnapChat, 5 - Apple 
-     - parameter vAccessToken: (form) Access Token 
-     - parameter vTimeOffset: (form) Time Offset 
-     - parameter vTimeZone: (form) e.g : Asia/Kolkata 
-     - parameter vDeviceToken: (form) Token of device 
-     - parameter tiDeviceType: (form) 0 - Web, 1 - IOS, 2 - Android 
-     - parameter vDeviceName: (form) Name of device 
-     - parameter vDeviceUniqueId: (form) Device Unique ID 
-     - parameter vApiVersion: (form) Version of api endpoint 
-     - parameter vAppVersion: (form) App Version 
-     - parameter vOsVersion: (form) Phone OS Version 
-     - parameter vIpAddress: (form) Device IP Address 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter language: (header) en&#x3D;English, fr&#x3D;French
+     - parameter tiSocialType: (form) 1 - Facebook, 2 - Google, 3 - Instagram, 4 - SnapChat, 5 - Apple
+     - parameter vAccessToken: (form) Access Token
+     - parameter vTimeOffset: (form) Time Offset
+     - parameter vTimeZone: (form) e.g : Asia/Kolkata
+     - parameter vDeviceToken: (form) Token of device
+     - parameter tiDeviceType: (form) 0 - Web, 1 - IOS, 2 - Android
+     - parameter vDeviceName: (form) Name of device
+     - parameter vDeviceUniqueId: (form) Device Unique ID
+     - parameter vApiVersion: (form) Version of api endpoint
+     - parameter vAppVersion: (form) App Version
+     - parameter vOsVersion: (form) Phone OS Version
+     - parameter vIpAddress: (form) Device IP Address
      - parameter fLatitude: (form) Latitude (optional, default to 23.12356)
      - parameter fLongitude: (form) Longitude (optional, default to 72.12356)
      - parameter completion: completion handler to receive the data and the error objects
@@ -1006,26 +995,26 @@ open class UserAPI {
      - POST /user/social-signin
      - examples: [{contentType=application/json, example=""}]
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter language: (header) en&#x3D;English, fr&#x3D;French 
-     - parameter tiSocialType: (form) 1 - Facebook, 2 - Google, 3 - Instagram, 4 - SnapChat, 5 - Apple 
-     - parameter vAccessToken: (form) Access Token 
-     - parameter vTimeOffset: (form) Time Offset 
-     - parameter vTimeZone: (form) e.g : Asia/Kolkata 
-     - parameter vDeviceToken: (form) Token of device 
-     - parameter tiDeviceType: (form) 0 - Web, 1 - IOS, 2 - Android 
-     - parameter vDeviceName: (form) Name of device 
-     - parameter vDeviceUniqueId: (form) Device Unique ID 
-     - parameter vApiVersion: (form) Version of api endpoint 
-     - parameter vAppVersion: (form) App Version 
-     - parameter vOsVersion: (form) Phone OS Version 
-     - parameter vIpAddress: (form) Device IP Address 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter language: (header) en&#x3D;English, fr&#x3D;French
+     - parameter tiSocialType: (form) 1 - Facebook, 2 - Google, 3 - Instagram, 4 - SnapChat, 5 - Apple
+     - parameter vAccessToken: (form) Access Token
+     - parameter vTimeOffset: (form) Time Offset
+     - parameter vTimeZone: (form) e.g : Asia/Kolkata
+     - parameter vDeviceToken: (form) Token of device
+     - parameter tiDeviceType: (form) 0 - Web, 1 - IOS, 2 - Android
+     - parameter vDeviceName: (form) Name of device
+     - parameter vDeviceUniqueId: (form) Device Unique ID
+     - parameter vApiVersion: (form) Version of api endpoint
+     - parameter vAppVersion: (form) App Version
+     - parameter vOsVersion: (form) Phone OS Version
+     - parameter vIpAddress: (form) Device IP Address
      - parameter fLatitude: (form) Latitude (optional, default to 23.12356)
      - parameter fLongitude: (form) Longitude (optional, default to 72.12356)
 
-     - returns: RequestBuilder<UserAuthResponse> 
+     - returns: RequestBuilder<UserAuthResponse>
      */
     open class func socialSigninWithRequestBuilder(nonce: String, timestamp: Int, token: String, language: String, tiSocialType: TiSocialType_socialSignin, vAccessToken: String, vTimeOffset: String, vTimeZone: String, vDeviceToken: String, tiDeviceType: TiDeviceType_socialSignin, vDeviceName: String, vDeviceUniqueId: String, vApiVersion: String, vAppVersion: String, vOsVersion: String, vIpAddress: String, fLatitude: Float? = nil, fLongitude: Float? = nil) -> RequestBuilder<UserAuthResponse> {
         let path = "/user/social-signin"
@@ -1067,14 +1056,14 @@ open class UserAPI {
     /**
      verify-otp
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter language: (header) en&#x3D;English, fr&#x3D;French 
-     - parameter iUserId: (form) iUserId 
-     - parameter iOTP: (form) One Time Password 
-     - parameter vCountryCode: (form) Country Code 
-     - parameter vPhone: (form) vPhone 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter language: (header) en&#x3D;English, fr&#x3D;French
+     - parameter iUserId: (form) iUserId
+     - parameter iOTP: (form) One Time Password
+     - parameter vCountryCode: (form) Country Code
+     - parameter vPhone: (form) vPhone
      - parameter completion: completion handler to receive the data and the error objects
      */
     open class func verifyOtp(nonce: String, timestamp: Int, token: String, language: String, iUserId: String, iOTP: String, vCountryCode: String, vPhone: String, completion: @escaping ((_ data: CommonResponse?,_ error: Error?) -> Void)) {
@@ -1092,16 +1081,16 @@ open class UserAPI {
   "responseCode" : 0
 }}]
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter language: (header) en&#x3D;English, fr&#x3D;French 
-     - parameter iUserId: (form) iUserId 
-     - parameter iOTP: (form) One Time Password 
-     - parameter vCountryCode: (form) Country Code 
-     - parameter vPhone: (form) vPhone 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter language: (header) en&#x3D;English, fr&#x3D;French
+     - parameter iUserId: (form) iUserId
+     - parameter iOTP: (form) One Time Password
+     - parameter vCountryCode: (form) Country Code
+     - parameter vPhone: (form) vPhone
 
-     - returns: RequestBuilder<CommonResponse> 
+     - returns: RequestBuilder<CommonResponse>
      */
     open class func verifyOtpWithRequestBuilder(nonce: String, timestamp: Int, token: String, language: String, iUserId: String, iOTP: String, vCountryCode: String, vPhone: String) -> RequestBuilder<CommonResponse> {
         let path = "/user/verify-otp"

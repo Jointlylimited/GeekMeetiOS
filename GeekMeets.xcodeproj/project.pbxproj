@@ -104,6 +104,7 @@
 		0B921C3524571C510010AE04 /* SearchProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B921C3124571C500010AE04 /* SearchProfileInteractor.swift */; };
 		0B921C3624571C510010AE04 /* SearchProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B921C3224571C500010AE04 /* SearchProfileViewController.swift */; };
 		0B921C3924571D1A0010AE04 /* user-details.json in Resources */ = {isa = PBXBuildFile; fileRef = 0B921C3824571D1A0010AE04 /* user-details.json */; };
+		0B94820D247B8E4B00189630 /* UserPhotosModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B94820C247B8E4B00189630 /* UserPhotosModel.swift */; };
 		0B9499B62451DBA5001AD1C8 /* CommonTblListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9499B42451DBA4001AD1C8 /* CommonTblListCell.swift */; };
 		0B9499B72451DBA5001AD1C8 /* CommonTblListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B9499B52451DBA4001AD1C8 /* CommonTblListCell.xib */; };
 		0B9499D12451DBC4001AD1C8 /* ManageSubscriptionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9499B92451DBC2001AD1C8 /* ManageSubscriptionPresenter.swift */; };
@@ -416,6 +417,7 @@
 		0B921C3124571C500010AE04 /* SearchProfileInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchProfileInteractor.swift; sourceTree = "<group>"; };
 		0B921C3224571C500010AE04 /* SearchProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchProfileViewController.swift; sourceTree = "<group>"; };
 		0B921C3824571D1A0010AE04 /* user-details.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "user-details.json"; sourceTree = "<group>"; };
+		0B94820C247B8E4B00189630 /* UserPhotosModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPhotosModel.swift; sourceTree = "<group>"; };
 		0B9499B42451DBA4001AD1C8 /* CommonTblListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonTblListCell.swift; sourceTree = "<group>"; };
 		0B9499B52451DBA4001AD1C8 /* CommonTblListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommonTblListCell.xib; sourceTree = "<group>"; };
 		0B9499B92451DBC2001AD1C8 /* ManageSubscriptionPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageSubscriptionPresenter.swift; sourceTree = "<group>"; };
@@ -1704,6 +1706,7 @@
 				F7780E40245AE324003CA4BD /* UserProfileModel.swift */,
 				0B51D29524602424005C7B88 /* UserDataModel.swift */,
 				0B170D89246BC7EF00CCDB53 /* UserEntity.swift */,
+				0B94820C247B8E4B00189630 /* UserPhotosModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2503,6 +2506,7 @@
 				0B51D29624602424005C7B88 /* UserDataModel.swift in Sources */,
 				0B9499D52451DBC4001AD1C8 /* DiscoverySettingInteractor.swift in Sources */,
 				0B0B4B132475245E0047EB11 /* Interest_PreferencePresenter.swift in Sources */,
+				0B94820D247B8E4B00189630 /* UserPhotosModel.swift in Sources */,
 				0B53567624508775005571AF /* GradientLabel.swift in Sources */,
 				F7F8F5C32452EAE400CA82E7 /* SelectGenderInteractor.swift in Sources */,
 				F7164AC9244EBD4F00853BFC /* AddPhotoCollectionViewCell.swift in Sources */,

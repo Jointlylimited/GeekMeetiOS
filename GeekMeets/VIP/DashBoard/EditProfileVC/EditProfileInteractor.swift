@@ -13,7 +13,7 @@
 import UIKit
 
 protocol EditProfileInteractorProtocol {
-    func uploadImgToS3(with obj: Dictionary<String, Any>, images : [UIImage])
+    func uploadImgToS3(with obj: Dictionary<String, Any>, images : [NSDictionary])
     func callEdirProfileAPI(params : Dictionary<String, String>)
 }
 
@@ -28,13 +28,13 @@ class EditProfileInteractor: EditProfileInteractorProtocol, EditProfileDataStore
     var paramDetails : Dictionary<String, Any>!
     var thumbURlUpload: (path: String, name: String) {
         let folderName = user_Profile
-        let timeStamp = authToken.timeStamp
+        let timeStamp = Authentication.sharedInstance().GetCurrentTimeStamp()
         let imgExtension = ".jpeg"
         let path = "\(folderName)\(timeStamp)\(imgExtension)"
         return (path: path, name: "\(timeStamp)\(imgExtension)")
     }
     
-    func uploadImgToS3(with obj: Dictionary<String, Any>, images : [UIImage]) {
+    func uploadImgToS3(with obj: Dictionary<String, Any>, images : [NSDictionary]) {
         if images.count == 0 {
             _ = AppSingleton.sharedInstance().showAlert(kSelectUserProfile, okTitle: "OK")
             return
@@ -43,41 +43,46 @@ class EditProfileInteractor: EditProfileInteractorProtocol, EditProfileDataStore
         DispatchQueue.main.async {
             LoaderView.sharedInstance.showLoader()
         }
+        var finalStr = ""
+        self.paramDetails = obj
         
         for indexValue in 0..<images.count {
-            let task = images[0]
-        
+            let image = images[indexValue].value(forKey: "tiImage") as! UIImage
+            let tiDefault = images[indexValue].value(forKey: "tiIsDefault") as! Int
+            
             AWSHelper.setup()
-            AWSHelper.shared.upload(img: task, imgPath: thumbURlUpload.path, imgName: thumbURlUpload.name) { [weak self] (isUploaded, path, error) in
-                DispatchQueue.main.async {
-                    LoaderView.sharedInstance.hideLoader()
+            
+            self.uploadSingleImg(image: image) { (success, path) in
+                if tiDefault == 1 {
+                    self.paramDetails["vProfileImage"] = path.split("/").last!
                 }
-                guard let `self` = self else {return}
-                if let err = error {
-                    print("ERROR : \(err.localizedDescription)")
-                    _ = AppSingleton.sharedInstance().showAlert(err.localizedDescription, okTitle: "OK")
-                } else if isUploaded {
-                    var imgsUserPhotosDict:[NSDictionary] = []
-                    self.paramDetails = obj
-                    //                    if indexValue == 0 {
-                    self.paramDetails["vProfileImage"] = self.thumbURlUpload.name
-                    let ustr = "[{\"vMedia\":\"\(self.thumbURlUpload.name)\",\"tiMediaType\":\"1\",\"fHeight\":\"\(images[indexValue].size.height)\",\"fWidth\":\"\(images[indexValue].size.height)\"}]"
-                    self.paramDetails["photos"] = ustr
-                    print(ustr)
+                
+                let ustr = "{\"vMedia\":\"\(path.split("/").last!)\",\"tiMediaType\":\"1\",\"fHeight\":\"\(image.size.height)\",\"fWidth\":\"\(image.size.height)\",\"tiIsDefault\":\"\(tiDefault)\"}"
+                finalStr = finalStr != "" ? "[\(finalStr),\(ustr)]" : images.count == 1 ? "[\(ustr)]" : ustr
+                self.paramDetails["photos"] = finalStr
+                print(finalStr)
+                
+                if finalStr.contains("[") {
+                    DispatchQueue.main.async {
+                        LoaderView.sharedInstance.hideLoader()
+                    }
                     self.callEdirProfileAPI(params: self.paramDetails as! Dictionary<String, String>)
-                    //                    } else {
-                    //                        print("Timestamp : \(self.thumbURlUpload.name)")
-                    //                        let dict = ["vMedia":path?.split("/").last!, "tiMediaType":1, "fHeight":images[indexValue].size.height, "fWidth": images[indexValue].size.height] as [String : Any]
-                    //                        imgsUserPhotosDict.append(dict as NSDictionary)
-                    //                    }
-                    //                    if indexValue == images.count - 1 {
-                    //                        let photoJsonString = json(from: imgsUserPhotosDict)
-                    //                        self.paramDetails["photos"] = photoJsonString
-                    //                    }
-                    
-                } else {
-                    _ = AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
                 }
+            }
+        }
+    }
+    
+    func uploadSingleImg(image : UIImage, complete: @escaping (Bool, String) -> ()){
+        AWSHelper.shared.upload(img: image, imgPath: self.thumbURlUpload.path, imgName: self.thumbURlUpload.name) { [weak self] (isUploaded, path, error) in
+
+            guard let `self` = self else {return}
+            if let err = error {
+                print("ERROR : \(err.localizedDescription)")
+                _ = AppSingleton.sharedInstance().showAlert(err.localizedDescription, okTitle: "OK")
+            } else if isUploaded {
+                complete(true, path!)
+            } else {
+                _ = AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
             }
         }
     }
@@ -87,7 +92,7 @@ class EditProfileInteractor: EditProfileInteractorProtocol, EditProfileDataStore
         DispatchQueue.main.async {
             LoaderView.sharedInstance.showLoader()
         }
-        UserAPI.editProfile(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vName: params["vName"]!, dDob: params["dDob"]!, tiAge: params["tiAge"]!, tiGender: UserAPI.TiGender_editProfile(rawValue: params["tiGender"]!)!, txCompanyDetail: params["txCompanyDetail"]!, txAbout: params["txAbout"]!, vEmail: params["vEmail"]!, vProfileImage: params["vProfileImage"]!, vLiveIn: params["vLiveIn"]!, photos: params["photos"]!, vInstaLink: params["vInstaLink"]!, vSnapLink: params["vSnapLink"]!, vFbLink: params["vFbLink"]!, tiIsShowAge: UserAPI.TiIsShowAge_editProfile(rawValue: params["tiIsShowAge"]!)!, tiIsShowDistance: UserAPI.TiIsShowDistance_editProfile(rawValue: params["tiIsShowDistance"]!), tiIsShowContactNumber: UserAPI.TiIsShowContactNumber_editProfile(rawValue: params["tiIsShowContactNumber"]!)!, tiIsShowProfileToLikedUser: UserAPI.TiIsShowProfileToLikedUser_editProfile(rawValue: params["tiIsShowProfileToLikedUser"]!)!) { (response, error) in
+        UserAPI.editProfile(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vName: params["vName"]!, dDob: params["dDob"]!, tiAge: params["tiAge"]!, tiGender: UserAPI.TiGender_editProfile(rawValue: params["tiGender"]!)!, txCompanyDetail: params["txCompanyDetail"]!, txAbout: params["txAbout"]!, vEmail: params["vEmail"]!, vProfileImage: params["vProfileImage"]!, vLiveIn: params["vLiveIn"]!, deletephotos : params["deletephotos"]!, photos: params["photos"]!, vInstaLink: params["vInstaLink"]!, vSnapLink: params["vSnapLink"]!, vFbLink: params["vFbLink"]!, tiIsShowAge: UserAPI.TiIsShowAge_editProfile(rawValue: params["tiIsShowAge"]!)!, tiIsShowDistance: UserAPI.TiIsShowDistance_editProfile(rawValue: params["tiIsShowDistance"]!), tiIsShowContactNumber: UserAPI.TiIsShowContactNumber_editProfile(rawValue: params["tiIsShowContactNumber"]!)!, tiIsShowProfileToLikedUser: UserAPI.TiIsShowProfileToLikedUser_editProfile(rawValue: params["tiIsShowProfileToLikedUser"]!)!) { (response, error) in
             DispatchQueue.main.async {
                 LoaderView.sharedInstance.hideLoader()
             }

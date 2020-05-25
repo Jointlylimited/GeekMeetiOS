@@ -329,4 +329,14 @@ extension UserProfileViewController : UITextFieldDelegate {
 }
 extension Date {
     var age: Int { Calendar.current.dateComponents([.year], from: self, to: Date()).year! }
+    
+    func dateToTimeStamp() -> Int{
+        let date = self
+        
+        let timeInterval = date.timeIntervalSince1970
+        
+        // convert to Integer
+        let dateInt = Int(timeInterval)
+        return dateInt
+    }
 }

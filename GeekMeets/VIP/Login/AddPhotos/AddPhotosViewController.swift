@@ -30,6 +30,15 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
     var signUpParams : Dictionary<String, String>?
     var imgProfile : UIImage?
     var location:CLLocation?
+    var userPhotosModel : [UserPhotosModel] = []
+    
+    var thumbURlUpload: (path: String, name: String) {
+        let folderName = user_Profile
+        let timeStamp = authToken.timeStamp
+        let imgExtension = ".jpeg"
+        let path = "\(folderName)\(timeStamp)\(imgExtension)"
+        return (path: path, name: "\(timeStamp)\(imgExtension)")
+    }
     
     // MARK: Object lifecycle
     
@@ -76,17 +85,25 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
         self.navigationController?.navigationBar.barTintColor = UIColor.white
         self.getUserCurrentLocation()
         // Profile image set
-        
-        imgsUserPhotos.append(imgProfile!)
+        userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, tiMediaType: 1, tiImage: imgProfile, tiIsDefault: 1))
+//        imgsUserPhotos.append(imgProfile!)
     }
 
     //MARK: IBAction Method
     @IBAction func actionDone(_ sender: Any) {
         
-        let photoJsonString = json(from: self.imgsUserPhotosDict)
-        let params = RequestParameter.sharedInstance().signUpParam(vEmail: signUpParams!["vEmail"]!, vPassword: signUpParams!["vPassword"]!, vConfirmPassword : signUpParams!["vConfirmPassword"]!, vCountryCode: signUpParams!["vCountryCode"]!, vPhone: signUpParams!["vPhone"]!, termsChecked : signUpParams!["termsChecked"]!, vProfileImage: signUpParams!["vProfileImage"]!, vName: signUpParams!["vName"]!, dDob: signUpParams!["dDob"]!, tiAge: signUpParams!["tiAge"]!, tiGender: signUpParams!["tiGender"]!, iCurrentStatus: signUpParams!["iCurrentStatus"]!, txCompanyDetail: signUpParams!["txCompanyDetail"]!, txAbout: signUpParams!["txAbout"]!, photos: self.imgsUserPhotos.count > 0 ? photoJsonString! : "", vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vSocialId : signUpParams!["vSocialId"]!, fLatitude : self.location != nil ? "\(self.location?.coordinate.latitude ?? 0.0)" : "0.0", fLongitude: self.location != nil ? "\(self.location?.coordinate.longitude ?? 0.0)" : "0.0")
         
-        self.presenter?.callUserSignUpAPI(signParams: params, images : imgsUserPhotos)
+        
+        for photo in userPhotosModel {
+            if  photo.tiImage != nil {
+                self.imgsUserPhotosDict.append(["tiImage": photo.tiImage!, "vMedia": photo.vMedia!, "tiIsDefault": photo.tiIsDefault!])
+            }
+        }
+        let photoJsonString = json(from: self.imgsUserPhotosDict)
+        
+        let params = RequestParameter.sharedInstance().signUpParam(vEmail: signUpParams!["vEmail"]!, vPassword: signUpParams!["vPassword"]!, vConfirmPassword : signUpParams!["vConfirmPassword"]!, vCountryCode: signUpParams!["vCountryCode"]!, vPhone: signUpParams!["vPhone"]!, termsChecked : signUpParams!["termsChecked"]!, vProfileImage: signUpParams!["vProfileImage"]!, vName: signUpParams!["vName"]!, dDob: signUpParams!["dDob"]!, tiAge: signUpParams!["tiAge"]!, tiGender: signUpParams!["tiGender"]!, iCurrentStatus: signUpParams!["iCurrentStatus"]!, txCompanyDetail: signUpParams!["txCompanyDetail"]!, txAbout: signUpParams!["txAbout"]!, photos: self.imgsUserPhotosDict.count > 0 ? "photos" : "", vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vSocialId : signUpParams!["vSocialId"]!, fLatitude : self.location != nil ? "\(self.location?.coordinate.latitude ?? 0.0)" : "0.0", fLongitude: self.location != nil ? "\(self.location?.coordinate.longitude ?? 0.0)" : "0.0")
+        
+        self.presenter?.callUserSignUpAPI(signParams: params, images : imgsUserPhotosDict)
     }
         
         func displayAlert(strTitle : String, strMessage : String) {
@@ -116,10 +133,10 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
 extension AddPhotosViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,OptionButtonsDelegate
 {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-      if imgsUserPhotos.count == 20{
-        return imgsUserPhotos.count
+      if userPhotosModel.count == 20{
+        return userPhotosModel.count
       }
-      return imgsUserPhotos.count + 1
+      return userPhotosModel.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
@@ -129,9 +146,9 @@ extension AddPhotosViewController: UICollectionViewDelegate, UICollectionViewDat
         cell.btnRemoveImg.isHidden = true
         cell.btnAddImg.isHidden = false
         cell.imgPhotos.isHidden = true
-        if indexPath.row < imgsUserPhotos.count {
+        if indexPath.row < userPhotosModel.count {
             cell.imgPhotos.isHidden = false
-            cell.imgPhotos.image = imgsUserPhotos[indexPath.row] as UIImage
+            cell.imgPhotos.image = userPhotosModel[indexPath.row].tiImage
             cell.btnRemoveImg.isHidden = false
             cell.btnAddImg.isHidden = true
         }
@@ -181,8 +198,8 @@ extension AddPhotosViewController:  UINavigationControllerDelegate, UIImagePicke
             if let asset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset{
                 if let fileName = asset.value(forKey: "filename") as? String{
                     print(fileName)
-                    let dict = ["vMedia":fileName, "tiMediaType":1, "fHeight":asset.pixelHeight, "fWidth": asset.pixelWidth] as [String : Any]
-                    imgsUserPhotosDict.append(dict as NSDictionary)
+//                    let dict = ["vMedia":fileName, "tiMediaType":1, "fHeight":asset.pixelHeight, "fWidth": asset.pixelWidth] as [String : Any]
+//                    imgsUserPhotosDict.append(dict as NSDictionary)
                 }
             }else{
               if (picker.sourceType == UIImagePickerController.SourceType.camera) {
@@ -216,8 +233,8 @@ extension AddPhotosViewController:  UINavigationControllerDelegate, UIImagePicke
                     let file = assetResources.first!.originalFilename
                     print(assetResources.first!.originalFilename)
                    
-                    let dict = ["vMedia":file, "tiMediaType":1, "fHeight":image.size.height, "fWidth": image.size.width] as [String : Any]
-                    imgsUserPhotosDict.append(dict as NSDictionary)
+//                    let dict = ["vMedia":file, "tiMediaType":1, "fHeight":image.size.height, "fWidth": image.size.width] as [String : Any]
+//                    imgsUserPhotosDict.append(dict as NSDictionary)
                 }
             }
         }
@@ -231,9 +248,13 @@ extension AddPhotosViewController:  UINavigationControllerDelegate, UIImagePicke
          if (Double(imageSize) / 1000.0) > 5000{
            let imgDataa = NSData(data: (imgTemp).jpegData(compressionQuality: 0.5)!)
            let image = UIImage(data: imgDataa as Data)
-            self.imgsUserPhotos.append(image!)
+            let IsDefault = self.userPhotosModel.count == 0 ? 1 : 0
+            self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, tiMediaType: 1, tiImage: image, tiIsDefault: IsDefault))
+//            self.imgsUserPhotos.append(image!)
          }else{
-           self.imgsUserPhotos.append(imgTemp)
+            let IsDefault = self.userPhotosModel.count == 0 ? 1 : 0
+            self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, tiMediaType: 1, tiImage: imgTemp, tiIsDefault: IsDefault))
+//           self.imgsUserPhotos.append(imgTemp)
          }
       
       

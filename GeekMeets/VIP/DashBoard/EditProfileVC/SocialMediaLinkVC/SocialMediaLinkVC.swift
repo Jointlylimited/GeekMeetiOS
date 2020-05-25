@@ -24,7 +24,8 @@ class SocialMediaLinkVC: UIViewController {
 
     @IBOutlet weak var tblSocialLinkList: UITableView!
     var objSocialMediaModel : [SocialMediaLinkModel] = []
-    var userProfileModel : UserProfileModel?
+    var userProfileModel : UserAuthResponseField?
+    var delegate : SocialMediaLinkDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,9 +42,10 @@ class SocialMediaLinkVC: UIViewController {
         self.popVC()
     }
     @IBAction func btnSaveAction(_ sender: GradientButton) {
-        self.userProfileModel?.vFacebookLink = self.objSocialMediaModel[2].link
-        self.userProfileModel?.vSnapchatLink = self.objSocialMediaModel[1].link
-        self.userProfileModel?.vInstagramLink = self.objSocialMediaModel[0].link
+        self.userProfileModel?.vFbLink = self.objSocialMediaModel[2].link
+        self.userProfileModel?.vSnapLink = self.objSocialMediaModel[1].link
+        self.userProfileModel?.vInstaLink = self.objSocialMediaModel[0].link
+        self.delegate.updatedSocailLinkModel(model: self.userProfileModel!)
         self.popVC()
     }
 }

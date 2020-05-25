@@ -13,7 +13,7 @@
 import UIKit
 
 protocol EditProfilePresentationProtocol {
-    func callEdirProfileAPI(params : Dictionary<String, String>, images : [UIImage])
+    func callEdirProfileAPI(params : Dictionary<String, String>, images : [NSDictionary])
     func getEditProfileResponse(response: UserAuthResponse)
 }
 
@@ -22,7 +22,7 @@ class EditProfilePresenter: EditProfilePresentationProtocol {
     var interactor: EditProfileInteractorProtocol?
     
     // MARK: Present something
-    func callEdirProfileAPI(params : Dictionary<String, String>, images : [UIImage]) {
+    func callEdirProfileAPI(params : Dictionary<String, String>, images : [NSDictionary]) {
         if images.count > 0 {
             self.interactor?.uploadImgToS3(with: params, images: images)
         } else {

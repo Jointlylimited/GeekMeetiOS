@@ -119,7 +119,7 @@ class RequestParameter: NSObject {
         return requestDictionary
     }
     
-    func editProfileParam(vEmail: String, vProfileImage: String, vName: String, dDob: String, tiAge: String, tiGender: String,  vLiveIn: String, txCompanyDetail:String, txAbout:String, photos:String, vInstaLink : String, vSnapLink: String, vFbLink: String, tiIsShowAge: String, tiIsShowDistance: String, tiIsShowContactNumber: String, tiIsShowProfileToLikedUser: String) -> Dictionary<String, String> {
+    func editProfileParam(vEmail: String, vProfileImage: String, vName: String, dDob: String, tiAge: String, tiGender: String,  vLiveIn: String, txCompanyDetail:String, txAbout:String, deletephotos: String, photos:String, vInstaLink : String, vSnapLink: String, vFbLink: String, tiIsShowAge: String, tiIsShowDistance: String, tiIsShowContactNumber: String, tiIsShowProfileToLikedUser: String) -> Dictionary<String, String> {
         
             var requestDictionary : Dictionary<String, String> = Dictionary()
             requestDictionary["vEmail"] = vEmail
@@ -133,6 +133,7 @@ class RequestParameter: NSObject {
             requestDictionary["txCompanyDetail"] = txCompanyDetail
             requestDictionary["txAbout"] = txAbout
             requestDictionary["photos"] = photos
+            requestDictionary["deletephotos"] = deletephotos
             requestDictionary["vInstaLink"] = vInstaLink
             requestDictionary["vSnapLink"] = vSnapLink
             requestDictionary["vFbLink"] = vFbLink
