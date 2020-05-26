@@ -144,5 +144,17 @@ class RequestParameter: NSObject {
 
             return requestDictionary
         }
+    
+    func createPrefrence(tiPreferenceType : String, iPreferenceId: String, iOptionId : String, vAnswer: String) -> Dictionary<String,String> {
+           
+           var requestDictionary : Dictionary<String,String> = Dictionary()
+           requestDictionary["tiPreferenceType"] = tiPreferenceType;
+           requestDictionary["iPreferenceId"] = iPreferenceId
+           requestDictionary["iOptionId"] = iOptionId
+           requestDictionary["vAnswer"] = vAnswer
+
+           //print(requestDictionary)
+           return requestDictionary
+       }
 }
 

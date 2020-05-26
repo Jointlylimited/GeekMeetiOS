@@ -15,6 +15,7 @@ import UIKit
 protocol SignInInteractorProtocol
 {
     func callSignInAPI(_ userName : String, password : String)
+    func callQuestionaryAPI()
 }
 
 class SignInInteractor: SignInInteractorProtocol {
@@ -26,7 +27,7 @@ class SignInInteractor: SignInInteractorProtocol {
     {
         LoaderView.sharedInstance.showLoader()
         UserAPI.signIn(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, vEmail: userName, vPassword: password, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signIn(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId!, vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress) { (response, error) in
-            
+
             LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.presenter?.getSignInResponse(response : response!)
@@ -40,6 +41,26 @@ class SignInInteractor: SignInInteractorProtocol {
                     AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
                 }
             }
+        }
+    }
+    
+    func callQuestionaryAPI() {
+        LoaderView.sharedInstance.showLoader()
+        PreferencesAPI.list(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getPrefernceResponse(response : response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+            } else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+                }
+            }
+            
         }
     }
 }

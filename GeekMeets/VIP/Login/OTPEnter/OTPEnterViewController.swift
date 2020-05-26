@@ -88,8 +88,17 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
         super.viewDidLoad()
         doSomething()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if !isFromNewMobile {
+            self.navigationController?.isNavigationBarHidden = true
+        } else {
+            self.navigationController?.isNavigationBarHidden = false
+        }
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
-       
         if !isFromNewMobile {
             self.navigationController?.isNavigationBarHidden = false
         } else {

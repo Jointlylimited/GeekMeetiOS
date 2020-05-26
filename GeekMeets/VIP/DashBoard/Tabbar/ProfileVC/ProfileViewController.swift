@@ -240,17 +240,18 @@ extension ProfileViewController : UITableViewDataSource, UITableViewDelegate {
             if let cell = cell as? ProfileInterestCell  {
                 cell.clickOnBtnNext = { (title) in
                     let intVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.Interest_PreferenceScreen) as? Interest_PreferenceViewController
+                    let response = UserDataModel.UserPreferenceResponse?.responseData
                     
                     if title == "Yourself" {
                         intVC?.header_title = title!
-                        intVC?.objDiscoverData =  [CommonCellModel(title: Interest_PreferenceData.Ethernity.Title, description: "African American/African", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Height.Title, description: "5.2", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.BodyType.Title, description: "Fit", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Indoor_Outdoor.Title, description: "I love inddors", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Morning_Night.Title, description: "Night", isDescAvailable: true)]
+                        intVC?.objDiscoverData = [response![0], response![4], response![11], response![17], response![19]]
                     } else if title == "Your Desired Partner" {
                         intVC?.header_title = title!
-                        intVC?.objDiscoverData =  [CommonCellModel(title: Interest_PreferenceData.Ethernity.Title, description: "African American/African", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Height.Title, description: "5.2", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.BodyType.Title, description: "Fit", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Indoor_Outdoor.Title, description: "I love inddors", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Morning_Night.Title, description: "Night", isDescAvailable: true)]
+                        intVC?.objDiscoverData = [response![1], response![3], response![5], response![7], response![9], response![12]]
                         
                     } else {
                         intVC?.header_title = title!
-                        intVC?.objDiscoverData =  [CommonCellModel(title: Interest_PreferenceData.Ethernity.Title, description: "African American/African", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Height.Title, description: "5.2", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.BodyType.Title, description: "Fit", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Indoor_Outdoor.Title, description: "I love inddors", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Morning_Night.Title, description: "Night", isDescAvailable: true)]
+                        intVC?.objDiscoverData = [response![13], response![14], response![15], response![16], response![17], response![18], response![22]]
                     }
                     
                     self.pushVC(intVC!)

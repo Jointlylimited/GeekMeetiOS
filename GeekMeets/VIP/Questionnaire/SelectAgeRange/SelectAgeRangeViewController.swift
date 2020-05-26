@@ -15,6 +15,7 @@ import UIKit
 protocol SelectAgeRangeProtocol: class {
 //    func displayQuesionsData(Data : [NSDictionary])
     func displayPreferenceData(response : PreferencesResponse)
+    func getPostPreferenceResponse(response : CommonResponse)
 }
 
 struct QuestionaryModel {
@@ -116,23 +117,6 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
         }
     }
     
-    func displayPreferenceData(response : PreferencesResponse) {
-        
-        self.objPreModel.arrPrefrenceData = response.responseData
-        if isFromSignUp {
-            self.objPreModel.objPrefrence = self.objPreModel.arrPrefrenceData[self.index]
-            self.lblTitle.text = "\(self.objPreModel.arrPrefrenceData[self.index].txPreference!)"
-            self.index = self.index + 1
-            self.lblQuestionIndex.text = "\(self.index)/\(self.objPreModel.arrPrefrenceData.count)"
-            setPreferenceData(index: self.index)
-        } else {
-            setPreferenceData(index: self.index)
-        }
-        self.selectedCells = []
-        self.selectedCellValues = []
-        self.clnSelectAge.reloadData()
-    }
-    
     func setPreferenceData(index : Int){
         self.objPreModel.objPrefrence = self.objPreModel.arrPrefrenceData[self.index - 1]
         self.lblQuestionIndex.text = "\(self.index)/\(self.objPreModel.arrPrefrenceData.count)"
@@ -177,12 +161,15 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
     @IBAction func actionContinues(_ sender: Any) {
         
         if isFromSignUp {
-            if self.index < self.objPreModel.arrPrefrenceData.count /*self.objQuestionModel.arrQuestionnaire.count*/ {
-                self.index = index + 1
-                self.setPreferenceData(index: self.index)
-            } else {
-                self.presenter?.actionContinue()
-            }
+                if self.selectedCells.count != 0 {
+                    self.callCreatePreferenceAPI()
+                } else {
+                    if self.index == 5 || self.index == 6 {
+                        self.callCreatePreferenceAPI()
+                    } else {
+                        AppSingleton.sharedInstance().showAlert(kSelectPreferene, okTitle: "OK")
+                    }
+                }
         } else {
             let data = self.selectedCellValues.map { String($0) }
             .joined(separator: ", ")
@@ -194,7 +181,7 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
     
     @IBAction func actionSkip(_ sender: Any) {
         if isFromSignUp {
-            if self.index < self.objPreModel.arrPrefrenceData.count /* self.objQuestionModel.arrQuestionnaire.count*/ {
+            if self.index < self.objPreModel.arrPrefrenceData.count{
                 self.index = index + 1
                 self.setPreferenceData(index: self.index)
             } else {
@@ -206,8 +193,62 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
     }
 }
 
-//MARK:UICollectionview
+extension SelectAgeRangeViewController {
+    
+    func displayPreferenceData(response : PreferencesResponse) {
+        
+        self.objPreModel.arrPrefrenceData = response.responseData
+        if isFromSignUp {
+            if index == 0 {
+                self.objPreModel.objPrefrence = self.objPreModel.arrPrefrenceData[self.index]
+                self.lblTitle.text = "\(self.objPreModel.arrPrefrenceData[self.index].txPreference!)"
+                self.index = self.index + 1
+                self.lblQuestionIndex.text = "\(self.index)/\(self.objPreModel.arrPrefrenceData.count)"
+                setPreferenceData(index: self.index)
+            } else {
+                UserDataModel.UserPreferenceResponse = response
+                self.presenter?.actionContinue()
+            }
+        } else {
+            setPreferenceData(index: self.index)
+        }
+        self.selectedCells = []
+        self.selectedCellValues = []
+        self.clnSelectAge.reloadData()
+    }
+    
+    func callCreatePreferenceAPI(){
+        
+        let data = self.selectedCells.map { String($0) }
+        .joined(separator: ",")
+        
+        var value = ""
+        if self.index == 5 {
+            value = self.lblHeight.text ?? ""
+        } else if self.index == 6 {
+            value = "\(self.lblMinHeight.text ?? "")-\(self.lblMaxHeight.text ?? "")"
+        } else {
+            value = ""
+        }
+        
+        let params = RequestParameter.sharedInstance().createPrefrence(tiPreferenceType: "\(self.objPreModel.objPrefrence.tiPreferenceType!)", iPreferenceId: "\(self.objPreModel.objPrefrence.iPreferenceId!)", iOptionId: data, vAnswer: value)
+        self.presenter?.callCreatePreferenceAPI(params : params)
+    }
+    
+    func getPostPreferenceResponse(response : CommonResponse){
+        if response.responseCode == 200 {
+            if self.index < self.objPreModel.arrPrefrenceData.count {
+                self.index = index + 1
+                self.setPreferenceData(index: self.index)
+            } else {
+                self.presenter?.callQuestionaryAPI()
+            }
+            
+        }
+    }
+}
 
+//MARK:UICollectionview
 extension SelectAgeRangeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,SelectAgeDelegate
 {
     
@@ -225,10 +266,11 @@ extension SelectAgeRangeViewController: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let cell = cell as? SelectAgeCell {
             cell.indexPath = indexPath
-            let name = self.objPreModel.objPrefrence.preferenceOption![indexPath.row].vOption //self.objQuestionModel.objQuestionnaire.response_set?.response_option?[indexPath.row].name!
+            let name = self.objPreModel.objPrefrence.preferenceOption![indexPath.row].vOption
+            let optionID = self.objPreModel.objPrefrence.preferenceOption![indexPath.row].iOptionId
             cell.lblTitle.text = name
             
-            if self.selectedCells.contains(indexPath.row) {
+            if self.selectedCells.contains(optionID!) {
                 cell.btnSelectAge.layer.borderColor = #colorLiteral(red: 0.7098039216, green: 0.3254901961, blue: 0.8941176471, alpha: 1)
                 cell.btnSelectAge.setTitleColor(#colorLiteral(red: 0.7098039216, green: 0.3254901961, blue: 0.8941176471, alpha: 1), for: .normal)
                 cell.lblTitle.textColor = #colorLiteral(red: 0.7098039216, green: 0.3254901961, blue: 0.8941176471, alpha: 1)
@@ -242,34 +284,34 @@ extension SelectAgeRangeViewController: UICollectionViewDelegate, UICollectionVi
                 if self.objPreModel.objPrefrence.tiPreferenceType == 0 {
                     if self.selectedCells.count != 0 {
                         let index = self.selectedCells.firstIndex { (index) -> Bool in
-                            return index == indexPath.row
+                            return index == optionID
                         }
-                        if self.selectedCells.contains(indexPath.row) {
+                        if self.selectedCells.contains(optionID!) {
                             self.selectedCells.remove(at: index!)
                             self.selectedCellValues.remove(at: index!)
                         } else {
                             self.selectedCells.removeAll()
                             self.selectedCellValues.removeAll()
                             if self.selectedCells.count == 0 {
-                                self.selectedCells.append(indexPath.row)
+                                self.selectedCells.append(optionID!)
                                 self.selectedCellValues.append(name!)
                             }
                         }
                     } else {
                         if self.selectedCells.count == 0 {
-                            self.selectedCells.append(indexPath.row)
+                            self.selectedCells.append(optionID!)
                             self.selectedCellValues.append(name!)
                         }
                     }
                 } else {
-                    if self.selectedCells.contains(indexPath.row) {
+                    if self.selectedCells.contains(optionID!) {
                         let index = self.selectedCells.firstIndex { (index) -> Bool in
-                            return index == indexPath.row
+                            return index == optionID
                         }
                         self.selectedCells.remove(at: index!)
                         self.selectedCellValues.remove(at: index!)
                     } else {
-                        self.selectedCells.append(indexPath.row)
+                        self.selectedCells.append(optionID!)
                         self.selectedCellValues.append(name!)
                     }
                 }
@@ -317,11 +359,11 @@ extension SelectAgeRangeViewController: RangeSeekSliderDelegate {
         if slider === heightSeekSlider {
             print("Standard slider updated. Min Value: \(minValue) Max Value: \(maxValue)")
             
-            let min_value = String(format: "%.2f",Double(minValue /**100).rounded()/100*/))
-            let max_value = String(format: "%.2f",Double(maxValue/**100).rounded()/100*/))
+            let min_value = String(format: "%.2f",Double(minValue))
+            let max_value = String(format: "%.2f",Double(maxValue))
             
-            let minvalue = String(format: "%.2f",Double(minValue/* *100).rounded()/100*/)).split(".").last
-            let maxvalue = String(format: "%.2f",Double(maxValue/* *100).rounded()/100*/)).split(".").last
+            let minvalue = String(format: "%.2f",Double(minValue)).split(".").last
+            let maxvalue = String(format: "%.2f",Double(maxValue)).split(".").last
             
             if minvalue! == 10 || minvalue! == 11 {
                 self.lblMinHeight.text = min_value

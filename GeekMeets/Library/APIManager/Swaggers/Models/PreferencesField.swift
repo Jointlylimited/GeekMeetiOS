@@ -15,19 +15,22 @@ public struct PreferencesField: Codable {
     public var tiPreferenceType: Int?
     public var txPreference: String?
     public var preferenceOption: [PreferenceOption]?
+    public var preferenceAnswer: [PreferenceAnswer]?
 
-    public init(iPreferenceId: Int?, tiPreferenceType: Int?, txPreference: String?, preferenceOption: [PreferenceOption]?) {
+    public init(iPreferenceId: Int?, tiPreferenceType: Int?, txPreference: String?, preferenceOption: [PreferenceOption]?, preferenceAnswer: [PreferenceAnswer]?) {
         self.iPreferenceId = iPreferenceId
         self.tiPreferenceType = tiPreferenceType
         self.txPreference = txPreference
         self.preferenceOption = preferenceOption
+        self.preferenceAnswer = preferenceAnswer
     }
 
-    public enum CodingKeys: String, CodingKey { 
+    public enum CodingKeys: String, CodingKey {
         case iPreferenceId
         case tiPreferenceType
         case txPreference
         case preferenceOption = "PreferenceOption"
+        case preferenceAnswer = "PreferenceAnswer"
     }
 
 

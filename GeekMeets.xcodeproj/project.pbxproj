@@ -163,6 +163,10 @@
 		0BE21281244976AF004817BC /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BE2126F244976AF004817BC /* Poppins-SemiBold.ttf */; };
 		0BE21282244976AF004817BC /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BE21270244976AF004817BC /* Poppins-Italic.ttf */; };
 		0BE21283244976AF004817BC /* Poppins-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BE21271244976AF004817BC /* Poppins-MediumItalic.ttf */; };
+		0BE7226F247CFC3600BB8D23 /* 2.json in Resources */ = {isa = PBXBuildFile; fileRef = 0BE7226C247CFC3500BB8D23 /* 2.json */; };
+		0BE72273247D3F0800BB8D23 /* Purple_heart.json in Resources */ = {isa = PBXBuildFile; fileRef = 0BE72272247D3F0800BB8D23 /* Purple_heart.json */; };
+		0BE72275247D442900BB8D23 /* PreferenceAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE72274247D442900BB8D23 /* PreferenceAnswer.swift */; };
+		0BE72277247D490800BB8D23 /* Purple_heart_Updated.json in Resources */ = {isa = PBXBuildFile; fileRef = 0BE72276247D490800BB8D23 /* Purple_heart_Updated.json */; };
 		0BF707FD244F1D1C003D6AB7 /* DiscoverPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF707FA244F1D1C003D6AB7 /* DiscoverPresenter.swift */; };
 		0BF707FE244F1D1C003D6AB7 /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF707FB244F1D1C003D6AB7 /* DiscoverViewController.swift */; };
 		0BF707FF244F1D1C003D6AB7 /* DiscoverInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF707FC244F1D1C003D6AB7 /* DiscoverInteractor.swift */; };
@@ -476,6 +480,10 @@
 		0BE2126F244976AF004817BC /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		0BE21270244976AF004817BC /* Poppins-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Italic.ttf"; sourceTree = "<group>"; };
 		0BE21271244976AF004817BC /* Poppins-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-MediumItalic.ttf"; sourceTree = "<group>"; };
+		0BE7226C247CFC3500BB8D23 /* 2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 2.json; sourceTree = "<group>"; };
+		0BE72272247D3F0800BB8D23 /* Purple_heart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Purple_heart.json; sourceTree = "<group>"; };
+		0BE72274247D442900BB8D23 /* PreferenceAnswer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceAnswer.swift; sourceTree = "<group>"; };
+		0BE72276247D490800BB8D23 /* Purple_heart_Updated.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Purple_heart_Updated.json; sourceTree = "<group>"; };
 		0BF707FA244F1D1C003D6AB7 /* DiscoverPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverPresenter.swift; sourceTree = "<group>"; };
 		0BF707FB244F1D1C003D6AB7 /* DiscoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
 		0BF707FC244F1D1C003D6AB7 /* DiscoverInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverInteractor.swift; sourceTree = "<group>"; };
@@ -760,6 +768,9 @@
 		0B3A14A62478211100F7EA11 /* Loader_JSON */ = {
 			isa = PBXGroup;
 			children = (
+				0BE72276247D490800BB8D23 /* Purple_heart_Updated.json */,
+				0BE72272247D3F0800BB8D23 /* Purple_heart.json */,
+				0BE7226C247CFC3500BB8D23 /* 2.json */,
 				0B3A14A72478213700F7EA11 /* newheart.json */,
 			);
 			path = Loader_JSON;
@@ -1383,6 +1394,7 @@
 		F7780E26245AD666003CA4BD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0BE72274247D442900BB8D23 /* PreferenceAnswer.swift */,
 				0B80CFCE24768DA8001BE106 /* UserProfileMediaList.swift */,
 				0BABEAE324727264000BC5E7 /* PreferencesField.swift */,
 				0BABEADD24724519000BC5E7 /* PreferenceOption.swift */,
@@ -2040,6 +2052,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BE7226F247CFC3600BB8D23 /* 2.json in Resources */,
 				F90B4CA320329C45006ADAF6 /* LaunchScreen.storyboard in Resources */,
 				F90B4CA020329C45006ADAF6 /* Assets.xcassets in Resources */,
 				0BE21274244976AF004817BC /* Poppins-ExtraLightItalic.ttf in Resources */,
@@ -2057,6 +2070,8 @@
 				0BE2127D244976AF004817BC /* Poppins-LightItalic.ttf in Resources */,
 				0B9499B72451DBA5001AD1C8 /* CommonTblListCell.xib in Resources */,
 				F7F9679C2451B90A00BD7275 /* questionnaire.json in Resources */,
+				0BE72277247D490800BB8D23 /* Purple_heart_Updated.json in Resources */,
+				0BE72273247D3F0800BB8D23 /* Purple_heart.json in Resources */,
 				0BE21278244976AF004817BC /* Poppins-SemiBoldItalic.ttf in Resources */,
 				0BE2127E244976AF004817BC /* Poppins-Bold.ttf in Resources */,
 				0BE21283244976AF004817BC /* Poppins-MediumItalic.ttf in Resources */,
@@ -2476,6 +2491,7 @@
 				0BFCD80F246A9847004A2282 /* InstagramLoginVC.swift in Sources */,
 				0B535688245088DC005571AF /* EditProfilePresenter.swift in Sources */,
 				F7780E3B245AD667003CA4BD /* UserAuthResponseField.swift in Sources */,
+				0BE72275247D442900BB8D23 /* PreferenceAnswer.swift in Sources */,
 				F7164AC0244EB78600853BFC /* ForgotPasswordPresenter.swift in Sources */,
 				F77E311C2456AEC100A213FF /* OTPTextField.swift in Sources */,
 				0B4CA0372457EA5200A3460B /* ChangePasswordViewController.swift in Sources */,

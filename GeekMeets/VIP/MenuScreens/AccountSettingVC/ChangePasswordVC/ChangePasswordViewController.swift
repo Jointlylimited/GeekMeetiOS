@@ -96,12 +96,13 @@ class ChangePasswordViewController: UIViewController, ChangePasswordProtocol {
     @IBAction func btnChangePasswordAction(_ sender: GradientButton) {
         
         self.presenter?.callChangePasswordAPI(vCurrentPassword: txtOldPassword!.text!, vNewPassword:  txtNewPassword!.text!, vConfirmPassword:  txtConfirmPassword!.text!)
-        
-        //        self.popVC()
     }
     
     func getChangePasswordResponse(response : CommonResponse) {
-        self.popVC()
+        if response.responseCode == 200 {
+            self.popVC()
+            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        }
     }
     func displayAlert(_ success: Bool, message: String) {
         alertView = CustomAlertView.initAlertView(title: "", message: message, btnRightStr: "", btnCancelStr: "", btnCenter: "OK", isSingleButton: true)
@@ -118,8 +119,5 @@ extension ChangePasswordViewController : AlertViewCentreButtonDelegate {
     
     func centerButtonAction() {
       alertView.isHidden = true
-      
-//        let accVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.AccountSettingScreen)
-//        self.pop(toLast: accVC.classForCoder)
     }
 }

@@ -97,9 +97,6 @@ class DiscoverySettingViewController: UIViewController, DiscoverySettingProtocol
         self.popVC()
     }
     @IBAction func btnChangeAction(_ sender: GradientButton) {
-//        self.userProfileModel?.vInterestAge = self.objDiscoverData[0].description
-//        self.userProfileModel?.vInterestGender = self.objDiscoverData[1].description
-//        self.userProfileModel?.vLikedSocialPlatform = self.objDiscoverData[2].description
         self.popVC()
     }
 }
@@ -141,15 +138,17 @@ extension DiscoverySettingViewController : UITableViewDataSource, UITableViewDel
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let index = indexPath.row
         let intVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.Interest_PreferenceScreen) as? Interest_PreferenceViewController
-
+        let response = UserDataModel.UserPreferenceResponse?.responseData
         if index == 0 {
             intVC?.header_title = self.objDiscoverData[0].title
-            intVC?.objDiscoverData =  [CommonCellModel(title: Interest_PreferenceData.Ethernity.Title, description: "", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Height.Title, description: "", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.BodyType.Title, description: "", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Indoor_Outdoor.Title, description: "", isDescAvailable: true), CommonCellModel(title: Interest_PreferenceData.Morning_Night.Title, description: "", isDescAvailable: true)]
+            intVC?.objDiscoverData = [response![0], response![4], response![11], response![17], response![19]]
             
         } else if index == 1 {
             intVC?.header_title = self.objDiscoverData[1].title
+            intVC?.objDiscoverData = [response![1], response![3], response![5], response![7], response![9], response![12]]
         } else {
             intVC?.header_title = self.objDiscoverData[2].title
+            intVC?.objDiscoverData = [response![13], response![14], response![15], response![16], response![17], response![18], response![22]]
         }
         self.pushVC(intVC!)
     }

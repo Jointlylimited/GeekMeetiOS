@@ -20,7 +20,7 @@ import Lottie
     var indicatorCount:Int = 0
     var activity:NVActivityIndicatorView!
     let starAnimationView = AnimationView()
-    
+    var view = UIView()
     @objc static var sharedInstance = LoaderView()
     
     
@@ -30,14 +30,23 @@ import Lottie
             return
         }
         
+        view = UIView(frame: CGRect(x: 0, y: 0, width: ScreenSize.width, height: ScreenSize.height))
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        let blurEffectView = UIView()
+//        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+//        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(blurEffectView)
+        
         indicatorCount = indicatorCount + 1
-        let starAnimation = Animation.named("newheart")
+        let starAnimation = Animation.named("Purple_heart_Updated")
         starAnimationView.frame = CGRect(x: (AppDelObj.window!.frame.size.width - 400) / 2.0, y: (AppDelObj.window!.frame.size.height - 400) / 2.0, w: 400, h: 400)
 //        starAnimationView.center = self.view.center
         starAnimationView.animation = starAnimation
         starAnimationView.contentMode = .scaleAspectFill
-        starAnimationView.loopMode = .repeat(Float(25))
-        AppDelObj.window?.addSubview(starAnimationView)
+        starAnimationView.loopMode = .repeat(Float(100))
+        view.addSubview(starAnimationView)
+        AppDelObj.window?.addSubview(view)
         starAnimationView.play()
         
 //        if activity == nil {
@@ -50,7 +59,7 @@ import Lottie
         
         AppDelObj.window!.isUserInteractionEnabled = false
 //        AppDelObj.window?.bringSubviewToFront(activity)
-        AppDelObj.window?.bringSubviewToFront(starAnimationView)
+        AppDelObj.window?.bringSubviewToFront(view)
     }
     
     @objc func hideLoader() {
@@ -63,7 +72,7 @@ import Lottie
 //        if indicatorCount == 0 {
             AppDelObj.window!.isUserInteractionEnabled = true
 ////            if activity != nil {
-                starAnimationView.removeFromSuperview()
+                view.removeFromSuperview()
 //                activity.stopAnimating()
 //                activity.removeFromSuperview()
 //                activity = nil
@@ -77,7 +86,7 @@ import Lottie
 //
 //        if indicatorCount == 0 {
             AppDelObj.window!.isUserInteractionEnabled = true
-            starAnimationView.removeFromSuperview()
+            view.removeFromSuperview()
 //            if activity != nil {
 //                activity.stopAnimating()
 //                activity.removeFromSuperview()

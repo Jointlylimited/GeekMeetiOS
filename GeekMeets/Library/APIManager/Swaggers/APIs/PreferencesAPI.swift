@@ -11,14 +11,84 @@ import Alamofire
 
 
 open class PreferencesAPI {
+     /**
+         Preferences- Question/Option listing
+         
+         - parameter nonce: (header)
+         - parameter timestamp: (header)
+         - parameter token: (header)
+         - parameter language: (header) en&#x3D;English, fr&#x3D;French
+         - parameter authorization: (header)
+         - parameter tiPreferenceType: (form)
+         - parameter iPreferenceId: (form)
+         - parameter iOptionId: (form)  (optional, default to 1,2)
+         - parameter vAnswer: (form) pass when only and only tiPreferenceType &#x3D; 2(simple text) and 4(Range) (optional, default to 4.5-5.5)
+         - parameter completion: completion handler to receive the data and the error objects
+         */
+        open class func create(nonce: String, timestamp: Int, token: String, language: String, authorization: String, tiPreferenceType: String, iPreferenceId: String, iOptionId: String? = nil, vAnswer: String? = nil, completion: @escaping ((_ data: CommonResponse?,_ error: Error?) -> Void)) {
+            createWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, language: language, authorization: authorization, tiPreferenceType: tiPreferenceType, iPreferenceId: iPreferenceId, iOptionId: iOptionId, vAnswer: vAnswer).execute { (response, error) -> Void in
+                completion(response?.body, error)
+            }
+        }
+
+
+        /**
+         Preferences- Question/Option listing
+         - POST /preferences/create
+         - examples: [{contentType=application/json, example={
+      "responseMessage" : "responseMessage",
+      "responseCode" : 0
+    }}]
+         
+         - parameter nonce: (header)
+         - parameter timestamp: (header)
+         - parameter token: (header)
+         - parameter language: (header) en&#x3D;English, fr&#x3D;French
+         - parameter authorization: (header)
+         - parameter tiPreferenceType: (form)
+         - parameter iPreferenceId: (form)
+         - parameter iOptionId: (form)  (optional, default to 1,2)
+         - parameter vAnswer: (form) pass when only and only tiPreferenceType &#x3D; 2(simple text) and 4(Range) (optional, default to 4.5-5.5)
+
+         - returns: RequestBuilder<CommonResponse>
+         */
+        open class func createWithRequestBuilder(nonce: String, timestamp: Int, token: String, language: String, authorization: String, tiPreferenceType: String, iPreferenceId: String, iOptionId: String? = nil, vAnswer: String? = nil) -> RequestBuilder<CommonResponse> {
+            let path = "/preferences/create"
+            let URLString = SwaggerClientAPI.basePath + path
+            let formParams: [String:Any?] = [
+                "tiPreferenceType": tiPreferenceType,
+                "iPreferenceId": iPreferenceId,
+                "iOptionId": iOptionId,
+                "vAnswer": vAnswer
+            ]
+
+            let nonNullParameters = APIHelper.rejectNil(formParams)
+            let parameters = APIHelper.convertBoolToString(nonNullParameters)
+            
+            let url = URLComponents(string: URLString)
+            let nillableHeaders: [String: Any?] = [
+                "nonce": nonce,
+                "timestamp": timestamp.encodeToJSON(),
+                "token": token,
+                "language": language,
+                "authorization": authorization
+            ]
+            let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+            let requestBuilder: RequestBuilder<CommonResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+            return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
+        }
+
+
     /**
-     Preferences- Question/Answer
+     Preferences- Question/Option listing
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter language: (header) en&#x3D;English, fr&#x3D;French 
-     - parameter authorization: (header)  
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter language: (header) en&#x3D;English, fr&#x3D;French
+     - parameter authorization: (header)
      - parameter completion: completion handler to receive the data and the error objects
      */
     open class func list(nonce: String, timestamp: Int, token: String, language: String, authorization: String, completion: @escaping ((_ data: PreferencesResponse?,_ error: Error?) -> Void)) {
@@ -29,17 +99,17 @@ open class PreferencesAPI {
 
 
     /**
-     Preferences- Question/Answer
+     Preferences- Question/Option listing
      - POST /preferences/list
      - examples: [{contentType=application/json, example=""}]
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter language: (header) en&#x3D;English, fr&#x3D;French 
-     - parameter authorization: (header)  
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter language: (header) en&#x3D;English, fr&#x3D;French
+     - parameter authorization: (header)
 
-     - returns: RequestBuilder<PreferencesResponse> 
+     - returns: RequestBuilder<PreferencesResponse>
      */
     open class func listWithRequestBuilder(nonce: String, timestamp: Int, token: String, language: String, authorization: String) -> RequestBuilder<PreferencesResponse> {
         let path = "/preferences/list"
@@ -62,3 +132,4 @@ open class PreferencesAPI {
     }
 
 }
+

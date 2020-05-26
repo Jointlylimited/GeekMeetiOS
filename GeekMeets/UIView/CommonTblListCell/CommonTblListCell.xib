@@ -41,14 +41,14 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="+1 123 455 852" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I4T-KU-8a1">
-                        <rect key="frame" x="20" y="41" width="385" height="21"/>
-                        <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="15"/>
+                        <rect key="frame" x="20" y="40" width="385" height="22"/>
+                        <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mobile Number" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iA6-Dt-kTG">
-                        <rect key="frame" x="20" y="15" width="114.5" height="21"/>
-                        <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="15"/>
+                        <rect key="frame" x="20" y="15" width="107" height="20"/>
+                        <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>

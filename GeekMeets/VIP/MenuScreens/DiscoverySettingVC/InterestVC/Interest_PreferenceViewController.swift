@@ -23,7 +23,7 @@ class Interest_PreferenceViewController: UIViewController, Interest_PreferencePr
     @IBOutlet weak var lblTitle: UILabel!
     
     var header_title : String = ""
-    var objDiscoverData : [CommonCellModel] = []
+    var objDiscoverData : [PreferencesField] = []
     
     // MARK: Object lifecycle
     
@@ -90,37 +90,53 @@ extension Interest_PreferenceViewController : UITableViewDataSource, UITableView
         if let cell = cell as? CommonTblListCell {
             
             let data = self.objDiscoverData[indexPath.row]
+            print(data)
+            cell.lblTitle.text = data.txPreference
+            var textOption = ""
             
-            cell.lblTitle.text = data.title
-            cell.lblDesc.text = data.description
+//            for option in data.preferenceOption! {
+//                for optionAns in data.preferenceAnswer!{
+//                    if option.iOptionId == optionAns.iOptionId {
+//                        textOption = textOption == "" ? option.vOption! : "\(textOption), \(option.vOption)"
+//                    }
+//                }
+//            }
+//            for option in data.preferenceAnswer! {
+//                if data.preferenceOption!.filter({$0.iOptionId == option.iOptionId}).count != 0 {
+//                    textOption = textOption == "" ? data.preferenceOption!.filter({$0.iOptionId == option.iOptionId})[0].vOption! : "\(textOption), \(data.preferenceOption!.filter({$0.iOptionId == option.iOptionId})[0].vOption!)"
+//                }
+//            }
+            cell.lblDesc.text = data.preferenceOption![0].vOption
         }
         return cell!
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let data = self.objDiscoverData[indexPath.row]
-        if data.isDescAvailable {
-            return UITableView.automaticDimension
-        } else {
-            return 70
-        }
+        return UITableView.automaticDimension
     }
     
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let index = indexPath.row
+        let data = self.objDiscoverData[indexPath.row]
+        
         let queVC = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange) as? SelectAgeRangeViewController
         queVC?.isFromSignUp = false
         queVC?.interest_delegate = self
         if index == 0 {
             queVC?.index = 1
+            queVC?.selectedCells = (data.preferenceAnswer?.map({($0.iOptionId!)}))!
         } else if index == 1 {
             queVC?.index = 5
+            queVC?.selectedCells = (data.preferenceAnswer?.map({($0.iOptionId!)}))!
         } else if index == 2 {
             queVC?.index = 12
+            queVC?.selectedCells = (data.preferenceAnswer?.map({($0.iOptionId!)}))!
         } else if index == 3 {
             queVC?.index = 18
+            queVC?.selectedCells = (data.preferenceAnswer?.map({($0.iOptionId!)}))!
         } else {
             queVC?.index = 20
+            queVC?.selectedCells = (data.preferenceAnswer?.map({($0.iOptionId!)}))!
         }
         self.pushVC(queVC!)
     }
@@ -129,17 +145,17 @@ extension Interest_PreferenceViewController : UITableViewDataSource, UITableView
 
 extension Interest_PreferenceViewController : SelectInterestAgeGenderDelegate {
     func getSelectedValue(index: Int, data: String) {
-        if index == 1 {
-            self.objDiscoverData[0].description = data
-        } else if index == 5 {
-            self.objDiscoverData[1].description = data
-        } else if index == 12 {
-            self.objDiscoverData[2].description = data
-        } else if index == 18 {
-            self.objDiscoverData[3].description = data
-        } else {
-            self.objDiscoverData[4].description = data
-        }
+//        if index == 1 {
+//            self.objDiscoverData[0].description = data
+//        } else if index == 5 {
+//            self.objDiscoverData[1].description = data
+//        } else if index == 12 {
+//            self.objDiscoverData[2].description = data
+//        } else if index == 18 {
+//            self.objDiscoverData[3].description = data
+//        } else {
+//            self.objDiscoverData[4].description = data
+//        }
         self.tblInterestList.reloadData()
     }
 }

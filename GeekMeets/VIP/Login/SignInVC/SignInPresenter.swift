@@ -16,9 +16,9 @@ protocol SignInPresentationProtocol
 {
     func callSignInAPI(_ userName : String, password : String)
     func getSignInResponse(response : UserAuthResponse)
+    func getPrefernceResponse(response : PreferencesResponse)
     
     func actionForgotPassword()
-    
     func gotoHomeScreen()
 }
 
@@ -37,11 +37,6 @@ class SignInPresenter: SignInPresentationProtocol {
     
     func validateSignInRequest(_ userName : String, password : String) -> Bool
     {
-//        if !RechableObj.isNetwork()
-//        {
-//            self.viewController?.displayAlert(strMessage: kInternetConnection)
-//            return false
-//        }
         if userName.isEmpty
         {
             self.viewController?.displayAlert(strTitle: "", strMessage: kEnterEmail)
@@ -61,7 +56,12 @@ class SignInPresenter: SignInPresentationProtocol {
         UserDataModel.setAuthKey(key: (response.responseData?.vAuthKey)!)
         
         if response.responseCode == 200 {
-            AppSingleton.sharedInstance().showHomeVC()
+//            let controller = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange)
+//            if let view = self.viewController as? UIViewController
+//            {
+//                view.pushVC(controller)
+//            }
+            self.callPreferenceAPI()
         } else if response.responseCode == 203 {
             let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter)
             if let view = self.viewController as? UIViewController
@@ -70,6 +70,17 @@ class SignInPresenter: SignInPresentationProtocol {
             }
         } else {
             self.viewController?.displayAlert(strTitle: "", strMessage: response.responseMessage!)
+        }
+    }
+    
+    func callPreferenceAPI(){
+        self.interactor?.callQuestionaryAPI()
+    }
+    
+    func getPrefernceResponse(response : PreferencesResponse){
+        if response.responseCode == 200 {
+            UserDataModel.UserPreferenceResponse = response
+             AppSingleton.sharedInstance().showHomeVC()
         }
     }
     

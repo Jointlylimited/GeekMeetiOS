@@ -213,6 +213,8 @@ class AppSingleton: NSObject {
     func showHomeVC(){
         Authentication.setLoggedInStatus(true)
         UserDataModel.currentUser = UserDataModel.lastLoginUser
+        UserDataModel.UserPreferenceResponse = UserDataModel.UserPreferenceData
+        
         if UserDataModel.currentUser == nil {
             logout()
             return

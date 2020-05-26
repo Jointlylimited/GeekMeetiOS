@@ -16,6 +16,9 @@ protocol SelectAgeRangePresentationProtocol {
     func callQuestionaryAPI()
     func getQuestionaryResponse(response : PreferencesResponse)
     
+    func callCreatePreferenceAPI(params : Dictionary<String, String>)
+    func getPostPreferenceResponse(response : CommonResponse)
+    
     func actionContinue()
     func actionSkip()
 }
@@ -36,6 +39,13 @@ class SelectAgeRangePresenter: SelectAgeRangePresentationProtocol {
         self.viewController?.displayPreferenceData(response : response)
     }
   
+    func callCreatePreferenceAPI(params : Dictionary<String, String>){
+        self.interactor?.callCreatePreferenceAPI(params : params)
+    }
+    func getPostPreferenceResponse(response : CommonResponse){
+        self.viewController?.getPostPreferenceResponse(response : response)
+    }
+    
     func actionContinue() {
 //        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.TabbarScreen)
 //        if let view = self.viewController as? UIViewController

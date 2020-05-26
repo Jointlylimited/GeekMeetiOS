@@ -37,15 +37,25 @@ class UserDataModel : Codable {
         return nil
     }
     
-    @objc static func setProfileData(data: UserProfileModel){
-        let encodedData = NSKeyedArchiver.archivedData(withRootObject: data)
-        UserDefaults.standard.set(encodedData, forKey: "UserProfileModel")
+    static var UserPreferenceResponse : PreferencesResponse? {
+        didSet{
+            let encoder = JSONEncoder()
+            if let encoded = try? encoder.encode(UserPreferenceResponse) {
+                let defaults = UserDefaults.standard
+                defaults.set(encoded, forKey: "UserPreferenceData")
+            }
+        }
     }
-    
-    @objc static func getProfileData() -> UserProfileModel {
-        let decoded  = UserDefaults.standard.object(forKey: "UserProfileModel") as! Data
-        let decodedTeams = NSKeyedUnarchiver.unarchiveObject(with: decoded) as! UserProfileModel
-        return decodedTeams
+    static var UserPreferenceData : PreferencesResponse? {
+    let defaults = UserDefaults.standard
+
+        if let userData = defaults.object(forKey: "UserPreferenceData") as? Data {
+        let decoder = JSONDecoder()
+        if let loadedPerson = try? decoder.decode(PreferencesResponse.self, from: userData) {
+            return loadedPerson
+        }
+    }
+        return nil
     }
     
     @objc static func setAuthKey(key: String){

@@ -131,7 +131,7 @@ class MenuViewController: UIViewController, MenuProtocol {
     }
        
     @objc func updateTimer() {
-        print(self.totalTime)
+//        print(self.totalTime)
         self.lblRemainTime.text = self.timeFormatted(self.totalTime) // will show timer
         if totalTime != 0 {
             totalTime -= 1
@@ -182,7 +182,6 @@ extension MenuViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arrMenuModel.count
-        //return arrSideMenu.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -271,7 +270,6 @@ extension MenuViewController : AlertViewDelegate {
     func OkButtonAction() {
         alertView.alpha = 0.0
         self.callSignoutAPI()
-//        self.navigationController?.popToRootViewController(animated: true)
     }
     
     func cancelButtonAction() {
