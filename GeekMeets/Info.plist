@@ -73,7 +73,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>$(PROJECT_NAME) required access camera for user profile</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>$(PROJECT_NAME) required access camera for user location</string>
+	<string>$(PROJECT_NAME) required access location for user location</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>$(PROJECT_NAME) required access photo library for user profile</string>
 	<key>SCSDKClientId</key>

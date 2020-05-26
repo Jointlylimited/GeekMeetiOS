@@ -35,7 +35,7 @@ class ChangePasswordPresenter: ChangePasswordPresentationProtocol {
         }
         else if !vCurrentPassword.isPassword
         {
-            self.viewController?.displayAlert(strTitle: "", strMessage: kPasswordWeak)
+            self.viewController?.displayAlert(strTitle: "", strMessage: kOldPasswordWeak)
         }
         else if vNewPassword.isEmpty
         {

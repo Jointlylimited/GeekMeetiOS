@@ -72,12 +72,12 @@ class InitialSignUpPresenter: InitialSignUpPresentationProtocol {
         if userData?.responseCode == 200 {
             Authentication.setLoggedInStatus(true)
             UserDataModel.currentUser = userData?.responseData
-//            AppSingleton.sharedInstance().showHomeVC()
-            let controller = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange)
-            if let view = self.viewController as? UIViewController
-            {
-                view.pushVC(controller)
-            }
+            AppSingleton.sharedInstance().showHomeVC()
+//            let controller = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange)
+//            if let view = self.viewController as? UIViewController
+//            {
+//                view.pushVC(controller)
+//            }
         }
     }
     
