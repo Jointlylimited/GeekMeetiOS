@@ -105,6 +105,7 @@ struct GeekMeets_ViewController
     static let SocialMediaLink = "SocialMediaLinkVC"
     static let NotificationScreen = "NotificationListViewController"
     static let Interest_PreferenceScreen = "Interest_PreferenceViewController"
+    static let Edit_PreferenceScreen = "EditPreferenceViewController"
 }
 
 struct Cells {
@@ -118,6 +119,7 @@ struct Cells {
     static let ColorCollCell = "ColorCollCell"
     static let SocialLinkCell = "SocialLinkCell"
     static let NotificationListCell = "NotificationListCell"
+    static let SelectTextTypeCell = "SelectTextTypeCell"
 }
 
 struct DeviceType {

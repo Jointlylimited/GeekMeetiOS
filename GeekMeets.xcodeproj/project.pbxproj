@@ -138,6 +138,10 @@
 		0BBD66042449C8F100CA178A /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BBD66012449C8F100CA178A /* CardView.xib */; };
 		0BBD66072449C8FC00CA178A /* SwipeableCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBD66062449C8FB00CA178A /* SwipeableCards.swift */; };
 		0BBF9D0624694BD600E2A590 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0BBF9D0524694BD500E2A590 /* GoogleService-Info.plist */; };
+		0BC465D2247E2CC7006DF9D0 /* EditPreferencePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC465CF247E2CC7006DF9D0 /* EditPreferencePresenter.swift */; };
+		0BC465D3247E2CC7006DF9D0 /* EditPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC465D0247E2CC7006DF9D0 /* EditPreferenceViewController.swift */; };
+		0BC465D4247E2CC7006DF9D0 /* EditPreferenceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC465D1247E2CC7006DF9D0 /* EditPreferenceInteractor.swift */; };
+		0BC465D6247E4D2B006DF9D0 /* SelectTextTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC465D5247E4D2B006DF9D0 /* SelectTextTypeCell.swift */; };
 		0BCD4B28245B0C210054A805 /* ColorCollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCD4B25245B0C200054A805 /* ColorCollCell.swift */; };
 		0BCD4B29245B0C210054A805 /* ColorCollCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BCD4B26245B0C200054A805 /* ColorCollCell.xib */; };
 		0BCD4B2A245B0C210054A805 /* AddTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCD4B27245B0C200054A805 /* AddTextViewController.swift */; };
@@ -455,6 +459,10 @@
 		0BBD66012449C8F100CA178A /* CardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardView.xib; sourceTree = "<group>"; };
 		0BBD66062449C8FB00CA178A /* SwipeableCards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeableCards.swift; sourceTree = "<group>"; };
 		0BBF9D0524694BD500E2A590 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0BC465CF247E2CC7006DF9D0 /* EditPreferencePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPreferencePresenter.swift; sourceTree = "<group>"; };
+		0BC465D0247E2CC7006DF9D0 /* EditPreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPreferenceViewController.swift; sourceTree = "<group>"; };
+		0BC465D1247E2CC7006DF9D0 /* EditPreferenceInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPreferenceInteractor.swift; sourceTree = "<group>"; };
+		0BC465D5247E4D2B006DF9D0 /* SelectTextTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTextTypeCell.swift; sourceTree = "<group>"; };
 		0BCD4B25245B0C200054A805 /* ColorCollCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCollCell.swift; sourceTree = "<group>"; };
 		0BCD4B26245B0C200054A805 /* ColorCollCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColorCollCell.xib; sourceTree = "<group>"; };
 		0BCD4B27245B0C200054A805 /* AddTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTextViewController.swift; sourceTree = "<group>"; };
@@ -1056,6 +1064,7 @@
 		0B9499BC2451DBC2001AD1C8 /* DiscoverySettingVC */ = {
 			isa = PBXGroup;
 			children = (
+				0BC465CE247E2C94006DF9D0 /* EditInterestPreferenceVC */,
 				0B0B4B0F247524150047EB11 /* InterestVC */,
 				0B9499BD2451DBC2001AD1C8 /* DiscoverySettingViewController.swift */,
 				0B9499BE2451DBC2001AD1C8 /* DiscoverySettingInteractor.swift */,
@@ -1180,12 +1189,23 @@
 			path = Google_Plist;
 			sourceTree = "<group>";
 		};
+		0BC465CE247E2C94006DF9D0 /* EditInterestPreferenceVC */ = {
+			isa = PBXGroup;
+			children = (
+				0BC465CF247E2CC7006DF9D0 /* EditPreferencePresenter.swift */,
+				0BC465D0247E2CC7006DF9D0 /* EditPreferenceViewController.swift */,
+				0BC465D1247E2CC7006DF9D0 /* EditPreferenceInteractor.swift */,
+			);
+			path = EditInterestPreferenceVC;
+			sourceTree = "<group>";
+		};
 		0BCD4B24245B0C200054A805 /* AddTextVC */ = {
 			isa = PBXGroup;
 			children = (
 				0BCD4B25245B0C200054A805 /* ColorCollCell.swift */,
 				0BCD4B26245B0C200054A805 /* ColorCollCell.xib */,
 				0BCD4B27245B0C200054A805 /* AddTextViewController.swift */,
+				0BC465D5247E4D2B006DF9D0 /* SelectTextTypeCell.swift */,
 			);
 			path = AddTextVC;
 			sourceTree = "<group>";
@@ -2343,6 +2363,7 @@
 				0B9499E22451DBC4001AD1C8 /* ContactUS_LegalPresenter.swift in Sources */,
 				0BABEAE424727264000BC5E7 /* PreferencesField.swift in Sources */,
 				F7D5259224481DB5002D3A42 /* InitialLoginInteractor.swift in Sources */,
+				0BC465D6247E4D2B006DF9D0 /* SelectTextTypeCell.swift in Sources */,
 				F90B4CDE2032AAB8006ADAF6 /* AppDelegate.swift in Sources */,
 				F953B8D620467AFB00BE4F67 /* SettingsViewController.swift in Sources */,
 				F77E311B2456AEC100A213FF /* OTPStackView.swift in Sources */,
@@ -2364,6 +2385,7 @@
 				0B31965A244DE80500B38350 /* HomePresenter.swift in Sources */,
 				F716F2A924498F630063680F /* SignUpVCPresenter.swift in Sources */,
 				0B319658244DE80500B38350 /* HomeInteractor.swift in Sources */,
+				0BC465D3247E2CC7006DF9D0 /* EditPreferenceViewController.swift in Sources */,
 				0BF7081F244F1D6B003D6AB7 /* MessageListCell.swift in Sources */,
 				0B9499D72451DBC4001AD1C8 /* CommonPagesPresenter.swift in Sources */,
 				0BFF2B612461779000DECEDD /* LocationManager.swift in Sources */,
@@ -2379,6 +2401,7 @@
 				F7F967972451ABF400BD7275 /* SelectAgeRangeInteractor.swift in Sources */,
 				0B170D8A246BC7EF00CCDB53 /* UserEntity.swift in Sources */,
 				0B9499E02451DBC4001AD1C8 /* ContactUSCell.swift in Sources */,
+				0BC465D4247E2CC7006DF9D0 /* EditPreferenceInteractor.swift in Sources */,
 				0B46B0C5245865F3006E0D87 /* ChangeEmailMobilePresenter.swift in Sources */,
 				0B921C2824571BE40010AE04 /* PreViewController.swift in Sources */,
 				F7D5259A244869FB002D3A42 /* SignInPresenter.swift in Sources */,
@@ -2463,6 +2486,7 @@
 				F7780E3F245AD667003CA4BD /* Configuration.swift in Sources */,
 				0B0B4B0D247504F80047EB11 /* RangeSeekSlider.swift in Sources */,
 				0BF7081E244F1D6B003D6AB7 /* ReactEmojiCollectionCell.swift in Sources */,
+				0BC465D2247E2CC7006DF9D0 /* EditPreferencePresenter.swift in Sources */,
 				F7164ACF244EE90700853BFC /* OTPEnterViewController.swift in Sources */,
 				0B53568A245088DC005571AF /* EditInformationCell.swift in Sources */,
 				0B9499DF2451DBC4001AD1C8 /* TopGeeksInteractor.swift in Sources */,

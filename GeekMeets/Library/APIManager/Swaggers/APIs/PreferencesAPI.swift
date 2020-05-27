@@ -131,5 +131,73 @@ open class PreferencesAPI {
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
     }
 
+    /**
+         Preferences- Answer update
+         
+         - parameter nonce: (header)
+         - parameter timestamp: (header)
+         - parameter token: (header)
+         - parameter language: (header) en&#x3D;English, fr&#x3D;French
+         - parameter authorization: (header)
+         - parameter tiPreferenceType: (form)
+         - parameter iAnswerId: (form)
+         - parameter iPreferenceId: (form)  (optional, default to 1)
+         - parameter iOptionId: (form)  (optional, default to 1)
+         - parameter completion: completion handler to receive the data and the error objects
+         */
+        open class func update(nonce: String, timestamp: Int, token: String, language: String, authorization: String, tiPreferenceType: String, iAnswerId: String, iPreferenceId: String? = nil, iOptionId: String? = nil, completion: @escaping ((_ data: CommonResponse?,_ error: Error?) -> Void)) {
+            updateWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, language: language, authorization: authorization, tiPreferenceType: tiPreferenceType, iAnswerId: iAnswerId, iPreferenceId: iPreferenceId, iOptionId: iOptionId).execute { (response, error) -> Void in
+                completion(response?.body, error)
+            }
+        }
+
+
+        /**
+         Preferences- Answer update
+         - POST /preferences/update
+         - examples: [{contentType=application/json, example={
+      "responseMessage" : "responseMessage",
+      "responseCode" : 0
+    }}]
+         
+         - parameter nonce: (header)
+         - parameter timestamp: (header)
+         - parameter token: (header)
+         - parameter language: (header) en&#x3D;English, fr&#x3D;French
+         - parameter authorization: (header)
+         - parameter tiPreferenceType: (form)
+         - parameter iAnswerId: (form)
+         - parameter iPreferenceId: (form)  (optional, default to 1)
+         - parameter iOptionId: (form)  (optional, default to 1)
+
+         - returns: RequestBuilder<CommonResponse>
+         */
+        open class func updateWithRequestBuilder(nonce: String, timestamp: Int, token: String, language: String, authorization: String, tiPreferenceType: String, iAnswerId: String, iPreferenceId: String? = nil, iOptionId: String? = nil) -> RequestBuilder<CommonResponse> {
+            let path = "/preferences/update"
+            let URLString = SwaggerClientAPI.basePath + path
+            let formParams: [String:Any?] = [
+                "tiPreferenceType": tiPreferenceType,
+                "iPreferenceId": iPreferenceId,
+                "iAnswerId": iAnswerId,
+                "iOptionId": iOptionId
+            ]
+
+            let nonNullParameters = APIHelper.rejectNil(formParams)
+            let parameters = APIHelper.convertBoolToString(nonNullParameters)
+            
+            let url = URLComponents(string: URLString)
+            let nillableHeaders: [String: Any?] = [
+                "nonce": nonce,
+                "timestamp": timestamp.encodeToJSON(),
+                "token": token,
+                "language": language,
+                "authorization": authorization
+            ]
+            let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+            let requestBuilder: RequestBuilder<CommonResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+            return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
+        }
 }
 

@@ -77,9 +77,6 @@ class CustomAlertView: UIView {
     }
     
     func prepareUI(title: String, message: String, btnRightStr : String, btnCancelStr: String, btnCenter : String, isSingleButton : Bool) {
-
-        let attributedStr1 = NSAttributedString(string: btnRightStr) // .color(UIColor.hexStringToUIColor(hexStr: "F2F2F2"))
-        let attributedStr2 = NSAttributedString(string:btnCancelStr)
         
         if isSingleButton {
             self.BtnStackView.alpha = 0

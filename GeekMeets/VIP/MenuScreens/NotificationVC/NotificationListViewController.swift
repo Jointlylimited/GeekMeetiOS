@@ -101,6 +101,6 @@ extension NotificationListViewController : UITableViewDataSource, UITableViewDel
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        return 100 //UITableView.automaticDimension
     }
 }

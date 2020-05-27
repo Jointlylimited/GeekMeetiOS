@@ -148,7 +148,7 @@ extension ContactUS_LegalViewController : UITableViewDataSource, UITableViewDele
         if !isForLegal {
             return UITableView.automaticDimension
         } else {
-            return 70
+            return 65
         }
     }
     

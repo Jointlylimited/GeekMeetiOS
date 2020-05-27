@@ -48,7 +48,7 @@ enum EditProfileListCells {
         case .InterestCell:
             return 130
         case .PhotosCell:
-            return 390
+            return DeviceType.iPhone5orSE ? 330 : 390
         case .SocialCell:
             return 225
         case .PrivacyCell:
@@ -274,7 +274,6 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
     @objc func btnChangeAction(sender : UIButton){
         if sender.tag == 1 {
             let discVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.DiscoverySettingScreen) as! DiscoverySettingViewController
-//            discVC.userProfileModel = self.userProfileModel
             discVC.isFromMenu = false
             self.pushVC(discVC)
         } else {
@@ -297,10 +296,8 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
     
     func getEditProfileResponse(response: UserAuthResponse){
         if response.responseCode == 200 {
-//            userProfileModel?.vProfileImageArray = self.imageArray
             UserDataModel.currentUser = response.responseData
             if self.delegate != nil {
-//                self.delegate.profiledetails(data : userProfileModel!)
             }
             self.popVC()
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
@@ -544,10 +541,21 @@ extension EditProfileViewController : UITextFieldDelegate {
     }
     
     @objc func textFieldDidChange(textField : UITextField){
-        if (textField.text?.count)! < 300 {
-            textField.isUserInteractionEnabled = true
+        
+        if textField.tag == 0 {
+            self.userProfileModel?.vName = textField.text
+        } else if textField.tag == 2 {
+            self.userProfileModel?.vLiveIn = textField.text
+        } else if textField.tag == 3 {
+             self.userProfileModel?.txCompanyDetail = textField.text
+        } else if textField.tag == 4 {
+            if (textField.text?.count)! < 300 {
+                textField.isUserInteractionEnabled = true
+            } else {
+                textField.isUserInteractionEnabled = false
+            }
         } else {
-            textField.isUserInteractionEnabled = false
+            
         }
     }
     

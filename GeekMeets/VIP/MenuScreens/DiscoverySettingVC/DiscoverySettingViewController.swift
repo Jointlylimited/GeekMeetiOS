@@ -120,7 +120,7 @@ extension DiscoverySettingViewController : UITableViewDataSource, UITableViewDel
         if let cell = cell as? CommonTblListCell {
             
             let data = self.objDiscoverData[indexPath.row]
-            
+            cell.lblTitle.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             cell.lblTitle.text = data.title
             cell.lblDesc.text = data.description
         }

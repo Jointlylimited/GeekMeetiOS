@@ -47,7 +47,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mobile Number" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iA6-Dt-kTG">
-                        <rect key="frame" x="20" y="15" width="107" height="20"/>
+                        <rect key="frame" x="20" y="15" width="350" height="20"/>
                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -55,13 +55,14 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="9Vt-SV-XvA" secondAttribute="trailing" constant="20" id="41X-7S-ypR"/>
-                    <constraint firstAttribute="trailing" secondItem="5Qs-zZ-b9D" secondAttribute="trailing" constant="20" id="EbK-lb-BYP"/>
-                    <constraint firstItem="5Qs-zZ-b9D" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="GVZ-9O-ndQ"/>
+                    <constraint firstItem="5Qs-zZ-b9D" firstAttribute="trailing" secondItem="9Vt-SV-XvA" secondAttribute="trailing" id="66J-Ss-mq2"/>
                     <constraint firstItem="I4T-KU-8a1" firstAttribute="trailing" secondItem="9Vt-SV-XvA" secondAttribute="trailing" id="Hsx-5r-Tzg"/>
                     <constraint firstItem="iA6-Dt-kTG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="ILN-w9-itQ"/>
                     <constraint firstItem="iA6-Dt-kTG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="N6f-EW-lus"/>
                     <constraint firstItem="9Vt-SV-XvA" firstAttribute="top" secondItem="iA6-Dt-kTG" secondAttribute="top" id="c95-N4-erf"/>
+                    <constraint firstItem="9Vt-SV-XvA" firstAttribute="leading" secondItem="iA6-Dt-kTG" secondAttribute="trailing" constant="5" id="fLw-u5-Kif"/>
                     <constraint firstAttribute="bottom" secondItem="5Qs-zZ-b9D" secondAttribute="bottom" constant="15" id="kMN-sw-2SN"/>
+                    <constraint firstItem="5Qs-zZ-b9D" firstAttribute="leading" secondItem="iA6-Dt-kTG" secondAttribute="leading" id="lsX-4N-jsJ"/>
                     <constraint firstItem="I4T-KU-8a1" firstAttribute="top" secondItem="iA6-Dt-kTG" secondAttribute="bottom" constant="5" id="rCL-GV-zPW"/>
                     <constraint firstItem="I4T-KU-8a1" firstAttribute="leading" secondItem="iA6-Dt-kTG" secondAttribute="leading" id="t68-tx-6pr"/>
                     <constraint firstItem="5Qs-zZ-b9D" firstAttribute="top" secondItem="I4T-KU-8a1" secondAttribute="bottom" constant="14" id="yko-C9-KRJ"/>

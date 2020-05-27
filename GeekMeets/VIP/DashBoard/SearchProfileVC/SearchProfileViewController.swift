@@ -22,6 +22,7 @@ class SearchProfileViewController: UIViewController, SearchProfileProtocol {
     @IBOutlet weak var tblSearchList: UITableView!
     @IBOutlet weak var txtSearchField: UITextField!
     @IBOutlet weak var btnSearch: UIButton!
+    @IBOutlet weak var lblNoResult: UILabel!
     
     var objMsgData : [MessageViewModel] = []
     var objStoryData : [StoryViewModel] = []
@@ -124,7 +125,6 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
                 
                 cell.clickOnCloseBtn = {
                     print("Click on close button.")
-//                    self.objFilterMsgData.remove(at: 0)
                     self.tblSearchList.reloadData()
                 }
             } else {
@@ -138,7 +138,6 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
                 }
                 cell.clickOnCloseBtn = {
                     print("Click on close button.")
-//                    self.objFilterMsgData.remove(at: 0)
                     self.tblSearchList.reloadData()
                 }
             }
@@ -191,7 +190,6 @@ extension SearchProfileViewController : UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if textField == txtSearchField {
             textField.addTarget(self, action: #selector(textFieldDidChange(textField:)), for: .editingChanged)
-//            self.viewPopUp.alpha = 0.0
             if !self.isFromDiscover {
                 self.objFilterMsgData.removeAll()
             } else {
@@ -221,6 +219,11 @@ extension SearchProfileViewController : UITextFieldDelegate {
                     }
                 }
             }
+            if objFilterMsgData.count == 0 {
+                self.lblNoResult.alpha = 1
+            } else {
+                self.lblNoResult.alpha = 0
+            }
         } else {
             if textField.text == "" {
                 self.btnSearch.alpha = 0.0
@@ -232,11 +235,16 @@ extension SearchProfileViewController : UITextFieldDelegate {
                 for data in self.objStoryData {
                     print(self.objFilterStoryData.count)
                     if data.userName.lowercased().contains(textField.text!) {
-                        if objFilterStoryData.count == 0 {
+//                        if objFilterStoryData.count == 0 {
                             self.objFilterStoryData.append(data)
-                        }
+//                        }
                     }
                 }
+            }
+            if objFilterStoryData.count == 0 {
+                self.lblNoResult.alpha = 1
+            } else {
+                self.lblNoResult.alpha = 0
             }
         }
         self.tblSearchList.reloadData()

@@ -11,7 +11,7 @@ import UIKit
 class RequestParameter: NSObject {
     static var instance: RequestParameter!
     
-//    var objUser : UserData! = nil
+    //    var objUser : UserData! = nil
     let vDeviceToken = UserDefaults.standard[kDeviceToken] as! String
     let eDeviceType = "1"
     
@@ -48,11 +48,11 @@ class RequestParameter: NSObject {
         requestDictionary["vDeviceToken"] = vDeviceToken
         requestDictionary["eDeviceType"] = eDeviceType
         
-//        if images != nil {
-//            for (index, image) in (images?.enumerated())! {
-//                requestDictionary["vMediaName[\(index)]"] = UIImageJPEGRepresentation(image, 1.0)
-//            }
-//        }
+        //        if images != nil {
+        //            for (index, image) in (images?.enumerated())! {
+        //                requestDictionary["vMediaName[\(index)]"] = UIImageJPEGRepresentation(image, 1.0)
+        //            }
+        //        }
         return requestDictionary
     }
     
@@ -63,7 +63,7 @@ class RequestParameter: NSObject {
         requestDictionary["vPassword"] = password
         requestDictionary["vDeviceToken"] = vDeviceToken
         requestDictionary["eDeviceType"] = eDeviceType
-
+        
         //print(requestDictionary)
         return requestDictionary
     }
@@ -79,7 +79,7 @@ class RequestParameter: NSObject {
         //print(requestDictionary)
         return requestDictionary
     }
-  
+    
     func socialLoginParam(accessToken : String, service: String) -> Dictionary<String,String> {
         
         var requestDictionary : Dictionary<String,String> = Dictionary()
@@ -121,40 +121,52 @@ class RequestParameter: NSObject {
     
     func editProfileParam(vEmail: String, vProfileImage: String, vName: String, dDob: String, tiAge: String, tiGender: String,  vLiveIn: String, txCompanyDetail:String, txAbout:String, deletephotos: String, photos:String, vInstaLink : String, vSnapLink: String, vFbLink: String, tiIsShowAge: String, tiIsShowDistance: String, tiIsShowContactNumber: String, tiIsShowProfileToLikedUser: String) -> Dictionary<String, String> {
         
-            var requestDictionary : Dictionary<String, String> = Dictionary()
-            requestDictionary["vEmail"] = vEmail
-            requestDictionary["vProfileImage"] = vProfileImage
-            requestDictionary["vName"] = vName
-            requestDictionary["dDob"] = dDob
-            requestDictionary["tiAge"] = tiAge
-            requestDictionary["tiGender"] = tiGender
-            
-            requestDictionary["vLiveIn"] = vLiveIn
-            requestDictionary["txCompanyDetail"] = txCompanyDetail
-            requestDictionary["txAbout"] = txAbout
-            requestDictionary["photos"] = photos
-            requestDictionary["deletephotos"] = deletephotos
-            requestDictionary["vInstaLink"] = vInstaLink
-            requestDictionary["vSnapLink"] = vSnapLink
-            requestDictionary["vFbLink"] = vFbLink
-            requestDictionary["tiIsShowAge"] = tiIsShowAge
-            requestDictionary["tiIsShowDistance"] = tiIsShowDistance
-            requestDictionary["tiIsShowContactNumber"] = tiIsShowContactNumber
-            requestDictionary["tiIsShowProfileToLikedUser"] = tiIsShowProfileToLikedUser
-
-            return requestDictionary
-        }
+        var requestDictionary : Dictionary<String, String> = Dictionary()
+        requestDictionary["vEmail"] = vEmail
+        requestDictionary["vProfileImage"] = vProfileImage
+        requestDictionary["vName"] = vName
+        requestDictionary["dDob"] = dDob
+        requestDictionary["tiAge"] = tiAge
+        requestDictionary["tiGender"] = tiGender
+        
+        requestDictionary["vLiveIn"] = vLiveIn
+        requestDictionary["txCompanyDetail"] = txCompanyDetail
+        requestDictionary["txAbout"] = txAbout
+        requestDictionary["photos"] = photos
+        requestDictionary["deletephotos"] = deletephotos
+        requestDictionary["vInstaLink"] = vInstaLink
+        requestDictionary["vSnapLink"] = vSnapLink
+        requestDictionary["vFbLink"] = vFbLink
+        requestDictionary["tiIsShowAge"] = tiIsShowAge
+        requestDictionary["tiIsShowDistance"] = tiIsShowDistance
+        requestDictionary["tiIsShowContactNumber"] = tiIsShowContactNumber
+        requestDictionary["tiIsShowProfileToLikedUser"] = tiIsShowProfileToLikedUser
+        
+        return requestDictionary
+    }
     
     func createPrefrence(tiPreferenceType : String, iPreferenceId: String, iOptionId : String, vAnswer: String) -> Dictionary<String,String> {
-           
-           var requestDictionary : Dictionary<String,String> = Dictionary()
-           requestDictionary["tiPreferenceType"] = tiPreferenceType;
-           requestDictionary["iPreferenceId"] = iPreferenceId
-           requestDictionary["iOptionId"] = iOptionId
-           requestDictionary["vAnswer"] = vAnswer
-
-           //print(requestDictionary)
-           return requestDictionary
-       }
+        
+        var requestDictionary : Dictionary<String,String> = Dictionary()
+        requestDictionary["tiPreferenceType"] = tiPreferenceType;
+        requestDictionary["iPreferenceId"] = iPreferenceId
+        requestDictionary["iOptionId"] = iOptionId
+        requestDictionary["vAnswer"] = vAnswer
+        
+        //print(requestDictionary)
+        return requestDictionary
+    }
+    
+    func updatePrefrence(tiPreferenceType : String, iPreferenceId: String, iOptionId : String, iAnswerId: String) -> Dictionary<String,String> {
+        
+        var requestDictionary : Dictionary<String,String> = Dictionary()
+        requestDictionary["tiPreferenceType"] = tiPreferenceType;
+        requestDictionary["iPreferenceId"] = iPreferenceId
+        requestDictionary["iOptionId"] = iOptionId
+        requestDictionary["iAnswerId"] = iAnswerId
+        
+        //print(requestDictionary)
+        return requestDictionary
+    }
 }
 

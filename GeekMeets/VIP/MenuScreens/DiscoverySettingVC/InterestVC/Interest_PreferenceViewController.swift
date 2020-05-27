@@ -21,10 +21,11 @@ class Interest_PreferenceViewController: UIViewController, Interest_PreferencePr
     
     @IBOutlet weak var tblInterestList: UITableView!
     @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var viewHeightConstant: NSLayoutConstraint!
     
     var header_title : String = ""
     var objDiscoverData : [PreferencesField] = []
-    
+    var DesDetails : [String] = []
     // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -67,7 +68,27 @@ class Interest_PreferenceViewController: UIViewController, Interest_PreferencePr
     func registerTableViewCell(){
         
         self.lblTitle.text = header_title
+        
+        if self.lblTitle.text!.count >= (DeviceType.iPhone5orSE ? 40 : 45) {
+            self.viewHeightConstant.constant = 185
+        } else if self.lblTitle.text!.count >= 20 {
+            self.viewHeightConstant.constant = 135
+        } else {
+            self.viewHeightConstant.constant = 85
+        }
+        
         self.tblInterestList.register(UINib.init(nibName: Cells.CommonTblListCell, bundle: Bundle.main), forCellReuseIdentifier: Cells.CommonTblListCell)
+        var textOption = ""
+        for data in self.objDiscoverData {
+            for option in data.preferenceOption! {
+                for optionAns in data.preferenceAnswer! {
+                    if option.iOptionId == optionAns.iOptionId {
+                        textOption = textOption == "" ? option.vOption! : "\(textOption), \(option.vOption!)"
+                    }
+                }
+            }
+            DesDetails.append(textOption)
+        }
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
@@ -92,21 +113,9 @@ extension Interest_PreferenceViewController : UITableViewDataSource, UITableView
             let data = self.objDiscoverData[indexPath.row]
             print(data)
             cell.lblTitle.text = data.txPreference
-            var textOption = ""
+            print(DesDetails)
+            cell.lblDesc.text = DesDetails[indexPath.row]
             
-//            for option in data.preferenceOption! {
-//                for optionAns in data.preferenceAnswer!{
-//                    if option.iOptionId == optionAns.iOptionId {
-//                        textOption = textOption == "" ? option.vOption! : "\(textOption), \(option.vOption)"
-//                    }
-//                }
-//            }
-//            for option in data.preferenceAnswer! {
-//                if data.preferenceOption!.filter({$0.iOptionId == option.iOptionId}).count != 0 {
-//                    textOption = textOption == "" ? data.preferenceOption!.filter({$0.iOptionId == option.iOptionId})[0].vOption! : "\(textOption), \(data.preferenceOption!.filter({$0.iOptionId == option.iOptionId})[0].vOption!)"
-//                }
-//            }
-            cell.lblDesc.text = data.preferenceOption![0].vOption
         }
         return cell!
     }
@@ -115,29 +124,15 @@ extension Interest_PreferenceViewController : UITableViewDataSource, UITableView
         return UITableView.automaticDimension
     }
     
-     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let index = indexPath.row
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let data = self.objDiscoverData[indexPath.row]
         
-        let queVC = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange) as? SelectAgeRangeViewController
-        queVC?.isFromSignUp = false
-        queVC?.interest_delegate = self
-        if index == 0 {
-            queVC?.index = 1
-            queVC?.selectedCells = (data.preferenceAnswer?.map({($0.iOptionId!)}))!
-        } else if index == 1 {
-            queVC?.index = 5
-            queVC?.selectedCells = (data.preferenceAnswer?.map({($0.iOptionId!)}))!
-        } else if index == 2 {
-            queVC?.index = 12
-            queVC?.selectedCells = (data.preferenceAnswer?.map({($0.iOptionId!)}))!
-        } else if index == 3 {
-            queVC?.index = 18
-            queVC?.selectedCells = (data.preferenceAnswer?.map({($0.iOptionId!)}))!
-        } else {
-            queVC?.index = 20
-            queVC?.selectedCells = (data.preferenceAnswer?.map({($0.iOptionId!)}))!
-        }
+        let queVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.Edit_PreferenceScreen) as? EditPreferenceViewController
+        queVC?.index = data.iPreferenceId!
+        
+        queVC?.objPreModel.objPrefrence = data
+        queVC?.selectedCells = (data.preferenceAnswer?.map({($0.iOptionId!)}))!
+        
         self.pushVC(queVC!)
     }
 }

@@ -16,22 +16,22 @@ protocol SelectAgeDelegate{
 }
 
 class SelectAgeCell: UICollectionViewCell {
-
+    
     typealias ClickEvent = () -> Void
     var clickOnCell : ClickEvent!
     
-      var delegate:SelectAgeDelegate!
-      var indexPath:IndexPath!
-  
+    var delegate:SelectAgeDelegate!
+    var indexPath:IndexPath!
+    
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var btnSelectAge: UIButton!
-      @IBAction func actionSelectAge(_ sender: UIButton) {
+    @IBAction func actionSelectAge(_ sender: UIButton) {
         
         self.clickOnCell!()
         
-//          self.delegate?.actionSelectAge(at: indexPath)
-          
-      }
+        //          self.delegate?.actionSelectAge(at: indexPath)
+        
+    }
     
 }
 
