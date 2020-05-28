@@ -13,7 +13,7 @@
 import UIKit
 
 protocol Interest_PreferenceInteractorProtocol {
-    func doSomething()
+    func callQuestionaryAPI()
 }
 
 protocol Interest_PreferenceDataStore {
@@ -25,7 +25,23 @@ class Interest_PreferenceInteractor: Interest_PreferenceInteractorProtocol, Inte
     //var name: String = ""
     
     // MARK: Do something
-    func doSomething() {
-        
+    func callQuestionaryAPI() {
+        LoaderView.sharedInstance.showLoader()
+        PreferencesAPI.list(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getQuestionaryResponse(response : response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+            } else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+                }
+            }
+            
+        }
     }
 }

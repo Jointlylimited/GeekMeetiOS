@@ -30,6 +30,7 @@ class ReportViewController: UIViewController, ReportProtocol {
     @IBOutlet weak var btnReportTitle: GradientButton!
     @IBOutlet weak var tblViewHeightConstant: NSLayoutConstraint!
     @IBOutlet weak var txtReportView: UITextView!
+    @IBOutlet weak var lblTextCount: UILabel!
     
     var placeHolderText = "Write here..."
     var arrReportData : [CellData] = []
@@ -159,15 +160,30 @@ extension ReportViewController : UITableViewDataSource, UITableViewDelegate {
 }
 
 extension ReportViewController : UITextViewDelegate {
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        if (textView.text?.count)! <= 300 {
+            return true
+        }
+        return true
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        if (textView.text?.count)! <= 300 {
+            textView.isUserInteractionEnabled = true
+            self.lblTextCount.text = "\((textView.text?.count)!)/\(300)"
+        } else {
+            textView.isUserInteractionEnabled = false
+        }
+    }
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
         if txtReportView.text == placeHolderText {
-            
             txtReportView.text = ""
             txtReportView.textColor = .black
         } else {
-            txtReportView.textColor = .lightGray
         }
     }
+    
     func textViewDidEndEditing(_ textView: UITextView) {
         
         if txtReportView.text == "" {

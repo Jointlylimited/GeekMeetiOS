@@ -33,9 +33,9 @@ enum EditProfileListCells {
     var cellHeight  : CGFloat {
         switch self {
         case .InformationCell(let desc):
-           return 50  //return */ desc.heightWithConstrainedWidth(width: 374 * _widthRatio,font: fontPoppins(fontType: .Poppins_Medium, fontSize: .sizeNormalTextField)) + 16
+           return 45  //return */ desc.heightWithConstrainedWidth(width: 374 * _widthRatio,font: fontPoppins(fontType: .Poppins_Medium, fontSize: .sizeNormalTextField)) + 16
         case .InterestCell, .PhotosCell, .SocialCell, .PrivacyCell:
-            return 50
+            return 45
             
         }
     }
@@ -52,7 +52,7 @@ enum EditProfileListCells {
         case .SocialCell:
             return 225
         case .PrivacyCell:
-            return 230
+            return 350
         }
     }
     
@@ -437,7 +437,7 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView:UIView =  UIView()
-        headerView.backgroundColor = .white
+        headerView.backgroundColor = AppCommonColor.headerColor
         
         let headerTitle = UILabel()
         headerTitle.frame = CGRect(x: 20, y: headerView.frame.origin.y + 10, w: ScreenSize.width - 60, h: 30)
@@ -519,7 +519,7 @@ extension EditProfileViewController : UITextFieldDelegate {
             self.PickerView.alpha = 1.0
             return false
         } else if textField.tag == 4 {
-            if (textField.text?.count)! < 300 {
+            if (textField.text?.count)! <= 300 {
                 return true
             }
         }
@@ -549,7 +549,7 @@ extension EditProfileViewController : UITextFieldDelegate {
         } else if textField.tag == 3 {
              self.userProfileModel?.txCompanyDetail = textField.text
         } else if textField.tag == 4 {
-            if (textField.text?.count)! < 300 {
+            if (textField.text?.count)! <= 300 {
                 textField.isUserInteractionEnabled = true
             } else {
                 textField.isUserInteractionEnabled = false

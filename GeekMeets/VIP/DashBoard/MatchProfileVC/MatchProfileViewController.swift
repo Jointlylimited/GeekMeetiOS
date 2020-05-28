@@ -41,6 +41,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     @IBOutlet weak var pageControl: UIPageControl!
     
     var alertView: CustomAlertView!
+    var customPickImageView: CustomOptionView!
     
     var objProfileData = MatchProfileData()
     var imageArray = [#imageLiteral(resourceName: "img_intro_2"), #imageLiteral(resourceName: "image_1"), #imageLiteral(resourceName: "Image 63"), #imageLiteral(resourceName: "Image 62")]
@@ -133,7 +134,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
         self.presenter?.gotoReportVC()
     }
     @IBAction func btnBlockAction(_ sender: UIButton) {
-        self.showAlertView()
+        self.showPickImageView()//  self.showAlertView()
     }
 }
 
@@ -261,6 +262,13 @@ extension MatchProfileViewController {
       alertView.frame = self.view.frame
       self.view.addSubview(alertView)
     }
+    
+    func showPickImageView() {
+      customPickImageView = CustomOptionView.initAlertView()
+//      customPickImageView.delegate = self
+      customPickImageView.frame = self.view.frame
+      self.view.addSubview(customPickImageView)
+    }
 }
 
 extension MatchProfileViewController : AlertViewDelegate {
@@ -272,3 +280,18 @@ extension MatchProfileViewController : AlertViewDelegate {
         alertView.removeFromSuperview()
     }
 }
+
+//extension MatchProfileViewController : PickImageViewDelegate {
+//    
+//    func CameraButtonAction(){
+//        customPickImageView.removeFromSuperview()
+//    }
+//    
+//    func GifButtonAction(){
+//         customPickImageView.removeFromSuperview()
+//    }
+//    
+//    func LocationButtonAction(){
+//         customPickImageView.removeFromSuperview()
+//    }
+//}

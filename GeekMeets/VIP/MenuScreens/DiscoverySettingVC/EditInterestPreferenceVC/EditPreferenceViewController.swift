@@ -28,11 +28,14 @@ class EditPreferenceViewController: UIViewController, EditPreferenceProtocol {
     @IBOutlet weak var heightSeekSlider: RangeSeekSlider!
     @IBOutlet weak var lblHeight: UILabel!
     @IBOutlet weak var viewHeightConstant: NSLayoutConstraint!
+    @IBOutlet weak var btnDone: GradientButton!
     
     var objPreModel = PrefrenceModel()
     var selectedCells = [Int]()
+    var heightData = [String]()
     var intAgeSelected:Int = 0
     var index : Int = 0
+     var isFromMenu : Bool = true
     
     // MARK: Object lifecycle
     
@@ -70,6 +73,12 @@ class EditPreferenceViewController: UIViewController, EditPreferenceProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if isFromMenu {
+            self.btnDone.alpha = 0.0
+        } else {
+            self.btnDone.alpha = 1.0
+        }
         self.setPreferenceData(index: self.index)
     }
     
@@ -90,8 +99,10 @@ class EditPreferenceViewController: UIViewController, EditPreferenceProtocol {
             self.HeightSliderView.alpha = 1
             self.preferenceCollView.alpha = 0
             self.lblHeight.alpha = 1
+            self.lblHeight.text = self.heightData[0]
             self.lblMinHeight.alpha = 0
             self.lblMaxHeight.alpha = 0
+            
         } else if index == 6 {
             setHeightPickerData(index : index)
             self.HeightSliderView.alpha = 1
@@ -99,11 +110,14 @@ class EditPreferenceViewController: UIViewController, EditPreferenceProtocol {
             self.lblHeight.alpha = 0
             self.lblMinHeight.alpha = 1
             self.lblMaxHeight.alpha = 1
+            
+            self.lblMinHeight.text = "\(self.heightData[0])"
+            self.lblMaxHeight.text = "\(self.heightData[1])"
         }else {
             self.HeightSliderView.alpha = 0
             self.preferenceCollView.alpha = 1
         }
-        self.selectedCells = []
+//        self.selectedCells = []
         self.preferenceCollView.reloadData()
     }
     
@@ -115,8 +129,12 @@ class EditPreferenceViewController: UIViewController, EditPreferenceProtocol {
         heightSeekSlider.tintColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         heightSeekSlider.colorBetweenHandles = #colorLiteral(red: 0.606272161, green: 0.2928337753, blue: 0.8085166812, alpha: 1)
         heightSeekSlider.handleImage = #imageLiteral(resourceName: "icn_rect_1")
+        
         heightSeekSlider.minValue = 0.0
         heightSeekSlider.maxValue = 10.0
+        
+        heightSeekSlider.selectedMinValue = heightData.count == 1 ? 0.0 : CGFloat(Double(self.heightData[0])!)
+        heightSeekSlider.selectedMaxValue = heightData.count == 1 ? CGFloat(Double(self.heightData[0])!)  : CGFloat(Double(self.heightData[1])!)
         
         if index == 5 {
             heightSeekSlider.disableRange = true
@@ -150,7 +168,7 @@ extension EditPreferenceViewController {
             value = ""
         }
         
-        let params = RequestParameter.sharedInstance().updatePrefrence(tiPreferenceType: "\(self.objPreModel.objPrefrence.tiPreferenceType!)", iPreferenceId: "\(self.objPreModel.objPrefrence.iPreferenceId!)", iOptionId: data, iAnswerId: answerID)
+        let params = RequestParameter.sharedInstance().updatePrefrence(tiPreferenceType: "\(self.objPreModel.objPrefrence.tiPreferenceType!)", iPreferenceId: "\(self.objPreModel.objPrefrence.iPreferenceId!)", iOptionId: (self.index == 5 || self.index == 6) ? value : data, iAnswerId: self.objPreModel.objPrefrence.tiPreferenceType == 1 ? "" : answerID)
         self.presenter?.callCreatePreferenceAPI(params : params)
     }
     

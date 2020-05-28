@@ -13,7 +13,8 @@
 import UIKit
 
 protocol Interest_PreferencePresentationProtocol {
-    func presentSomething()
+    func callQuestionaryAPI()
+    func getQuestionaryResponse(response : PreferencesResponse)
 }
 
 class Interest_PreferencePresenter: Interest_PreferencePresentationProtocol {
@@ -21,7 +22,12 @@ class Interest_PreferencePresenter: Interest_PreferencePresentationProtocol {
     var interactor: Interest_PreferenceInteractorProtocol?
     
     // MARK: Present something
-    func presentSomething() {
-        
+    func callQuestionaryAPI() {
+       self.interactor?.callQuestionaryAPI()
+    }
+    
+    func getQuestionaryResponse(response : PreferencesResponse) {
+        UserDataModel.PreferenceData = response
+        self.viewController?.getPreferenceData(response : response)
     }
 }

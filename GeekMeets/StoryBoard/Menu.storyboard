@@ -2854,7 +2854,7 @@
                                     <constraint firstAttribute="bottom" secondItem="daE-Il-leI" secondAttribute="bottom" constant="5" id="pYQ-vS-q0x"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HSw-s7-EXy" customClass="GradientButton" customModule="Jointly" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HSw-s7-EXy" customClass="GradientButton" customModule="Jointly" customModuleProvider="target">
                                 <rect key="frame" x="132" y="783" width="150" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -2862,7 +2862,7 @@
                                     <constraint firstAttribute="width" constant="150" id="W62-1W-FJl"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
-                                <state key="normal" title="Change">
+                                <state key="normal" title="Update">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -2877,6 +2877,9 @@
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isHorizontal" value="YES"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="btnUpdateAction:" destination="nH2-Jg-KOl" eventType="touchUpInside" id="hBb-gh-OLM"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -2896,6 +2899,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="icn_message" id="z2C-IV-1K2"/>
                     <connections>
+                        <outlet property="btnUpdate" destination="HSw-s7-EXy" id="gLo-to-Aa2"/>
                         <outlet property="lblTitle" destination="daE-Il-leI" id="mnV-uz-ntI"/>
                         <outlet property="tblInterestList" destination="fqB-jl-k47" id="M2z-ue-Yaa"/>
                         <outlet property="viewHeightConstant" destination="C2Q-Do-ENb" id="Jjc-5C-RyK"/>
@@ -3104,6 +3108,7 @@
                     <tabBarItem key="tabBarItem" title="" image="icn_message" id="8x4-LX-zo2"/>
                     <connections>
                         <outlet property="HeightSliderView" destination="mT8-zZ-Vyv" id="wCQ-QP-kGN"/>
+                        <outlet property="btnDone" destination="DC8-A2-OZ8" id="0A8-99-F2F"/>
                         <outlet property="heightSeekSlider" destination="cGW-on-Uuc" id="Jg9-jq-8Ei"/>
                         <outlet property="lblHeight" destination="ZzY-d6-qav" id="wIr-ev-CZ5"/>
                         <outlet property="lblMaxHeight" destination="yed-cA-WGJ" id="9A9-Sj-1Ud"/>

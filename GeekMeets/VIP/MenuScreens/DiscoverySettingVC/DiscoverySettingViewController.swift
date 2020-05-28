@@ -82,7 +82,7 @@ class DiscoverySettingViewController: UIViewController, DiscoverySettingProtocol
         if !isFromMenu {
             self.lblTitle.text = "Edit Interests & Preferences"
             self.viewHeightConstant.constant = 135
-            self.btnChange.alpha = 1.0
+            self.btnChange.alpha = 0.0
         } else {
             self.lblTitle.text = "Discovery Settings"
             self.viewHeightConstant.constant = 85
@@ -138,6 +138,8 @@ extension DiscoverySettingViewController : UITableViewDataSource, UITableViewDel
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let index = indexPath.row
         let intVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.Interest_PreferenceScreen) as? Interest_PreferenceViewController
+        intVC?.isFromMenu = self.isFromMenu
+        
         let response = UserDataModel.UserPreferenceResponse?.responseData
         if index == 0 {
             intVC?.header_title = self.objDiscoverData[0].title

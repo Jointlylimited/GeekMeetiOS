@@ -137,15 +137,15 @@
                             </constraints>
                         </stackView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v5Y-2f-VmN">
-                            <rect key="frame" x="77" y="50" width="180" height="180"/>
+                            <rect key="frame" x="74.5" y="47.5" width="185" height="185"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="180" id="FiC-LM-aiq"/>
+                                <constraint firstAttribute="width" constant="185" id="FiC-LM-aiq"/>
                                 <constraint firstAttribute="width" secondItem="v5Y-2f-VmN" secondAttribute="height" multiplier="1:1" id="Wds-Ne-6GO"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                    <real key="value" value="5"/>
+                                    <real key="value" value="10"/>
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                     <real key="value" value="90"/>

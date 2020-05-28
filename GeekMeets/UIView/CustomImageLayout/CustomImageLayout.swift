@@ -39,7 +39,7 @@ class CustomImageLayout: UICollectionViewFlowLayout {
     }
 }
 
-@available(iOS 13.0, *)
+/*@available(iOS 13.0, *)
 struct MultipleLineTextField: View {
     var content: Binding<String>
 
@@ -51,4 +51,4 @@ struct MultipleLineTextField: View {
         TextField("Custom placeholder", text: content)
             .background(Color.yellow)
     }
-}
+}*/
