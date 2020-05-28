@@ -228,8 +228,8 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
             let photoModel = UserPhotosModel(iMediaId: photo.iMediaId, vMedia: photo.vMedia, tiMediaType: photo.tiMediaType, tiImage: nil, tiIsDefault: photo.tiIsDefault)
             userPhotosModel.append(photoModel)
         }
-        self.objQuestionModel.arrQuestionnaire = callQuestionnaireApi()
-        self.objQuestionModel.objQuestionnaire = QuestionnaireModel(dictionary: self.objQuestionModel.arrQuestionnaire[1])!
+//        self.objQuestionModel.arrQuestionnaire = callQuestionnaireApi()
+//        self.objQuestionModel.objQuestionnaire = QuestionnaireModel(dictionary: self.objQuestionModel.arrQuestionnaire[1])!
         self.tblEditProfileView.reloadData()
     }
     

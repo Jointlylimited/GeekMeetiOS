@@ -83,7 +83,7 @@ class Interest_PreferenceViewController: UIViewController, Interest_PreferencePr
             for option in data.preferenceOption! {
                 for optionAns in data.preferenceAnswer! {
                     if option.iOptionId == optionAns.iOptionId {
-                        textOption = textOption == "" ? option.vOption! : "\(textOption), \(option.vOption!)"
+                        textOption = textOption == "" ? option.vOption! : "\(option.vOption!)"
                     }
                 }
             }

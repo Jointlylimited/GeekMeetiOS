@@ -31,28 +31,28 @@ class SelectSocialMediaInteractor: SelectSocialMediaInteractorProtocol, SelectSo
     }
   func callQuestionnaireApi() {
       
-        if let path = Bundle.main.path(forResource: "questionnaire", ofType: "json") {
-            do {
-                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-                let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
-                if let jsonResult = jsonResult as? NSArray {
-                    // do stuff
-                    print(jsonResult)
-                    var abc:[QuestionnaireModel]? = []
-                    
-                    let data = (jsonResult as! NSArray)
-                    print(data)
-                    let dict = data as! [NSDictionary]
-                    print(dict)
-                    abc = [QuestionnaireModel(dictionary: dict[2])!]
-                    print(abc)
-                    //                  let Data:QuestionnaireModel = QuestionnaireModel.init(dictionary: jsonResult)!
-                    self.presenter?.getQuestionnaireResponse(userData: abc)
-                }
-            } catch {
-                // handle error
-            }
-        }
+//        if let path = Bundle.main.path(forResource: "questionnaire", ofType: "json") {
+//            do {
+//                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+//                let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
+//                if let jsonResult = jsonResult as? NSArray {
+//                    // do stuff
+//                    print(jsonResult)
+//                    var abc:[QuestionnaireModel]? = []
+//                    
+//                    let data = (jsonResult as! NSArray)
+//                    print(data)
+//                    let dict = data as! [NSDictionary]
+//                    print(dict)
+//                    abc = [QuestionnaireModel(dictionary: dict[2])!]
+//                    print(abc)
+//                    //                  let Data:QuestionnaireModel = QuestionnaireModel.init(dictionary: jsonResult)!
+//                    self.presenter?.getQuestionnaireResponse(userData: abc)
+//                }
+//            } catch {
+//                // handle error
+//            }
+//        }
       
   }
 }
