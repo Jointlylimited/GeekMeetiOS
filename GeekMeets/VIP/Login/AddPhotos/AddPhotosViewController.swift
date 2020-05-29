@@ -29,7 +29,6 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
     var imgsUserPhotosDict:[NSDictionary] = []
     var signUpParams : Dictionary<String, String>?
     var imgProfile : UIImage?
-    var location:CLLocation?
     var userPhotosModel : [UserPhotosModel] = []
     
     var thumbURlUpload: (path: String, name: String) {
@@ -83,7 +82,6 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
         self.navigationController?.isNavigationBarHidden = false
         self.navigationItem.leftBarButtonItem = leftSideBackBarButton
         self.navigationController?.navigationBar.barTintColor = UIColor.white
-        self.getUserCurrentLocation()
         // Profile image set
         userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, tiMediaType: 1, tiImage: imgProfile, tiIsDefault: 1))
 //        imgsUserPhotos.append(imgProfile!)
@@ -98,7 +96,7 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
             }
         }
         
-        let params = RequestParameter.sharedInstance().signUpParam(vEmail: signUpParams!["vEmail"]!, vPassword: signUpParams!["vPassword"]!, vConfirmPassword : signUpParams!["vConfirmPassword"]!, vCountryCode: signUpParams!["vCountryCode"]!, vPhone: signUpParams!["vPhone"]!, termsChecked : signUpParams!["termsChecked"]!, vProfileImage: signUpParams!["vProfileImage"]!, vName: signUpParams!["vName"]!, dDob: signUpParams!["dDob"]!, tiAge: signUpParams!["tiAge"]!, tiGender: signUpParams!["tiGender"]!, iCurrentStatus: signUpParams!["iCurrentStatus"]!, txCompanyDetail: signUpParams!["txCompanyDetail"]!, txAbout: signUpParams!["txAbout"]!, photos: self.imgsUserPhotosDict.count > 0 ? "photos" : "", vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vSocialId : signUpParams!["vSocialId"]!, fLatitude : self.location != nil ? "\(self.location?.coordinate.latitude ?? 0.0)" : "0.0", fLongitude: self.location != nil ? "\(self.location?.coordinate.longitude ?? 0.0)" : "0.0")
+        let params = RequestParameter.sharedInstance().signUpInfoParam(vProfileImage: signUpParams!["vProfileImage"]!, vName: signUpParams!["vName"]!, dDob: signUpParams!["dDob"]!, tiAge: signUpParams!["tiAge"]!, tiGender: signUpParams!["tiGender"]!, iCurrentStatus: signUpParams!["iCurrentStatus"]!, txCompanyDetail: signUpParams!["txCompanyDetail"]!, txAbout: signUpParams!["txAbout"]!, photos: self.imgsUserPhotosDict.count > 0 ? "photos" : "")
         
         self.presenter?.callUserSignUpAPI(signParams: params, images : imgsUserPhotosDict)
     }
@@ -106,26 +104,6 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
         func displayAlert(strTitle : String, strMessage : String) {
             self.showAlert(title: strTitle, message: strMessage)
         }
-        
-        func getUserCurrentLocation() {
-    //          LoaderView.sharedInstance.showLoader()
-              LocationManager.sharedInstance.getLocation { (currLocation, error) in
-                  if error != nil {
-    //                  LoaderView.sharedInstance.hideLoader()
-                      print(error?.localizedDescription ?? "")
-                      self.showAccessPopup(title: kLocationAccessTitle, msg: kLocationAccessMsg)
-                      return
-                  }
-                  guard let _ = currLocation else {
-                      return
-                  }
-                  if error == nil {
-    //                  LoaderView.sharedInstance.hideLoader()
-                      self.location = currLocation
-                    //UserDataModel.setUserLocation(location: self.location!)
-                  }
-              }
-          }
 }
 extension AddPhotosViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,OptionButtonsDelegate
 {

@@ -99,7 +99,7 @@ class EditPreferenceViewController: UIViewController, EditPreferenceProtocol {
             self.HeightSliderView.alpha = 1
             self.preferenceCollView.alpha = 0
             self.lblHeight.alpha = 1
-            self.lblHeight.text = self.heightData[0]
+            self.lblHeight.text = heightData.count == 0 ? "0.0" : self.heightData[0]
             self.lblMinHeight.alpha = 0
             self.lblMaxHeight.alpha = 0
             
@@ -111,8 +111,8 @@ class EditPreferenceViewController: UIViewController, EditPreferenceProtocol {
             self.lblMinHeight.alpha = 1
             self.lblMaxHeight.alpha = 1
             
-            self.lblMinHeight.text = "\(self.heightData[0])"
-            self.lblMaxHeight.text = "\(self.heightData[1])"
+            self.lblMinHeight.text = heightData.count == 0 ? "0.0" : "\(self.heightData[0])"
+            self.lblMaxHeight.text = heightData.count == 0 ? "10.0" : "\(self.heightData[1])"
         }else {
             self.HeightSliderView.alpha = 0
             self.preferenceCollView.alpha = 1
@@ -133,8 +133,8 @@ class EditPreferenceViewController: UIViewController, EditPreferenceProtocol {
         heightSeekSlider.minValue = 0.0
         heightSeekSlider.maxValue = 10.0
         
-        heightSeekSlider.selectedMinValue = heightData.count == 1 ? 0.0 : CGFloat(Double(self.heightData[0])!)
-        heightSeekSlider.selectedMaxValue = heightData.count == 1 ? CGFloat(Double(self.heightData[0])!)  : CGFloat(Double(self.heightData[1])!)
+        heightSeekSlider.selectedMinValue = heightData.count == 0 ? 0 : (heightData.count == 1 ? 0.0 : CGFloat(Double(self.heightData[0])!))
+        heightSeekSlider.selectedMaxValue = heightData.count == 0 ? 0 : (heightData.count == 1 ? CGFloat(Double(self.heightData[0])!)  : CGFloat(Double(self.heightData[1])!))
         
         if index == 5 {
             heightSeekSlider.disableRange = true

@@ -161,7 +161,7 @@ extension Interest_PreferenceViewController : UITableViewDataSource, UITableView
         queVC?.objPreModel.objPrefrence = data
         queVC?.selectedCells = (data.preferenceAnswer?.map({($0.iOptionId!)}))!
         if data.iPreferenceId == 5 || data.iPreferenceId == 6 {
-            queVC?.heightData = (data.preferenceAnswer?.map({($0.fAnswer!)}))!
+//            queVC?.heightData = (data.preferenceAnswer?.map({($0.fAnswer!)}))!
         }
         self.pushVC(queVC!)
     }

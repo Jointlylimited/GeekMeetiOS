@@ -94,6 +94,11 @@
 		0B7F33D5246ED8AE007ADF8D /* NotificationListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F33D2246ED8AE007ADF8D /* NotificationListInteractor.swift */; };
 		0B7F33D6246ED8AE007ADF8D /* NotificationListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F33D3246ED8AE007ADF8D /* NotificationListPresenter.swift */; };
 		0B80CFCF24768DA9001BE106 /* UserProfileMediaList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B80CFCE24768DA8001BE106 /* UserProfileMediaList.swift */; };
+		0B8D0B32248114E9004465E1 /* ReportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8D0B31248114E9004465E1 /* ReportAPI.swift */; };
+		0B8D0B35248117D7004465E1 /* BlockUserFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8D0B33248117D7004465E1 /* BlockUserFields.swift */; };
+		0B8D0B36248117D7004465E1 /* BlockUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8D0B34248117D7004465E1 /* BlockUser.swift */; };
+		0B8D0B392481188B004465E1 /* ReasonListFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8D0B372481188B004465E1 /* ReasonListFields.swift */; };
+		0B8D0B3A2481188B004465E1 /* ReasonListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8D0B382481188B004465E1 /* ReasonListData.swift */; };
 		0B912A412473989B005D5412 /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B912A402473989B005D5412 /* LoaderView.swift */; };
 		0B921C2624571BE40010AE04 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B921C1824571BE30010AE04 /* ContentViewController.swift */; };
 		0B921C2724571BE40010AE04 /* ARSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B921C1A24571BE30010AE04 /* ARSupport.swift */; };
@@ -416,6 +421,11 @@
 		0B7F33D2246ED8AE007ADF8D /* NotificationListInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationListInteractor.swift; sourceTree = "<group>"; };
 		0B7F33D3246ED8AE007ADF8D /* NotificationListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationListPresenter.swift; sourceTree = "<group>"; };
 		0B80CFCE24768DA8001BE106 /* UserProfileMediaList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileMediaList.swift; sourceTree = "<group>"; };
+		0B8D0B31248114E9004465E1 /* ReportAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportAPI.swift; sourceTree = "<group>"; };
+		0B8D0B33248117D7004465E1 /* BlockUserFields.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockUserFields.swift; sourceTree = "<group>"; };
+		0B8D0B34248117D7004465E1 /* BlockUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockUser.swift; sourceTree = "<group>"; };
+		0B8D0B372481188B004465E1 /* ReasonListFields.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReasonListFields.swift; sourceTree = "<group>"; };
+		0B8D0B382481188B004465E1 /* ReasonListData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReasonListData.swift; sourceTree = "<group>"; };
 		0B912A402473989B005D5412 /* LoaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
 		0B921C1824571BE30010AE04 /* ContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		0B921C1A24571BE30010AE04 /* ARSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARSupport.swift; sourceTree = "<group>"; };
@@ -1430,6 +1440,7 @@
 		F7780E20245AD666003CA4BD /* APIs */ = {
 			isa = PBXGroup;
 			children = (
+				0B8D0B31248114E9004465E1 /* ReportAPI.swift */,
 				0BABEADB247244F1000BC5E7 /* PreferencesAPI.swift */,
 				F7780E21245AD666003CA4BD /* UserAPI.swift */,
 				F7780E22245AD666003CA4BD /* ContentPageAPI.swift */,
@@ -1440,6 +1451,10 @@
 		F7780E26245AD666003CA4BD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0B8D0B382481188B004465E1 /* ReasonListData.swift */,
+				0B8D0B372481188B004465E1 /* ReasonListFields.swift */,
+				0B8D0B34248117D7004465E1 /* BlockUser.swift */,
+				0B8D0B33248117D7004465E1 /* BlockUserFields.swift */,
 				0BE72274247D442900BB8D23 /* PreferenceAnswer.swift */,
 				0B80CFCE24768DA8001BE106 /* UserProfileMediaList.swift */,
 				0BABEAE324727264000BC5E7 /* PreferencesField.swift */,
@@ -2355,6 +2370,7 @@
 				0B7F33C8246ED80D007ADF8D /* RecommandedProfileView.swift in Sources */,
 				0B0B4B0E247504F80047EB11 /* TapticEngine.swift in Sources */,
 				0B31965C244DE80500B38350 /* ProfilePhotosCell.swift in Sources */,
+				0B8D0B36248117D7004465E1 /* BlockUser.swift in Sources */,
 				0B46B0C6245865F3006E0D87 /* ChangeEmailMobileViewController.swift in Sources */,
 				F79CA6F1244D9C5100C9A7EB /* UserProfileViewController.swift in Sources */,
 				F7780E39245AD667003CA4BD /* ContentPageResponseFields.swift in Sources */,
@@ -2431,6 +2447,7 @@
 				F7F967972451ABF400BD7275 /* SelectAgeRangeInteractor.swift in Sources */,
 				0B170D8A246BC7EF00CCDB53 /* UserEntity.swift in Sources */,
 				0B9499E02451DBC4001AD1C8 /* ContactUSCell.swift in Sources */,
+				0B8D0B32248114E9004465E1 /* ReportAPI.swift in Sources */,
 				0BC465D4247E2CC7006DF9D0 /* EditPreferenceInteractor.swift in Sources */,
 				0B46B0C5245865F3006E0D87 /* ChangeEmailMobilePresenter.swift in Sources */,
 				0B921C2824571BE40010AE04 /* PreViewController.swift in Sources */,
@@ -2459,6 +2476,7 @@
 				0BBD66032449C8F100CA178A /* CardView.swift in Sources */,
 				0BF70805244F1D2C003D6AB7 /* MessagesPresenter.swift in Sources */,
 				0B51D28F245FE0A0005C7B88 /* HSFacebookLoginManager.swift in Sources */,
+				0B8D0B392481188B004465E1 /* ReasonListFields.swift in Sources */,
 				0BF70803244F1D2C003D6AB7 /* MessagesViewController.swift in Sources */,
 				F7DFAE3C24501192008863F3 /* CountryManager.swift in Sources */,
 				0BABEAE02472451A000BC5E7 /* PreferenceOption.swift in Sources */,
@@ -2475,6 +2493,7 @@
 				F7F8F5D52452FB8000CA82E7 /* SelectSocialMediaCell.swift in Sources */,
 				F97A9A2D21103FAA007C45F5 /* EZSwiftFunctions.swift in Sources */,
 				F7F967962451ABF400BD7275 /* SelectAgeRangeViewController.swift in Sources */,
+				0B8D0B35248117D7004465E1 /* BlockUserFields.swift in Sources */,
 				F73002CB2446F0B600BDD7FD /* UITapGestureRecognizerExtensions.swift in Sources */,
 				F7C3CDB9245169E500980835 /* MyCustomTextField.swift in Sources */,
 				0B1CB9902459429200DA9264 /* NewMobileNumberViewController.swift in Sources */,
@@ -2569,6 +2588,7 @@
 				0B9499D82451DBC4001AD1C8 /* CommonPagesViewController.swift in Sources */,
 				0B9499DD2451DBC4001AD1C8 /* TopGeeksViewController.swift in Sources */,
 				F7780E41245AE324003CA4BD /* UserProfileModel.swift in Sources */,
+				0B8D0B3A2481188B004465E1 /* ReasonListData.swift in Sources */,
 				F73002D12446F4D000BDD7FD /* InitialSignUpViewController.swift in Sources */,
 				0B5356702450870F005571AF /* MyMatchesPresenter.swift in Sources */,
 				0B535685245088DC005571AF /* EditSocialLinkCell.swift in Sources */,

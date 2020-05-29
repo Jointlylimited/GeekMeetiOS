@@ -108,9 +108,11 @@ extension SignInViewController
 
     @IBAction func btnSignInClick(_ sender : UIButton)
     {
-//        Crashlytics.sharedInstance().crash()
-//        self.presenter?.gotoHomeScreen()
-        self.presenter?.callSignInAPI(tfEmail.text ?? "", password: tfPassword.text ?? "")
+       /* let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.SignUpScreen) as! SignUpVCViewController
+        self.pushVC(controller)*/
+        //        Crashlytics.sharedInstance().crash()
+        //        self.presenter?.gotoHomeScreen()
+                self.presenter?.callSignInAPI(tfEmail.text ?? "", password: tfPassword.text ?? "")
     }
     
     @IBAction func btnForgotPWClick(_ sender : UIButton)

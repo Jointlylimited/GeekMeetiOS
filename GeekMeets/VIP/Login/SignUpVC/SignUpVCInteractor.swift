@@ -46,8 +46,9 @@ class SignUpVCInteractor: SignUpVCInteractorProtocol, SignUpVCDataStore {
     }
     
     func callNormalSignupAPI(params : Dictionary<String, String>){
+        let socialType = UserDataModel.getSocialType()
         LoaderView.sharedInstance.showLoader()
-        UserAPI.normalSignUp(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, vEmail: params["vEmail"]!, vPassword: params["vPassword"]!, vCountryCode: params["vCountryCode"]!, vPhone: params["vPhone"]!, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_normalSignUp(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId ?? "", vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress) { (response, error) in
+        UserAPI.signUp(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, tiIsSocialLogin: UserAPI.TiIsSocialLogin_signUp(rawValue: params["tiIsSocialLogin"]!)!, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signUp(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId!, vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress, vSocialId: params["vSocialId"]!, tiSocialType: UserAPI.TiSocialType_signUp(rawValue: socialType)!, vEmail: params["vEmail"]!, vPassword: params["vPassword"]!, vCountryCode: params["vCountryCode"]!, vPhone: params["vPhone"]!, fLatitude: Float(params["fLatitude"]!), fLongitude: Float(params["fLongitude"]!)) { (response, error) in
             
             LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {

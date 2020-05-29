@@ -118,9 +118,9 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
                 cell.imgProfile.image = data.userImage
                 cell.lblName.text = data.userName
                 if self.txtSearchField.text == "" {
-                    cell.btnClose.alpha = 0
-                } else {
                     cell.btnClose.alpha = 1
+                } else {
+                    cell.btnClose.alpha = 0
                 }
                 
                 cell.clickOnCloseBtn = {
@@ -132,9 +132,9 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
                 cell.imgProfile.image = data.userImage
                 cell.lblName.text = data.userName
                 if self.txtSearchField.text == "" {
-                    cell.btnClose.alpha = 0
-                } else {
                     cell.btnClose.alpha = 1
+                } else {
+                    cell.btnClose.alpha = 0
                 }
                 cell.clickOnCloseBtn = {
                     print("Click on close button.")
@@ -165,7 +165,7 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
         headerTitle.font = UIFont(name: "Poppins-SemiBold", size: 14)
         headerView.addSubview(headerTitle)
         
-        if self.txtSearchField.text != "" {
+        if self.txtSearchField.text == "" {
             let buttonClr = UIButton(frame: CGRect(x: ScreenSize.width - 110, y: headerView.frame.origin.y + 5, w: 100, h: 30))
             buttonClr.backgroundColor = .clear
             buttonClr.titleLabel?.font = UIFont(name: "Poppins-SemiBold", size: 14)

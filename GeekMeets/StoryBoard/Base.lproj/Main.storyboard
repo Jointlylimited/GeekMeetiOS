@@ -8,6 +8,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Poppins-Bold.ttf">
+            <string>Poppins-Bold</string>
+        </array>
         <array key="Poppins-Medium.ttf">
             <string>Poppins-Medium</string>
         </array>
@@ -765,8 +768,8 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_loginbg" translatesAutoresizingMaskIntoConstraints="NO" id="7kq-kf-8by">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon_login" translatesAutoresizingMaskIntoConstraints="NO" id="nm4-Bb-6HI">
-                                <rect key="frame" x="119" y="246.66666666666663" width="137" height="116"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="nm4-Bb-6HI">
+                                <rect key="frame" x="137.66666666666666" y="246.66666666666663" width="99.666666666666657" height="116"/>
                             </imageView>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gsa-m9-hAQ">
                                 <rect key="frame" x="60" y="485.66666666666669" width="255" height="44.000000000000057"/>
@@ -974,6 +977,12 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jointly" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h5K-EI-6C7">
+                                <rect key="frame" x="152.66666666666666" y="356" width="70" height="28"/>
+                                <fontDescription key="fontDescription" name="Poppins-Bold" family="Poppins" pointSize="24"/>
+                                <color key="textColor" red="0.99215686270000003" green="0.97254901959999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -996,16 +1005,18 @@
                             <constraint firstAttribute="trailing" secondItem="ueU-1C-4tf" secondAttribute="trailing" constant="20" id="NMQ-bx-Cbm"/>
                             <constraint firstItem="nm4-Bb-6HI" firstAttribute="centerY" secondItem="7kq-kf-8by" secondAttribute="centerY" multiplier="0.75" id="P4z-ZI-eM0"/>
                             <constraint firstItem="yHC-qn-ZSq" firstAttribute="leading" secondItem="iXb-34-KF4" secondAttribute="leading" constant="35" id="SPr-2R-Ifi"/>
-                            <constraint firstItem="nm4-Bb-6HI" firstAttribute="width" secondItem="7kq-kf-8by" secondAttribute="width" multiplier="0.365333" id="WJm-D2-bwa"/>
+                            <constraint firstItem="nm4-Bb-6HI" firstAttribute="width" secondItem="7kq-kf-8by" secondAttribute="width" multiplier="0.265333" id="WJm-D2-bwa"/>
                             <constraint firstItem="gsa-m9-hAQ" firstAttribute="centerY" secondItem="iXb-34-KF4" secondAttribute="centerY" multiplier="1.25" id="bMd-iU-hYc"/>
                             <constraint firstItem="jS8-uU-WaF" firstAttribute="centerY" secondItem="iXb-34-KF4" secondAttribute="centerY" multiplier="1.37" id="fmy-vR-yIo"/>
                             <constraint firstItem="eaV-Xh-Akv" firstAttribute="centerY" secondItem="iXb-34-KF4" secondAttribute="centerY" multiplier="1.67" id="iAQ-p7-hfm"/>
+                            <constraint firstItem="h5K-EI-6C7" firstAttribute="centerX" secondItem="nm4-Bb-6HI" secondAttribute="centerX" id="iKa-TU-qIX"/>
                             <constraint firstAttribute="trailing" secondItem="gsa-m9-hAQ" secondAttribute="trailing" constant="60" id="jTI-dZ-xNr"/>
                             <constraint firstItem="7kq-kf-8by" firstAttribute="leading" secondItem="iXb-34-KF4" secondAttribute="leading" id="kQI-F9-pHB"/>
                             <constraint firstItem="jS8-uU-WaF" firstAttribute="centerX" secondItem="gsa-m9-hAQ" secondAttribute="centerX" id="ljC-sD-E3v"/>
                             <constraint firstItem="cLO-bq-X20" firstAttribute="centerX" secondItem="7kq-kf-8by" secondAttribute="centerX" multiplier="0.85" id="mOF-D8-XfS"/>
                             <constraint firstItem="eaV-Xh-Akv" firstAttribute="leading" secondItem="iXb-34-KF4" secondAttribute="leading" constant="20" id="mZo-NM-765"/>
                             <constraint firstItem="eaV-Xh-Akv" firstAttribute="height" secondItem="gsa-m9-hAQ" secondAttribute="height" id="sGa-eV-mO6"/>
+                            <constraint firstItem="h5K-EI-6C7" firstAttribute="top" secondItem="nm4-Bb-6HI" secondAttribute="bottom" constant="-6.6666666666666288" id="t0W-yC-HTl"/>
                             <constraint firstItem="yHC-qn-ZSq" firstAttribute="centerX" secondItem="nm4-Bb-6HI" secondAttribute="centerX" id="u3l-E5-qfz"/>
                             <constraint firstAttribute="bottom" secondItem="7kq-kf-8by" secondAttribute="bottom" id="wja-JF-6E8"/>
                             <constraint firstItem="gsa-m9-hAQ" firstAttribute="leading" secondItem="iXb-34-KF4" secondAttribute="leading" constant="60" id="xtH-Gb-8FX"/>
@@ -1357,7 +1368,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Icon_login" width="101.33333587646484" height="142.66667175292969"/>
         <image name="icn_Instagaram" width="17.333333969116211" height="17.333333969116211"/>
         <image name="icn_apple" width="15" height="17.333333969116211"/>
         <image name="icn_close_white" width="14" height="14"/>
@@ -1368,6 +1378,7 @@
         <image name="img_loginbg" width="375" height="812"/>
         <image name="img_loginlogo" width="112.66666412353516" height="116.33333587646484"/>
         <image name="img_logo_Medium" width="16" height="16"/>
+        <image name="logo" width="101.66666412353516" height="91.666664123535156"/>
         <image name="noun_Mail" width="20" height="15.333333015441895"/>
         <image name="user_profile" width="100" height="100"/>
     </resources>

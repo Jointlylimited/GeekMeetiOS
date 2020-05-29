@@ -40,6 +40,7 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
     var currentStatus : String = "1"
     var imgString : String = ""
     var tiAge : Int = 0
+    var imagePicker: UIImagePickerController!
     
     // MARK: DatePicker
     @IBOutlet weak var PickerView: UIView!
@@ -95,6 +96,12 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
             self.tfName.text = user?.vName
             self.tfDoB.text = user?.dDob
         }
+        
+        var components = DateComponents()
+        components.year = -18
+        
+        let minData = Calendar.current.date(byAdding: components, to: Date())
+        self.datePicker.minimumDate = minData
         self.datePicker.maximumDate = Date()
         scrollView.delegate = self
         self.navigationController?.isNavigationBarHidden = false
@@ -114,6 +121,9 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
         Getimage()
     }
     
+    @IBAction func btnSelectImageAction(_ sender: UIButton) {
+        Getimage()
+    }
     
     @IBAction func btnSelectGender(sender:UIButton){
         
@@ -154,7 +164,7 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
     
     @IBAction func actionContinue(_ sender: Any) {
         
-       let params = RequestParameter.sharedInstance().signUpParam(vEmail: signUpParams!["vEmail"]!, vPassword: signUpParams!["vPassword"]!, vConfirmPassword : signUpParams!["vConfirmPassword"]!, vCountryCode: signUpParams!["vCountryCode"]!, vPhone: signUpParams!["vPhone"]!, termsChecked : signUpParams!["termsChecked"]!, vProfileImage: self.imgString, vName: tfName.text ?? "", dDob: tfDoB.text?.inputDateStrToAPIDateStr(dateStr: tfDoB.text!) ?? "", tiAge: "\(tiAge)", tiGender: selectedGender, iCurrentStatus: currentStatus, txCompanyDetail: tfCompanyDetail.text ?? "", txAbout: tfAbout.text ?? "", photos: "", vTimeOffset: "", vTimeZone: "", vSocialId : signUpParams!["vSocialId"]!, fLatitude : signUpParams!["fLatitude"]!, fLongitude: signUpParams!["fLongitude"]!)
+       let params = RequestParameter.sharedInstance().signUpInfoParam(vProfileImage: self.imgString, vName: tfName.text ?? "", dDob: tfDoB.text?.inputDateStrToAPIDateStr(dateStr: tfDoB.text!) ?? "", tiAge: "\(tiAge)", tiGender: selectedGender, iCurrentStatus: currentStatus, txCompanyDetail: tfCompanyDetail.text ?? "", txAbout: tfAbout.text ?? "", photos: "")
         
         self.presenter?.callSignUpRequest(signUpParams: params,profileimg: imgprofile.image!)
     }
@@ -255,18 +265,30 @@ extension UserProfileViewController:  UINavigationControllerDelegate, UIImagePic
     }
 }
   func Getimage(){
-    let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
-           alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
-               self.openCamera()
-           }))
-
-           alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in
-               self.openGallery()
-           }))
-
-           alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
-
-           self.present(alert, animated: true, completion: nil)
+    
+    let camera = "Camera"
+           let photoGallery = "Gallery"
+           let cancel = "Cancel"
+           UIAlertController.showAlertWith(title: nil, message: nil, style: .actionSheet, buttons: [camera,photoGallery,cancel], controller: self) { (action) in
+               if action == camera {
+                   self.openCamera()
+               } else if action == photoGallery {
+                   self.openGallery()
+               }
+           }
+    
+//    let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
+//           alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
+//               self.openCamera()
+//           }))
+//
+//           alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in
+//               self.openGallery()
+//           }))
+//
+//           alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+//
+//           self.present(alert, animated: true, completion: nil)
     
   }
   
@@ -274,36 +296,64 @@ extension UserProfileViewController:  UINavigationControllerDelegate, UIImagePic
   
   func openCamera()
   {
-      if UIImagePickerController.isSourceTypeAvailable(.camera) {
-          let imagePicker = UIImagePickerController()
-          imagePicker.delegate = self
-          imagePicker.sourceType = UIImagePickerController.SourceType.camera
-          imagePicker.allowsEditing = false
-          self.present(imagePicker, animated: true, completion: nil)
-      }
-      else
-      {
-          let alert  = UIAlertController(title: "Warning", message: "You don't have camera", preferredStyle: .alert)
-          alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-          self.present(alert, animated: true, completion: nil)
-        
-      }
+    cameraAccess { [weak self] (status, isGrant) in
+        guard let `self` = self else {return}
+        if isGrant {
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
+                self.imagePicker = UIImagePickerController()
+                self.imagePicker.delegate = self
+                self.imagePicker.sourceType = UIImagePickerController.SourceType.camera;
+                self.imagePicker.allowsEditing = true
+                self.imagePicker.cameraCaptureMode = .photo
+                self.imagePicker.cameraDevice = .front
+                self.present(self.imagePicker, animated: true, completion: nil)
+            }
+        } else {
+            self.showAccessPopup(title: kCameraAccessTitle, msg: kCameraAccessMsg)
+        }
+    }
+//      if UIImagePickerController.isSourceTypeAvailable(.camera) {
+//          let imagePicker = UIImagePickerController()
+//          imagePicker.delegate = self
+//          imagePicker.sourceType = UIImagePickerController.SourceType.camera
+//          imagePicker.allowsEditing = false
+//          self.present(imagePicker, animated: true, completion: nil)
+//      }
+//      else
+//      {
+//          let alert  = UIAlertController(title: "Warning", message: "You don't have camera", preferredStyle: .alert)
+//          alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+//          self.present(alert, animated: true, completion: nil)
+//
+//      }
   }
   func openGallery()
   {
-      if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary){
-          let imagePicker = UIImagePickerController()
-          imagePicker.delegate = self
-          imagePicker.allowsEditing = false
-          imagePicker.sourceType = UIImagePickerController.SourceType.savedPhotosAlbum
-          self.present(imagePicker, animated: true, completion: nil)
-      }
-      else
-      {
-          let alert  = UIAlertController(title: "Warning", message: "You don't have permission to access gallery.", preferredStyle: .alert)
-          alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-          self.present(alert, animated: true, completion: nil)
-      }
+    photoLibraryAccess { [weak self] (status, isGrant) in
+        guard let `self` = self else {return}
+        if isGrant {
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
+                self.imagePicker = UIImagePickerController()
+                self.imagePicker.delegate = self
+                self.imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary;
+                self.imagePicker.allowsEditing = false
+                self.present(self.imagePicker, animated: true, completion: nil)
+            }
+        }
+    }
+//      if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary){
+//          let imagePicker = UIImagePickerController()
+//          imagePicker.delegate = self
+//          imagePicker.allowsEditing = false
+//          imagePicker.sourceType = UIImagePickerController.SourceType.savedPhotosAlbum
+//          self.present(imagePicker, animated: true, completion: nil)
+//      }
+//      else
+//      {
+//          let alert  = UIAlertController(title: "Warning", message: "You don't have permission to access gallery.", preferredStyle: .alert)
+//          alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+//          self.present(alert, animated: true, completion: nil)
+//      }
   }
 
 }

@@ -62,7 +62,7 @@ class NotificationListViewController: UIViewController, NotificationListProtocol
     }
 
     func registerTableViewCell(){
-        self.objNotificationModel = [SocialMediaLinkModel(image: #imageLiteral(resourceName: "icn_my_match"), title: "Match", link: "Test match user"), SocialMediaLinkModel(image: #imageLiteral(resourceName: "icn_manage_subscription"), title: "Notification", link: "Test notification"), SocialMediaLinkModel(image: #imageLiteral(resourceName: "icn_boosts_purple"), title: "Boost", link: "Test boost user")]
+        self.objNotificationModel = [SocialMediaLinkModel(image: #imageLiteral(resourceName: "match"), title: "Match", link: "Test match user"), SocialMediaLinkModel(image: #imageLiteral(resourceName: "noti_boosts"), title: "Notification", link: "Test notification"), SocialMediaLinkModel(image: #imageLiteral(resourceName: "noti_Subscription"), title: "Boost", link: "Test boost user")]
         self.tblNotificationList.register(UINib.init(nibName: Cells.NotificationListCell, bundle: Bundle.main), forCellReuseIdentifier: Cells.NotificationListCell)
     }
     
@@ -101,6 +101,6 @@ extension NotificationListViewController : UITableViewDataSource, UITableViewDel
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100 //UITableView.automaticDimension
+        return 80 //UITableView.automaticDimension
     }
 }

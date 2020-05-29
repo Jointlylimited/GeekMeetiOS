@@ -37,7 +37,7 @@ enum ProfileListCells {
         switch self {
             
         case .AboutCell(let desc):
-            return desc.heightWithConstrainedWidth(width: 400 * _widthRatio,font: fontPoppins(fontType: .Poppins_Medium, fontSize: .sizeNormalTextField)) + 120
+            return desc.heightWithConstrainedWidth(width: 400 * _widthRatio,font: fontPoppins(fontType: .Poppins_Medium, fontSize: .sizeNormalTextField)) + 50
         case .CompanyCell, .SocialCell:
             return UITableView.automaticDimension
         case .InterestCell(let collapsed):

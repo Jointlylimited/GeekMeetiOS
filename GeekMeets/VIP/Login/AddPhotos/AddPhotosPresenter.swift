@@ -28,18 +28,10 @@ class AddPhotosPresenter: AddPhotosPresentationProtocol {
             self.viewController?.displayAlert(strTitle: "", strMessage: kAddPhotos)
             return
         } else {
-            if signParams["vSocialId"]! != "" && signParams["vSocialId"]! == "1" {
-                if images.count > 0 {
-                    self.interactor?.uploadImgToS3(with: signParams, images: images)
-                } else {
-                    self.interactor?.callSocialSignUpAPI(signParams : signParams)
-                }
+            if images.count > 0 {
+                self.interactor?.uploadImgToS3(with: signParams, images: images)
             } else {
-                if images.count > 0 {
-                    self.interactor?.uploadImgToS3(with: signParams, images: images)
-                } else {
-                    self.interactor?.callUserSignUpAPI(signParams : signParams)
-                }
+                self.interactor?.callSignUpInfoAPI(signParams : signParams)
             }
         }
     }

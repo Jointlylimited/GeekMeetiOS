@@ -150,7 +150,7 @@ extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
         headerView.backgroundColor = .white
         
         let headerTitle = UILabel()
-        headerTitle.frame = CGRect(x: 20, y: headerView.frame.origin.y + 10, w: ScreenSize.width - 60, h: 30)
+        headerTitle.frame = CGRect(x: 20, y: headerView.frame.origin.y + headerView.frame.height/2, w: ScreenSize.width - 60, h: 30)
         headerTitle.text = "Chats"
         headerTitle.textColor = .black
         headerTitle.font = UIFont(name: "Poppins-SemiBold", size: 14)

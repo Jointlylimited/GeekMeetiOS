@@ -18,11 +18,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="Q87-Q8-bh2" customClass="CustomAlertView" customModule="GeekMeets" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="Q87-Q8-bh2" customClass="CustomAlertView" customModule="Jointly" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wiE-Zr-9Mk" customClass="VDTouch" customModule="GeekMeets" customModuleProvider="target">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wiE-Zr-9Mk" customClass="VDTouch" customModule="Jointly" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                 </view>
@@ -48,23 +48,37 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="VGF-op-0dD">
-                            <rect key="frame" x="12" y="144" width="351" height="50"/>
+                            <rect key="frame" x="20" y="144" width="334" height="50"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ESp-b8-GUs">
-                                    <rect key="frame" x="0.0" y="0.0" width="168" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="159.5" height="50"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lQ0-7u-isV">
-                                            <rect key="frame" x="0.0" y="0.0" width="168" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="159.5" height="50"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
                                             <state key="normal" title="Cancel">
                                                 <color key="titleColor" red="0.70980392160000005" green="0.32549019610000002" blue="0.89411764709999997" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                                    <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                                    <size key="value" width="1" height="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                                    <real key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                    <real key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                             <connections>
                                                 <action selector="btnCancelAction:" destination="Q87-Q8-bh2" eventType="touchUpInside" id="kcn-WT-rs7"/>
                                             </connections>
                                         </button>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="lQ0-7u-isV" secondAttribute="bottom" id="OIz-9h-UQW"/>
                                         <constraint firstItem="lQ0-7u-isV" firstAttribute="leading" secondItem="ESp-b8-GUs" secondAttribute="leading" id="ip0-zH-CNe"/>
@@ -72,25 +86,25 @@
                                         <constraint firstAttribute="trailing" secondItem="lQ0-7u-isV" secondAttribute="trailing" id="uoj-q8-dMT"/>
                                     </constraints>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                            <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
-                                            <size key="value" width="1" height="1"/>
+                                            <size key="value" width="0.0" height="0.0"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                            <real key="value" value="1"/>
+                                            <real key="value" value="0.0"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                            <real key="value" value="1"/>
+                                            <real key="value" value="0.0"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="0.0"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9s1-CI-8fC">
-                                    <rect key="frame" x="183" y="0.0" width="168" height="50"/>
+                                    <rect key="frame" x="174.5" y="0.0" width="159.5" height="50"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hZN-8j-ZuP" customClass="GradientButton" customModule="GeekMeets" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="168" height="50"/>
+                                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hZN-8j-ZuP" customClass="GradientButton" customModule="Jointly" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="159.5" height="50"/>
                                             <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
                                             <state key="normal" title="Block">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -106,13 +120,15 @@
                                                     <color key="value" red="0.70980392160000005" green="0.32549019610000002" blue="0.89411764709999997" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </userDefinedRuntimeAttribute>
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="isHorizontal" value="YES"/>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="radius">
+                                                    <real key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
                                                 <action selector="btnOkAction:" destination="Q87-Q8-bh2" eventType="touchUpInside" id="Px8-bD-mPG"/>
                                             </connections>
                                         </button>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="hZN-8j-ZuP" firstAttribute="leading" secondItem="9s1-CI-8fC" secondAttribute="leading" id="Jjk-6P-KKk"/>
                                         <constraint firstAttribute="bottom" secondItem="hZN-8j-ZuP" secondAttribute="bottom" id="Pmn-gO-l69"/>
@@ -120,17 +136,14 @@
                                         <constraint firstAttribute="trailing" secondItem="hZN-8j-ZuP" secondAttribute="trailing" id="sH2-BO-xm3"/>
                                     </constraints>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                            <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
-                                            <size key="value" width="1" height="1"/>
+                                            <size key="value" width="0.0" height="0.0"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                            <real key="value" value="1"/>
+                                            <real key="value" value="0.0"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                            <real key="value" value="1"/>
+                                            <real key="value" value="0.0"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </view>
@@ -140,9 +153,9 @@
                             </constraints>
                         </stackView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fk1-hC-3VO">
-                            <rect key="frame" x="102.5" y="144" width="170" height="50"/>
+                            <rect key="frame" x="102" y="144" width="170" height="50"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XdS-jF-D2H" customClass="GradientButton" customModule="GeekMeets" customModuleProvider="target">
+                                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XdS-jF-D2H" customClass="GradientButton" customModule="Jointly" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="170" height="50"/>
                                     <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
                                     <state key="normal" title="Ok">
@@ -159,6 +172,9 @@
                                             <color key="value" red="0.70980392160000005" green="0.32549019610000002" blue="0.89411764709999997" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="boolean" keyPath="isHorizontal" value="YES"/>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="radius">
+                                            <real key="value" value="10"/>
+                                        </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="btnCentreAction:" destination="Q87-Q8-bh2" eventType="touchUpInside" id="pOy-6O-nZD"/>
@@ -166,7 +182,6 @@
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="XdS-jF-D2H" firstAttribute="top" secondItem="Fk1-hC-3VO" secondAttribute="top" id="Lc9-MR-Y59"/>
                                 <constraint firstAttribute="trailing" secondItem="XdS-jF-D2H" secondAttribute="trailing" id="UbK-JX-XPo"/>
@@ -175,17 +190,14 @@
                                 <constraint firstAttribute="bottom" secondItem="XdS-jF-D2H" secondAttribute="bottom" id="rlJ-SI-4WD"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                    <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
-                                    <size key="value" width="1" height="1"/>
+                                    <size key="value" width="0.0" height="0.0"/>
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                    <real key="value" value="1"/>
+                                    <real key="value" value="0.0"/>
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                    <real key="value" value="1"/>
+                                    <real key="value" value="0.0"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
@@ -200,10 +212,10 @@
                         <constraint firstAttribute="trailing" secondItem="JOO-Ln-yug" secondAttribute="trailing" constant="20" id="PGD-mz-ajY"/>
                         <constraint firstItem="Fk1-hC-3VO" firstAttribute="bottom" secondItem="VGF-op-0dD" secondAttribute="bottom" id="SpU-sv-wPx"/>
                         <constraint firstItem="yyf-B0-ccq" firstAttribute="trailing" secondItem="JOO-Ln-yug" secondAttribute="trailing" id="UGa-Ag-f7X"/>
-                        <constraint firstItem="VGF-op-0dD" firstAttribute="leading" secondItem="kb6-ru-MZC" secondAttribute="leading" constant="12" id="YG8-95-UEa"/>
+                        <constraint firstItem="VGF-op-0dD" firstAttribute="leading" secondItem="kb6-ru-MZC" secondAttribute="leading" constant="20" id="YG8-95-UEa"/>
                         <constraint firstItem="JOO-Ln-yug" firstAttribute="top" secondItem="kb6-ru-MZC" secondAttribute="top" constant="43" id="YMR-fe-y2Y"/>
                         <constraint firstItem="JOO-Ln-yug" firstAttribute="leading" secondItem="kb6-ru-MZC" secondAttribute="leading" constant="20" id="cdw-Do-nhd"/>
-                        <constraint firstAttribute="trailing" secondItem="VGF-op-0dD" secondAttribute="trailing" constant="11" id="gzz-Pa-AaT"/>
+                        <constraint firstAttribute="trailing" secondItem="VGF-op-0dD" secondAttribute="trailing" constant="20" id="gzz-Pa-AaT"/>
                         <constraint firstItem="Fk1-hC-3VO" firstAttribute="centerX" secondItem="VGF-op-0dD" secondAttribute="centerX" id="vne-60-LjS"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>

@@ -15,6 +15,12 @@ import UIKit
 protocol MatchProfilePresentationProtocol {
     func gotoMatchVC()
     func gotoReportVC()
+    
+    func callBlockUserAPI(iBlockTo: String, tiIsBlocked: String)
+    func getBlockUserResponse(response : CommonResponse)
+    
+    func callBlockUserListAPI()
+    func getBlockUserListResponse(response : BlockUser)
 }
 
 class MatchProfilePresenter: MatchProfilePresentationProtocol {
@@ -22,6 +28,22 @@ class MatchProfilePresenter: MatchProfilePresentationProtocol {
     var interactor: MatchProfileInteractorProtocol?
     
     // MARK: Present something
+    func callBlockUserAPI(iBlockTo: String, tiIsBlocked: String){
+        self.interactor?.callBlockUserAPI(iBlockTo: iBlockTo, tiIsBlocked: tiIsBlocked)
+    }
+    
+    func getBlockUserResponse(response : CommonResponse){
+        self.viewController?.getBlockUserResponse(response : response)
+    }
+    
+    func callBlockUserListAPI(){
+        self.interactor?.callBlockUserListAPI()
+    }
+    
+    func getBlockUserListResponse(response : BlockUser){
+        self.viewController?.getBlockUserListResponse(response : response)
+    }
+    
     func gotoMatchVC() {
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchScreen)
         controller.modalTransitionStyle = .crossDissolve

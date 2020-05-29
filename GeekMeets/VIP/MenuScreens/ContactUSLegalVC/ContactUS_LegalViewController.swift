@@ -83,7 +83,7 @@ class ContactUS_LegalViewController: UIViewController, ContactUS_LegalProtocol {
             self.tblContactList.alpha = 0.0
             self.tblLegalList.alpha = 1.0
         } else {
-            self.lblViewTitle.text = "Contact US"
+            self.lblViewTitle.text = "Contact Us"
             self.setContactUsData()
             self.tblContactList.alpha = 1.0
             self.tblLegalList.alpha = 0.0

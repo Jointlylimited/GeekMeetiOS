@@ -132,7 +132,7 @@ class MenuViewController: UIViewController, MenuProtocol {
        
     @objc func updateTimer() {
 //        print(self.totalTime)
-        self.lblRemainTime.text = self.timeFormatted(self.totalTime) // will show timer
+        self.lblRemainTime.text = "\(self.timeFormatted(self.totalTime)) Remaining" // will show timer
         if totalTime != 0 {
             totalTime -= 1
         } else {
@@ -259,7 +259,7 @@ extension MenuViewController {
         }
     }
     func showAlertView() {
-        alertView = CustomAlertView.initAlertView(title: "Are you sure you want to Logout?", message: "", btnRightStr: "Logout", btnCancelStr: "Cancel", btnCenter: "", isSingleButton: false)
+        alertView = CustomAlertView.initAlertView(title: "Logout", message: "Are you sure you want to Logout?", btnRightStr: "Logout", btnCancelStr: "Cancel", btnCenter: "", isSingleButton: false)
         alertView.delegate = self
         alertView.frame = self.view.frame
         AppDelObj.window?.addSubview(alertView)

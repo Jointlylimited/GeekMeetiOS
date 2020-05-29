@@ -28,19 +28,16 @@ class SignUpVCPresenter: SignUpVCPresentationProtocol {
     func callSignUpRequest(signUpParams : Dictionary<String, String>){
         if validateSignUpParams(param: signUpParams) {
             self.signUpParams = signUpParams
-            if signUpParams["vSocialId"]! == "" || signUpParams["vSocialId"]! == "0" {
-                if UserDataModel.currentUser?.iUserId != nil {
+                if UserDataModel.currentUser?.iUserId != nil && UserDataModel.currentUser?.iUserId != 0 {
                     self.goToOTPScreen()
                 } else {
                     self.interactor?.callEmailAvailabilityAPI(email : signUpParams["vEmail"]!)
                 }
-            } else {
-                self.interactor?.callEmailAvailabilityAPI(email : signUpParams["vEmail"]!)
-            }
         }
     }
     
     func validateSignUpParams(param : Dictionary<String, String>) -> Bool {
+        let socialId = String(describing: param["vSocialId"]!)
         let Password = String(describing: param["vPassword"]!)
         let ConfirmPassword = String(describing: param["vConfirmPassword"]!)
         if String(describing: param["vEmail"]!).isEmpty {
@@ -51,27 +48,28 @@ class SignUpVCPresenter: SignUpVCPresentationProtocol {
             return false
         }
         
-        if String(describing: param["vPassword"]!).isEmpty {
-            self.viewController?.displayAlert(strTitle: "", strMessage: kEnterPassword)
-            return false
-        } else if !Password.isPassword  {
-            self.viewController?.displayAlert(strTitle: "", strMessage: kPasswordWeak)
-            return false
+        if socialId == "" {
+            if String(describing: param["vPassword"]!).isEmpty {
+                self.viewController?.displayAlert(strTitle: "", strMessage: kEnterPassword)
+                return false
+            } else if !Password.isPassword  {
+                self.viewController?.displayAlert(strTitle: "", strMessage: kPasswordWeak)
+                return false
+            }
+            
+            if String(describing: param["vConfirmPassword"]!).isEmpty {
+                self.viewController?.displayAlert(strTitle: "", strMessage: kEnterConfirmPassword)
+                return false
+            } else if !ConfirmPassword.isPassword {
+                self.viewController?.displayAlert(strTitle: "", strMessage: kConfirmPasswordWeak)
+                return false
+            }
+            
+            if param["vPassword"] as! String != param["vConfirmPassword"] as! String {
+                self.viewController?.displayAlert(strTitle: "", strMessage: kPasswordNotMatch)
+                return false
+            }
         }
-        
-        if String(describing: param["vConfirmPassword"]!).isEmpty {
-            self.viewController?.displayAlert(strTitle: "", strMessage: kEnterConfirmPassword)
-            return false
-        } else if !ConfirmPassword.isPassword {
-            self.viewController?.displayAlert(strTitle: "", strMessage: kConfirmPasswordWeak)
-            return false
-        }
-        
-        if param["vPassword"] as! String != param["vConfirmPassword"] as! String {
-            self.viewController?.displayAlert(strTitle: "", strMessage: kPasswordNotMatch)
-            return false
-        }
-        
         if String(describing: param["vCountryCode"]!).isEmpty {
             self.viewController?.displayAlert(strTitle: "", strMessage: kSelectCountryCode)
             return false
@@ -101,16 +99,16 @@ class SignUpVCPresenter: SignUpVCPresentationProtocol {
     }
     
     func actionContinue(signUpParams : Dictionary<String, String>) {
-        if signUpParams["vSocialId"]! == "" {
+//        if signUpParams["vSocialId"]! == "" {
             self.interactor?.callNormalSignupAPI(params : signUpParams)
-        } else {
-            let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.UserProfile) as! UserProfileViewController
-            controller.signUpParams = signUpParams
-            if let view = self.viewController as? UIViewController
-            {
-                view.pushVC(controller)
-            }
-        }
+//        } else {
+//            let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.UserProfile) as! UserProfileViewController
+//            controller.signUpParams = signUpParams
+//            if let view = self.viewController as? UIViewController
+//            {
+//                view.pushVC(controller)
+//            }
+//        }
     }
     
     func getNormalSignupResponse(response : UserAuthResponse) {

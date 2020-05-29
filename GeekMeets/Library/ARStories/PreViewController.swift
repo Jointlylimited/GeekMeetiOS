@@ -21,6 +21,7 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
     @IBOutlet weak var btnOption: UIButton!
     @IBOutlet weak var lblViews: UILabel!
     @IBOutlet weak var btnView: UIButton!
+    @IBOutlet weak var btnDelete: UIButton!
     
     var pageIndex : Int = 0
     var items: [UserDetail] = []
@@ -36,15 +37,17 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
         if isFromMatchVC {
             self.userProfileImage.alpha = 0
             self.lblUserName.alpha = 0
-            self.btnOption.alpha = 0
+            self.btnOption.alpha = 1
             self.lblViews.alpha = 0
             self.btnView.alpha = 0
+            self.btnDelete.setTitle("Report User", for: .normal)
         } else {
             self.userProfileImage.alpha = 1
             self.lblUserName.alpha = 1
             self.btnOption.alpha = 1
             self.lblViews.alpha = 1
             self.btnView.alpha = 1
+            self.btnDelete.setTitle("Delete", for: .normal)
         }
         userProfileImage.layer.cornerRadius = self.userProfileImage.frame.size.height / 2;
         userProfileImage.imageFromServerURL(items[pageIndex].imageUrl)
@@ -200,7 +203,12 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
         }
     }
     @IBAction func btnDeleteAction(_ sender: UIButton) {
-        
+        if isFromMatchVC {
+            let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.ReportScreen)
+            self.presentVC(controller)
+        } else {
+            
+        }
     }
     @IBAction func btnViewStoryAction(_ sender: UIButton) {
         

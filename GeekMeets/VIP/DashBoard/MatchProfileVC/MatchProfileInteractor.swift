@@ -13,7 +13,8 @@
 import UIKit
 
 protocol MatchProfileInteractorProtocol {
-    func doSomething()
+    func callBlockUserAPI(iBlockTo: String, tiIsBlocked: String)
+    func callBlockUserListAPI()
 }
 
 protocol MatchProfileDataStore {
@@ -25,7 +26,43 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
     //var name: String = ""
     
     // MARK: Do something
-    func doSomething() {
-        
+    func callBlockUserAPI(iBlockTo: String, tiIsBlocked: String) {
+        LoaderView.sharedInstance.showLoader()
+        UserAPI.blockUsers(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iBlockTo: iBlockTo, tiIsBlocked: tiIsBlocked) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getBlockUserResponse(response: response!)
+            } else if response?.responseCode == 400 {
+                self.presenter?.getBlockUserResponse(response: response!)
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getBlockUserResponse(response: response!)
+                }
+            }
+            
+        }
+    }
+    
+    func callBlockUserListAPI(){
+        LoaderView.sharedInstance.showLoader()
+        UserAPI.blockList(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getBlockUserListResponse(response: response!)
+            } else if response?.responseCode == 400 {
+                self.presenter?.getBlockUserListResponse(response: response!)
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getBlockUserListResponse(response: response!)
+                }
+            }
+            
+        }
     }
 }

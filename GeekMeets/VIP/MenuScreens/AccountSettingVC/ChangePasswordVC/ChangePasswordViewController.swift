@@ -100,7 +100,7 @@ class ChangePasswordViewController: UIViewController, ChangePasswordProtocol {
     
     func getChangePasswordResponse(response : CommonResponse) {
         if response.responseCode == 200 {
-            self.popVC()
+            AppSingleton.sharedInstance().logout()
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }
     }

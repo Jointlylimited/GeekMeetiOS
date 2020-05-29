@@ -87,10 +87,14 @@ class MatchViewController: UIViewController, MatchProtocol {
         self.dismissVC(completion: nil)
     }
     @IBAction func btnSendMsgAction(_ sender: UIButton) {
-//        let tabVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.TabbarScreen) as! TabbarViewController
-//        tabVC.modalTransitionStyle = .crossDissolve
-//        tabVC.modalPresentationStyle = .overCurrentContext
-//        tabVC.isFromMatch = true
-//        self.presentVC(tabVC)
+        //        let tabVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.TabbarScreen) as! TabbarViewController
+        //        tabVC.modalTransitionStyle = .crossDissolve
+        //        tabVC.modalPresentationStyle = .overCurrentContext
+        //        tabVC.isFromMatch = true
+        //        self.presentVC(tabVC)
+        
+        let tabVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.TabbarScreen) as! TabbarViewController
+        tabVC.isFromMatch = true
+        self.pushVC(tabVC)
     }
 }

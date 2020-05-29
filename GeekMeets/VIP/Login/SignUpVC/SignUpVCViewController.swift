@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 protocol SignUpVCProtocol: class {
     func displayAlert(strTitle : String, strMessage : String)
@@ -32,6 +33,7 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
     var termsChecked : String = "0"
     var authResponse : UserAuthResponseField!
     var socialType : Bool = false
+    var location:CLLocation?
     
     // MARK: Object lifecycle
     
@@ -85,12 +87,19 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         self.navigationItem.leftBarButtonItem = leftSideBackBarButton
         self.navigationController?.navigationBar.barTintColor = UIColor.white
+        self.getUserCurrentLocation()
         
         if UserDataModel.currentUser != nil {
             let user = UserDataModel.currentUser
             self.tfEmailAddress.text = user?.vEmail
             self.btnCountrycode.titleLabel?.text = user?.vCountryCode
             self.tfMobileNumber.text = user?.vPhone
+            
+            self.tfPassword.isUserInteractionEnabled = false
+            self.tfConfirmPassword.isUserInteractionEnabled = false
+            
+            self.tfPassword.placeholder = "Password needed"
+            self.tfConfirmPassword.placeholder = "Confirm Password not needed"
         }
     }
     
@@ -107,7 +116,7 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
     }
     @IBAction func actionContinue(_ sender: Any) {
         
-        let params = RequestParameter.sharedInstance().signUpParam(vEmail: tfEmailAddress.text ?? "", vPassword: tfPassword?.text ?? "", vConfirmPassword : tfConfirmPassword.text ?? "", vCountryCode: btnCountrycode.titleLabel?.text ?? "", vPhone: tfMobileNumber.text ?? "", termsChecked : termsChecked, vProfileImage: "", vName: "", dDob: "", tiAge: "", tiGender: "", iCurrentStatus: "", txCompanyDetail: "", txAbout: "", photos: "", vTimeOffset: "", vTimeZone: "", vSocialId : (UserDataModel.currentUser == nil || UserDataModel.currentUser?.tiIsSocialLogin == nil) ? "" : (UserDataModel.currentUser?.vSocialId!)!, fLatitude : "0.0", fLongitude: "0.0")
+        let params = RequestParameter.sharedInstance().signUpParam(vEmail: tfEmailAddress.text ?? "", vPassword: tfPassword?.text ?? "", vConfirmPassword : tfConfirmPassword.text ?? "", vCountryCode: btnCountrycode.titleLabel?.text ?? "", vPhone: tfMobileNumber.text ?? "", termsChecked : termsChecked, vSocialId : (UserDataModel.currentUser == nil || UserDataModel.currentUser?.tiIsSocialLogin == nil) ? "" : (UserDataModel.currentUser?.vSocialId!)!, fLatitude : self.location != nil ? "\(self.location?.coordinate.latitude ?? 0.0)" : "0.0", fLongitude: self.location != nil ? "\(self.location?.coordinate.longitude ?? 0.0)" : "0.0", tiIsSocialLogin : (UserDataModel.currentUser == nil || UserDataModel.currentUser?.tiIsSocialLogin == nil) ? "0" : "1")
         
         self.presenter?.callSignUpRequest(signUpParams: params)
     }
@@ -132,5 +141,65 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
     {
         sender.isSelected = !sender.isSelected
         self.termsChecked = sender.isSelected == true ? "1" : "0"
+    }
+    
+    func getUserCurrentLocation() {
+    //          LoaderView.sharedInstance.showLoader()
+              LocationManager.sharedInstance.getLocation { (currLocation, error) in
+                  if error != nil {
+    //                  LoaderView.sharedInstance.hideLoader()
+                      print(error?.localizedDescription ?? "")
+                      self.showAccessPopup(title: kLocationAccessTitle, msg: kLocationAccessMsg)
+                      return
+                  }
+                  guard let _ = currLocation else {
+                      return
+                  }
+                  if error == nil {
+    //                  LoaderView.sharedInstance.hideLoader()
+                      self.location = currLocation
+                    //UserDataModel.setUserLocation(location: self.location!)
+                  }
+              }
+          }
+}
+
+extension SignUpVCViewController : UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        textField.addTarget(self, action: #selector(textFieldDidChange(textField:)), for: .editingChanged)
+        if textField == self.tfPassword {
+            if (textField.text?.count)! <= 20 {
+                return true
+            }
+        }
+        if textField == self.tfConfirmPassword {
+            if (textField.text?.count)! <= 20 {
+                return true
+            }
+        }
+        return true
+    }
+    
+    @objc func textFieldDidChange(textField : UITextField){
+        
+        if textField == self.tfPassword {
+            if (textField.text?.count)! <= 20 {
+                textField.isUserInteractionEnabled = true
+            } else {
+                textField.resignFirstResponder()
+            }
+        }
+        if textField == self.tfConfirmPassword {
+            if (textField.text?.count)! <= 20 {
+                textField.isUserInteractionEnabled = true
+            } else {
+                textField.resignFirstResponder()
+            }
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

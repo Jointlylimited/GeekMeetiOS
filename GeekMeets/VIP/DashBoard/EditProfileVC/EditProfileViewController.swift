@@ -209,7 +209,12 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
         SDImageCache.shared.clearMemory()
         SDImageCache.shared.clearDisk()
         
+        var components = DateComponents()
+        components.year = -18
+        let minData = Calendar.current.date(byAdding: components, to: Date())
+        self.datePicker.minimumDate = minData
         self.datePicker.maximumDate = Date()
+        
         self.lblUserNameAge.text = "\(UserDataModel.currentUser?.vName ?? ""), \(UserDataModel.currentUser?.tiAge ?? 0)"
         
         if self.userProfileModel == nil {
@@ -440,7 +445,7 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
         headerView.backgroundColor = AppCommonColor.headerColor
         
         let headerTitle = UILabel()
-        headerTitle.frame = CGRect(x: 20, y: headerView.frame.origin.y + 10, w: ScreenSize.width - 60, h: 30)
+        headerTitle.frame = CGRect(x: 20, y: headerView.frame.origin.y + headerView.frame.height/2, w: ScreenSize.width - 60, h: 45)
         headerTitle.text = objEditProfileData.cells[section].sectionTitle
         headerTitle.lineBreakMode = .byWordWrapping
         headerTitle.textColor = .black
@@ -448,7 +453,7 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
         headerView.addSubview(headerTitle)
         
         if objEditProfileData.cells[section].isHeaderAvailable {
-            let buttonClr = UIButton(frame: CGRect(x: ScreenSize.width - 100, y: headerView.frame.origin.y + 10, w: 100, h: 30))
+            let buttonClr = UIButton(frame: CGRect(x: ScreenSize.width - 100, y: headerView.frame.origin.y + headerView.frame.height/2, w: 100, h: 45))
             buttonClr.backgroundColor = .clear
             buttonClr.underlineButton(text: "Change", font: UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 12)!, color: #colorLiteral(red: 0.5294117647, green: 0.1803921569, blue: 0.7647058824, alpha: 1))
             buttonClr.tag = section
@@ -552,7 +557,8 @@ extension EditProfileViewController : UITextFieldDelegate {
             if (textField.text?.count)! <= 300 {
                 textField.isUserInteractionEnabled = true
             } else {
-                textField.isUserInteractionEnabled = false
+                textField.resignFirstResponder()
+//                textField.isUserInteractionEnabled = false
             }
         } else {
             

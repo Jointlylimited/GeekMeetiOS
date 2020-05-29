@@ -25,6 +25,8 @@ struct MatchProfileData {
   }
 }
 protocol MatchProfileProtocol: class {
+    func getBlockUserResponse(response : CommonResponse)
+    func getBlockUserListResponse(response : BlockUser)
 }
 
 class MatchProfileViewController: UIViewController, MatchProfileProtocol {
@@ -134,10 +136,27 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
         self.presenter?.gotoReportVC()
     }
     @IBAction func btnBlockAction(_ sender: UIButton) {
-        self.showPickImageView()//  self.showAlertView()
+         self.showAlertView() //self.showPickImageView()//  self.showAlertView()
     }
 }
 
+extension MatchProfileViewController {
+    func callBlockUserAPI(){
+        self.presenter?.callBlockUserAPI(iBlockTo: "53", tiIsBlocked: "1")
+    }
+    
+    func getBlockUserResponse(response : CommonResponse){
+        if response.responseCode == 200 {
+            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        }
+    }
+    
+    func getBlockUserListResponse(response : BlockUser){
+        if response.responseCode == 200 {
+            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        }
+    }
+}
 extension MatchProfileViewController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.objProfileData.cells.count
@@ -274,10 +293,12 @@ extension MatchProfileViewController {
 extension MatchProfileViewController : AlertViewDelegate {
     func OkButtonAction() {
         alertView.removeFromSuperview()
+        self.callBlockUserAPI()
     }
     
     func cancelButtonAction() {
         alertView.removeFromSuperview()
+//        self.presenter?.callBlockUserListAPI()
     }
 }
 
