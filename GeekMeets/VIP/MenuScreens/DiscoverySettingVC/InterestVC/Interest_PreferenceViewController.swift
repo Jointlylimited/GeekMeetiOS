@@ -92,7 +92,11 @@ class Interest_PreferenceViewController: UIViewController, Interest_PreferencePr
             var textOption = ""
             if data.iPreferenceId == 5 || data.iPreferenceId == 6 {
                 for optionAns in data.preferenceAnswer! {
-                    textOption = textOption == "" ? optionAns.fAnswer! : "\(textOption)-\(optionAns.fAnswer!)"
+                    if data.iPreferenceId == 5 {
+                        textOption = optionAns.fAnswer!
+                    } else {
+                        textOption = textOption == "" ? optionAns.fAnswer! : "\(textOption)-\(optionAns.fAnswer!)"
+                    }
                 }
                 DesDetails.append(textOption)
             } else {

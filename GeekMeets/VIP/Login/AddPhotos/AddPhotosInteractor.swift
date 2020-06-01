@@ -94,11 +94,11 @@ class AddPhotosInteractor: AddPhotosInteractorProtocol, AddPhotosDataStore {
         DispatchQueue.main.async {
             LoaderView.sharedInstance.showLoader()
         }
-        UserAPI.signUpInfo(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vName: signParams["vName"]!, dDob: signParams["dDob"]!, tiAge: signParams["tiAge"]!, tiGender: UserAPI.TiGender_signUpInfo(rawValue: signParams["tiGender"]!)!, iCurrentStatus: UserAPI.ICurrentStatus_signUpInfo(rawValue: signParams["iCurrentStatus"]!)!, txCompanyDetail: signParams["txCompanyDetail"]!, txAbout: signParams["txAbout"]!, photos: signParams["photos"]!, vProfileImage: signParams["vProfileImage"]!) { (response, error) in
+        UserAPI.signUpInfo(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iUserId: "\(UserDataModel.currentUser?.iUserId ?? 1)", vName: signParams["vName"]!, dDob: signParams["dDob"]!, tiAge: signParams["tiAge"]!, tiGender: UserAPI.TiGender_signUpInfo(rawValue: signParams["tiGender"]!)!, iCurrentStatus: UserAPI.ICurrentStatus_signUpInfo(rawValue: signParams["iCurrentStatus"]!)!, txCompanyDetail: signParams["txCompanyDetail"]!, txAbout: signParams["txAbout"]!, photos: signParams["photos"]!, vProfileImage: signParams["vProfileImage"]!) { (response, error) in
                
-            DispatchQueue.main.async {
+//            DispatchQueue.main.async {
                 LoaderView.sharedInstance.hideLoader()
-            }
+//            }
                if response?.responseCode == 200 {
                    self.presenter?.getSignUpResponse(response : response!)
                } else if response?.responseCode == 203 {

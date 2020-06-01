@@ -89,11 +89,11 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
         self.navigationController?.navigationBar.barTintColor = UIColor.white
         self.getUserCurrentLocation()
         
-        if UserDataModel.currentUser != nil {
-            let user = UserDataModel.currentUser
-            self.tfEmailAddress.text = user?.vEmail
-            self.btnCountrycode.titleLabel?.text = user?.vCountryCode
-            self.tfMobileNumber.text = user?.vPhone
+        if UserDataModel.currentUser != nil && UserDataModel.SignUpUserResponse != nil {
+            let user = UserDataModel.SignUpUserResponse
+            self.tfEmailAddress.text = user?.email
+            self.btnCountrycode.titleLabel?.text = "+1" //user?.vCountryCode
+            self.tfMobileNumber.text = user?.phone
             
             self.tfPassword.isUserInteractionEnabled = false
             self.tfConfirmPassword.isUserInteractionEnabled = false

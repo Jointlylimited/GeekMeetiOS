@@ -47,31 +47,28 @@
                             <color key="textColor" white="0.0" alpha="0.69935252569999995" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="VGF-op-0dD">
-                            <rect key="frame" x="20" y="144" width="334" height="50"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="VGF-op-0dD">
+                            <rect key="frame" x="30" y="144" width="314" height="50"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ESp-b8-GUs">
-                                    <rect key="frame" x="0.0" y="0.0" width="159.5" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="142" height="50"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lQ0-7u-isV">
-                                            <rect key="frame" x="0.0" y="0.0" width="159.5" height="50"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="142" height="50"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
                                             <state key="normal" title="Cancel">
                                                 <color key="titleColor" red="0.70980392160000005" green="0.32549019610000002" blue="0.89411764709999997" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
                                             <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                                    <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </userDefinedRuntimeAttribute>
                                                 <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
-                                                    <size key="value" width="1" height="1"/>
+                                                    <size key="value" width="0.0" height="0.0"/>
                                                 </userDefinedRuntimeAttribute>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                                    <real key="value" value="1"/>
+                                                    <real key="value" value="0.0"/>
                                                 </userDefinedRuntimeAttribute>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                                    <real key="value" value="1"/>
+                                                    <real key="value" value="0.0"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
@@ -79,6 +76,7 @@
                                             </connections>
                                         </button>
                                     </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="lQ0-7u-isV" secondAttribute="bottom" id="OIz-9h-UQW"/>
                                         <constraint firstItem="lQ0-7u-isV" firstAttribute="leading" secondItem="ESp-b8-GUs" secondAttribute="leading" id="ip0-zH-CNe"/>
@@ -95,16 +93,19 @@
                                         <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
                                             <real key="value" value="0.0"/>
                                         </userDefinedRuntimeAttribute>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                             <real key="value" value="0.0"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="10"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9s1-CI-8fC">
-                                    <rect key="frame" x="174.5" y="0.0" width="159.5" height="50"/>
+                                <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9s1-CI-8fC">
+                                    <rect key="frame" x="172" y="0.0" width="142" height="50"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hZN-8j-ZuP" customClass="GradientButton" customModule="Jointly" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="159.5" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="142" height="50"/>
                                             <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
                                             <state key="normal" title="Block">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -144,6 +145,9 @@
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
                                             <real key="value" value="0.0"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="10"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </view>
@@ -199,6 +203,9 @@
                                 <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
                                     <real key="value" value="0.0"/>
                                 </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="10"/>
+                                </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
                     </subviews>
@@ -212,10 +219,10 @@
                         <constraint firstAttribute="trailing" secondItem="JOO-Ln-yug" secondAttribute="trailing" constant="20" id="PGD-mz-ajY"/>
                         <constraint firstItem="Fk1-hC-3VO" firstAttribute="bottom" secondItem="VGF-op-0dD" secondAttribute="bottom" id="SpU-sv-wPx"/>
                         <constraint firstItem="yyf-B0-ccq" firstAttribute="trailing" secondItem="JOO-Ln-yug" secondAttribute="trailing" id="UGa-Ag-f7X"/>
-                        <constraint firstItem="VGF-op-0dD" firstAttribute="leading" secondItem="kb6-ru-MZC" secondAttribute="leading" constant="20" id="YG8-95-UEa"/>
+                        <constraint firstItem="VGF-op-0dD" firstAttribute="leading" secondItem="kb6-ru-MZC" secondAttribute="leading" constant="30" id="YG8-95-UEa"/>
                         <constraint firstItem="JOO-Ln-yug" firstAttribute="top" secondItem="kb6-ru-MZC" secondAttribute="top" constant="43" id="YMR-fe-y2Y"/>
                         <constraint firstItem="JOO-Ln-yug" firstAttribute="leading" secondItem="kb6-ru-MZC" secondAttribute="leading" constant="20" id="cdw-Do-nhd"/>
-                        <constraint firstAttribute="trailing" secondItem="VGF-op-0dD" secondAttribute="trailing" constant="20" id="gzz-Pa-AaT"/>
+                        <constraint firstAttribute="trailing" secondItem="VGF-op-0dD" secondAttribute="trailing" constant="30" id="gzz-Pa-AaT"/>
                         <constraint firstItem="Fk1-hC-3VO" firstAttribute="centerX" secondItem="VGF-op-0dD" secondAttribute="centerX" id="vne-60-LjS"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>

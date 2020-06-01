@@ -1136,19 +1136,18 @@ extension UIView {
             anchorCenterYToSuperview()
         }
         
-        func dropShadow() {
+        func dropShadow(view : UIView) {
                 
-                let shadowLayer = CAShapeLayer()
-                let size = CGSize(width: 10, height: 10)
-                let cgPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: [.topLeft, .topRight, .bottomLeft, .bottomRight], cornerRadii: size).cgPath //1
-                shadowLayer.path = cgPath //2
-                shadowLayer.fillColor = UIColor.white.cgColor //3
-                shadowLayer.shadowColor = UIColor.lightGray.cgColor //4
-                shadowLayer.shadowPath = cgPath
-                shadowLayer.shadowOffset = CGSize(width: 1, height: 1) //5
-                shadowLayer.shadowOpacity = 1
-                shadowLayer.shadowRadius = shadowRadius
-                self.layer.addSublayer(shadowLayer)
+                view.layer.cornerRadius = 10
+                view.clipsToBounds = true
+                view.layer.shadowPath =
+                      UIBezierPath(roundedRect: view.bounds,
+                      cornerRadius: view.layer.cornerRadius).cgPath
+            view.layer.shadowColor = view.tag == 1 ? #colorLiteral(red: 0.606272161, green: 0.2928337753, blue: 0.8085166812, alpha: 1) : UIColor.black.cgColor
+                view.layer.shadowOpacity = 0.3
+                view.layer.shadowOffset = CGSize(width: 2, height: 2)
+                view.layer.shadowRadius = 5
+                view.layer.masksToBounds = false
             }
     }
 #endif

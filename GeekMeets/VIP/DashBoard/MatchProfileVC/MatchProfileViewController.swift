@@ -136,7 +136,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
         self.presenter?.gotoReportVC()
     }
     @IBAction func btnBlockAction(_ sender: UIButton) {
-         self.showAlertView() //self.showPickImageView()//  self.showAlertView()
+         self.showAlertView() //self.showPickImageView()
     }
 }
 

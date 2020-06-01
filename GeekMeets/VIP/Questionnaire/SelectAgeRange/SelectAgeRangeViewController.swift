@@ -185,7 +185,7 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
                 self.index = index + 1
                 self.setPreferenceData(index: self.index)
             } else {
-                self.presenter?.actionContinue()
+                self.presenter?.callQuestionaryAPI()
             }
         } else {
             self.popVC()

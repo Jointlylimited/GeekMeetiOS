@@ -872,6 +872,7 @@ open class UserAPI {
      - parameter timestamp: (header)
      - parameter token: (header)
      - parameter authorization: (header)
+     - parameter iUserId: (form) User id
      - parameter vName: (form) Enter your Name
      - parameter dDob: (form) Enter your DOB
      - parameter tiAge: (form) Enter your age
@@ -883,8 +884,8 @@ open class UserAPI {
      - parameter vProfileImage: (form) Select profile image (optional, default to default.png)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func signUpInfo(nonce: String, timestamp: String, token: String, authorization: String, vName: String, dDob: String, tiAge: String, tiGender: TiGender_signUpInfo, iCurrentStatus: ICurrentStatus_signUpInfo, txCompanyDetail: String, txAbout: String, photos: String, vProfileImage: String? = nil, completion: @escaping ((_ data: UserAuthResponse?,_ error: Error?) -> Void)) {
-        signUpInfoWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, vName: vName, dDob: dDob, tiAge: tiAge, tiGender: tiGender, iCurrentStatus: iCurrentStatus, txCompanyDetail: txCompanyDetail, txAbout: txAbout, photos: photos, vProfileImage: vProfileImage).execute { (response, error) -> Void in
+    open class func signUpInfo(nonce: String, timestamp: String, token: String, authorization: String, iUserId: String, vName: String, dDob: String, tiAge: String, tiGender: TiGender_signUpInfo, iCurrentStatus: ICurrentStatus_signUpInfo, txCompanyDetail: String, txAbout: String, photos: String, vProfileImage: String? = nil, completion: @escaping ((_ data: UserAuthResponse?,_ error: Error?) -> Void)) {
+        signUpInfoWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, iUserId: iUserId, vName: vName, dDob: dDob, tiAge: tiAge, tiGender: tiGender, iCurrentStatus: iCurrentStatus, txCompanyDetail: txCompanyDetail, txAbout: txAbout, photos: photos, vProfileImage: vProfileImage).execute { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
@@ -899,6 +900,7 @@ open class UserAPI {
      - parameter timestamp: (header)
      - parameter token: (header)
      - parameter authorization: (header)
+     - parameter iUserId: (form) User id
      - parameter vName: (form) Enter your Name
      - parameter dDob: (form) Enter your DOB
      - parameter tiAge: (form) Enter your age
@@ -911,10 +913,11 @@ open class UserAPI {
 
      - returns: RequestBuilder<UserAuthResponse>
      */
-    open class func signUpInfoWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, vName: String, dDob: String, tiAge: String, tiGender: TiGender_signUpInfo, iCurrentStatus: ICurrentStatus_signUpInfo, txCompanyDetail: String, txAbout: String, photos: String, vProfileImage: String? = nil) -> RequestBuilder<UserAuthResponse> {
+    open class func signUpInfoWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, iUserId: String, vName: String, dDob: String, tiAge: String, tiGender: TiGender_signUpInfo, iCurrentStatus: ICurrentStatus_signUpInfo, txCompanyDetail: String, txAbout: String, photos: String, vProfileImage: String? = nil) -> RequestBuilder<UserAuthResponse> {
         let path = "/user/signup-info"
         let URLString = SwaggerClientAPI.basePath + path
         let formParams: [String:Any?] = [
+            "iUserId": iUserId,
             "vProfileImage": vProfileImage,
             "vName": vName,
             "dDob": dDob,
@@ -942,7 +945,6 @@ open class UserAPI {
 
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
     }
-
     /**
      sign out
      

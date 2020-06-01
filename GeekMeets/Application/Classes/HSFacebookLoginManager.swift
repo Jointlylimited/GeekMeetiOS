@@ -38,6 +38,8 @@ struct SignupSocialDM {
     
     var token: String = ""
     var userID: String = ""
+    var phone: String = ""
+    var birthday: String?
 }
 
 extension SignupSocialDM{
@@ -91,7 +93,7 @@ class HSFacebookLoginManager {
 //                LoaderView.sharedInstance.showLoader()
 
                 
-                let param = ["fields": "id,email,first_name,last_name,picture.width(512)"]
+                let param = ["fields": "id,email,first_name,last_name,picture.width(512),birthday"]
                 let graphRequest = GraphRequest(graphPath: "me", parameters: param)
                 
                 graphRequest.start { connection, result, error in
@@ -111,6 +113,7 @@ class HSFacebookLoginManager {
                         model.email = resultDictionary["email"] as? String
                         model.firstName = resultDictionary["first_name"] as? String
                         model.lastName = resultDictionary["last_name"] as? String
+                        model.birthday = resultDictionary["birthday"] as? String
                         model.profilePictureURL = URL(string: "http://graph.facebook.com/"+model.userID+"/picture?type=large&width=720&height=720")
                         //model.profilePictureURL = URL(string: "http://graph.facebook.com/"+FBSDKAccessToken.current().userID+"/picture?type=large&width=720&height=720")
                         

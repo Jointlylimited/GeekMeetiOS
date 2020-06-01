@@ -58,6 +58,27 @@ class UserDataModel : Codable {
         return nil
     }
     
+    static var SignUpUserResponse : SignUpUserModel? {
+        didSet{
+            let encoder = JSONEncoder()
+            if let encoded = try? encoder.encode(SignUpUserResponse) {
+                let defaults = UserDefaults.standard
+                defaults.set(encoded, forKey: "SignUpUserResponse")
+            }
+        }
+    }
+    static var SignUpUserData : SignUpUserModel? {
+    let defaults = UserDefaults.standard
+
+        if let userData = defaults.object(forKey: "UserPreferenceData") as? Data {
+        let decoder = JSONDecoder()
+        if let loadedPerson = try? decoder.decode(SignUpUserModel.self, from: userData) {
+            return loadedPerson
+        }
+    }
+        return nil
+    }
+    
     @objc static func setAuthKey(key: String){
         UserDefaults.standard.set(key, forKey: kAuthKey)
     }
@@ -72,7 +93,7 @@ class UserDataModel : Codable {
     }
     
     @objc static func getSocialType() -> String {
-        return UserDefaults.standard.value(forKey: kSocialType) as! String
+        return UserDefaults.standard.value(forKey: kSocialType) as? String ?? ""
     }
     
     @objc static func setUserLocation(location: CLLocation){

@@ -91,10 +91,10 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
     
     func doSomething() {
         
-        if UserDataModel.currentUser != nil {
-            let user = UserDataModel.currentUser
-            self.tfName.text = user?.vName
-            self.tfDoB.text = user?.dDob
+        if UserDataModel.SignUpUserResponse != nil {
+            let user = UserDataModel.SignUpUserResponse
+            self.tfName.text = "\(user!.firstName!) \(user!.lastName!)"
+            self.tfDoB.text = user?.birthday
         }
         
         var components = DateComponents()

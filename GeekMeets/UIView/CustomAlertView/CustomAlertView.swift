@@ -85,6 +85,11 @@ class CustomAlertView: UIView {
             self.viewCentre.alpha = 0
             self.BtnStackView.alpha = 1
         }
+        
+        self.viewCancel.dropShadow(view: self.viewCancel)
+        self.viewRight.dropShadow(view: self.viewRight)
+        self.viewCentre.dropShadow(view: self.viewCentre)
+        
         lblTitle.text = title
         lblDesc.text = message
         
