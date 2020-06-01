@@ -13,7 +13,8 @@
 import UIKit
 
 protocol ReportInteractorProtocol {
-    func doSomething()
+    func callReportAPI()
+    func callSendReportAPI(params : Dictionary<String, String>)
 }
 
 protocol ReportDataStore {
@@ -25,7 +26,41 @@ class ReportInteractor: ReportInteractorProtocol, ReportDataStore {
     //var name: String = ""
     
     // MARK: Do something
-    func doSomething() {
-        
+    func callReportAPI() {
+        LoaderView.sharedInstance.showLoader()
+        ReportAPI.listReason(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getReportListResponse(response : response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+            } else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+                }
+            }
+        }
+    }
+    
+    func callSendReportAPI(params : Dictionary<String, String>){
+        LoaderView.sharedInstance.showLoader()
+        ReportAPI.createReport(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiReportType: params["tiReportType"]!, iReasonId: params["iReasonId"]!, vReportText: params["vReportText"]!) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getPostReportResponse(response : response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+            } else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+                }
+            }
+        }
     }
 }

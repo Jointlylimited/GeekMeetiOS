@@ -150,7 +150,6 @@ class RequestParameter: NSObject {
         requestDictionary["iOptionId"] = iOptionId
         requestDictionary["vAnswer"] = vAnswer
         
-        //print(requestDictionary)
         return requestDictionary
     }
     
@@ -162,7 +161,18 @@ class RequestParameter: NSObject {
         requestDictionary["iOptionId"] = iOptionId
         requestDictionary["iAnswerId"] = iAnswerId
         
-        //print(requestDictionary)
+        return requestDictionary
+    }
+    
+    func sendReason(iReportedFor : String, iStoryId: String, tiReportType : String, iReasonId: String, vReportText: String) -> Dictionary<String,String> {
+        
+        var requestDictionary : Dictionary<String,String> = Dictionary()
+        requestDictionary["iReportedFor"] = iReportedFor;
+        requestDictionary["iStoryId"] = iStoryId
+        requestDictionary["tiReportType"] = tiReportType
+        requestDictionary["iReasonId"] = iReasonId
+        requestDictionary["vReportText"] = vReportText
+        
         return requestDictionary
     }
 }

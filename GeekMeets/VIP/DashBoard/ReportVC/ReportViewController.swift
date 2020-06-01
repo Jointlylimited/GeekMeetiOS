@@ -18,7 +18,29 @@ struct CellData {
     var sectionData = [String]()
 }
 
+struct ReasonModel {
+    var arrReasonList:[ReasonListFields]!
+    var objReason:ReasonListFields!
+    
+    var isSelectedReason : Bool = false
+    var selectedReason: String {
+        guard objReason != nil else {
+            return isSelectedReason ? objReason.vReason! : ""
+        }
+        return ""
+    }
+    
+    var selectedReasonId: String {
+        guard objReason != nil else {
+            return isSelectedReason ? "\(objReason.iReasonId!)" : ""
+        }
+        return ""
+    }
+}
+
 protocol ReportProtocol: class {
+    func getReportListResponse(response : ReasonListData)
+    func getPostReportResponse(response : CommonResponse)
 }
 
 class ReportViewController: UIViewController, ReportProtocol {
@@ -32,8 +54,10 @@ class ReportViewController: UIViewController, ReportProtocol {
     @IBOutlet weak var txtReportView: UITextView!
     @IBOutlet weak var lblTextCount: UILabel!
     
+    var reasonTitle = "- Select Reason -"
     var placeHolderText = "Write here..."
     var arrReportData : [CellData] = []
+    var arrReport = ReasonModel()
     
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -70,51 +94,89 @@ class ReportViewController: UIViewController, ReportProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.presenter?.callReportAPI()
         self.registerTableViewCell()
     }
     
     func registerTableViewCell(){
         self.tblReasonList.register(UINib.init(nibName: Cells.CommonTblListCell, bundle: Bundle.main), forCellReuseIdentifier: Cells.CommonTblListCell)
-        self.arrReportData = [CellData(opened: false, title: "- Select Reason -", sectionData: ["Reason 1" , "Reason 2", "Reason 3"])]
+        self.arrReportData = [CellData(opened: false, title: reasonTitle, sectionData: ["Reason 1" , "Reason 2", "Reason 3"])]
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.dismissVC(completion: nil)
     }
     @IBAction func btnReportAction(_ sender: GradientButton) {
-        self.dismissVC(completion: nil)
+        let params = RequestParameter.sharedInstance().sendReason(iReportedFor: "", iStoryId: "", tiReportType: "1", iReasonId: arrReport.objReason != nil ? "\(arrReport.objReason.iReasonId!)" : "", vReportText: txtReportView.text)
+        
+        if arrReport.objReason == nil {
+            AppSingleton.sharedInstance().showAlert(kSelectReason, okTitle: "OK")
+            return
+        }
+        if txtReportView.text == placeHolderText {
+            AppSingleton.sharedInstance().showAlert(kReasonEmpty, okTitle: "OK")
+            return
+        }
+        self.callSendReportAPI(params : params)
     }
 }
 
+extension ReportViewController {
+    func getReportListResponse(response : ReasonListData) {
+        if response.responseCode == 200 {
+            self.arrReport.arrReasonList = response.responseData
+            print(self.arrReport.arrReasonList)
+        } else {
+            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        }
+        self.tblReasonList.reloadData()
+    }
+    
+    func callSendReportAPI(params : Dictionary<String, String>){
+        self.presenter?.callSendReportAPI(params: params)
+    }
+    
+    func getPostReportResponse(response : CommonResponse) {
+        if response.responseCode == 200 {
+            self.dismissVC(completion: nil)
+            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        }
+    }
+}
 extension ReportViewController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return arrReportData[0].sectionData.count == nil ? 0 : 1
+        return arrReport.arrReasonList == nil ? 0 : 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if arrReportData[0].opened == true {
-            return arrReportData[0].sectionData.count + 1
+        if arrReport.isSelectedReason == true {
+            return arrReport.arrReasonList.count + 1
         } else {
             return 1
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Cells.CommonTblListCell)
-        return cell!
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let cell = cell as? CommonTblListCell {
-            cell.btnArrow.setImage(#imageLiteral(resourceName: "icn_down_arrow"), for: .normal)
-            if indexPath.row == 0 {
-                cell.lblTitle.text = arrReportData[0].title
-                cell.lblDesc.text = ""
+        let cell = tableView.dequeueReusableCell(withIdentifier: Cells.CommonTblListCell) as! CommonTblListCell
+        
+        if indexPath.row == 0 {
+            cell.lblTitle.text = arrReport.isSelectedReason ? reasonTitle : (arrReport.objReason != nil ? arrReport.objReason.vReason : reasonTitle)
+            cell.btnArrow.isHidden = false
+            if arrReport.isSelectedReason {
+                cell.btnArrow.setImage(#imageLiteral(resourceName: "icn_up"), for: .normal)
             } else {
-                cell.lblTitle.text = arrReportData[0].sectionData[indexPath.row]
-                cell.lblDesc.text = ""
+                 cell.btnArrow.setImage(#imageLiteral(resourceName: "icn_down"), for: .normal)
             }
+            
+        } else {
+            let reasonData = arrReport.arrReasonList[indexPath.row - 1]
+            cell.lblTitle.text = reasonData.vReason
+            cell.lblTitle.font = indexPath.row == 0 ? UIFont(name: "Poppins-SemiBold", size: 14) : UIFont(name: "Poppins-Medium", size: 14)
+            cell.btnArrow.isHidden = true
         }
+        cell.selectionStyle = .none
+        
+        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -139,22 +201,19 @@ extension ReportViewController : UITableViewDataSource, UITableViewDelegate {
         return 60
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: Cells.CommonTblListCell)
-        
-        if self.arrReportData[0].opened {
+        if arrReport.isSelectedReason {
             
-            self.arrReportData[0].opened = false
-            //arrReportList.objReason = indexPath.row != 0 ? arrReportList.objReasonList[indexPath.row - 1] : nil
+            arrReport.isSelectedReason = false
+            arrReport.objReason = indexPath.row != 0 ? arrReport.arrReasonList[indexPath.row - 1] : nil
             let sections = IndexSet.init(integer: 0)
             tableView.reloadSections(sections, with: .none)
             self.tblViewHeightConstant.constant = CGFloat(85)
         } else {
             
-            self.arrReportData[0].opened = true
+            arrReport.isSelectedReason = true
             let sections = IndexSet.init(integer: indexPath.row)
             tableView.reloadSections(sections, with: .none)
-            self.tblViewHeightConstant.constant = CGFloat(60*self.arrReportData[0].sectionData.count)
+            self.tblViewHeightConstant.constant = CGFloat(85 + (60*arrReport.arrReasonList.count - 1))
         }
     }
 }
@@ -171,6 +230,7 @@ extension ReportViewController : UITextViewDelegate {
         if (textView.text?.count)! <= 300 {
             textView.isUserInteractionEnabled = true
             self.lblTextCount.text = "\((textView.text?.count)!)/\(300)"
+            
         } else {
             textView.isUserInteractionEnabled = false
         }

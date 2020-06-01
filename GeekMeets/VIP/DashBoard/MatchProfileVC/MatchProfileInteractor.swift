@@ -13,6 +13,7 @@
 import UIKit
 
 protocol MatchProfileInteractorProtocol {
+    func callUserProfileAPI(id : String)
     func callBlockUserAPI(iBlockTo: String, tiIsBlocked: String)
     func callBlockUserListAPI()
 }
@@ -26,6 +27,26 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
     //var name: String = ""
     
     // MARK: Do something
+    
+    func callUserProfileAPI(id : String){
+        LoaderView.sharedInstance.showLoader()
+        UserAPI.userProfile(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, _id: id) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getUserProfileResponse(response: response!)
+            } else if response?.responseCode == 400 {
+                self.presenter?.getUserProfileResponse(response: response!)
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getUserProfileResponse(response: response!)
+                }
+            }
+        }
+    }
+    
     func callBlockUserAPI(iBlockTo: String, tiIsBlocked: String) {
         LoaderView.sharedInstance.showLoader()
         UserAPI.blockUsers(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iBlockTo: iBlockTo, tiIsBlocked: tiIsBlocked) { (response, error) in

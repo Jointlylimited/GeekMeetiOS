@@ -16,6 +16,9 @@ protocol MatchProfilePresentationProtocol {
     func gotoMatchVC()
     func gotoReportVC()
     
+    func callUserProfileAPI(id : String)
+    func getUserProfileResponse(response : UserAuthResponse)
+    
     func callBlockUserAPI(iBlockTo: String, tiIsBlocked: String)
     func getBlockUserResponse(response : CommonResponse)
     
@@ -28,6 +31,13 @@ class MatchProfilePresenter: MatchProfilePresentationProtocol {
     var interactor: MatchProfileInteractorProtocol?
     
     // MARK: Present something
+    func callUserProfileAPI(id : String){
+        self.interactor?.callUserProfileAPI(id: id)
+    }
+    func getUserProfileResponse(response : UserAuthResponse){
+        self.viewController?.getUserProfileResponse(response: response)
+    }
+    
     func callBlockUserAPI(iBlockTo: String, tiIsBlocked: String){
         self.interactor?.callBlockUserAPI(iBlockTo: iBlockTo, tiIsBlocked: tiIsBlocked)
     }

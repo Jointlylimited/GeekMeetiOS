@@ -1106,6 +1106,57 @@ open class UserAPI {
     }
 
     /**
+     Other user profile
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter _id: (path)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func userProfile(nonce: String, timestamp: String, token: String, authorization: String, _id: String, completion: @escaping ((_ data: UserAuthResponse?,_ error: Error?) -> Void)) {
+        userProfileWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, _id: _id).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Other user profile
+     - GET /user/user-profile/{id}
+     - examples: [{contentType=application/json, example=""}]
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter _id: (path)
+
+     - returns: RequestBuilder<UserAuthResponse>
+     */
+    open class func userProfileWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, _id: String) -> RequestBuilder<UserAuthResponse> {
+        var path = "/user/user-profile/{id}"
+        let _idPreEscape = "\(_id)"
+        let _idPostEscape = _idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{id}", with: _idPostEscape, options: .literal, range: nil)
+        let URLString = SwaggerClientAPI.basePath + path
+        let parameters: [String:Any]? = nil
+        
+        let url = URLComponents(string: URLString)
+        let nillableHeaders: [String: Any?] = [
+            "nonce": nonce,
+            "timestamp": timestamp,
+            "token": token,
+            "authorization": authorization
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<UserAuthResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
+    }
+    /**
      verify-otp
      
      - parameter nonce: (header)

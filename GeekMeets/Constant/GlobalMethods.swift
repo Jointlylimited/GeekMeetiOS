@@ -24,6 +24,7 @@ let _widthRatio : CGFloat = {
 }()
 
 var objQuestionModel = QuestionaryModel()
+var genderArray : [String] = ["Male", "Female", "Others", "Prefer not to say"]
 
 enum FontTypePoppins: String {
     case Poppins_Regular = "Poppins-Regular"

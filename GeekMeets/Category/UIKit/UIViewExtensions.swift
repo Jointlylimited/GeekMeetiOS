@@ -1145,7 +1145,7 @@ extension UIView {
                       cornerRadius: view.layer.cornerRadius).cgPath
             view.layer.shadowColor = view.tag == 1 ? #colorLiteral(red: 0.606272161, green: 0.2928337753, blue: 0.8085166812, alpha: 1) : UIColor.black.cgColor
                 view.layer.shadowOpacity = 0.3
-                view.layer.shadowOffset = CGSize(width: 2, height: 2)
+                view.layer.shadowOffset = CGSize(width: 1, height: 1)
                 view.layer.shadowRadius = 5
                 view.layer.masksToBounds = false
             }

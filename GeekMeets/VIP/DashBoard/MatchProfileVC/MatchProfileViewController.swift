@@ -24,7 +24,12 @@ struct MatchProfileData {
     return cell
   }
 }
+
+struct MatchUserProfileModel {
+    var objMatchUserProfiel:UserAuthResponseField!
+}
 protocol MatchProfileProtocol: class {
+    func getUserProfileResponse(response : UserAuthResponse)
     func getBlockUserResponse(response : CommonResponse)
     func getBlockUserListResponse(response : BlockUser)
 }
@@ -49,6 +54,8 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     var imageArray = [#imageLiteral(resourceName: "img_intro_2"), #imageLiteral(resourceName: "image_1"), #imageLiteral(resourceName: "Image 63"), #imageLiteral(resourceName: "Image 62")]
     var isFromHome : Bool = true
     var arrayDetails :  [UserDetail] = []
+    
+    var userProfileDetails : UserAuthResponseField?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -85,13 +92,14 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         setTheme()
-        self.registerCollectionViewCell()
-        self.MatchProfileCollView.reloadData()
+        self.presenter?.callUserProfileAPI(id: "67")
     }
     
     func setTheme(){
         self.profileView.frame = DeviceType.iPhone5orSE ? CGRect(x: 0, y: 0, w: ScreenSize.width, h: 400) : (DeviceType.iPhoneXRMax || DeviceType.iPhone678 || DeviceType.iPhone678p ? CGRect(x: 0, y: 0, w: ScreenSize.width, h: 500) : CGRect(x: 0, y: 0, w: ScreenSize.width, h: 450))
         self.arrayDetails = fetchUserData()
+        self.registerCollectionViewCell()
+        self.MatchProfileCollView.reloadData()
     }
     
     func registerCollectionViewCell(){
@@ -141,6 +149,14 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
 }
 
 extension MatchProfileViewController {
+    func getUserProfileResponse(response : UserAuthResponse){
+        if response.responseCode == 200 {
+            self.userProfileDetails = response.responseData!
+            print("User Response Details : \(self.userProfileDetails)")
+        }
+        self.tblProfileView.reloadData()
+    }
+    
     func callBlockUserAPI(){
         self.presenter?.callBlockUserAPI(iBlockTo: "53", tiIsBlocked: "1")
     }
@@ -174,7 +190,10 @@ extension MatchProfileViewController : UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if objProfileData.cells[indexPath.section].cellID == "ProfileAboutCell" {
             if let cell = cell as? ProfileAboutCell  {
-                
+                print("User Profile Details : \(self.userProfileDetails)")
+//                cell.lblAbout.text = self.userProfileDetails!.txAbout
+//                cell.lblCity.text = self.userProfileDetails!.vLiveIn
+//                cell.lblGender.text = genderArray[(self.userProfileDetails!.tiGender!)]
             }
         } else if objProfileData.cells[indexPath.section].cellID == "ProfileCompanyCell" {
             if let cell = cell as? ProfileCompanyCell  {

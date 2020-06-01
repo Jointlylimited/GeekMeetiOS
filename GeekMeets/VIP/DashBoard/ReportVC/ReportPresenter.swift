@@ -13,7 +13,11 @@
 import UIKit
 
 protocol ReportPresentationProtocol {
-    func presentSomething()
+    func callReportAPI()
+    func getReportListResponse(response : ReasonListData)
+    
+    func callSendReportAPI(params : Dictionary<String, String>)
+    func getPostReportResponse(response : CommonResponse)
 }
 
 class ReportPresenter: ReportPresentationProtocol {
@@ -21,7 +25,19 @@ class ReportPresenter: ReportPresentationProtocol {
     var interactor: ReportInteractorProtocol?
     
     // MARK: Present something
-    func presentSomething() {
-        
+    func callReportAPI(){
+        self.interactor?.callReportAPI()
+    }
+    
+    func getReportListResponse(response : ReasonListData) {
+        self.viewController?.getReportListResponse(response: response)
+    }
+    
+    func callSendReportAPI(params : Dictionary<String, String>){
+        self.interactor?.callSendReportAPI(params: params)
+    }
+    
+    func getPostReportResponse(response : CommonResponse){
+        self.viewController?.getPostReportResponse(response : response)
     }
 }
