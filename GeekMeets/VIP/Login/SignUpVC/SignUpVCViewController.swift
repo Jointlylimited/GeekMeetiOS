@@ -34,6 +34,7 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
     var authResponse : UserAuthResponseField!
     var socialType : Bool = false
     var location:CLLocation?
+    var vLiveIn : String = ""
     
     // MARK: Object lifecycle
     
@@ -116,7 +117,7 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
     }
     @IBAction func actionContinue(_ sender: Any) {
         
-        let params = RequestParameter.sharedInstance().signUpParam(vEmail: tfEmailAddress.text ?? "", vPassword: tfPassword?.text ?? "", vConfirmPassword : tfConfirmPassword.text ?? "", vCountryCode: btnCountrycode.titleLabel?.text ?? "", vPhone: tfMobileNumber.text ?? "", termsChecked : termsChecked, vSocialId : (UserDataModel.currentUser == nil || UserDataModel.currentUser?.tiIsSocialLogin == nil) ? "" : (UserDataModel.currentUser?.vSocialId!)!, fLatitude : self.location != nil ? "\(self.location?.coordinate.latitude ?? 0.0)" : "0.0", fLongitude: self.location != nil ? "\(self.location?.coordinate.longitude ?? 0.0)" : "0.0", tiIsSocialLogin : (UserDataModel.currentUser == nil || UserDataModel.currentUser?.tiIsSocialLogin == nil) ? "0" : "1")
+        let params = RequestParameter.sharedInstance().signUpParam(vEmail: tfEmailAddress.text ?? "", vPassword: tfPassword?.text ?? "", vConfirmPassword : tfConfirmPassword.text ?? "", vCountryCode: btnCountrycode.titleLabel?.text ?? "", vPhone: tfMobileNumber.text ?? "", termsChecked : termsChecked, vSocialId : (UserDataModel.currentUser == nil || UserDataModel.currentUser?.tiIsSocialLogin == nil) ? "" : (UserDataModel.currentUser?.vSocialId!)!, vLiveIn : vLiveIn, fLatitude : self.location != nil ? "\(self.location?.coordinate.latitude ?? 0.0)" : "0.0", fLongitude: self.location != nil ? "\(self.location?.coordinate.longitude ?? 0.0)" : "0.0", tiIsSocialLogin : (UserDataModel.currentUser == nil || UserDataModel.currentUser?.tiIsSocialLogin == nil) ? "0" : "1")
         
         self.presenter?.callSignUpRequest(signUpParams: params)
     }
@@ -144,24 +145,77 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
     }
     
     func getUserCurrentLocation() {
-    //          LoaderView.sharedInstance.showLoader()
-              LocationManager.sharedInstance.getLocation { (currLocation, error) in
-                  if error != nil {
-    //                  LoaderView.sharedInstance.hideLoader()
-                      print(error?.localizedDescription ?? "")
-                      self.showAccessPopup(title: kLocationAccessTitle, msg: kLocationAccessMsg)
-                      return
-                  }
-                  guard let _ = currLocation else {
-                      return
-                  }
-                  if error == nil {
-    //                  LoaderView.sharedInstance.hideLoader()
-                      self.location = currLocation
-                    //UserDataModel.setUserLocation(location: self.location!)
-                  }
-              }
-          }
+        LocationManager.sharedInstance.getLocation { (currLocation, error) in
+            if error != nil {
+                print(error?.localizedDescription ?? "")
+                self.showAccessPopup(title: kLocationAccessTitle, msg: kLocationAccessMsg)
+                return
+            }
+            guard let _ = currLocation else {
+                return
+            }
+            if error == nil {
+                self.location = currLocation
+                self.getAddressFromLatLon(pdblLatitude:(currLocation?.coordinate.latitude)!, withLongitude: (currLocation?.coordinate.longitude)!)
+            }
+        }
+    }
+    
+    func getAddressFromLatLon(pdblLatitude: Double, withLongitude pdblLongitude: Double) {
+        var center : CLLocationCoordinate2D = CLLocationCoordinate2D()
+        let lat: Double = pdblLatitude
+        //21.228124
+        let lon: Double = pdblLongitude
+        //72.833770
+        let ceo: CLGeocoder = CLGeocoder()
+        center.latitude = lat
+        center.longitude = lon
+        
+        let loc: CLLocation = CLLocation(latitude:center.latitude, longitude: center.longitude)
+        
+        
+        ceo.reverseGeocodeLocation(loc, completionHandler:
+            {(placemarks, error) in
+                if (error != nil)
+                {
+                    print("reverse geodcode fail: \(error!.localizedDescription)")
+                    return
+                }
+                let pm = placemarks! as [CLPlacemark]
+                
+                if pm.count > 0 {
+                    let pm = placemarks![0]
+                    print(pm.country)
+                    print(pm.locality)
+                    print(pm.subLocality)
+                    print(pm.thoroughfare)
+                    print(pm.postalCode)
+                    print(pm.subThoroughfare)
+                    var addressString : String = ""
+//                    if pm.name != nil {
+//                        addressString = addressString + pm.name! + ", "
+//                    }
+//                    if pm.subLocality != nil {
+//                        addressString = addressString + pm.subLocality! + ", "
+//                    }
+//                    if pm.thoroughfare != nil {
+//                        addressString = addressString + pm.thoroughfare! + ", "
+//                    }
+                    if pm.locality != nil {
+                        addressString = addressString + pm.locality! + ", "
+                    }
+                    if pm.country != nil {
+                        addressString = addressString + pm.country! + ", "
+                    }
+//                    if pm.postalCode != nil {
+//                        addressString = addressString + pm.postalCode! + " "
+//                    }
+                    self.vLiveIn = addressString
+                    print(addressString)
+                }
+        })
+        
+    }
 }
 
 extension SignUpVCViewController : UITextFieldDelegate {

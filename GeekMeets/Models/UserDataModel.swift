@@ -96,14 +96,6 @@ class UserDataModel : Codable {
         return UserDefaults.standard.value(forKey: kSocialType) as? String ?? ""
     }
     
-    @objc static func setUserLocation(location: CLLocation){
-        UserDefaults.standard.set(location, forKey: kUserCurrentLocation)
-    }
-    
-    @objc static func getUserLocation() -> CLLocation{
-        return UserDefaults.standard.value(forKey: kUserCurrentLocation) as! CLLocation
-    }
-    
     static var PreferenceData : PreferencesResponse? {
         didSet{
             let encoder = JSONEncoder()

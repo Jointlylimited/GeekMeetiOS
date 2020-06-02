@@ -13,7 +13,6 @@
 import UIKit
 
 protocol MatchProtocol: class {
-    func displaySomething()
 }
 
 class MatchViewController: UIViewController, MatchProtocol {
@@ -28,6 +27,9 @@ class MatchViewController: UIViewController, MatchProtocol {
     
     @IBOutlet weak var viewHeightConstant: NSLayoutConstraint!
     @IBOutlet weak var stackViewHeightConstant: NSLayoutConstraint!
+    
+    var UserDetails : UserAuthResponseField!
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -65,10 +67,6 @@ class MatchViewController: UIViewController, MatchProtocol {
         setUI()
     }
     
-    // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
     func setUI() {
         
         userImgWidthContraint.constant = ScreenSize.width/2 - 30
@@ -78,13 +76,25 @@ class MatchViewController: UIViewController, MatchProtocol {
         self.matchUserImgView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/9))
         self.userImgView.transform = CGAffineTransform(rotationAngle: -CGFloat(Double.pi/9))
         
+        if UserDataModel.currentUser?.vProfileImage != "" {
+            let url = URL(string:"\(fileUploadURL)\(user_Profile)\(UserDataModel.currentUser!.vProfileImage!)")
+            print(url!)
+            self.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "icn_user"))
+        }
+        if UserDetails != nil {
+            if UserDetails.vProfileImage != "" {
+                let url = URL(string:"\(fileUploadURL)\(user_Profile)\(UserDetails.vProfileImage!)")
+                print(url!)
+                self.matchUserImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "icn_user_home"))
+            }
+        }
     }
     
-    func displaySomething() {
-        //nameTextField.text = viewModel.name
-    }
     @IBAction func btnContinueSwippingAction(_ sender: UIButton) {
-        self.dismissVC(completion: nil)
+//        self.view.window!.rootViewController?.presentedViewController?.dismiss(animated: true, completion: nil)
+        self.dismissVC {
+            AppSingleton.sharedInstance().showHomeVC(fromMatch: false)
+        }
     }
     @IBAction func btnSendMsgAction(_ sender: UIButton) {
         //        let tabVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.TabbarScreen) as! TabbarViewController
@@ -92,9 +102,8 @@ class MatchViewController: UIViewController, MatchProtocol {
         //        tabVC.modalPresentationStyle = .overCurrentContext
         //        tabVC.isFromMatch = true
         //        self.presentVC(tabVC)
-        
-        let tabVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.TabbarScreen) as! TabbarViewController
-        tabVC.isFromMatch = true
-        self.pushVC(tabVC)
+        self.dismissVC {
+            AppSingleton.sharedInstance().showHomeVC(fromMatch: true)
+        }
     }
 }

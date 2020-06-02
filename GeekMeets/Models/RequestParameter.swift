@@ -21,7 +21,7 @@ class RequestParameter: NSObject {
         return self.instance
     }
     
-    func signUpParam(vEmail: String, vPassword:String, vConfirmPassword:String, vCountryCode: String, vPhone : String, termsChecked : String, vSocialId : String, fLatitude : String, fLongitude: String, tiIsSocialLogin : String) -> Dictionary<String, String> {
+    func signUpParam(vEmail: String, vPassword:String, vConfirmPassword:String, vCountryCode: String, vPhone : String, termsChecked : String, vSocialId : String, vLiveIn : String, fLatitude : String, fLongitude: String, tiIsSocialLogin : String) -> Dictionary<String, String> {
         
         var requestDictionary : Dictionary<String, String> = Dictionary()
         requestDictionary["vEmail"] = vEmail
@@ -31,6 +31,7 @@ class RequestParameter: NSObject {
         requestDictionary["vPhone"] = vPhone
         requestDictionary["termsChecked"] = termsChecked
         requestDictionary["vSocialId"] = vSocialId
+        requestDictionary["vLiveIn"] = vLiveIn
         requestDictionary["fLatitude"] = fLatitude
         requestDictionary["fLongitude"] = fLongitude
         requestDictionary["tiIsSocialLogin"] = tiIsSocialLogin

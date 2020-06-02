@@ -80,7 +80,7 @@ class SignInPresenter: SignInPresentationProtocol {
     func getPrefernceResponse(response : PreferencesResponse){
         if response.responseCode == 200 {
             UserDataModel.UserPreferenceResponse = response
-             AppSingleton.sharedInstance().showHomeVC()
+             AppSingleton.sharedInstance().showHomeVC(fromMatch : false)
         }
     }
     

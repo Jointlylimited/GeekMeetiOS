@@ -76,6 +76,11 @@
 		0B535689245088DC005571AF /* EditProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B535681245088DB005571AF /* EditProfileInteractor.swift */; };
 		0B53568A245088DC005571AF /* EditInformationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B535682245088DB005571AF /* EditInformationCell.swift */; };
 		0B53568B245088DC005571AF /* EditPhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B535683245088DB005571AF /* EditPhotosCell.swift */; };
+		0B56B60024861C06004A62D4 /* CustomImagePageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B56B5FF24861C06004A62D4 /* CustomImagePageControl.swift */; };
+		0B56B60224862DE3004A62D4 /* OtherUserProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B56B60124862DE3004A62D4 /* OtherUserProfileModel.swift */; };
+		0B56B60524865040004A62D4 /* MediaReaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B56B6032486503F004A62D4 /* MediaReaction.swift */; };
+		0B56B60624865040004A62D4 /* MediaReactionFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B56B60424865040004A62D4 /* MediaReactionFields.swift */; };
+		0B56B6082486506E004A62D4 /* MediaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B56B6072486506D004A62D4 /* MediaAPI.swift */; };
 		0B59586E245C632F006D500A /* SubscriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B59586D245C632E006D500A /* SubscriptionVC.swift */; };
 		0B595871245C642B006D500A /* StickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B595870245C642B006D500A /* StickerView.swift */; };
 		0B6B4300247FCC52005240B8 /* CustomPickImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6B42FE247FCC52005240B8 /* CustomPickImageView.swift */; };
@@ -403,6 +408,11 @@
 		0B535681245088DB005571AF /* EditProfileInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileInteractor.swift; sourceTree = "<group>"; };
 		0B535682245088DB005571AF /* EditInformationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditInformationCell.swift; sourceTree = "<group>"; };
 		0B535683245088DB005571AF /* EditPhotosCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPhotosCell.swift; sourceTree = "<group>"; };
+		0B56B5FF24861C06004A62D4 /* CustomImagePageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImagePageControl.swift; sourceTree = "<group>"; };
+		0B56B60124862DE3004A62D4 /* OtherUserProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserProfileModel.swift; sourceTree = "<group>"; };
+		0B56B6032486503F004A62D4 /* MediaReaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaReaction.swift; sourceTree = "<group>"; };
+		0B56B60424865040004A62D4 /* MediaReactionFields.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaReactionFields.swift; sourceTree = "<group>"; };
+		0B56B6072486506D004A62D4 /* MediaAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaAPI.swift; sourceTree = "<group>"; };
 		0B59586D245C632E006D500A /* SubscriptionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionVC.swift; sourceTree = "<group>"; };
 		0B595870245C642B006D500A /* StickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickerView.swift; sourceTree = "<group>"; };
 		0B6B42FE247FCC52005240B8 /* CustomPickImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPickImageView.swift; sourceTree = "<group>"; };
@@ -930,6 +940,14 @@
 			path = EditProfileVC;
 			sourceTree = "<group>";
 		};
+		0B56B5FE24861C06004A62D4 /* CustomPageIndicator */ = {
+			isa = PBXGroup;
+			children = (
+				0B56B5FF24861C06004A62D4 /* CustomImagePageControl.swift */,
+			);
+			path = CustomPageIndicator;
+			sourceTree = "<group>";
+		};
 		0B59586C245C632E006D500A /* SubscriptionScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -1440,6 +1458,7 @@
 		F7780E20245AD666003CA4BD /* APIs */ = {
 			isa = PBXGroup;
 			children = (
+				0B56B6072486506D004A62D4 /* MediaAPI.swift */,
 				0B8D0B31248114E9004465E1 /* ReportAPI.swift */,
 				0BABEADB247244F1000BC5E7 /* PreferencesAPI.swift */,
 				F7780E21245AD666003CA4BD /* UserAPI.swift */,
@@ -1451,6 +1470,8 @@
 		F7780E26245AD666003CA4BD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0B56B6032486503F004A62D4 /* MediaReaction.swift */,
+				0B56B60424865040004A62D4 /* MediaReactionFields.swift */,
 				0B8D0B382481188B004465E1 /* ReasonListData.swift */,
 				0B8D0B372481188B004465E1 /* ReasonListFields.swift */,
 				0B8D0B34248117D7004465E1 /* BlockUser.swift */,
@@ -1481,6 +1502,7 @@
 		F79604BA24459767002FFB79 /* UIView */ = {
 			isa = PBXGroup;
 			children = (
+				0B56B5FE24861C06004A62D4 /* CustomPageIndicator */,
 				0B6B4302247FDCB0005240B8 /* CustomOptionView */,
 				0B6B42FD247FCBBF005240B8 /* CustomPickImageView */,
 				0B7F33C1246ED80C007ADF8D /* NotificationListCell */,
@@ -1782,6 +1804,7 @@
 				0B51D29524602424005C7B88 /* UserDataModel.swift */,
 				0B170D89246BC7EF00CCDB53 /* UserEntity.swift */,
 				0B94820C247B8E4B00189630 /* UserPhotosModel.swift */,
+				0B56B60124862DE3004A62D4 /* OtherUserProfileModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2341,10 +2364,12 @@
 				0B9499D22451DBC4001AD1C8 /* ManageSubscriptionInteractor.swift in Sources */,
 				F7F967952451ABF400BD7275 /* SelectAgeRangePresenter.swift in Sources */,
 				F7A3114F246D261100497935 /* UIImageExtensions.swift in Sources */,
+				0B56B60624865040004A62D4 /* MediaReactionFields.swift in Sources */,
 				0B921C2924571BE40010AE04 /* UserDetail.m in Sources */,
 				0B9499DB2451DBC4001AD1C8 /* AccountSettingViewController.swift in Sources */,
 				F96C2D292037E92B00F8CBC7 /* MirroringViewController.swift in Sources */,
 				0BBD65F72449C8A500CA178A /* MatchViewController.swift in Sources */,
+				0B56B60024861C06004A62D4 /* CustomImagePageControl.swift in Sources */,
 				0B319655244DE80500B38350 /* MenuInteractor.swift in Sources */,
 				0B319664244DE80500B38350 /* TabbarViewController.swift in Sources */,
 				0B59586E245C632F006D500A /* SubscriptionVC.swift in Sources */,
@@ -2402,6 +2427,7 @@
 				F97A9A2821103F9B007C45F5 /* UIApplicationExtensions.swift in Sources */,
 				F79CA6F7244DD4D900C9A7EB /* RadioButton.swift in Sources */,
 				F716F2AB24498F630063680F /* SignUpVCInteractor.swift in Sources */,
+				0B56B60524865040004A62D4 /* MediaReaction.swift in Sources */,
 				0B3C75AC245327B700CEDBBA /* GlobalMethods.swift in Sources */,
 				0B921C2624571BE40010AE04 /* ContentViewController.swift in Sources */,
 				0B921C3624571C510010AE04 /* SearchProfileViewController.swift in Sources */,
@@ -2498,6 +2524,7 @@
 				F7C3CDB9245169E500980835 /* MyCustomTextField.swift in Sources */,
 				0B1CB9902459429200DA9264 /* NewMobileNumberViewController.swift in Sources */,
 				0B921C2724571BE40010AE04 /* ARSupport.swift in Sources */,
+				0B56B6082486506E004A62D4 /* MediaAPI.swift in Sources */,
 				F7780E3A245AD667003CA4BD /* UserAuthResponse.swift in Sources */,
 				F97A9A2F21103FAF007C45F5 /* UserDefaultsExtension.swift in Sources */,
 				F7CD7A4D24442F3A00E02A9E /* TutorialPagePresenter.swift in Sources */,
@@ -2585,6 +2612,7 @@
 				F97A9A2B21103FA4007C45F5 /* StringExtensions.swift in Sources */,
 				F79604BD244597A2002FFB79 /* TutorialCell.swift in Sources */,
 				0B0B4B152475245E0047EB11 /* Interest_PreferenceInteractor.swift in Sources */,
+				0B56B60224862DE3004A62D4 /* OtherUserProfileModel.swift in Sources */,
 				0B9499D82451DBC4001AD1C8 /* CommonPagesViewController.swift in Sources */,
 				0B9499DD2451DBC4001AD1C8 /* TopGeeksViewController.swift in Sources */,
 				F7780E41245AE324003CA4BD /* UserProfileModel.swift in Sources */,

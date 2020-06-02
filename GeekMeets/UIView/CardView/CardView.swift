@@ -40,8 +40,10 @@ public class CardView: UIView {
     class func initCoachingAlertView() -> CardView {
         let view = Bundle.main.loadNibNamed("CardView", owner: nil, options: nil)?.first as! CardView
         
-        view.layer.cornerRadius = 25
-        view.imgView.layer.cornerRadius = 10
+        view.layer.cornerRadius = 10
+        view.layer.masksToBounds = true
+//        view.dropShadowinView(view: view)
+        view.imgView.layer.cornerRadius = 5
         view.imgView.layer.masksToBounds = true
         
         view.layoutIfNeeded()

@@ -606,7 +606,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="1my-eR-b3R" kind="relationship" relationship="rootViewController" id="rwL-Pd-Uti"/>
+                        <segue destination="CTv-us-B6n" kind="relationship" relationship="rootViewController" id="A6S-4q-0xT"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h9b-1k-7Lm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1096,12 +1096,15 @@
         <!--Navigation Controller-->
         <scene sceneID="ld3-Ot-yvA">
             <objects>
-                <navigationController storyboardIdentifier="navigationLogin1" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="5Yu-Qb-Sx8" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="navigationLogin" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="5Yu-Qb-Sx8" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hvk-I5-KMk">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="1my-eR-b3R" kind="relationship" relationship="rootViewController" id="ORH-Sg-nJQ"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bm3-Qe-rri" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

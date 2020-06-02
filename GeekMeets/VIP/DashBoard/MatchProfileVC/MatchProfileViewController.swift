@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 struct MatchProfileData {
   
@@ -25,13 +26,11 @@ struct MatchProfileData {
   }
 }
 
-struct MatchUserProfileModel {
-    var objMatchUserProfiel:UserAuthResponseField!
-}
 protocol MatchProfileProtocol: class {
     func getUserProfileResponse(response : UserAuthResponse)
     func getBlockUserResponse(response : CommonResponse)
     func getBlockUserListResponse(response : BlockUser)
+    func getReactEmojiResponse(response : MediaReaction)
 }
 
 class MatchProfileViewController: UIViewController, MatchProfileProtocol {
@@ -45,7 +44,10 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     
     @IBOutlet weak var profileView: UIView!
     
-    @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet weak var pageControl: CustomImagePageControl!
+    @IBOutlet weak var lblNameAge: UILabel!
+    @IBOutlet weak var lblLiveIn: UILabel!
+    @IBOutlet weak var lblDistance: GradientLabel!
     
     var alertView: CustomAlertView!
     var customPickImageView: CustomOptionView!
@@ -55,7 +57,9 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     var isFromHome : Bool = true
     var arrayDetails :  [UserDetail] = []
     
-    var userProfileDetails : UserAuthResponseField?
+    var objMatchUserProfile : UserAuthResponseField!
+    var tiIsBlocked : Int = 0
+    var location:CLLocation?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -92,11 +96,12 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         setTheme()
-        self.presenter?.callUserProfileAPI(id: "67")
+        getUserCurrentLocation()
+//        self.presenter?.callUserProfileAPI(id: "70")
     }
     
     func setTheme(){
-        self.profileView.frame = DeviceType.iPhone5orSE ? CGRect(x: 0, y: 0, w: ScreenSize.width, h: 400) : (DeviceType.iPhoneXRMax || DeviceType.iPhone678 || DeviceType.iPhone678p ? CGRect(x: 0, y: 0, w: ScreenSize.width, h: 500) : CGRect(x: 0, y: 0, w: ScreenSize.width, h: 450))
+        self.profileView.frame = DeviceType.iPhone5orSE ? CGRect(x: 0, y: 0, w: ScreenSize.width, h: 400) : (DeviceType.iPhoneXRMax ||  DeviceType.iPhone678p ? CGRect(x: 0, y: 0, w: ScreenSize.width, h: 500) : CGRect(x: 0, y: 0, w: ScreenSize.width, h: 450))
         self.arrayDetails = fetchUserData()
         self.registerCollectionViewCell()
         self.MatchProfileCollView.reloadData()
@@ -135,7 +140,11 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     }
     
     @IBAction func btnMatchAction(_ sender: UIButton) {
-        self.presenter?.gotoMatchVC()
+        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchScreen) as! MatchViewController
+        controller.UserDetails = self.objMatchUserProfile
+        controller.modalTransitionStyle = .crossDissolve
+        controller.modalPresentationStyle = .overCurrentContext
+        self.presentVC(controller)
     }
     @IBAction func btnShareAction(_ sender: UIButton) {
         shareInviteApp(message: "Google", link: "htttp://google.com", controller: self)
@@ -146,30 +155,84 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     @IBAction func btnBlockAction(_ sender: UIButton) {
          self.showAlertView() //self.showPickImageView()
     }
+    
+    func setProfileData(){
+        self.lblNameAge.text = "\(self.objMatchUserProfile.vName!), \(self.objMatchUserProfile.tiAge!)"
+        self.lblLiveIn.text = self.objMatchUserProfile.vLiveIn
+        let userLocation = CLLocation(latitude: CLLocationDegrees(exactly: Float(self.objMatchUserProfile.fLatitude!)!)!, longitude: CLLocationDegrees(exactly: Float(self.objMatchUserProfile.fLongitude!)!)!)
+        let distanceInMeters = location!.distance(from: userLocation)
+        if(distanceInMeters <= 1609)
+        {
+            let s =   String(format: "%.2f", distanceInMeters)
+            self.lblDistance.text = s + " mi"
+        }
+        else
+        {
+            let s =   String(format: "%.2f", distanceInMeters)
+            self.lblDistance.text = s + " mi"
+
+        }
+        self.pageControl.numberOfPages = self.objMatchUserProfile.photos!.count
+        self.pageControl.currentPage = 0
+        
+        self.tblProfileView.reloadData()
+        self.MatchProfileCollView.reloadData()
+    }
+    
+    func getUserCurrentLocation() {
+        LocationManager.sharedInstance.getLocation { (currLocation, error) in
+            if error != nil {
+                print(error?.localizedDescription ?? "")
+                self.showAccessPopup(title: kLocationAccessTitle, msg: kLocationAccessMsg)
+                return
+            }
+            guard let _ = currLocation else {
+                return
+            }
+            if error == nil {
+                self.location = currLocation
+                self.presenter?.callUserProfileAPI(id: "70")
+            }
+        }
+    }
 }
 
 extension MatchProfileViewController {
     func getUserProfileResponse(response : UserAuthResponse){
         if response.responseCode == 200 {
-            self.userProfileDetails = response.responseData!
-            print("User Response Details : \(self.userProfileDetails)")
+            self.objMatchUserProfile = response.responseData!
+            setProfileData()
         }
-        self.tblProfileView.reloadData()
     }
     
     func callBlockUserAPI(){
-        self.presenter?.callBlockUserAPI(iBlockTo: "53", tiIsBlocked: "1")
+        self.presenter?.callBlockUserAPI(iBlockTo: "\(self.objMatchUserProfile!.iUserId!)", tiIsBlocked: "\(tiIsBlocked)")
     }
     
     func getBlockUserResponse(response : CommonResponse){
         if response.responseCode == 200 {
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+            if tiIsBlocked == 0 {
+                self.tiIsBlocked = 1
+            } else {
+                self.tiIsBlocked = 0
+            }
         }
     }
     
     func getBlockUserListResponse(response : BlockUser){
         if response.responseCode == 200 {
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        }
+    }
+    
+    func callReactEmojiAPI( iUserId: String, iMediaId: String, tiRactionType: String){
+        self.presenter?.callReactEmojiAPI(iUserId: iUserId, iMediaId: iMediaId, tiRactionType: tiRactionType)
+    }
+    
+    func getReactEmojiResponse(response : MediaReaction){
+        if response.responseCode == 200 {
+            self.presenter?.callUserProfileAPI(id: "\(self.objMatchUserProfile!.iUserId!)")
         }
     }
 }
@@ -179,7 +242,7 @@ extension MatchProfileViewController : UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return self.objMatchUserProfile != nil ? 1 : 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -190,14 +253,14 @@ extension MatchProfileViewController : UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if objProfileData.cells[indexPath.section].cellID == "ProfileAboutCell" {
             if let cell = cell as? ProfileAboutCell  {
-                print("User Profile Details : \(self.userProfileDetails)")
-//                cell.lblAbout.text = self.userProfileDetails!.txAbout
-//                cell.lblCity.text = self.userProfileDetails!.vLiveIn
-//                cell.lblGender.text = genderArray[(self.userProfileDetails!.tiGender!)]
+                print("User Profile Details : \(self.objMatchUserProfile.txAbout!)")
+                cell.lblAbout.text = self.objMatchUserProfile.txAbout!
+                cell.lblCity.text = self.objMatchUserProfile.vLiveIn!
+                cell.lblGender.text = genderArray[(self.objMatchUserProfile.tiGender!)]
             }
         } else if objProfileData.cells[indexPath.section].cellID == "ProfileCompanyCell" {
             if let cell = cell as? ProfileCompanyCell  {
-                
+                cell.lblCompanyDetail.text = self.objMatchUserProfile.txCompanyDetail
             }
         } else {
             
@@ -239,15 +302,32 @@ extension MatchProfileViewController : UICollectionViewDataSource, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageArray.count
+        return (self.objMatchUserProfile != nil && self.objMatchUserProfile.photos!.count != 0) ? self.objMatchUserProfile.photos!.count : 0 //imageArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell : ReactEmojiCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.ReactEmojiCollectionCell, for: indexPath) as! ReactEmojiCollectionCell
         
+        let photoString = self.objMatchUserProfile.photos![indexPath.row]
         cell.ReactEmojiView.alpha = cell.btnLike.isSelected ? 1.0 : 0.0
-        cell.userImgView.image = imageArray[indexPath.row]
+        
+        if (self.objMatchUserProfile != nil && self.objMatchUserProfile.photos!.count != 0) {
+            
+            if photoString.reaction![0].responseData != nil {
+                cell.btnKissValue.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].responseData!.count != 0) ? photoString.reaction![0].responseData![2].vCount : "0", for: .normal)
+                cell.btnLoveValue.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].responseData!.count != 0) ? photoString.reaction![0].responseData![0].vCount : "0", for: .normal)
+                cell.btnLoveSmileValue.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].responseData!.count != 0) != 0 ? photoString.reaction![0].responseData![1].vCount : "0", for: .normal)
+            }
+            
+            if photoString.vMedia != "" {
+                let url = URL(string:"\(fileUploadURL)\(user_Profile)\(photoString.vMedia!)")
+                print(url!)
+                cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "icn_user"))
+            }
+        } else {
+            cell.userImgView.image = imageArray[indexPath.row]
+        }
         
         cell.clickOnLikeBtn = {
             if cell.btnLike.isSelected {
@@ -260,19 +340,19 @@ extension MatchProfileViewController : UICollectionViewDataSource, UICollectionV
         }
         
         cell.clickOnbtnKiss = {
-            cell.btnKissValue.setTitle(String(Int(cell.btnKissValue.titleLabel!.text!)! + 1), for: .normal)
+            self.callReactEmojiAPI(iUserId: "\(self.objMatchUserProfile!.iUserId!)", iMediaId: "\(photoString.iMediaId!)", tiRactionType: "2")
             cell.btnLike.isSelected = false
             cell.ReactEmojiView.alpha = 0.0
         }
         
         cell.clickOnbtnLove = {
-            cell.btnLoveValue.setTitle(String(Int(cell.btnLoveValue.titleLabel!.text!)! + 1), for: .normal)
+            self.callReactEmojiAPI(iUserId: "\(self.objMatchUserProfile!.iUserId!)", iMediaId: "\(photoString.iMediaId!)", tiRactionType: "0")
             cell.btnLike.isSelected = false
             cell.ReactEmojiView.alpha = 0.0
         }
         
         cell.clickOnbtnLoveSmile = {
-            cell.btnLoveSmileValue.setTitle(String(Int(cell.btnLoveSmileValue.titleLabel!.text!)! + 1), for: .normal)
+            self.callReactEmojiAPI(iUserId: "\(self.objMatchUserProfile!.iUserId!)", iMediaId: "\(photoString.iMediaId!)", tiRactionType: "1")
             cell.btnLike.isSelected = false
             cell.ReactEmojiView.alpha = 0.0
         }

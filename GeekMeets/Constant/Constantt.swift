@@ -213,7 +213,7 @@ class AppSingleton: NSObject {
         AppDelObj.window!.rootViewController!.present(alertController, animated: true, completion: nil)
     }
     
-    func showHomeVC(){
+    func showHomeVC(fromMatch : Bool){
         Authentication.setLoggedInStatus(true)
         UserDataModel.currentUser = UserDataModel.lastLoginUser
         UserDataModel.UserPreferenceResponse = UserDataModel.UserPreferenceData
@@ -223,6 +223,7 @@ class AppSingleton: NSObject {
             return
         }
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.TabbarScreen) as! TabbarViewController
+        controller.isFromMatch = fromMatch
         let navController = UINavigationController.init(rootViewController: controller)
         navController.navigationBar.isHidden = true
         AppDelObj.window?.rootViewController = navController

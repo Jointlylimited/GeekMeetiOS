@@ -27,7 +27,7 @@ public struct AmazonCredentials {
 /* =======================
  AWS_Credentials
 ========================== */
-let fileUploadURL = "https://jointly-deployments-mobilehub-485669344.s3.us-east-2.amazonaws.com/" //"https://356448837734.signin.aws.amazon.com/console/" //
+let fileUploadURL = "https://jointly-deployments-mobilehub-485669344.s3.us-east-2.amazonaws.com/"
 let AWS_ACCESS_KEY_ID = "AKIAVF7QBUBTPE3BVF6O"
 let AWS_SECRET_ACCESS_KEY = "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"
 let AWS_BUCKET_NAME = "jointly-deployments-mobilehub-485669344/"

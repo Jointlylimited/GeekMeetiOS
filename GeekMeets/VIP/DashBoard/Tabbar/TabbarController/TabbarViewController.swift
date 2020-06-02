@@ -62,6 +62,11 @@ class TabbarViewController: UITabBarController, TabbarProtocol {
         SetTabbarItem()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        SetTabbarItem()
+    }
+    
     func SetTabbarItem(){
         if !isFromMatch {
             self.selectedIndex = 2

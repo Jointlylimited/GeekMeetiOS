@@ -24,6 +24,9 @@ protocol MatchProfilePresentationProtocol {
     
     func callBlockUserListAPI()
     func getBlockUserListResponse(response : BlockUser)
+    
+    func callReactEmojiAPI( iUserId: String, iMediaId: String, tiRactionType: String)
+    func getReactEmojiResponse(response : MediaReaction)
 }
 
 class MatchProfilePresenter: MatchProfilePresentationProtocol {
@@ -52,6 +55,14 @@ class MatchProfilePresenter: MatchProfilePresentationProtocol {
     
     func getBlockUserListResponse(response : BlockUser){
         self.viewController?.getBlockUserListResponse(response : response)
+    }
+    
+    func callReactEmojiAPI( iUserId: String, iMediaId: String, tiRactionType: String){
+        self.interactor?.callReactEmojiAPI(iUserId: iUserId, iMediaId: iMediaId, tiRactionType: tiRactionType)
+    }
+    
+    func getReactEmojiResponse(response : MediaReaction){
+        self.viewController?.getReactEmojiResponse(response: response)
     }
     
     func gotoMatchVC() {
