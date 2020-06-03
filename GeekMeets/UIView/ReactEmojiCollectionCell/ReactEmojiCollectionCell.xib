@@ -25,7 +25,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ECB-Ic-YmL">
                         <rect key="frame" x="5" y="5" width="166" height="164"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image_1" translatesAutoresizingMaskIntoConstraints="NO" id="Cf8-kf-1Ht">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_rect" translatesAutoresizingMaskIntoConstraints="NO" id="Cf8-kf-1Ht">
                                 <rect key="frame" x="0.0" y="0.0" width="166" height="164"/>
                             </imageView>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9eS-PC-932">
@@ -302,7 +302,7 @@
         <image name="icn_love_smile" width="8" height="7.5"/>
         <image name="icn_love_smile1" width="17" height="16"/>
         <image name="icn_smile_kiss1" width="17" height="16"/>
-        <image name="image_1" width="290" height="412"/>
         <image name="like" width="18" height="17.5"/>
+        <image name="placeholder_rect" width="335" height="350"/>
     </resources>
 </document>

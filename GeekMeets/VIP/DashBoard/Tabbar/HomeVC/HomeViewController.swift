@@ -83,7 +83,7 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
     func view(for cards: SwipeableCards, index: Int, reusingView: CardView?) -> CardView {
         
         let view = CardView.initCoachingAlertView()
-        view.frame = CGRect(x: 30, y: -50, w: ScreenSize.width - 60, h: ScreenSize.height - 200)
+        view.frame = CGRect(x: 30, y: 0, w: ScreenSize.width - 60, h: ScreenSize.height - 150)
         
         view.clickOnClose = {
             print("Close Action clicked!")

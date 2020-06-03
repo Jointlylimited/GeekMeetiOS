@@ -56,7 +56,7 @@ public class SwipeableCards: CardView {
         }
     }
     /// Offset for the next card to the current card, (it will decide the cards appearance, the top card is on top-left, top, or bottom-right and so on; default is (5, 5)
-    public var offset: (horizon: CGFloat, vertical: CGFloat) = (10, 10) {
+    public var offset: (horizon: CGFloat, vertical: CGFloat) = (0, 0) {
         didSet {
             reloadData()
         }

@@ -62,7 +62,7 @@ class RecommandedProfileView: UIView {
         if imgString != "" {
             let url = URL(string:"\(fileUploadURL)\(user_Profile)\(imgString)")
             print(url!)
-            view.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "Image 64"))
+            view.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_round"))
         }
         
         view.layoutIfNeeded()

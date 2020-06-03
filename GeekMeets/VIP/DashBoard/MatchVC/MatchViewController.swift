@@ -79,13 +79,13 @@ class MatchViewController: UIViewController, MatchProtocol {
         if UserDataModel.currentUser?.vProfileImage != "" {
             let url = URL(string:"\(fileUploadURL)\(user_Profile)\(UserDataModel.currentUser!.vProfileImage!)")
             print(url!)
-            self.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "icn_user"))
+            self.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
         }
         if UserDetails != nil {
             if UserDetails.vProfileImage != "" {
                 let url = URL(string:"\(fileUploadURL)\(user_Profile)\(UserDetails.vProfileImage!)")
                 print(url!)
-                self.matchUserImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "icn_user_home"))
+                self.matchUserImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
             }
         }
     }

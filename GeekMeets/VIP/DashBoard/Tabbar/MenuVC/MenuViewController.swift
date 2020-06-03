@@ -107,7 +107,7 @@ class MenuViewController: UIViewController, MenuProtocol {
         if UserDataModel.currentUser?.vProfileImage != "" {
             let url = URL(string:"\(fileUploadURL)\(user_Profile)\(UserDataModel.currentUser!.vProfileImage!)")
             print(url!)
-            self.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile"))
+            self.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_round"))
         }
         
         self.btnEditProfile.underlineButton(text: "Edit Profile", font: UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 12)!, color: #colorLiteral(red: 0.5294117647, green: 0.1803921569, blue: 0.7647058824, alpha: 1))

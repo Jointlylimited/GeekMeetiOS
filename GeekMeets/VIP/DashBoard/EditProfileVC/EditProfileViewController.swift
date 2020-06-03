@@ -52,7 +52,7 @@ enum EditProfileListCells {
         case .SocialCell:
             return 225
         case .PrivacyCell:
-            return 350
+            return 300
         }
     }
     
@@ -226,7 +226,7 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
         
             let url = URL(string:"\(fileUploadURL)\(user_Profile)\(userProfileModel!.vProfileImage!)")
             print(url!)
-            self.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile"))
+            self.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_round"))
         }
         
         for photo in UserDataModel.currentUser!.photos! {
@@ -407,25 +407,26 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
         } else {
              if let cell = cell as? EditProfilePrivacyCell  {
                 
-                cell.btnSwichMode[0].isSelected = userProfileModel?.tiIsShowAge == 1 ? true : false
-                cell.btnSwichMode[1].isSelected = userProfileModel?.tiIsShowDistance == 1 ? true : false
-                cell.btnSwichMode[2].isSelected = userProfileModel?.tiIsShowContactNumber == 1 ? true : false
-                cell.btnSwichMode[3].isSelected = userProfileModel?.tiIsShowProfileToLikedUser == 1 ? true : false
+                //cell.btnSwichMode[0].isSelected = userProfileModel?.tiIsShowAge == 1 ? true : false
+                cell.btnSwichMode[0].isSelected = userProfileModel?.tiIsShowDistance == 1 ? true : false
+                cell.btnSwichMode[1].isSelected = userProfileModel?.tiIsShowContactNumber == 1 ? true : false
+                cell.btnSwichMode[2].isSelected = userProfileModel?.tiIsShowProfileToLikedUser == 1 ? true : false
                 
                 cell.clickOnBtnSwitch = { (index) in
                     print(indexPath.row)
-                    if cell.btnSwichMode[index!].tag == 0 {
+                    /*if cell.btnSwichMode[index!].tag == 0 {
                         cell.btnSwichMode[0].isSelected = !cell.btnSwichMode[0].isSelected
                         self.userProfileModel?.tiIsShowAge = cell.btnSwichMode[0].isSelected == true ? 1 : 0
+                    } else*/
+                    if cell.btnSwichMode[index!].tag == 0 {
+                        cell.btnSwichMode[0].isSelected = !cell.btnSwichMode[0].isSelected
+                        self.userProfileModel?.tiIsShowDistance = cell.btnSwichMode[0].isSelected == true ? 1 : 0
                     } else if cell.btnSwichMode[index!].tag == 1 {
                         cell.btnSwichMode[1].isSelected = !cell.btnSwichMode[1].isSelected
-                        self.userProfileModel?.tiIsShowDistance = cell.btnSwichMode[1].isSelected == true ? 1 : 0
-                    } else if cell.btnSwichMode[index!].tag == 2 {
-                        cell.btnSwichMode[2].isSelected = !cell.btnSwichMode[2].isSelected
-                        self.userProfileModel?.tiIsShowContactNumber = cell.btnSwichMode[2].isSelected == true ? 1 : 0
+                        self.userProfileModel?.tiIsShowContactNumber = cell.btnSwichMode[1].isSelected == true ? 1 : 0
                     } else {
-                        cell.btnSwichMode[3].isSelected = !cell.btnSwichMode[3].isSelected
-                        self.userProfileModel?.tiIsShowProfileToLikedUser = cell.btnSwichMode[3].isSelected == true ? 1 : 0
+                        cell.btnSwichMode[2].isSelected = !cell.btnSwichMode[2].isSelected
+                        self.userProfileModel?.tiIsShowProfileToLikedUser = cell.btnSwichMode[2].isSelected == true ? 1 : 0
                     }
                 }
             }
@@ -483,7 +484,7 @@ extension EditProfileViewController : UICollectionViewDataSource, UICollectionVi
                 if userPhotosModel[indexPath.row].tiImage == nil {
                     let url = URL(string:"\(fileUploadURL)\(user_Profile)\(userPhotosModel[indexPath.row].vMedia!)")
                     print(url!)
-                    cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile"))
+                    cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
                 } else {
                     cell.userImgView.image = userPhotosModel[indexPath.row].tiImage
                 }

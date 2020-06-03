@@ -205,7 +205,7 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
                         addressString = addressString + pm.locality! + ", "
                     }
                     if pm.country != nil {
-                        addressString = addressString + pm.country! + ", "
+                        addressString = addressString + pm.country!
                     }
 //                    if pm.postalCode != nil {
 //                        addressString = addressString + pm.postalCode! + " "

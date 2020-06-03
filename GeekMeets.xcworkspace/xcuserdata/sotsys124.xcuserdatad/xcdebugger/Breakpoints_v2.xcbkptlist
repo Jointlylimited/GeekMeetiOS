@@ -23,64 +23,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "44BEDC84-F909-488D-92C2-D33A15509A51"
-            shouldBeEnabled = "Yes"
+            uuid = "65FFBF4B-B8CA-46F2-8BF7-0F5A0DA8F44E"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GeekMeets/VIP/Login/AddPhotos/AddPhotosInteractor.swift"
+            filePath = "GeekMeets/VIP/MenuScreens/DiscoverySettingVC/InterestVC/Interest_PreferenceViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
-            landmarkName = "callSignUpInfoAPI(signParams:)"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "registerTableViewCell()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "44BEDC84-F909-488D-92C2-D33A15509A51 - 1cb9b57f8c5abaf3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Jointly.AddPhotosInteractor.callSignUpInfoAPI(signParams: Swift.Dictionary&lt;Swift.String, Swift.String&gt;) -&gt; ()"
-                  moduleName = "Jointly"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sotsys124/Documents/Divya/GitLab_Project/DatingApp/Code/Daveloment/geekmeetsios/GeekMeets/VIP/Login/AddPhotos/AddPhotosInteractor.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "97"
-                  endingLineNumber = "97"
-                  offsetFromSymbolStart = "538">
-               </Location>
-               <Location
-                  uuid = "44BEDC84-F909-488D-92C2-D33A15509A51 - 8b11bc5c55efad89"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 (Swift.Optional&lt;Jointly.UserAuthResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Jointly.AddPhotosInteractor.callSignUpInfoAPI(signParams: Swift.Dictionary&lt;Swift.String, Swift.String&gt;) -&gt; ()"
-                  moduleName = "Jointly"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sotsys124/Documents/Divya/GitLab_Project/DatingApp/Code/Daveloment/geekmeetsios/GeekMeets/VIP/Login/AddPhotos/AddPhotosInteractor.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "100"
-                  endingLineNumber = "100"
-                  offsetFromSymbolStart = "172">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B0192B17-8335-4EFA-83B7-8780EB6B8AC0"
+            uuid = "117D7F67-3716-477E-A752-64572A54E43E"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GeekMeets/Library/APIManager/Swaggers/APIs/UserAPI.swift"
+            filePath = "GeekMeets/VIP/DashBoard/EditProfileVC/EditProfileViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "949"
-            endingLineNumber = "949"
-            landmarkName = "signUpInfoWithRequestBuilder(nonce:timestamp:token:authorization:iUserId:vName:dDob:tiAge:tiGender:iCurrentStatus:txCompanyDetail:txAbout:photos:vProfileImage:)"
+            startingLineNumber = "421"
+            endingLineNumber = "421"
+            landmarkName = "tableView(_:willDisplay:forRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

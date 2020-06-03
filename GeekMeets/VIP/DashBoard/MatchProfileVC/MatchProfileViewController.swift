@@ -96,7 +96,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         setTheme()
-        getUserCurrentLocation()
+//        getUserCurrentLocation()
 //        self.presenter?.callUserProfileAPI(id: "70")
     }
     
@@ -242,7 +242,7 @@ extension MatchProfileViewController : UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.objMatchUserProfile != nil ? 1 : 0
+        return 1 //self.objMatchUserProfile != nil ? 1 : 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -253,14 +253,14 @@ extension MatchProfileViewController : UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if objProfileData.cells[indexPath.section].cellID == "ProfileAboutCell" {
             if let cell = cell as? ProfileAboutCell  {
-                print("User Profile Details : \(self.objMatchUserProfile.txAbout!)")
-                cell.lblAbout.text = self.objMatchUserProfile.txAbout!
-                cell.lblCity.text = self.objMatchUserProfile.vLiveIn!
-                cell.lblGender.text = genderArray[(self.objMatchUserProfile.tiGender!)]
+//                print("User Profile Details : \(self.objMatchUserProfile.txAbout!)")
+//                cell.lblAbout.text = self.objMatchUserProfile.txAbout!
+//                cell.lblCity.text = self.objMatchUserProfile.vLiveIn!
+//                cell.lblGender.text = genderArray[(self.objMatchUserProfile.tiGender!)]
             }
         } else if objProfileData.cells[indexPath.section].cellID == "ProfileCompanyCell" {
             if let cell = cell as? ProfileCompanyCell  {
-                cell.lblCompanyDetail.text = self.objMatchUserProfile.txCompanyDetail
+//                cell.lblCompanyDetail.text = self.objMatchUserProfile.txCompanyDetail
             }
         } else {
             
@@ -302,17 +302,18 @@ extension MatchProfileViewController : UICollectionViewDataSource, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return (self.objMatchUserProfile != nil && self.objMatchUserProfile.photos!.count != 0) ? self.objMatchUserProfile.photos!.count : 0 //imageArray.count
+        return imageArray.count //(self.objMatchUserProfile != nil && self.objMatchUserProfile.photos!.count != 0) ? self.objMatchUserProfile.photos!.count : 0 //imageArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell : ReactEmojiCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.ReactEmojiCollectionCell, for: indexPath) as! ReactEmojiCollectionCell
         
-        let photoString = self.objMatchUserProfile.photos![indexPath.row]
+//        let photoString = self.objMatchUserProfile.photos![indexPath.row]
         cell.ReactEmojiView.alpha = cell.btnLike.isSelected ? 1.0 : 0.0
+        cell.userImgView.image = imageArray[indexPath.row]
         
-        if (self.objMatchUserProfile != nil && self.objMatchUserProfile.photos!.count != 0) {
+        /*if (self.objMatchUserProfile != nil && self.objMatchUserProfile.photos!.count != 0) {
             
             if photoString.reaction![0].responseData != nil {
                 cell.btnKissValue.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].responseData!.count != 0) ? photoString.reaction![0].responseData![2].vCount : "0", for: .normal)
@@ -327,7 +328,7 @@ extension MatchProfileViewController : UICollectionViewDataSource, UICollectionV
             }
         } else {
             cell.userImgView.image = imageArray[indexPath.row]
-        }
+        }*/
         
         cell.clickOnLikeBtn = {
             if cell.btnLike.isSelected {
@@ -340,19 +341,22 @@ extension MatchProfileViewController : UICollectionViewDataSource, UICollectionV
         }
         
         cell.clickOnbtnKiss = {
-            self.callReactEmojiAPI(iUserId: "\(self.objMatchUserProfile!.iUserId!)", iMediaId: "\(photoString.iMediaId!)", tiRactionType: "2")
+//            self.callReactEmojiAPI(iUserId: "\(self.objMatchUserProfile!.iUserId!)", iMediaId: "\(photoString.iMediaId!)", tiRactionType: "2")
+            cell.btnKissValue.setTitle(String(Int(cell.btnKissValue.titleLabel!.text!)! + 1), for: .normal)
             cell.btnLike.isSelected = false
             cell.ReactEmojiView.alpha = 0.0
         }
         
         cell.clickOnbtnLove = {
-            self.callReactEmojiAPI(iUserId: "\(self.objMatchUserProfile!.iUserId!)", iMediaId: "\(photoString.iMediaId!)", tiRactionType: "0")
+//            self.callReactEmojiAPI(iUserId: "\(self.objMatchUserProfile!.iUserId!)", iMediaId: "\(photoString.iMediaId!)", tiRactionType: "0")
+            cell.btnLoveValue.setTitle(String(Int(cell.btnLoveValue.titleLabel!.text!)! + 1), for: .normal)
             cell.btnLike.isSelected = false
             cell.ReactEmojiView.alpha = 0.0
         }
         
         cell.clickOnbtnLoveSmile = {
-            self.callReactEmojiAPI(iUserId: "\(self.objMatchUserProfile!.iUserId!)", iMediaId: "\(photoString.iMediaId!)", tiRactionType: "1")
+//            self.callReactEmojiAPI(iUserId: "\(self.objMatchUserProfile!.iUserId!)", iMediaId: "\(photoString.iMediaId!)", tiRactionType: "1")
+            cell.btnLoveSmileValue.setTitle(String(Int(cell.btnLoveSmileValue.titleLabel!.text!)! + 1), for: .normal)
             cell.btnLike.isSelected = false
             cell.ReactEmojiView.alpha = 0.0
         }
