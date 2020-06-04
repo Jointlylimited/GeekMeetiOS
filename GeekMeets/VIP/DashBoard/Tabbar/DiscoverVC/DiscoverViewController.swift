@@ -99,8 +99,8 @@ class DiscoverViewController: UIViewController, DiscoverProtocol {
 //        controller!.modalPresentationStyle = .overCurrentContext
 //        controller!.delegate = self
 //        self.presentVC(controller!)
-        let preViewVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.PreviewViewScreen) as? PreviewViewController
-
+//        let preViewVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.PreviewViewScreen) as? PreviewViewController
+        let preViewVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.CameraViewScreen) as? ViewController
         self.pushVC(preViewVC!)
     }
 }

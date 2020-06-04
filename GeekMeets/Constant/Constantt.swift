@@ -23,7 +23,6 @@ let vOSVersion = "13.0"
 let vIPAddress = "127.0.0.1"
 let vTimeOffset = TimeZone.current.offsetFromUTC()
 let vTimeZone = TimeZone.current.getCurrentTimeZone()
-
 let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
 
 class Constant: NSObject {
@@ -80,6 +79,7 @@ struct GeekMeets_ViewController
     static let TabbarScreen = "TabbarViewController"
     static let MatchScreen = "MatchViewController"
     static let MatchProfileScreen = "MatchProfileViewController"
+    static let MatchUserProfileScreen = "MatchUserProfileViewController"
     static let EditProfileScreen = "EditProfileViewController"
     static let MyMatchesScreen = "MyMatchesViewController"
     static let BoostScreen = "BoostViewController"
@@ -94,6 +94,7 @@ struct GeekMeets_ViewController
     static let SearchScreen = "SearchProfileViewController"
     static let StoryContentScreen = "ContentView"
     static let PreviewViewScreen = "PreviewViewController"
+    static let CameraViewScreen = "ViewController"
     static let ChangePasswordScreen = "ChangePasswordViewController"
     static let MessageScreen = "MessagesViewController"
     static let ChangeEmailMobileScreen = "ChangeEmailMobileViewController"
@@ -120,6 +121,7 @@ struct Cells {
     static let SocialLinkCell = "SocialLinkCell"
     static let NotificationListCell = "NotificationListCell"
     static let SelectTextTypeCell = "SelectTextTypeCell"
+    static let PreferenceListCell = "PreferenceListCell" 
 }
 
 struct DeviceType {

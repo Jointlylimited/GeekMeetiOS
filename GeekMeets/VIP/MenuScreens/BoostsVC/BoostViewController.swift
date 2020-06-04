@@ -60,6 +60,6 @@ class BoostViewController: UIViewController, BoostProtocol {
     }
 
     @IBAction func btnBackAction(_ sender: UIButton) {
-        self.popVC()
+        self.dismissVC(completion: nil)
     }
 }

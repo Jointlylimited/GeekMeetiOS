@@ -56,6 +56,6 @@ override func awakeFromNib() {
     bottomBorder.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     bottomBorder.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
     bottomBorder.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-  bottomBorder.heightAnchor.constraint(equalToConstant: 1).isActive = true // Set Border-Strength
+   bottomBorder.heightAnchor.constraint(equalToConstant: 1).isActive = true // Set Border-Strength
    }
 }

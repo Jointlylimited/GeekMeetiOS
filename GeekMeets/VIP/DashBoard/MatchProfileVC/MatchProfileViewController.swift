@@ -13,11 +13,89 @@
 import UIKit
 import CoreLocation
 
+enum MatchProfileListCells {
+    
+    case PreferenceCell
+    case AboutCell(obj : String)
+    case CompanyCell
+    case SocialCell
+    
+    var cellHeight  : CGFloat {
+        switch self {
+            
+        case .AboutCell, .CompanyCell, .SocialCell:
+            return 50
+        case .PreferenceCell:
+            return 0
+        }
+    }
+    
+    var cellRowHeight  : CGFloat {
+        switch self {
+            
+        case .AboutCell(let desc):
+            return desc.heightWithConstrainedWidth(width: 400 * _widthRatio,font: fontPoppins(fontType: .Poppins_Medium, fontSize: .sizeNormalTextField)) + 50
+        case .CompanyCell, .SocialCell:
+            return UITableView.automaticDimension
+        case .PreferenceCell:
+            return 150
+        }
+    }
+    
+    var headerHeight: CGFloat {
+        return 45
+    }
+    
+    var cellID: String {
+        switch self {
+            
+        case .PreferenceCell:
+            return "PreferenceCell"
+        case .AboutCell:
+            return "ProfileAboutCell"
+        case .CompanyCell:
+            return "ProfileCompanyCell"
+        case .SocialCell:
+            return "ProfileSocialCell"
+            
+        }
+    }
+    
+    var sectionTitle: String {
+        switch self {
+        case .PreferenceCell:
+            return ""
+        case .AboutCell:
+            return "About"
+        case .CompanyCell:
+            return "Company"
+        case .SocialCell:
+            return "Social Media Links"
+        }
+    }
+    
+    var sectionImage : UIImage {
+        switch self {
+        case .PreferenceCell:
+            return #imageLiteral(resourceName: "icn_about")
+        case .AboutCell:
+            return #imageLiteral(resourceName: "icn_about")
+        case .CompanyCell:
+            return #imageLiteral(resourceName: "icn_company")
+        case .SocialCell:
+            return #imageLiteral(resourceName: "icn_link")
+        
+        }
+    }
+}
+
 struct MatchProfileData {
   
-  var cells: [ProfileListCells] {
-    var cell: [ProfileListCells] = []
+  var cells: [MatchProfileListCells] {
+    var cell: [MatchProfileListCells] = []
     let str = "Lady with fun loving personality and open- minded, Looking for Someone to hang out always open for hangout"
+    
+    cell.append(.PreferenceCell)
     cell.append(.AboutCell(obj: str))
     cell.append(.CompanyCell)
     cell.append(.SocialCell)
@@ -101,7 +179,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     }
     
     func setTheme(){
-        self.profileView.frame = DeviceType.iPhone5orSE ? CGRect(x: 0, y: 0, w: ScreenSize.width, h: 400) : (DeviceType.iPhoneXRMax ||  DeviceType.iPhone678p ? CGRect(x: 0, y: 0, w: ScreenSize.width, h: 500) : CGRect(x: 0, y: 0, w: ScreenSize.width, h: 450))
+        self.profileView.frame = DeviceType.iPhone5orSE ? CGRect(x: 0, y: 0, w: ScreenSize.width, h: 500) : (DeviceType.iPhoneXRMax ||  DeviceType.iPhone678p ? CGRect(x: 0, y: 0, w: ScreenSize.width, h: 650) : CGRect(x: 0, y: 0, w: ScreenSize.width, h: 550))
         self.arrayDetails = fetchUserData()
         self.registerCollectionViewCell()
         self.MatchProfileCollView.reloadData()
@@ -247,6 +325,26 @@ extension MatchProfileViewController : UITableViewDataSource, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: objProfileData.cells[indexPath.section].cellID)
+        
+//            if objProfileData.cells[indexPath.section].cellID == "ProfileAboutCell" {
+//                    if let cell = cell as? ProfileAboutCell  {
+//        //                print("User Profile Details : \(self.objMatchUserProfile.txAbout!)")
+//        //                cell.lblAbout.text = self.objMatchUserProfile.txAbout!
+//        //                cell.lblCity.text = self.objMatchUserProfile.vLiveIn!
+//        //                cell.lblGender.text = genderArray[(self.objMatchUserProfile.tiGender!)]
+//                    }
+//                } else if objProfileData.cells[indexPath.section].cellID == "ProfileCompanyCell" {
+//                    if let cell = cell as? ProfileCompanyCell  {
+//        //                cell.lblCompanyDetail.text = self.objMatchUserProfile.txCompanyDetail
+//                    }
+//                } else if objProfileData.cells[indexPath.section].cellID == "PreferenceCell" {
+//                    if let cell = cell as? PreferenceCell  {
+//                        cell.RegisterCellView()
+//                    }
+//                } else {
+//
+//                }
+//
         return cell!
     }
     
@@ -262,7 +360,11 @@ extension MatchProfileViewController : UITableViewDataSource, UITableViewDelegat
             if let cell = cell as? ProfileCompanyCell  {
 //                cell.lblCompanyDetail.text = self.objMatchUserProfile.txCompanyDetail
             }
-        } else {
+        } else if objProfileData.cells[indexPath.section].cellID == "PreferenceCell" {
+            if let cell = cell as? PreferenceCell  {
+                cell.RegisterCellView()
+            }
+        }else {
             
         }
     }

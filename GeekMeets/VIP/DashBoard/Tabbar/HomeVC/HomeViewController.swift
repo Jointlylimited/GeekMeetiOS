@@ -22,7 +22,8 @@ class HomeViewController: UIViewController, HomeProtocol {
     @IBOutlet weak var cards: SwipeableCards!
     
     var cardsData = [Int]()
-    
+    var objStoryData : [UIImage] = [#imageLiteral(resourceName: "image_1"),#imageLiteral(resourceName: "Image 65"),#imageLiteral(resourceName: "Image 63")]
+    var cardView = CardView()
     // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -69,6 +70,13 @@ class HomeViewController: UIViewController, HomeProtocol {
     }
     
     func makeCardsData() {
+        
+//        cardView = CardView.initCoachingAlertView()
+//        cardView.frame = CGRect(x: 20, y: 0, w: ScreenSize.width - 40, h: ScreenSize.height - 100)
+//        cardView.setData(index: 0)
+//        cardView.imgCollView.dataSource = self
+//        cardView.imgCollView.delegate = self
+        
         for i in 0..<100 {
             cardsData.append(i)
         }
@@ -81,25 +89,28 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
         return cardsData.count
     }
     func view(for cards: SwipeableCards, index: Int, reusingView: CardView?) -> CardView {
+
+        cardView = CardView.initCoachingAlertView()
+        cardView.frame = CGRect(x: 20, y: 0, w: ScreenSize.width - 40, h: ScreenSize.height - 100)
+        cardView.setData(index: 0)
+        cardView.imgCollView.dataSource = self
+        cardView.imgCollView.delegate = self
         
-        let view = CardView.initCoachingAlertView()
-        view.frame = CGRect(x: 30, y: 0, w: ScreenSize.width - 60, h: ScreenSize.height - 150)
-        
-        view.clickOnClose = {
+        cardView.clickOnClose = {
             print("Close Action clicked!")
         }
         
-        view.clickOnFavourite = {
+        cardView.clickOnFavourite = {
             print("Favourite Action clicked!")
             self.presenter?.gotoMatchVC()
         }
         
-        view.clickOnView = {
+        cardView.clickOnView = {
             print("View Action clicked!")
             self.presenter?.gotoMatchProfileVC()
         }
         
-        return view
+        return cardView
     }
     
     
@@ -115,5 +126,36 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
     }
     func cards(_ cards: SwipeableCards, didRemovedItemAt index: Int) {
         print("index of removed card:\(index)")
+    }
+}
+
+extension HomeViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.objStoryData.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell : DiscoverCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.DiscoverCollectionCell, for: indexPath) as! DiscoverCollectionCell
+        let data = self.objStoryData[indexPath.row]
+        cell.userImgView.image = data
+        cell.userImgView.clipsToBounds = true
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // Parallax visible cells
+        let center = CGPoint(x: (scrollView.frame.width / 2), y: scrollView.contentOffset.y + (scrollView.frame.width / 2))
+        if let ip = cardView.imgCollView.indexPathForItem(at: center) {
+            cardView.pageControl.currentPage = ip.row
+        }
     }
 }

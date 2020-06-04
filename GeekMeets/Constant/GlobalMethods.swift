@@ -25,6 +25,12 @@ let _widthRatio : CGFloat = {
 
 var objQuestionModel = QuestionaryModel()
 var genderArray : [String] = ["Male", "Female", "Others", "Prefer not to say"]
+enum MediaType: Int {
+    case image = 0, video
+}
+
+let _maxImageSize              : CGSize  = CGSize(width: 1000, height: 1000)
+let _minImageSize              : CGSize  = CGSize(width: 800, height: 800)
 
 enum FontTypePoppins: String {
     case Poppins_Regular = "Poppins-Regular"

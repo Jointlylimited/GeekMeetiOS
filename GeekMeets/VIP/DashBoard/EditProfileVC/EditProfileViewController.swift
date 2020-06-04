@@ -233,8 +233,6 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
             let photoModel = UserPhotosModel(iMediaId: photo.iMediaId, vMedia: photo.vMedia, tiMediaType: photo.tiMediaType, tiImage: nil, tiIsDefault: photo.tiIsDefault)
             userPhotosModel.append(photoModel)
         }
-//        self.objQuestionModel.arrQuestionnaire = callQuestionnaireApi()
-//        self.objQuestionModel.objQuestionnaire = QuestionnaireModel(dictionary: self.objQuestionModel.arrQuestionnaire[1])!
         self.tblEditProfileView.reloadData()
     }
     
@@ -328,11 +326,6 @@ extension EditProfileViewController : RecommandedProfileViewDelegate {
 
 extension EditProfileViewController : SelectInterestAgeGenderDelegate {
     func getSelectedValue(index : Int, data : String){
-        if index == 1 {
-//            self.userProfileModel?.vInterestAge = data
-        } else {
-//            self.userProfileModel?.vInterestGender = data
-        }
        self.tblEditProfileView.reloadData()
     }
 }
@@ -407,17 +400,12 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
         } else {
              if let cell = cell as? EditProfilePrivacyCell  {
                 
-                //cell.btnSwichMode[0].isSelected = userProfileModel?.tiIsShowAge == 1 ? true : false
                 cell.btnSwichMode[0].isSelected = userProfileModel?.tiIsShowDistance == 1 ? true : false
                 cell.btnSwichMode[1].isSelected = userProfileModel?.tiIsShowContactNumber == 1 ? true : false
                 cell.btnSwichMode[2].isSelected = userProfileModel?.tiIsShowProfileToLikedUser == 1 ? true : false
                 
                 cell.clickOnBtnSwitch = { (index) in
                     print(indexPath.row)
-                    /*if cell.btnSwichMode[index!].tag == 0 {
-                        cell.btnSwichMode[0].isSelected = !cell.btnSwichMode[0].isSelected
-                        self.userProfileModel?.tiIsShowAge = cell.btnSwichMode[0].isSelected == true ? 1 : 0
-                    } else*/
                     if cell.btnSwichMode[index!].tag == 0 {
                         cell.btnSwichMode[0].isSelected = !cell.btnSwichMode[0].isSelected
                         self.userProfileModel?.tiIsShowDistance = cell.btnSwichMode[0].isSelected == true ? 1 : 0

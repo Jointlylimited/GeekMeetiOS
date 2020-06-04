@@ -211,11 +211,15 @@ extension MenuViewController : UITableViewDataSource, UITableViewDelegate {
             let matchVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.MyMatchesScreen)
             self.pushVC(matchVC)
         } else if indexPath.row == 1 {
-            let subVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.ManageSubscriptionScreen)
-            self.pushVC(subVC)
+            let subVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.ManageSubscriptionScreen) as! ManageSubscriptionViewController
+            subVC.modalTransitionStyle = .crossDissolve
+            subVC.modalPresentationStyle = .overCurrentContext
+            self.presentVC(subVC)
         } else if indexPath.row == 2 {
-            let boostVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.BoostScreen)
-            self.pushVC(boostVC)
+            let boostVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.BoostScreen) as! BoostViewController
+            boostVC.modalTransitionStyle = .crossDissolve
+            boostVC.modalPresentationStyle = .overCurrentContext
+            self.presentVC(boostVC)
         } else if indexPath.row == 3 {
             let boostVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.TopGeeksScreen)
             self.pushVC(boostVC)

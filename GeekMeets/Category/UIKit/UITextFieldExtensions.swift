@@ -11,9 +11,22 @@ import UIKit
 
 extension UITextField {
     func addBottomBorder(){
+        
+        var bottomBorder = UIView()
+        self.translatesAutoresizingMaskIntoConstraints = false
+         bottomBorder = UIView.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+         bottomBorder.backgroundColor = #colorLiteral(red: 0.606272161, green: 0.2928337753, blue: 0.8085166812, alpha: 1)
+         bottomBorder.translatesAutoresizingMaskIntoConstraints = false
+         addSubview(bottomBorder)
+         //Mark: Setup Anchors
+         bottomBorder.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+         bottomBorder.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+         bottomBorder.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+         bottomBorder.heightAnchor.constraint(equalToConstant: 2).isActive = true
+        
 //        let bottomLine = CALayer()
 //        bottomLine.frame = CGRect(x: 0, y: self.frame.size.height - 5, width: self.frame.size.width, height: 5)
-//        bottomLine.backgroundColor = UIColor.gray.cgColor
+//        bottomLine.backgroundColor = AppCommonColor.firstGradient.cgColor
 //        borderStyle = .none
 //        layer.addSublayer(bottomLine)
     }

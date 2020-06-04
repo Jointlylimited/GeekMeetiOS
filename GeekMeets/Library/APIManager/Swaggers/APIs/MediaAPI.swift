@@ -71,4 +71,66 @@ open class MediaAPI {
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
     }
 
+    /**
+         post users story
+         
+         - parameter nonce: (header)
+         - parameter timestamp: (header)
+         - parameter token: (header)
+         - parameter authorization: (header)
+         - parameter txStory: (form) story content
+         - parameter tiStoryType: (form) 0-Image, 1-Video, 2-Text
+         - parameter vThumbnail: (form) video thumbnail (optional, default to abc.mp4)
+         - parameter completion: completion handler to receive the data and the error objects
+         */
+        open class func createStory(nonce: String, timestamp: String, token: String, authorization: String, txStory: String, tiStoryType: String, vThumbnail: String? = nil, completion: @escaping ((_ data: CommonResponse?,_ error: Error?) -> Void)) {
+            createStoryWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, txStory: txStory, tiStoryType: tiStoryType, vThumbnail: vThumbnail).execute { (response, error) -> Void in
+                completion(response?.body, error)
+            }
+        }
+
+
+        /**
+         post users story
+         - POST /users-story/create
+         - examples: [{contentType=application/json, example={
+      "responseMessage" : "responseMessage",
+      "responseCode" : 0
+    }}]
+         
+         - parameter nonce: (header)
+         - parameter timestamp: (header)
+         - parameter token: (header)
+         - parameter authorization: (header)
+         - parameter txStory: (form) story content
+         - parameter tiStoryType: (form) 0-Image, 1-Video, 2-Text
+         - parameter vThumbnail: (form) video thumbnail (optional, default to abc.mp4)
+
+         - returns: RequestBuilder<CommonResponse>
+         */
+        open class func createStoryWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, txStory: String, tiStoryType: String, vThumbnail: String? = nil) -> RequestBuilder<CommonResponse> {
+            let path = "/users-story/create"
+            let URLString = SwaggerClientAPI.basePath + path
+            let formParams: [String:Any?] = [
+                "txStory": txStory,
+                "tiStoryType": tiStoryType,
+                "vThumbnail": vThumbnail
+            ]
+
+            let nonNullParameters = APIHelper.rejectNil(formParams)
+            let parameters = APIHelper.convertBoolToString(nonNullParameters)
+            
+            let url = URLComponents(string: URLString)
+            let nillableHeaders: [String: Any?] = [
+                "nonce": nonce,
+                "timestamp": timestamp,
+                "token": token,
+                "authorization": authorization
+            ]
+            let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+            let requestBuilder: RequestBuilder<CommonResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+            return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
+        }
 }

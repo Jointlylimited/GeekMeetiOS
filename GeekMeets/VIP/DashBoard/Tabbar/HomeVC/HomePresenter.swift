@@ -30,7 +30,6 @@ class HomePresenter: HomePresentationProtocol {
         if let view = self.viewController as? UIViewController
         {
             view.presentVC(controller)
-            //            view.pushVC(controller)
         }
     }
     
@@ -42,7 +41,6 @@ class HomePresenter: HomePresentationProtocol {
         if let view = self.viewController as? UIViewController
         {
             view.presentVC(controller)
-            //            view.pushVC(controller)
         }
     }
 }

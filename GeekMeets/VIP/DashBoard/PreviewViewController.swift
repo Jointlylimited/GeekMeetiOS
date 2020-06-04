@@ -8,13 +8,18 @@
 
 import UIKit
 
+protocol PreviewProtocol: class {
+    func getPostStoryResponse(response: CommonResponse)
+}
 
-class PreviewViewController: UIViewController {
+class PreviewViewController: UIViewController, PreviewProtocol {
     
+    var presenter : PreviewPresentationProtocol?
     
     @IBOutlet weak var photo: UIImageView!
     var image: UIImage!
     var cusText : CustomTextView!
+    var objPostData = PostData()
     
     private var _selectedStickerView:StickerView?
     var selectedStickerView:StickerView? {
@@ -41,11 +46,41 @@ class PreviewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        photo.image = hself.image
+        photo.image = self.objPostData.arrMedia[0].img
         self.navigationController?.isNavigationBarHidden = true
         // Do any additional setup after loading the view.
       
     }
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    // MARK: Setup
+    
+    private func setup() {
+        let viewController = self
+        let interactor = PreviewInteractor()
+        let presenter = PreviewPresenter()
+        
+        //View Controller will communicate with only presenter
+        viewController.presenter = presenter
+        //viewController.interactor = interactor
+        
+        //Presenter will communicate with Interector and Viewcontroller
+        presenter.viewController = viewController
+        presenter.interactor = interactor
+        
+        //Interactor will communucate with only presenter.
+        interactor.presenter = presenter
+    }
+    
     
     override var prefersStatusBarHidden: Bool {
         return true
@@ -68,34 +103,29 @@ class PreviewViewController: UIViewController {
     }
     @IBAction func btnAddtoStoryAction(_ sender: UIButton) {
         if cusText != nil {
-            let image = textToImage(drawText: cusText!.text as NSString, inImage: photo.image!, atPoint: CGPoint(x: 0, y: 0))
+            let image = textToImage(drawText: cusText!.text as NSString, inImage: photo.image!, atPoint: CGPoint(x: cusText.origin.x, y: cusText.origin.y))
+            self.objPostData.arrMedia[0].img = image
             print(image)
         }
-        
-        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.SubscriptionScreen) as? SubscriptionVC
-        self.pushVC(controller!)
+//
+//        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.SubscriptionScreen) as? SubscriptionVC
+//        self.pushVC(controller!)
+        self.callPostStoryAPI(obj: self.objPostData)
     }
     
-      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-      // Get the new view controller using segue.destination.
-      // Pass the selected object to the new view controller.
-      if segue.identifier == "SegueToYourTabBarController" {
-          if let destVC = segue.destination as? TabbarViewController {
-              destVC.selectedIndex = 0
-          }
-      }
+    func moveToTabVC(){
+        let tabVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.TabbarScreen) as! TabbarViewController
+        tabVC.isFromMatch = false
+        self.pop(toLast: tabVC.classForCoder)
+    }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "SegueToYourTabBarController" {
+            if let destVC = segue.destination as? TabbarViewController {
+                destVC.selectedIndex = 0
+            }
+        }
     }
-    */
-
-}
     
     func setLabel(text : CustomTextView){
         self.cusText = text
@@ -151,7 +181,18 @@ class PreviewViewController: UIViewController {
 
         return newImage!
     }}
-
+extension PreviewViewController {
+    
+    func callPostStoryAPI(obj : PostData){
+        self.presenter?.callPostStoryAPI(obj: obj)
+    }
+    
+    func getPostStoryResponse(response: CommonResponse){
+        if response.responseCode == 200 {
+            self.moveToTabVC()
+        }
+    }
+}
 extension PreviewViewController : TextViewControllerDelegate {
     func textViewDidFinishWithTextView(text:CustomTextView) {
         print(text)

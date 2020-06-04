@@ -82,7 +82,7 @@ class OTPStackView: UIStackView {
       
         textField.textColor = .black
         textField.layer.cornerRadius = 5
-        textField.layer.borderWidth = 1
+        textField.layer.borderWidth = 0
         textField.layer.borderColor = inactiveFieldBorderColor.cgColor
         textField.addBottomBorder()
         textField.keyboardType = .numberPad

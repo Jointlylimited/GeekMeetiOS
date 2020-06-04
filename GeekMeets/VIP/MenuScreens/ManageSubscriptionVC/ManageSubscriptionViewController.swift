@@ -58,6 +58,6 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
-        self.popVC()
+        self.dismissVC(completion: nil)
     }
 }

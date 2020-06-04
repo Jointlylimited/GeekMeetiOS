@@ -25,10 +25,29 @@ public class CardView: UIView {
     
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var lblView: GradientLabel!
+    @IBOutlet weak var imgCollView: UICollectionView!
+    @IBOutlet weak var pageControl: CustomImagePageControl!
     
+    var objStoryData : [UIImage] = [#imageLiteral(resourceName: "image_1"),#imageLiteral(resourceName: "Image 65"),#imageLiteral(resourceName: "Image 63")]
     override public func awakeFromNib() {
         super.awakeFromNib()
+//        setData()
+    }
+    
+    func setData(index : Int){
         
+        self.imgCollView.register(UINib.init(nibName: Cells.DiscoverCollectionCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.DiscoverCollectionCell)
+        self.imgCollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        
+        let layout = CustomImageLayout()
+        layout.scrollDirection = .vertical
+        self.imgCollView.collectionViewLayout = layout
+        
+        let angle = CGFloat.pi/2
+        pageControl.transform = CGAffineTransform(rotationAngle: angle)
+        self.pageControl.numberOfPages = self.objStoryData.count
+        self.pageControl.currentPage = index
+        self.imgCollView.reloadData()
     }
     
     override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {

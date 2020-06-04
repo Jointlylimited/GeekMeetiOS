@@ -8,22 +8,82 @@
 
 import UIKit
 import AVFoundation
+import MobileCoreServices
 
+struct MediaData {
+    var mediaType: MediaType = .image
+    var uID: String = ""
+    var img: UIImage?
+    var thumbImg: UIImage?
+    var videoURL: URL?
+    var isUploaded: Bool = false
+    var fileSize: Double = 0.0 //in MB
+    
+    
+    var maximumVideoSize: Double = 10//inMB
+    
+    /// video data Path/Name
+    var videoURlUpload: (path: String, name: String) {
+        let folderName = "story_media/"
+        let prefix = "Story"
+        let timeStamp = Date().currentTimeMillis()//Headers.timestamp
+        let videoExtension = ".mp4"
+        let path = "\(folderName)\(prefix)\(timeStamp)\(uID)\(videoExtension)"
+        return (path: path, name: "\(prefix)\(timeStamp)\(uID)\(videoExtension)")
+    }
+    
+    /// video-thumb image data Path/Name
+    var thumbURlUpload: (path: String, name: String) {
+        let folderName = "story_media/"
+        let prefix = "Story"
+        let timeStamp = Date().currentTimeMillis()//Headers.timestamp
+        let imgExtension = ".jpeg"
+        let path = "\(folderName)\(prefix)\(timeStamp)\(uID)\(imgExtension)"
+        return (path: path, name: "\(prefix)\(timeStamp)\(uID)\(imgExtension)")
+    }
+    
+    /// image data Path/Name
+    var mediaImgName: (path: String, name: String) {
+        let folderName = "story_media/"
+        let prefix = "Story"
+        let timeStamp = Date().currentTimeMillis()//Headers.timestamp
+        let imgExtension = ".jpeg"
+        let path = "\(folderName)\(prefix)\(timeStamp)\(uID)\(imgExtension)"
+        return (path: path, name: "\(prefix)\(timeStamp)\(uID)\(imgExtension)")
+    }
+    
+    /// dictionary with media data
+    var dictForAPI: [String:Any] {
+        if mediaType == .image {
+            return ["type": mediaType.rawValue, "image": mediaImgName.path]
+        } else {
+            return ["type": mediaType.rawValue, "video": videoURlUpload.path, "thumb": thumbURlUpload.path]
+        }
+    }
+}
+
+struct PostData {
+    
+    var txStory: String = ""
+    var tiStoryType: String = ""
+    var arrMedia: [MediaData]!
+    var postMediaType: MediaType = .image
+    var maximumVideoSize: Double = 10//inMB
+}
 
 class ViewController: UIViewController {
 
-    
     var captureSession = AVCaptureSession()
     var backCamera: AVCaptureDevice?
     var frontCamera: AVCaptureDevice?
     var frontbackCamera: AVCaptureDevice?
     var currentCamera: AVCaptureDevice?
-    
     var photoOutput: AVCapturePhotoOutput?
-    
     var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
     
     var image:UIImage?
+    var objPostData = PostData()
+    var imagePicker: UIImagePickerController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,9 +94,7 @@ class ViewController: UIViewController {
         setupInputOutput()
         setupPreviewLayer()
         startRunningCaptureSession()
-        
     }
-    
     
     func setupCaptureSession() {
         captureSession.sessionPreset = AVCaptureSession.Preset.photo
@@ -53,13 +111,9 @@ class ViewController: UIViewController {
                 frontCamera = device
             }
         }
-        
         currentCamera = backCamera
     }
-
-    
-    
-    
+ 
     func setupInputOutput() {
         do {
             let captureDeviceInput = try AVCaptureDeviceInput(device: currentCamera!)
@@ -108,6 +162,7 @@ class ViewController: UIViewController {
         if segue.identifier == "showPhotos" {
             let previewVC = segue.destination as! PreviewViewController
             previewVC.image = self.image
+            previewVC.objPostData = self.objPostData
         }
     }
   
@@ -181,3 +236,83 @@ extension ViewController: AVCapturePhotoCaptureDelegate{
     }
 }
 
+extension ViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func openMediaTypeActionSheet() {
+        let photo = "Photo"
+        let video = "Video"
+        let cancel = "Cancel"
+        
+        func Getimage(){
+            let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
+            alert.addAction(UIAlertAction(title: photo, style: .default, handler: { _ in
+               self.objPostData.postMediaType = .image
+                self.openLibrary()
+            }))
+            
+            alert.addAction(UIAlertAction(title: video, style: .default, handler: { _ in
+                self.objPostData.postMediaType = .video
+                self.openLibrary()
+            }))
+            
+            alert.addAction(UIAlertAction.init(title: cancel, style: .cancel, handler: nil))
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func openLibrary(){
+        photoLibraryAccess { [weak self] (status, isGrant) in
+            guard let `self` = self else {return}
+            if isGrant {
+                if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
+                    self.imagePicker = UIImagePickerController()
+                    self.imagePicker.delegate = self
+                    if self.objPostData.postMediaType == .video {
+                        self.imagePicker.mediaTypes = [kUTTypeMovie as String, kUTTypeVideo as String]
+                    }
+                    self.imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary;
+                    self.imagePicker.allowsEditing = true
+                    self.present(self.imagePicker, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        if objPostData.postMediaType == .image {
+            if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+                var objMedia = MediaData()
+                objMedia.img = image
+                if self.objPostData.arrMedia == nil {
+                    self.objPostData.arrMedia = []
+                }
+                objMedia.uID = "\(self.objPostData.arrMedia.count)"
+                self.objPostData.arrMedia.append(objMedia)
+            }
+        } else {
+            guard let videoURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL, let videoDataSize = videoURL.getVideoData(), Double(videoDataSize.count / 1048576) <= objPostData.maximumVideoSize else {
+                picker.dismiss(animated: true, completion: nil)
+                return
+            }
+            var objMedia = MediaData()
+            objMedia.fileSize = Double(videoDataSize.count / 1048576)//in MB
+            objMedia.mediaType = objPostData.postMediaType
+            objMedia.thumbImg = generateThumb(from: videoURL)
+            objMedia.videoURL = videoURL
+            if self.objPostData.arrMedia == nil {
+                self.objPostData.arrMedia = []
+            }
+            objMedia.uID = "\(self.objPostData.arrMedia.count)"
+            self.objPostData.arrMedia.append(objMedia)
+        }
+    }
+    
+    func generateThumb(from videoURL: URL) -> UIImage? {
+        return videoURL.getVideoThumbImage()
+    }
+}
