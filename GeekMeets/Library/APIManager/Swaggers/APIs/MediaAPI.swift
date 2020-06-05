@@ -133,4 +133,109 @@ open class MediaAPI {
 
             return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
         }
+    
+
+        /**
+         list users story
+         
+         - parameter nonce: (header)
+         - parameter timestamp: (header)
+         - parameter token: (header)
+         - parameter authorization: (header)
+         - parameter completion: completion handler to receive the data and the error objects
+         */
+        open class func listStory(nonce: String, timestamp: String, token: String, authorization: String, completion: @escaping ((_ data: StoryResponse?,_ error: Error?) -> Void)) {
+            listStoryWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization).execute { (response, error) -> Void in
+                completion(response?.body, error)
+            }
+        }
+
+
+        /**
+         list users story
+         - GET /users-story/list
+         - examples: [{contentType=application/json, example=""}]
+         
+         - parameter nonce: (header)
+         - parameter timestamp: (header)
+         - parameter token: (header)
+         - parameter authorization: (header)
+
+         - returns: RequestBuilder<StoryResponse>
+         */
+        open class func listStoryWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String) -> RequestBuilder<StoryResponse> {
+            let path = "/users-story/list"
+            let URLString = SwaggerClientAPI.basePath + path
+            let parameters: [String:Any]? = nil
+            
+            let url = URLComponents(string: URLString)
+            let nillableHeaders: [String: Any?] = [
+                "nonce": nonce,
+                "timestamp": timestamp,
+                "token": token,
+                "authorization": authorization
+            ]
+            let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+            let requestBuilder: RequestBuilder<StoryResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+            return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
+        }
+
+        /**
+         view users story
+         
+         - parameter nonce: (header)
+         - parameter timestamp: (header)
+         - parameter token: (header)
+         - parameter authorization: (header)
+         - parameter iStoryId: (form) story content
+         - parameter completion: completion handler to receive the data and the error objects
+         */
+        open class func viewStory(nonce: String, timestamp: String, token: String, authorization: String, iStoryId: String, completion: @escaping ((_ data: CommonResponse?,_ error: Error?) -> Void)) {
+            viewStoryWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, iStoryId: iStoryId).execute { (response, error) -> Void in
+                completion(response?.body, error)
+            }
+        }
+
+
+        /**
+         view users story
+         - POST /users-story/view
+         - examples: [{contentType=application/json, example={
+      "responseMessage" : "responseMessage",
+      "responseCode" : 0
+    }}]
+         
+         - parameter nonce: (header)
+         - parameter timestamp: (header)
+         - parameter token: (header)
+         - parameter authorization: (header)
+         - parameter iStoryId: (form) story content
+
+         - returns: RequestBuilder<CommonResponse>
+         */
+        open class func viewStoryWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, iStoryId: String) -> RequestBuilder<CommonResponse> {
+            let path = "/users-story/view"
+            let URLString = SwaggerClientAPI.basePath + path
+            let formParams: [String:Any?] = [
+                "iStoryId": iStoryId
+            ]
+
+            let nonNullParameters = APIHelper.rejectNil(formParams)
+            let parameters = APIHelper.convertBoolToString(nonNullParameters)
+            
+            let url = URLComponents(string: URLString)
+            let nillableHeaders: [String: Any?] = [
+                "nonce": nonce,
+                "timestamp": timestamp,
+                "token": token,
+                "authorization": authorization
+            ]
+            let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+            let requestBuilder: RequestBuilder<CommonResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+            return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
+        }
 }

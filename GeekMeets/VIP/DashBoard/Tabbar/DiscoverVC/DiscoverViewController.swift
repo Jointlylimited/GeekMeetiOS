@@ -17,6 +17,7 @@ protocol TextViewControllerDelegate {
 }
 
 protocol DiscoverProtocol: class {
+    func getStoryListResponse(response: StoryResponse)
 }
 
 class DiscoverViewController: UIViewController, DiscoverProtocol {
@@ -28,6 +29,8 @@ class DiscoverViewController: UIViewController, DiscoverProtocol {
     
     var objStoryData : [StoryViewModel] = []
     var arrayDetails :  [UserDetail] = []
+    var objStoryArray : [StoryResponseFields]?
+    
     // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -67,6 +70,7 @@ class DiscoverViewController: UIViewController, DiscoverProtocol {
         self.registerCollectionViewCell()
         setStoryData()
         arrayDetails = fetchUserData()
+        self.presenter?.callStoryListAPI()
     }
     
     func registerCollectionViewCell(){
@@ -94,14 +98,18 @@ class DiscoverViewController: UIViewController, DiscoverProtocol {
         self.pushVC(searchVC!)
     }
     @IBAction func actionAddPhoto(_ sender: Any) {
-//        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.AddTextScreen) as? AddTextViewController
-//        controller!.modalTransitionStyle = .crossDissolve
-//        controller!.modalPresentationStyle = .overCurrentContext
-//        controller!.delegate = self
-//        self.presentVC(controller!)
-//        let preViewVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.PreviewViewScreen) as? PreviewViewController
         let preViewVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.CameraViewScreen) as? ViewController
         self.pushVC(preViewVC!)
+    }
+}
+
+extension DiscoverViewController{
+    func getStoryListResponse(response: StoryResponse){
+        if response.responseCode == 200 {
+            print(response.responseData)
+            self.objStoryArray = response.responseData
+            self.AllStoryCollView.reloadData()
+        }
     }
 }
 
@@ -111,7 +119,7 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.objStoryData.count
+        return collectionView == self.StoryCollView ? self.objStoryData.count : (self.objStoryArray != nil ? self.objStoryArray!.count : self.objStoryData.count)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -123,8 +131,17 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
             return cell
         } else {
             let cell : DiscoverCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.DiscoverCollectionCell, for: indexPath) as! DiscoverCollectionCell
-            let data = self.objStoryData[indexPath.row]
-            cell.userImgView.image = data.userImage
+            if self.objStoryArray != nil {
+                let data = self.objStoryArray![indexPath.row]
+                if data.txStory != "" {
+                    let url = URL(string:"\(fileUploadURL)\(story)\(data.tiStoryType! == "0" ? data.txStory! : data.vThumbnail!)")
+                    print(url!)
+                    cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
+                }
+            } else {
+                let data = self.objStoryData[indexPath.row]
+                cell.userImgView.image = data.userImage
+            }
             return cell
         }
     }
@@ -135,7 +152,7 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
         controller!.modalTransitionStyle = .crossDissolve
         controller!.modalPresentationStyle = .overCurrentContext
         controller?.isFromMatchVC = false
-        controller?.pages = self.arrayDetails
+        controller?.pages = self.objStoryArray!
         self.presentVC(controller!)
     }
     

@@ -21,6 +21,7 @@ class BoostViewController: UIViewController, BoostProtocol {
     
     // MARK: Object lifecycle
     
+    @IBOutlet var btnBoostColl: [UIButton]!
     @IBOutlet weak var scrollView: UIScrollView!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -61,5 +62,12 @@ class BoostViewController: UIViewController, BoostProtocol {
 
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.dismissVC(completion: nil)
+    }
+    @IBAction func btnBoostAction(_ sender: UIButton) {
+        
+        btnBoostColl.forEach{
+            $0.isSelected = false
+        }
+        sender.isSelected = true
     }
 }

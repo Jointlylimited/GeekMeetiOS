@@ -13,7 +13,7 @@
 import UIKit
 
 protocol DiscoverInteractorProtocol {
-    func doSomething()
+    func callStoryListAPI()
 }
 
 protocol DiscoverDataStore {
@@ -25,7 +25,22 @@ class DiscoverInteractor: DiscoverInteractorProtocol, DiscoverDataStore {
     //var name: String = ""
     
     // MARK: Do something
-    func doSomething() {
-        
+    func callStoryListAPI() {
+        LoaderView.sharedInstance.showLoader()
+        MediaAPI.listStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getStoryListResponse(response: response!)
+            } else if response?.responseCode == 400 {
+                self.presenter?.getStoryListResponse(response: response!)
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getStoryListResponse(response: response!)
+                }
+            }
+        }
     }
 }

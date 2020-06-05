@@ -19,6 +19,8 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     //var interactor : TopGeeksInteractorProtocol?
     var presenter : TopGeeksPresentationProtocol?
     
+    @IBOutlet var btnTopGeekColl: [UIButton]!
+    
     // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -58,6 +60,12 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
-        self.popVC()
+        self.dismissVC(completion: nil)
+    }
+    @IBAction func btnTopGeekAction(_ sender: UIButton) {
+        btnTopGeekColl.forEach{
+            $0.isSelected = false
+        }
+        sender.isSelected = true
     }
 }

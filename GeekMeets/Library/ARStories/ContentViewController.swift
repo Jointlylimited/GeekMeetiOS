@@ -12,7 +12,8 @@ var ContentViewControllerVC = ContentViewController()
 @objc class ContentViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
 
     var pageViewController : UIPageViewController?
-    @objc var pages: [UserDetail] = []
+//    @objc var pages: [UserDetail] = []
+    var pages: [StoryResponseFields] = []
     @objc var currentIndex : Int = 0
     
     var isFromMatchVC : Bool = true

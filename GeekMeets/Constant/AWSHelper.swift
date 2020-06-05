@@ -37,7 +37,7 @@ let AWS_REGION = "us-east-1"
  AWS Folder Name
 ========================== */
 let user_Profile = "UserProfile/"
-let lic_Images = "LicenseDetails/"
+let story = "Story/"
 let ser_Image = "ServiceImage/"
 let mani_Image = "Manicure/"
 let pedi_Image = "Padicure/"

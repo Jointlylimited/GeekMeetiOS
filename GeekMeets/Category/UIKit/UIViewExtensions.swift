@@ -1164,4 +1164,12 @@ public extension UIView {
         view.layer.masksToBounds = false
     }
 }
+
+class ThemeSlider : UISlider {
+    
+    override func trackRect(forBounds bounds: CGRect) -> CGRect {
+        return CGRect(origin: CGPoint(x: 0, y: self.frame.midY-5) , size: CGSize(width: bounds.width, height:7))
+    }
+}
+
 #endif

@@ -221,8 +221,10 @@ extension MenuViewController : UITableViewDataSource, UITableViewDelegate {
             boostVC.modalPresentationStyle = .overCurrentContext
             self.presentVC(boostVC)
         } else if indexPath.row == 3 {
-            let boostVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.TopGeeksScreen)
-            self.pushVC(boostVC)
+            let topVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.TopGeeksScreen) as! TopGeeksViewController
+            topVC.modalTransitionStyle = .crossDissolve
+            topVC.modalPresentationStyle = .overCurrentContext
+            self.presentVC(topVC)
         } else if indexPath.row == 4 {
             let accVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.AccountSettingScreen)
             self.pushVC(accVC)

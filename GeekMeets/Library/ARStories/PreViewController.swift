@@ -24,8 +24,10 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
     @IBOutlet weak var btnDelete: UIButton!
     
     var pageIndex : Int = 0
-    var items: [UserDetail] = []
-    var item: [Content] = []
+//    var items: [UserDetail] = []
+    var items: [StoryResponseFields] = []
+    var item : [StoryResponseFields] = []
+//    var item: [Content] = []
     var SPB: SegmentedProgressBar!
     var player: AVPlayer!
     let loader = ImageLoader()
@@ -49,10 +51,17 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
             self.btnView.alpha = 1
             self.btnDelete.setTitle("Delete", for: .normal)
         }
+        
         userProfileImage.layer.cornerRadius = self.userProfileImage.frame.size.height / 2;
-        userProfileImage.imageFromServerURL(items[pageIndex].imageUrl)
-        lblUserName.text = items[pageIndex].name
-        item = items[pageIndex].contents as! [Content]
+        if items[pageIndex].txStory != "" {
+            let urlStr = "\(fileUploadURL)\(story)\(items[pageIndex].vProfileImage!)"
+            print(urlStr)
+            userProfileImage.imageFromServerURL(urlStr)
+        }
+        
+        lblUserName.text = items[pageIndex].vName
+        item = items
+//        item = items[pageIndex].contents as! [Content]
         
         SPB = SegmentedProgressBar(numberOfSegments: item.count, duration: 5)
         if #available(iOS 11.0, *) {
@@ -140,17 +149,17 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
     
     //MARK: - Play or show image
     func playVideoOrLoadImage(index: NSInteger) {
-        if item[index].type == "image" {
+        if item[index].tiStoryType! == "0" /*"image"*/ {
             self.SPB.duration = 5
             self.imagePreview.isHidden = false
             self.videoView.isHidden = true
-            self.imagePreview.imageFromServerURL(item[index].url)
+            self.imagePreview.imageFromServerURL("\(fileUploadURL)\(story)\(items[pageIndex].txStory!)")
         } else {
             self.imagePreview.isHidden = true
             self.videoView.isHidden = false
             
             resetPlayer()
-            guard let url = NSURL(string: item[index].url) as URL? else {return}
+            guard let url = NSURL(string: "\(fileUploadURL)\(story)\(items[index].txStory!)") as URL? else {return}
             self.player = AVPlayer(url: url)
             
             let videoLayer = AVPlayerLayer(player: self.player)
@@ -170,10 +179,10 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
     // MARK: Private func
     private func getDuration(at index: Int) -> TimeInterval {
         var retVal: TimeInterval = 5.0
-        if item[index].type == "image" {
+        if item[index].tiStoryType! == "0" /*"image"*/ {
             retVal = 5.0
         } else {
-            guard let url = NSURL(string: item[index].url) as URL? else { return retVal }
+            guard let url = NSURL(string: "\(fileUploadURL)\(story)\(items[pageIndex].txStory!)") as URL? else { return retVal }
             let asset = AVAsset(url: url)
             let duration = asset.duration
             retVal = CMTimeGetSeconds(duration)

@@ -21,6 +21,8 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     
     // MARK: Object lifecycle
     
+    @IBOutlet var btnSubColl: [UIButton]!
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -59,5 +61,11 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.dismissVC(completion: nil)
+    }
+    @IBAction func btnSubscriptionAction(_ sender: UIButton) {
+        btnSubColl.forEach{
+            $0.isSelected = false
+        }
+        sender.isSelected = true
     }
 }

@@ -160,10 +160,14 @@ class PreviewInteractor: PreviewInteractorProtocol, PreviewDataStore {
               } else if isUploaded , let imgPath = path {
                   var dict: [String:Any] = [:]
                   if obj.mediaType == .image {
+
+                    self.objPost.txStory = imgPath.split("/").last!
                       dict = ["type": obj.mediaType.rawValue, "image": imgPath]
                   } else {
                       let videoPath = videoPath ?? ""
                      dict = ["type": obj.mediaType.rawValue, "video": videoPath, "thumb": imgPath]
+                    self.objPost.txStory = videoPath.split("/").last!
+                    self.objPost.vThumbnail = imgPath.split("/").last!
                   }
                   self.objCreatePostData.dictForAPI.append(dict)
                   uploaded(isUploaded)
@@ -175,9 +179,11 @@ class PreviewInteractor: PreviewInteractorProtocol, PreviewDataStore {
     
     // MARK: Do something
     func callPostStoryAPI(obj : PostData){
-        LoaderView.sharedInstance.showLoader()
+        DispatchQueue.main.async {
+            LoaderView.sharedInstance.showLoader()
+        }
         if obj.tiStoryType == "1" {
-            MediaAPI.createStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, txStory: obj.txStory, tiStoryType: obj.tiStoryType, vThumbnail: obj.txStory) { (response, error) in
+            MediaAPI.createStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, txStory: self.objPost.txStory, tiStoryType: obj.tiStoryType, vThumbnail: self.objPost.vThumbnail) { (response, error) in
                 
                 LoaderView.sharedInstance.hideLoader()
                 if response?.responseCode == 200 {
@@ -193,7 +199,7 @@ class PreviewInteractor: PreviewInteractorProtocol, PreviewDataStore {
                 }
             }
         } else {
-            MediaAPI.createStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, txStory: obj.txStory, tiStoryType: obj.tiStoryType) { (response, error) in
+            MediaAPI.createStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, txStory: self.objPost.txStory, tiStoryType: obj.tiStoryType) { (response, error) in
                 
                 LoaderView.sharedInstance.hideLoader()
                 if response?.responseCode == 200 {

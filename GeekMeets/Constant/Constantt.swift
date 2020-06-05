@@ -79,7 +79,6 @@ struct GeekMeets_ViewController
     static let TabbarScreen = "TabbarViewController"
     static let MatchScreen = "MatchViewController"
     static let MatchProfileScreen = "MatchProfileViewController"
-    static let MatchUserProfileScreen = "MatchUserProfileViewController"
     static let EditProfileScreen = "EditProfileViewController"
     static let MyMatchesScreen = "MyMatchesViewController"
     static let BoostScreen = "BoostViewController"

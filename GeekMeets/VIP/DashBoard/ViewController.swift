@@ -24,32 +24,32 @@ struct MediaData {
     
     /// video data Path/Name
     var videoURlUpload: (path: String, name: String) {
-        let folderName = "story_media/"
+        let folderName = "Story/"
         let prefix = "Story"
         let timeStamp = Date().currentTimeMillis()//Headers.timestamp
         let videoExtension = ".mp4"
-        let path = "\(folderName)\(prefix)\(timeStamp)\(uID)\(videoExtension)"
-        return (path: path, name: "\(prefix)\(timeStamp)\(uID)\(videoExtension)")
+        let path = "\(folderName)\(timeStamp)\(videoExtension)"
+        return (path: path, name: "\(timeStamp)\(videoExtension)")
     }
     
     /// video-thumb image data Path/Name
     var thumbURlUpload: (path: String, name: String) {
-        let folderName = "story_media/"
-        let prefix = "Story"
+        let folderName = "Story/"
+        let prefix = "story_media"
         let timeStamp = Date().currentTimeMillis()//Headers.timestamp
         let imgExtension = ".jpeg"
-        let path = "\(folderName)\(prefix)\(timeStamp)\(uID)\(imgExtension)"
-        return (path: path, name: "\(prefix)\(timeStamp)\(uID)\(imgExtension)")
+        let path = "\(folderName)\(timeStamp)\(imgExtension)"
+        return (path: path, name: "\(timeStamp)\(imgExtension)")
     }
     
     /// image data Path/Name
     var mediaImgName: (path: String, name: String) {
-        let folderName = "story_media/"
+        let folderName = "Story/"
         let prefix = "Story"
         let timeStamp = Date().currentTimeMillis()//Headers.timestamp
         let imgExtension = ".jpeg"
-        let path = "\(folderName)\(prefix)\(timeStamp)\(uID)\(imgExtension)"
-        return (path: path, name: "\(prefix)\(timeStamp)\(uID)\(imgExtension)")
+        let path = "\(folderName)\(timeStamp)\(imgExtension)"
+        return (path: path, name: "\(timeStamp)\(imgExtension)")
     }
     
     /// dictionary with media data
@@ -66,6 +66,7 @@ struct PostData {
     
     var txStory: String = ""
     var tiStoryType: String = ""
+    var vThumbnail : String = ""
     var arrMedia: [MediaData]!
     var postMediaType: MediaType = .image
     var maximumVideoSize: Double = 10//inMB
@@ -89,11 +90,11 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationController?.isNavigationBarHidden = true
-        setupCaptureSession()
-        setupDevice()
-        setupInputOutput()
-        setupPreviewLayer()
-        startRunningCaptureSession()
+//        setupCaptureSession()
+//        setupDevice()
+//        setupInputOutput()
+//        setupPreviewLayer()
+//        startRunningCaptureSession()
     }
     
     func setupCaptureSession() {
@@ -209,6 +210,10 @@ class ViewController: UIViewController {
       }
   }
 
+     @IBAction func actionOpenGallary(_ sender: Any) {
+        self.openMediaTypeActionSheet()
+    }
+    
   // Find a camera with the specified AVCaptureDevicePosition, returning nil if one is not found
   func cameraWithPosition(position: AVCaptureDevice.Position) -> AVCaptureDevice? {
       let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .unspecified)
@@ -242,7 +247,7 @@ extension ViewController : UIImagePickerControllerDelegate, UINavigationControll
         let video = "Video"
         let cancel = "Cancel"
         
-        func Getimage(){
+//        func Getimage(){
             let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
             alert.addAction(UIAlertAction(title: photo, style: .default, handler: { _ in
                self.objPostData.postMediaType = .image
@@ -257,7 +262,7 @@ extension ViewController : UIImagePickerControllerDelegate, UINavigationControll
             alert.addAction(UIAlertAction.init(title: cancel, style: .cancel, handler: nil))
             
             self.present(alert, animated: true, completion: nil)
-        }
+//        }
     }
     
     func openLibrary(){
@@ -269,6 +274,7 @@ extension ViewController : UIImagePickerControllerDelegate, UINavigationControll
                     self.imagePicker.delegate = self
                     if self.objPostData.postMediaType == .video {
                         self.imagePicker.mediaTypes = [kUTTypeMovie as String, kUTTypeVideo as String]
+                        self.imagePicker.videoMaximumDuration = 30
                     }
                     self.imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary;
                     self.imagePicker.allowsEditing = true
@@ -292,9 +298,11 @@ extension ViewController : UIImagePickerControllerDelegate, UINavigationControll
                     self.objPostData.arrMedia = []
                 }
                 objMedia.uID = "\(self.objPostData.arrMedia.count)"
+                self.objPostData.tiStoryType = "0"
                 self.objPostData.arrMedia.append(objMedia)
             }
         } else {
+            
             guard let videoURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL, let videoDataSize = videoURL.getVideoData(), Double(videoDataSize.count / 1048576) <= objPostData.maximumVideoSize else {
                 picker.dismiss(animated: true, completion: nil)
                 return
@@ -308,8 +316,15 @@ extension ViewController : UIImagePickerControllerDelegate, UINavigationControll
                 self.objPostData.arrMedia = []
             }
             objMedia.uID = "\(self.objPostData.arrMedia.count)"
+            self.objPostData.tiStoryType = "1"
             self.objPostData.arrMedia.append(objMedia)
         }
+        print(self.objPostData)
+        let previewVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.PreviewViewScreen) as! PreviewViewController
+        previewVC.image = self.image
+        previewVC.objPostData = self.objPostData
+        self.pushVC(previewVC)
+        
     }
     
     func generateThumb(from videoURL: URL) -> UIImage? {
