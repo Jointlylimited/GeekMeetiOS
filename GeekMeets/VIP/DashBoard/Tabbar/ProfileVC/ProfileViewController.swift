@@ -228,13 +228,13 @@ extension ProfileViewController : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if objProfileData.cells[indexPath.section].cellID == "ProfileAboutCell" {
             if let cell = cell as? ProfileAboutCell  {
-                cell.lblAbout.text = userProfileModel?.txAbout // userProfileModel?.vAbout
-                cell.lblCity.text = userProfileModel?.vLiveIn // userProfileModel?.vCity
-                cell.lblGender.text = genderArray[userProfileModel!.tiGender!] // userProfileModel?.vGender
+                cell.lblAbout.text = userProfileModel?.txAbout
+                cell.lblCity.text = userProfileModel?.vLiveIn
+                cell.lblGender.text = genderArray[userProfileModel!.tiGender!]
             }
         } else if objProfileData.cells[indexPath.section].cellID == "ProfileCompanyCell" {
             if let cell = cell as? ProfileCompanyCell  {
-                cell.lblCompanyDetail.text = userProfileModel?.txCompanyDetail // userProfileModel?.vCompanyDetail
+                cell.lblCompanyDetail.text = userProfileModel?.txCompanyDetail
             }
         } else if objProfileData.cells[indexPath.section].cellID == "ProfileInterestCell" {
             if let cell = cell as? ProfileInterestCell  {

@@ -1165,6 +1165,21 @@ public extension UIView {
     }
 }
 
+extension UIButton {
+    func dropShadow(view : UIButton) {
+        
+        view.clipsToBounds = true
+        view.layer.shadowPath =
+            UIBezierPath(roundedRect: view.bounds,
+                         cornerRadius: view.layer.cornerRadius).cgPath
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.3
+        view.layer.shadowOffset = CGSize(width: 0.2, height: 0.2)
+        view.layer.shadowRadius = 5
+        view.layer.masksToBounds = false
+    }
+}
+
 class ThemeSlider : UISlider {
     
     override func trackRect(forBounds bounds: CGRect) -> CGRect {

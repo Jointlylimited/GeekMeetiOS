@@ -22,6 +22,7 @@ class MatchViewController: UIViewController, MatchProtocol {
     // MARK: Object lifecycle
     @IBOutlet weak var userImgView: UIImageView!
     @IBOutlet weak var matchUserImgView: UIImageView!
+    @IBOutlet weak var lblDesc: UILabel!
     
     @IBOutlet weak var userImgWidthContraint: NSLayoutConstraint!
     
@@ -82,6 +83,7 @@ class MatchViewController: UIViewController, MatchProtocol {
             self.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
         }
         if UserDetails != nil {
+            self.lblDesc.text = "Wow, You and \(UserDetails.vName!) have liked each other"
             if UserDetails.vProfileImage != "" {
                 let url = URL(string:"\(fileUploadURL)\(user_Profile)\(UserDetails.vProfileImage!)")
                 print(url!)

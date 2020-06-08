@@ -25,9 +25,9 @@ class SearchProfileViewController: UIViewController, SearchProfileProtocol {
     @IBOutlet weak var lblNoResult: UILabel!
     
     var objMsgData : [MessageViewModel] = []
-    var objStoryData : [StoryViewModel] = []
+    var objStoryData : [StoryResponseFields] = []
     var objFilterMsgData : [MessageViewModel] = []
-    var objFilterStoryData : [StoryViewModel] = []
+    var objFilterStoryData : [StoryResponseFields] = []
     var isFromDiscover : Bool = true
     
     // MARK: Object lifecycle
@@ -129,8 +129,12 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
                 }
             } else {
                 let data = objFilterStoryData[indexPath.row]
-                cell.imgProfile.image = data.userImage
-                cell.lblName.text = data.userName
+                if data.vProfileImage != "" {
+                    let url = URL(string:"\(fileUploadURL)\(user_Profile)\(data.vProfileImage!)")
+                    print(url!)
+                    cell.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
+                }
+                cell.lblName.text = data.vName
                 if self.txtSearchField.text == "" {
                     cell.btnClose.alpha = 1
                 } else {
@@ -234,7 +238,7 @@ extension SearchProfileViewController : UITextFieldDelegate {
                 self.objFilterStoryData.removeAll()
                 for data in self.objStoryData {
                     print(self.objFilterStoryData.count)
-                    if data.userName.lowercased().contains(textField.text!) {
+                    if data.vName!.lowercased().contains(textField.text!) {
 //                        if objFilterStoryData.count == 0 {
                             self.objFilterStoryData.append(data)
 //                        }

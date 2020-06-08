@@ -351,7 +351,7 @@ extension MatchProfileViewController : UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if objProfileData.cells[indexPath.section].cellID == "ProfileAboutCell" {
             if let cell = cell as? ProfileAboutCell  {
-                print("User Profile Details : \(self.objMatchUserProfile.txAbout!)")
+                print("User Profile Details : \(self.objMatchUserProfile.photos)")
                 cell.lblAbout.text = self.objMatchUserProfile.txAbout!
                 cell.lblCity.text = self.objMatchUserProfile.vLiveIn!
                 cell.lblGender.text = genderArray[(self.objMatchUserProfile.tiGender!)]
@@ -415,13 +415,13 @@ extension MatchProfileViewController : UICollectionViewDataSource, UICollectionV
         cell.ReactEmojiView.alpha = cell.btnLike.isSelected ? 1.0 : 0.0
 //        cell.userImgView.image = imageArray[indexPath.row]
         
-        if (self.objMatchUserProfile != nil && self.objMatchUserProfile.photos!.count != 0) {
-            
-//            if photoString.reaction![0].responseData != nil {
-//                cell.btnKissValue.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].responseData!.count != 0) ? photoString.reaction![0].responseData![2].vCount : "0", for: .normal)
-//                cell.btnLoveValue.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].responseData!.count != 0) ? photoString.reaction![0].responseData![0].vCount : "0", for: .normal)
-//                cell.btnLoveSmileValue.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].responseData!.count != 0) != 0 ? photoString.reaction![0].responseData![1].vCount : "0", for: .normal)
-//            }
+        if (self.objMatchUserProfile != nil && photoString.reaction != nil) {
+            print(photoString.reaction!)
+            if photoString.reaction![0].responseData != nil {
+                cell.btnKissValue.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].responseData!.count != 0) ? photoString.reaction![0].responseData![2].vCount : "0", for: .normal)
+                cell.btnLoveValue.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].responseData!.count != 0) ? photoString.reaction![0].responseData![0].vCount : "0", for: .normal)
+                cell.btnLoveSmileValue.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].responseData!.count != 0) != 0 ? photoString.reaction![0].responseData![1].vCount : "0", for: .normal)
+            }
             
             if photoString.vMedia != "" {
                 let url = URL(string:"\(fileUploadURL)\(user_Profile)\(photoString.vMedia!)")
@@ -443,22 +443,22 @@ extension MatchProfileViewController : UICollectionViewDataSource, UICollectionV
         }
         
         cell.clickOnbtnKiss = {
-//            self.callReactEmojiAPI(iUserId: "\(self.objMatchUserProfile!.iUserId!)", iMediaId: "\(photoString.iMediaId!)", tiRactionType: "2")
-            cell.btnKissValue.setTitle(String(Int(cell.btnKissValue.titleLabel!.text!)! + 1), for: .normal)
+            self.callReactEmojiAPI(iUserId: "\(self.objMatchUserProfile!.iUserId!)", iMediaId: "\(photoString.iMediaId!)", tiRactionType: "2")
+//            cell.btnKissValue.setTitle(String(Int(cell.btnKissValue.titleLabel!.text!)! + 1), for: .normal)
             cell.btnLike.isSelected = false
             cell.ReactEmojiView.alpha = 0.0
         }
         
         cell.clickOnbtnLove = {
-//            self.callReactEmojiAPI(iUserId: "\(self.objMatchUserProfile!.iUserId!)", iMediaId: "\(photoString.iMediaId!)", tiRactionType: "0")
-            cell.btnLoveValue.setTitle(String(Int(cell.btnLoveValue.titleLabel!.text!)! + 1), for: .normal)
+            self.callReactEmojiAPI(iUserId: "\(self.objMatchUserProfile!.iUserId!)", iMediaId: "\(photoString.iMediaId!)", tiRactionType: "0")
+//            cell.btnLoveValue.setTitle(String(Int(cell.btnLoveValue.titleLabel!.text!)! + 1), for: .normal)
             cell.btnLike.isSelected = false
             cell.ReactEmojiView.alpha = 0.0
         }
         
         cell.clickOnbtnLoveSmile = {
-//            self.callReactEmojiAPI(iUserId: "\(self.objMatchUserProfile!.iUserId!)", iMediaId: "\(photoString.iMediaId!)", tiRactionType: "1")
-            cell.btnLoveSmileValue.setTitle(String(Int(cell.btnLoveSmileValue.titleLabel!.text!)! + 1), for: .normal)
+            self.callReactEmojiAPI(iUserId: "\(self.objMatchUserProfile!.iUserId!)", iMediaId: "\(photoString.iMediaId!)", tiRactionType: "1")
+//            cell.btnLoveSmileValue.setTitle(String(Int(cell.btnLoveSmileValue.titleLabel!.text!)! + 1), for: .normal)
             cell.btnLike.isSelected = false
             cell.ReactEmojiView.alpha = 0.0
         }

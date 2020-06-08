@@ -18,6 +18,8 @@ protocol InitialSignUpInteractorProtocol {
     
     func callSocialSignInAPI(params : Dictionary<String, String>)
     func callSnapchatLogin(objLoginVC : InitialSignUpViewController)
+    
+    func callQuestionaryAPI()
 }
 
 protocol InitialSignUpDataStore {
@@ -123,6 +125,26 @@ class InitialSignUpInteractor: InitialSignUpInteractorProtocol, InitialSignUpDat
                 }
             }
 
+        }
+    }
+    
+    func callQuestionaryAPI() {
+        LoaderView.sharedInstance.showLoader()
+        PreferencesAPI.list(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getPrefernceResponse(response : response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+            } else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+                }
+            }
+            
         }
     }
 }

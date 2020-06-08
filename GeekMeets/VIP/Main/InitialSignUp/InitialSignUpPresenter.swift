@@ -26,6 +26,7 @@ protocol InitialSignUpPresentationProtocol {
     func callSnapchatLoginResponse(token: String, entity : UserEntity)
     
     func gotoSignUpScreen(signParams : UserAuthResponseField)
+    func getPrefernceResponse(response : PreferencesResponse)
 }
 
 class InitialSignUpPresenter: InitialSignUpPresentationProtocol {
@@ -76,13 +77,23 @@ class InitialSignUpPresenter: InitialSignUpPresentationProtocol {
             Authentication.setLoggedInStatus(true)
             UserDataModel.currentUser = userData?.responseData
             UserDataModel.setAuthKey(key: (userData?.responseData?.vAuthKey)!)
-            
-            AppSingleton.sharedInstance().showHomeVC(fromMatch : false)
+            self.callPreferenceAPI()
 //            let controller = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange)
 //            if let view = self.viewController as? UIViewController
 //            {
 //                view.pushVC(controller)
 //            }
+        }
+    }
+    
+    func callPreferenceAPI(){
+        self.interactor?.callQuestionaryAPI()
+    }
+    
+    func getPrefernceResponse(response : PreferencesResponse){
+        if response.responseCode == 200 {
+            UserDataModel.UserPreferenceResponse = response
+             AppSingleton.sharedInstance().showHomeVC(fromMatch : false)
         }
     }
     

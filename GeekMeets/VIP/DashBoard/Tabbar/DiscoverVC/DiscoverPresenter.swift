@@ -15,6 +15,9 @@ import UIKit
 protocol DiscoverPresentationProtocol {
     func callStoryListAPI()
     func getStoryListResponse(response: StoryResponse)
+    
+    func callViewStoryAPI(iStoryId : String)
+    func getViewStoryResponse(response : CommonResponse)
 }
 
 class DiscoverPresenter: DiscoverPresentationProtocol {
@@ -28,5 +31,13 @@ class DiscoverPresenter: DiscoverPresentationProtocol {
     
     func getStoryListResponse(response: StoryResponse) {
         self.viewController?.getStoryListResponse(response: response)
+    }
+    
+    func callViewStoryAPI(iStoryId : String){
+        self.interactor?.callViewStoryAPI(iStoryId: iStoryId)
+    }
+    
+    func getViewStoryResponse(response : CommonResponse) {
+        self.viewController?.getViewStoryResponse(response : response)
     }
 }

@@ -13,6 +13,8 @@ import GoogleSignIn
 import Firebase
 import FBSDKLoginKit
 import FBSDKCoreKit
+import UserNotifications
+import FirebaseInstanceID
 
 let kSecret = "BmECMMDZdXM8VhKIw4EKLY8nx0uC4Jtt@geekmeets"
 let kPrivateKey = "QOUATaUA24pIFBPiIHr2Nu3BTcjFS8DA@geekmeets"
@@ -26,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         IQKeyboardManager.shared.enable = true
+        NotificationCenter.default.addObserver(self, selector: #selector(self.tokenRefreshNotification(notification:)), name: NSNotification.Name.InstanceIDTokenRefresh, object: nil)
         
         let filePath = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist")!
         let options = FirebaseOptions(contentsOfFile: filePath)
@@ -39,6 +42,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         return true
+    }
+    
+    @objc func tokenRefreshNotification(notification: NSNotification) {
+        InstanceID.instanceID().instanceID(handler: { (result, error) in
+            if let error = error {
+                print("Error fetching remote instange ID: \(error)")
+            } else if let result = result {
+                print("Remote instance ID token: \(result.token)")
+                let refreshedToken = result.token
+                print("Connected to FCM. Token : \(String(describing: refreshedToken))")
+                self.connectToFcm()
+            }
+        })
     }
     
     func application(_ app: UIApplication,

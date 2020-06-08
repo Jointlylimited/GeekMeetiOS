@@ -18,6 +18,7 @@ protocol TextViewControllerDelegate {
 
 protocol DiscoverProtocol: class {
     func getStoryListResponse(response: StoryResponse)
+    func getViewStoryResponse(response : CommonResponse)
 }
 
 class DiscoverViewController: UIViewController, DiscoverProtocol {
@@ -26,6 +27,10 @@ class DiscoverViewController: UIViewController, DiscoverProtocol {
     
     @IBOutlet weak var StoryCollView: UICollectionView!
     @IBOutlet weak var AllStoryCollView: UICollectionView!
+    @IBOutlet weak var btnSearch: UIButton!
+    @IBOutlet weak var tblDiscoverList: UITableView!
+    @IBOutlet weak var lblNoData: UILabel!
+    @IBOutlet weak var btnAddStory: UIButton!
     
     var objStoryData : [StoryViewModel] = []
     var arrayDetails :  [UserDetail] = []
@@ -69,11 +74,16 @@ class DiscoverViewController: UIViewController, DiscoverProtocol {
         super.viewDidLoad()
         self.registerCollectionViewCell()
         setStoryData()
-        arrayDetails = fetchUserData()
+//        arrayDetails = fetchUserData()
+//        self.presenter?.callStoryListAPI()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.presenter?.callStoryListAPI()
     }
     
     func registerCollectionViewCell(){
+        
         self.StoryCollView.register(UINib.init(nibName: Cells.StoryCollectionCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.StoryCollectionCell)
         self.StoryCollView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         
@@ -86,14 +96,15 @@ class DiscoverViewController: UIViewController, DiscoverProtocol {
     }
     
     func setStoryData(){
+        self.btnAddStory.dropShadow(view: self.btnAddStory)
         self.objStoryData = [StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Your story"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 63"), userName: "Sophia"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Lilly Ray"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 64"), userName: "Andre Jackson"),StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Vault Shade"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 64"), userName: "Sonia Parker"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Lipcy Kate"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Jack Man"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Paule Walker"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 62"), userName: "Cally Turner"),StoryViewModel(userImage: #imageLiteral(resourceName: "image_1"), userName: "Andy San"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Anny Ray")]
-        self.StoryCollView.reloadData()
-        self.AllStoryCollView.reloadData()
+//        self.StoryCollView.reloadData()
+//        self.AllStoryCollView.reloadData()
     }
 
     @IBAction func btnSearchAction(_ sender: UIButton) {
         let searchVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.SearchScreen) as? SearchProfileViewController
-        searchVC?.objStoryData = self.objStoryData
+        searchVC?.objStoryData = self.objStoryArray!
         searchVC?.isFromDiscover = true
         self.pushVC(searchVC!)
     }
@@ -106,10 +117,28 @@ class DiscoverViewController: UIViewController, DiscoverProtocol {
 extension DiscoverViewController{
     func getStoryListResponse(response: StoryResponse){
         if response.responseCode == 200 {
-            print(response.responseData)
-            self.objStoryArray = response.responseData
-            self.AllStoryCollView.reloadData()
+            print(response.responseData!)
+            if response.responseData!.count != 0 {
+                self.tblDiscoverList.alpha = 1
+                self.btnSearch.alpha = 1
+                self.lblNoData.alpha = 0
+                self.objStoryArray = response.responseData
+                
+                self.StoryCollView.reloadData()
+                self.AllStoryCollView.reloadData()
+                self.tblDiscoverList.reloadData()
+                
+            } else {
+                self.tblDiscoverList.alpha = 0
+                self.btnSearch.alpha = 0
+                self.lblNoData.alpha = 1
+                AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+            }
         }
+    }
+    
+    func getViewStoryResponse(response : CommonResponse){
+        
     }
 }
 
@@ -119,15 +148,25 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return collectionView == self.StoryCollView ? self.objStoryData.count : (self.objStoryArray != nil ? self.objStoryArray!.count : self.objStoryData.count)
+        return collectionView == self.StoryCollView ? (self.objStoryArray != nil ? self.objStoryArray!.count : 0) : (self.objStoryArray != nil ? self.objStoryArray!.count : 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.StoryCollView {
             let cell : StoryCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.StoryCollectionCell, for: indexPath) as! StoryCollectionCell
-            let data = self.objStoryData[indexPath.row]
-            cell.userImage.setImage(data.userImage, for: .normal)
-            cell.userName.text = data.userName
+
+            if self.objStoryArray != nil {
+                let data = self.objStoryArray![indexPath.row]
+                if data.txStory != "" {
+                    let url = URL(string:"\(fileUploadURL)\(story)\(data.tiStoryType! == "0" ? data.txStory! : data.vThumbnail!)")
+                    print(url!)
+                    cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
+                    cell.userName.text = data.vName
+                }
+            } else {
+                let data = self.objStoryData[indexPath.row]
+                cell.userImgView.image = data.userImage
+            }
             return cell
         } else {
             let cell : DiscoverCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.DiscoverCollectionCell, for: indexPath) as! DiscoverCollectionCell
@@ -148,11 +187,12 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath.item)
+//        self.presenter?.callViewStoryAPI(iStoryId: "\(self.objStoryArray![indexPath.row].iStoryId!)")
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.StoryContentScreen) as? ContentViewController
         controller!.modalTransitionStyle = .crossDissolve
         controller!.modalPresentationStyle = .overCurrentContext
         controller?.isFromMatchVC = false
-        controller?.pages = self.objStoryArray!
+        controller?.pages = [self.objStoryArray![indexPath.row]]
         self.presentVC(controller!)
     }
     

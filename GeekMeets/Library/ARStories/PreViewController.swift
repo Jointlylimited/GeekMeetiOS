@@ -54,9 +54,10 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
         
         userProfileImage.layer.cornerRadius = self.userProfileImage.frame.size.height / 2;
         if items[pageIndex].txStory != "" {
-            let urlStr = "\(fileUploadURL)\(story)\(items[pageIndex].vProfileImage!)"
-            print(urlStr)
-            userProfileImage.imageFromServerURL(urlStr)
+//            let urlStr = "\(fileUploadURL)\(story)\(items[pageIndex].vProfileImage!)"
+            let url = URL(string:"\(fileUploadURL)\(story)\(items[pageIndex].vProfileImage!)")
+            print(url)
+            userProfileImage.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
         }
         
         lblUserName.text = items[pageIndex].vName
@@ -153,7 +154,9 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
             self.SPB.duration = 5
             self.imagePreview.isHidden = false
             self.videoView.isHidden = true
-            self.imagePreview.imageFromServerURL("\(fileUploadURL)\(story)\(items[pageIndex].txStory!)")
+            print("\(fileUploadURL)\(story)\(items[pageIndex].txStory!)")
+            let url = URL(string:"\(fileUploadURL)\(story)\(items[pageIndex].txStory!)")
+            self.imagePreview.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
         } else {
             self.imagePreview.isHidden = true
             self.videoView.isHidden = false
@@ -178,9 +181,9 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
     
     // MARK: Private func
     private func getDuration(at index: Int) -> TimeInterval {
-        var retVal: TimeInterval = 5.0
+        var retVal: TimeInterval = 10.0
         if item[index].tiStoryType! == "0" /*"image"*/ {
-            retVal = 5.0
+            retVal = 10.0
         } else {
             guard let url = NSURL(string: "\(fileUploadURL)\(story)\(items[pageIndex].txStory!)") as URL? else { return retVal }
             let asset = AVAsset(url: url)

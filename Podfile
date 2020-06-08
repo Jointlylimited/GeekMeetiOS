@@ -18,6 +18,7 @@ target 'GeekMeets' do
   
   pod 'Firebase/Core'
   pod 'Firebase/Crashlytics'
+  pod 'Firebase/Messaging'
   pod 'Crashlytics'
   # Recommended: Add the Firebase pod for Google Analytics
   pod 'Firebase/Analytics'

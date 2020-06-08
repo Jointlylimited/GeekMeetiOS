@@ -195,7 +195,7 @@ extension MessagesViewController : UICollectionViewDataSource, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell : StoryCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.StoryCollectionCell, for: indexPath) as! StoryCollectionCell
         let data = self.objStoryData[indexPath.row]
-        cell.userImage.setImage(data.userImage, for: .normal)
+        cell.userImgView.image = data.userImage
         cell.userName.text = data.userName
         
         cell.viewBorder.alpha = 0.0

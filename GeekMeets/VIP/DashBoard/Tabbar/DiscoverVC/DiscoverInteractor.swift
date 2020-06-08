@@ -14,6 +14,7 @@ import UIKit
 
 protocol DiscoverInteractorProtocol {
     func callStoryListAPI()
+    func callViewStoryAPI(iStoryId : String)
 }
 
 protocol DiscoverDataStore {
@@ -43,4 +44,24 @@ class DiscoverInteractor: DiscoverInteractorProtocol, DiscoverDataStore {
             }
         }
     }
+    
+    func callViewStoryAPI(iStoryId : String) {
+        LoaderView.sharedInstance.showLoader()
+        MediaAPI.viewStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iStoryId: iStoryId) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getViewStoryResponse(response: response!)
+            } else if response?.responseCode == 400 {
+                self.presenter?.getViewStoryResponse(response: response!)
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getViewStoryResponse(response: response!)
+                }
+            }
+        }
+    }
+    
 }

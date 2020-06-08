@@ -157,6 +157,7 @@
 		0BBD66042449C8F100CA178A /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BBD66012449C8F100CA178A /* CardView.xib */; };
 		0BBD66072449C8FC00CA178A /* SwipeableCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBD66062449C8FB00CA178A /* SwipeableCards.swift */; };
 		0BBF9D0624694BD600E2A590 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0BBF9D0524694BD500E2A590 /* GoogleService-Info.plist */; };
+		0BC32DA4248E5F8C007DDFE1 /* VideoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC32DA3248E5F8B007DDFE1 /* VideoManager.swift */; };
 		0BC465D2247E2CC7006DF9D0 /* EditPreferencePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC465CF247E2CC7006DF9D0 /* EditPreferencePresenter.swift */; };
 		0BC465D3247E2CC7006DF9D0 /* EditPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC465D0247E2CC7006DF9D0 /* EditPreferenceViewController.swift */; };
 		0BC465D4247E2CC7006DF9D0 /* EditPreferenceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC465D1247E2CC7006DF9D0 /* EditPreferenceInteractor.swift */; };
@@ -501,6 +502,7 @@
 		0BBD66012449C8F100CA178A /* CardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardView.xib; sourceTree = "<group>"; };
 		0BBD66062449C8FB00CA178A /* SwipeableCards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeableCards.swift; sourceTree = "<group>"; };
 		0BBF9D0524694BD500E2A590 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0BC32DA3248E5F8B007DDFE1 /* VideoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoManager.swift; sourceTree = "<group>"; };
 		0BC465CF247E2CC7006DF9D0 /* EditPreferencePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPreferencePresenter.swift; sourceTree = "<group>"; };
 		0BC465D0247E2CC7006DF9D0 /* EditPreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPreferenceViewController.swift; sourceTree = "<group>"; };
 		0BC465D1247E2CC7006DF9D0 /* EditPreferenceInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPreferenceInteractor.swift; sourceTree = "<group>"; };
@@ -1270,6 +1272,14 @@
 			path = Google_Plist;
 			sourceTree = "<group>";
 		};
+		0BC32DA2248E5F6A007DDFE1 /* VideoHelper */ = {
+			isa = PBXGroup;
+			children = (
+				0BC32DA3248E5F8B007DDFE1 /* VideoManager.swift */,
+			);
+			path = VideoHelper;
+			sourceTree = "<group>";
+		};
 		0BC465CE247E2C94006DF9D0 /* EditInterestPreferenceVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -1845,6 +1855,7 @@
 		F90B4CC92032A7C1006ADAF6 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				0BC32DA2248E5F6A007DDFE1 /* VideoHelper */,
 				0B0B4B08247504F70047EB11 /* RangeSlider */,
 				0BFF2B5F2461779000DECEDD /* LocationManager */,
 				0B51D290245FE2B6005C7B88 /* SOGoogleSignIn */,
@@ -2299,6 +2310,7 @@
 				"${BUILT_PRODUCTS_DIR}/PINCache/PINCache.framework",
 				"${BUILT_PRODUCTS_DIR}/PINOperation/PINOperation.framework",
 				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
@@ -2336,6 +2348,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINCache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINOperation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
@@ -2398,6 +2411,7 @@
 				0B7F33D5246ED8AE007ADF8D /* NotificationListInteractor.swift in Sources */,
 				F76A8D832440396800ED9947 /* CustomerWindowExtension.swift in Sources */,
 				0B9499D22451DBC4001AD1C8 /* ManageSubscriptionInteractor.swift in Sources */,
+				0BC32DA4248E5F8C007DDFE1 /* VideoManager.swift in Sources */,
 				F7F967952451ABF400BD7275 /* SelectAgeRangePresenter.swift in Sources */,
 				F7A3114F246D261100497935 /* UIImageExtensions.swift in Sources */,
 				0B56B60624865040004A62D4 /* MediaReactionFields.swift in Sources */,

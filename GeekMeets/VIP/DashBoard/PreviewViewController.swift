@@ -34,6 +34,9 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     var image: UIImage!
     var cusText : CustomTextView!
     var objPostData = PostData()
+    var secondExporter : AVAssetExportSession?
+    var finalVidURL : URL!
+    let commmonPreset = AVAssetExportPreset1280x720
     
     private var _selectedStickerView:StickerView?
     var selectedStickerView:StickerView? {
@@ -161,15 +164,21 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         //        dismiss(animated: true, completion: nil)
     }
     @IBAction func btnAddtoStoryAction(_ sender: UIButton) {
-        if cusText != nil {
-            let image = textToImage(drawText: cusText!.text as NSString, inImage: photo.image!, atPoint: CGPoint(x: cusText.origin.x, y: cusText.origin.y))
-            self.objPostData.arrMedia[0].img = image
-            print(image)
+        if self.objPostData.tiStoryType == "0" {
+            if cusText != nil {
+                let image = textToImage(drawText: cusText!.text as NSString, inImage: photo.image!, atPoint: CGPoint(x: 0, y: 0))
+                self.objPostData.arrMedia[0].img = image
+                print(image)
+                self.callPostStoryAPI(obj: self.objPostData)
+            }
+        } else {
+            self.addTextandExport()
+//            print(self.objPostData.arrMedia[0].videoURL)
         }
         //
         //        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.SubscriptionScreen) as? SubscriptionVC
         //        self.pushVC(controller!)
-        self.callPostStoryAPI(obj: self.objPostData)
+//        self.callPostStoryAPI(obj: self.objPostData)
     }
     
     @IBAction func actionPlayPause(_ sender: UIButton) {
@@ -274,6 +283,49 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         UIGraphicsEndImageContext()
         
         return newImage!
+    }
+    
+      // MARK: - UDFs (Save Video Process) (Second export for text)
+    func addTextandExport() {
+        
+        VideoManager.shared.makeVideoFromWithoutExpoerter(asset:self.videoAsset!, textData: [self.cusText]) { (vMutable, mainCompo, range, error) in
+            if error == nil && mainCompo != nil {
+                DispatchQueue.main.async {
+            
+                    let path = "\(VideoManager.shared.themeDocumentPath())/FinalCreatedMovie.mov"
+                    if FileManager.default.fileExists(atPath: path){
+                        try! FileManager.default.removeItem(atPath: path)
+                    }
+                    
+                    self.secondExporter = AVAssetExportSession.init(asset: mainCompo!, presetName: self.commmonPreset)
+                    self.secondExporter?.videoComposition = vMutable
+                    self.secondExporter?.outputURL = URL.init(fileURLWithPath: path)
+                    self.secondExporter?.outputFileType = AVFileType.mov
+            
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                        //self.progressView.isHidden = true
+                    })
+                    
+                    self.secondExporter?.exportAsynchronously(completionHandler: {
+                        DispatchQueue.main.asyncAfter(deadline: .now()+1.0, execute: {
+                            //self.progressView.isHidden = true
+                        })
+                        if self.secondExporter?.error == nil
+                        {
+                            print("Video process finished!")
+                            self.finalVidURL = self.secondExporter?.outputURL
+                            self.objPostData.arrMedia[0].videoURL = self.finalVidURL
+                            self.callPostStoryAPI(obj: self.objPostData)
+                        }
+                        else
+                        {
+                            print("Second Exporter Error \(String(describing: self.secondExporter?.error))")
+                            
+                        }
+                    })
+                }
+            }
+        }
     }
 }
 extension PreviewViewController {
