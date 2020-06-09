@@ -60,6 +60,7 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
             userProfileImage.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
         }
         
+        lblViews.text = items[pageIndex].dbTotalViews == "" ? "0" : items[pageIndex].dbTotalViews
         lblUserName.text = items[pageIndex].vName
         item = items
 //        item = items[pageIndex].contents as! [Content]
@@ -160,9 +161,9 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
         } else {
             self.imagePreview.isHidden = true
             self.videoView.isHidden = false
-            
+            print("\(fileUploadURL)\(story)\(items[index].txStory!)")
             resetPlayer()
-            guard let url = NSURL(string: "\(fileUploadURL)\(story)\(items[index].txStory!)") as URL? else {return}
+            guard let url = NSURL(string: items[index].txStory!) as URL? else {return} //"\(fileUploadURL)\(story)\(items[index].txStory!)"
             self.player = AVPlayer(url: url)
             
             let videoLayer = AVPlayerLayer(player: self.player)
@@ -185,10 +186,10 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
         if item[index].tiStoryType! == "0" /*"image"*/ {
             retVal = 10.0
         } else {
-            guard let url = NSURL(string: "\(fileUploadURL)\(story)\(items[pageIndex].txStory!)") as URL? else { return retVal }
+            guard let url = NSURL(string: items[index].txStory!) as URL? else { return retVal }
             let asset = AVAsset(url: url)
             let duration = asset.duration
-            retVal = CMTimeGetSeconds(duration)
+           // retVal = CMTimeGetSeconds(duration)
         }
         return retVal
     }
@@ -219,10 +220,29 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
             let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.ReportScreen)
             self.presentVC(controller)
         } else {
-            
+            self.callDeleteStoryAPI(id : "\(items[pageIndex].iStoryId!)")
         }
     }
     @IBAction func btnViewStoryAction(_ sender: UIButton) {
         
+    }
+}
+
+extension PreViewController {
+    func callDeleteStoryAPI(id : String){
+        LoaderView.sharedInstance.showLoader()
+        MediaAPI.deleteStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, _id: id) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.dismiss(animated: true, completion: nil)
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                   self.dismiss(animated: true, completion: nil)
+                }
+            }
+        }
     }
 }

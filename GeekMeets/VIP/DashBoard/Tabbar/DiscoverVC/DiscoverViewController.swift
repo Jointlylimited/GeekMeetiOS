@@ -138,7 +138,9 @@ extension DiscoverViewController{
     }
     
     func getViewStoryResponse(response : CommonResponse){
-        
+        if response.responseCode == 200 {
+            self.presenter?.callStoryListAPI()
+        }
     }
 }
 
@@ -162,6 +164,9 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
                     print(url!)
                     cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
                     cell.userName.text = data.vName
+                    if data.tiIsView == 1 {
+                        cell.viewBorder.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 0.5049901832)
+                    }
                 }
             } else {
                 let data = self.objStoryData[indexPath.row]
@@ -187,7 +192,11 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath.item)
-//        self.presenter?.callViewStoryAPI(iStoryId: "\(self.objStoryArray![indexPath.row].iStoryId!)")
+        if collectionView == self.StoryCollView {
+            if self.objStoryArray![indexPath.row].tiIsView == 0 {
+                self.presenter?.callViewStoryAPI(iStoryId: "\(self.objStoryArray![indexPath.row].iStoryId!)")
+            }
+        }
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.StoryContentScreen) as? ContentViewController
         controller!.modalTransitionStyle = .crossDissolve
         controller!.modalPresentationStyle = .overCurrentContext

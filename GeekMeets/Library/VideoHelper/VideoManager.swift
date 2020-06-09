@@ -38,16 +38,18 @@ class VideoManager: NSObject {
     typealias Completion = (URL?, Error?) -> Void
     typealias CompletionForComposition = (AVMutableVideoComposition?,AVMutableComposition?,CMTimeRange?, Error?) -> Void
     
-   func makeVideoFromWithoutExpoerter(asset:AVAsset, textData:[CustomTextView]?, completion:@escaping CompletionForComposition) -> Void {
-        let outputSize = CGSize(width: 720, height: 720)
+    func makeVideoFromWithoutExpoerter(asset:AVAsset, textData:CustomTextView, completion:@escaping CompletionForComposition) -> Void {
+        var outputSize : CGSize!
         var insertTime = CMTime.zero
         var arrayLayerInstructions:[AVMutableVideoCompositionLayerInstruction] = []
         self.mediaTimingRanges.removeAll()
         // Init composition
         let mixComposition = AVMutableComposition.init()
-         autoreleasepool { () -> () in
+        autoreleasepool { () -> () in
             let videoAsset = asset
             guard let videoTrack = videoAsset.tracks(withMediaType: AVMediaType.video).first else { return }
+            let size = videoTrack.naturalSize
+            outputSize = CGSize(width: size.width, height: size.height)
             // Get audio track
             var audioTrack:AVAssetTrack?
             if videoAsset.tracks(withMediaType: AVMediaType.audio).count > 0 {
@@ -101,12 +103,23 @@ class VideoManager: NSObject {
         parentlayer.addSublayer(videoLayer)
         
         // Add Text layer
-        if let textData = textData {
-            for aTextData in textData {
-                let textLayer = makeTextLayer(string: aTextData.text, fontSize: aTextData.fontSize, textColor: aTextData.color, frame: aTextData.frame, showTime: 2, hideTime: 10, size: outputSize)
-                parentlayer.addSublayer(textLayer)
-            }
-        }
+        let titleLayer = CATextLayer()
+//        titleLayer.backgroundColor = UIColor.white.cgColor
+        titleLayer.string = textData.text
+        titleLayer.foregroundColor = textData.color.cgColor
+        titleLayer.font = textData.font
+        titleLayer.shadowOpacity = 0.5
+        titleLayer.alignmentMode = CATextLayerAlignmentMode.center
+        titleLayer.frame = CGRect(x: 0, y: 0, width: outputSize.width, height: outputSize.height/6)
+        parentlayer.addSublayer(titleLayer)
+        
+        //        if let textData = textData {
+        //            for aTextData in textData {
+        //                let textLayer = makeTextLayer(string: aTextData.text, fontSize: aTextData.fontSize, textColor: aTextData.color, frame: aTextData.frame, showTime: 2, hideTime: 10, size: outputSize)
+        //                textLayer.frame = CGRect(x: 0, y: 0, w: 150, h: 100)
+        //                parentlayer.addSublayer(textLayer)
+        //            }
+        //        }
         
         // Main video composition
         let mainComposition = AVMutableVideoComposition()
@@ -114,8 +127,8 @@ class VideoManager: NSObject {
         mainComposition.frameDuration = CMTimeMake(value: 1, timescale: 30)
         mainComposition.renderSize = outputSize
         mainComposition.animationTool = AVVideoCompositionCoreAnimationTool(postProcessingAsVideoLayer: videoLayer, in: parentlayer)
-         completion(mainComposition, mixComposition,nil,nil)
-    
+        completion(mainComposition, mixComposition,nil,nil)
+        
         
     }
     
@@ -271,9 +284,9 @@ extension VideoManager {
         }
 
         let textLayer = CXETextLayer()
-        textLayer.string = string
+        textLayer.string = "Test Video"
         textLayer.font = UIFont(name: FontTypePoppins.Poppins_SemiBold.rawValue, size: CGFloat(intTextSize))
-        textLayer.foregroundColor = textColor.cgColor
+        textLayer.foregroundColor = UIColor.blue.cgColor
         textLayer.alignmentMode = CATextLayerAlignmentMode.center
         textLayer.opacity = 0
         textLayer.isWrapped = true

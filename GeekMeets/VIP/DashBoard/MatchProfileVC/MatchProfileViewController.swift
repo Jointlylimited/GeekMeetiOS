@@ -105,7 +105,7 @@ struct MatchProfileData {
 }
 
 protocol MatchProfileProtocol: class {
-    func getUserProfileResponse(response : UserAuthResponse)
+    func getUserProfileResponse(response : UserAuthResponseField)
     func getBlockUserResponse(response : CommonResponse)
     func getBlockUserListResponse(response : BlockUser)
     func getReactEmojiResponse(response : MediaReaction)
@@ -225,7 +225,8 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
         self.presentVC(controller)
     }
     @IBAction func btnShareAction(_ sender: UIButton) {
-        shareInviteApp(message: "Google", link: "htttp://google.com", controller: self)
+        let msg = "Hello User, \n\nUse my referral code \(self.objMatchUserProfile.vReferralCode!) to register yourself on the \(appName) app. \n\nThank you,\nJointly Team"
+        shareInviteApp(message: msg, link: "htttp://jointly.com", controller: self)       
     }
     @IBAction func btnReportAction(_ sender: UIButton) {
         self.presenter?.gotoReportVC()
@@ -276,11 +277,11 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
 }
 
 extension MatchProfileViewController {
-    func getUserProfileResponse(response : UserAuthResponse){
-        if response.responseCode == 200 {
-            self.objMatchUserProfile = response.responseData!
+    func getUserProfileResponse(response : UserAuthResponseField){
+            print(response)
+            print("Other user Data : \(UserDataModel.OtherUserData)")
+            self.objMatchUserProfile = response
             setProfileData()
-        }
     }
     
     func callBlockUserAPI(){
@@ -413,7 +414,6 @@ extension MatchProfileViewController : UICollectionViewDataSource, UICollectionV
         
         let photoString = self.objMatchUserProfile.photos![indexPath.row]
         cell.ReactEmojiView.alpha = cell.btnLike.isSelected ? 1.0 : 0.0
-//        cell.userImgView.image = imageArray[indexPath.row]
         
         if (self.objMatchUserProfile != nil && photoString.reaction != nil) {
             print(photoString.reaction!)

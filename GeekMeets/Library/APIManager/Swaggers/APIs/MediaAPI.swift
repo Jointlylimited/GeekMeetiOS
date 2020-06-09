@@ -136,6 +136,61 @@ open class MediaAPI {
     
 
         /**
+         delete users story
+         
+         - parameter nonce: (header)
+         - parameter timestamp: (header)
+         - parameter token: (header)
+         - parameter authorization: (header)
+         - parameter _id: (path)
+         - parameter completion: completion handler to receive the data and the error objects
+         */
+        open class func deleteStory(nonce: String, timestamp: String, token: String, authorization: String, _id: String, completion: @escaping ((_ data: CommonResponse?,_ error: Error?) -> Void)) {
+            deleteStoryWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, _id: _id).execute { (response, error) -> Void in
+                completion(response?.body, error)
+            }
+        }
+
+
+        /**
+         delete users story
+         - DELETE /users-story/delete/{id}
+         - examples: [{contentType=application/json, example={
+      "responseMessage" : "responseMessage",
+      "responseCode" : 0
+    }}]
+         
+         - parameter nonce: (header)
+         - parameter timestamp: (header)
+         - parameter token: (header)
+         - parameter authorization: (header)
+         - parameter _id: (path)
+
+         - returns: RequestBuilder<CommonResponse>
+         */
+        open class func deleteStoryWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, _id: String) -> RequestBuilder<CommonResponse> {
+            var path = "/users-story/delete/{id}"
+            let _idPreEscape = "\(_id)"
+            let _idPostEscape = _idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+            path = path.replacingOccurrences(of: "{id}", with: _idPostEscape, options: .literal, range: nil)
+            let URLString = SwaggerClientAPI.basePath + path
+            let parameters: [String:Any]? = nil
+            
+            let url = URLComponents(string: URLString)
+            let nillableHeaders: [String: Any?] = [
+                "nonce": nonce,
+                "timestamp": timestamp,
+                "token": token,
+                "authorization": authorization
+            ]
+            let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+            let requestBuilder: RequestBuilder<CommonResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+            return requestBuilder.init(method: "DELETE", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
+        }
+
+        /**
          list users story
          
          - parameter nonce: (header)

@@ -24,8 +24,7 @@ struct MediaData {
     
     /// video data Path/Name
     var videoURlUpload: (path: String, name: String) {
-        let folderName = "Story/"
-        let prefix = "Story"
+        let folderName = story
         let timeStamp = Date().currentTimeMillis()//Headers.timestamp
         let videoExtension = ".mp4"
         let path = "\(folderName)\(timeStamp)\(videoExtension)"
@@ -34,8 +33,7 @@ struct MediaData {
     
     /// video-thumb image data Path/Name
     var thumbURlUpload: (path: String, name: String) {
-        let folderName = "Story/"
-        let prefix = "story_media"
+        let folderName = story
         let timeStamp = Date().currentTimeMillis()//Headers.timestamp
         let imgExtension = ".jpeg"
         let path = "\(folderName)\(timeStamp)\(imgExtension)"
@@ -44,8 +42,7 @@ struct MediaData {
     
     /// image data Path/Name
     var mediaImgName: (path: String, name: String) {
-        let folderName = "Story/"
-        let prefix = "Story"
+        let folderName = story
         let timeStamp = Date().currentTimeMillis()//Headers.timestamp
         let imgExtension = ".jpeg"
         let path = "\(folderName)\(timeStamp)\(imgExtension)"

@@ -37,6 +37,27 @@ class UserDataModel : Codable {
         return nil
     }
     
+    static var OtherUserData : [UserProfileMediaList]? {
+        didSet{
+            let encoder = JSONEncoder()
+            if let encoded = try? encoder.encode(OtherUserData) {
+                let defaults = UserDefaults.standard
+                defaults.set(encoded, forKey: "OtherUserData")
+            }
+        }
+    }
+    static var OtherUser : [UserProfileMediaList]? {
+    let defaults = UserDefaults.standard
+
+        if let userData = defaults.object(forKey: "OtherUserData") as? Data {
+        let decoder = JSONDecoder()
+        if let loadedPerson = try? decoder.decode([UserProfileMediaList].self, from: userData) {
+            return loadedPerson
+        }
+    }
+        return nil
+    }
+    
     static var UserPreferenceResponse : PreferencesResponse? {
         didSet{
             let encoder = JSONEncoder()

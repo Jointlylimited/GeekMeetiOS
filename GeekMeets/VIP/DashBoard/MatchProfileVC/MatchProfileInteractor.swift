@@ -35,14 +35,16 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
             
             LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
-                self.presenter?.getUserProfileResponse(response: response!)
+                print((response?.responseData!)!)
+                UserDataModel.OtherUserData = (response?.responseData!)!.photos
+                self.presenter?.getUserProfileResponse(response: (response?.responseData!)!)
             } else if response?.responseCode == 400 {
-                self.presenter?.getUserProfileResponse(response: response!)
+                self.presenter?.getUserProfileResponse(response: (response?.responseData!)!)
             }  else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
                 } else {
-                    self.presenter?.getUserProfileResponse(response: response!)
+                    self.presenter?.getUserProfileResponse(response: (response?.responseData!)!)
                 }
             }
         }

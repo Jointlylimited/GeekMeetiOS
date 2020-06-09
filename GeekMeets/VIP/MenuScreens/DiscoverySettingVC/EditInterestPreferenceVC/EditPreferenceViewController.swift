@@ -29,6 +29,7 @@ class EditPreferenceViewController: UIViewController, EditPreferenceProtocol {
     @IBOutlet weak var lblHeight: UILabel!
     @IBOutlet weak var viewHeightConstant: NSLayoutConstraint!
     @IBOutlet weak var btnDone: GradientButton!
+    @IBOutlet weak var collectopnViewBottomConstraint: NSLayoutConstraint!
     
     var objPreModel = PrefrenceModel()
     var selectedCells = [Int]()
@@ -75,8 +76,10 @@ class EditPreferenceViewController: UIViewController, EditPreferenceProtocol {
         super.viewDidLoad()
         
         if isFromMenu {
+            self.collectopnViewBottomConstraint.constant = 0
             self.btnDone.alpha = 0.0
         } else {
+            self.collectopnViewBottomConstraint.constant = 90
             self.btnDone.alpha = 1.0
         }
         self.setPreferenceData(index: self.index)

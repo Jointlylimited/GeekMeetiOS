@@ -143,7 +143,6 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         self.player!.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(0.01, preferredTimescale: 600), queue: DispatchQueue.main) { (CMTime) -> Void in
             if self.player!.currentItem?.status == .readyToPlay {
                 let time : Float64 = CMTimeGetSeconds(self.player!.currentTime());
-                //               self.updateTimeLabel()
                 self.scrubber.setValue(Float(time), animated: false)
             }
         }
@@ -160,20 +159,18 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         controller!.modalPresentationStyle = .overCurrentContext
         controller!.delegate = self
         self.presentVC(controller!)
-        //        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-        //        dismiss(animated: true, completion: nil)
     }
     @IBAction func btnAddtoStoryAction(_ sender: UIButton) {
         if self.objPostData.tiStoryType == "0" {
             if cusText != nil {
+                
                 let image = textToImage(drawText: cusText!.text as NSString, inImage: photo.image!, atPoint: CGPoint(x: 0, y: 0))
                 self.objPostData.arrMedia[0].img = image
                 print(image)
-                self.callPostStoryAPI(obj: self.objPostData)
             }
+            self.callPostStoryAPI(obj: self.objPostData)
         } else {
             self.addTextandExport()
-//            print(self.objPostData.arrMedia[0].videoURL)
         }
         //
         //        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.SubscriptionScreen) as? SubscriptionVC
@@ -235,7 +232,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         let textView = UITextView.init(frame: CGRect.init(x: 0, y: 0, width: 100, height: 50))
         textView.text = text.text
         textView.textColor = text.color
-        //        textView.font = UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: text.fontSize)
+        textView.font = text.font
         textView.textAlignment = .center
         textView.backgroundColor = .clear
         
@@ -274,7 +271,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         
         
         
-        let attrs = [NSAttributedString.Key.font: UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: cusText.fontSize)!,NSAttributedString.Key.foregroundColor : cusText.color, NSAttributedString.Key.paragraphStyle: paragraphStyle]
+        let attrs = [NSAttributedString.Key.font: self.cusText.font,NSAttributedString.Key.foregroundColor : cusText.color, NSAttributedString.Key.paragraphStyle: paragraphStyle]
         
         
         text.draw(with: rect, options: .usesLineFragmentOrigin, attributes: attrs, context: nil)
@@ -287,8 +284,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     
       // MARK: - UDFs (Save Video Process) (Second export for text)
     func addTextandExport() {
-        
-        VideoManager.shared.makeVideoFromWithoutExpoerter(asset:self.videoAsset!, textData: [self.cusText]) { (vMutable, mainCompo, range, error) in
+        VideoManager.shared.makeVideoFromWithoutExpoerter(asset:self.videoAsset!, textData: self.cusText) { (vMutable, mainCompo, range, error) in
             if error == nil && mainCompo != nil {
                 DispatchQueue.main.async {
             
@@ -312,7 +308,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
                         })
                         if self.secondExporter?.error == nil
                         {
-                            print("Video process finished!")
+                            print("Video process finished! : \(self.secondExporter?.outputURL)")
                             self.finalVidURL = self.secondExporter?.outputURL
                             self.objPostData.arrMedia[0].videoURL = self.finalVidURL
                             self.callPostStoryAPI(obj: self.objPostData)

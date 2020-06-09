@@ -108,7 +108,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-//        UserDefaults.standard.set(15.randomString, forKey: kDeviceToken)
+        UserDefaults.standard.set(15.randomString, forKey: kDeviceToken)
         print("Failed to register:", error)
     }
     

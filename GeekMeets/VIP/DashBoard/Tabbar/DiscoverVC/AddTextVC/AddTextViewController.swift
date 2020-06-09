@@ -20,10 +20,10 @@ class AddTextViewController: UIViewController {
     var fontSize : CGFloat = 14
     var textSizeSlider: RangeSlider!
     var colors : [UIColor] = [#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), #colorLiteral(red: 0.7098039216, green: 0.3254901961, blue: 0.8941176471, alpha: 0.5), #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1), #colorLiteral(red: 0.06274510175, green: 0, blue: 0.1921568662, alpha: 1), #colorLiteral(red: 0.1921568662, green: 0.007843137719, blue: 0.09019608051, alpha: 1), #colorLiteral(red: 0.3098039329, green: 0.2039215714, blue: 0.03921568766, alpha: 1), #colorLiteral(red: 0.1294117719, green: 0.2156862766, blue: 0.06666667014, alpha: 1), #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1), #colorLiteral(red: 0.09019608051, green: 0, blue: 0.3019607961, alpha: 1), #colorLiteral(red: 0.3098039329, green: 0.01568627544, blue: 0.1294117719, alpha: 1), #colorLiteral(red: 0.521568656, green: 0.1098039225, blue: 0.05098039284, alpha: 1), #colorLiteral(red: 0.5058823824, green: 0.3372549117, blue: 0.06666667014, alpha: 1), #colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1), #colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1), #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1), #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1), #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)]
-    var textTypeArray : [String] = ["Classic", "Italic", "Big Text", "Bold", "Classic", "Italic", "Big Text", "Bold"]
+    var textTypeArray : [String] = ["ExtraLight", "ThinItalic", "ExtraLightItalic", "BoldItalic", "Light", "Medium", "SemiBoldItalic", "ExtraBoldItalic", "ExtraBold", "BlackItalic", "Regular", "LightItalic", "Bold", "Black", "Thin", "SemiBold", "Italic", "MediumItalic"]
     var dictAttribute : NSMutableDictionary!
     var delegate : TextViewControllerDelegate!
-
+    var SelectedIndexArray : [Int] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +51,10 @@ class AddTextViewController: UIViewController {
         self.ColorCollView.register(UINib.init(nibName: Cells.ColorCollCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.ColorCollCell)
         self.ColorCollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         self.TextNameCollView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        let layout = CustomImageLayout()
+        layout.scrollDirection = .horizontal
+        self.TextNameCollView.collectionViewLayout = layout
+        self.cusTextView.font = UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 16.0)!
     }
     
     func setTextTheme(){
@@ -103,7 +107,7 @@ extension AddTextViewController : TextSizeSelectDelegate {
         fontSize = size
         adjustTextViewHeight()
         if self.textViewHeightConstant.constant < ScreenSize.height {
-            self.textView.font = UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: size)
+            self.textView.font = UIFont(name: cusTextView.font.fontName, size: size)
             cusTextView.attributedString = NSAttributedString.init(string: textView.text, attributes: dictAttribute as? [NSAttributedString.Key : Any])
             cusTextView.text = textView.text
             cusTextView.fontSize = size
@@ -130,24 +134,39 @@ extension AddTextViewController : UICollectionViewDataSource, UICollectionViewDe
             let cell : ColorCollCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.ColorCollCell, for: indexPath) as! ColorCollCell
             let color = colors[indexPath.row]
             cell.btnViewColor.backgroundColor = color
-            cusTextView.color = color
             
             cell.clickOnColorBtn = {
                 self.textView.textColor = color
+                self.cusTextView.color = color
             }
             return cell
         } else {
             let cell : SelectTextTypeCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.SelectTextTypeCell, for: indexPath) as! SelectTextTypeCell
             let text = self.textTypeArray[indexPath.row]
             cell.btnText.setTitle(text, for: .normal)
-            cell.btnText.setTitleColor(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), for: .normal)
-
-            cell.clickOnText = {
-                if cell.btnText.titleLabel?.textColor != #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) {
+            if self.SelectedIndexArray.count != 0 {
+                if SelectedIndexArray[0] == indexPath.row {
                     cell.btnText.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+                    let font = UIFont(name: "Poppins-\(text)", size: cusTextView.fontSize)
+                    self.textView.font = font
+                    self.cusTextView.font = font
                 } else {
                     cell.btnText.setTitleColor(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), for: .normal)
                 }
+            } else {
+                cell.btnText.setTitleColor(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), for: .normal)
+            }
+
+            cell.clickOnText = {
+                if self.SelectedIndexArray.count == 0 {
+                    self.SelectedIndexArray.append(indexPath.row)
+                } else {
+                    if self.SelectedIndexArray.count > 0 {
+                        self.SelectedIndexArray.removeAll()
+                        self.SelectedIndexArray.append(indexPath.row)
+                    }
+                }
+                self.TextNameCollView.reloadData()
             }
             return cell
         }

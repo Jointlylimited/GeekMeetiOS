@@ -38,9 +38,6 @@ let AWS_REGION = "us-east-1"
 ========================== */
 let user_Profile = "UserProfile/"
 let story = "Story/"
-let ser_Image = "ServiceImage/"
-let mani_Image = "Manicure/"
-let pedi_Image = "Padicure/"
 
 typealias completionBlock = (_ response: Any?, _ error: Error?) -> Void //3
 

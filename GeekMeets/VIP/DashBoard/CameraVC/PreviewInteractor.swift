@@ -130,6 +130,7 @@ class PreviewInteractor: PreviewInteractorProtocol, PreviewDataStore {
                   print("ERROR : \(err.localizedDescription)")
                 AppSingleton.sharedInstance().showAlert(err.localizedDescription, okTitle: "OK")
               } else if isUploaded{
+                  self.objPost.txStory = path!.split("/").last!
                   self.uploadImgOrVideoThumbToS3(with: objMedia, videoPath: path, uploaded: uploaded)
               } else {
                   AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
@@ -166,7 +167,7 @@ class PreviewInteractor: PreviewInteractorProtocol, PreviewDataStore {
                   } else {
                       let videoPath = videoPath ?? ""
                      dict = ["type": obj.mediaType.rawValue, "video": videoPath, "thumb": imgPath]
-                    self.objPost.txStory = videoPath.split("/").last!
+//                    self.objPost.txStory = videoPath.split("/").last!
                     self.objPost.vThumbnail = imgPath.split("/").last!
                   }
                   self.objCreatePostData.dictForAPI.append(dict)

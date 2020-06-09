@@ -24,6 +24,7 @@ class Interest_PreferenceViewController: UIViewController, Interest_PreferencePr
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var viewHeightConstant: NSLayoutConstraint!
     @IBOutlet weak var btnUpdate: GradientButton!
+    @IBOutlet weak var tblViewBottomConstant: NSLayoutConstraint!
     
     var header_title : String = ""
     var objDiscoverData : [PreferencesField] = []
@@ -67,8 +68,10 @@ class Interest_PreferenceViewController: UIViewController, Interest_PreferencePr
     override func viewDidLoad() {
         super.viewDidLoad()
         if isFromMenu {
+            self.tblViewBottomConstant.constant = 0
             self.btnUpdate.alpha = 0.0
         } else {
+            self.tblViewBottomConstant.constant = -80
             self.btnUpdate.alpha = 1.0
         }
         self.registerTableViewCell()

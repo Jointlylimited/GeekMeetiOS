@@ -143,14 +143,14 @@ extension DiscoverySettingViewController : UITableViewDataSource, UITableViewDel
         let response = UserDataModel.UserPreferenceResponse?.responseData
         if index == 0 {
             intVC?.header_title = self.objDiscoverData[0].title
-            intVC?.objDiscoverData = [response![0], response![4], response![11], response![17], response![19]]
+            intVC?.objDiscoverData = [response![0], response![4], response![11], response![17], response![19], response![23], response![24], response![25], response![26], response![27], response![28]]
             
         } else if index == 1 {
             intVC?.header_title = self.objDiscoverData[1].title
             intVC?.objDiscoverData = [response![1], response![3], response![5], response![7], response![9], response![12]]
         } else {
             intVC?.header_title = self.objDiscoverData[2].title
-            intVC?.objDiscoverData = [response![13], response![14], response![15], response![16], response![17], response![18], response![22]]
+            intVC?.objDiscoverData = [response![13], response![14], response![15], response![16], response![17], response![18], response![22], response![29]]
         }
         self.pushVC(intVC!)
     }
