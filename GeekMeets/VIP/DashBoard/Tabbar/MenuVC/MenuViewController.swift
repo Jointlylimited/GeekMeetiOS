@@ -105,7 +105,7 @@ class MenuViewController: UIViewController, MenuProtocol {
         
         //ProfileImage setup
         if UserDataModel.currentUser?.vProfileImage != "" {
-            let url = URL(string:"\(fileUploadURL)\(user_Profile)\(UserDataModel.currentUser!.vProfileImage!)")
+            let url = URL(string:"\(UserDataModel.currentUser!.vProfileImage!)")
             print(url!)
             self.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_round"))
         }

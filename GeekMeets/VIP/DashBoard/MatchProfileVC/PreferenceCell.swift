@@ -11,6 +11,9 @@ import UIKit
 class PreferenceCell: UITableViewCell {
 
     @IBOutlet weak var preferenceCollView: UICollectionView!
+    
+    var preferenceDetailsArray : [PreferenceAnswer] = []
+    
     var objStoryData = [["name" : "Sports", "image" : #imageLiteral(resourceName: "gym"),],["name" : "Asian", "image" : #imageLiteral(resourceName: "zodiac_sign")], ["name" : "Hindu", "image" : #imageLiteral(resourceName: "bank")], ["name" : "Night", "image" : #imageLiteral(resourceName: "pet")] , ["name" : "Morning", "image" : #imageLiteral(resourceName: "voter")], ["name" : "I love both", "image" : #imageLiteral(resourceName: "bank")], ["name" : "Sports", "image" : #imageLiteral(resourceName: "gym"),],["name" : "Asian", "image" : #imageLiteral(resourceName: "zodiac_sign")], ["name" : "Hindu", "image" : #imageLiteral(resourceName: "bank")]]
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -44,26 +47,29 @@ extension PreferenceCell : UICollectionViewDataSource, UICollectionViewDelegate,
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.objStoryData.count
+        return self.preferenceDetailsArray.count != 0 ? self.preferenceDetailsArray.count : 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell : PreferenceListCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PreferenceListCell, for: indexPath) as! PreferenceListCell
-        let data = self.objStoryData[indexPath.row]
-        cell.btnTitle.setTitle(data["name"] as! String, for: .normal)
-        cell.btnTitle.setImage(data["image"] as! UIImage, for: .normal)
+        let data = self.preferenceDetailsArray[indexPath.row]
+        cell.btnTitle.setTitle(data.iPreferenceId == 5 ? data.fAnswer : data.vOption, for: .normal)
+        let type = PreferenceIconsDict.filter({($0["type"]!) as! String == "\(data.iPreferenceId!)"})  //map{($0["type"]!)}.first! as! String
+        print(type)
+        if type.count != 0 {
+            cell.btnTitle.setImage(type[0]["icon"]! as? UIImage, for: .normal)
+        }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let name = self.objStoryData[indexPath.row]["name"]
-        let yourWidth = collectionView.bounds.width/3.0
+        let name = self.preferenceDetailsArray[indexPath.row].iPreferenceId == 5 ? self.preferenceDetailsArray[indexPath.row].fAnswer : self.preferenceDetailsArray[indexPath.row].vOption
         let yourHeight = CGFloat(40)
-        let size = (name as! NSString).size(withAttributes: [
+        let size = (name! as NSString).size(withAttributes: [
             NSAttributedString.Key.font : UIFont(name: FontTypePoppins.Poppins_Medium.rawValue, size: FontSizePoppins.sizeNormalTextField.rawValue)!
         ])
 
-        return CGSize(width: size.width + 50, height: yourHeight)
+        return CGSize(width: size.width + 35, height: yourHeight)
 
     }
 }

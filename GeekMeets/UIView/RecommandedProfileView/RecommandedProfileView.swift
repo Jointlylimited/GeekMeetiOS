@@ -60,7 +60,7 @@ class RecommandedProfileView: UIView {
         
         let view = Bundle.main.loadNibNamed("RecommandedProfileView", owner: nil, options: nil)?.first as! RecommandedProfileView
         if imgString != "" {
-            let url = URL(string:"\(fileUploadURL)\(user_Profile)\(imgString)")
+            let url = URL(string:"\(imgString)")
             print(url!)
             view.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_round"))
         }

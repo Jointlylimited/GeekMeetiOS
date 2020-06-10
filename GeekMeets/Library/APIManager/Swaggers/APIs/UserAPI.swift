@@ -1108,7 +1108,7 @@ open class UserAPI {
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
     }
 
-    /**
+   /**
      Other user profile
      
      - parameter nonce: (header)
@@ -1164,6 +1164,7 @@ open class UserAPI {
 
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
     }
+    
     /**
      verify-otp
      

@@ -189,7 +189,7 @@ class ProfileViewController: UIViewController, ProfileProtocol {
             
         //ProfileImage setup
         if userProfileModel?.vProfileImage != "" {
-            let url = URL(string:"\(fileUploadURL)\(user_Profile)\(userProfileModel!.vProfileImage!)")
+            let url = URL(string:"\(userProfileModel!.vProfileImage!)")
             print(url!)
             self.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_round"))
         }
@@ -340,7 +340,7 @@ extension ProfileViewController : UICollectionViewDataSource, UICollectionViewDe
             cell.userImgView.image = imageArray[indexPath.row]
          } else {
             let photos = UserDataModel.currentUser!.photos!
-            let url = URL(string:"\(fileUploadURL)\(user_Profile)\(photos[indexPath.row].vMedia!)")
+            let url = URL(string:"\(photos[indexPath.row].vMedia!)")
             cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
             print(url!)
         }

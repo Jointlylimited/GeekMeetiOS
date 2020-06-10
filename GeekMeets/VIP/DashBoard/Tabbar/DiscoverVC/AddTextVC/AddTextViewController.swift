@@ -58,7 +58,7 @@ class AddTextViewController: UIViewController {
     }
     
     func setTextTheme(){
-        self.textView.setPlaceholder()
+        self.textView.setPlaceholder(view : self.textView)
         
         textSizeSlider = RangeSlider(frame: CGRect(x: 20, y: 250, w: 30, h: 250))
         textSizeSlider.delegate = self
@@ -72,6 +72,7 @@ class AddTextViewController: UIViewController {
     }
 
     @IBAction func btnDoneAction(_ sender: UIButton) {
+        cusTextView.frame = CGRect(x: self.textView.x, y: self.textView.y, w: self.textView.width, h: self.textViewHeightConstant.constant)
         self.delegate.textViewDidFinishWithTextView(text: cusTextView)
         self.dismissVC(completion: nil)
     }
@@ -190,7 +191,7 @@ extension AddTextViewController : UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         textView.checkPlaceholder()
         adjustTextViewHeight()
-        
+        textView.centerVertically()
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -222,6 +223,7 @@ extension AddTextViewController : UITextViewDelegate {
         if newSize.height < ScreenSize.height {
             print(newSize.height)
             self.textViewHeightConstant.constant = newSize.height
+            textView.centerVertically()
         }
         self.view.layoutIfNeeded()
     }
@@ -229,14 +231,14 @@ extension AddTextViewController : UITextViewDelegate {
 
 extension UITextView{
     
-    func setPlaceholder() {
+    func setPlaceholder(view : UITextView) {
         
         let placeholderLabel = UILabel()
         placeholderLabel.text = "Tap to write"
         placeholderLabel.font = UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 16.0)
         
         placeholderLabel.tag = 222
-        placeholderLabel.frame = CGRect(origin: CGPoint(x: 0, y: (self.font?.pointSize)! / 2) , size: CGSize(width: UIScreen.main.bounds.w, height: 25))
+        placeholderLabel.frame = CGRect(origin: CGPoint(x: 0, y: (view.frame.height) / 2) , size: CGSize(width: UIScreen.main.bounds.w, height: 25))
         placeholderLabel.textAlignment = .center
         placeholderLabel.textColor = UIColor.white.withAlphaComponent(0.5)
         placeholderLabel.isHidden = !self.text.isEmpty
@@ -256,6 +258,13 @@ extension UITextView{
         placeholderLabel.isHidden = !self.text.isEmpty
     }
     
+    func centerVertically() {
+        let fittingSize = CGSize(width: bounds.width, height: CGFloat.greatestFiniteMagnitude)
+        let size = sizeThatFits(fittingSize)
+        let topOffset = (bounds.size.height - size.height * zoomScale) / 2
+        let positiveTopOffset = max(0, topOffset)
+        contentOffset.y = -positiveTopOffset
+    }
 }
 
 

@@ -36,7 +36,6 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
             LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 print((response?.responseData!)!)
-                UserDataModel.OtherUserData = (response?.responseData!)!.photos
                 self.presenter?.getUserProfileResponse(response: (response?.responseData!)!)
             } else if response?.responseCode == 400 {
                 self.presenter?.getUserProfileResponse(response: (response?.responseData!)!)

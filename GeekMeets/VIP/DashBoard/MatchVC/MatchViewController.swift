@@ -78,14 +78,14 @@ class MatchViewController: UIViewController, MatchProtocol {
         self.userImgView.transform = CGAffineTransform(rotationAngle: -CGFloat(Double.pi/9))
         
         if UserDataModel.currentUser?.vProfileImage != "" {
-            let url = URL(string:"\(fileUploadURL)\(user_Profile)\(UserDataModel.currentUser!.vProfileImage!)")
+            let url = URL(string:"\(UserDataModel.currentUser!.vProfileImage!)")
             print(url!)
             self.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
         }
         if UserDetails != nil {
             self.lblDesc.text = "Wow, You and \(UserDetails.vName!) have liked each other"
             if UserDetails.vProfileImage != "" {
-                let url = URL(string:"\(fileUploadURL)\(user_Profile)\(UserDetails.vProfileImage!)")
+                let url = URL(string:"\(UserDetails.vProfileImage!)")
                 print(url!)
                 self.matchUserImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
             }

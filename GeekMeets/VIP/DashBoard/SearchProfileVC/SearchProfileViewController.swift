@@ -130,7 +130,7 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
             } else {
                 let data = objFilterStoryData[indexPath.row]
                 if data.vProfileImage != "" {
-                    let url = URL(string:"\(fileUploadURL)\(user_Profile)\(data.vProfileImage!)")
+                    let url = URL(string:"\(data.vProfileImage!)")
                     print(url!)
                     cell.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
                 }

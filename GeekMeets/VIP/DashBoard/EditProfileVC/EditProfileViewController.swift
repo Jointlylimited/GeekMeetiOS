@@ -224,7 +224,7 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
         //ProfileImage setup
         if userProfileModel?.vProfileImage != "" {
         
-            let url = URL(string:"\(fileUploadURL)\(user_Profile)\(userProfileModel!.vProfileImage!)")
+            let url = URL(string:"\(userProfileModel!.vProfileImage!)")
             print(url!)
             self.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_round"))
         }
@@ -470,7 +470,7 @@ extension EditProfileViewController : UICollectionViewDataSource, UICollectionVi
             if indexPath.row < self.userPhotosModel.count {
                 cell.btnClose.alpha = 1.0
                 if userPhotosModel[indexPath.row].tiImage == nil {
-                    let url = URL(string:"\(fileUploadURL)\(user_Profile)\(userPhotosModel[indexPath.row].vMedia!)")
+                    let url = URL(string:"\(userPhotosModel[indexPath.row].vMedia!)")
                     print(url!)
                     cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
                 } else {

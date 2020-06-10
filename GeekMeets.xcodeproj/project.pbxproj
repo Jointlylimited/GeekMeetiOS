@@ -18,6 +18,7 @@
 		0B1CB98F2459429200DA9264 /* NewMobileNumberPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1CB98C2459429200DA9264 /* NewMobileNumberPresenter.swift */; };
 		0B1CB9902459429200DA9264 /* NewMobileNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1CB98D2459429200DA9264 /* NewMobileNumberViewController.swift */; };
 		0B1CB9912459429200DA9264 /* NewMobileNumberInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1CB98E2459429200DA9264 /* NewMobileNumberInteractor.swift */; };
+		0B22A0A1249097CC00EB5046 /* PreferenceAnswerProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B22A0A0249097CC00EB5046 /* PreferenceAnswerProfile.swift */; };
 		0B31963A244DE7E100B38350 /* PhotoEmojiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B319638244DE7E000B38350 /* PhotoEmojiCell.swift */; };
 		0B31963B244DE7E100B38350 /* PhotoEmojiCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B319639244DE7E000B38350 /* PhotoEmojiCell.xib */; };
 		0B319654244DE80500B38350 /* MenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B31963D244DE80400B38350 /* MenuPresenter.swift */; };
@@ -360,6 +361,7 @@
 		0B1CB98C2459429200DA9264 /* NewMobileNumberPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMobileNumberPresenter.swift; sourceTree = "<group>"; };
 		0B1CB98D2459429200DA9264 /* NewMobileNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMobileNumberViewController.swift; sourceTree = "<group>"; };
 		0B1CB98E2459429200DA9264 /* NewMobileNumberInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMobileNumberInteractor.swift; sourceTree = "<group>"; };
+		0B22A0A0249097CC00EB5046 /* PreferenceAnswerProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceAnswerProfile.swift; sourceTree = "<group>"; };
 		0B319638244DE7E000B38350 /* PhotoEmojiCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoEmojiCell.swift; sourceTree = "<group>"; };
 		0B319639244DE7E000B38350 /* PhotoEmojiCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoEmojiCell.xib; sourceTree = "<group>"; };
 		0B31963D244DE80400B38350 /* MenuPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuPresenter.swift; sourceTree = "<group>"; };
@@ -1508,6 +1510,7 @@
 		F7780E26245AD666003CA4BD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0B22A0A0249097CC00EB5046 /* PreferenceAnswerProfile.swift */,
 				0B6D84DA248A6AD200A93406 /* StoryResponse.swift */,
 				0B6D84DB248A6AD300A93406 /* StoryResponseFields.swift */,
 				0B56B6032486503F004A62D4 /* MediaReaction.swift */,
@@ -2640,6 +2643,7 @@
 				F9A4539F203AA7200065C9FD /* Constantt.swift in Sources */,
 				0BBD65F82449C8A500CA178A /* MatchPresenter.swift in Sources */,
 				F9A453BD203AA74A0065C9FD /* LoginInteractor.swift in Sources */,
+				0B22A0A1249097CC00EB5046 /* PreferenceAnswerProfile.swift in Sources */,
 				0BABEADC247244F1000BC5E7 /* PreferencesAPI.swift in Sources */,
 				0B53566F2450870F005571AF /* MyMatchesInteractor.swift in Sources */,
 				0B921C2C24571BE40010AE04 /* SegmentedProgressBar.swift in Sources */,
@@ -2793,7 +2797,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.0.2;
+				CURRENT_PROJECT_VERSION = 1.0.3;
 				DEVELOPMENT_TEAM = 2MAYPF46D4;
 				INFOPLIST_FILE = "$(SRCROOT)/GeekMeets/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -2936,7 +2940,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.0.2;
+				CURRENT_PROJECT_VERSION = 1.0.3;
 				DEVELOPMENT_TEAM = 2MAYPF46D4;
 				INFOPLIST_FILE = "$(SRCROOT)/GeekMeets/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -2964,7 +2968,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.0.2;
+				CURRENT_PROJECT_VERSION = 1.0.3;
 				DEVELOPMENT_TEAM = 2MAYPF46D4;
 				INFOPLIST_FILE = "$(SRCROOT)/GeekMeets/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;

@@ -37,6 +37,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     var secondExporter : AVAssetExportSession?
     var finalVidURL : URL!
     let commmonPreset = AVAssetExportPreset1280x720
+    var stickerView2 : StickerView!
     
     private var _selectedStickerView:StickerView?
     var selectedStickerView:StickerView? {
@@ -163,19 +164,17 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     @IBAction func btnAddtoStoryAction(_ sender: UIButton) {
         if self.objPostData.tiStoryType == "0" {
             if cusText != nil {
-                
-                let image = textToImage(drawText: cusText!.text as NSString, inImage: photo.image!, atPoint: CGPoint(x: 0, y: 0))
+                let image = textToImage(drawText: cusText!.text as NSString, inImage: photo.image!, atPoint: CGPoint(x: self.cusText.x, y: self.cusText.y))
                 self.objPostData.arrMedia[0].img = image
                 print(image)
             }
             self.callPostStoryAPI(obj: self.objPostData)
         } else {
-            self.addTextandExport()
+            if cusText != nil {
+                self.addTextandExport()
+            }
+            self.callPostStoryAPI(obj: self.objPostData)
         }
-        //
-        //        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.SubscriptionScreen) as? SubscriptionVC
-        //        self.pushVC(controller!)
-//        self.callPostStoryAPI(obj: self.objPostData)
     }
     
     @IBAction func actionPlayPause(_ sender: UIButton) {
@@ -229,7 +228,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     
     func setLabel(text : CustomTextView){
         self.cusText = text
-        let textView = UITextView.init(frame: CGRect.init(x: 0, y: 0, width: 100, height: 50))
+        let textView = UITextView.init(frame: CGRect.init(x: 0, y: 0, width: self.cusText.width, height: self.cusText.height))
         textView.text = text.text
         textView.textColor = text.color
         textView.font = text.font
@@ -238,11 +237,11 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         
         adjustTextViewHeight(textView : textView)
         
-        let stickerView2 = StickerView.init(contentView: textView)
-        stickerView2.center = CGPoint.init(x: 100, y: 100)
+        stickerView2 = StickerView.init(contentView: textView)
+        stickerView2.center = CGPoint.init(x: self.cusText.width/2, y: self.cusText.height/2)
         stickerView2.delegate = self
         stickerView2.setImage(UIImage.init(named: "Close")!, forHandler: StickerViewHandler.close)
-        stickerView2.setImage(UIImage.init(named: "Rotate")!, forHandler: StickerViewHandler.rotate)
+//        stickerView2.setImage(UIImage.init(named: "Rotate")!, forHandler: StickerViewHandler.rotate)
         stickerView2.showEditingHandlers = false
         self.view.addSubview(stickerView2)
     }
@@ -332,7 +331,10 @@ extension PreviewViewController {
     
     func getPostStoryResponse(response: CommonResponse){
         if response.responseCode == 200 {
-            self.moveToTabVC()
+           // self.moveToTabVC()
+             let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.SubscriptionScreen) as? SubscriptionVC
+            self.pushVC(controller!)
+            //        self.callPostStoryAPI(obj: self.objPostData)
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }
     }
@@ -371,7 +373,7 @@ extension PreviewViewController: StickerViewDelegate {
     }
     
     func stickerViewDidClose(_ stickerView: StickerView) {
-        
+        self.cusText = nil
     }
     
     func stickerViewDidTap(_ stickerView: StickerView) {

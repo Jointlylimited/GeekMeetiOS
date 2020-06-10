@@ -87,11 +87,11 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationController?.isNavigationBarHidden = true
-//        setupCaptureSession()
-//        setupDevice()
-//        setupInputOutput()
-//        setupPreviewLayer()
-//        startRunningCaptureSession()
+        setupCaptureSession()
+        setupDevice()
+        setupInputOutput()
+        setupPreviewLayer()
+        startRunningCaptureSession()
     }
     
     func setupCaptureSession() {
@@ -244,7 +244,6 @@ extension ViewController : UIImagePickerControllerDelegate, UINavigationControll
         let video = "Video"
         let cancel = "Cancel"
         
-//        func Getimage(){
             let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
             alert.addAction(UIAlertAction(title: photo, style: .default, handler: { _ in
                self.objPostData.postMediaType = .image
@@ -259,7 +258,6 @@ extension ViewController : UIImagePickerControllerDelegate, UINavigationControll
             alert.addAction(UIAlertAction.init(title: cancel, style: .cancel, handler: nil))
             
             self.present(alert, animated: true, completion: nil)
-//        }
     }
     
     func openLibrary(){

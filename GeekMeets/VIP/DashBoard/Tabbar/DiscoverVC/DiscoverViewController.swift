@@ -160,7 +160,7 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
             if self.objStoryArray != nil {
                 let data = self.objStoryArray![indexPath.row]
                 if data.txStory != "" {
-                    let url = URL(string:"\(fileUploadURL)\(story)\(data.tiStoryType! == "0" ? data.txStory! : data.vThumbnail!)")
+                    let url = URL(string:"\(data.tiStoryType! == "0" ? data.txStory! : data.vThumbnail!)")
                     print(url!)
                     cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
                     cell.userName.text = data.vName
@@ -178,7 +178,7 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
             if self.objStoryArray != nil {
                 let data = self.objStoryArray![indexPath.row]
                 if data.txStory != "" {
-                    let url = URL(string:"\(fileUploadURL)\(story)\(data.tiStoryType! == "0" ? data.txStory! : data.vThumbnail!)")
+                    let url = URL(string:"\(data.tiStoryType! == "0" ? data.txStory! : data.vThumbnail!)")
                     print(url!)
                     cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
                 }

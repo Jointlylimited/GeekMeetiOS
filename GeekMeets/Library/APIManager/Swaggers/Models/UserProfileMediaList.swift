@@ -17,9 +17,9 @@ public struct UserProfileMediaList: Codable {
     public var fHeight: Double?
     public var fWidth: Double?
     public var tiIsDefault: Int?
-    public var reaction: [MediaReaction]?
+    public var reaction: [MediaReactionFields]?
 
-    public init(iMediaId: Int?, vMedia: String?, tiMediaType: Int?, fHeight: Double?, fWidth: Double?, tiIsDefault: Int?, reaction: [MediaReaction]?) {
+    public init(iMediaId: Int?, vMedia: String?, tiMediaType: Int?, fHeight: Double?, fWidth: Double?, tiIsDefault: Int?, reaction: [MediaReactionFields]?) {
         self.iMediaId = iMediaId
         self.vMedia = vMedia
         self.tiMediaType = tiMediaType

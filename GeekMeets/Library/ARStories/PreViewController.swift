@@ -55,12 +55,12 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
         userProfileImage.layer.cornerRadius = self.userProfileImage.frame.size.height / 2;
         if items[pageIndex].txStory != "" {
 //            let urlStr = "\(fileUploadURL)\(story)\(items[pageIndex].vProfileImage!)"
-            let url = URL(string:"\(fileUploadURL)\(story)\(items[pageIndex].vProfileImage!)")
+            let url = URL(string:"\(items[pageIndex].vProfileImage!)")
             print(url)
             userProfileImage.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
         }
         
-        lblViews.text = items[pageIndex].dbTotalViews == "" ? "0" : items[pageIndex].dbTotalViews
+        lblViews.text = items[pageIndex].dbTotalViews == "" ? "0 views" : "\(items[pageIndex].dbTotalViews!) views"
         lblUserName.text = items[pageIndex].vName
         item = items
 //        item = items[pageIndex].contents as! [Content]
@@ -155,13 +155,13 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
             self.SPB.duration = 5
             self.imagePreview.isHidden = false
             self.videoView.isHidden = true
-            print("\(fileUploadURL)\(story)\(items[pageIndex].txStory!)")
-            let url = URL(string:"\(fileUploadURL)\(story)\(items[pageIndex].txStory!)")
+            print("\(items[pageIndex].txStory!)")
+            let url = URL(string:"\(items[pageIndex].txStory!)")
             self.imagePreview.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
         } else {
             self.imagePreview.isHidden = true
             self.videoView.isHidden = false
-            print("\(fileUploadURL)\(story)\(items[index].txStory!)")
+            print("\(items[index].txStory!)")
             resetPlayer()
             guard let url = NSURL(string: items[index].txStory!) as URL? else {return} //"\(fileUploadURL)\(story)\(items[index].txStory!)"
             self.player = AVPlayer(url: url)
@@ -189,7 +189,7 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
             guard let url = NSURL(string: items[index].txStory!) as URL? else { return retVal }
             let asset = AVAsset(url: url)
             let duration = asset.duration
-           // retVal = CMTimeGetSeconds(duration)
+            retVal = CMTimeGetSeconds(duration)
         }
         return retVal
     }
