@@ -28,7 +28,7 @@ class DiscoverInteractor: DiscoverInteractorProtocol, DiscoverDataStore {
     // MARK: Do something
     func callStoryListAPI() {
         LoaderView.sharedInstance.showLoader()
-        MediaAPI.listStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
+        MediaAPI.listStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiIsOwner: 0) { (response, error) in
             
             LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {

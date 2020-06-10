@@ -18,7 +18,7 @@ class SubscriptionVC: UIViewController {
     }
     
     @IBAction func btnCloseAction(_ sender: UIButton) {
-        self.popVC()
+        moveToTabVC()
     }
     @IBAction func btnContinueAction(_ sender: GradientButton) {
         moveToTabVC()

@@ -108,6 +108,7 @@ struct MatchProfileData {
 
 protocol MatchProfileProtocol: class {
     func getUserProfileResponse(response : UserAuthResponseField)
+    func getStoryListResponse(response: StoryResponse)
     func getBlockUserResponse(response : CommonResponse)
     func getBlockUserListResponse(response : BlockUser)
     func getReactEmojiResponse(response : MediaReaction)
@@ -141,6 +142,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     var objMatchUserProfile : UserAuthResponseField!
     var tiIsBlocked : Int = 0
     var location:CLLocation?
+    var objStoryArray : [StoryResponseFields]?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -177,6 +179,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         setTheme()
+        self.presenter?.callStoryListAPI()
         getUserCurrentLocation()
 //        self.presenter?.callUserProfileAPI(id: "70")
     }
@@ -211,13 +214,14 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     }
     
     @IBAction func btnViewStoriesAction(_ sender: UIButton) {
-        
-//        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.StoryContentScreen) as? ContentViewController
-//        controller!.modalTransitionStyle = .crossDissolve
-//        controller!.modalPresentationStyle = .overCurrentContext
-//        controller!.isFromMatchVC = true
-////        controller?.pages = self.arrayDetails
-//        self.presentVC(controller!)
+        if self.objStoryArray?.count != 0 {
+            let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.StoryContentScreen) as? ContentViewController
+            controller!.modalTransitionStyle = .crossDissolve
+            controller!.modalPresentationStyle = .overCurrentContext
+            controller!.isFromMatchVC = true
+            controller?.pages = self.objStoryArray!
+            self.presentVC(controller!)
+        }
     }
     
     @IBAction func btnMatchAction(_ sender: UIButton) {
@@ -273,8 +277,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
             }
             if error == nil {
                 self.location = currLocation
-                self.presenter?.callUserProfileAPI(id: "79")
-                
+                self.presenter?.callUserProfileAPI(id: "78")
             }
         }
     }
@@ -288,6 +291,13 @@ extension MatchProfileViewController {
 //            self.objProfileData.str = response.txAbout!
             setProfileData()
             self.presenter?.callBlockUserListAPI()
+            
+    }
+    
+    func getStoryListResponse(response: StoryResponse){
+        if response.responseCode == 200 {
+            self.objStoryArray = response.responseData
+        }
     }
     
     func callBlockUserAPI(){
@@ -309,7 +319,6 @@ extension MatchProfileViewController {
     
     func getBlockUserListResponse(response : BlockUser){
         if response.responseCode == 200 {
-//            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
             if self.objMatchUserProfile.iUserId != nil {
                 let data = response.responseData?.filter({($0.iUserId) == self.objMatchUserProfile.iUserId!})
                 if data!.count > 0 {
@@ -326,7 +335,7 @@ extension MatchProfileViewController {
     
     func getReactEmojiResponse(response : MediaReaction){
         if response.responseCode == 200 {
-            self.presenter?.callUserProfileAPI(id: "79")
+            self.presenter?.callUserProfileAPI(id: "78")
         }
     }
 }

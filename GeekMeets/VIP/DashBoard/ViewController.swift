@@ -87,11 +87,11 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationController?.isNavigationBarHidden = true
-        setupCaptureSession()
-        setupDevice()
-        setupInputOutput()
-        setupPreviewLayer()
-        startRunningCaptureSession()
+//        setupCaptureSession()
+//        setupDevice()
+//        setupInputOutput()
+//        setupPreviewLayer()
+//        startRunningCaptureSession()
     }
     
     func setupCaptureSession() {

@@ -101,19 +101,25 @@ class VideoManager: NSObject {
         videoLayer.frame = CGRect.init(x: 0, y: 0, width: outputSize.width, height: outputSize.height)
         let parentlayer = CALayer()
         parentlayer.frame = CGRect.init(x: 0, y: 0, width: outputSize.width, height: outputSize.height)
-        parentlayer.addSublayer(videoLayer)
+        
         
         // Add Text layer
         let titleLayer = CATextLayer()
-//        titleLayer.backgroundColor = UIColor.white.cgColor
+        titleLayer.backgroundColor = UIColor.white.cgColor
         titleLayer.string = textData.text
         titleLayer.foregroundColor = textData.color.cgColor
         titleLayer.font = textData.font
         titleLayer.shadowOpacity = 0.5
         titleLayer.alignmentMode = CATextLayerAlignmentMode.center
         titleLayer.frame = CGRect(x: 0, y: 0, width: outputSize.width, height: outputSize.height)
-        parentlayer.addSublayer(titleLayer)
         
+        
+        let backgroundLayer = CALayer()
+        backgroundLayer.frame = CGRect(x: 0, y: 0, width: outputSize.width, height: outputSize.height)
+        backgroundLayer.masksToBounds = true
+        backgroundLayer.addSublayer(titleLayer)
+        parentlayer.addSublayer(backgroundLayer)
+        parentlayer.addSublayer(videoLayer)
 //                if let textData = textData {
         //            for aTextData in textData {
 //        let textLayer = makeTextLayer(string: textData.text, fontSize: textData.fontSize, textColor: textData.color, frame: textData.frame, showTime: 0, hideTime: CGFloat(videoAsset.duration.seconds), size: outputSize)

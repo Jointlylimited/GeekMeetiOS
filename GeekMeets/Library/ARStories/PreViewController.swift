@@ -52,16 +52,24 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
             self.btnDelete.setTitle("Delete", for: .normal)
         }
         
+        let attributedString = NSMutableAttributedString(string: items[pageIndex].vName!, attributes: [NSAttributedString.Key.font:UIFont(name: FontTypePoppins.Poppins_SemiBold.rawValue, size: 12.0)!])
+        let range = (items[pageIndex].vName! as NSString).range(of: items[pageIndex].iCreatedAt!)
+        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.white, range: range)
+         
+        let attributedString2 = NSMutableAttributedString(string: " \(items[pageIndex].iCreatedAt!)", attributes: [NSAttributedString.Key.font:UIFont(name: FontTypePoppins.Poppins_Medium.rawValue, size: 12.0)!])
+        let range2 = (" \(items[pageIndex].iCreatedAt!)" as NSString).range(of: " \(items[pageIndex].iCreatedAt!)")
+        attributedString2.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.white.withAlphaComponent(0.5), range: range2)
+        
+        attributedString.append(attributedString2)
+        lblUserName.attributedText = attributedString
+        
         userProfileImage.layer.cornerRadius = self.userProfileImage.frame.size.height / 2;
         if items[pageIndex].txStory != "" {
-//            let urlStr = "\(fileUploadURL)\(story)\(items[pageIndex].vProfileImage!)"
             let url = URL(string:"\(items[pageIndex].vProfileImage!)")
-            print(url)
             userProfileImage.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
         }
-        
         lblViews.text = items[pageIndex].dbTotalViews == "" ? "0 views" : "\(items[pageIndex].dbTotalViews!) views"
-        lblUserName.text = items[pageIndex].vName
+       
         item = items
 //        item = items[pageIndex].contents as! [Content]
         
@@ -151,19 +159,19 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
     
     //MARK: - Play or show image
     func playVideoOrLoadImage(index: NSInteger) {
-        if item[index].tiStoryType! == "0" /*"image"*/ {
+        if item[index].tiStoryType! == "0" {
             self.SPB.duration = 5
             self.imagePreview.isHidden = false
             self.videoView.isHidden = true
             print("\(items[pageIndex].txStory!)")
-            let url = URL(string:"\(items[pageIndex].txStory!)")
+            let url = URL(string:"\(items[index].txStory!)")
             self.imagePreview.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
         } else {
             self.imagePreview.isHidden = true
             self.videoView.isHidden = false
             print("\(items[index].txStory!)")
             resetPlayer()
-            guard let url = NSURL(string: items[index].txStory!) as URL? else {return} //"\(fileUploadURL)\(story)\(items[index].txStory!)"
+            guard let url = NSURL(string: items[index].txStory!) as URL? else {return}
             self.player = AVPlayer(url: url)
             
             let videoLayer = AVPlayerLayer(player: self.player)
@@ -246,3 +254,4 @@ extension PreViewController {
         }
     }
 }
+

@@ -20,8 +20,9 @@ public struct StoryResponseFields: Codable {
     public var vName: String?
     public var vProfileImage: String?
     public var tiIsView: Int?
+    public var iCreatedAt: String?
 
-    public init(iStoryId: Int?, iUserId: Int?, txStory: String?, tiStoryType: Int?, vThumbnail: String?, dbTotalViews: String?, vName: String?, vProfileImage: String?, tiIsView: Int?) {
+    public init(iStoryId: Int?, iUserId: Int?, txStory: String?, tiStoryType: Int?, vThumbnail: String?, dbTotalViews: String?, vName: String?, vProfileImage: String?, tiIsView: Int?, iCreatedAt: String?) {
         self.iStoryId = iStoryId
         self.iUserId = iUserId
         self.txStory = txStory
@@ -31,6 +32,7 @@ public struct StoryResponseFields: Codable {
         self.vName = vName
         self.vProfileImage = vProfileImage
         self.tiIsView = tiIsView
+        self.iCreatedAt = iCreatedAt
     }
 
 

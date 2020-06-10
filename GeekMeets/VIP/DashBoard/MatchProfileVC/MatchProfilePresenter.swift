@@ -19,6 +19,9 @@ protocol MatchProfilePresentationProtocol {
     func callUserProfileAPI(id : String)
     func getUserProfileResponse(response : UserAuthResponseField)
     
+    func callStoryListAPI()
+    func getStoryListResponse(response: StoryResponse)
+    
     func callBlockUserAPI(iBlockTo: String, tiIsBlocked: String)
     func getBlockUserResponse(response : CommonResponse)
     
@@ -41,6 +44,12 @@ class MatchProfilePresenter: MatchProfilePresentationProtocol {
         self.viewController?.getUserProfileResponse(response: response)
     }
     
+    func callStoryListAPI(){
+        self.interactor?.callStoryListAPI()
+    }
+    func getStoryListResponse(response: StoryResponse){
+        self.viewController?.getStoryListResponse(response: response)
+    }
     func callBlockUserAPI(iBlockTo: String, tiIsBlocked: String){
         self.interactor?.callBlockUserAPI(iBlockTo: iBlockTo, tiIsBlocked: tiIsBlocked)
     }

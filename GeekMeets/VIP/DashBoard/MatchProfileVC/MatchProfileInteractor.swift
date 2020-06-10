@@ -14,6 +14,8 @@ import UIKit
 
 protocol MatchProfileInteractorProtocol {
     func callUserProfileAPI(id : String)
+    func callStoryListAPI()
+    
     func callBlockUserAPI(iBlockTo: String, tiIsBlocked: String)
     func callBlockUserListAPI()
     func callReactEmojiAPI( iUserId: String, iMediaId: String, tiRactionType: String)
@@ -44,6 +46,25 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
                 } else {
                     self.presenter?.getUserProfileResponse(response: (response?.responseData!)!)
+                }
+            }
+        }
+    }
+    
+    func callStoryListAPI() {
+        LoaderView.sharedInstance.showLoader()
+        MediaAPI.listStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiIsOwner: 1) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getStoryListResponse(response: response!)
+            } else if response?.responseCode == 400 {
+                self.presenter?.getStoryListResponse(response: response!)
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getStoryListResponse(response: response!)
                 }
             }
         }

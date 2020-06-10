@@ -171,9 +171,11 @@ class PreviewViewController: UIViewController, PreviewProtocol {
             self.callPostStoryAPI(obj: self.objPostData)
         } else {
             if cusText != nil {
-                self.addTextandExport()
+                self.addtextToVideo()
+//                self.addTextandExport()
+            } else {
+                self.callPostStoryAPI(obj: self.objPostData)
             }
-            self.callPostStoryAPI(obj: self.objPostData)
         }
     }
     
@@ -273,12 +275,124 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         let attrs = [NSAttributedString.Key.font: self.cusText.font,NSAttributedString.Key.foregroundColor : cusText.color, NSAttributedString.Key.paragraphStyle: paragraphStyle]
         
         
-        text.draw(with: rect, options: .usesLineFragmentOrigin, attributes: attrs, context: nil)
+        text.draw(with: rect, options: .usesLineFragmentOrigin, attributes: attrs as [NSAttributedString.Key : Any], context: nil)
         
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
         return newImage!
+    }
+    
+    func addtextToVideo(){
+
+        let composition = AVMutableComposition()
+        let vidAsset = AVURLAsset(url: self.objPostData.arrMedia[0].videoURL!, options: nil)
+
+        // get video track
+        let vtrack =  vidAsset.tracks(withMediaType: AVMediaType.video)
+        let videoTrack: AVAssetTrack = vtrack[0]
+        let vid_timerange = CMTimeRangeMake(start: CMTime.zero, duration: vidAsset.duration)
+
+        let tr: CMTimeRange = CMTimeRange(start: CMTime.zero, duration: CMTime(seconds: 10.0, preferredTimescale: 600))
+        composition.insertEmptyTimeRange(tr)
+
+        let trackID:CMPersistentTrackID = CMPersistentTrackID(kCMPersistentTrackID_Invalid)
+
+        if let compositionvideoTrack: AVMutableCompositionTrack = composition.addMutableTrack(withMediaType: AVMediaType.video, preferredTrackID: trackID) {
+
+            do {
+                try compositionvideoTrack.insertTimeRange(vid_timerange, of: videoTrack, at: CMTime.zero)
+            } catch {
+                print("error")
+            }
+
+            compositionvideoTrack.preferredTransform = videoTrack.preferredTransform
+
+        } else {
+            print("unable to add video track")
+            return
+        }
+
+
+        // Watermark Effect
+        let size = videoTrack.naturalSize
+        
+        // create text Layer
+        let titleLayer = CATextLayer()
+        
+        titleLayer.foregroundColor = self.cusText.color.cgColor
+        titleLayer.string = self.cusText.text
+        titleLayer.font = self.cusText.font
+        titleLayer.foregroundColor = UIColor.white.cgColor
+        titleLayer.backgroundColor = self.cusText.color.cgColor
+        titleLayer.shadowOpacity = 0.5
+        titleLayer.alignmentMode = CATextLayerAlignmentMode.center
+        titleLayer.isWrapped = true
+        titleLayer.frame = CGRect(x: self.cusText.x, y: self.cusText.y, width: self.cusText.width, height: self.cusText.height)
+
+
+        let videolayer = CALayer()
+        videolayer.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+
+        let parentlayer = CALayer()
+        parentlayer.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        parentlayer.addSublayer(videolayer)
+        parentlayer.addSublayer(titleLayer)
+
+        let layercomposition = AVMutableVideoComposition()
+        layercomposition.frameDuration = CMTimeMake(value: 1, timescale: 30)
+        layercomposition.renderSize = size
+        layercomposition.animationTool = AVVideoCompositionCoreAnimationTool(postProcessingAsVideoLayer: videolayer, in: parentlayer)
+
+        // instruction for watermark
+        let instruction = AVMutableVideoCompositionInstruction()
+        instruction.timeRange = CMTimeRangeMake(start: CMTime.zero, duration: composition.duration)
+        let videotrack = composition.tracks(withMediaType: AVMediaType.video)[0] as AVAssetTrack
+        let layerinstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: videotrack)
+        instruction.layerInstructions = NSArray(object: layerinstruction) as [AnyObject] as! [AVVideoCompositionLayerInstruction]
+        layercomposition.instructions = NSArray(object: instruction) as [AnyObject] as! [AVVideoCompositionInstructionProtocol]
+
+        //  create new file to receive data
+        let dirPaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let docsDir = dirPaths[0] as NSString
+        let movieFilePath = docsDir.appendingPathComponent("result.mov")
+        let movieDestinationUrl = NSURL(fileURLWithPath: movieFilePath)
+
+        // use AVAssetExportSession to export video
+        let assetExport = AVAssetExportSession(asset: composition, presetName:AVAssetExportPresetHighestQuality)
+        assetExport?.outputFileType = AVFileType.mov
+        assetExport?.videoComposition = layercomposition
+
+        // Check exist and remove old file
+        FileManager.default.removeItemIfExisted(movieDestinationUrl as URL)
+
+        assetExport?.outputURL = movieDestinationUrl as URL
+        assetExport?.exportAsynchronously(completionHandler: {
+            switch assetExport!.status {
+            case AVAssetExportSession.Status.failed:
+                print("failed")
+                print(assetExport?.error ?? "unknown error")
+            case AVAssetExportSession.Status.cancelled:
+                print("cancelled")
+                print(assetExport?.error ?? "unknown error")
+            default:
+                print("Movie complete : \(movieDestinationUrl)")
+                self.objPostData.arrMedia[0].videoURL = movieDestinationUrl as URL
+                //                            self.callPostStoryAPI(obj: self.objPostData)
+//                self.myurl = movieDestinationUrl as URL
+//
+//                PHPhotoLibrary.shared().performChanges({
+//                    PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: movieDestinationUrl as URL)
+//                }) { saved, error in
+//                    if saved {
+//                        print("Saved")
+//                    }
+//                }
+//
+//                self.playVideo()
+
+            }
+        })
     }
     
       // MARK: - UDFs (Save Video Process) (Second export for text)
@@ -310,7 +424,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
                             print("Video process finished! : \(self.secondExporter?.outputURL)")
                             self.finalVidURL = self.secondExporter?.outputURL
                             self.objPostData.arrMedia[0].videoURL = self.finalVidURL
-                            self.callPostStoryAPI(obj: self.objPostData)
+//                            self.callPostStoryAPI(obj: self.objPostData)
                         }
                         else
                         {
