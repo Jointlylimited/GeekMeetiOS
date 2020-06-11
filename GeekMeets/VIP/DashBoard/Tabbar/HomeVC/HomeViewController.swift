@@ -11,10 +11,18 @@
 //
 
 import UIKit
+import CoreLocation
 
 protocol HomeProtocol: class {
+    func getUserCardResponse(response : SearchUsers)
+    func getSwipeCardResponse(response : SearchUsers)
 }
 
+struct CardDetailsModel {
+    var arrUserCardList:[SearchUserFields]!
+    var objUserCard:SearchUserFields!
+    
+}
 class HomeViewController: UIViewController, HomeProtocol {
     //var interactor : HomeInteractorProtocol?
     var presenter : HomePresentationProtocol?
@@ -24,6 +32,9 @@ class HomeViewController: UIViewController, HomeProtocol {
     var cardsData = [Int]()
     var objStoryData : [UIImage] = [#imageLiteral(resourceName: "image_1"),#imageLiteral(resourceName: "Image 65"),#imageLiteral(resourceName: "Image 63")]
     var cardView = CardView()
+    var objCardArray = CardDetailsModel()
+    var location:CLLocation?
+    
     // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -60,7 +71,9 @@ class HomeViewController: UIViewController, HomeProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setCards()
+        getUserCurrentLocation()
+        
+//        setCards()
     }
     
     func setCards() {
@@ -77,12 +90,48 @@ class HomeViewController: UIViewController, HomeProtocol {
 //        cardView.imgCollView.dataSource = self
 //        cardView.imgCollView.delegate = self
         
-        for i in 0..<100 {
+        for i in 0..<self.objCardArray.arrUserCardList.count {
             cardsData.append(i)
+            self.objCardArray.objUserCard = self.objCardArray.arrUserCardList[1]
+        }
+    }
+    
+    func getUserCurrentLocation() {
+        LocationManager.sharedInstance.getLocation { (currLocation, error) in
+            if error != nil {
+                print(error?.localizedDescription ?? "")
+                self.showAccessPopup(title: kLocationAccessTitle, msg: kLocationAccessMsg)
+                return
+            }
+            guard let _ = currLocation else {
+                return
+            }
+            if error == nil {
+                self.location = currLocation
+                self.presenter?.callUserCardAPI()
+            }
         }
     }
 }
 
+extension HomeViewController {
+    func getUserCardResponse(response : SearchUsers) {
+        if response.responseCode == 200 {
+            self.objCardArray.arrUserCardList = response.responseData
+            setCards()
+        }
+    }
+    
+    func callSwipeCardAPI(iProfileId : String, tiSwipeType : String){
+        self.presenter?.callSwipeCardAPI(iProfileId: iProfileId, tiSwipeType: tiSwipeType)
+    }
+    
+    func getSwipeCardResponse(response : SearchUsers){
+        if response.responseCode == 200 {
+            self.presenter?.gotoMatchVC()
+        }
+    }
+}
 extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate {
     // SwipeableCardsDataSource methods
     func numberOfTotalCards(in cards: SwipeableCards) -> Int {
@@ -90,19 +139,20 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
     }
     func view(for cards: SwipeableCards, index: Int, reusingView: CardView?) -> CardView {
 
-        cardView = CardView.initCoachingAlertView()
-        cardView.frame = CGRect(x: 20, y: 0, w: ScreenSize.width - 40, h: ScreenSize.height - 100)
+        cardView = CardView.initCoachingAlertView(obj : self.objCardArray.objUserCard, location : self.location!)
+        cardView.frame = CGRect(x: 20, y: DeviceType.hasNotch ? 120 : 50, w: ScreenSize.width - 40, h: ScreenSize.height - (DeviceType.hasNotch ? 220 : 150))
         cardView.setData(index: 0)
         cardView.imgCollView.dataSource = self
         cardView.imgCollView.delegate = self
         
         cardView.clickOnClose = {
             print("Close Action clicked!")
+            self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "0")
         }
         
         cardView.clickOnFavourite = {
             print("Favourite Action clicked!")
-            self.presenter?.gotoMatchVC()
+             self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "1")
         }
         
         cardView.clickOnView = {
@@ -135,14 +185,19 @@ extension HomeViewController : UICollectionViewDataSource, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.objStoryData.count
+        return self.objCardArray.objUserCard.photos?.count == 0 ? 1 : self.objCardArray.objUserCard.photos!.count // self.objStoryData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell : DiscoverCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.DiscoverCollectionCell, for: indexPath) as! DiscoverCollectionCell
-        let data = self.objStoryData[indexPath.row]
-        cell.userImgView.image = data
+        if self.objCardArray.objUserCard.photos?.count == 0 {
+            let url = URL(string: self.objCardArray.objUserCard.vProfileImage!)
+            cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
+        } else {
+            let data = self.objStoryData[indexPath.row]
+            cell.userImgView.image = data
+        }
         cell.userImgView.clipsToBounds = true
         return cell
     }

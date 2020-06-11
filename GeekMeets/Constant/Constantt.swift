@@ -11,7 +11,7 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 
 let AppDelObj : AppDelegate = AppDelegate.shared
-let authToken = Authentication.sharedInstance().getAutheticationToken()
+//let authToken = Authentication.sharedInstance().getAutheticationToken()
 let vDeviceToken = (UserDefaults.standard[kDeviceToken] as? String) ?? "123456"
 
 let vDeviceUniqueId = UIDevice.current.identifierForVendor?.uuidString

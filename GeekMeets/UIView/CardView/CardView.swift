@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 public class CardView: UIView {
     
@@ -27,6 +28,8 @@ public class CardView: UIView {
     @IBOutlet weak var lblView: GradientLabel!
     @IBOutlet weak var imgCollView: UICollectionView!
     @IBOutlet weak var pageControl: CustomImagePageControl!
+    @IBOutlet weak var lblNameAge: UILabel!
+    @IBOutlet weak var lblLiveIn: UILabel!
     
     var objStoryData : [UIImage] = [#imageLiteral(resourceName: "image_1"),#imageLiteral(resourceName: "Image 65"),#imageLiteral(resourceName: "Image 63")]
     override public func awakeFromNib() {
@@ -56,17 +59,42 @@ public class CardView: UIView {
         }
     }
     
-    class func initCoachingAlertView() -> CardView {
+    class func initCoachingAlertView(obj : SearchUserFields,  location : CLLocation) -> CardView {
         let view = Bundle.main.loadNibNamed("CardView", owner: nil, options: nil)?.first as! CardView
         
         view.layer.cornerRadius = 10
         view.layer.masksToBounds = true
-//        view.dropShadowinView(view: view)
+        
         view.imgView.layer.cornerRadius = 5
         view.imgView.layer.masksToBounds = true
         
+        view.lblNameAge.text = "\(obj.vName!), \(obj.tiAge!)"
+        view.lblLiveIn.text = obj.vLiveIn
+        let text = distanceinMeter(obj : obj,  location : location)
+        view.lblView.text = text
+        
         view.layoutIfNeeded()
         return view
+    }
+    class func distanceinMeter(obj : SearchUserFields, location : CLLocation) -> String {
+        if obj.fLatitude != nil && obj.fLongitude != nil {
+            let userLocation = CLLocation(latitude: CLLocationDegrees(exactly: Float(obj.fLatitude!)!)!, longitude: CLLocationDegrees(exactly: Float(obj.fLongitude!)!)!)
+            let distanceInMeters = location.distance(from: userLocation)
+            var dis : String = ""
+            if(distanceInMeters <= 1609)
+            {
+                let s =   String(format: "%.2f", distanceInMeters)
+                dis = s + " mi"
+            }
+            else
+            {
+                let s =   String(format: "%.2f", distanceInMeters)
+                dis = s + " mi"
+            }
+            return dis
+        } else {
+            return "2 mi"
+        }
     }
     @IBAction func btnCloseAction(_ sender: UIButton) {
         self.clickOnClose!()

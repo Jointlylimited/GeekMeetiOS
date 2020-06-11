@@ -32,6 +32,7 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
     var player: AVPlayer!
     let loader = ImageLoader()
     var isFromMatchVC : Bool = false
+    var isOwnStory : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +51,13 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
             self.lblViews.alpha = 1
             self.btnView.alpha = 1
             self.btnDelete.setTitle("Delete", for: .normal)
+            if isOwnStory {
+//                self.deleteView.alpha = 1
+                self.btnOption.alpha = 1
+            } else {
+                self.deleteView.alpha = 0
+                self.btnOption.alpha = 0
+            }
         }
         
         let attributedString = NSMutableAttributedString(string: items[pageIndex].vName!, attributes: [NSAttributedString.Key.font:UIFont(name: FontTypePoppins.Poppins_SemiBold.rawValue, size: 12.0)!])

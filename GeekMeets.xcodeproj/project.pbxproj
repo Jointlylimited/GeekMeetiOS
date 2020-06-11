@@ -158,7 +158,6 @@
 		0BBD66042449C8F100CA178A /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BBD66012449C8F100CA178A /* CardView.xib */; };
 		0BBD66072449C8FC00CA178A /* SwipeableCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBD66062449C8FB00CA178A /* SwipeableCards.swift */; };
 		0BBF9D0624694BD600E2A590 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0BBF9D0524694BD500E2A590 /* GoogleService-Info.plist */; };
-		0BC32DA4248E5F8C007DDFE1 /* VideoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC32DA3248E5F8B007DDFE1 /* VideoManager.swift */; };
 		0BC465D2247E2CC7006DF9D0 /* EditPreferencePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC465CF247E2CC7006DF9D0 /* EditPreferencePresenter.swift */; };
 		0BC465D3247E2CC7006DF9D0 /* EditPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC465D0247E2CC7006DF9D0 /* EditPreferenceViewController.swift */; };
 		0BC465D4247E2CC7006DF9D0 /* EditPreferenceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC465D1247E2CC7006DF9D0 /* EditPreferenceInteractor.swift */; };
@@ -196,6 +195,9 @@
 		0BED36682488ED27006A293E /* PreviewInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BED36662488ED27006A293E /* PreviewInteractor.swift */; };
 		0BED366A2488F280006A293E /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BED36692488F280006A293E /* DateExtension.swift */; };
 		0BED366C2488FBEA006A293E /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BED366B2488FBEA006A293E /* URLExtensions.swift */; };
+		0BF5ACBC24923B34000B54E6 /* SearchUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF5ACBA24923B33000B54E6 /* SearchUser.swift */; };
+		0BF5ACBD24923B34000B54E6 /* SearchUserFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF5ACBB24923B34000B54E6 /* SearchUserFields.swift */; };
+		0BF5ACBF24926A49000B54E6 /* SearchUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF5ACBE24926A48000B54E6 /* SearchUsers.swift */; };
 		0BF707FD244F1D1C003D6AB7 /* DiscoverPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF707FA244F1D1C003D6AB7 /* DiscoverPresenter.swift */; };
 		0BF707FE244F1D1C003D6AB7 /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF707FB244F1D1C003D6AB7 /* DiscoverViewController.swift */; };
 		0BF707FF244F1D1C003D6AB7 /* DiscoverInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF707FC244F1D1C003D6AB7 /* DiscoverInteractor.swift */; };
@@ -504,7 +506,6 @@
 		0BBD66012449C8F100CA178A /* CardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardView.xib; sourceTree = "<group>"; };
 		0BBD66062449C8FB00CA178A /* SwipeableCards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeableCards.swift; sourceTree = "<group>"; };
 		0BBF9D0524694BD500E2A590 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		0BC32DA3248E5F8B007DDFE1 /* VideoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoManager.swift; sourceTree = "<group>"; };
 		0BC465CF247E2CC7006DF9D0 /* EditPreferencePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPreferencePresenter.swift; sourceTree = "<group>"; };
 		0BC465D0247E2CC7006DF9D0 /* EditPreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPreferenceViewController.swift; sourceTree = "<group>"; };
 		0BC465D1247E2CC7006DF9D0 /* EditPreferenceInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPreferenceInteractor.swift; sourceTree = "<group>"; };
@@ -542,6 +543,9 @@
 		0BED36662488ED27006A293E /* PreviewInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PreviewInteractor.swift; path = CameraVC/PreviewInteractor.swift; sourceTree = "<group>"; };
 		0BED36692488F280006A293E /* DateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		0BED366B2488FBEA006A293E /* URLExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
+		0BF5ACBA24923B33000B54E6 /* SearchUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUser.swift; sourceTree = "<group>"; };
+		0BF5ACBB24923B34000B54E6 /* SearchUserFields.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUserFields.swift; sourceTree = "<group>"; };
+		0BF5ACBE24926A48000B54E6 /* SearchUsers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUsers.swift; sourceTree = "<group>"; };
 		0BF707FA244F1D1C003D6AB7 /* DiscoverPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverPresenter.swift; sourceTree = "<group>"; };
 		0BF707FB244F1D1C003D6AB7 /* DiscoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
 		0BF707FC244F1D1C003D6AB7 /* DiscoverInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverInteractor.swift; sourceTree = "<group>"; };
@@ -1274,14 +1278,6 @@
 			path = Google_Plist;
 			sourceTree = "<group>";
 		};
-		0BC32DA2248E5F6A007DDFE1 /* VideoHelper */ = {
-			isa = PBXGroup;
-			children = (
-				0BC32DA3248E5F8B007DDFE1 /* VideoManager.swift */,
-			);
-			path = VideoHelper;
-			sourceTree = "<group>";
-		};
 		0BC465CE247E2C94006DF9D0 /* EditInterestPreferenceVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -1510,6 +1506,9 @@
 		F7780E26245AD666003CA4BD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0BF5ACBE24926A48000B54E6 /* SearchUsers.swift */,
+				0BF5ACBA24923B33000B54E6 /* SearchUser.swift */,
+				0BF5ACBB24923B34000B54E6 /* SearchUserFields.swift */,
 				0B22A0A0249097CC00EB5046 /* PreferenceAnswerProfile.swift */,
 				0B6D84DA248A6AD200A93406 /* StoryResponse.swift */,
 				0B6D84DB248A6AD300A93406 /* StoryResponseFields.swift */,
@@ -1858,7 +1857,6 @@
 		F90B4CC92032A7C1006ADAF6 /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				0BC32DA2248E5F6A007DDFE1 /* VideoHelper */,
 				0B0B4B08247504F70047EB11 /* RangeSlider */,
 				0BFF2B5F2461779000DECEDD /* LocationManager */,
 				0B51D290245FE2B6005C7B88 /* SOGoogleSignIn */,
@@ -2414,7 +2412,6 @@
 				0B7F33D5246ED8AE007ADF8D /* NotificationListInteractor.swift in Sources */,
 				F76A8D832440396800ED9947 /* CustomerWindowExtension.swift in Sources */,
 				0B9499D22451DBC4001AD1C8 /* ManageSubscriptionInteractor.swift in Sources */,
-				0BC32DA4248E5F8C007DDFE1 /* VideoManager.swift in Sources */,
 				F7F967952451ABF400BD7275 /* SelectAgeRangePresenter.swift in Sources */,
 				F7A3114F246D261100497935 /* UIImageExtensions.swift in Sources */,
 				0B56B60624865040004A62D4 /* MediaReactionFields.swift in Sources */,
@@ -2576,6 +2573,7 @@
 				0BF7080A244F1D3C003D6AB7 /* MatchProfileViewController.swift in Sources */,
 				F7F8F5D52452FB8000CA82E7 /* SelectSocialMediaCell.swift in Sources */,
 				F97A9A2D21103FAA007C45F5 /* EZSwiftFunctions.swift in Sources */,
+				0BF5ACBC24923B34000B54E6 /* SearchUser.swift in Sources */,
 				F7F967962451ABF400BD7275 /* SelectAgeRangeViewController.swift in Sources */,
 				0B8D0B35248117D7004465E1 /* BlockUserFields.swift in Sources */,
 				F73002CB2446F0B600BDD7FD /* UITapGestureRecognizerExtensions.swift in Sources */,
@@ -2589,6 +2587,7 @@
 				F7164AD0244EE90700853BFC /* OTPEnterInteractor.swift in Sources */,
 				F73002D22446F4D000BDD7FD /* InitialSignUpInteractor.swift in Sources */,
 				F716F2AA24498F630063680F /* SignUpVCViewController.swift in Sources */,
+				0BF5ACBF24926A49000B54E6 /* SearchUsers.swift in Sources */,
 				0B5356712450870F005571AF /* BoostViewController.swift in Sources */,
 				F7F8F5C22452EAE400CA82E7 /* SelectGenderViewController.swift in Sources */,
 				F7CD7A4F24442F3A00E02A9E /* TutorialPageInteractor.swift in Sources */,
@@ -2689,6 +2688,7 @@
 				0B9499D52451DBC4001AD1C8 /* DiscoverySettingInteractor.swift in Sources */,
 				0B0B4B132475245E0047EB11 /* Interest_PreferencePresenter.swift in Sources */,
 				0B94820D247B8E4B00189630 /* UserPhotosModel.swift in Sources */,
+				0BF5ACBD24923B34000B54E6 /* SearchUserFields.swift in Sources */,
 				0B53567624508775005571AF /* GradientLabel.swift in Sources */,
 				F7F8F5C32452EAE400CA82E7 /* SelectGenderInteractor.swift in Sources */,
 				F7164AC9244EBD4F00853BFC /* AddPhotoCollectionViewCell.swift in Sources */,

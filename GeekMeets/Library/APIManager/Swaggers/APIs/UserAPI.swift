@@ -118,6 +118,53 @@ open class UserAPI {
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
     }
 
+  /**
+     Card users list
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func cardList(nonce: String, timestamp: String, token: String, authorization: String, completion: @escaping ((_ data: SearchUsers?,_ error: Error?) -> Void)) {
+        cardListWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Card users list
+     - GET /user/card-list
+     - examples: [{contentType=application/json, example=""}]
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+
+     - returns: RequestBuilder<SearchUsers>
+     */
+    open class func cardListWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String) -> RequestBuilder<SearchUsers> {
+        let path = "/user/card-list"
+        let URLString = SwaggerClientAPI.basePath + path
+        let parameters: [String:Any]? = nil
+        
+        let url = URLComponents(string: URLString)
+        let nillableHeaders: [String: Any?] = [
+            "nonce": nonce,
+            "timestamp": timestamp,
+            "token": token,
+            "authorization": authorization
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<SearchUsers>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
+    }
+    
     /**
      Change Password
      
@@ -1104,6 +1151,63 @@ open class UserAPI {
         let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
 
         let requestBuilder: RequestBuilder<UserAuthResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
+    }
+
+    /**
+     Swipe users
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter iProfileId: (form)
+     - parameter tiSwipeType: (form) 0-dislike,1-like
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func swipeUser(nonce: String, timestamp: String, token: String, authorization: String, iProfileId: String, tiSwipeType: String, completion: @escaping ((_ data: SearchUsers?,_ error: Error?) -> Void)) {
+        swipeUserWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, iProfileId: iProfileId, tiSwipeType: tiSwipeType).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Swipe users
+     - POST /user/swipe-user
+     - examples: [{contentType=application/json, example=""}]
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter iProfileId: (form)
+     - parameter tiSwipeType: (form) 0-dislike,1-like
+
+     - returns: RequestBuilder<SearchUser>
+     */
+    open class func swipeUserWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, iProfileId: String, tiSwipeType: String) -> RequestBuilder<SearchUsers> {
+        let path = "/user/swipe-user"
+        let URLString = SwaggerClientAPI.basePath + path
+        let formParams: [String:Any?] = [
+            "iProfileId": iProfileId,
+            "tiSwipeType": tiSwipeType
+        ]
+
+        let nonNullParameters = APIHelper.rejectNil(formParams)
+        let parameters = APIHelper.convertBoolToString(nonNullParameters)
+        
+        let url = URLComponents(string: URLString)
+        let nillableHeaders: [String: Any?] = [
+            "nonce": nonce,
+            "timestamp": timestamp,
+            "token": token,
+            "authorization": authorization
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<SearchUsers>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
     }

@@ -182,7 +182,11 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
     }
     
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let matchVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchProfileScreen) as? MatchProfileViewController
+        if self.isFromDiscover {
+            matchVC!.UserID = objFilterStoryData[indexPath.row].iUserId
+        }
         matchVC!.isFromHome = false
         self.pushVC(matchVC!)
     }

@@ -147,7 +147,6 @@ class PreviewViewController: UIViewController, PreviewProtocol {
                 self.scrubber.setValue(Float(time), animated: false)
             }
         }
-        
     }
     
     @IBAction func cancelButtonTouch(_ sender: Any) {
@@ -172,7 +171,6 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         } else {
             if cusText != nil {
                 self.addtextToVideo()
-//                self.addTextandExport()
             } else {
                 self.callPostStoryAPI(obj: self.objPostData)
             }
@@ -259,22 +257,16 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     
     func textToImage(drawText text: NSString, inImage image: UIImage, atPoint point: CGPoint) -> UIImage {
         
-        
         let scale = UIScreen.main.scale
         UIGraphicsBeginImageContextWithOptions(image.size, false, scale)
         
         image.draw(in: CGRect(origin: CGPoint.zero, size: image.size))
         
         let rect = CGRect(origin: point, size: image.size)
-        
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
         
-        
-        
         let attrs = [NSAttributedString.Key.font: self.cusText.font,NSAttributedString.Key.foregroundColor : cusText.color, NSAttributedString.Key.paragraphStyle: paragraphStyle]
-        
-        
         text.draw(with: rect, options: .usesLineFragmentOrigin, attributes: attrs as [NSAttributedString.Key : Any], context: nil)
         
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
@@ -291,6 +283,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         // get video track
         let vtrack =  vidAsset.tracks(withMediaType: AVMediaType.video)
         let videoTrack: AVAssetTrack = vtrack[0]
+        let audioTrack = vidAsset.tracks(withMediaType: AVMediaType.audio).first
         let vid_timerange = CMTimeRangeMake(start: CMTime.zero, duration: vidAsset.duration)
 
         let tr: CMTimeRange = CMTimeRange(start: CMTime.zero, duration: CMTime(seconds: 10.0, preferredTimescale: 600))
@@ -299,13 +292,12 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         let trackID:CMPersistentTrackID = CMPersistentTrackID(kCMPersistentTrackID_Invalid)
 
         if let compositionvideoTrack: AVMutableCompositionTrack = composition.addMutableTrack(withMediaType: AVMediaType.video, preferredTrackID: trackID) {
-
             do {
                 try compositionvideoTrack.insertTimeRange(vid_timerange, of: videoTrack, at: CMTime.zero)
+                
             } catch {
                 print("error")
             }
-
             compositionvideoTrack.preferredTransform = videoTrack.preferredTransform
 
         } else {
@@ -313,23 +305,33 @@ class PreviewViewController: UIViewController, PreviewProtocol {
             return
         }
 
+        if let compositionaudioTrack: AVMutableCompositionTrack = composition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: trackID) {
+            do {
+                try compositionaudioTrack.insertTimeRange(vid_timerange, of: audioTrack!, at: CMTime.zero)
+                
+            } catch {
+                print("error")
+            }
+            compositionaudioTrack.preferredTransform = audioTrack!.preferredTransform
 
-        // Watermark Effect
+        } else {
+            print("unable to add audio track")
+            return
+        }
+        
+        
         let size = videoTrack.naturalSize
         
         // create text Layer
         let titleLayer = CATextLayer()
-        
-        titleLayer.foregroundColor = self.cusText.color.cgColor
+        titleLayer.frame = CGRect(x: self.stickerView2.x, y: self.stickerView2.y, width: self.stickerView2.width, height: self.stickerView2.height)
         titleLayer.string = self.cusText.text
         titleLayer.font = self.cusText.font
-        titleLayer.foregroundColor = UIColor.white.cgColor
-        titleLayer.backgroundColor = self.cusText.color.cgColor
+        titleLayer.foregroundColor = self.cusText.color.cgColor
         titleLayer.shadowOpacity = 0.5
         titleLayer.alignmentMode = CATextLayerAlignmentMode.center
         titleLayer.isWrapped = true
-        titleLayer.frame = CGRect(x: self.cusText.x, y: self.cusText.y, width: self.cusText.width, height: self.cusText.height)
-
+        titleLayer.displayIfNeeded()
 
         let videolayer = CALayer()
         videolayer.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
@@ -338,6 +340,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         parentlayer.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         parentlayer.addSublayer(videolayer)
         parentlayer.addSublayer(titleLayer)
+        parentlayer.isGeometryFlipped = true
 
         let layercomposition = AVMutableVideoComposition()
         layercomposition.frameDuration = CMTimeMake(value: 1, timescale: 30)
@@ -378,63 +381,9 @@ class PreviewViewController: UIViewController, PreviewProtocol {
             default:
                 print("Movie complete : \(movieDestinationUrl)")
                 self.objPostData.arrMedia[0].videoURL = movieDestinationUrl as URL
-                //                            self.callPostStoryAPI(obj: self.objPostData)
-//                self.myurl = movieDestinationUrl as URL
-//
-//                PHPhotoLibrary.shared().performChanges({
-//                    PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: movieDestinationUrl as URL)
-//                }) { saved, error in
-//                    if saved {
-//                        print("Saved")
-//                    }
-//                }
-//
-//                self.playVideo()
-
+                self.callPostStoryAPI(obj: self.objPostData)
             }
         })
-    }
-    
-      // MARK: - UDFs (Save Video Process) (Second export for text)
-    func addTextandExport() {
-        VideoManager.shared.makeVideoFromWithoutExpoerter(asset:self.videoAsset!, textData: self.cusText) { (vMutable, mainCompo, range, error) in
-            if error == nil && mainCompo != nil {
-                DispatchQueue.main.async {
-            
-                    let path = "\(VideoManager.shared.themeDocumentPath())/FinalCreatedMovie.mov"
-                    if FileManager.default.fileExists(atPath: path){
-                        try! FileManager.default.removeItem(atPath: path)
-                    }
-                    
-                    self.secondExporter = AVAssetExportSession.init(asset: mainCompo!, presetName: self.commmonPreset)
-                    self.secondExporter?.videoComposition = vMutable
-                    self.secondExporter?.outputURL = URL.init(fileURLWithPath: path)
-                    self.secondExporter?.outputFileType = AVFileType.mov
-            
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                        //self.progressView.isHidden = true
-                    })
-                    
-                    self.secondExporter?.exportAsynchronously(completionHandler: {
-                        DispatchQueue.main.asyncAfter(deadline: .now()+1.0, execute: {
-                            //self.progressView.isHidden = true
-                        })
-                        if self.secondExporter?.error == nil
-                        {
-                            print("Video process finished! : \(self.secondExporter?.outputURL)")
-                            self.finalVidURL = self.secondExporter?.outputURL
-                            self.objPostData.arrMedia[0].videoURL = self.finalVidURL
-//                            self.callPostStoryAPI(obj: self.objPostData)
-                        }
-                        else
-                        {
-                            print("Second Exporter Error \(String(describing: self.secondExporter?.error))")
-                            
-                        }
-                    })
-                }
-            }
-        }
     }
 }
 extension PreviewViewController {
@@ -492,5 +441,19 @@ extension PreviewViewController: StickerViewDelegate {
     
     func stickerViewDidTap(_ stickerView: StickerView) {
         self.selectedStickerView = stickerView
+    }
+}
+
+extension FileManager {
+    
+    func removeItemIfExisted(_ url:URL) -> Void {
+        if FileManager.default.fileExists(atPath: url.path) {
+            do {
+                try FileManager.default.removeItem(atPath: url.path)
+            }
+            catch {
+                print("Failed to delete file")
+            }
+        }
     }
 }

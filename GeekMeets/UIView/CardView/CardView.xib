@@ -178,6 +178,8 @@
                 <outlet property="btnView" destination="paf-rW-NRD" id="21t-yt-W3v"/>
                 <outlet property="imgCollView" destination="u2o-aJ-eKL" id="hJs-KD-eyh"/>
                 <outlet property="imgView" destination="PEu-0K-Zx6" id="0Z3-G9-gFT"/>
+                <outlet property="lblLiveIn" destination="CZq-sf-pKz" id="ZoM-g9-VQm"/>
+                <outlet property="lblNameAge" destination="b5G-U6-bIE" id="azc-9r-327"/>
                 <outlet property="lblView" destination="aaa-o1-O7E" id="req-Ua-El5"/>
                 <outlet property="pageControl" destination="ng6-iZ-Lhq" id="s1A-HC-vu3"/>
             </connections>

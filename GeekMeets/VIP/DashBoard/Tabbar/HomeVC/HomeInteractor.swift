@@ -13,7 +13,8 @@
 import UIKit
 
 protocol HomeInteractorProtocol {
-    func doSomething()
+     func callUserCardAPI()
+     func callSwipeCardAPI(iProfileId : String, tiSwipeType : String)
 }
 
 protocol HomeDataStore {
@@ -25,7 +26,41 @@ class HomeInteractor: HomeInteractorProtocol, HomeDataStore {
     //var name: String = ""
     
     // MARK: Do something
-    func doSomething() {
-        
+     func callUserCardAPI() {
+        LoaderView.sharedInstance.showLoader()
+        UserAPI.cardList(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getUserCardResponse(response : response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+            } else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getUserCardResponse(response : response!)
+                }
+            }
+        }
+    }
+    
+    func callSwipeCardAPI(iProfileId : String, tiSwipeType : String){
+        LoaderView.sharedInstance.showLoader()
+        UserAPI.swipeUser(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iProfileId: iProfileId, tiSwipeType: tiSwipeType) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getSwipeCardResponse(response : response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+            } else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getSwipeCardResponse(response : response!)
+                }
+            }
+        }
     }
 }

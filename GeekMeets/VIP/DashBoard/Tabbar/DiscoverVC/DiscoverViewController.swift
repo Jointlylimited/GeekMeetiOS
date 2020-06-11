@@ -89,6 +89,10 @@ class DiscoverViewController: UIViewController, DiscoverProtocol {
         self.StoryCollView.register(UINib.init(nibName: Cells.StoryCollectionCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.StoryCollectionCell)
         self.StoryCollView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         
+        let layout1 = CustomImageLayout()
+        layout1.scrollDirection = .horizontal
+        self.StoryCollView.collectionViewLayout = layout1
+        
         self.AllStoryCollView.register(UINib.init(nibName: Cells.DiscoverCollectionCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.DiscoverCollectionCell)
         self.AllStoryCollView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         
@@ -99,12 +103,11 @@ class DiscoverViewController: UIViewController, DiscoverProtocol {
     
     func setStoryData(){
         self.btnAddStory.dropShadow(view: self.btnAddStory)
-        self.objStoryData = [StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Your story"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 63"), userName: "Sophia"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Lilly Ray"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 64"), userName: "Andre Jackson"),StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Vault Shade"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 64"), userName: "Sonia Parker"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Lipcy Kate"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Jack Man"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Paule Walker"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 62"), userName: "Cally Turner"),StoryViewModel(userImage: #imageLiteral(resourceName: "image_1"), userName: "Andy San"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Anny Ray")]
     }
 
     @IBAction func btnSearchAction(_ sender: UIButton) {
         let searchVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.SearchScreen) as? SearchProfileViewController
-        searchVC?.objStoryData = self.objStoryArray!
+        searchVC?.objStoryData = self.objAllStoryArray!
         searchVC?.isFromDiscover = true
         self.pushVC(searchVC!)
     }
@@ -133,9 +136,8 @@ extension DiscoverViewController{
                     }
                 }
                 
-                self.StoryCollView.reloadData()
                 self.AllStoryCollView.reloadData()
-                self.tblDiscoverList.reloadData()
+                self.StoryCollView.reloadData()
                 
             } else {
                 self.tblDiscoverList.alpha = 0
@@ -159,7 +161,12 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return collectionView == self.StoryCollView ? (self.objStoryArray != nil ? (self.objOwnStoryArray!.count !=  0 ? self.objStoryArray!.count + 1 : self.objStoryArray!.count) : 0) : (self.objAllStoryArray != nil ? self.objAllStoryArray!.count : 0)
+        if collectionView == self.StoryCollView {
+            return (self.objStoryArray != nil ? (self.objOwnStoryArray!.count !=  0 ? self.objStoryArray!.count + 1 : self.objStoryArray!.count) : 0)
+        }
+        else {
+            return (self.objAllStoryArray != nil ? self.objAllStoryArray!.count : 0)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -182,6 +189,10 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
                     cell.userName.text =  "Your Story"
                     let url = URL(string: UserDataModel.currentUser!.vProfileImage!)
                     cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
+//                    let data = self.objOwnStoryArray!.filter({($0.tiIsView) == 1})
+//                    if data.count != 0 {
+                        cell.viewBorder.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 0.5049901832)
+//                    }
                 }
             } else {
                 let data = self.objStoryArray![indexPath.row ]
@@ -232,9 +243,11 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
         controller!.modalTransitionStyle = .crossDissolve
         controller!.modalPresentationStyle = .overCurrentContext
         controller?.isFromMatchVC = false
+        controller?.isOwnStory = false
         if collectionView == self.StoryCollView  {
             if self.objOwnStoryArray != nil && self.objOwnStoryArray!.count != 0 {
                 if indexPath.row == 0 {
+                    controller?.isOwnStory = true
                     controller?.pages = self.objOwnStoryArray!
                 } else {
                     controller?.pages = [self.objStoryArray![indexPath.row - 1]]

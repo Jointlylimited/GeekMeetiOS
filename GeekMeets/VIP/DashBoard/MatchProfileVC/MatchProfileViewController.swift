@@ -130,7 +130,9 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     @IBOutlet weak var lblLiveIn: UILabel!
     @IBOutlet weak var lblDistance: GradientLabel!
     @IBOutlet weak var btnBlock: UIButton!
+    @IBOutlet weak var btnViewStories: UIButton!
     
+    var UserID : Int!
     var alertView: CustomAlertView!
     var customPickImageView: CustomOptionView!
     
@@ -181,7 +183,6 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
         setTheme()
         self.presenter?.callStoryListAPI()
         getUserCurrentLocation()
-//        self.presenter?.callUserProfileAPI(id: "70")
     }
     
     func setTheme(){
@@ -297,6 +298,11 @@ extension MatchProfileViewController {
     func getStoryListResponse(response: StoryResponse){
         if response.responseCode == 200 {
             self.objStoryArray = response.responseData
+            if self.objStoryArray != nil && self.objStoryArray!.count != 0 {
+                self.btnViewStories.alpha = 1
+            } else {
+                self.btnViewStories.alpha = 0
+            }
         }
     }
     
@@ -335,7 +341,7 @@ extension MatchProfileViewController {
     
     func getReactEmojiResponse(response : MediaReaction){
         if response.responseCode == 200 {
-            self.presenter?.callUserProfileAPI(id: "78")
+            self.presenter?.callUserProfileAPI(id: self.UserID == nil ? "78" : "\(self.UserID!)")
         }
     }
 }

@@ -13,6 +13,12 @@
 import UIKit
 
 protocol HomePresentationProtocol {
+    func callUserCardAPI()
+    func getUserCardResponse(response : SearchUsers)
+    
+    func callSwipeCardAPI(iProfileId : String, tiSwipeType : String)
+    func getSwipeCardResponse(response : SearchUsers)
+    
     func gotoMatchVC()
     func gotoMatchProfileVC()
 }
@@ -22,6 +28,20 @@ class HomePresenter: HomePresentationProtocol {
     var interactor: HomeInteractorProtocol?
     
     // MARK: Present something
+    func callUserCardAPI(){
+        self.interactor?.callUserCardAPI()
+    }
+    func getUserCardResponse(response : SearchUsers){
+        self.viewController?.getUserCardResponse(response : response)
+    }
+    
+    func callSwipeCardAPI(iProfileId : String, tiSwipeType : String){
+        self.interactor?.callSwipeCardAPI(iProfileId: iProfileId, tiSwipeType: tiSwipeType)
+    }
+    func getSwipeCardResponse(response : SearchUsers){
+        self.viewController?.getSwipeCardResponse(response : response)
+    }
+    
     func gotoMatchVC() {
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchScreen)
         controller.modalTransitionStyle = .crossDissolve

@@ -125,7 +125,6 @@ extension ReportViewController {
     func getReportListResponse(response : ReasonListData) {
         if response.responseCode == 200 {
             self.arrReport.arrReasonList = response.responseData
-            print(self.arrReport.arrReasonList)
         } else {
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }
