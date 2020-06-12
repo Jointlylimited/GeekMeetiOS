@@ -257,6 +257,9 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
             }
         } else {
             controller?.pages = [self.objAllStoryArray![indexPath.row]]
+            if self.objAllStoryArray![indexPath.row].iUserId == UserDataModel.currentUser?.iUserId {
+                controller?.isOwnStory = true
+            }
         }
         self.presentVC(controller!)
     }

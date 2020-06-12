@@ -62,6 +62,11 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.dismissVC(completion: nil)
     }
+    
+    @IBAction func btnContinueAction(_ sender: UIButton) {
+        self.dismissVC(completion: nil)
+    }
+    
     @IBAction func btnTopGeekAction(_ sender: UIButton) {
         btnTopGeekColl.forEach{
             $0.isSelected = false

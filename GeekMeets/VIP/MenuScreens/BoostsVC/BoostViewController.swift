@@ -63,6 +63,11 @@ class BoostViewController: UIViewController, BoostProtocol {
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.dismissVC(completion: nil)
     }
+    
+    @IBAction func btnContinueAction(_ sender: UIButton) {
+        self.dismissVC(completion: nil)
+    }
+    
     @IBAction func btnBoostAction(_ sender: UIButton) {
         
         btnBoostColl.forEach{

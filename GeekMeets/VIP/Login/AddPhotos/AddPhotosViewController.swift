@@ -83,7 +83,7 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
         self.navigationItem.leftBarButtonItem = leftSideBackBarButton
         self.navigationController?.navigationBar.barTintColor = UIColor.white
         // Profile image set
-        userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, tiMediaType: 1, tiImage: imgProfile, tiIsDefault: 1))
+        userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, tiMediaType: 1, tiImage: imgProfile, tiIsDefault: 1, reaction: []))
 //        imgsUserPhotos.append(imgProfile!)
     }
 
@@ -224,11 +224,11 @@ extension AddPhotosViewController:  UINavigationControllerDelegate, UIImagePicke
            let imgDataa = NSData(data: (imgTemp).jpegData(compressionQuality: 0.5)!)
            let image = UIImage(data: imgDataa as Data)
             let IsDefault = self.userPhotosModel.count == 0 ? 1 : 0
-            self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, tiMediaType: 1, tiImage: image, tiIsDefault: IsDefault))
+            self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, tiMediaType: 1, tiImage: image, tiIsDefault: IsDefault, reaction: []))
 //            self.imgsUserPhotos.append(image!)
          }else{
             let IsDefault = self.userPhotosModel.count == 0 ? 1 : 0
-            self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, tiMediaType: 1, tiImage: imgTemp, tiIsDefault: IsDefault))
+            self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, tiMediaType: 1, tiImage: imgTemp, tiIsDefault: IsDefault, reaction: []))
 //           self.imgsUserPhotos.append(imgTemp)
          }
       

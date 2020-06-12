@@ -109,6 +109,7 @@ extension AddTextViewController : TextSizeSelectDelegate {
         adjustTextViewHeight()
         if self.textViewHeightConstant.constant < ScreenSize.height {
             self.textView.font = UIFont(name: cusTextView.font.fontName, size: size)
+            cusTextView.font = self.textView.font
             cusTextView.attributedString = NSAttributedString.init(string: textView.text, attributes: dictAttribute as? [NSAttributedString.Key : Any])
             cusTextView.text = textView.text
             cusTextView.fontSize = size

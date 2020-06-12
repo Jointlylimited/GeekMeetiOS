@@ -324,7 +324,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         
         // create text Layer
         let titleLayer = CATextLayer()
-        titleLayer.frame = CGRect(x: self.stickerView2.x, y: self.stickerView2.y, width: self.stickerView2.width, height: self.stickerView2.height)
+        titleLayer.frame = CGRect(x: self.stickerView2.x, y: self.stickerView2.y, width: size.width, height: size.height)
         titleLayer.string = self.cusText.text
         titleLayer.font = self.cusText.font
         titleLayer.foregroundColor = self.cusText.color.cgColor

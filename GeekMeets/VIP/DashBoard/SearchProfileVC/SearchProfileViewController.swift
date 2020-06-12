@@ -117,7 +117,7 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
                 let data = objFilterMsgData[indexPath.row]
                 cell.imgProfile.image = data.userImage
                 cell.lblName.text = data.userName
-                if self.txtSearchField.text == "" {
+                if self.txtSearchField.text != "" {
                     cell.btnClose.alpha = 1
                 } else {
                     cell.btnClose.alpha = 0
@@ -135,7 +135,7 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
                     cell.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
                 }
                 cell.lblName.text = data.vName
-                if self.txtSearchField.text == "" {
+                if self.txtSearchField.text != "" {
                     cell.btnClose.alpha = 1
                 } else {
                     cell.btnClose.alpha = 0
@@ -169,7 +169,7 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
         headerTitle.font = UIFont(name: "Poppins-SemiBold", size: 14)
         headerView.addSubview(headerTitle)
         
-        if self.txtSearchField.text == "" {
+        if self.txtSearchField.text != "" {
             let buttonClr = UIButton(frame: CGRect(x: ScreenSize.width - 110, y: headerView.frame.origin.y + 5, w: 100, h: 30))
             buttonClr.backgroundColor = .clear
             buttonClr.titleLabel?.font = UIFont(name: "Poppins-SemiBold", size: 14)
@@ -185,7 +185,9 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
         
         let matchVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchProfileScreen) as? MatchProfileViewController
         if self.isFromDiscover {
-            matchVC!.UserID = objFilterStoryData[indexPath.row].iUserId
+            if objFilterStoryData.count != 0 {
+                matchVC!.UserID = objFilterStoryData[indexPath.row].iUserId
+            }
         }
         matchVC!.isFromHome = false
         self.pushVC(matchVC!)

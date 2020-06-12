@@ -87,7 +87,7 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sophie Lee, 24" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b5G-U6-bIE">
-                            <rect key="frame" x="27" y="490.66666666666669" width="134.33333333333334" height="23.333333333333314"/>
+                            <rect key="frame" x="27" y="490.66666666666669" width="200" height="23.333333333333314"/>
                             <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="20"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -99,11 +99,8 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 mi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aaa-o1-O7E" customClass="GradientLabel" customModule="Jointly" customModuleProvider="target">
-                            <rect key="frame" x="282" y="495.33333333333331" width="35" height="14"/>
+                            <rect key="frame" x="294" y="495.33333333333331" width="23" height="14"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="35" id="Vil-eK-QXd"/>
-                            </constraints>
                             <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="12"/>
                             <color key="textColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -132,6 +129,7 @@
                         <constraint firstItem="aaa-o1-O7E" firstAttribute="centerY" secondItem="b5G-U6-bIE" secondAttribute="centerY" id="Bla-gN-7sK"/>
                         <constraint firstItem="kfW-ny-cBG" firstAttribute="centerY" secondItem="rmO-xr-av8" secondAttribute="centerY" id="EHw-7E-zkc"/>
                         <constraint firstAttribute="trailing" secondItem="PEu-0K-Zx6" secondAttribute="trailing" id="H2h-cX-Ytu"/>
+                        <constraint firstItem="b5G-U6-bIE" firstAttribute="trailing" secondItem="u2o-aJ-eKL" secondAttribute="trailing" constant="-120" id="MKk-Ri-9bf"/>
                         <constraint firstItem="u2o-aJ-eKL" firstAttribute="trailing" secondItem="PEu-0K-Zx6" secondAttribute="trailing" id="MlW-9z-6Wo"/>
                         <constraint firstItem="u2o-aJ-eKL" firstAttribute="leading" secondItem="PEu-0K-Zx6" secondAttribute="leading" id="NJ8-qn-TeO"/>
                         <constraint firstItem="u2o-aJ-eKL" firstAttribute="top" secondItem="PEu-0K-Zx6" secondAttribute="top" id="OKf-Pt-Y1E"/>

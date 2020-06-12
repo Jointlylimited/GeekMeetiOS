@@ -14,7 +14,7 @@ import UIKit
 
 protocol MatchProfileInteractorProtocol {
     func callUserProfileAPI(id : String)
-    func callStoryListAPI()
+    func callStoryListAPI(id : Int)
     
     func callBlockUserAPI(iBlockTo: String, tiIsBlocked: String)
     func callBlockUserListAPI()
@@ -51,9 +51,9 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
         }
     }
     
-    func callStoryListAPI() {
+    func callStoryListAPI(id : Int) {
         LoaderView.sharedInstance.showLoader()
-        MediaAPI.listStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiIsOwner: 1) { (response, error) in
+        MediaAPI.listStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, _id: id) { (response, error) in
             
             LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {

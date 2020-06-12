@@ -230,7 +230,7 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
         }
         
         for photo in UserDataModel.currentUser!.photos! {
-            let photoModel = UserPhotosModel(iMediaId: photo.iMediaId, vMedia: photo.vMedia, tiMediaType: photo.tiMediaType, tiImage: nil, tiIsDefault: photo.tiIsDefault)
+            let photoModel = UserPhotosModel(iMediaId: photo.iMediaId, vMedia: photo.vMedia, tiMediaType: photo.tiMediaType, tiImage: nil, tiIsDefault: photo.tiIsDefault, reaction: photo.reaction)
             userPhotosModel.append(photoModel)
         }
         self.tblEditProfileView.reloadData()
@@ -252,7 +252,7 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
             }
         }
         
-        let params = RequestParameter.sharedInstance().editProfileParam(vEmail: userProfileModel?.vEmail ?? "", vProfileImage: userProfileModel?.vProfileImage ?? "", vName: userProfileModel?.vName ?? "", dDob: userProfileModel?.dDob ?? "", tiAge: "\(userProfileModel?.tiAge ?? 0)", tiGender: "\(userProfileModel?.tiGender ?? 0)", vLiveIn: userProfileModel?.vLiveIn ?? "", txCompanyDetail: userProfileModel?.txCompanyDetail ?? "", txAbout: userProfileModel?.txAbout ?? "", deletephotos : self.removePhotoStr, photos: "", vInstaLink: userProfileModel?.vInstaLink ?? "", vSnapLink: userProfileModel?.vSnapLink ?? "", vFbLink: userProfileModel?.vFbLink ?? "", tiIsShowAge: "\(userProfileModel?.tiIsShowAge ?? 0)", tiIsShowDistance: "\(userProfileModel?.tiIsShowDistance ?? 0)", tiIsShowContactNumber: "\(userProfileModel?.tiIsShowContactNumber ?? 0)", tiIsShowProfileToLikedUser: "\(userProfileModel?.tiIsShowProfileToLikedUser ?? 0)")
+        let params = RequestParameter.sharedInstance().editProfileParam(vEmail: userProfileModel?.vEmail ?? "", vProfileImage: userProfileModel?.vProfileImage?.split("UserProfile/").last ?? "", vName: userProfileModel?.vName ?? "", dDob: userProfileModel?.dDob ?? "", tiAge: "\(userProfileModel?.tiAge ?? 0)", tiGender: "\(userProfileModel?.tiGender ?? 0)", vLiveIn: userProfileModel?.vLiveIn ?? "", txCompanyDetail: userProfileModel?.txCompanyDetail ?? "", txAbout: userProfileModel?.txAbout ?? "", deletephotos : self.removePhotoStr, photos: "", vInstaLink: userProfileModel?.vInstaLink ?? "", vSnapLink: userProfileModel?.vSnapLink ?? "", vFbLink: userProfileModel?.vFbLink ?? "", tiIsShowAge: "\(userProfileModel?.tiIsShowAge ?? 0)", tiIsShowDistance: "\(userProfileModel?.tiIsShowDistance ?? 0)", tiIsShowContactNumber: "\(userProfileModel?.tiIsShowContactNumber ?? 0)", tiIsShowProfileToLikedUser: "\(userProfileModel?.tiIsShowProfileToLikedUser ?? 0)")
         self.presenter?.callEdirProfileAPI(params: params, images : self.imageArray)
     }
     @IBAction func btnDonePickerAction(_ sender: UIBarButtonItem) {
@@ -467,23 +467,39 @@ extension EditProfileViewController : UICollectionViewDataSource, UICollectionVi
         let cell : PhotoEmojiCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PhotoEmojiCell, for: indexPath) as! PhotoEmojiCell
         cell.emojiStackView.spacing = DeviceType.iPhone5orSE ? 2 : 10
         
-            if indexPath.row < self.userPhotosModel.count {
-                cell.btnClose.alpha = 1.0
-                if userPhotosModel[indexPath.row].tiImage == nil {
-                    let url = URL(string:"\(userPhotosModel[indexPath.row].vMedia!)")
-                    print(url!)
-                    cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
-                } else {
-                    cell.userImgView.image = userPhotosModel[indexPath.row].tiImage
-                }
-                
-                cell.emojiStackView.alpha = 0
+        if indexPath.row < self.userPhotosModel.count {
+            cell.btnClose.alpha = 1.0
+            if userPhotosModel[indexPath.row].tiImage == nil {
+                let url = URL(string:"\(userPhotosModel[indexPath.row].vMedia!)")
+                print(url!)
+                cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
             } else {
-                cell.userImgView.image = #imageLiteral(resourceName: "icn_add_photo")
-                cell.emojiStackView.alpha = 0
-                cell.btnClose.alpha  = 0
+                cell.userImgView.image = userPhotosModel[indexPath.row].tiImage
             }
-
+            let photoString = userPhotosModel[indexPath.row]
+            if photoString.reaction?.count != 0 {
+                cell.emojiStackView.alpha = 1
+                if photoString.reaction!.count == 3 {
+                    cell.btnKiss.setTitle((photoString.reaction?.count != 0 && photoString.reaction![2].vCount != "0") ? photoString.reaction![2].vCount : "0", for: .normal)
+                    cell.btnLove.setTitle((photoString.reaction?.count != 0 && photoString.reaction![1].vCount != "0") ? photoString.reaction![1].vCount : "0", for: .normal)
+                    cell.btnLoveSmile.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].vCount != "0") ? photoString.reaction![0].vCount : "0", for: .normal)
+                }
+                if photoString.reaction!.count == 2 {
+                    cell.btnLoveSmile.setTitle((photoString.reaction?.count != 0 && photoString.reaction![1].vCount != "0") ? photoString.reaction![1].vCount : "0", for: .normal)
+                    cell.btnLove.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].vCount != "0") ? photoString.reaction![0].vCount : "0", for: .normal)
+                }
+                if photoString.reaction!.count == 1  {
+                    cell.btnLove.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].vCount != "0") ? photoString.reaction![0].vCount : "0", for: .normal)
+                }
+            } else {
+                cell.emojiStackView.alpha = 0
+            }
+        } else {
+            cell.userImgView.image = #imageLiteral(resourceName: "icn_add_photo")
+            cell.emojiStackView.alpha = 0
+            cell.btnClose.alpha  = 0
+        }
+        
         cell.clickOnImageButton = {
             self.openImagePickerActionSheet()
         }
@@ -498,11 +514,11 @@ extension EditProfileViewController : UICollectionViewDataSource, UICollectionVi
         }
         return cell
     }
-
-       func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-             let width = ScreenSize.width/3
-             return CGSize(width: width, height: width)
-     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = ScreenSize.width/3
+        return CGSize(width: width, height: width)
+    }
 }
 extension EditProfileViewController : UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -625,7 +641,7 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                 
                 let IsDefault = self.userPhotosModel.count == 0 ? 1 : 0
-                self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.path, tiMediaType: 1, tiImage: image, tiIsDefault: IsDefault))
+                self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.path, tiMediaType: 1, tiImage: image, tiIsDefault: IsDefault, reaction: []))
                 if IsDefault == 1 {
                     self.imgProfile.image = self.userPhotosModel[0].tiImage
                 }
@@ -635,7 +651,7 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                 
                 let IsDefault = self.userPhotosModel.count == 0 ? 1 : 0
-                self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.path, tiMediaType: 1, tiImage: image, tiIsDefault: IsDefault))
+                self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.path, tiMediaType: 1, tiImage: image, tiIsDefault: IsDefault, reaction: []))
                 if IsDefault == 1 {
                     self.imgProfile.image = self.userPhotosModel[0].tiImage
                 }

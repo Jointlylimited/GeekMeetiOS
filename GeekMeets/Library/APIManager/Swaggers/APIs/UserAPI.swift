@@ -1166,7 +1166,7 @@ open class UserAPI {
      - parameter tiSwipeType: (form) 0-dislike,1-like
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func swipeUser(nonce: String, timestamp: String, token: String, authorization: String, iProfileId: String, tiSwipeType: String, completion: @escaping ((_ data: SearchUsers?,_ error: Error?) -> Void)) {
+    open class func swipeUser(nonce: String, timestamp: String, token: String, authorization: String, iProfileId: String, tiSwipeType: String, completion: @escaping ((_ data: SwipeUser?,_ error: Error?) -> Void)) {
         swipeUserWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, iProfileId: iProfileId, tiSwipeType: tiSwipeType).execute { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -1185,9 +1185,9 @@ open class UserAPI {
      - parameter iProfileId: (form)
      - parameter tiSwipeType: (form) 0-dislike,1-like
 
-     - returns: RequestBuilder<SearchUser>
+     - returns: RequestBuilder<SwipeUser>
      */
-    open class func swipeUserWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, iProfileId: String, tiSwipeType: String) -> RequestBuilder<SearchUsers> {
+    open class func swipeUserWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, iProfileId: String, tiSwipeType: String) -> RequestBuilder<SwipeUser> {
         let path = "/user/swipe-user"
         let URLString = SwaggerClientAPI.basePath + path
         let formParams: [String:Any?] = [
@@ -1207,7 +1207,7 @@ open class UserAPI {
         ]
         let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
 
-        let requestBuilder: RequestBuilder<SearchUsers>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<SwipeUser>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
     }

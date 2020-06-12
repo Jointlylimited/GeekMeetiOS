@@ -17,10 +17,9 @@ protocol HomePresentationProtocol {
     func getUserCardResponse(response : SearchUsers)
     
     func callSwipeCardAPI(iProfileId : String, tiSwipeType : String)
-    func getSwipeCardResponse(response : SearchUsers)
+    func getSwipeCardResponse(response : SwipeUser)
     
     func gotoMatchVC()
-    func gotoMatchProfileVC()
 }
 
 class HomePresenter: HomePresentationProtocol {
@@ -38,23 +37,12 @@ class HomePresenter: HomePresentationProtocol {
     func callSwipeCardAPI(iProfileId : String, tiSwipeType : String){
         self.interactor?.callSwipeCardAPI(iProfileId: iProfileId, tiSwipeType: tiSwipeType)
     }
-    func getSwipeCardResponse(response : SearchUsers){
+    func getSwipeCardResponse(response : SwipeUser){
         self.viewController?.getSwipeCardResponse(response : response)
     }
     
     func gotoMatchVC() {
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchScreen)
-        controller.modalTransitionStyle = .crossDissolve
-        controller.modalPresentationStyle = .overCurrentContext
-        
-        if let view = self.viewController as? UIViewController
-        {
-            view.presentVC(controller)
-        }
-    }
-    
-    func gotoMatchProfileVC() {
-        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchProfileScreen)
         controller.modalTransitionStyle = .crossDissolve
         controller.modalPresentationStyle = .overCurrentContext
         

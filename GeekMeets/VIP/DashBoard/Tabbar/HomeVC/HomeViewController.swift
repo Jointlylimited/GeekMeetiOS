@@ -15,7 +15,7 @@ import CoreLocation
 
 protocol HomeProtocol: class {
     func getUserCardResponse(response : SearchUsers)
-    func getSwipeCardResponse(response : SearchUsers)
+    func getSwipeCardResponse(response : SwipeUser)
 }
 
 struct CardDetailsModel {
@@ -71,9 +71,12 @@ class HomeViewController: UIViewController, HomeProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        getUserCurrentLocation()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         getUserCurrentLocation()
-        
-//        setCards()
     }
     
     func setCards() {
@@ -92,8 +95,11 @@ class HomeViewController: UIViewController, HomeProtocol {
         
         for i in 0..<self.objCardArray.arrUserCardList.count {
             cardsData.append(i)
-            self.objCardArray.objUserCard = self.objCardArray.arrUserCardList[1]
         }
+        if self.objCardArray.arrUserCardList.count != 0 {
+            self.objCardArray.objUserCard = self.objCardArray.arrUserCardList[0]
+        }
+        cards.reloadData()
     }
     
     func getUserCurrentLocation() {
@@ -126,9 +132,23 @@ extension HomeViewController {
         self.presenter?.callSwipeCardAPI(iProfileId: iProfileId, tiSwipeType: tiSwipeType)
     }
     
-    func getSwipeCardResponse(response : SearchUsers){
+    func getSwipeCardResponse(response : SwipeUser){
         if response.responseCode == 200 {
-            self.presenter?.gotoMatchVC()
+            if response.responseData?.tiSwipeType == 2 {
+                let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchScreen) as! MatchViewController
+                controller.isFromProfile = false
+                controller.CardUserDetails = self.objCardArray.objUserCard
+                controller.modalTransitionStyle = .crossDissolve
+                controller.modalPresentationStyle = .overCurrentContext
+                self.presentVC(controller)
+            } else {
+//                self.presenter?.callUserCardAPI()
+                if self.objCardArray.arrUserCardList.count != 0 {
+                    self.objCardArray.arrUserCardList.remove(at: 0)
+                    self.cardsData = []
+                    self.makeCardsData()
+                }
+            }
         }
     }
 }
@@ -142,8 +162,10 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
         cardView = CardView.initCoachingAlertView(obj : self.objCardArray.objUserCard, location : self.location!)
         cardView.frame = CGRect(x: 20, y: DeviceType.hasNotch ? 120 : 50, w: ScreenSize.width - 40, h: ScreenSize.height - (DeviceType.hasNotch ? 220 : 150))
         cardView.setData(index: 0)
+        cardView.pageControl.numberOfPages = (self.objCardArray.objUserCard.photos == nil && self.objCardArray.objUserCard.photos?.count == 0) ? 1 : self.objCardArray.objUserCard.photos!.count
         cardView.imgCollView.dataSource = self
         cardView.imgCollView.delegate = self
+        cardView.imgCollView.reloadData()
         
         cardView.clickOnClose = {
             print("Close Action clicked!")
@@ -157,12 +179,15 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
         
         cardView.clickOnView = {
             print("View Action clicked!")
-            self.presenter?.gotoMatchProfileVC()
+            let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchProfileScreen) as! MatchProfileViewController
+            controller.UserID = self.objCardArray.objUserCard.iUserId
+            controller.modalTransitionStyle = .crossDissolve
+            controller.modalPresentationStyle = .overCurrentContext
+            self.presentVC(controller)
         }
         
         return cardView
     }
-    
     
     // SwipeableCardsDelegate methods
     func cards(_ cards: SwipeableCards, beforeSwipingItemAt index: Int) {
@@ -170,9 +195,11 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
     }
     func cards(_ cards: SwipeableCards, didLeftRemovedItemAt index: Int) {
         print("<--\(index)")
+         self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "0")
     }
     func cards(_ cards: SwipeableCards, didRightRemovedItemAt index: Int) {
         print("\(index)-->")
+         self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "1")
     }
     func cards(_ cards: SwipeableCards, didRemovedItemAt index: Int) {
         print("index of removed card:\(index)")
@@ -185,18 +212,19 @@ extension HomeViewController : UICollectionViewDataSource, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.objCardArray.objUserCard.photos?.count == 0 ? 1 : self.objCardArray.objUserCard.photos!.count // self.objStoryData.count
+        return (self.objCardArray.objUserCard.photos == nil && self.objCardArray.objUserCard.photos?.count == 0) ? 1 : self.objCardArray.objUserCard.photos!.count // self.objStoryData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell : DiscoverCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.DiscoverCollectionCell, for: indexPath) as! DiscoverCollectionCell
-        if self.objCardArray.objUserCard.photos?.count == 0 {
+        if self.objCardArray.objUserCard.photos == nil && self.objCardArray.objUserCard.photos?.count == 0 {
             let url = URL(string: self.objCardArray.objUserCard.vProfileImage!)
             cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
         } else {
-            let data = self.objStoryData[indexPath.row]
-            cell.userImgView.image = data
+            let data = self.objCardArray.objUserCard.photos![indexPath.row]
+            let url = URL(string: data.vMedia!)
+            cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
         }
         cell.userImgView.clipsToBounds = true
         return cell

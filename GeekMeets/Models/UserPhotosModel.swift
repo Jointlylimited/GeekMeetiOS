@@ -15,12 +15,14 @@ class UserPhotosModel: NSObject {
     public var tiMediaType: Int?
     public var tiImage: UIImage?
     public var tiIsDefault: Int?
-
-    public init(iMediaId: Int?, vMedia: String?, tiMediaType: Int?, tiImage: UIImage?, tiIsDefault: Int?) {
+    public var reaction: [MediaReactionFields]?
+    
+    public init(iMediaId: Int?, vMedia: String?, tiMediaType: Int?, tiImage: UIImage?, tiIsDefault: Int?, reaction: [MediaReactionFields]?) {
         self.iMediaId = iMediaId
         self.vMedia = vMedia
         self.tiMediaType = tiMediaType
         self.tiImage = tiImage
         self.tiIsDefault = tiIsDefault
+        self.reaction = reaction
     }
 }

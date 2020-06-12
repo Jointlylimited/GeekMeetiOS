@@ -30,6 +30,8 @@ class MatchViewController: UIViewController, MatchProtocol {
     @IBOutlet weak var stackViewHeightConstant: NSLayoutConstraint!
     
     var UserDetails : UserAuthResponseField!
+    var CardUserDetails : SearchUserFields!
+    var isFromProfile : Bool = false
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -82,12 +84,23 @@ class MatchViewController: UIViewController, MatchProtocol {
             print(url!)
             self.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
         }
-        if UserDetails != nil {
-            self.lblDesc.text = "Wow, You and \(UserDetails.vName!) have liked each other"
-            if UserDetails.vProfileImage != "" {
-                let url = URL(string:"\(UserDetails.vProfileImage!)")
-                print(url!)
-                self.matchUserImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
+        if isFromProfile {
+            if UserDetails != nil {
+                self.lblDesc.text = "Wow, You and \(UserDetails.vName!) have liked each other"
+                if UserDetails.vProfileImage != "" {
+                    let url = URL(string:"\(UserDetails.vProfileImage!)")
+                    print(url!)
+                    self.matchUserImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
+                }
+            }
+        } else {
+            if CardUserDetails != nil {
+                self.lblDesc.text = "Wow, You and \(CardUserDetails.vName!) have liked each other"
+                if UserDetails.vProfileImage != "" {
+                    let url = URL(string:"\(CardUserDetails.vProfileImage!)")
+                    print(url!)
+                    self.matchUserImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
+                }
             }
         }
     }

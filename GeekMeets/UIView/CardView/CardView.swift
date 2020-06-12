@@ -68,8 +68,8 @@ public class CardView: UIView {
         view.imgView.layer.cornerRadius = 5
         view.imgView.layer.masksToBounds = true
         
-        view.lblNameAge.text = "\(obj.vName!), \(obj.tiAge!)"
-        view.lblLiveIn.text = obj.vLiveIn
+        view.lblNameAge.text = "\(obj.vName != nil ? obj.vName! : ""), \(obj.tiAge != nil ? obj.tiAge! : 0)"
+        view.lblLiveIn.text = obj.vLiveIn == "" ? "Ahmedabad" : obj.vLiveIn
         let text = distanceinMeter(obj : obj,  location : location)
         view.lblView.text = text
         
@@ -77,7 +77,7 @@ public class CardView: UIView {
         return view
     }
     class func distanceinMeter(obj : SearchUserFields, location : CLLocation) -> String {
-        if obj.fLatitude != nil && obj.fLongitude != nil {
+        if obj.fLatitude != nil && obj.fLongitude != nil && obj.fLatitude != "" && obj.fLongitude != "" {
             let userLocation = CLLocation(latitude: CLLocationDegrees(exactly: Float(obj.fLatitude!)!)!, longitude: CLLocationDegrees(exactly: Float(obj.fLongitude!)!)!)
             let distanceInMeters = location.distance(from: userLocation)
             var dis : String = ""
@@ -91,9 +91,9 @@ public class CardView: UIView {
                 let s =   String(format: "%.2f", distanceInMeters)
                 dis = s + " mi"
             }
-            return dis
+            return " \(dis) "
         } else {
-            return "2 mi"
+            return " 2 mi "
         }
     }
     @IBAction func btnCloseAction(_ sender: UIButton) {

@@ -54,9 +54,13 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
             if isOwnStory {
 //                self.deleteView.alpha = 1
                 self.btnOption.alpha = 1
+                self.lblViews.alpha = 1
+                self.btnView.alpha = 1
             } else {
                 self.deleteView.alpha = 0
                 self.btnOption.alpha = 0
+                self.lblViews.alpha = 0
+                self.btnView.alpha = 0
             }
         }
         

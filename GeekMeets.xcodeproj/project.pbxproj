@@ -215,6 +215,8 @@
 		0BF7081E244F1D6B003D6AB7 /* ReactEmojiCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF70815244F1D6B003D6AB7 /* ReactEmojiCollectionCell.swift */; };
 		0BF7081F244F1D6B003D6AB7 /* MessageListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF70817244F1D6B003D6AB7 /* MessageListCell.swift */; };
 		0BF70820244F1D6B003D6AB7 /* MessageListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BF70818244F1D6B003D6AB7 /* MessageListCell.xib */; };
+		0BFB9AD024934D58004B0EC3 /* SwipeUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFB9ACE24934D58004B0EC3 /* SwipeUser.swift */; };
+		0BFB9AD124934D58004B0EC3 /* SwipeUserFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFB9ACF24934D58004B0EC3 /* SwipeUserFields.swift */; };
 		0BFCD80F246A9847004A2282 /* InstagramLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFCD80E246A9847004A2282 /* InstagramLoginVC.swift */; };
 		0BFF2B612461779000DECEDD /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFF2B602461779000DECEDD /* LocationManager.swift */; };
 		E5B521D13F02F46FBABC5C21 /* Pods_GeekMeets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC146BF9C834F09E88494EB4 /* Pods_GeekMeets.framework */; };
@@ -563,6 +565,8 @@
 		0BF70815244F1D6B003D6AB7 /* ReactEmojiCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactEmojiCollectionCell.swift; sourceTree = "<group>"; };
 		0BF70817244F1D6B003D6AB7 /* MessageListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageListCell.swift; sourceTree = "<group>"; };
 		0BF70818244F1D6B003D6AB7 /* MessageListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageListCell.xib; sourceTree = "<group>"; };
+		0BFB9ACE24934D58004B0EC3 /* SwipeUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeUser.swift; sourceTree = "<group>"; };
+		0BFB9ACF24934D58004B0EC3 /* SwipeUserFields.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeUserFields.swift; sourceTree = "<group>"; };
 		0BFCD80E246A9847004A2282 /* InstagramLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramLoginVC.swift; sourceTree = "<group>"; };
 		0BFF2B602461779000DECEDD /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		0E5083CE45B37361B6D908A2 /* Pods-GeekMeets.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeekMeets.release.xcconfig"; path = "Target Support Files/Pods-GeekMeets/Pods-GeekMeets.release.xcconfig"; sourceTree = "<group>"; };
@@ -1506,6 +1510,8 @@
 		F7780E26245AD666003CA4BD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0BFB9ACE24934D58004B0EC3 /* SwipeUser.swift */,
+				0BFB9ACF24934D58004B0EC3 /* SwipeUserFields.swift */,
 				0BF5ACBE24926A48000B54E6 /* SearchUsers.swift */,
 				0BF5ACBA24923B33000B54E6 /* SearchUser.swift */,
 				0BF5ACBB24923B34000B54E6 /* SearchUserFields.swift */,
@@ -2551,6 +2557,7 @@
 				0B535687245088DC005571AF /* EditProfilePrivacyCell.swift in Sources */,
 				F97A9A2921103F9F007C45F5 /* UIViewExtensions.swift in Sources */,
 				0B921C2B24571BE40010AE04 /* UserDetailCell.m in Sources */,
+				0BFB9AD124934D58004B0EC3 /* SwipeUserFields.swift in Sources */,
 				0B535684245088DC005571AF /* EditInterestCell.swift in Sources */,
 				F9A453D2203AA74B0065C9FD /* SplashPresenter.swift in Sources */,
 				0B0B4B142475245E0047EB11 /* Interest_PreferenceViewController.swift in Sources */,
@@ -2691,6 +2698,7 @@
 				0BF5ACBD24923B34000B54E6 /* SearchUserFields.swift in Sources */,
 				0B53567624508775005571AF /* GradientLabel.swift in Sources */,
 				F7F8F5C32452EAE400CA82E7 /* SelectGenderInteractor.swift in Sources */,
+				0BFB9AD024934D58004B0EC3 /* SwipeUser.swift in Sources */,
 				F7164AC9244EBD4F00853BFC /* AddPhotoCollectionViewCell.swift in Sources */,
 				F96C2D202037E92B00F8CBC7 /* L012Localizer.swift in Sources */,
 				F7F8F5D72452FC0E00CA82E7 /* SelectCategories.swift in Sources */,

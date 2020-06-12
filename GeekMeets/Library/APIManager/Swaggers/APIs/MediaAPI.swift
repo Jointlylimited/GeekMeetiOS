@@ -197,11 +197,11 @@ open class MediaAPI {
          - parameter timestamp: (header)
          - parameter token: (header)
          - parameter authorization: (header)
-         - parameter tiIsOwner: (path) 0-No,1-Yes
+         - parameter _id: (path) 0-No,1-Yes
          - parameter completion: completion handler to receive the data and the error objects
          */
-        open class func listStory(nonce: String, timestamp: String, token: String, authorization: String, tiIsOwner: Int, completion: @escaping ((_ data: StoryResponse?,_ error: Error?) -> Void)) {
-            listStoryWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, tiIsOwner: tiIsOwner).execute { (response, error) -> Void in
+        open class func listStory(nonce: String, timestamp: String, token: String, authorization: String, _id: Int, completion: @escaping ((_ data: StoryResponse?,_ error: Error?) -> Void)) {
+            listStoryWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, _id: _id).execute { (response, error) -> Void in
                 completion(response?.body, error)
             }
         }
@@ -209,22 +209,22 @@ open class MediaAPI {
 
         /**
          list users story
-         - GET /users-story/list/{tiIsOwner}
+         - GET /users-story/list/{id}
          - examples: [{contentType=application/json, example=""}]
          
          - parameter nonce: (header)
          - parameter timestamp: (header)
          - parameter token: (header)
          - parameter authorization: (header)
-         - parameter tiIsOwner: (path) 0-No,1-Yes
+         - parameter _id: (path) 0-No,1-Yes
 
          - returns: RequestBuilder<StoryResponse>
          */
-        open class func listStoryWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, tiIsOwner: Int) -> RequestBuilder<StoryResponse> {
-            var path = "/users-story/list/{tiIsOwner}"
-            let tiIsOwnerPreEscape = "\(tiIsOwner)"
-            let tiIsOwnerPostEscape = tiIsOwnerPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-            path = path.replacingOccurrences(of: "{tiIsOwner}", with: tiIsOwnerPostEscape, options: .literal, range: nil)
+        open class func listStoryWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, _id: Int) -> RequestBuilder<StoryResponse> {
+            var path = "/users-story/list/{id}"
+            let _idPreEscape = "\(_id)"
+            let _idPostEscape = _idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+            path = path.replacingOccurrences(of: "{id}", with: _idPostEscape, options: .literal, range: nil)
             let URLString = SwaggerClientAPI.basePath + path
             let parameters: [String:Any]? = nil
             
@@ -241,6 +241,7 @@ open class MediaAPI {
 
             return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
         }
+
         /**
          view users story
          

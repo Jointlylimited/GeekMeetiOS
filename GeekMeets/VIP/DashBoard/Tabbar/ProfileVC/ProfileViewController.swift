@@ -202,6 +202,17 @@ class ProfileViewController: UIViewController, ProfileProtocol {
 //        controller.userProfileModel = self.userProfileModel
         self.pushVC(controller)
     }
+    
+    func openSocialPlatform(url: URL) {
+        
+        if UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
+    }
 }
 
 extension ProfileViewController : ProfileDataDelegate{
@@ -268,6 +279,22 @@ extension ProfileViewController : UITableViewDataSource, UITableViewDelegate {
                 
                 cell.photoCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
                 cell.photoCollectionView.reloadData()
+            }
+        } else if objProfileData.cells[indexPath.section].cellID == "ProfileSocialCell" {
+            if let cell = cell as? ProfileSocialCell  {
+                cell.clickOnBtn = { (index) in
+                    print(index!)
+                    if index == 0 {
+                        guard let url = URL(string: "https://facebook.com/\(self.userProfileModel!.vName!)")  else { return }
+                        self.openSocialPlatform(url: url)
+                    } else if index == 1 {
+                        guard let url = URL(string: "https://instagram.com/\(self.userProfileModel!.vName!)")  else { return }
+                        self.openSocialPlatform(url: url)
+                    } else {
+                        guard let url = URL(string: "https://snapchat.com/\(self.userProfileModel!.vName!)")  else { return }
+                        self.openSocialPlatform(url: url)
+                    }
+                }
             }
         } else {
             
@@ -343,6 +370,27 @@ extension ProfileViewController : UICollectionViewDataSource, UICollectionViewDe
             let url = URL(string:"\(photos[indexPath.row].vMedia!)")
             cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
             print(url!)
+            let photoString = photos[indexPath.row]
+            
+            if photoString.reaction?.count != 0 {
+                if photoString.reaction!.count == 3 {
+                    cell.btnKiss.setTitle((photoString.reaction?.count != 0 && photoString.reaction![2].vCount != "0") ? photoString.reaction![2].vCount : "0", for: .normal)
+                    cell.btnLove.setTitle((photoString.reaction?.count != 0 && photoString.reaction![1].vCount != "0") ? photoString.reaction![1].vCount : "0", for: .normal)
+                    cell.btnLoveSmile.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].vCount != "0") ? photoString.reaction![0].vCount : "0", for: .normal)
+                }
+                if photoString.reaction!.count == 2 {
+                    cell.btnLoveSmile.setTitle((photoString.reaction?.count != 0 && photoString.reaction![1].vCount != "0") ? photoString.reaction![1].vCount : "0", for: .normal)
+                    cell.btnLove.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].vCount != "0") ? photoString.reaction![0].vCount : "0", for: .normal)
+                }
+                if photoString.reaction!.count == 1  {
+                    cell.btnLove.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].vCount != "0") ? photoString.reaction![0].vCount : "0", for: .normal)
+                }
+            } else {
+                cell.btnKiss.setTitle("0", for: .normal)
+                cell.btnLove.setTitle("0", for: .normal)
+                cell.btnLoveSmile.setTitle("0", for: .normal)
+            }
+            
         }
         cell.emojiStackView.spacing = DeviceType.iPhone5orSE ? 2 : 10
         cell.btnClose.alpha = 0.0

@@ -181,7 +181,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         setTheme()
-        self.presenter?.callStoryListAPI()
+        
         getUserCurrentLocation()
     }
     
@@ -227,6 +227,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     
     @IBAction func btnMatchAction(_ sender: UIButton) {
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchScreen) as! MatchViewController
+        controller.isFromProfile = true
         controller.UserDetails = self.objMatchUserProfile
         controller.modalTransitionStyle = .crossDissolve
         controller.modalPresentationStyle = .overCurrentContext
@@ -246,19 +247,6 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     func setProfileData(){
         self.lblNameAge.text = "\(self.objMatchUserProfile.vName!), \(self.objMatchUserProfile.tiAge!)"
         self.lblLiveIn.text = self.objMatchUserProfile.vLiveIn
-        let userLocation = CLLocation(latitude: CLLocationDegrees(exactly: Float(self.objMatchUserProfile.fLatitude!)!)!, longitude: CLLocationDegrees(exactly: Float(self.objMatchUserProfile.fLongitude!)!)!)
-        let distanceInMeters = location!.distance(from: userLocation)
-        if(distanceInMeters <= 1609)
-        {
-            let s =   String(format: "%.2f", distanceInMeters)
-            self.lblDistance.text = s + " mi"
-        }
-        else
-        {
-            let s =   String(format: "%.2f", distanceInMeters)
-            self.lblDistance.text = s + " mi"
-
-        }
         self.pageControl.numberOfPages = self.objMatchUserProfile.photos!.count
         self.pageControl.currentPage = 0
         
@@ -278,7 +266,18 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
             }
             if error == nil {
                 self.location = currLocation
-                self.presenter?.callUserProfileAPI(id: "78")
+                self.presenter?.callUserProfileAPI(id: self.UserID != nil ? "\(self.UserID!)" : "78")
+            }
+        }
+    }
+    
+    func openSocialPlatform(url: URL) {
+        
+        if UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(url)
             }
         }
     }
@@ -291,12 +290,13 @@ extension MatchProfileViewController {
             self.objProfileData.data = response.preference!
 //            self.objProfileData.str = response.txAbout!
             setProfileData()
-            self.presenter?.callBlockUserListAPI()
-            
+            self.presenter?.callStoryListAPI(id : self.UserID != nil ? self.UserID! : 78)
+           
     }
     
     func getStoryListResponse(response: StoryResponse){
         if response.responseCode == 200 {
+             self.presenter?.callBlockUserListAPI()
             self.objStoryArray = response.responseData
             if self.objStoryArray != nil && self.objStoryArray!.count != 0 {
                 self.btnViewStories.alpha = 1
@@ -376,7 +376,21 @@ extension MatchProfileViewController : UITableViewDataSource, UITableViewDelegat
                 cell.preferenceDetailsArray = self.objMatchUserProfile.preference!
             }
         }else {
-            
+            if let cell = cell as? ProfileSocialCell  {
+                cell.clickOnBtn = { (index) in
+                    print(index!)
+                    if index == 0 {
+                        guard let url = URL(string: "https://facebook.com/\(self.objMatchUserProfile.vName!)")  else { return }
+                        self.openSocialPlatform(url: url)
+                    } else if index == 1 {
+                        guard let url = URL(string: "https://instagram.com/\(self.objMatchUserProfile.vName!)")  else { return }
+                        self.openSocialPlatform(url: url)
+                    } else {
+                        guard let url = URL(string: "https://snapchat.com/\(self.objMatchUserProfile.vName!)")  else { return }
+                        self.openSocialPlatform(url: url)
+                    }
+                }
+            }
         }
     }
     
@@ -500,7 +514,7 @@ extension MatchProfileViewController : UICollectionViewDataSource, UICollectionV
 
 extension MatchProfileViewController {
     func showAlertView() {
-        alertView = CustomAlertView.initAlertView(title: tiIsBlocked == 0 ? "Are you sure you want to block?" : "Are you sure you want to unblock?", message: tiIsBlocked == 0 ? "User will not able to see your profile after blocking" : "User will able to see your profile after unblocking", btnRightStr: tiIsBlocked == 0 ? "Block" : "Unblock", btnCancelStr: "Cancel", btnCenter: "", isSingleButton: false)
+        alertView = CustomAlertView.initAlertView(title: tiIsBlocked == 0 ? kBlockStr : kUnblockStr, message: tiIsBlocked == 0 ? kBlockDesStr : kUnblockDesStr, btnRightStr: tiIsBlocked == 0 ? "Block" : "Unblock", btnCancelStr: "Cancel", btnCenter: "", isSingleButton: false)
       alertView.delegate = self
       alertView.frame = self.view.frame
       self.view.addSubview(alertView)

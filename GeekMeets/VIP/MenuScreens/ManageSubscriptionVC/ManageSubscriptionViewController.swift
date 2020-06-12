@@ -62,6 +62,11 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.dismissVC(completion: nil)
     }
+    
+    @IBAction func btnContinueAction(_ sender: UIButton) {
+        self.dismissVC(completion: nil)
+    }
+    
     @IBAction func btnSubscriptionAction(_ sender: UIButton) {
         btnSubColl.forEach{
             $0.isSelected = false
