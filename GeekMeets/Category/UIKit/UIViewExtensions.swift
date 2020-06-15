@@ -1159,8 +1159,8 @@ public extension UIView {
                          cornerRadius: view.layer.cornerRadius).cgPath
         view.layer.shadowColor = view.tag == 1 ? #colorLiteral(red: 0.606272161, green: 0.2928337753, blue: 0.8085166812, alpha: 1) : UIColor.black.cgColor
         view.layer.shadowOpacity = 0.3
-        view.layer.shadowOffset = CGSize(width: 0.2, height: 0.2)
-        view.layer.shadowRadius = 5
+        view.layer.shadowOffset = DeviceType.iPhone5orSE ? CGSize(width: 0.01, height: 0.01) : CGSize(width: 0.2, height: 0.2)
+        view.layer.shadowRadius =  5
         view.layer.masksToBounds = false
     }
 }

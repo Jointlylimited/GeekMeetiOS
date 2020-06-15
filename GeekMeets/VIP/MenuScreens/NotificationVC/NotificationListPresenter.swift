@@ -13,7 +13,13 @@
 import UIKit
 
 protocol NotificationListPresentationProtocol {
-    func presentSomething()
+    func callAPI(offset: Int, limit: Int)
+    func getNotificationListResponse(response : NotificationResponse)
+    
+    func callReadAPI(iNotificationId : String, tiType : String)
+    func getReadNotificationResponse(response: ViewNotification)
+    
+    func getClearAllNotificationResponse(response: ViewNotification)
 }
 
 class NotificationListPresenter: NotificationListPresentationProtocol {
@@ -21,7 +27,23 @@ class NotificationListPresenter: NotificationListPresentationProtocol {
     var interactor: NotificationListInteractorProtocol?
     
     // MARK: Present something
-    func presentSomething() {
-        
+    func callAPI(offset: Int, limit: Int) {
+        self.interactor?.callNotificationListAPI(offset: offset, limit: limit)
+    }
+    
+    func getNotificationListResponse(response : NotificationResponse){
+        self.viewController?.getNotificationListResponse(response: response)
+    }
+    
+    func callReadAPI(iNotificationId : String, tiType : String){
+        self.interactor?.callReadAPI(iNotificationId: iNotificationId, tiType : tiType)
+    }
+    
+    func getReadNotificationResponse(response: ViewNotification){
+        self.viewController?.getReadNotificationResponse(response : response)
+    }
+    
+    func getClearAllNotificationResponse(response: ViewNotification){
+        self.viewController?.getClearAllNotificationResponse(response: response)
     }
 }

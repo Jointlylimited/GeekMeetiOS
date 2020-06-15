@@ -167,6 +167,11 @@
 		0BCD4B2A245B0C210054A805 /* AddTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCD4B27245B0C200054A805 /* AddTextViewController.swift */; };
 		0BCD4B2E245B0C390054A805 /* RangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCD4B2C245B0C370054A805 /* RangeSlider.swift */; };
 		0BCD4B2F245B0C390054A805 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCD4B2D245B0C370054A805 /* CustomTextView.swift */; };
+		0BD88AF724977A5800C8C025 /* NotificationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD88AF624977A5800C8C025 /* NotificationAPI.swift */; };
+		0BD88AFA24977ABA00C8C025 /* NotificationFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD88AF824977ABA00C8C025 /* NotificationFields.swift */; };
+		0BD88AFB24977ABA00C8C025 /* NotificationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD88AF924977ABA00C8C025 /* NotificationList.swift */; };
+		0BD88AFD2497809800C8C025 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD88AFC2497809700C8C025 /* Notification.swift */; };
+		0BD88AFF2497AD0200C8C025 /* ViewNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD88AFE2497AD0200C8C025 /* ViewNotification.swift */; };
 		0BDB9DA02476405000BA2F39 /* iOSawsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 0BDB9D9F2476405000BA2F39 /* iOSawsconfiguration.json */; };
 		0BDB9DA2247640A800BA2F39 /* AWSHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDB9DA1247640A800BA2F39 /* AWSHelper.swift */; };
 		0BE21272244976AF004817BC /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BE21260244976AF004817BC /* Poppins-ExtraLight.ttf */; };
@@ -517,6 +522,11 @@
 		0BCD4B27245B0C200054A805 /* AddTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTextViewController.swift; sourceTree = "<group>"; };
 		0BCD4B2C245B0C370054A805 /* RangeSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSlider.swift; sourceTree = "<group>"; };
 		0BCD4B2D245B0C370054A805 /* CustomTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
+		0BD88AF624977A5800C8C025 /* NotificationAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationAPI.swift; sourceTree = "<group>"; };
+		0BD88AF824977ABA00C8C025 /* NotificationFields.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationFields.swift; sourceTree = "<group>"; };
+		0BD88AF924977ABA00C8C025 /* NotificationList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationList.swift; sourceTree = "<group>"; };
+		0BD88AFC2497809700C8C025 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		0BD88AFE2497AD0200C8C025 /* ViewNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewNotification.swift; sourceTree = "<group>"; };
 		0BDB9D9F2476405000BA2F39 /* iOSawsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = iOSawsconfiguration.json; sourceTree = "<group>"; };
 		0BDB9DA1247640A800BA2F39 /* AWSHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSHelper.swift; sourceTree = "<group>"; };
 		0BE21260244976AF004817BC /* Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
@@ -1498,6 +1508,7 @@
 		F7780E20245AD666003CA4BD /* APIs */ = {
 			isa = PBXGroup;
 			children = (
+				0BD88AF624977A5800C8C025 /* NotificationAPI.swift */,
 				0B56B6072486506D004A62D4 /* MediaAPI.swift */,
 				0B8D0B31248114E9004465E1 /* ReportAPI.swift */,
 				0BABEADB247244F1000BC5E7 /* PreferencesAPI.swift */,
@@ -1510,6 +1521,10 @@
 		F7780E26245AD666003CA4BD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0BD88AFE2497AD0200C8C025 /* ViewNotification.swift */,
+				0BD88AFC2497809700C8C025 /* Notification.swift */,
+				0BD88AF824977ABA00C8C025 /* NotificationFields.swift */,
+				0BD88AF924977ABA00C8C025 /* NotificationList.swift */,
 				0BFB9ACE24934D58004B0EC3 /* SwipeUser.swift */,
 				0BFB9ACF24934D58004B0EC3 /* SwipeUserFields.swift */,
 				0BF5ACBE24926A48000B54E6 /* SearchUsers.swift */,
@@ -2440,6 +2455,7 @@
 				F97A9A2C21103FA7007C45F5 /* CGRectExtensions.swift in Sources */,
 				F9A453C9203AA74B0065C9FD /* SignUpPresenter.swift in Sources */,
 				F76A8D872440396800ED9947 /* DocumentDirectory.swift in Sources */,
+				0BD88AFB24977ABA00C8C025 /* NotificationList.swift in Sources */,
 				0B319661244DE80500B38350 /* ProfileViewController.swift in Sources */,
 				0B5356732450870F005571AF /* BoostPresenter.swift in Sources */,
 				F9A453C6203AA74B0065C9FD /* SignUpInteractor.swift in Sources */,
@@ -2458,6 +2474,7 @@
 				F7780E39245AD667003CA4BD /* ContentPageResponseFields.swift in Sources */,
 				0B9499D12451DBC4001AD1C8 /* ManageSubscriptionPresenter.swift in Sources */,
 				0B46B0C7245865F3006E0D87 /* ChangeEmailMobileInteractor.swift in Sources */,
+				0BD88AFA24977ABA00C8C025 /* NotificationFields.swift in Sources */,
 				F97A9A2A21103FA2007C45F5 /* UIViewControllerExtensions.swift in Sources */,
 				F9A453C0203AA74A0065C9FD /* LoginPresenter.swift in Sources */,
 				0B9499B62451DBA5001AD1C8 /* CommonTblListCell.swift in Sources */,
@@ -2495,6 +2512,7 @@
 				F7D5259224481DB5002D3A42 /* InitialLoginInteractor.swift in Sources */,
 				0BC465D6247E4D2B006DF9D0 /* SelectTextTypeCell.swift in Sources */,
 				F90B4CDE2032AAB8006ADAF6 /* AppDelegate.swift in Sources */,
+				0BD88AF724977A5800C8C025 /* NotificationAPI.swift in Sources */,
 				F953B8D620467AFB00BE4F67 /* SettingsViewController.swift in Sources */,
 				F77E311B2456AEC100A213FF /* OTPStackView.swift in Sources */,
 				F7DFAE3724501192008863F3 /* Constant.swift in Sources */,
@@ -2508,6 +2526,7 @@
 				0BF7080C244F1D3C003D6AB7 /* MatchProfileInteractor.swift in Sources */,
 				0B31965F244DE80500B38350 /* ProfileAboutCell.swift in Sources */,
 				0B319657244DE80500B38350 /* MenuViewController.swift in Sources */,
+				0BD88AFD2497809800C8C025 /* Notification.swift in Sources */,
 				F7F8F5CB2452F87A00CA82E7 /* SelectSocialMediaViewController.swift in Sources */,
 				0B0AC39F24583EF600B91DF5 /* UIAlertControllerExtension.swift in Sources */,
 				0B31965D244DE80500B38350 /* ProfileSocialCell.swift in Sources */,
@@ -2692,6 +2711,7 @@
 				F7780DF7245ABDBC003CA4BD /* SignUpUserModel.swift in Sources */,
 				F79CA6F0244D9C5100C9A7EB /* UserProfilePresenter.swift in Sources */,
 				0B51D29624602424005C7B88 /* UserDataModel.swift in Sources */,
+				0BD88AFF2497AD0200C8C025 /* ViewNotification.swift in Sources */,
 				0B9499D52451DBC4001AD1C8 /* DiscoverySettingInteractor.swift in Sources */,
 				0B0B4B132475245E0047EB11 /* Interest_PreferencePresenter.swift in Sources */,
 				0B94820D247B8E4B00189630 /* UserPhotosModel.swift in Sources */,

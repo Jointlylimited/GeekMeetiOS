@@ -112,6 +112,7 @@ protocol MatchProfileProtocol: class {
     func getBlockUserResponse(response : CommonResponse)
     func getBlockUserListResponse(response : BlockUser)
     func getReactEmojiResponse(response : MediaReaction)
+    func getSwipeCardResponse(response : SwipeUser)
 }
 
 class MatchProfileViewController: UIViewController, MatchProfileProtocol {
@@ -226,12 +227,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     }
     
     @IBAction func btnMatchAction(_ sender: UIButton) {
-        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchScreen) as! MatchViewController
-        controller.isFromProfile = true
-        controller.UserDetails = self.objMatchUserProfile
-        controller.modalTransitionStyle = .crossDissolve
-        controller.modalPresentationStyle = .overCurrentContext
-        self.presentVC(controller)
+        self.callSwipeCardAPI(iProfileId: "\(self.UserID!)", tiSwipeType: "1")
     }
     @IBAction func btnShareAction(_ sender: UIButton) {
         let msg = "Hello User, \n\nUse my referral code \(self.objMatchUserProfile.vReferralCode!) to register yourself on the \(appName) app. \n\nThank you,\nJointly Team"
@@ -285,18 +281,18 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
 
 extension MatchProfileViewController {
     func getUserProfileResponse(response : UserAuthResponseField){
-            print(response)
-            self.objMatchUserProfile = response
-            self.objProfileData.data = response.preference!
-//            self.objProfileData.str = response.txAbout!
-            setProfileData()
-            self.presenter?.callStoryListAPI(id : self.UserID != nil ? self.UserID! : 78)
-           
+        print(response)
+        self.objMatchUserProfile = response
+        self.objProfileData.data = response.preference!
+        //            self.objProfileData.str = response.txAbout!
+        setProfileData()
+        self.presenter?.callStoryListAPI(id : self.UserID != nil ? self.UserID! : 78)
+        
     }
     
     func getStoryListResponse(response: StoryResponse){
         if response.responseCode == 200 {
-             self.presenter?.callBlockUserListAPI()
+            self.presenter?.callBlockUserListAPI()
             self.objStoryArray = response.responseData
             if self.objStoryArray != nil && self.objStoryArray!.count != 0 {
                 self.btnViewStories.alpha = 1
@@ -342,6 +338,25 @@ extension MatchProfileViewController {
     func getReactEmojiResponse(response : MediaReaction){
         if response.responseCode == 200 {
             self.presenter?.callUserProfileAPI(id: self.UserID == nil ? "78" : "\(self.UserID!)")
+        }
+    }
+    
+    func callSwipeCardAPI(iProfileId : String, tiSwipeType : String){
+        self.presenter?.callSwipeCardAPI(iProfileId: iProfileId, tiSwipeType: tiSwipeType)
+    }
+    
+    func getSwipeCardResponse(response : SwipeUser){
+        if response.responseCode == 200 {
+            if response.responseData?.tiSwipeType == 2 {
+                let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchScreen) as! MatchViewController
+                controller.isFromProfile = true
+                controller.UserDetails = self.objMatchUserProfile
+                controller.modalTransitionStyle = .crossDissolve
+                controller.modalPresentationStyle = .overCurrentContext
+                self.presentVC(controller)
+            } else {
+                AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle:"OK")
+            }
         }
     }
 }

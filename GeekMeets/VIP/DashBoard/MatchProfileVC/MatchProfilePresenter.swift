@@ -30,6 +30,9 @@ protocol MatchProfilePresentationProtocol {
     
     func callReactEmojiAPI( iUserId: String, iMediaId: String, tiRactionType: String)
     func getReactEmojiResponse(response : MediaReaction)
+    
+    func callSwipeCardAPI(iProfileId : String, tiSwipeType : String)
+    func getSwipeCardResponse(response : SwipeUser)
 }
 
 class MatchProfilePresenter: MatchProfilePresentationProtocol {
@@ -72,6 +75,13 @@ class MatchProfilePresenter: MatchProfilePresentationProtocol {
     
     func getReactEmojiResponse(response : MediaReaction){
         self.viewController?.getReactEmojiResponse(response: response)
+    }
+    
+    func callSwipeCardAPI(iProfileId : String, tiSwipeType : String){
+        self.interactor?.callSwipeCardAPI(iProfileId: iProfileId, tiSwipeType: tiSwipeType)
+    }
+    func getSwipeCardResponse(response : SwipeUser){
+        self.viewController?.getSwipeCardResponse(response : response)
     }
     
     func gotoMatchVC() {

@@ -19,6 +19,8 @@ protocol MatchProfileInteractorProtocol {
     func callBlockUserAPI(iBlockTo: String, tiIsBlocked: String)
     func callBlockUserListAPI()
     func callReactEmojiAPI( iUserId: String, iMediaId: String, tiRactionType: String)
+    
+    func callSwipeCardAPI(iProfileId : String, tiSwipeType : String)
 }
 
 protocol MatchProfileDataStore {
@@ -127,6 +129,25 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
                 }
             }
             
+        }
+    }
+    
+    func callSwipeCardAPI(iProfileId : String, tiSwipeType : String){
+        LoaderView.sharedInstance.showLoader()
+        UserAPI.swipeUser(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iProfileId: iProfileId, tiSwipeType: tiSwipeType) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getSwipeCardResponse(response : response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+            } else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getSwipeCardResponse(response : response!)
+                }
+            }
         }
     }
 }

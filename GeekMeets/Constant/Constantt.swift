@@ -183,6 +183,17 @@ struct INSTAGRAM_IDS {
     static let INSTAGRAM_SCOPE = "likes+comments+relationships"
 }
 
+struct LoadMore{
+    var index: Int = 0
+    var isLoading: Bool = false
+    var limit: Int = 10
+    var isAllLoaded = false
+    
+    var offset: Int{
+        return index * limit
+    }
+}
+
 class AppSingleton: NSObject {
     
     //MARK: - Variables and IBOutlets

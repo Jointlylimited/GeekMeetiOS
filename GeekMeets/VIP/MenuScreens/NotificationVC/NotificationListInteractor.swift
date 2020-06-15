@@ -13,7 +13,8 @@
 import UIKit
 
 protocol NotificationListInteractorProtocol {
-    func doSomething()
+    func callNotificationListAPI(offset: Int, limit: Int)
+    func callReadAPI(iNotificationId : String, tiType : String)
 }
 
 protocol NotificationListDataStore {
@@ -25,7 +26,60 @@ class NotificationListInteractor: NotificationListInteractorProtocol, Notificati
     //var name: String = ""
     
     // MARK: Do something
-    func doSomething() {
-        
+    func callNotificationListAPI(offset: Int, limit: Int) {
+        LoaderView.sharedInstance.showLoader()
+        NotificationAPI.listNotification(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, limit: limit, offset: offset) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getNotificationListResponse(response : response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+            } else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getNotificationListResponse(response : response!)
+                }
+            }
+        }
+    }
+    
+    func callReadAPI(iNotificationId : String, tiType : String) {
+        if iNotificationId != "" {
+            LoaderView.sharedInstance.showLoader()
+            NotificationAPI.viewNotification(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization, iNotificationId: iNotificationId, tiType: tiType) { (response, error) in
+                
+                LoaderView.sharedInstance.hideLoader()
+                if response?.responseCode == 200 {
+                    self.presenter?.getReadNotificationResponse(response: response!)
+                } else if response?.responseCode == 203 {
+                    AppSingleton.sharedInstance().logout()
+                }  else {
+                    if error != nil {
+                        AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                    } else {
+                        self.presenter?.getReadNotificationResponse(response: response!)
+                    }
+                }
+            }
+        } else {
+            LoaderView.sharedInstance.showLoader()
+            NotificationAPI.viewNotification(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization, iNotificationId: iNotificationId, tiType: tiType, isClearAll: 1) { (response, error) in
+                
+                LoaderView.sharedInstance.hideLoader()
+                if response?.responseCode == 200 {
+                    self.presenter?.getClearAllNotificationResponse(response: response!)
+                } else if response?.responseCode == 203 {
+                    AppSingleton.sharedInstance().logout()
+                }  else {
+                    if error != nil {
+                        AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                    } else {
+                        self.presenter?.getClearAllNotificationResponse(response: response!)
+                    }
+                }
+            }
+        }
     }
 }

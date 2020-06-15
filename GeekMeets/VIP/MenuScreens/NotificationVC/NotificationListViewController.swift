@@ -13,6 +13,15 @@
 import UIKit
 
 protocol NotificationListProtocol: class {
+    func getNotificationListResponse(response : NotificationResponse)
+    func getReadNotificationResponse(response: ViewNotification)
+    func getClearAllNotificationResponse(response: ViewNotification)
+}
+
+struct NotificationListModel {
+    var objNotification : NotificationFields!
+    var objResNotificationList : [NotificationFields]!
+    var objNotificationList : [NotificationFields]!
 }
 
 class NotificationListViewController: UIViewController, NotificationListProtocol {
@@ -20,8 +29,12 @@ class NotificationListViewController: UIViewController, NotificationListProtocol
     var presenter : NotificationListPresentationProtocol?
     
     @IBOutlet weak var tblNotificationList: UITableView!
+    @IBOutlet weak var lblNoNotification: UILabel!
+    @IBOutlet weak var btnClearAll: UIButton!
     
     var objNotificationModel : [SocialMediaLinkModel] = []
+    var loadMore = LoadMore()
+    var arrNotification = NotificationListModel()
     
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -64,12 +77,78 @@ class NotificationListViewController: UIViewController, NotificationListProtocol
     func registerTableViewCell(){
         self.objNotificationModel = [SocialMediaLinkModel(image: #imageLiteral(resourceName: "match"), title: "Match", link: "Test match user"), SocialMediaLinkModel(image: #imageLiteral(resourceName: "noti_boosts"), title: "Notification", link: "Test notification"), SocialMediaLinkModel(image: #imageLiteral(resourceName: "noti_Subscription"), title: "Boost", link: "Test boost user")]
         self.tblNotificationList.register(UINib.init(nibName: Cells.NotificationListCell, bundle: Bundle.main), forCellReuseIdentifier: Cells.NotificationListCell)
+        self.callAPI()
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.popVC()
     }
     @IBAction func btnClearAllAction(_ sender: UIButton) {
+        self.callReadNotiAPI(iNotificationId: "", tiType: "")
+    }
+}
+
+extension NotificationListViewController {
+    func callAPI(isPullToRefresh: Bool = false){
+        if isPullToRefresh {
+            loadMore.index = 0
+        }
+        loadMore.isLoading = true
+        let index = loadMore.index > 0 ? self.arrNotification.objNotificationList.count : 0
+        
+        self.presenter?.callAPI(offset: index, limit: 10)
+    }
+    
+    func getNotificationListResponse(response : NotificationResponse){
+        loadMore.isLoading = false
+        if response.responseCode == 200 {
+            self.arrNotification.objResNotificationList = response.responseData?.notificationResponse
+            if self.arrNotification.objResNotificationList.count == 0 {
+                self.lblNoNotification.alpha = 1.0
+                self.btnClearAll.alpha = 0.0
+            } else {
+                self.lblNoNotification.alpha = 0.0
+                self.btnClearAll.alpha = 1.0
+            }
+        } else {
+            self.lblNoNotification.alpha = 1.0
+            self.btnClearAll.alpha = 0.0
+        }
+        
+        guard let arrData = self.arrNotification.objResNotificationList else {
+            return
+        }
+        if loadMore.index == 0 || self.arrNotification.objResNotificationList == nil {
+            self.arrNotification.objNotificationList = []
+        }
+        
+        arrData.forEach { (obj) in
+            self.arrNotification.objNotificationList.append(obj)
+        }
+        
+        loadMore.isAllLoaded = self.arrNotification.objNotificationList.count == response.responseData!.count// ?? 0
+        if !loadMore.isAllLoaded {
+            loadMore.index += 1
+        } else {
+            loadMore.index = 0
+        }
+        self.tblNotificationList.reloadData()
+    }
+    
+    func callReadNotiAPI(iNotificationId: String, tiType : String){
+        self.presenter?.callReadAPI(iNotificationId: iNotificationId, tiType : tiType)
+    }
+    
+    func getReadNotificationResponse(response: ViewNotification) {
+        if response.responseCode == 200 {
+            loadMore.index = 0
+            callAPI()
+//            callBadgeCountAPI()
+        } else {
+            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        }
+    }
+    func getClearAllNotificationResponse(response: ViewNotification) {
         self.objNotificationModel.removeAll()
         self.tblNotificationList.reloadData()
         self.popVC()
@@ -82,7 +161,7 @@ extension NotificationListViewController : UITableViewDataSource, UITableViewDel
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.objNotificationModel.count
+        return self.arrNotification.objNotificationList != nil ? self.arrNotification.objNotificationList.count : 0 //self.objNotificationModel.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -93,10 +172,11 @@ extension NotificationListViewController : UITableViewDataSource, UITableViewDel
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let cell = cell as? NotificationListCell {
             
-            let data = self.objNotificationModel[indexPath.row]
-            cell.imageView?.image = data.image
-            cell.lblTitle.text = data.title
-            cell.lblDesc.text = data.link
+            let data = self.arrNotification.objNotificationList[indexPath.row]
+//            cell.imageView?.image = data.image
+            cell.lblTitle.text = data.vTitle
+            cell.lblDesc.text = data.txmessage
+            cell.lblTime.text = data.iCreatedAt
         }
     }
     

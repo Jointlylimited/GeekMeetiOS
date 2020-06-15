@@ -22,6 +22,7 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     // MARK: Object lifecycle
     
     @IBOutlet var btnSubColl: [UIButton]!
+    @IBOutlet var btnStackList: [UIButton]!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -57,8 +58,14 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setTheme()
     }
     
+    func setTheme(){
+        for btn in btnStackList {
+            btn.titleLabel?.font = DeviceType.iPhone5orSE ? UIFont(name: FontTypePoppins.Poppins_Medium.rawValue, size: 12.0) : UIFont(name: FontTypePoppins.Poppins_Medium.rawValue, size: 16.0)
+        }
+    }
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.dismissVC(completion: nil)
     }
