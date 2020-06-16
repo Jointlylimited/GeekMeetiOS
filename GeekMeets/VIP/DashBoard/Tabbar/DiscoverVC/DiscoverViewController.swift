@@ -143,7 +143,7 @@ extension DiscoverViewController{
                 self.tblDiscoverList.alpha = 0
                 self.btnSearch.alpha = 0
                 self.lblNoData.alpha = 1
-                AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+//                AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
             }
         }
     }

@@ -65,12 +65,8 @@ let kBlockStr = "Are you sure you want to block?"
 let kUnblockStr = "Are you sure you want to unblock?"
 let kBlockDesStr = "User will not able to see your profile after blocking"
 let kUnblockDesStr = "User will able to see your profile after unblocking"
-//let kEnterEmail = "Please enter email"
-//let kEnterValidEmail = "Please enter valid email"
-//let kEnterPassword = "Please enter Password"
-//let kEnterConfirmPassword = "Please enter confirm password"
-//let kPasswordNotMatch = "Confirm password not matching"
-//let kPasswordWeak = "Password is very weak. It should be at least 8 character"
+let kNotificationCount = "notificationCount"
+
 
 //AppName
 let appName = Bundle.main.infoDictionary!["CFBundleName"] as! String

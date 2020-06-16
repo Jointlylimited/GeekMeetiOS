@@ -88,8 +88,8 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         let token11 = Messaging.messaging().fcmToken
         if token11 != nil {
 //            AppDelObj.deviceToken = token11!
-//            UserDefaults.standard.set(token11, forKey: kDeviceToken)
-//            UserDefaults.standard.synchronize()
+            UserDefaults.standard.set(token11, forKey: kDeviceToken)
+            UserDefaults.standard.synchronize()
         }
     }
     
@@ -114,10 +114,47 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
         
-        //let aps = userInfo["aps"]
-        // If your app was running and in the foreground
-        // Or
-        // If your app was running or suspended in the background and the user brings it to the foreground by tapping the push notification
+         print("aps : \(userInfo["aps"])")
+               let dict = (userInfo["aps"] as! [String:Any])
+               let badge = (dict["badge"] as! Int)
+               AppDelObj.notificationBadgeCount = AppDelObj.notificationBadgeCount! + badge
+               
+               print(UIApplication.shared.applicationIconBadgeNumber)
+                UIApplication.shared.applicationIconBadgeNumber = UserDataModel.getNotificationCount() + 1
+                UserDataModel.setNotificationCount(count: UserDataModel.getNotificationCount() + 1)
+              
+               print(badge)
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let userDict = response.notification.request.content.userInfo as! [String:Any]
+        let decoder = JSONDecoder()
+        
+//        guard userDict.jsonData() != nil else {
+//            completionHandler()
+//            return
+//        }
+        
+        let dict = (userDict["aps"] as! [String:Any])
+        let badge = (dict["badge"] as! Int)
+        print("badge :\(badge), System Badge : \(UIApplication.shared.applicationIconBadgeNumber)")
+//        self.callUpdateNotificationReadFlagApi(notificationId: Int((userDict["gcm.notification.iUserNotificationId"] as! NSString).intValue))
+    
+        UserDataModel.setNotificationCount(count: UserDataModel.getNotificationCount() + 1)
+        self.notificationBadgeCount = UserDataModel.getNotificationCount()
+        
+        print(userDict)
+        let notiType = (userDict["gcm.notification.type"] as! NSString).intValue
+        
+        if notiType == 1 {
+            
+            let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchScreen) as! MatchViewController
+            controller.isFromNotification = true
+            controller.OtherUserData = ["UserID": Int((userDict["gcm.notification.iOtherUserId"] as! NSString).intValue), "name" : userDict["gcm.notification.vOtherUserName"] as! NSString, "profileImage" : userDict["gcm.notification.vOtherProfileImage"] as! NSString]
+            if let navctrl = self.window?.rootViewController as? UINavigationController{
+                navctrl.pushViewController(controller, animated: true)
+            }
+        }
     }
 }
 

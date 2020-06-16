@@ -33,7 +33,6 @@ class SignInInteractor: SignInInteractorProtocol {
                 self.presenter?.getSignInResponse(response : response!)
             } else if response?.responseCode == 203 {
                 self.presenter?.getSignInResponse(response : response!)
-//                AppSingleton.sharedInstance().logout()
             } else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")

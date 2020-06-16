@@ -32,6 +32,8 @@ class MatchViewController: UIViewController, MatchProtocol {
     var UserDetails : UserAuthResponseField!
     var CardUserDetails : SearchUserFields!
     var isFromProfile : Bool = false
+    var isFromNotification : Bool = false
+    var OtherUserData : NSDictionary = [:]
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -84,23 +86,32 @@ class MatchViewController: UIViewController, MatchProtocol {
             print(url!)
             self.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
         }
-        if isFromProfile {
-            if UserDetails != nil {
-                self.lblDesc.text = "Wow, You and \(UserDetails.vName!) have liked each other"
-                if UserDetails.vProfileImage != "" {
-                    let url = URL(string:"\(UserDetails.vProfileImage!)")
-                    print(url!)
-                    self.matchUserImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
+        if !isFromNotification {
+            if isFromProfile {
+                if UserDetails != nil {
+                    self.lblDesc.text = "Wow, You and \(UserDetails.vName!) have liked each other"
+                    if UserDetails.vProfileImage != "" {
+                        let url = URL(string:"\(UserDetails.vProfileImage!)")
+                        print(url!)
+                        self.matchUserImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
+                    }
+                }
+            } else {
+                if CardUserDetails != nil {
+                    self.lblDesc.text = "Wow, You and \(CardUserDetails.vName!) have liked each other"
+                    if UserDetails.vProfileImage != "" {
+                        let url = URL(string:"\(CardUserDetails.vProfileImage!)")
+                        print(url!)
+                        self.matchUserImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
+                    }
                 }
             }
         } else {
-            if CardUserDetails != nil {
-                self.lblDesc.text = "Wow, You and \(CardUserDetails.vName!) have liked each other"
-                if UserDetails.vProfileImage != "" {
-                    let url = URL(string:"\(CardUserDetails.vProfileImage!)")
-                    print(url!)
-                    self.matchUserImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
-                }
+            self.lblDesc.text = "Wow, You and \(OtherUserData["name"]!) have liked each other"
+            if UserDetails.vProfileImage != "" {
+                let url = URL(string:"\(OtherUserData["profileImage"]!)")
+                print(url!)
+                self.matchUserImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
             }
         }
     }

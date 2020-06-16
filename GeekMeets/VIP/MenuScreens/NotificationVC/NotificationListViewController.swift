@@ -177,10 +177,21 @@ extension NotificationListViewController : UITableViewDataSource, UITableViewDel
             cell.lblTitle.text = data.vTitle
             cell.lblDesc.text = data.txmessage
             cell.lblTime.text = data.iCreatedAt
+            cell.selectionStyle = .none
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80 //UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let data = self.arrNotification.objNotificationList[indexPath.row]
+        if data.tiType == 1 {
+            let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchScreen) as! MatchViewController
+            controller.isFromNotification = true
+            controller.OtherUserData = ["UserID": data.iUserId, "name" : data.vTitle, "profileImage" : ""]
+            self.pushVC(controller)
+        }
     }
 }
