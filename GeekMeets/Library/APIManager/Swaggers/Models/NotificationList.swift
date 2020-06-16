@@ -14,13 +14,13 @@ public struct NotificationList: Codable {
     public var offset: Int?
     public var limit: Int?
     public var count: Int?
-    public var notificationResponse: [NotificationFields]?
+    public var arrayList: [NotificationFields]?
 
-    public init(offset: Int?, limit: Int?, count: Int?, notificationResponse: [NotificationFields]?) {
+    public init(offset: Int?, limit: Int?, count: Int?, arrayList: [NotificationFields]?) {
         self.offset = offset
         self.limit = limit
         self.count = count
-        self.notificationResponse = notificationResponse
+        self.arrayList = arrayList
     }
 
 

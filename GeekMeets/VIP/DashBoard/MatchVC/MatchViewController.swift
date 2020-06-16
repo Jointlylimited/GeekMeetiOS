@@ -108,7 +108,7 @@ class MatchViewController: UIViewController, MatchProtocol {
             }
         } else {
             self.lblDesc.text = "Wow, You and \(OtherUserData["name"]!) have liked each other"
-            if UserDetails.vProfileImage != "" {
+            if OtherUserData["profileImage"] as! String != "" {
                 let url = URL(string:"\(OtherUserData["profileImage"]!)")
                 print(url!)
                 self.matchUserImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))

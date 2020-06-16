@@ -150,6 +150,7 @@
 		0BABEAE02472451A000BC5E7 /* PreferenceOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BABEADD24724519000BC5E7 /* PreferenceOption.swift */; };
 		0BABEAE22472451A000BC5E7 /* PreferencesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BABEADF24724519000BC5E7 /* PreferencesResponse.swift */; };
 		0BABEAE424727264000BC5E7 /* PreferencesField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BABEAE324727264000BC5E7 /* PreferencesField.swift */; };
+		0BBB5CCD2498C11F00069320 /* NotificationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBB5CCC2498C11F00069320 /* NotificationResponse.swift */; };
 		0BBD65F72449C8A500CA178A /* MatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBD65F02449C8A400CA178A /* MatchViewController.swift */; };
 		0BBD65F82449C8A500CA178A /* MatchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBD65F12449C8A400CA178A /* MatchPresenter.swift */; };
 		0BBD65F92449C8A500CA178A /* MatchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBD65F22449C8A400CA178A /* MatchInteractor.swift */; };
@@ -170,7 +171,6 @@
 		0BD88AF724977A5800C8C025 /* NotificationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD88AF624977A5800C8C025 /* NotificationAPI.swift */; };
 		0BD88AFA24977ABA00C8C025 /* NotificationFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD88AF824977ABA00C8C025 /* NotificationFields.swift */; };
 		0BD88AFB24977ABA00C8C025 /* NotificationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD88AF924977ABA00C8C025 /* NotificationList.swift */; };
-		0BD88AFD2497809800C8C025 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD88AFC2497809700C8C025 /* Notification.swift */; };
 		0BD88AFF2497AD0200C8C025 /* ViewNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD88AFE2497AD0200C8C025 /* ViewNotification.swift */; };
 		0BDB9DA02476405000BA2F39 /* iOSawsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 0BDB9D9F2476405000BA2F39 /* iOSawsconfiguration.json */; };
 		0BDB9DA2247640A800BA2F39 /* AWSHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDB9DA1247640A800BA2F39 /* AWSHelper.swift */; };
@@ -505,6 +505,7 @@
 		0BABEADD24724519000BC5E7 /* PreferenceOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceOption.swift; sourceTree = "<group>"; };
 		0BABEADF24724519000BC5E7 /* PreferencesResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesResponse.swift; sourceTree = "<group>"; };
 		0BABEAE324727264000BC5E7 /* PreferencesField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesField.swift; sourceTree = "<group>"; };
+		0BBB5CCC2498C11F00069320 /* NotificationResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationResponse.swift; sourceTree = "<group>"; };
 		0BBD65F02449C8A400CA178A /* MatchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchViewController.swift; sourceTree = "<group>"; };
 		0BBD65F12449C8A400CA178A /* MatchPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchPresenter.swift; sourceTree = "<group>"; };
 		0BBD65F22449C8A400CA178A /* MatchInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchInteractor.swift; sourceTree = "<group>"; };
@@ -525,7 +526,6 @@
 		0BD88AF624977A5800C8C025 /* NotificationAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationAPI.swift; sourceTree = "<group>"; };
 		0BD88AF824977ABA00C8C025 /* NotificationFields.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationFields.swift; sourceTree = "<group>"; };
 		0BD88AF924977ABA00C8C025 /* NotificationList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationList.swift; sourceTree = "<group>"; };
-		0BD88AFC2497809700C8C025 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		0BD88AFE2497AD0200C8C025 /* ViewNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewNotification.swift; sourceTree = "<group>"; };
 		0BDB9D9F2476405000BA2F39 /* iOSawsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = iOSawsconfiguration.json; sourceTree = "<group>"; };
 		0BDB9DA1247640A800BA2F39 /* AWSHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSHelper.swift; sourceTree = "<group>"; };
@@ -1521,8 +1521,8 @@
 		F7780E26245AD666003CA4BD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0BBB5CCC2498C11F00069320 /* NotificationResponse.swift */,
 				0BD88AFE2497AD0200C8C025 /* ViewNotification.swift */,
-				0BD88AFC2497809700C8C025 /* Notification.swift */,
 				0BD88AF824977ABA00C8C025 /* NotificationFields.swift */,
 				0BD88AF924977ABA00C8C025 /* NotificationList.swift */,
 				0BFB9ACE24934D58004B0EC3 /* SwipeUser.swift */,
@@ -2461,6 +2461,7 @@
 				F9A453C6203AA74B0065C9FD /* SignUpInteractor.swift in Sources */,
 				0B7F33D4246ED8AE007ADF8D /* NotificationListViewController.swift in Sources */,
 				0BF707FD244F1D1C003D6AB7 /* DiscoverPresenter.swift in Sources */,
+				0BBB5CCD2498C11F00069320 /* NotificationResponse.swift in Sources */,
 				F97A9A2E21103FAD007C45F5 /* CGFloatExtensions.swift in Sources */,
 				0B912A412473989B005D5412 /* LoaderView.swift in Sources */,
 				0B921C3324571C510010AE04 /* SearchProfilePresenter.swift in Sources */,
@@ -2526,7 +2527,6 @@
 				0BF7080C244F1D3C003D6AB7 /* MatchProfileInteractor.swift in Sources */,
 				0B31965F244DE80500B38350 /* ProfileAboutCell.swift in Sources */,
 				0B319657244DE80500B38350 /* MenuViewController.swift in Sources */,
-				0BD88AFD2497809800C8C025 /* Notification.swift in Sources */,
 				F7F8F5CB2452F87A00CA82E7 /* SelectSocialMediaViewController.swift in Sources */,
 				0B0AC39F24583EF600B91DF5 /* UIAlertControllerExtension.swift in Sources */,
 				0B31965D244DE80500B38350 /* ProfileSocialCell.swift in Sources */,

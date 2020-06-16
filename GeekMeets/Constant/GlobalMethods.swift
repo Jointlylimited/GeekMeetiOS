@@ -26,6 +26,7 @@ let authToken = Authentication.sharedInstance().getAutheticationToken()
 var objQuestionModel = QuestionaryModel()
 var genderArray : [String] = ["Male", "Female", "Others", "Prefer not to say"]
 var PreferenceIconsDict : [NSDictionary] = [["type" : "1", "icon" : #imageLiteral(resourceName: "Ethnicity")], ["type" : "5", "icon" : #imageLiteral(resourceName: "scale")], ["type" : "3", "icon" : #imageLiteral(resourceName: "personality")], ["type" : "26", "icon" : #imageLiteral(resourceName: "ruler")], ["type" : "24", "icon" : #imageLiteral(resourceName: "education")], ["type" : "11", "icon" : #imageLiteral(resourceName: "religion")], ["type" : "25", "icon" : #imageLiteral(resourceName: "Politics")], ["type" : "27", "icon" : #imageLiteral(resourceName: "Drink")], ["type" : "28", "icon" : #imageLiteral(resourceName: "smoke")], ["type" : "29", "icon" : #imageLiteral(resourceName: "zodiac_sign")], ["type" : "9", "icon" : #imageLiteral(resourceName: "lookinng for")], ["type" : "22", "icon" : #imageLiteral(resourceName: "kid")]]
+var NotificationImages : [NSDictionary] = [["type" : "1", "image" : #imageLiteral(resourceName: "match")], ["type" : "2" , "image" : #imageLiteral(resourceName: "noti_boosts")], ["type" : "", "image" : #imageLiteral(resourceName: "noti_Subscription")]]
 
 enum MediaType: Int {
     case image = 0, video

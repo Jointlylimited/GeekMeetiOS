@@ -230,9 +230,17 @@ extension ViewController: AVCapturePhotoCaptureDelegate{
             image = UIImage(data: imageData)
         
           let searchVC:PreviewViewController = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: "PreviewViewController") as! PreviewViewController
-          searchVC.image = image
-            
-          self.pushVC(searchVC)
+            var objMedia = MediaData()
+            objMedia.img = image
+            if self.objPostData.arrMedia == nil {
+                self.objPostData.arrMedia = []
+            }
+            objMedia.uID = "\(self.objPostData.arrMedia.count)"
+            self.objPostData.tiStoryType = "0"
+            self.objPostData.arrMedia.append(objMedia)
+            searchVC.image = self.image
+            searchVC.objPostData = self.objPostData
+            self.pushVC(searchVC)
 //            performSegue(withIdentifier: "showPhotos", sender: nil)
         }
     }

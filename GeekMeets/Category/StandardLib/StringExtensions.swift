@@ -1616,3 +1616,16 @@ extension String {
     }
 }
 
+extension NSMutableAttributedString {
+    @discardableResult func bold(_ text:String) -> NSMutableAttributedString {
+        let attrs:[NSAttributedString.Key : Any] = [NSAttributedString.Key(rawValue: NSAttributedString.Key.font.rawValue): UIFont(name: FontTypePoppins.Poppins_SemiBold.rawValue, size: 12)!]
+        let boldString = NSMutableAttributedString(string: text, attributes:attrs)
+        self.append(boldString)
+        return self
+    }
+    @discardableResult func normal(_ text:String)->NSMutableAttributedString {
+        let normal =  NSAttributedString(string: text)
+        self.append(normal)
+        return self
+    }
+}

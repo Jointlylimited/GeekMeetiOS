@@ -125,6 +125,8 @@ extension HomeViewController {
         if response.responseCode == 200 {
             self.objCardArray.arrUserCardList = response.responseData
             setCards()
+        } else {
+            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }
     }
     

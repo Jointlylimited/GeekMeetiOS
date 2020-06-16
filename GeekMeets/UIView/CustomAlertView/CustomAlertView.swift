@@ -110,7 +110,6 @@ extension CustomAlertView {
     }
     
     @IBAction func btnOkAction(_ sender: UIButton) {
-        
         delegate?.OkButtonAction()
     }
     

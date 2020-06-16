@@ -102,37 +102,37 @@ extension NotificationListViewController {
     func getNotificationListResponse(response : NotificationResponse){
         loadMore.isLoading = false
         if response.responseCode == 200 {
-            self.arrNotification.objResNotificationList = response.responseData?.notificationResponse
-            if self.arrNotification.objResNotificationList.count == 0 {
+            self.arrNotification.objResNotificationList = response.responseData?.arrayList
+                if self.arrNotification.objResNotificationList.count == 0 {
+                    self.lblNoNotification.alpha = 1.0
+                    self.btnClearAll.alpha = 0.0
+                } else {
+                    self.lblNoNotification.alpha = 0.0
+                    self.btnClearAll.alpha = 1.0
+                }
+            } else {
                 self.lblNoNotification.alpha = 1.0
                 self.btnClearAll.alpha = 0.0
-            } else {
-                self.lblNoNotification.alpha = 0.0
-                self.btnClearAll.alpha = 1.0
             }
-        } else {
-            self.lblNoNotification.alpha = 1.0
-            self.btnClearAll.alpha = 0.0
-        }
-        
-        guard let arrData = self.arrNotification.objResNotificationList else {
-            return
-        }
-        if loadMore.index == 0 || self.arrNotification.objResNotificationList == nil {
-            self.arrNotification.objNotificationList = []
-        }
-        
-        arrData.forEach { (obj) in
-            self.arrNotification.objNotificationList.append(obj)
-        }
-        
-        loadMore.isAllLoaded = self.arrNotification.objNotificationList.count == response.responseData!.count// ?? 0
-        if !loadMore.isAllLoaded {
-            loadMore.index += 1
-        } else {
-            loadMore.index = 0
-        }
-        self.tblNotificationList.reloadData()
+            
+            guard let arrData = self.arrNotification.objResNotificationList else {
+                return
+            }
+            if loadMore.index == 0 || self.arrNotification.objResNotificationList == nil {
+                self.arrNotification.objNotificationList = []
+            }
+            
+            arrData.forEach { (obj) in
+                self.arrNotification.objNotificationList.append(obj)
+            }
+            
+            loadMore.isAllLoaded = self.arrNotification.objNotificationList.count == response.responseData!.count// ?? 0
+            if !loadMore.isAllLoaded {
+                loadMore.index += 1
+            } else {
+                loadMore.index = 0
+            }
+            self.tblNotificationList.reloadData()
     }
     
     func callReadNotiAPI(iNotificationId: String, tiType : String){
@@ -173,11 +173,27 @@ extension NotificationListViewController : UITableViewDataSource, UITableViewDel
         if let cell = cell as? NotificationListCell {
             
             let data = self.arrNotification.objNotificationList[indexPath.row]
+            let type = NotificationImages.filter({($0["type"]!) as! String == "\(data.tiType!)"})
+            if type.count != 0 {
+                cell.imageView?.image = type[0]["image"]! as? UIImage
+            }
 //            cell.imageView?.image = data.image
             cell.lblTitle.text = data.vTitle
             cell.lblDesc.text = data.txmessage
-            cell.lblTime.text = data.iCreatedAt
+            cell.lblTime.text = Date(timeIntervalSince1970: Double(data.iCreatedAt!)!).agoStringFromTime()
             cell.selectionStyle = .none
+            
+            if data.tiIsRead == 0 {
+                let formattedString = NSMutableAttributedString()
+                formattedString.bold(data.txmessage!)
+                cell.lblDesc.attributedText = formattedString
+                cell.lblDesc.textColor = .black
+            } else {
+                let formattedString = NSMutableAttributedString()
+                formattedString.normal(data.txmessage!)
+                cell.lblDesc.attributedText = formattedString
+                cell.lblDesc.textColor = .lightGray
+            }
         }
     }
     
@@ -187,10 +203,13 @@ extension NotificationListViewController : UITableViewDataSource, UITableViewDel
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let data = self.arrNotification.objNotificationList[indexPath.row]
+        if data.tiIsRead == 0 {
+            self.callReadNotiAPI(iNotificationId: "\(data.iNotificationId!)", tiType: "\(data.tiType!)")
+        }
         if data.tiType == 1 {
             let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchScreen) as! MatchViewController
             controller.isFromNotification = true
-            controller.OtherUserData = ["UserID": data.iUserId, "name" : data.vTitle, "profileImage" : ""]
+            controller.OtherUserData = ["UserID": data.iUserId!, "name" : data.vTitle!, "profileImage" : ""]
             self.pushVC(controller)
         }
     }

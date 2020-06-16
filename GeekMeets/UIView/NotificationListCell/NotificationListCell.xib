@@ -26,7 +26,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Linda Parker" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLC-tV-SGD">
-                        <rect key="frame" x="94" y="10" width="306" height="20"/>
+                        <rect key="frame" x="84" y="10" width="316" height="20"/>
                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -40,7 +40,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem Ipsum is simply dummy text of the industry." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yuO-T8-Vha">
-                        <rect key="frame" x="94" y="35" width="371" height="17"/>
+                        <rect key="frame" x="84" y="35" width="381" height="17"/>
                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="12"/>
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="highlightedColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
@@ -72,7 +72,7 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="yuO-T8-Vha" firstAttribute="leading" secondItem="LUS-AN-Vst" secondAttribute="trailing" constant="20" id="0KL-Z5-2Xz"/>
+                    <constraint firstItem="yuO-T8-Vha" firstAttribute="leading" secondItem="LUS-AN-Vst" secondAttribute="trailing" constant="10" id="0KL-Z5-2Xz"/>
                     <constraint firstItem="WKj-tF-fah" firstAttribute="top" secondItem="dLC-tV-SGD" secondAttribute="top" id="3z7-b0-vXa"/>
                     <constraint firstItem="S5e-D4-R3d" firstAttribute="leading" secondItem="LUS-AN-Vst" secondAttribute="leading" id="4Rw-Fc-PEi"/>
                     <constraint firstItem="S5e-D4-R3d" firstAttribute="top" secondItem="LUS-AN-Vst" secondAttribute="bottom" constant="10" id="7lA-kI-udL"/>
@@ -83,7 +83,7 @@
                     <constraint firstItem="yuO-T8-Vha" firstAttribute="trailing" secondItem="WKj-tF-fah" secondAttribute="trailing" id="Sbk-QD-eCl"/>
                     <constraint firstItem="dLC-tV-SGD" firstAttribute="top" secondItem="eK5-eS-fBn" secondAttribute="top" constant="10" id="isH-hP-0sp"/>
                     <constraint firstItem="LUS-AN-Vst" firstAttribute="leading" secondItem="eK5-eS-fBn" secondAttribute="leading" constant="20" id="j2K-72-bwh"/>
-                    <constraint firstItem="dLC-tV-SGD" firstAttribute="leading" secondItem="LUS-AN-Vst" secondAttribute="trailing" constant="20" id="oR2-WG-cVp"/>
+                    <constraint firstItem="dLC-tV-SGD" firstAttribute="leading" secondItem="LUS-AN-Vst" secondAttribute="trailing" constant="10" id="oR2-WG-cVp"/>
                     <constraint firstItem="S5e-D4-R3d" firstAttribute="trailing" secondItem="yuO-T8-Vha" secondAttribute="trailing" id="w7N-oY-7TK"/>
                     <constraint firstItem="WKj-tF-fah" firstAttribute="leading" secondItem="dLC-tV-SGD" secondAttribute="trailing" constant="20" id="zb3-iU-P8J"/>
                 </constraints>

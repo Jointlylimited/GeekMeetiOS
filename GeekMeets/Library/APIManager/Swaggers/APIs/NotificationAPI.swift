@@ -45,7 +45,7 @@ open class NotificationAPI {
      - parameter limit: (form)  
      - parameter offset: (form)  
 
-     - returns: RequestBuilder<Notification> 
+     - returns: RequestBuilder<NotificationResponse> 
      */
     open class func listNotificationWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, limit: Int, offset: Int) -> RequestBuilder<NotificationResponse> {
         let path = "/notifications/list"
@@ -72,63 +72,64 @@ open class NotificationAPI {
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
     }
 
-     /**
-         View Notification
-         
-         - parameter nonce: (header)
-         - parameter timestamp: (header)
-         - parameter token: (header)
-         - parameter authorization: (header)
-         - parameter iNotificationId: (form)
-         - parameter tiType: (form)
-         - parameter isClearAll: (form) Pass 1 when clear the all notification (optional)
-         - parameter completion: completion handler to receive the data and the error objects
-         */
-        open class func viewNotification(nonce: String, timestamp: Int, token: String, authorization: String, iNotificationId: String, tiType: String, isClearAll: Int? = nil, completion: @escaping ((_ data: ViewNotification?,_ error: Error?) -> Void)) {
-            viewNotificationWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, iNotificationId: iNotificationId, tiType: tiType, isClearAll: isClearAll).execute { (response, error) -> Void in
-                completion(response?.body, error)
-            }
+    /**
+     View Notification
+     
+     - parameter nonce: (header)  
+     - parameter timestamp: (header)  
+     - parameter token: (header)  
+     - parameter authorization: (header)  
+     - parameter iNotificationId: (form)  
+     - parameter tiType: (form)  
+     - parameter isClearAll: (form) Pass 1 when clear the all notification (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func viewNotification(nonce: String, timestamp: Int, token: String, authorization: String, iNotificationId: String, tiType: String, isClearAll: Int? = nil, completion: @escaping ((_ data: ViewNotification?,_ error: Error?) -> Void)) {
+        viewNotificationWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, iNotificationId: iNotificationId, tiType: tiType, isClearAll: isClearAll).execute { (response, error) -> Void in
+            completion(response?.body, error)
         }
+    }
 
 
-        /**
-         View Notification
-         - POST /notifications/view
-         - examples: [{contentType=application/json, example=""}]
-         
-         - parameter nonce: (header)
-         - parameter timestamp: (header)
-         - parameter token: (header)
-         - parameter authorization: (header)
-         - parameter iNotificationId: (form)
-         - parameter tiType: (form)
-         - parameter isClearAll: (form) Pass 1 when clear the all notification (optional)
+    /**
+     View Notification
+     - POST /notifications/view
+     - examples: [{contentType=application/json, example=""}]
+     
+     - parameter nonce: (header)  
+     - parameter timestamp: (header)  
+     - parameter token: (header)  
+     - parameter authorization: (header)  
+     - parameter iNotificationId: (form)  
+     - parameter tiType: (form)  
+     - parameter isClearAll: (form) Pass 1 when clear the all notification (optional)
 
-         - returns: RequestBuilder<ViewNotification>
-         */
-        open class func viewNotificationWithRequestBuilder(nonce: String, timestamp: Int, token: String, authorization: String, iNotificationId: String, tiType: String, isClearAll: Int? = nil) -> RequestBuilder<ViewNotification> {
-            let path = "/notifications/view"
-            let URLString = SwaggerClientAPI.basePath + path
-            let formParams: [String:Any?] = [
-                "iNotificationId": iNotificationId,
-                "tiType": tiType,
-                "isClearAll": isClearAll?.encodeToJSON()
-            ]
+     - returns: RequestBuilder<ViewNotification> 
+     */
+    open class func viewNotificationWithRequestBuilder(nonce: String, timestamp: Int, token: String, authorization: String, iNotificationId: String, tiType: String, isClearAll: Int? = nil) -> RequestBuilder<ViewNotification> {
+        let path = "/notifications/view"
+        let URLString = SwaggerClientAPI.basePath + path
+        let formParams: [String:Any?] = [
+            "iNotificationId": iNotificationId,
+            "tiType": tiType,
+            "isClearAll": isClearAll?.encodeToJSON()
+        ]
 
-            let nonNullParameters = APIHelper.rejectNil(formParams)
-            let parameters = APIHelper.convertBoolToString(nonNullParameters)
-            
-            let url = URLComponents(string: URLString)
-            let nillableHeaders: [String: Any?] = [
-                "nonce": nonce,
-                "timestamp": timestamp.encodeToJSON(),
-                "token": token,
-                "authorization": authorization
-            ]
-            let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let nonNullParameters = APIHelper.rejectNil(formParams)
+        let parameters = APIHelper.convertBoolToString(nonNullParameters)
+        
+        let url = URLComponents(string: URLString)
+        let nillableHeaders: [String: Any?] = [
+            "nonce": nonce,
+            "timestamp": timestamp.encodeToJSON(),
+            "token": token,
+            "authorization": authorization
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
 
-            let requestBuilder: RequestBuilder<ViewNotification>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<ViewNotification>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
 
-            return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
-        }
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
+    }
+
 }
