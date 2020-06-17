@@ -117,17 +117,11 @@ class MatchViewController: UIViewController, MatchProtocol {
     }
     
     @IBAction func btnContinueSwippingAction(_ sender: UIButton) {
-//        self.view.window!.rootViewController?.presentedViewController?.dismiss(animated: true, completion: nil)
         self.dismissVC {
             AppSingleton.sharedInstance().showHomeVC(fromMatch: false)
         }
     }
     @IBAction func btnSendMsgAction(_ sender: UIButton) {
-        //        let tabVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.TabbarScreen) as! TabbarViewController
-        //        tabVC.modalTransitionStyle = .crossDissolve
-        //        tabVC.modalPresentationStyle = .overCurrentContext
-        //        tabVC.isFromMatch = true
-        //        self.presentVC(tabVC)
         self.dismissVC {
             AppSingleton.sharedInstance().showHomeVC(fromMatch: true)
         }

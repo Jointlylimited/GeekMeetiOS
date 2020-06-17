@@ -212,8 +212,8 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
         var components = DateComponents()
         components.year = -18
         let minData = Calendar.current.date(byAdding: components, to: Date())
-        self.datePicker.minimumDate = minData
-        self.datePicker.maximumDate = Date()
+//        self.datePicker.minimumDate = minData
+        self.datePicker.maximumDate = minData
         
         self.lblUserNameAge.text = "\(UserDataModel.currentUser?.vName ?? ""), \(UserDataModel.currentUser?.tiAge ?? 0)"
         

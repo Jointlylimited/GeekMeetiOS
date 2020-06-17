@@ -3145,7 +3145,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JKv-Ig-K5m">
-                                <rect key="frame" x="274" y="154" width="130" height="35"/>
+                                <rect key="frame" x="274" y="172" width="130" height="35"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XEg-xO-IY6">
                                         <rect key="frame" x="0.0" y="0.0" width="130" height="35"/>
@@ -3215,7 +3215,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHt-EL-AKd">
-                                <rect key="frame" x="374" y="122" width="30" height="22"/>
+                                <rect key="frame" x="374" y="122" width="30" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="thX-40-UoD"/>
                                 </constraints>
@@ -3225,13 +3225,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="200 views" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ihy-Qx-xb8">
-                                <rect key="frame" x="168" y="821.33333333333337" width="78.333333333333314" height="22.666666666666629"/>
+                                <rect key="frame" x="171.33333333333334" y="825.33333333333337" width="71.666666666666657" height="18.666666666666629"/>
                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="prc-So-VSL">
-                                <rect key="frame" x="196.33333333333334" y="794.33333333333337" width="21.333333333333343" height="22"/>
+                                <rect key="frame" x="186" y="788.33333333333337" width="42" height="32"/>
                                 <state key="normal" image="eye (1)"/>
                                 <connections>
                                     <action selector="btnViewStoryAction:" destination="3sL-cS-1YP" eventType="touchUpInside" id="zoe-gB-ZSf"/>
@@ -3476,7 +3476,8 @@
                                 <rect key="frame" x="287" y="800.33333333333337" width="107" height="48"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
-                                <inset key="imageEdgeInsets" minX="70" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="80" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Add to" image="icn_arrowblack">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -3944,7 +3945,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Annual" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="srU-5o-RkZ">
-                                                                        <rect key="frame" x="68" y="9.9999999999999982" width="43.333333333333343" height="16.333333333333329"/>
+                                                                        <rect key="frame" x="64.666666666666671" y="10.000000000000002" width="50" height="19.666666666666671"/>
                                                                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
                                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
@@ -3983,7 +3984,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monthly" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZTA-Tu-oCb">
-                                                                        <rect key="frame" x="64.333333333333343" y="9.9999999999999982" width="50.333333333333343" height="16.333333333333329"/>
+                                                                        <rect key="frame" x="61.333333333333343" y="10.000000000000002" width="56.666666666666657" height="19.666666666666671"/>
                                                                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
                                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
@@ -4340,7 +4341,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 mi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vGq-5s-n1a" customClass="GradientLabel" customModule="Jointly" customModuleProvider="target">
-                                                    <rect key="frame" x="340" y="360.66666666666669" width="44" height="14"/>
+                                                    <rect key="frame" x="340" y="359" width="44" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="44" id="uT5-C5-GQz"/>
                                                     </constraints>
@@ -4361,7 +4362,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oaQ-iL-oeQ">
-                                                    <rect key="frame" x="311" y="459" width="73" height="26"/>
+                                                    <rect key="frame" x="311" y="456" width="73" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="73" id="DFX-7e-Y6r"/>
                                                     </constraints>
@@ -4456,7 +4457,7 @@
                                                             <real key="value" value="1"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                            <color key="value" white="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="value" red="0.83921568627450982" green="0.83921568627450982" blue="0.83921568627450982" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
@@ -4489,7 +4490,7 @@
                                                             <real key="value" value="1"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                            <color key="value" white="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="value" red="0.83921568627450982" green="0.83921568627450982" blue="0.83921568627450982" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
@@ -4522,7 +4523,7 @@
                                                             <real key="value" value="1"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                            <color key="value" white="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="value" red="0.83921568627450982" green="0.83921568627450982" blue="0.83921568627450982" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>

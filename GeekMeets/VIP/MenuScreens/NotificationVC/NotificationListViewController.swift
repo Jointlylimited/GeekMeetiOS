@@ -209,7 +209,7 @@ extension NotificationListViewController : UITableViewDataSource, UITableViewDel
         if data.tiType == 1 {
             let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchScreen) as! MatchViewController
             controller.isFromNotification = true
-            controller.OtherUserData = ["UserID": data.iUserId!, "name" : data.vTitle!, "profileImage" : ""]
+            controller.OtherUserData = ["UserID": data.iOtherUserId!, "name" : data.vOtherProfileName!, "profileImage" : data.vOtherProfileImage!]
             self.pushVC(controller)
         }
     }

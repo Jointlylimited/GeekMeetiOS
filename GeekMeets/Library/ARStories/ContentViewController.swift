@@ -18,6 +18,7 @@ var ContentViewControllerVC = ContentViewController()
     
     var isFromMatchVC : Bool = true
     var isOwnStory : Bool = false
+    var delegate : DeleteStoryDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,7 +88,7 @@ var ContentViewControllerVC = ContentViewController()
         vc.pageIndex = index
         vc.items = pages
         currentIndex = index
-        
+        vc.delegate = self.delegate
         vc.view.transform = CGAffineTransform(scaleX: 1.4, y: 1.4)
         return vc
     }

@@ -150,6 +150,8 @@ extension HomeViewController {
                     self.objCardArray.arrUserCardList.remove(at: 0)
                     self.cardsData = []
                     self.makeCardsData()
+                } else {
+                    self.presenter?.callUserCardAPI()
                 }
             }
         }

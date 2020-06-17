@@ -110,10 +110,15 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
         heightSeekSlider.minValue = 0.0
         heightSeekSlider.maxValue = 10.0
         
+        
         if index == 5 {
             heightSeekSlider.disableRange = true
+            self.lblHeight.text = "0.0"
+            
         } else {
             heightSeekSlider.disableRange = false
+            self.lblMinHeight.text = "0.0"
+            self.lblMaxHeight.text = "10.0"
         }
     }
     

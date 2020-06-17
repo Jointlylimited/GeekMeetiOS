@@ -12,6 +12,10 @@
 
 import UIKit
 
+protocol DeleteStoryDelegate {
+    func getDeleteStoryResponse(deleted : Bool)
+}
+
 protocol TextViewControllerDelegate {
   func textViewDidFinishWithTextView(text:CustomTextView)
 }
@@ -76,8 +80,7 @@ class DiscoverViewController: UIViewController, DiscoverProtocol {
         super.viewDidLoad()
         self.registerCollectionViewCell()
         setStoryData()
-//        arrayDetails = fetchUserData()
-//        self.presenter?.callStoryListAPI()
+
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -155,6 +158,13 @@ extension DiscoverViewController{
     }
 }
 
+extension DiscoverViewController : DeleteStoryDelegate {
+    func getDeleteStoryResponse(deleted: Bool) {
+        if deleted {
+            self.presenter?.callStoryListAPI()
+        }
+    }
+}
 extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -244,6 +254,7 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
         controller!.modalPresentationStyle = .overCurrentContext
         controller?.isFromMatchVC = false
         controller?.isOwnStory = false
+        controller?.delegate = self
         if collectionView == self.StoryCollView  {
             if self.objOwnStoryArray != nil && self.objOwnStoryArray!.count != 0 {
                 if indexPath.row == 0 {

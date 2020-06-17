@@ -19,8 +19,11 @@ public struct NotificationFields: Codable {
     public var tiType: Int?
     public var tiIsRead: Int?
     public var iCreatedAt: String?
+    public var iOtherUserId: Int?
+    public var vOtherProfileImage: String?
+    public var vOtherProfileName: String?
 
-    public init(iNotificationId: Int?, iUserId: Int?, iEntryId: Int?, vTitle: String?, txmessage: String?, tiType: Int?, tiIsRead: Int?, iCreatedAt: String?) {
+    public init(iNotificationId: Int?, iUserId: Int?, iEntryId: Int?, vTitle: String?, txmessage: String?, tiType: Int?, tiIsRead: Int?, iCreatedAt: String?, iOtherUserId: Int?, vOtherProfileImage: String?, vOtherProfileName: String?) {
         self.iNotificationId = iNotificationId
         self.iUserId = iUserId
         self.iEntryId = iEntryId
@@ -29,6 +32,9 @@ public struct NotificationFields: Codable {
         self.tiType = tiType
         self.tiIsRead = tiIsRead
         self.iCreatedAt = iCreatedAt
+        self.iOtherUserId = iOtherUserId
+        self.vOtherProfileName = vOtherProfileName
+        self.vOtherProfileImage = vOtherProfileImage
     }
 
 

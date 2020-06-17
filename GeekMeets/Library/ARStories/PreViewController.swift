@@ -33,6 +33,7 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
     let loader = ImageLoader()
     var isFromMatchVC : Bool = false
     var isOwnStory : Bool = false
+    var delegate : DeleteStoryDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -255,12 +256,16 @@ extension PreViewController {
             
             LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
-                self.dismiss(animated: true, completion: nil)
+                self.dismissVC {
+                    self.delegate.getDeleteStoryResponse(deleted: true)
+                }
             }  else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
                 } else {
-                   self.dismiss(animated: true, completion: nil)
+                    self.dismissVC {
+                        self.delegate.getDeleteStoryResponse(deleted: false)
+                    }
                 }
             }
         }
