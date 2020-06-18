@@ -72,6 +72,7 @@ struct PostData {
 class ViewController: UIViewController {
 
     @IBOutlet weak var btnCamera: UIButton!
+    @IBOutlet weak var innerView: UIView!
     
     var captureSession = AVCaptureSession()
     var backCamera: AVCaptureDevice?
@@ -99,7 +100,8 @@ class ViewController: UIViewController {
     
     func setupCaptureSession() {
         captureSession.sessionPreset = AVCaptureSession.Preset.photo
-    
+        self.innerView.cornerRadius = self.innerView.w/2
+        self.innerView.backgroundColor = .white
         captureSession.addOutput(movieFileOutput)
         movieFileOutput.maxRecordedDuration = CMTime(seconds: 30, preferredTimescale: 600)
         let longPressGesture = UILongPressGestureRecognizer.init(target: self, action: #selector(handleLongPress))
@@ -221,6 +223,9 @@ class ViewController: UIViewController {
     
     @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
 
+        let maxDuration = CMTime(seconds: 30, preferredTimescale: 600)
+        movieFileOutput.maxRecordedDuration = maxDuration
+        self.innerView.backgroundColor = .red
         if gestureRecognizer.state == UIGestureRecognizer.State.began {
             debugPrint("long press started")
             let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0] as URL
@@ -238,7 +243,10 @@ class ViewController: UIViewController {
         }
         else if gestureRecognizer.state == UIGestureRecognizer.State.ended {
             debugPrint("longpress ended")
-            movieFileOutput.stopRecording()
+            if movieFileOutput.recordedDuration == movieFileOutput.maxRecordedDuration {
+                movieFileOutput.stopRecording()
+            }
+            
         }
     }
     
@@ -285,7 +293,7 @@ extension ViewController : AVCaptureFileOutputRecordingDelegate {
         let previewVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.PreviewViewScreen) as! PreviewViewController
         var objMedia = MediaData()
         objMedia.fileSize = Double(videoDataSize.count / 1048576)//in MB
-        objMedia.mediaType = objPostData.postMediaType
+        objMedia.mediaType = .video
         objMedia.thumbImg = generateThumb(from: videoURL)
         objMedia.videoURL = videoURL
         if self.objPostData.arrMedia == nil {

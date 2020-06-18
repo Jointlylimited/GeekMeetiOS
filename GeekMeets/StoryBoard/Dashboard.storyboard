@@ -3304,6 +3304,10 @@
                                     <action selector="cameraButtonTouch:" destination="HeF-Bt-K2p" eventType="touchUpInside" id="bjo-HO-3L8"/>
                                 </connections>
                             </button>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mZT-mO-AXp">
+                                <rect key="frame" x="187" y="792" width="40" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aBp-zg-W5O">
                                 <rect key="frame" x="334" y="787" width="50" height="50"/>
                                 <constraints>
@@ -3329,22 +3333,27 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="mZT-mO-AXp" firstAttribute="top" secondItem="ejk-3f-2Fn" secondAttribute="top" constant="10" id="3gq-vQ-ETb"/>
+                            <constraint firstItem="mZT-mO-AXp" firstAttribute="trailing" secondItem="ejk-3f-2Fn" secondAttribute="trailing" constant="-10" id="8Oq-Z8-VEp"/>
+                            <constraint firstItem="mZT-mO-AXp" firstAttribute="bottom" secondItem="ejk-3f-2Fn" secondAttribute="bottom" constant="-10" id="Bqp-z1-wrV"/>
                             <constraint firstItem="alp-Sr-VkD" firstAttribute="leading" secondItem="zhV-pX-C5I" secondAttribute="leading" constant="30" id="HsG-6A-hGF"/>
                             <constraint firstItem="alp-Sr-VkD" firstAttribute="centerY" secondItem="ejk-3f-2Fn" secondAttribute="centerY" id="QbH-AW-2pX"/>
                             <constraint firstItem="zhV-pX-C5I" firstAttribute="bottom" secondItem="ejk-3f-2Fn" secondAttribute="bottom" constant="20" id="Sb3-Ku-AiD"/>
                             <constraint firstItem="aBp-zg-W5O" firstAttribute="centerY" secondItem="ejk-3f-2Fn" secondAttribute="centerY" id="Yrw-5j-QNU"/>
                             <constraint firstItem="ejk-3f-2Fn" firstAttribute="centerX" secondItem="Crn-cO-pyO" secondAttribute="centerX" id="bGb-8v-dWX"/>
                             <constraint firstItem="zhV-pX-C5I" firstAttribute="trailing" secondItem="aBp-zg-W5O" secondAttribute="trailing" constant="30" id="jbf-0F-aej"/>
+                            <constraint firstItem="mZT-mO-AXp" firstAttribute="leading" secondItem="ejk-3f-2Fn" secondAttribute="leading" constant="10" id="zPC-ox-dfF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zhV-pX-C5I"/>
                     </view>
                     <connections>
                         <outlet property="btnCamera" destination="ejk-3f-2Fn" id="b3C-ZZ-DqK"/>
+                        <outlet property="innerView" destination="mZT-mO-AXp" id="ymr-9F-3sG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="559-Nu-gvk" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-971" y="-1598"/>
+            <point key="canvasLocation" x="-971.01449275362324" y="-1598.4375"/>
         </scene>
         <!--Preview View Controller-->
         <scene sceneID="tzd-G0-Otb">
