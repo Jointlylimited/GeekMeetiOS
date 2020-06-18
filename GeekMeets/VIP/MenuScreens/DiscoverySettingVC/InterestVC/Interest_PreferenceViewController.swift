@@ -130,6 +130,7 @@ class Interest_PreferenceViewController: UIViewController, Interest_PreferencePr
     }
 }
 
+//MARK: UITableView Delegate & Datasource Methods
 extension Interest_PreferenceViewController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -177,17 +178,6 @@ extension Interest_PreferenceViewController : UITableViewDataSource, UITableView
 
 extension Interest_PreferenceViewController : SelectInterestAgeGenderDelegate {
     func getSelectedValue(index: Int, data: String) {
-//        if index == 1 {
-//            self.objDiscoverData[0].description = data
-//        } else if index == 5 {
-//            self.objDiscoverData[1].description = data
-//        } else if index == 12 {
-//            self.objDiscoverData[2].description = data
-//        } else if index == 18 {
-//            self.objDiscoverData[3].description = data
-//        } else {
-//            self.objDiscoverData[4].description = data
-//        }
         self.tblInterestList.reloadData()
     }
 }

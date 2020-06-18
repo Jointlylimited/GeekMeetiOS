@@ -109,6 +109,8 @@ class MessagesViewController: UIViewController, MessagesProtocol {
         self.pushVC(searchVC!)
     }
 }
+
+//MARK: Tableview Delegate & Datasource Methods
 extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -183,6 +185,7 @@ extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+//MARK: Collectionview Delegate & Datasource Methods
 extension MessagesViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1

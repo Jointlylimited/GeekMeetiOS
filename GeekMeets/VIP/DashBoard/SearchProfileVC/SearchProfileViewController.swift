@@ -95,6 +95,7 @@ class SearchProfileViewController: UIViewController, SearchProfileProtocol {
     }
 }
 
+//MARK: UITableView Delegate & Datasource Methods
 extension SearchProfileViewController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

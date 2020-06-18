@@ -199,7 +199,6 @@ class ProfileViewController: UIViewController, ProfileProtocol {
     @IBAction func btnEditProfileAction(_ sender: UIButton) {
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.EditProfileScreen) as! EditProfileViewController
         controller.delegate = self
-//        controller.userProfileModel = self.userProfileModel
         self.pushVC(controller)
     }
     
@@ -215,12 +214,14 @@ class ProfileViewController: UIViewController, ProfileProtocol {
     }
 }
 
+//MARK: ProfileData Delegate Methods
 extension ProfileViewController : ProfileDataDelegate{
     func profiledetails(data : UserProfileModel){
-//        self.userProfileModel = data
         setProfileData()
     }
 }
+
+//MARK: Tableview Delegate & Datasource Methods
 extension ProfileViewController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.objProfileData.cells.count
@@ -350,6 +351,7 @@ extension ProfileViewController : UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+//MARK: UICollectionview Delegate & Datasource Methods
 extension ProfileViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -390,7 +392,6 @@ extension ProfileViewController : UICollectionViewDataSource, UICollectionViewDe
                 cell.btnLove.setTitle("0", for: .normal)
                 cell.btnLoveSmile.setTitle("0", for: .normal)
             }
-            
         }
         cell.emojiStackView.spacing = DeviceType.iPhone5orSE ? 2 : 10
         cell.btnClose.alpha = 0.0

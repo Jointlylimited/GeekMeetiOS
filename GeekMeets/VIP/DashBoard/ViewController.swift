@@ -98,10 +98,16 @@ class ViewController: UIViewController {
         startRunningCaptureSession()
     }
     
-    func setupCaptureSession() {
-        captureSession.sessionPreset = AVCaptureSession.Preset.photo
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.innerView.cornerRadius = self.innerView.w/2
         self.innerView.backgroundColor = .white
+    }
+    
+    func setupCaptureSession() {
+        captureSession.sessionPreset = AVCaptureSession.Preset.photo
+//        self.innerView.cornerRadius = self.innerView.w/2
+//        self.innerView.backgroundColor = .white
         captureSession.addOutput(movieFileOutput)
         movieFileOutput.maxRecordedDuration = CMTime(seconds: 30, preferredTimescale: 600)
         let longPressGesture = UILongPressGestureRecognizer.init(target: self, action: #selector(handleLongPress))
@@ -235,18 +241,15 @@ class ViewController: UIViewController {
                     try FileManager.default.removeItem(at: filePath)
                 }
                 catch {
-                    // exception while deleting old cached file
-                    // ignore error if any
                 }
             }
             movieFileOutput.startRecording(to: filePath, recordingDelegate: self)
         }
         else if gestureRecognizer.state == UIGestureRecognizer.State.ended {
             debugPrint("longpress ended")
-            if movieFileOutput.recordedDuration == movieFileOutput.maxRecordedDuration {
+            if movieFileOutput.recordedDuration <= movieFileOutput.maxRecordedDuration {
                 movieFileOutput.stopRecording()
             }
-            
         }
     }
     
@@ -258,7 +261,6 @@ class ViewController: UIViewController {
               return device
           }
       }
-
       return nil
   }
 }
@@ -281,7 +283,6 @@ extension ViewController: AVCapturePhotoCaptureDelegate {
             searchVC.image = self.image
             searchVC.objPostData = self.objPostData
             self.pushVC(searchVC)
-//            performSegue(withIdentifier: "showPhotos", sender: nil)
         }
     }
 }
@@ -388,7 +389,6 @@ extension ViewController : UIImagePickerControllerDelegate, UINavigationControll
         previewVC.image = self.image
         previewVC.objPostData = self.objPostData
         self.pushVC(previewVC)
-        
     }
     
     func generateThumb(from videoURL: URL) -> UIImage? {

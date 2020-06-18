@@ -103,6 +103,7 @@ class ContactUS_LegalViewController: UIViewController, ContactUS_LegalProtocol {
     }
 }
 
+//MARK: UITableView Delegate & Datasource Methods
 extension ContactUS_LegalViewController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

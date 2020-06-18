@@ -88,6 +88,7 @@ class NotificationListViewController: UIViewController, NotificationListProtocol
     }
 }
 
+//MARK: API Methods
 extension NotificationListViewController {
     func callAPI(isPullToRefresh: Bool = false){
         if isPullToRefresh {
@@ -155,6 +156,7 @@ extension NotificationListViewController {
     }
 }
 
+//MARK: UITableView Delegate Methods
 extension NotificationListViewController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

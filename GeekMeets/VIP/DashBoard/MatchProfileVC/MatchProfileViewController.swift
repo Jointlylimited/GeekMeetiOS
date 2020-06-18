@@ -279,6 +279,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     }
 }
 
+//MARK: API Methods
 extension MatchProfileViewController {
     func getUserProfileResponse(response : UserAuthResponseField){
         print(response)
@@ -361,6 +362,8 @@ extension MatchProfileViewController {
         }
     }
 }
+
+//MARK: UITableView Delegate & Datasource Methods
 extension MatchProfileViewController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.objProfileData.cells.count
@@ -439,6 +442,7 @@ extension MatchProfileViewController : UITableViewDataSource, UITableViewDelegat
     }
 }
 
+//MARK: UICollectionView Delegate & Datasource Methods
 extension MatchProfileViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -528,6 +532,7 @@ extension MatchProfileViewController : UICollectionViewDataSource, UICollectionV
     }
 }
 
+//MARK: AlertView Delegate Methods
 extension MatchProfileViewController {
     func showAlertView() {
         alertView = CustomAlertView.initAlertView(title: tiIsBlocked == 0 ? kBlockStr : kUnblockStr, message: tiIsBlocked == 0 ? kBlockDesStr : kUnblockDesStr, btnRightStr: tiIsBlocked == 0 ? "Block" : "Unblock", btnCancelStr: "Cancel", btnCenter: "", isSingleButton: false)

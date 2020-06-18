@@ -71,6 +71,7 @@ class AccountSettingViewController: UIViewController, AccountSettingProtocol {
     }
 }
 
+//MARK: UITableView Delegate Methods
 extension AccountSettingViewController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

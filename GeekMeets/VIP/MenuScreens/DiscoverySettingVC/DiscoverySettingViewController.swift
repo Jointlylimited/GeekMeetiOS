@@ -101,6 +101,7 @@ class DiscoverySettingViewController: UIViewController, DiscoverySettingProtocol
     }
 }
 
+//MARK: UITableView Delegate & Datasource Methods
 extension DiscoverySettingViewController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

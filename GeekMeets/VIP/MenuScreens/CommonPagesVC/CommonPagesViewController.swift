@@ -66,7 +66,6 @@ class CommonPagesViewController: UIViewController, CommonPagesProtocol {
     
     func setData(){
         self.lblScreenTitle.text = objCommonData?.Title
-//        self.descView.text = objCommonData
     }
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.popVC()

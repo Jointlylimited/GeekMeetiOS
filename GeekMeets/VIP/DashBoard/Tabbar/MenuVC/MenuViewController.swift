@@ -82,7 +82,6 @@ class MenuViewController: UIViewController, MenuProtocol {
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setTheme()
@@ -90,14 +89,13 @@ class MenuViewController: UIViewController, MenuProtocol {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-//        stopTimer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setTheme()
-//        startTimer()
     }
+    
     func setTheme() {
         self.navigationController?.isNavigationBarHidden = true
         startTimer()
@@ -131,7 +129,6 @@ class MenuViewController: UIViewController, MenuProtocol {
     }
        
     @objc func updateTimer() {
-//        print(self.totalTime)
         self.lblRemainTime.text = "\(self.timeFormatted(self.totalTime)) Remaining" // will show timer
         if totalTime != 0 {
             totalTime -= 1
@@ -175,6 +172,7 @@ class MenuViewController: UIViewController, MenuProtocol {
     }
 }
 
+//MARK: Tableview Delegate & Datasource Methods
 extension MenuViewController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -251,6 +249,7 @@ extension MenuViewController : UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+//MARK: API Methods
 extension MenuViewController {
     
     func callSignoutAPI(){
@@ -272,6 +271,7 @@ extension MenuViewController {
     }
 }
 
+//MARK: AlertView Delegate Methods
 extension MenuViewController : AlertViewDelegate {
     func OkButtonAction() {
         alertView.alpha = 0.0

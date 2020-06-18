@@ -308,12 +308,15 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
     }
 }
 
+//MARK: SocialMediaLink Delegate Methods
 extension EditProfileViewController : SocialMediaLinkDelegate {
     func updatedSocailLinkModel(model: UserAuthResponseField) {
         self.userProfileModel = model
         self.tblEditProfileView.reloadData()
     }
 }
+
+//MARK: RecommandedProfileView Delegate Methods
 extension EditProfileViewController : RecommandedProfileViewDelegate {
     func SetProfileButtonAction() {
         self.customProfileView.alpha = 0.0
@@ -329,6 +332,8 @@ extension EditProfileViewController : SelectInterestAgeGenderDelegate {
        self.tblEditProfileView.reloadData()
     }
 }
+
+//MARK: Tableview Delegate & Datasource Methods
 extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.objEditProfileData.cells.count
@@ -453,6 +458,7 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
     }
 }
 
+//MARK: UICollectionView Delegate & Datasource Methods
 extension EditProfileViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -520,6 +526,8 @@ extension EditProfileViewController : UICollectionViewDataSource, UICollectionVi
         return CGSize(width: width, height: width)
     }
 }
+
+//MARK: UITextfield Delegate Methods
 extension EditProfileViewController : UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         textField.addTarget(self, action: #selector(textFieldDidChange(textField:)), for: .editingChanged)

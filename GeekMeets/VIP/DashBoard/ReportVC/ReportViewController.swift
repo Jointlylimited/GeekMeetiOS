@@ -121,6 +121,7 @@ class ReportViewController: UIViewController, ReportProtocol {
     }
 }
 
+//MARK: API Methods
 extension ReportViewController {
     func getReportListResponse(response : ReasonListData) {
         if response.responseCode == 200 {
@@ -142,6 +143,8 @@ extension ReportViewController {
         }
     }
 }
+
+//MARK: UITableview Delegate & Datasource Methods
 extension ReportViewController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return arrReport.arrReasonList == nil ? 0 : 1
@@ -217,6 +220,7 @@ extension ReportViewController : UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+//MARK: UITextView Delegate Methods
 extension ReportViewController : UITextViewDelegate {
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         if (textView.text?.count)! <= 300 {

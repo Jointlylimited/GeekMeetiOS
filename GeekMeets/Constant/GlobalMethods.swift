@@ -280,7 +280,6 @@ extension UIViewController {
                         if grant {
                             block(AVAuthorizationStatus.authorized.rawValue, grant)
                         }else{
-//                            AppSingleton.sharedInstance().showAlert(kCameraAccessMsg, okTitle: "OK")
                             self.showAccessPopup(title: kCameraAccessTitle, msg: kCameraAccessMsg)
                             block(AVAuthorizationStatus.denied.rawValue, grant)
                         }
@@ -289,7 +288,6 @@ extension UIViewController {
             }
         }else{
             delay(0.2) {
-//                AppSingleton.sharedInstance().showAlert(kCameraAccessMsg, okTitle: "OK")
                 self.showAccessPopup(title: kCameraAccessTitle, msg: kCameraAccessMsg)
                 block(AVAuthorizationStatus.restricted.rawValue, false)
             }
@@ -316,7 +314,6 @@ extension UIViewController {
                     if perStatus == PHAuthorizationStatus.authorized {
                         block(perStatus.rawValue, true)
                     } else {
-//                        AppSingleton.sharedInstance().showAlert(kPhotosAccessMsg, okTitle: "OK")
                         self.showAccessPopup(title: kPhotosAccessTitle, msg: kPhotosAccessMsg)
                         block(perStatus.rawValue, false)
                     }
@@ -324,7 +321,6 @@ extension UIViewController {
             }
         } else {
             delay(0.2) {
-//                AppSingleton.sharedInstance().showAlert(kPhotosAccessMsg, okTitle: "OK")
                 self.showAccessPopup(title: kPhotosAccessTitle, msg: kPhotosAccessMsg)
                 block(status.rawValue, false)
             }

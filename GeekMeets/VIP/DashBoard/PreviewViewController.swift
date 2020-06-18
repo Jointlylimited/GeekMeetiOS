@@ -386,6 +386,8 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         })
     }
 }
+
+//MARK: API Methods
 extension PreviewViewController {
     
     func callPostStoryAPI(obj : PostData){
@@ -402,6 +404,8 @@ extension PreviewViewController {
         }
     }
 }
+
+//MARK: TextView Delegate Methods
 extension PreviewViewController : TextViewControllerDelegate {
     func textViewDidFinishWithTextView(text:CustomTextView) {
         print(text)

@@ -120,6 +120,7 @@ class HomeViewController: UIViewController, HomeProtocol {
     }
 }
 
+//MARK: API Methods
 extension HomeViewController {
     func getUserCardResponse(response : SearchUsers) {
         if response.responseCode == 200 {
@@ -157,6 +158,8 @@ extension HomeViewController {
         }
     }
 }
+
+//MARK: SwipeableCard Delegate & Datasource Methods
 extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate {
     // SwipeableCardsDataSource methods
     func numberOfTotalCards(in cards: SwipeableCards) -> Int {
@@ -211,13 +214,14 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
     }
 }
 
+//MARK: UICollectionview Delegate & Datasource Methods
 extension HomeViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return (self.objCardArray.objUserCard.photos == nil && self.objCardArray.objUserCard.photos?.count == 0) ? 1 : self.objCardArray.objUserCard.photos!.count // self.objStoryData.count
+        return (self.objCardArray.objUserCard.photos == nil && self.objCardArray.objUserCard.photos?.count == 0) ? 1 : self.objCardArray.objUserCard.photos!.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

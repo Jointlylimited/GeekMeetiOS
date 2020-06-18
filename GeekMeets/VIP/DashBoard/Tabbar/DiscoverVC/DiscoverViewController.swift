@@ -120,6 +120,7 @@ class DiscoverViewController: UIViewController, DiscoverProtocol {
     }
 }
 
+//MARK: API Methods
 extension DiscoverViewController{
     func getStoryListResponse(response: StoryResponse){
         if response.responseCode == 200 {
@@ -158,6 +159,7 @@ extension DiscoverViewController{
     }
 }
 
+//MARK: Delete Story Delegate Methods
 extension DiscoverViewController : DeleteStoryDelegate {
     func getDeleteStoryResponse(deleted: Bool) {
         if deleted {
@@ -165,6 +167,8 @@ extension DiscoverViewController : DeleteStoryDelegate {
         }
     }
 }
+
+//MARK: UICollectionview Delegate & Datasource Methods
 extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1

@@ -154,6 +154,7 @@ class EditPreferenceViewController: UIViewController, EditPreferenceProtocol {
     }
 }
 
+//MARK: API Methods
 extension EditPreferenceViewController {
     func callCreatePreferenceAPI(){
         
@@ -184,7 +185,7 @@ extension EditPreferenceViewController {
     }
 }
 
-//MARK:UICollectionview
+//MARK: UICollectionview Delegate Methods
 extension EditPreferenceViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,SelectAgeDelegate
 {
     

@@ -82,6 +82,7 @@ class MyMatchesViewController: UIViewController, MyMatchesProtocol {
     }
 }
 
+//MARK: UITableView Delegate & Datasource Methods
 extension MyMatchesViewController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
