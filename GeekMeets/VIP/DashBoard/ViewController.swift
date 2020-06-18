@@ -25,7 +25,7 @@ struct MediaData {
     /// video data Path/Name
     var videoURlUpload: (path: String, name: String) {
         let folderName = story
-        let timeStamp = Date().currentTimeMillis()//Headers.timestamp
+        let timeStamp = Date().currentTimeMillis()
         let videoExtension = ".mp4"
         let path = "\(folderName)\(timeStamp)\(videoExtension)"
         return (path: path, name: "\(timeStamp)\(videoExtension)")
@@ -34,7 +34,7 @@ struct MediaData {
     /// video-thumb image data Path/Name
     var thumbURlUpload: (path: String, name: String) {
         let folderName = story
-        let timeStamp = Date().currentTimeMillis()//Headers.timestamp
+        let timeStamp = Date().currentTimeMillis()
         let imgExtension = ".jpeg"
         let path = "\(folderName)\(timeStamp)\(imgExtension)"
         return (path: path, name: "\(timeStamp)\(imgExtension)")
@@ -43,7 +43,7 @@ struct MediaData {
     /// image data Path/Name
     var mediaImgName: (path: String, name: String) {
         let folderName = story
-        let timeStamp = Date().currentTimeMillis()//Headers.timestamp
+        let timeStamp = Date().currentTimeMillis()
         let imgExtension = ".jpeg"
         let path = "\(folderName)\(timeStamp)\(imgExtension)"
         return (path: path, name: "\(timeStamp)\(imgExtension)")
@@ -71,6 +71,8 @@ struct PostData {
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var btnCamera: UIButton!
+    
     var captureSession = AVCaptureSession()
     var backCamera: AVCaptureDevice?
     var frontCamera: AVCaptureDevice?
@@ -78,6 +80,7 @@ class ViewController: UIViewController {
     var currentCamera: AVCaptureDevice?
     var photoOutput: AVCapturePhotoOutput?
     var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
+    var movieFileOutput = AVCaptureMovieFileOutput()
     
     var image:UIImage?
     var objPostData = PostData()
@@ -96,6 +99,11 @@ class ViewController: UIViewController {
     
     func setupCaptureSession() {
         captureSession.sessionPreset = AVCaptureSession.Preset.photo
+    
+        captureSession.addOutput(movieFileOutput)
+        movieFileOutput.maxRecordedDuration = CMTime(seconds: 30, preferredTimescale: 600)
+        let longPressGesture = UILongPressGestureRecognizer.init(target: self, action: #selector(handleLongPress))
+        self.btnCamera.addGestureRecognizer(longPressGesture);
     }
     
     func setupDevice() {
@@ -211,6 +219,29 @@ class ViewController: UIViewController {
         self.openMediaTypeActionSheet()
     }
     
+    @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+
+        if gestureRecognizer.state == UIGestureRecognizer.State.began {
+            debugPrint("long press started")
+            let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0] as URL
+            let filePath = documentsURL.appendingPathComponent("tempMovie.mp4")
+            if FileManager.default.fileExists(atPath: filePath.absoluteString) {
+                do {
+                    try FileManager.default.removeItem(at: filePath)
+                }
+                catch {
+                    // exception while deleting old cached file
+                    // ignore error if any
+                }
+            }
+            movieFileOutput.startRecording(to: filePath, recordingDelegate: self)
+        }
+        else if gestureRecognizer.state == UIGestureRecognizer.State.ended {
+            debugPrint("longpress ended")
+            movieFileOutput.stopRecording()
+        }
+    }
+    
   // Find a camera with the specified AVCaptureDevicePosition, returning nil if one is not found
   func cameraWithPosition(position: AVCaptureDevice.Position) -> AVCaptureDevice? {
       let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .unspecified)
@@ -224,7 +255,8 @@ class ViewController: UIViewController {
   }
 }
 @available(iOS 11.0, *)
-extension ViewController: AVCapturePhotoCaptureDelegate{
+extension ViewController: AVCapturePhotoCaptureDelegate {
+   
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let imageData = photo.fileDataRepresentation(){
             image = UIImage(data: imageData)
@@ -245,7 +277,28 @@ extension ViewController: AVCapturePhotoCaptureDelegate{
         }
     }
 }
-
+extension ViewController : AVCaptureFileOutputRecordingDelegate {
+    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        guard let videoURL = outputFileURL as? URL, let videoDataSize = videoURL.getVideoData(), Double(videoDataSize.count / 1048576) <= objPostData.maximumVideoSize else {
+            return
+        }
+        let previewVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.PreviewViewScreen) as! PreviewViewController
+        var objMedia = MediaData()
+        objMedia.fileSize = Double(videoDataSize.count / 1048576)//in MB
+        objMedia.mediaType = objPostData.postMediaType
+        objMedia.thumbImg = generateThumb(from: videoURL)
+        objMedia.videoURL = videoURL
+        if self.objPostData.arrMedia == nil {
+            self.objPostData.arrMedia = []
+        }
+        objMedia.uID = "\(self.objPostData.arrMedia.count)"
+        self.objPostData.tiStoryType = "1"
+        self.objPostData.arrMedia.append(objMedia)
+        
+        previewVC.objPostData = self.objPostData
+        self.pushVC(previewVC)
+    }
+}
 extension ViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func openMediaTypeActionSheet() {
         let photo = "Photo"

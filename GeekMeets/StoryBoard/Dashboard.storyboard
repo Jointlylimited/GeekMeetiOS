@@ -3338,6 +3338,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zhV-pX-C5I"/>
                     </view>
+                    <connections>
+                        <outlet property="btnCamera" destination="ejk-3f-2Fn" id="b3C-ZZ-DqK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="559-Nu-gvk" sceneMemberID="firstResponder"/>
             </objects>
