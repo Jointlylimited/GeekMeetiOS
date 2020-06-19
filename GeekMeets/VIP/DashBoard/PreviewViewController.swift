@@ -241,7 +241,6 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         stickerView2.center = CGPoint.init(x: self.cusText.width/2, y: self.cusText.height/2)
         stickerView2.delegate = self
         stickerView2.setImage(UIImage.init(named: "Close")!, forHandler: StickerViewHandler.close)
-//        stickerView2.setImage(UIImage.init(named: "Rotate")!, forHandler: StickerViewHandler.rotate)
         stickerView2.showEditingHandlers = false
         self.view.addSubview(stickerView2)
     }

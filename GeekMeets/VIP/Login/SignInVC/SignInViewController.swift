@@ -69,8 +69,8 @@ class SignInViewController: UIViewController,SignInProtocol
     override func viewDidLoad() {
         super.viewDidLoad()
         doSomething()
-        
     }
+    
     func doSomething(){
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
@@ -82,7 +82,6 @@ class SignInViewController: UIViewController,SignInProtocol
         btnSignUp?.setAttributedTitle(attributedString, for: .normal)
         btnSignUp?.addTarget(self, action:#selector(clickOnSignUpBtn) , for: .touchUpInside)
     }
-    
     
     override func viewDidAppear(_ animated: Bool)
     {
@@ -105,14 +104,13 @@ class SignInViewController: UIViewController,SignInProtocol
 //MARK:- IBAction Method
 extension SignInViewController
 {
-
     @IBAction func btnSignInClick(_ sender : UIButton)
     {
         /*let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.UserProfile) as! UserProfileViewController
-        self.pushVC(controller)*/
+         self.pushVC(controller)*/
         //        Crashlytics.sharedInstance().crash()
         //        self.presenter?.gotoHomeScreen()
-                self.presenter?.callSignInAPI(tfEmail.text ?? "", password: tfPassword.text ?? "")
+        self.presenter?.callSignInAPI(tfEmail.text ?? "", password: tfPassword.text ?? "")
     }
     
     @IBAction func btnForgotPWClick(_ sender : UIButton)

@@ -87,7 +87,6 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         doSomething()
@@ -102,14 +101,12 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
     func setHeightPickerData(index : Int){
         
         heightSeekSlider.delegate = self
-        
         heightSeekSlider.hideLabels = true
         heightSeekSlider.tintColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         heightSeekSlider.colorBetweenHandles = #colorLiteral(red: 0.606272161, green: 0.2928337753, blue: 0.8085166812, alpha: 1)
         heightSeekSlider.handleImage = #imageLiteral(resourceName: "icn_rect_1")
         heightSeekSlider.minValue = 0.0
         heightSeekSlider.maxValue = 10.0
-        
         
         if index == 5 {
             heightSeekSlider.disableRange = true
@@ -154,7 +151,6 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
         self.clnSelectAge.reloadData()
     }
     
-    
     @objc func changeVlaue(_ sender: UISlider) {
         let value = CGFloat(sender.value)
         print("value is" ,value)
@@ -164,7 +160,6 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
     
     //MARK: IBAction Method
     @IBAction func actionContinues(_ sender: Any) {
-        
         if isFromSignUp {
                 if self.selectedCells.count != 0 {
                     self.callCreatePreferenceAPI()
@@ -201,7 +196,6 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
 extension SelectAgeRangeViewController {
     
     func displayPreferenceData(response : PreferencesResponse) {
-        
         self.objPreModel.arrPrefrenceData = response.responseData
         if isFromSignUp {
             if index == 0 {
@@ -223,7 +217,6 @@ extension SelectAgeRangeViewController {
     }
     
     func callCreatePreferenceAPI(){
-        
         let data = self.selectedCells.map { String($0) }
         .joined(separator: ",")
         
@@ -248,7 +241,6 @@ extension SelectAgeRangeViewController {
             } else {
                 self.presenter?.callQuestionaryAPI()
             }
-            
         }
     }
 }
@@ -256,7 +248,6 @@ extension SelectAgeRangeViewController {
 //MARK:UICollectionview
 extension SelectAgeRangeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,SelectAgeDelegate
 {
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.objPreModel.objPrefrence != nil ? self.objPreModel.objPrefrence.preferenceOption!.count : 0
     }
@@ -324,6 +315,7 @@ extension SelectAgeRangeViewController: UICollectionViewDelegate, UICollectionVi
             }
         }
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let name = self.objPreModel.objPrefrence.preferenceOption![indexPath.row].vOption
         let yourWidth = collectionView.bounds.width/3.0
@@ -343,9 +335,7 @@ extension SelectAgeRangeViewController: UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        
         return 0
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

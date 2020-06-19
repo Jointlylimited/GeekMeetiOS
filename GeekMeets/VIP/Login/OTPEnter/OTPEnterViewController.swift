@@ -19,8 +19,8 @@ protocol OTPEnterProtocol: class {
 }
 
 class OTPEnterViewController: UIViewController, OTPEnterProtocol {
-  
-  
+    
+    
     //var interactor : OTPEnterInteractorProtocol?
     var presenter : OTPEnterPresentationProtocol?
     
@@ -37,8 +37,8 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     @IBOutlet weak var lblMobileNumber: UILabel!
     @IBOutlet weak var tfMobileNumber: UITextField!
     @IBOutlet weak var btnCountrycode: UIButton!
-  
-       
+    
+    
     let otpStackView = OTPStackView()
     var isFromNewMobile : Bool = false
     var alertView: CustomAlertView!
@@ -46,11 +46,11 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     var totalTime = 300
     var signUpParams : Dictionary<String, String>?
     
-  var strCountryCode: String = UserDataModel.currentUser?.vCountryCode ?? "+91"
-  var strPhonenumber: String? = UserDataModel.currentUser?.vPhone ?? "756713373"
-  
+    var strCountryCode: String = UserDataModel.currentUser?.vCountryCode ?? "+91"
+    var strPhonenumber: String? = UserDataModel.currentUser?.vPhone ?? "756713373"
     
-  // MARK: Object lifecycle
+    
+    // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -83,7 +83,6 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         doSomething()
@@ -136,18 +135,18 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
         startTimer()
         
     }
-
+    
     func displaySomething() {
         //nameTextField.text = viewModel.name
     }
-  
     
-  
+    
+    
     private func startTimer() {
         self.totalTime = 60
         self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
-       
+    
     @objc func updateTimer() {
         
         self.lblTime.text = self.timeFormatted(self.totalTime) // will show timer
@@ -156,13 +155,13 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
         } else {
             if let timer = self.timer {
                 self.btnResend.isUserInteractionEnabled = true
-              
+                
                 timer.invalidate()
                 self.timer = nil
             }
         }
     }
-       
+    
     func stopTimer(){
         if self.timer != nil {
             timer!.invalidate()
@@ -174,103 +173,92 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
         return String(format: "%02d:%02d", minutes, seconds)
     }
     
-  
-  @IBAction func actionEditMobileNumber(_ sender: Any) {
-    self.popVC()
-                /*  displayAlert(strTitle : "", strMessage : "Now you can Edit phone number")
-                  btnCountrycode.isUserInteractionEnabled = true
-                  tfMobileNumber.isUserInteractionEnabled = true*/
     
-  }
-  
-  @IBAction func actionSelectCountryCode(_ sender: Any) {
+    @IBAction func actionEditMobileNumber(_ sender: Any) {
+        self.popVC()
+        /*  displayAlert(strTitle : "", strMessage : "Now you can Edit phone number")
+         btnCountrycode.isUserInteractionEnabled = true
+         tfMobileNumber.isUserInteractionEnabled = true*/
+        
+    }
+    
+    @IBAction func actionSelectCountryCode(_ sender: Any) {
         CountryPickerWithSectionViewController.presentController(on: self) { (country: Country) in
-                        self.setCountryPickerData(country)
-                    }
-  }
-  
-  func setCountryPickerData(_ country : Country)
-        {
-            strCountryCode = country.dialingCode!
-            btnCountrycode.setTitle(country.dialingCode, for: .normal)
-  //          btnCountryCode.setImage(country.flag?.resizeImage(targetSize:  CGSize(width: btnCountryCode.frame.height / 2, height: btnCountryCode.frame.height / 2)).withRenderingMode(.alwaysOriginal), for: .normal)
+            self.setCountryPickerData(country)
         }
-  
-  @IBAction func actionVerifyOTP(_ sender: Any) {
+    }
+    
+    func setCountryPickerData(_ country : Country)
+    {
+        strCountryCode = country.dialingCode!
+        btnCountrycode.setTitle(country.dialingCode, for: .normal)
+        //          btnCountryCode.setImage(country.flag?.resizeImage(targetSize:  CGSize(width: btnCountryCode.frame.height / 2, height: btnCountryCode.frame.height / 2)).withRenderingMode(.alwaysOriginal), for: .normal)
+    }
+    
+    @IBAction func actionVerifyOTP(_ sender: Any) {
         btnCountrycode.isUserInteractionEnabled = false
         tfMobileNumber.isUserInteractionEnabled = false
-    if !isFromNewMobile {
-//        strPhonenumber = tfMobileNumber.text
-        print("Final OTP : ",otpStackView.getOTP())
-        otpStackView.setAllFieldColor(isWarningColor: true, color: .yellow)
-        self.presenter?.callVerifyOTPAPI(iOTP : otpStackView.getOTP(),vCountryCode : strCountryCode,vPhone : strPhonenumber ?? "7567173373", signUpParams : signUpParams)
-        
-    } else {
-        self.navigationController?.isNavigationBarHidden = true
-        self.showAlertView()
+        if !isFromNewMobile {
+            //        strPhonenumber = tfMobileNumber.text
+            print("Final OTP : ",otpStackView.getOTP())
+            otpStackView.setAllFieldColor(isWarningColor: true, color: .yellow)
+            self.presenter?.callVerifyOTPAPI(iOTP : otpStackView.getOTP(),vCountryCode : strCountryCode,vPhone : strPhonenumber ?? "7567173373", signUpParams : signUpParams)
+            
+        } else {
+            self.navigationController?.isNavigationBarHidden = true
+            self.showAlertView()
+        }
     }
-  }
-  
-  @IBAction func btnResendOTP(_ sender : UIButton)
-  {
-      btnCountrycode.isUserInteractionEnabled = false
-      tfMobileNumber.isUserInteractionEnabled = false
-//      strPhonenumber = tfMobileNumber.text
-      otpStackView.clearTextField()
-    self.presenter?.callResendOTPAPI(vCountryCode : strCountryCode ,vPhone : strPhonenumber ?? "7567173373")
-  }
-  
-  func displayAlert(strTitle : String, strMessage : String) {
-      //nameTextField.text = viewModel.name
-      self.showAlert(title: strTitle, message: strMessage)
-  }
+    
+    @IBAction func btnResendOTP(_ sender : UIButton)
+    {
+        btnCountrycode.isUserInteractionEnabled = false
+        tfMobileNumber.isUserInteractionEnabled = false
+        //      strPhonenumber = tfMobileNumber.text
+        otpStackView.clearTextField()
+        self.presenter?.callResendOTPAPI(vCountryCode : strCountryCode ,vPhone : strPhonenumber ?? "7567173373")
+    }
+    
+    func displayAlert(strTitle : String, strMessage : String) {
+        //nameTextField.text = viewModel.name
+        self.showAlert(title: strTitle, message: strMessage)
+    }
 }
 
- extension OTPEnterViewController: OTPDelegate {
-  
-            func didChangeValidity(isValid: Bool) {
-                btnVerifyOTP.isHidden = !isValid
-            }
-  
+extension OTPEnterViewController: OTPDelegate {
+    
+    func didChangeValidity(isValid: Bool) {
+        btnVerifyOTP.isHidden = !isValid
+    }
+    
 }
 
 extension OTPEnterViewController {
     func showAlertView() {
-      alertView = CustomAlertView.initAlertView(title: "Successful", message: "Your mobile is changed & verified Successfully", btnRightStr: "", btnCancelStr: "", btnCenter: "OK", isSingleButton: true)
-      alertView.delegate1 = self
-      alertView.frame = self.view.frame
-      self.view.addSubview(alertView)
+        alertView = CustomAlertView.initAlertView(title: "Successful", message: "Your mobile is changed & verified Successfully", btnRightStr: "", btnCancelStr: "", btnCenter: "OK", isSingleButton: true)
+        alertView.delegate1 = self
+        alertView.frame = self.view.frame
+        self.view.addSubview(alertView)
     }
-  
+    
     func getVerifyOTPResponse(response : CommonResponse) {
-           
         self.displayAlert(strTitle: "", strMessage: response.responseMessage!)
-//            alertView = CustomAlertView.initAlertView(title: "", message: response.responseMessage!, btnRightStr: "", btnCancelStr: "", btnCenter: "OK", isSingleButton: true)
-//               alertView.delegate1 = self
-//               alertView.frame = self.view.frame
-//               self.view.addSubview(alertView)
     }
+    
     func getResendOTPResponse(response: CommonResponse) {
-          if response.responseCode == 200  {
+        if response.responseCode == 200  {
             startTimer()
             btnResend.isUserInteractionEnabled = false
-           
-          }
+        }
         self.displayAlert(strTitle: "", strMessage: response.responseMessage!)
-//          alertView = CustomAlertView.initAlertView(title: "", message: response.responseMessage!, btnRightStr: "", btnCancelStr: "", btnCenter: "OK", isSingleButton: true)
-//          alertView.delegate1 = self
-//          alertView.frame = self.view.frame
-//          self.view.addSubview(alertView)
     }
 }
 
 extension OTPEnterViewController : AlertViewCentreButtonDelegate {
     
     func centerButtonAction(){
-        
         let accVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.AccountSettingScreen)
         self.pop(toLast: accVC.classForCoder)
       
     }
-  
 }

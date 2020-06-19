@@ -368,7 +368,7 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
                 
                 cell.txtDoB.text = userProfileModel != nil ? userProfileModel?.dDob?.strDateTODateStr(dateStr: userProfileModel!.dDob!) : "02/01/1999"
                 cell.txtCity.text = userProfileModel?.vLiveIn
-                cell.txtGender.text = genderArray[(userProfileModel?.tiGender)!] //userProfileModel?.vGender
+                cell.txtGender.text = genderArray[(userProfileModel?.tiGender)!]
                 cell.txtCompanyDetail.text = userProfileModel?.txCompanyDetail
                 cell.lblCharCount.text = "\(userProfileModel!.txAbout!.count)/\(300)"
                 cell.btnChange.underlineButton(text: "Change", font: UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 12)!, color: #colorLiteral(red: 0.5294117647, green: 0.1803921569, blue: 0.7647058824, alpha: 1))

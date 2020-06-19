@@ -103,8 +103,8 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
 
     func setLink(){
         
-        let customType = ActiveType.custom(pattern: "\\sTerms\\b") //Looks for "Terms of Service"
-        let customType1 = ActiveType.custom(pattern: "\\sPrivacy Policy\\b") //Looks for "Privacy Policy"
+        let customType = ActiveType.custom(pattern: "\\sTerms\\b")
+        let customType1 = ActiveType.custom(pattern: "\\sPrivacy Policy\\b")
         let customType2 = ActiveType.custom(pattern: "\\sCookie Privacy\\b")
         
         lblPrivacyTerm.enabledTypes.append(customType)
@@ -156,7 +156,6 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
 }
 
 //MARK: IBAction Methods
-
 extension  InitialSignUpViewController{
     @IBAction func btnLoginAction(_ sender: UIButton) {
         /*if sender.titleLabel?.text == "Login" {
@@ -203,19 +202,16 @@ extension InitialSignUpViewController : GIDSignInDelegate {
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         
         //        LoaderView.sharedInstance.hideLoader()
-        
         if (error == nil){
             
             print(user.authentication)
             print(user.profile.givenName)
             print(user.profile.familyName)
             print(user.profile.email)
-          
             
             let param = RequestParameter.sharedInstance().googleSigninParams(tiSocialType : "2", accessKey: user.authentication.accessToken, service: "google", vUserName: user.profile.givenName, vEmailId: user.profile.email, vSocialId: user.userID, vImageUrl: user.profile.imageURL(withDimension: 120).absoluteString)
             
             self.presenter?.callGoogleSigninAPI(loginParams: param)
-          
         }
         else {
             print("\(error.localizedDescription)")
@@ -224,8 +220,6 @@ extension InitialSignUpViewController : GIDSignInDelegate {
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
 //        LoaderView.sharedInstance.hideLoader()
-      
         print(error?.localizedDescription ?? "")
-      
     }
 }

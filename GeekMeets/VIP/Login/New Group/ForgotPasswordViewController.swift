@@ -23,7 +23,7 @@ class ForgotPasswordViewController: UIViewController, ForgotPasswordProtocol {
     
     @IBOutlet weak var btnSend: GradientButton!
     @IBOutlet weak var tfEmail: BottomBorderTF!
-  // MARK: Object lifecycle
+    // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -64,16 +64,13 @@ class ForgotPasswordViewController: UIViewController, ForgotPasswordProtocol {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
-        
     }
-
+    
     func doSomething() {
-        //            self.navigationController?.setNavigationBarHidden(false, animated: true)
-        //            self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         self.navigationItem.leftBarButtonItem = leftSideBackBarButton
         self.navigationController?.navigationBar.barTintColor = UIColor.white
     }
-  }
+}
 
 //MARK: IBAction Method
 extension ForgotPasswordViewController{
@@ -83,15 +80,15 @@ extension ForgotPasswordViewController{
 }
 
 extension ForgotPasswordViewController{
-  
+    
     func displayAlert(strTitle : String, strMessage : String) {
         self.showAlert(title: strTitle, message: strMessage)
     }
+    
     func getForgotPasswordResponse(response : CommonResponse) {
         if response.responseCode == 200 {
             self.popVC()
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
-        } else {
         }
     }
 }

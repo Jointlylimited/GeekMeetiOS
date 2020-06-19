@@ -106,7 +106,6 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
     
     func setCountryPickerData(_ country : Country)
     {
-        
         btnCountrycode.setTitle(country.dialingCode, for: .normal)
         //          btnCountryCode.setImage(country.flag?.resizeImage(targetSize:  CGSize(width: btnCountryCode.frame.height / 2, height: btnCountryCode.frame.height / 2)).withRenderingMode(.alwaysOriginal), for: .normal)
     }
@@ -115,6 +114,7 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
     func displayAlert(strTitle : String, strMessage : String) {
         self.showAlert(title: strTitle, message: strMessage)
     }
+    
     @IBAction func actionContinue(_ sender: Any) {
         
         let params = RequestParameter.sharedInstance().signUpParam(vEmail: tfEmailAddress.text ?? "", vPassword: tfPassword?.text ?? "", vConfirmPassword : tfConfirmPassword.text ?? "", vCountryCode: btnCountrycode.titleLabel?.text ?? "", vPhone: tfMobileNumber.text ?? "", termsChecked : termsChecked, vSocialId : (UserDataModel.currentUser == nil || UserDataModel.currentUser?.tiIsSocialLogin == nil) ? "" : (UserDataModel.currentUser?.vSocialId!)!, vLiveIn : vLiveIn, fLatitude : self.location != nil ? "\(self.location?.coordinate.latitude ?? 0.0)" : "0.0", fLongitude: self.location != nil ? "\(self.location?.coordinate.longitude ?? 0.0)" : "0.0", tiIsSocialLogin : (UserDataModel.currentUser == nil || UserDataModel.currentUser?.tiIsSocialLogin == nil) ? "0" : "1")
@@ -122,22 +122,24 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
         self.presenter?.callSignUpRequest(signUpParams: params)
     }
     
-    
     @IBAction func actionSelectCountryCode(_ sender: Any) {
         CountryPickerWithSectionViewController.presentController(on: self) { (country: Country) in
             self.setCountryPickerData(country)
         }
     }
+    
     @IBAction func btnPasswordShowHideClick(_ sender : UIButton)
     {
         sender.isSelected = !sender.isSelected
         tfPassword.isSecureTextEntry = !sender.isSelected
     }
+    
     @IBAction func btnConfirmPasswordShowHideClick(_ sender : UIButton)
     {
         sender.isSelected = !sender.isSelected
         tfConfirmPassword.isSecureTextEntry = !sender.isSelected
     }
+    
     @IBAction func btnAgreeDisagree(_ sender : UIButton)
     {
         sender.isSelected = !sender.isSelected
@@ -192,24 +194,14 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
                     print(pm.postalCode)
                     print(pm.subThoroughfare)
                     var addressString : String = ""
-//                    if pm.name != nil {
-//                        addressString = addressString + pm.name! + ", "
-//                    }
-//                    if pm.subLocality != nil {
-//                        addressString = addressString + pm.subLocality! + ", "
-//                    }
-//                    if pm.thoroughfare != nil {
-//                        addressString = addressString + pm.thoroughfare! + ", "
-//                    }
+                    
                     if pm.locality != nil {
                         addressString = addressString + pm.locality! + ", "
                     }
                     if pm.country != nil {
                         addressString = addressString + pm.country!
                     }
-//                    if pm.postalCode != nil {
-//                        addressString = addressString + pm.postalCode! + " "
-//                    }
+                    
                     self.vLiveIn = addressString
                     print(addressString)
                 }

@@ -84,9 +84,8 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
         self.navigationController?.navigationBar.barTintColor = UIColor.white
         // Profile image set
         userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, tiMediaType: 1, tiImage: imgProfile, tiIsDefault: 1, reaction: []))
-//        imgsUserPhotos.append(imgProfile!)
     }
-
+    
     //MARK: IBAction Method
     @IBAction func actionDone(_ sender: Any) {
         
@@ -100,18 +99,19 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
         
         self.presenter?.callUserSignUpAPI(signParams: params, images : imgsUserPhotosDict)
     }
-        
-        func displayAlert(strTitle : String, strMessage : String) {
-            self.showAlert(title: strTitle, message: strMessage)
-        }
+    
+    func displayAlert(strTitle : String, strMessage : String) {
+        self.showAlert(title: strTitle, message: strMessage)
+    }
 }
+
 extension AddPhotosViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,OptionButtonsDelegate
 {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-      if userPhotosModel.count == 20{
-        return userPhotosModel.count
-      }
-      return userPhotosModel.count + 1
+        if userPhotosModel.count == 20{
+            return userPhotosModel.count
+        }
+        return userPhotosModel.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
@@ -167,73 +167,59 @@ extension AddPhotosViewController:  UINavigationControllerDelegate, UIImagePicke
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[UIImagePickerController.InfoKey.originalImage]
-             picker.dismiss(animated: true, completion: nil)
-            var imgTemp:UIImage = image as! UIImage
+        picker.dismiss(animated: true, completion: nil)
+        var imgTemp:UIImage = image as! UIImage
         if #available(iOS 11.0, *) {
             if let asset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset{
                 if let fileName = asset.value(forKey: "filename") as? String{
                     print(fileName)
-//                    let dict = ["vMedia":fileName, "tiMediaType":1, "fHeight":asset.pixelHeight, "fWidth": asset.pixelWidth] as [String : Any]
-//                    imgsUserPhotosDict.append(dict as NSDictionary)
                 }
             }else{
-              if (picker.sourceType == UIImagePickerController.SourceType.camera) {
-
-                      let imgName = UUID().uuidString
-                      let documentDirectory = NSTemporaryDirectory()
-                      let localPath = documentDirectory.appending(imgName)
-
-                let data = (info[UIImagePickerController.InfoKey.originalImage] as? UIImage)!.jpegData(compressionQuality: 0.3)! as NSData
-                      data.write(toFile: localPath, atomically: true)
-                      let photoURL = URL.init(fileURLWithPath: localPath)
-
-                  }else{
+                if (picker.sourceType == UIImagePickerController.SourceType.camera) {
+                    
+                    let imgName = UUID().uuidString
+                    let documentDirectory = NSTemporaryDirectory()
+                    let localPath = documentDirectory.appending(imgName)
+                    
+                    let data = (info[UIImagePickerController.InfoKey.originalImage] as? UIImage)!.jpegData(compressionQuality: 0.3)! as NSData
+                    data.write(toFile: localPath, atomically: true)
+                    let photoURL = URL.init(fileURLWithPath: localPath)
+                    
+                }else{
                     let imgString = (info[UIImagePickerController.InfoKey.imageURL] as! URL).lastPathComponent
-                    }
-              }
-             
-          
+                }
+            }
+            
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-//                self.imgsUserPhotos.append(image)
-              imgTemp = image
+                imgTemp = image
             }
             self.clnAddPhoto.reloadData()
+            
         } else {
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-//                self.imgsUserPhotos.append(image)
-                  imgTemp = image
+                imgTemp = image
                 if let imageURL = info[UIImagePickerController.InfoKey.referenceURL] as? URL {
                     let result = PHAsset.fetchAssets(withALAssetURLs: [imageURL], options: nil)
                     let assetResources = PHAssetResource.assetResources(for: result.firstObject!)
                     let file = assetResources.first!.originalFilename
                     print(assetResources.first!.originalFilename)
-                   
-//                    let dict = ["vMedia":file, "tiMediaType":1, "fHeight":image.size.height, "fWidth": image.size.width] as [String : Any]
-//                    imgsUserPhotosDict.append(dict as NSDictionary)
                 }
             }
         }
-      
-      
-      
-      let imgData = NSData(data: (imgTemp).jpegData(compressionQuality: 1)!)
-         var imageSize: Int = imgData.count
-         print("actual size of image in KB: %f ", Double(imageSize) / 1000.0)
-         
-         if (Double(imageSize) / 1000.0) > 5000{
-           let imgDataa = NSData(data: (imgTemp).jpegData(compressionQuality: 0.5)!)
-           let image = UIImage(data: imgDataa as Data)
+        
+        let imgData = NSData(data: (imgTemp).jpegData(compressionQuality: 1)!)
+        var imageSize: Int = imgData.count
+        print("actual size of image in KB: %f ", Double(imageSize) / 1000.0)
+        
+        if (Double(imageSize) / 1000.0) > 5000{
+            let imgDataa = NSData(data: (imgTemp).jpegData(compressionQuality: 0.5)!)
+            let image = UIImage(data: imgDataa as Data)
             let IsDefault = self.userPhotosModel.count == 0 ? 1 : 0
             self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, tiMediaType: 1, tiImage: image, tiIsDefault: IsDefault, reaction: []))
-//            self.imgsUserPhotos.append(image!)
-         }else{
+        }else{
             let IsDefault = self.userPhotosModel.count == 0 ? 1 : 0
             self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, tiMediaType: 1, tiImage: imgTemp, tiIsDefault: IsDefault, reaction: []))
-//           self.imgsUserPhotos.append(imgTemp)
-         }
-      
-      
-      
+        }
         clnAddPhoto.reloadData()
     }
     

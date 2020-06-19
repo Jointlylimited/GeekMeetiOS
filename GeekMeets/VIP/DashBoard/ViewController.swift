@@ -180,6 +180,10 @@ class ViewController: UIViewController {
         }
     }
   
+    @IBAction func cancelButtonTouch(_ sender: Any) {
+        self.popVC()
+    }
+    
   @IBAction func actionchangeCamrePosition(_ sender: Any) {
       //Change camera source
     if let session:AVCaptureSession = captureSession {

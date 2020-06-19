@@ -359,6 +359,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B06C35B249C76FB00D17929 /* JointlyStaging.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JointlyStaging.entitlements; sourceTree = "<group>"; };
 		0B0AC39E24583EF600B91DF5 /* UIAlertControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertControllerExtension.swift; sourceTree = "<group>"; };
 		0B0B4B09247504F70047EB11 /* RangeSeekSliderDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSeekSliderDelegate.swift; sourceTree = "<group>"; };
 		0B0B4B0A247504F70047EB11 /* RangeSeekSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSeekSlider.swift; sourceTree = "<group>"; };
@@ -1830,6 +1831,7 @@
 		F90B4C9720329C45006ADAF6 /* GeekMeets */ = {
 			isa = PBXGroup;
 			children = (
+				0B06C35B249C76FB00D17929 /* JointlyStaging.entitlements */,
 				F79604BA24459767002FFB79 /* UIView */,
 				F76A8D7B2440396700ED9947 /* CustomHelper */,
 				F9EDD441203C2F2D008FA83F /* Category */,
@@ -2823,6 +2825,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = GeekMeets/JointlyStaging.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1.0.5;

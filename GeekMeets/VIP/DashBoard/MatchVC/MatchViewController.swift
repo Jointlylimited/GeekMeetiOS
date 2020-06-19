@@ -56,7 +56,7 @@ class MatchViewController: UIViewController, MatchProtocol {
         viewController.presenter = presenter
         //viewController.interactor = interactor
         
-        //Presenter will communicate with Interector and Viewcontroller
+        //Presenter will communicate with Interector and Vi ewcontroller
         presenter.viewController = viewController
         presenter.interactor = interactor
         
