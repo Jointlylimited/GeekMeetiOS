@@ -103,7 +103,7 @@ class ViewController: UIViewController {
         self.innerView.cornerRadius = self.innerView.w/2
         self.innerView.backgroundColor = .white
         self.objPostData.arrMedia = []
-        self.setupCaptureSession()
+//        self.setupCaptureSession()
     }
     
     func setupCaptureSession() {

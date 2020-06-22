@@ -128,7 +128,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "34"
                   endingLineNumber = "34"
-                  offsetFromSymbolStart = "191">
+                  offsetFromSymbolStart = "292">
                </Location>
                <Location
                   uuid = "97363FA2-3004-4FF6-B4D6-4C3B7038D2E7 - d454be48ecda7eac"
@@ -143,7 +143,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "36"
                   endingLineNumber = "36"
-                  offsetFromSymbolStart = "210">
+                  offsetFromSymbolStart = "180">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -224,7 +224,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "68"
                   endingLineNumber = "68"
-                  offsetFromSymbolStart = "34">
+                  offsetFromSymbolStart = "116">
                </Location>
                <Location
                   uuid = "6DEFF3DA-D742-4385-8E6B-496050C811F8 - 2bb20e4bf9fb0529"
@@ -239,7 +239,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "70"
                   endingLineNumber = "70"
-                  offsetFromSymbolStart = "148">
+                  offsetFromSymbolStart = "172">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -279,22 +279,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D2237290-1A65-4835-8E06-DB9468E55F11"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GeekMeets/Application/AppDelegate/AppDelegate.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "application(_:open:options:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "F6C2CB27-D0A5-430E-AF28-0D0A7DFBDDDD"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -306,6 +290,38 @@
             endingLineNumber = "35"
             landmarkName = "callFBLogin()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F6C2CB27-D0A5-430E-AF28-0D0A7DFBDDDD - 9bbcbc8b2a9c65f9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Jointly.InitialSignUpInteractor.callFBLogin() -&gt; ()"
+                  moduleName = "Jointly"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sotsys216/Documents/GeekMeets/geekmeetsios/GeekMeets/VIP/Main/InitialSignUp/InitialSignUpInteractor.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "52">
+               </Location>
+               <Location
+                  uuid = "F6C2CB27-D0A5-430E-AF28-0D0A7DFBDDDD - 59b4c2fe87f6dff"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Jointly.SignupSocialDM&gt;, Swift.Bool, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Jointly.InitialSignUpInteractor.callFBLogin() -&gt; ()"
+                  moduleName = "Jointly"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sotsys216/Documents/GeekMeets/geekmeetsios/GeekMeets/VIP/Main/InitialSignUp/InitialSignUpInteractor.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "232">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
