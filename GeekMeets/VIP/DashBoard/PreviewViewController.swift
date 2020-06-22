@@ -74,7 +74,6 @@ class PreviewViewController: UIViewController, PreviewProtocol {
             self.videoProcess()
         }
         // Do any additional setup after loading the view.
-        
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {

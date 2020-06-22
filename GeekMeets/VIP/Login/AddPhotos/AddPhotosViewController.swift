@@ -158,7 +158,8 @@ extension AddPhotosViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func actionRemoveIMG(at index: IndexPath) {
-        imgsUserPhotos.remove(at: index.row)
+//        imgsUserPhotos.remove(at: index.row)
+        userPhotosModel.remove(at: index.row)
         clnAddPhoto.reloadData()
     }
 }

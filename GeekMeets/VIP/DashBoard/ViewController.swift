@@ -102,6 +102,8 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         self.innerView.cornerRadius = self.innerView.w/2
         self.innerView.backgroundColor = .white
+        self.objPostData.arrMedia = []
+        self.setupCaptureSession()
     }
     
     func setupCaptureSession() {
