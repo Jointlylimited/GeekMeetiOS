@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B04679B24A0C3680081E507 /* StoryResponseArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B04679A24A0C3680081E507 /* StoryResponseArray.swift */; };
 		0B0AC39F24583EF600B91DF5 /* UIAlertControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0AC39E24583EF600B91DF5 /* UIAlertControllerExtension.swift */; };
 		0B0B4B0C247504F70047EB11 /* RangeSeekSliderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0B4B09247504F70047EB11 /* RangeSeekSliderDelegate.swift */; };
 		0B0B4B0D247504F80047EB11 /* RangeSeekSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0B4B0A247504F70047EB11 /* RangeSeekSlider.swift */; };
@@ -359,6 +360,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B04679A24A0C3680081E507 /* StoryResponseArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryResponseArray.swift; sourceTree = "<group>"; };
 		0B06C35B249C76FB00D17929 /* JointlyStaging.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JointlyStaging.entitlements; sourceTree = "<group>"; };
 		0B0AC39E24583EF600B91DF5 /* UIAlertControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertControllerExtension.swift; sourceTree = "<group>"; };
 		0B0B4B09247504F70047EB11 /* RangeSeekSliderDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSeekSliderDelegate.swift; sourceTree = "<group>"; };
@@ -1522,6 +1524,7 @@
 		F7780E26245AD666003CA4BD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0B04679A24A0C3680081E507 /* StoryResponseArray.swift */,
 				0BBB5CCC2498C11F00069320 /* NotificationResponse.swift */,
 				0BD88AFE2497AD0200C8C025 /* ViewNotification.swift */,
 				0BD88AF824977ABA00C8C025 /* NotificationFields.swift */,
@@ -2612,6 +2615,7 @@
 				F7780E3A245AD667003CA4BD /* UserAuthResponse.swift in Sources */,
 				F97A9A2F21103FAF007C45F5 /* UserDefaultsExtension.swift in Sources */,
 				F7CD7A4D24442F3A00E02A9E /* TutorialPagePresenter.swift in Sources */,
+				0B04679B24A0C3680081E507 /* StoryResponseArray.swift in Sources */,
 				F7164AD0244EE90700853BFC /* OTPEnterInteractor.swift in Sources */,
 				F73002D22446F4D000BDD7FD /* InitialSignUpInteractor.swift in Sources */,
 				F716F2AA24498F630063680F /* SignUpVCViewController.swift in Sources */,

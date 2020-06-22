@@ -16,7 +16,7 @@ protocol MatchProfilePresentationProtocol {
     func gotoMatchVC()
     func gotoReportVC()
     
-    func callUserProfileAPI(id : String)
+    func callUserProfileAPI(id : String, code : String)
     func getUserProfileResponse(response : UserAuthResponseField)
     
     func callStoryListAPI(id : Int)
@@ -40,8 +40,8 @@ class MatchProfilePresenter: MatchProfilePresentationProtocol {
     var interactor: MatchProfileInteractorProtocol?
     
     // MARK: Present something
-    func callUserProfileAPI(id : String){
-        self.interactor?.callUserProfileAPI(id: id)
+    func callUserProfileAPI(id : String, code : String){
+        self.interactor?.callUserProfileAPI(id: id, code : code)
     }
     func getUserProfileResponse(response : UserAuthResponseField){
         self.viewController?.getUserProfileResponse(response: response)

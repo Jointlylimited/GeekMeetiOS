@@ -145,7 +145,8 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     var objMatchUserProfile : UserAuthResponseField!
     var tiIsBlocked : Int = 0
     var location:CLLocation?
-    var objStoryArray : [StoryResponseFields]?
+    var objStoryArray : [StoryResponseArray]?
+    var UserCode : String = ""
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -231,7 +232,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     }
     @IBAction func btnShareAction(_ sender: UIButton) {
         let msg = "Hello User, \n\nUse my referral code \(self.objMatchUserProfile.vReferralCode!) to register yourself on the \(appName) app. \n\nThank you,\nJointly Team"
-        shareInviteApp(message: msg, link: "htttp://jointly.com", controller: self)       
+        shareInviteApp(message: msg, link: "htttp://jointly.com/\(self.objMatchUserProfile.vReferralCode!)", controller: self)
     }
     @IBAction func btnReportAction(_ sender: UIButton) {
         self.presenter?.gotoReportVC()
@@ -262,7 +263,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
             }
             if error == nil {
                 self.location = currLocation
-                self.presenter?.callUserProfileAPI(id: self.UserID != nil ? "\(self.UserID!)" : "78")
+                self.presenter?.callUserProfileAPI(id: self.UserID != nil ? "\(self.UserID!)" : "78", code : self.UserCode)
             }
         }
     }
@@ -338,7 +339,7 @@ extension MatchProfileViewController {
     
     func getReactEmojiResponse(response : MediaReaction){
         if response.responseCode == 200 {
-            self.presenter?.callUserProfileAPI(id: self.UserID == nil ? "78" : "\(self.UserID!)")
+            self.presenter?.callUserProfileAPI(id: self.UserID == nil ? "78" : "\(self.UserID!)", code : UserCode)
         }
     }
     

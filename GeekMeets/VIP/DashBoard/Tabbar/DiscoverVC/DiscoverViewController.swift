@@ -38,9 +38,9 @@ class DiscoverViewController: UIViewController, DiscoverProtocol {
     
     var objStoryData : [StoryViewModel] = []
     var arrayDetails :  [UserDetail] = []
-    var objAllStoryArray : [StoryResponseFields]?
-    var objStoryArray : [StoryResponseFields]?
-    var objOwnStoryArray : [StoryResponseFields]?
+    var objAllStoryArray : [StoryResponseArray]?
+    var objStoryArray : [StoryResponseArray]?
+    var objOwnStoryArray : [StoryResponseArray]?
     
     // MARK: Object lifecycle
     
@@ -131,14 +131,14 @@ extension DiscoverViewController{
                 self.lblNoData.alpha = 0
                 self.objAllStoryArray = response.responseData
                 self.objStoryArray = response.responseData
-                self.objStoryArray = self.objStoryArray!.sorted(by: { $0.tiIsView! < $1.tiIsView! })
-                self.objOwnStoryArray = self.objStoryArray!.filter({($0.iUserId) == UserDataModel.currentUser?.iUserId})
-                
-                if self.objOwnStoryArray!.count != 0 {
-                    for obj in self.objOwnStoryArray! {
-                        self.objStoryArray!.removeAll(where: {$0.iUserId == obj.iUserId})
-                    }
-                }
+//                self.objStoryArray = self.objStoryArray![0].sorted(by: { $0.tiIsView! < $1.tiIsView! })
+//                self.objOwnStoryArray = self.objStoryArray!.filter({($0.iUserId) == UserDataModel.currentUser?.iUserId})
+//
+//                if self.objOwnStoryArray!.count != 0 {
+//                    for obj in self.objOwnStoryArray! {
+//                        self.objStoryArray!.removeAll(where: {$0.iUserId == obj.iUserId})
+//                    }
+//                }
                 
                 self.AllStoryCollView.reloadData()
                 self.StoryCollView.reloadData()
@@ -176,7 +176,7 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.StoryCollView {
-            return (self.objStoryArray != nil ? (self.objOwnStoryArray!.count !=  0 ? self.objStoryArray!.count + 1 : self.objStoryArray!.count) : 0)
+            return (self.objStoryArray != nil ? self.objStoryArray!.count : 0) // (self.objOwnStoryArray!.count !=  0 ? self.objStoryArray!.count + 1 : self.objStoryArray!.count) : 0)
         }
         else {
             return (self.objAllStoryArray != nil ? self.objAllStoryArray!.count : 0)
@@ -189,12 +189,12 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
 
             if self.objOwnStoryArray != nil && self.objOwnStoryArray!.count != 0 {
                 if indexPath.row != 0 {
-                    let data = self.objStoryArray![indexPath.row - 1]
+                    let data = self.objStoryArray![indexPath.row - 1][0]
                     if data.txStory != "" {
                         let url = URL(string:"\(data.tiStoryType! == "0" ? data.txStory! : data.vThumbnail!)")
                         print(url!)
                         cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
-                        cell.userName.text = data.vName
+                        cell.userName.text = data.iUserId == UserDataModel.currentUser?.iUserId ? "Your Story" : data.vName
                         if data.tiIsView == 1 {
                             cell.viewBorder.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 0.5049901832)
                         }
@@ -209,12 +209,12 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
 //                    }
                 }
             } else {
-                let data = self.objStoryArray![indexPath.row ]
+                let data = self.objStoryArray![indexPath.row][0]
                 if data.txStory != "" {
                     let url = URL(string:"\(data.tiStoryType! == "0" ? data.txStory! : data.vThumbnail!)")
                     print(url!)
                     cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
-                    cell.userName.text = data.vName
+                    cell.userName.text = data.iUserId == UserDataModel.currentUser?.iUserId ? "Your Story" : data.vName
                     if data.tiIsView == 1 {
                         cell.viewBorder.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 0.5049901832)
                     }
@@ -224,7 +224,7 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
         } else {
             let cell : DiscoverCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.DiscoverCollectionCell, for: indexPath) as! DiscoverCollectionCell
             if self.objAllStoryArray != nil {
-                let data = self.objAllStoryArray![indexPath.row]
+                let data = self.objAllStoryArray![indexPath.row][0]
                 if data.txStory != "" {
                     let url = URL(string:"\(data.tiStoryType! == "0" ? data.txStory! : data.vThumbnail!)")
                     print(url!)
@@ -243,13 +243,13 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
         if collectionView == self.StoryCollView {
             if self.objOwnStoryArray != nil && self.objOwnStoryArray!.count != 0 {
                 if indexPath.row != 0 {
-                    if self.objStoryArray![indexPath.row - 1].tiIsView == 0 {
-                        self.presenter?.callViewStoryAPI(iStoryId: "\(self.objStoryArray![indexPath.row - 1].iStoryId!)")
+                    if self.objStoryArray![indexPath.row - 1][0].tiIsView == 0 {
+                        self.presenter?.callViewStoryAPI(iStoryId: "\(self.objStoryArray![indexPath.row - 1][0].iStoryId!)")
                     }
                 }
             } else {
-                if self.objStoryArray![indexPath.row].tiIsView == 0 {
-                    self.presenter?.callViewStoryAPI(iStoryId: "\(self.objStoryArray![indexPath.row].iStoryId!)")
+                if self.objStoryArray![indexPath.row][0].tiIsView == 0 {
+                    self.presenter?.callViewStoryAPI(iStoryId: "\(self.objStoryArray![indexPath.row][0].iStoryId!)")
                 }
             }
         }
@@ -272,7 +272,7 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
             }
         } else {
             controller?.pages = [self.objAllStoryArray![indexPath.row]]
-            if self.objAllStoryArray![indexPath.row].iUserId == UserDataModel.currentUser?.iUserId {
+            if self.objAllStoryArray![indexPath.row][0].iUserId == UserDataModel.currentUser?.iUserId {
                 controller?.isOwnStory = true
             }
         }

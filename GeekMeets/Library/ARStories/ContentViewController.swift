@@ -13,7 +13,7 @@ var ContentViewControllerVC = ContentViewController()
 
     var pageViewController : UIPageViewController?
 //    @objc var pages: [UserDetail] = []
-    var pages: [StoryResponseFields] = []
+    var pages: [StoryResponseArray] = []
     @objc var currentIndex : Int = 0
     
     var isFromMatchVC : Bool = true
@@ -86,7 +86,7 @@ var ContentViewControllerVC = ContentViewController()
         vc.isFromMatchVC = isFromMatchVC
         vc.isOwnStory = isOwnStory
         vc.pageIndex = index
-        vc.items = pages
+        vc.items = pages[0]
         currentIndex = index
         vc.delegate = self.delegate
         vc.view.transform = CGAffineTransform(scaleX: 1.4, y: 1.4)

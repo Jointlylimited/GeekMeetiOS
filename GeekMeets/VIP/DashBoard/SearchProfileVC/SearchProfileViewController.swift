@@ -25,9 +25,9 @@ class SearchProfileViewController: UIViewController, SearchProfileProtocol {
     @IBOutlet weak var lblNoResult: UILabel!
     
     var objMsgData : [MessageViewModel] = []
-    var objStoryData : [StoryResponseFields] = []
+    var objStoryData : [StoryResponseArray] = []
     var objFilterMsgData : [MessageViewModel] = []
-    var objFilterStoryData : [StoryResponseFields] = []
+    var objFilterStoryData : [StoryResponseArray] = []
     var isFromDiscover : Bool = true
     
     // MARK: Object lifecycle
@@ -86,7 +86,7 @@ class SearchProfileViewController: UIViewController, SearchProfileProtocol {
             self.objFilterMsgData = self.objMsgData
         } else {
             self.objFilterStoryData.removeAll()
-            self.objFilterStoryData = self.objStoryData
+            self.objFilterStoryData = [self.objStoryData[0]]
         }
         self.tblSearchList.reloadData()
     }
@@ -129,7 +129,7 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
                     self.tblSearchList.reloadData()
                 }
             } else {
-                let data = objFilterStoryData[indexPath.row]
+                let data = objFilterStoryData[indexPath.row][0]
                 if data.vProfileImage != "" {
                     let url = URL(string:"\(data.vProfileImage!)")
                     print(url!)
@@ -187,7 +187,7 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
         let matchVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchProfileScreen) as? MatchProfileViewController
         if self.isFromDiscover {
             if objFilterStoryData.count != 0 {
-                matchVC!.UserID = objFilterStoryData[indexPath.row].iUserId
+                matchVC!.UserID = objFilterStoryData[indexPath.row][0].iUserId
             }
         }
         matchVC!.isFromHome = false
@@ -245,9 +245,9 @@ extension SearchProfileViewController : UITextFieldDelegate {
                 self.objFilterStoryData.removeAll()
                 for data in self.objStoryData {
                     print(self.objFilterStoryData.count)
-                    if data.vName!.lowercased().contains(textField.text!) {
+                    if data[0].vName!.lowercased().contains(textField.text!) {
 //                        if objFilterStoryData.count == 0 {
-                            self.objFilterStoryData.append(data)
+                        self.objFilterStoryData.append([data[0]])
 //                        }
                     }
                 }
