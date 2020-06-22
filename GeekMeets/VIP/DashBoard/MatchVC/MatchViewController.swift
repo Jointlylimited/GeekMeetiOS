@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 protocol MatchProtocol: class {
 }
@@ -73,6 +74,8 @@ class MatchViewController: UIViewController, MatchProtocol {
     }
     
     func setUI() {
+        SDImageCache.shared.clearMemory()
+        SDImageCache.shared.clearDisk()
         
         userImgWidthContraint.constant = ScreenSize.width/2 - 30
         viewHeightConstant.constant = userImgWidthContraint.constant
@@ -99,7 +102,7 @@ class MatchViewController: UIViewController, MatchProtocol {
             } else {
                 if CardUserDetails != nil {
                     self.lblDesc.text = "Wow, You and \(CardUserDetails.vName!) have liked each other"
-                    if UserDetails.vProfileImage != "" {
+                    if CardUserDetails.vProfileImage != "" {
                         let url = URL(string:"\(CardUserDetails.vProfileImage!)")
                         print(url!)
                         self.matchUserImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))

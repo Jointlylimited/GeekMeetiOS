@@ -12,6 +12,7 @@
 
 import UIKit
 import CoreLocation
+import SDWebImage
 
 enum MatchProfileListCells {
     
@@ -188,6 +189,9 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     }
     
     func setTheme(){
+        SDImageCache.shared.clearMemory()
+        SDImageCache.shared.clearDisk()
+        
         self.profileView.frame = DeviceType.iPhone5orSE ? CGRect(x: 0, y: 0, w: ScreenSize.width, h: 500) : (DeviceType.iPhoneXRMax ||  DeviceType.iPhone678p ? CGRect(x: 0, y: 0, w: ScreenSize.width, h: 650) : CGRect(x: 0, y: 0, w: ScreenSize.width, h: 550))
         self.arrayDetails = fetchUserData()
         self.registerCollectionViewCell()
