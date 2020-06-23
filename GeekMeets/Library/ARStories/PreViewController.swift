@@ -158,12 +158,12 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
     
     //2
     func segmentedProgressBarFinished() {
-        if pageIndex == (self.items.count - 1) {
+     //   if pageIndex == (self.items.count - 1) {
             self.dismiss(animated: true, completion: nil)
-        }
-        else {
-            _ = ContentViewControllerVC.goNextPage(fowardTo: pageIndex + 1)
-        }
+//        }
+//        else {
+//            _ = ContentViewControllerVC.goNextPage(fowardTo: pageIndex + 1)
+//        }
     }
     
     @objc func tapOn(_ sender: UITapGestureRecognizer) {

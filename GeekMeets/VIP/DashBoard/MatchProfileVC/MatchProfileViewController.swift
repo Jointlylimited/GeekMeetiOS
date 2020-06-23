@@ -236,7 +236,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     }
     @IBAction func btnShareAction(_ sender: UIButton) {
         let msg = "Hello User, \n\nUse my referral code \(self.objMatchUserProfile.vReferralCode!) to register yourself on the \(appName) app. \n\nThank you,\nJointly Team"
-        shareInviteApp(message: msg, link: "htttp://jointly.com/\(self.objMatchUserProfile.vReferralCode!)", controller: self)
+        shareInviteApp(message: msg, link: "jointly://path/\(self.objMatchUserProfile.vReferralCode!)", controller: self)
     }
     @IBAction func btnReportAction(_ sender: UIButton) {
         self.presenter?.gotoReportVC()
