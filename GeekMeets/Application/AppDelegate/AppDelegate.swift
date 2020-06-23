@@ -72,8 +72,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
            return SCSDKLoginClient.application(app, open: url, options: options)
         }
-       
-        
     }
    
     //MARK: FACEBOOK CALLBACK URL METHOD
@@ -81,16 +79,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     {
      
       
-        if (url.host == "jointly") {
-                let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchScreen) as! MatchProfileViewController
-                controller.UserCode = url.lastPathComponent
-                if let navctrl = self.window?.rootViewController as? UINavigationController{
-                    navctrl.pushViewController(controller, animated: true)
-                }
-            return true
-        } else {
+//        if (url.host == "jointly") {
+//                let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchScreen) as! MatchProfileViewController
+//                controller.UserCode = url.lastPathComponent
+//                if let navctrl = self.window?.rootViewController as? UINavigationController{
+//                    navctrl.pushViewController(controller, animated: true)
+//                }
+//            return true
+//        } else {
             return ApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
-        }
+//        }
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

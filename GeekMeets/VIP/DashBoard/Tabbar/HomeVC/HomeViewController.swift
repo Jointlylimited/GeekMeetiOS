@@ -147,7 +147,6 @@ extension HomeViewController {
                 controller.modalPresentationStyle = .overCurrentContext
                 self.presentVC(controller)
             } else {
-//                self.presenter?.callUserCardAPI()
                 if self.objCardArray.arrUserCardList.count != 0 {
                     self.objCardArray.arrUserCardList.remove(at: 0)
                     self.cardsData = []
