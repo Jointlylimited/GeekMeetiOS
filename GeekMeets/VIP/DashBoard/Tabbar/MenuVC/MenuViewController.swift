@@ -42,6 +42,7 @@ class MenuViewController: UIViewController, MenuProtocol {
     @IBOutlet weak var btnEditProfile: UIButton!
     @IBOutlet weak var lblUserNameAge: UILabel!
     @IBOutlet weak var imgProfile: UIImageView!
+    @IBOutlet weak var lblVersion: UILabel!
     
     var alertView: CustomAlertView!
     var arrMenuModel : [MenuViewModel] = []
@@ -98,6 +99,8 @@ class MenuViewController: UIViewController, MenuProtocol {
     
     func setTheme() {
         self.navigationController?.isNavigationBarHidden = true
+        self.lblVersion.text = "Version \(Bundle.main.releaseVersionNumber!) Build \(Bundle.main.buildVersionNumber!)"
+        
         startTimer()
         self.lblUserNameAge.text = "\(UserDataModel.currentUser?.vName ?? ""), \(UserDataModel.currentUser?.tiAge ?? 0)"
         

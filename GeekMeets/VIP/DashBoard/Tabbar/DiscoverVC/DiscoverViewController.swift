@@ -257,7 +257,7 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
         controller!.modalTransitionStyle = .crossDissolve
         controller!.modalPresentationStyle = .overCurrentContext
         controller?.isFromMatchVC = false
-        controller?.isOwnStory = false
+        controller?.isOwnStory = (self.objStoryArray![indexPath.row][0].iUserId == UserDataModel.currentUser?.iUserId) ? true : false
         controller?.delegate = self
         if collectionView == self.StoryCollView  {
             if self.objOwnStoryArray != nil && self.objOwnStoryArray!.count != 0 {
