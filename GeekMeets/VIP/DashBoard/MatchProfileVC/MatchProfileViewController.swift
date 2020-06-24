@@ -141,6 +141,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     var objProfileData = MatchProfileData()
     var imageArray = [#imageLiteral(resourceName: "img_intro_2"), #imageLiteral(resourceName: "image_1"), #imageLiteral(resourceName: "Image 63"), #imageLiteral(resourceName: "Image 62")]
     var isFromHome : Bool = true
+    var isFromLink : Bool = false
     var arrayDetails :  [UserDetail] = []
     
     var objMatchUserProfile : UserAuthResponseField!
@@ -213,10 +214,14 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
-        if isFromHome {
-            self.dismissVC(completion: nil)
+        if isFromLink {
+            AppSingleton.sharedInstance().showHomeVC(fromMatch: false)
         } else {
-            self.popVC()
+            if isFromHome {
+                self.dismissVC(completion: nil)
+            } else {
+                self.popVC()
+            }
         }
     }
     

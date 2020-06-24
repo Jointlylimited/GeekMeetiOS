@@ -64,6 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       
         if url.host == "path"  {
                 let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchProfileScreen) as! MatchProfileViewController
+                controller.isFromLink = true
                 controller.UserCode = url.lastPathComponent
                 if let navctrl = self.window?.rootViewController as? UINavigationController{
                     navctrl.pushViewController(controller, animated: true)
