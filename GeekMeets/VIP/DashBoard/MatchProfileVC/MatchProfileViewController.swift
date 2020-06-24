@@ -361,8 +361,8 @@ extension MatchProfileViewController {
             if response.responseData?.tiSwipeType == 2 {
                 let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchScreen) as! MatchViewController
                 controller.isFromProfile = true
-                let data = response.responseData
-                controller.CardUserDetails = SearchUserFields(iUserId: data?.iUserId, vName: data?.vUserName, vProfileImage: data?.vProfileImage, tiAge: 0, vLiveIn: "", fLatitude: "", fLongitude: "", storyTime: "", photos: [])
+                let data = self.objMatchUserProfile
+                controller.CardUserDetails = SearchUserFields(iUserId: data?.iUserId, vName: data?.vName, vProfileImage: data?.vProfileImage, tiAge: 0, vLiveIn: "", fLatitude: "", fLongitude: "", storyTime: "", photos: [])
                 controller.modalTransitionStyle = .crossDissolve
                 controller.modalPresentationStyle = .overCurrentContext
                 self.presentVC(controller)

@@ -37,7 +37,7 @@ enum ProfileListCells {
         switch self {
             
         case .AboutCell(let desc):
-            return desc.heightWithConstrainedWidth(width: 400 * _widthRatio,font: fontPoppins(fontType: .Poppins_Medium, fontSize: .sizeNormalTextField)) + 50
+            return desc.heightWithConstrainedWidth(width: 374 * _widthRatio,font: fontPoppins(fontType: .Poppins_Medium, fontSize: .sizeNormalTextField)) + 70
         case .CompanyCell, .SocialCell:
             return UITableView.automaticDimension
         case .InterestCell(let collapsed):
@@ -104,10 +104,11 @@ enum ProfileListCells {
 struct ProfileData {
     
     var isCellCollpsed : Bool = false
+    var str = ""
     
     var cells: [ProfileListCells] {
         var cell: [ProfileListCells] = []
-        let str = "Lady with fun loving personality and open- minded, Looking for Someone to hang out always open for hangout"
+        
         cell.append(.AboutCell(obj:str))
         cell.append(.CompanyCell)
         cell.append(.InterestCell(collapsed : isCellCollpsed))
@@ -186,7 +187,7 @@ class ProfileViewController: UIViewController, ProfileProtocol {
         
         self.lblUserNameAge.text = "\(UserDataModel.currentUser!.vName ?? ""), \(UserDataModel.currentUser!.tiAge ?? 25)"
         self.userProfileModel = UserDataModel.currentUser
-            
+        self.objProfileData.str = UserDataModel.currentUser!.txAbout ?? "About"
         //ProfileImage setup
         if userProfileModel?.vProfileImage != "" {
             let url = URL(string:"\(userProfileModel!.vProfileImage!)")
