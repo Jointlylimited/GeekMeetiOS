@@ -63,8 +63,9 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         alert.addAction(cancelAction)
         
         //self.window?.rootViewController?.show(alert, sender: nil)
-        self.window?.rootViewController?.present(alert, animated: false, completion: nil)
-        
+        delay(0.2) {
+            self.window?.rootViewController?.present(alert, animated: false, completion: nil)
+        }
     }
     
     private func gotoAppSettings() {
@@ -87,6 +88,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
       Messaging.messaging().shouldEstablishDirectChannel = true
         let token11 = Messaging.messaging().fcmToken
         if token11 != nil {
+            print(token11)
 //            AppDelObj.deviceToken = token11!
             UserDefaults.standard.set(token11, forKey: kDeviceToken)
             UserDefaults.standard.synchronize()

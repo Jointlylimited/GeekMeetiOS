@@ -91,11 +91,16 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationController?.isNavigationBarHidden = true
-        setupCaptureSession()
-        setupDevice()
-        setupInputOutput()
-        setupPreviewLayer()
-        startRunningCaptureSession()
+        cameraAccess { [weak self] (status, isGrant) in
+            guard let `self` = self else {return}
+            if isGrant {
+                self.setupCaptureSession()
+                self.setupDevice()
+                self.setupInputOutput()
+                self.setupPreviewLayer()
+                self.startRunningCaptureSession()
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
