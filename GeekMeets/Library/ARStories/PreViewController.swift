@@ -238,7 +238,10 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
     }
     @IBAction func btnDeleteAction(_ sender: UIButton) {
         if isFromMatchVC {
-            let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.ReportScreen)
+            let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.ReportScreen) as! ReportViewController
+            controller.iStoryId = "\(items[pageIndex].iStoryId!)"
+            controller.ReportFor = "\(items[pageIndex].iUserId!)"
+            controller.tiReportType = 2
             self.presentVC(controller)
         } else {
             self.callDeleteStoryAPI(id : "\(items[pageIndex].iStoryId!)")

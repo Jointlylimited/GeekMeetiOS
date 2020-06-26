@@ -58,6 +58,9 @@ class ReportViewController: UIViewController, ReportProtocol {
     var placeHolderText = "Write here..."
     var arrReportData : [CellData] = []
     var arrReport = ReasonModel()
+    var ReportFor : String = ""
+    var iStoryId : String = ""
+    var tiReportType : Int = 1
     
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -107,7 +110,7 @@ class ReportViewController: UIViewController, ReportProtocol {
         self.dismissVC(completion: nil)
     }
     @IBAction func btnReportAction(_ sender: GradientButton) {
-        let params = RequestParameter.sharedInstance().sendReason(iReportedFor: "", iStoryId: "", tiReportType: "1", iReasonId: arrReport.objReason != nil ? "\(arrReport.objReason.iReasonId!)" : "", vReportText: txtReportView.text)
+        let params = RequestParameter.sharedInstance().sendReason(iReportedFor: ReportFor, iStoryId: iStoryId, tiReportType: "1", iReasonId: arrReport.objReason != nil ? "\(arrReport.objReason.iReasonId!)" : "", vReportText: txtReportView.text)
         
         if arrReport.objReason == nil {
             AppSingleton.sharedInstance().showAlert(kSelectReason, okTitle: "OK")

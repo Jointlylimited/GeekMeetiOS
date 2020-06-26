@@ -47,7 +47,7 @@ class ReportInteractor: ReportInteractorProtocol, ReportDataStore {
     
     func callSendReportAPI(params : Dictionary<String, String>){
         LoaderView.sharedInstance.showLoader()
-        ReportAPI.createReport(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiReportType: params["tiReportType"]!, iReasonId: params["iReasonId"]!, vReportText: params["vReportText"]!) { (response, error) in
+        ReportAPI.createReport(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiReportType: params["tiReportType"]!, iReasonId: params["iReasonId"]!, vReportText: params["vReportText"]!, iReportedFor: params["iReportedFor"]!, iStoryId : params["iStoryId"]!) { (response, error) in
             
             LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {

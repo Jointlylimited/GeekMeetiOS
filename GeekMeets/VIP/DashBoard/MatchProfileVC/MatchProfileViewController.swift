@@ -244,7 +244,13 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
         shareInviteApp(message: msg, link: "jointly://path/\(self.objMatchUserProfile.vReferralCode!)", controller: self)
     }
     @IBAction func btnReportAction(_ sender: UIButton) {
-        self.presenter?.gotoReportVC()
+        //        self.presenter?.gotoReportVC()
+        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.ReportScreen) as! ReportViewController
+        controller.ReportFor = "\(self.objMatchUserProfile.iUserId!)"
+        controller.tiReportType = 1
+        controller.modalTransitionStyle = .crossDissolve
+        controller.modalPresentationStyle = .overCurrentContext
+        self.presentVC(controller)
     }
     @IBAction func btnBlockAction(_ sender: UIButton) {
          self.showAlertView() //self.showPickImageView()
