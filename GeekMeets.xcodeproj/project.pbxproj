@@ -201,6 +201,10 @@
 		0BED36682488ED27006A293E /* PreviewInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BED36662488ED27006A293E /* PreviewInteractor.swift */; };
 		0BED366A2488F280006A293E /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BED36692488F280006A293E /* DateExtension.swift */; };
 		0BED366C2488FBEA006A293E /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BED366B2488FBEA006A293E /* URLExtensions.swift */; };
+		0BEED97E24A5BEB600F08122 /* UIWindow+Swizzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEED97824A5BEB600F08122 /* UIWindow+Swizzle.swift */; };
+		0BEED97F24A5BEB600F08122 /* Visualizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEED97924A5BEB600F08122 /* Visualizer.swift */; };
+		0BEED98024A5BEB600F08122 /* TouchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEED97B24A5BEB600F08122 /* TouchView.swift */; };
+		0BEED98424A5BFCE00F08122 /* TouchConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEED98324A5BFCD00F08122 /* TouchConfiguration.swift */; };
 		0BF5ACBC24923B34000B54E6 /* SearchUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF5ACBA24923B33000B54E6 /* SearchUser.swift */; };
 		0BF5ACBD24923B34000B54E6 /* SearchUserFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF5ACBB24923B34000B54E6 /* SearchUserFields.swift */; };
 		0BF5ACBF24926A49000B54E6 /* SearchUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF5ACBE24926A48000B54E6 /* SearchUsers.swift */; };
@@ -558,6 +562,10 @@
 		0BED36662488ED27006A293E /* PreviewInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PreviewInteractor.swift; path = CameraVC/PreviewInteractor.swift; sourceTree = "<group>"; };
 		0BED36692488F280006A293E /* DateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		0BED366B2488FBEA006A293E /* URLExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
+		0BEED97824A5BEB600F08122 /* UIWindow+Swizzle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIWindow+Swizzle.swift"; sourceTree = "<group>"; };
+		0BEED97924A5BEB600F08122 /* Visualizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Visualizer.swift; sourceTree = "<group>"; };
+		0BEED97B24A5BEB600F08122 /* TouchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchView.swift; sourceTree = "<group>"; };
+		0BEED98324A5BFCD00F08122 /* TouchConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchConfiguration.swift; sourceTree = "<group>"; };
 		0BF5ACBA24923B33000B54E6 /* SearchUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUser.swift; sourceTree = "<group>"; };
 		0BF5ACBB24923B34000B54E6 /* SearchUserFields.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUserFields.swift; sourceTree = "<group>"; };
 		0BF5ACBE24926A48000B54E6 /* SearchUsers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUsers.swift; sourceTree = "<group>"; };
@@ -1358,6 +1366,17 @@
 			path = poppins;
 			sourceTree = "<group>";
 		};
+		0BEED97724A5BEB600F08122 /* TouchVisualizer */ = {
+			isa = PBXGroup;
+			children = (
+				0BEED98324A5BFCD00F08122 /* TouchConfiguration.swift */,
+				0BEED97824A5BEB600F08122 /* UIWindow+Swizzle.swift */,
+				0BEED97924A5BEB600F08122 /* Visualizer.swift */,
+				0BEED97B24A5BEB600F08122 /* TouchView.swift */,
+			);
+			path = TouchVisualizer;
+			sourceTree = "<group>";
+		};
 		0BF70806244F1D3C003D6AB7 /* MatchProfileVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -1883,6 +1902,7 @@
 		F90B4CC92032A7C1006ADAF6 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				0BEED97724A5BEB600F08122 /* TouchVisualizer */,
 				0B0B4B08247504F70047EB11 /* RangeSlider */,
 				0BFF2B5F2461779000DECEDD /* LocationManager */,
 				0B51D290245FE2B6005C7B88 /* SOGoogleSignIn */,
@@ -2439,6 +2459,7 @@
 				F76A8D832440396800ED9947 /* CustomerWindowExtension.swift in Sources */,
 				0B9499D22451DBC4001AD1C8 /* ManageSubscriptionInteractor.swift in Sources */,
 				F7F967952451ABF400BD7275 /* SelectAgeRangePresenter.swift in Sources */,
+				0BEED97E24A5BEB600F08122 /* UIWindow+Swizzle.swift in Sources */,
 				F7A3114F246D261100497935 /* UIImageExtensions.swift in Sources */,
 				0B56B60624865040004A62D4 /* MediaReactionFields.swift in Sources */,
 				0B921C2924571BE40010AE04 /* UserDetail.m in Sources */,
@@ -2595,6 +2616,7 @@
 				0BCD4B28245B0C210054A805 /* ColorCollCell.swift in Sources */,
 				0B319665244DE80500B38350 /* TabbarInteractor.swift in Sources */,
 				F9A453D5203AA74B0065C9FD /* SplashViewController.swift in Sources */,
+				0BEED97F24A5BEB600F08122 /* Visualizer.swift in Sources */,
 				0BCD4B2E245B0C390054A805 /* RangeSlider.swift in Sources */,
 				0B595871245C642B006D500A /* StickerView.swift in Sources */,
 				0BF7080B244F1D3C003D6AB7 /* MatchProfilePresenter.swift in Sources */,
@@ -2639,6 +2661,7 @@
 				F7CD7A4E24442F3A00E02A9E /* TutorialPageViewController.swift in Sources */,
 				0B53566E2450870F005571AF /* MyMatchesViewController.swift in Sources */,
 				F7780E34245AD667003CA4BD /* CodableHelper.swift in Sources */,
+				0BEED98424A5BFCE00F08122 /* TouchConfiguration.swift in Sources */,
 				F79CA6F2244D9C5100C9A7EB /* UserProfileInteractor.swift in Sources */,
 				0BDB9DA2247640A800BA2F39 /* AWSHelper.swift in Sources */,
 				0B9499DC2451DBC4001AD1C8 /* AccountSettingInteractor.swift in Sources */,
@@ -2647,6 +2670,7 @@
 				F7F8F5CA2452F87A00CA82E7 /* SelectSocialMediaPresenter.swift in Sources */,
 				0B3C75B1245327DF00CEDBBA /* Share_EarnViewController.swift in Sources */,
 				0BCD4B2A245B0C210054A805 /* AddTextViewController.swift in Sources */,
+				0BEED98024A5BEB600F08122 /* TouchView.swift in Sources */,
 				0B6B4300247FCC52005240B8 /* CustomPickImageView.swift in Sources */,
 				F7F8F5BC2452BD3200CA82E7 /* SelectAgeCell.swift in Sources */,
 				F7780E3F245AD667003CA4BD /* Configuration.swift in Sources */,
@@ -2832,7 +2856,7 @@
 				CODE_SIGN_ENTITLEMENTS = GeekMeets/JointlyStaging.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.0.6;
+				CURRENT_PROJECT_VERSION = 1.0.7;
 				DEVELOPMENT_TEAM = 2MAYPF46D4;
 				INFOPLIST_FILE = "$(SRCROOT)/GeekMeets/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -2975,7 +2999,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.0.6;
+				CURRENT_PROJECT_VERSION = 1.0.7;
 				DEVELOPMENT_TEAM = 2MAYPF46D4;
 				INFOPLIST_FILE = "$(SRCROOT)/GeekMeets/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -3003,7 +3027,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.0.6;
+				CURRENT_PROJECT_VERSION = 1.0.7;
 				DEVELOPMENT_TEAM = 2MAYPF46D4;
 				INFOPLIST_FILE = "$(SRCROOT)/GeekMeets/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;

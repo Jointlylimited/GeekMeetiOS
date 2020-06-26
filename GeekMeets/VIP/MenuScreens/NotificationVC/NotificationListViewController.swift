@@ -212,6 +212,8 @@ extension NotificationListViewController : UITableViewDataSource, UITableViewDel
             let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchScreen) as! MatchViewController
             controller.isFromNotification = true
             controller.OtherUserData = ["UserID": data.iOtherUserId!, "name" : data.vOtherProfileName!, "profileImage" : data.vOtherProfileImage!]
+            controller.modalTransitionStyle = .crossDissolve
+            controller.modalPresentationStyle = .overCurrentContext
             self.presentVC(controller)
         }
     }

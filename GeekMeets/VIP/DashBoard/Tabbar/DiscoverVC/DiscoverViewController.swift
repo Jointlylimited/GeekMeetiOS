@@ -276,7 +276,9 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
                 controller?.isOwnStory = true
             }
         }
-        self.presentVC(controller!)
+        delay(0.2) {
+            self.presentVC(controller!)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
