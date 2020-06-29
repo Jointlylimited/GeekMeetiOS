@@ -232,7 +232,7 @@ extension MenuViewController : UITableViewDataSource, UITableViewDelegate {
             self.pushVC(accVC)
         } else if indexPath.row == 5 {
             let discVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.DiscoverySettingScreen) as? DiscoverySettingViewController
-            discVC?.isFromMenu = true
+            discVC?.isFromMenu = false
             self.pushVC(discVC!)
         }  else if indexPath.row == 8 {
             let shareVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.Share_EarnScreen)

@@ -36,8 +36,8 @@ class EditPreferenceViewController: UIViewController, EditPreferenceProtocol {
     var heightData = [String]()
     var intAgeSelected:Int = 0
     var index : Int = 0
-     var isFromMenu : Bool = true
-    
+    var isFromMenu : Bool = true
+    var heightOptionIDs = [Int]()
     // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -120,7 +120,6 @@ class EditPreferenceViewController: UIViewController, EditPreferenceProtocol {
             self.HeightSliderView.alpha = 0
             self.preferenceCollView.alpha = 1
         }
-//        self.selectedCells = []
         self.preferenceCollView.reloadData()
     }
     
@@ -160,14 +159,17 @@ extension EditPreferenceViewController {
         
         let data = self.selectedCells.map { String($0) }
             .joined(separator: ",")
-        let answerID = self.objPreModel.objPrefrence!.preferenceAnswer!.map { String($0.iAnswerId!) }
+        var answerID = self.objPreModel.objPrefrence!.preferenceAnswer!.map { String($0.iAnswerId!) }
         .joined(separator: ",")
         
         var value = ""
         if self.index == 5 {
             value = self.lblHeight.text ?? ""
+            answerID = "\(self.heightOptionIDs[0])"
         } else if self.index == 6 {
             value = "\(self.lblMinHeight.text ?? "")-\(self.lblMaxHeight.text ?? "")"
+            answerID = self.heightOptionIDs.map { String($0) }
+              .joined(separator: ",")
         } else {
             value = ""
         }
