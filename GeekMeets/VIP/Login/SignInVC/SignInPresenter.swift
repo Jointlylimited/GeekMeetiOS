@@ -56,12 +56,7 @@ class SignInPresenter: SignInPresentationProtocol {
         UserDataModel.setAuthKey(key: (response.responseData?.vAuthKey)!)
         
         if response.responseCode == 200 {
-//            let controller = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange)
-//            if let view = self.viewController as? UIViewController
-//            {
-//                view.pushVC(controller)
-//            }
-            self.callPreferenceAPI()
+            self.setScreenAsPerLoginStatus(status: response.responseData!.tiStep!)
         } else if response.responseCode == 203 {
             let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter)
             if let view = self.viewController as? UIViewController
@@ -97,6 +92,37 @@ class SignInPresenter: SignInPresentationProtocol {
         if let view = self.viewController as? UIViewController
         {
             view.pushVC(controller)
+        }
+    }
+    
+    func setScreenAsPerLoginStatus(status : Int) {
+        Authentication.setLoggedInStatus(true)
+        if status == 0 {
+            let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.SignUpScreen)
+            if let view = self.viewController as? UIViewController
+            {
+                view.pushVC(controller)
+            }
+        } else if status == 1 {
+            let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter) as? OTPEnterViewController
+            if let view = self.viewController as? UIViewController
+            {
+                view.pushVC(controller!)
+            }
+        } else if status == 2 {
+            let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.UserProfile) as! UserProfileViewController
+            if let view = self.viewController as? UIViewController
+            {
+                view.pushVC(controller)
+            }
+        } else if status == 3 {
+            let controller = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange)
+            if let view = self.viewController as? UIViewController
+            {
+                view.pushVC(controller)
+            }
+        } else {
+            self.callPreferenceAPI()
         }
     }
 }

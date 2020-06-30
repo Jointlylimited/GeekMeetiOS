@@ -68,7 +68,7 @@ class Authentication : NSObject
     class func setLoggedInStatus(_ status:Bool?)
        {
            if status == nil{
-               print("You should use the remove auth key method.")
+               print("You should use the remove status key method.")
                return
            }
            UserDefaults.standard.set(status, forKey: "isUserLoggedIn")
@@ -84,6 +84,26 @@ class Authentication : NSObject
                return false
            }
        }
+    
+    class func setSignUpFlowStatus(_ status:Int?)
+    {
+        if status == nil{
+            print("You could not find status value.")
+            return
+        }
+        UserDefaults.standard.set(status, forKey: "SignUpFlowStatus")
+        UserDefaults.standard.synchronize()
+    }
+    class func getSignUpFlowStatus()-> Int?
+    {
+        let vAuthKey = UserDefaults.standard.object(forKey: "SignUpFlowStatus")
+        if vAuthKey != nil{
+            return vAuthKey as! Int     //(userData as AnyObject).object(forKey: "vAuthKey") as! String
+        }
+        else{
+            return 0
+        }
+    }
 }
 
 

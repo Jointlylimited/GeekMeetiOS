@@ -14,7 +14,7 @@ import UIKit
 
 protocol OTPEnterProtocol: class {
     func displaySomething()
-    func getVerifyOTPResponse(response : CommonResponse)
+    func getVerifyOTPResponse(response : UserAuthResponse)
     func getResendOTPResponse(response : CommonResponse)
 }
 
@@ -241,7 +241,7 @@ extension OTPEnterViewController {
         self.view.addSubview(alertView)
     }
     
-    func getVerifyOTPResponse(response : CommonResponse) {
+    func getVerifyOTPResponse(response : UserAuthResponse) {
         self.displayAlert(strTitle: "", strMessage: response.responseMessage!)
     }
     

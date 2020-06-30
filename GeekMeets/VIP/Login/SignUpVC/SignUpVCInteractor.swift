@@ -48,9 +48,9 @@ class SignUpVCInteractor: SignUpVCInteractorProtocol, SignUpVCDataStore {
     func callNormalSignupAPI(params : Dictionary<String, String>){
         let socialType = UserDataModel.getSocialType()
         
-        if socialType != "" {
+        if UserDataModel.currentUser!.tiIsAdmin == 1 {
             LoaderView.sharedInstance.showLoader()
-            UserAPI.signUp(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, tiIsSocialLogin: UserAPI.TiIsSocialLogin_signUp(rawValue: params["tiIsSocialLogin"]!)!, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signUp(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId!, vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress, vSocialId: params["vSocialId"]!, tiSocialType: UserAPI.TiSocialType_signUp(rawValue: socialType)!, vEmail: params["vEmail"]!, vPassword: params["vPassword"]!, vCountryCode: params["vCountryCode"]!, vPhone: params["vPhone"]!, vLiveIn: params["vLiveIn"]!, fLatitude: Float(params["fLatitude"]!), fLongitude: Float(params["fLongitude"]!)) { (response, error) in
+            UserAPI.signUp(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, tiIsSocialLogin: UserAPI.TiIsSocialLogin_signUp(rawValue: params["tiIsSocialLogin"]!)!, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signUp(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId!, vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress, iUserId: "\(UserDataModel.currentUser!.iUserId!)", vSocialId: params["vSocialId"]!, tiSocialType: UserAPI.TiSocialType_signUp(rawValue: socialType)!, vEmail: params["vEmail"]!, vPassword: params["vPassword"]!, vCountryCode: params["vCountryCode"]!, vPhone: params["vPhone"]!, vLiveIn: params["vLiveIn"]!, fLatitude: Float(params["fLatitude"]!), fLongitude: Float(params["fLongitude"]!)) { (response, error) in
                 
                 LoaderView.sharedInstance.hideLoader()
                 if response?.responseCode == 200 {
@@ -66,19 +66,38 @@ class SignUpVCInteractor: SignUpVCInteractorProtocol, SignUpVCDataStore {
                 }
             }
         } else {
-            LoaderView.sharedInstance.showLoader()
-            UserAPI.signUp(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, tiIsSocialLogin: UserAPI.TiIsSocialLogin_signUp(rawValue: params["tiIsSocialLogin"]!)!, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signUp(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId!, vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress, vSocialId: params["vSocialId"]!, vEmail: params["vEmail"]!, vPassword: params["vPassword"]!, vCountryCode: params["vCountryCode"]!, vPhone: params["vPhone"]!, vLiveIn: params["vLiveIn"]!, fLatitude: Float(params["fLatitude"]!), fLongitude: Float(params["fLongitude"]!)) { (response, error) in
-                
-                LoaderView.sharedInstance.hideLoader()
-                if response?.responseCode == 200 {
-                    self.presenter?.getNormalSignupResponse(response : response!)
-                } else if response?.responseCode == 203 {
-                    AppSingleton.sharedInstance().logout()
-                } else {
-                    if error != nil {
-                        AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+            if socialType != "" {
+                LoaderView.sharedInstance.showLoader()
+                UserAPI.signUp(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, tiIsSocialLogin: UserAPI.TiIsSocialLogin_signUp(rawValue: params["tiIsSocialLogin"]!)!, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signUp(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId!, vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress, vSocialId: params["vSocialId"]!, tiSocialType: UserAPI.TiSocialType_signUp(rawValue: socialType)!, vEmail: params["vEmail"]!, vPassword: params["vPassword"]!, vCountryCode: params["vCountryCode"]!, vPhone: params["vPhone"]!, vLiveIn: params["vLiveIn"]!, fLatitude: Float(params["fLatitude"]!), fLongitude: Float(params["fLongitude"]!)) { (response, error) in
+                    
+                    LoaderView.sharedInstance.hideLoader()
+                    if response?.responseCode == 200 {
+                        self.presenter?.getNormalSignupResponse(response : response!)
+                    } else if response?.responseCode == 203 {
+                        AppSingleton.sharedInstance().logout()
                     } else {
-                        AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+                        if error != nil {
+                            AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                        } else {
+                            AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+                        }
+                    }
+                }
+            } else {
+                LoaderView.sharedInstance.showLoader()
+                UserAPI.signUp(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, tiIsSocialLogin: UserAPI.TiIsSocialLogin_signUp(rawValue: params["tiIsSocialLogin"]!)!, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signUp(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId!, vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress, vSocialId: params["vSocialId"]!, vEmail: params["vEmail"]!, vPassword: params["vPassword"]!, vCountryCode: params["vCountryCode"]!, vPhone: params["vPhone"]!, vLiveIn: params["vLiveIn"]!, fLatitude: Float(params["fLatitude"]!), fLongitude: Float(params["fLongitude"]!)) { (response, error) in
+                    
+                    LoaderView.sharedInstance.hideLoader()
+                    if response?.responseCode == 200 {
+                        self.presenter?.getNormalSignupResponse(response : response!)
+                    } else if response?.responseCode == 203 {
+                        AppSingleton.sharedInstance().logout()
+                    } else {
+                        if error != nil {
+                            AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                        } else {
+                            AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+                        }
                     }
                 }
             }

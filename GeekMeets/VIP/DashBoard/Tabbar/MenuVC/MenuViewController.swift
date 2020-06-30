@@ -120,7 +120,7 @@ class MenuViewController: UIViewController, MenuProtocol {
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_discovery"), label: "Discovery Settings", rightImage: #imageLiteral(resourceName: "icn_arrow")),
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_manage_subscription"), label: "Push Notification", rightImage: #imageLiteral(resourceName: "icn_off")),
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_location"), label: "Location", rightImage: #imageLiteral(resourceName: "icn_off")),
-                        MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_share"), label: "Share & Earn", rightImage: #imageLiteral(resourceName: "icn_arrow")),
+                        /*MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_share"), label: "Share & Earn", rightImage: #imageLiteral(resourceName: "icn_arrow")),*/
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_tips"), label: "Tips", rightImage: #imageLiteral(resourceName: "icn_arrow")),
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_contact"), label: "Contact Us", rightImage: #imageLiteral(resourceName: "icn_arrow")),
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_legal"), label: "Legal", rightImage: #imageLiteral(resourceName: "icn_arrow"))]
@@ -234,18 +234,18 @@ extension MenuViewController : UITableViewDataSource, UITableViewDelegate {
             let discVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.DiscoverySettingScreen) as? DiscoverySettingViewController
             discVC?.isFromMenu = false
             self.pushVC(discVC!)
-        }  else if indexPath.row == 8 {
+        }  /*else if indexPath.row == 8 {
             let shareVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.Share_EarnScreen)
             self.pushVC(shareVC)
-        } else if indexPath.row == 9 {
+        }*/ else if indexPath.row == 8 {
             let commonVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.CommonPagesScreen) as! CommonPagesViewController
             commonVC.objCommonData = CommonModelData.Tips
             self.pushVC(commonVC)
-        } else if indexPath.row == 10 {
+        } else if indexPath.row == 9 {
             let conVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.ContactUS_LegalScreen) as? ContactUS_LegalViewController
             conVC?.isForLegal = false
             self.pushVC(conVC!)
-        } else if indexPath.row == 11 {
+        } else if indexPath.row == 10 {
             let conVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.ContactUS_LegalScreen) as? ContactUS_LegalViewController
             conVC?.isForLegal = true
             self.pushVC(conVC!)

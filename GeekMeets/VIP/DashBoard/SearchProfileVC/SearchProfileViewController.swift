@@ -28,6 +28,8 @@ class SearchProfileViewController: UIViewController, SearchProfileProtocol {
     var objStoryData : [StoryResponseArray] = []
     var objFilterMsgData : [MessageViewModel] = []
     var objFilterStoryData : [StoryResponseArray] = []
+    var objAllMsgData : [MessageViewModel] = []
+    var objAllFilterStoryData : [StoryResponseArray] = []
     var isFromDiscover : Bool = true
     
     // MARK: Object lifecycle
@@ -72,8 +74,10 @@ class SearchProfileViewController: UIViewController, SearchProfileProtocol {
     func setFilterData(){
         if !self.isFromDiscover {
             self.objFilterMsgData = self.objMsgData
+            self.objAllMsgData = self.objMsgData
         } else {
             self.objFilterStoryData = self.objStoryData
+            self.objAllFilterStoryData = self.objStoryData
         }
         self.tblSearchList.reloadData()
     }
@@ -81,12 +85,14 @@ class SearchProfileViewController: UIViewController, SearchProfileProtocol {
     @objc func btnClearAllAction(){
         self.btnSearch.alpha = 0.0
         self.txtSearchField.text = ""
+        self.lblNoResult.alpha = 0
+        
         if !self.isFromDiscover {
             self.objFilterMsgData.removeAll()
-            self.objFilterMsgData = self.objMsgData
+            self.objFilterMsgData = self.objAllMsgData
         } else {
             self.objFilterStoryData.removeAll()
-            self.objFilterStoryData = [self.objStoryData[0]]
+            self.objFilterStoryData = self.objAllFilterStoryData
         }
         self.tblSearchList.reloadData()
     }
@@ -126,6 +132,7 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
                 
                 cell.clickOnCloseBtn = {
                     print("Click on close button.")
+                    self.objFilterMsgData.remove(at: indexPath.row)
                     self.tblSearchList.reloadData()
                 }
             } else {
@@ -143,6 +150,7 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
                 }
                 cell.clickOnCloseBtn = {
                     print("Click on close button.")
+                    self.objFilterStoryData.remove(at: indexPath.row)
                     self.tblSearchList.reloadData()
                 }
             }

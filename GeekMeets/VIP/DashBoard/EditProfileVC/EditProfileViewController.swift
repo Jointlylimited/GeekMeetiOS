@@ -48,7 +48,7 @@ enum EditProfileListCells {
         case .InterestCell:
             return 130
         case .PhotosCell:
-            return DeviceType.iPhone5orSE ? 330 : 390
+            return DeviceType.iPhone5orSE ? 350 : 410
         case .SocialCell:
             return 225
         case .PrivacyCell:
@@ -491,10 +491,13 @@ extension EditProfileViewController : UICollectionViewDataSource, UICollectionVi
                     cell.btnLoveSmile.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].vCount != "0") ? photoString.reaction![0].vCount : "0", for: .normal)
                 }
                 if photoString.reaction!.count == 2 {
+                    cell.btnKiss.setTitle("0", for: .normal)
                     cell.btnLoveSmile.setTitle((photoString.reaction?.count != 0 && photoString.reaction![1].vCount != "0") ? photoString.reaction![1].vCount : "0", for: .normal)
                     cell.btnLove.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].vCount != "0") ? photoString.reaction![0].vCount : "0", for: .normal)
                 }
                 if photoString.reaction!.count == 1  {
+                    cell.btnKiss.setTitle("0", for: .normal)
+                    cell.btnLoveSmile.setTitle("0", for: .normal)
                     cell.btnLove.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].vCount != "0") ? photoString.reaction![0].vCount : "0", for: .normal)
                 }
             } else {
@@ -505,7 +508,7 @@ extension EditProfileViewController : UICollectionViewDataSource, UICollectionVi
             cell.emojiStackView.alpha = 0
             cell.btnClose.alpha  = 0
         }
-        
+        cell.emojiStackView.spacing = DeviceType.iPhone5orSE ? 2 : 10
         cell.clickOnImageButton = {
             self.openImagePickerActionSheet()
         }
@@ -522,7 +525,7 @@ extension EditProfileViewController : UICollectionViewDataSource, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = ScreenSize.width/3
+        let width = ScreenSize.width/3 + 10
         return CGSize(width: width, height: width)
     }
 }

@@ -240,6 +240,26 @@ class AppSingleton: NSObject {
         navController.navigationBar.isHidden = true
         AppDelObj.window?.rootViewController = navController
     }
+        
+    func moveToLogeedInScreen(){
+        if Authentication.getSignUpFlowStatus() == 0 {
+            let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.SignUpScreen)
+            let navController = UINavigationController.init(rootViewController: controller)
+            AppDelObj.window?.rootViewController = navController
+        } else if Authentication.getSignUpFlowStatus() == 1 {
+            let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter) as! OTPEnterViewController
+            let navController = UINavigationController.init(rootViewController: controller)
+            AppDelObj.window?.rootViewController = navController
+        } else if Authentication.getSignUpFlowStatus() == 2 {
+            let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.UserProfile) as! UserProfileViewController
+            let navController = UINavigationController.init(rootViewController: controller)
+            AppDelObj.window?.rootViewController = navController
+        } else if Authentication.getSignUpFlowStatus() == 3 {
+            let controller = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange)
+            let navController = UINavigationController.init(rootViewController: controller)
+            AppDelObj.window?.rootViewController = navController
+        }
+    }
     
     func logout()
     {

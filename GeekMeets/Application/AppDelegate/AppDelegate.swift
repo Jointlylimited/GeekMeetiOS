@@ -39,7 +39,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Push Notification call
         self.registerForPushNotifications()
         if Authentication.getLoggedInStatus() == true {
-            AppSingleton.sharedInstance().showHomeVC(fromMatch : false)
+            if Authentication.getSignUpFlowStatus() == 0 || Authentication.getSignUpFlowStatus() == 1 || Authentication.getSignUpFlowStatus() == 2 || Authentication.getSignUpFlowStatus() == 3 {
+                AppSingleton.sharedInstance().moveToLogeedInScreen()
+            } else {
+                AppSingleton.sharedInstance().showHomeVC(fromMatch : false)
+            }
         }
         
         return true

@@ -382,10 +382,13 @@ extension ProfileViewController : UICollectionViewDataSource, UICollectionViewDe
                     cell.btnLoveSmile.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].vCount != "0") ? photoString.reaction![0].vCount : "0", for: .normal)
                 }
                 if photoString.reaction!.count == 2 {
+                    cell.btnKiss.setTitle("0", for: .normal)
                     cell.btnLoveSmile.setTitle((photoString.reaction?.count != 0 && photoString.reaction![1].vCount != "0") ? photoString.reaction![1].vCount : "0", for: .normal)
                     cell.btnLove.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].vCount != "0") ? photoString.reaction![0].vCount : "0", for: .normal)
                 }
                 if photoString.reaction!.count == 1  {
+                    cell.btnKiss.setTitle("0", for: .normal)
+                    cell.btnLoveSmile.setTitle("0", for: .normal)
                     cell.btnLove.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].vCount != "0") ? photoString.reaction![0].vCount : "0", for: .normal)
                 }
             } else {

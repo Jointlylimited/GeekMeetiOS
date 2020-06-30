@@ -113,6 +113,8 @@ class SignUpVCPresenter: SignUpVCPresentationProtocol {
     
     func getNormalSignupResponse(response : UserAuthResponse) {
         UserDataModel.currentUser = response.responseData
+        Authentication.setSignUpFlowStatus((response.responseData?.tiStep)!)
+        
         UserDataModel.setAuthKey(key: (response.responseData?.vAuthKey)!)
         if response.responseCode == 200 {
             self.goToOTPScreen()

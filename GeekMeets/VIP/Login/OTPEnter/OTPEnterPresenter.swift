@@ -16,7 +16,7 @@ protocol OTPEnterPresentationProtocol {
     func presentSomething()
     func actionVerifyOTP()
     func callVerifyOTPAPI(iOTP : String,vCountryCode : String,vPhone : String, signUpParams : Dictionary<String, String>?)
-    func getVerifyOTPResponse(response : CommonResponse)
+    func getVerifyOTPResponse(response : UserAuthResponse)
     func getResendOTPResponse(response : CommonResponse)
     func callResendOTPAPI(vCountryCode : String,vPhone : String)
 }
@@ -59,12 +59,12 @@ class OTPEnterPresenter: OTPEnterPresentationProtocol {
         self.viewController?.getResendOTPResponse(response: response)
         
     }
-    func getVerifyOTPResponse(response : CommonResponse) {
+    func getVerifyOTPResponse(response : UserAuthResponse) {
         
         if response.responseCode == 400{
             self.viewController?.getVerifyOTPResponse(response: response)
         }else{
-            
+            Authentication.setSignUpFlowStatus((response.responseData?.tiStep)!)
             //        self.viewController?.getForgotPasswordResponse(response: response)
             self.actionVerifyOTP()
             

@@ -39,10 +39,12 @@ public struct UserAuthResponseField: Codable {
     public var tiIsShowContactNumber: Int?
     public var tiIsShowProfileToLikedUser: Int?
     public var tiIsSubscribed: Int?
+    public var tiIsAdmin: Int?
+    public var tiStep: Int?
     public var photos: [UserProfileMediaList]?
     public var preference: [PreferenceAnswer]?
 
-    public init(iUserId: Int?, vSocialId: String?, tiSocialType: Int?, vAuthKey: String?, vName: String?, tiAge: Int?, tiGender: Int?, dDob: String?, vProfileImage: String?, vEmail: String?, txAbout: String?, vCountryCode: String?, vPhone: String?, vUserDeviceLanguage: String?, txCompanyDetail: String?, vLiveIn: String?, fLatitude: String?, fLongitude: String?, tiIsSocialLogin: Int?, vReferralCode: String?, vInstaLink: String?, vSnapLink: String?, vFbLink: String?, tiIsShowAge: Int?, tiIsShowDistance: Int?, tiIsShowContactNumber: Int?, tiIsShowProfileToLikedUser: Int?, tiIsSubscribed: Int?, photos: [UserProfileMediaList]?, preference: [PreferenceAnswer]?) {
+    public init(iUserId: Int?, vSocialId: String?, tiSocialType: Int?, vAuthKey: String?, vName: String?, tiAge: Int?, tiGender: Int?, dDob: String?, vProfileImage: String?, vEmail: String?, txAbout: String?, vCountryCode: String?, vPhone: String?, vUserDeviceLanguage: String?, txCompanyDetail: String?, vLiveIn: String?, fLatitude: String?, fLongitude: String?, tiIsSocialLogin: Int?, vReferralCode: String?, vInstaLink: String?, vSnapLink: String?, vFbLink: String?, tiIsShowAge: Int?, tiIsShowDistance: Int?, tiIsShowContactNumber: Int?, tiIsShowProfileToLikedUser: Int?, tiIsSubscribed: Int?, tiIsAdmin: Int?, tiStep: Int?, photos: [UserProfileMediaList]?, preference: [PreferenceAnswer]?) {
         self.iUserId = iUserId
         self.vSocialId = vSocialId
         self.tiSocialType = tiSocialType
@@ -71,6 +73,8 @@ public struct UserAuthResponseField: Codable {
         self.tiIsShowContactNumber = tiIsShowContactNumber
         self.tiIsShowProfileToLikedUser = tiIsShowProfileToLikedUser
         self.tiIsSubscribed = tiIsSubscribed
+        self.tiIsAdmin = tiIsAdmin
+        self.tiStep = tiStep
         self.photos = photos
         self.preference = preference
     }
