@@ -36,6 +36,7 @@ class SelectAgeRangePresenter: SelectAgeRangePresentationProtocol {
     
     func getQuestionaryResponse(response : PreferencesResponse) {
         UserDataModel.PreferenceData = response
+        Authentication.setSignUpFlowStatus(4)
         self.viewController?.displayPreferenceData(response : response)
     }
   

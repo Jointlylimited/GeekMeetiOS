@@ -14,6 +14,7 @@ import UIKit
 
 protocol EditPreferenceProtocol: class {
      func getPostPreferenceResponse(response : CommonResponse)
+     func getPreferenceData(response : PreferencesResponse)
 }
 
 class EditPreferenceViewController: UIViewController, EditPreferenceProtocol {
@@ -180,10 +181,18 @@ extension EditPreferenceViewController {
     
     func getPostPreferenceResponse(response : CommonResponse){
         if response.responseCode == 200 {
-                self.popVC()
+                self.presenter?.callQuestionaryAPI()
             } else {
                 AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
             }
+    }
+    
+    func getPreferenceData(response : PreferencesResponse) {
+        if response.responseCode == 200 {
+            UserDataModel.UserPreferenceResponse = response
+            let discVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.DiscoverySettingScreen)
+            self.pop(toLast: discVC.classForCoder)
+        }
     }
 }
 

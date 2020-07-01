@@ -28,11 +28,15 @@ class SignUpVCPresenter: SignUpVCPresentationProtocol {
     func callSignUpRequest(signUpParams : Dictionary<String, String>){
         if validateSignUpParams(param: signUpParams) {
             self.signUpParams = signUpParams
+            if UserDataModel.currentUser?.tiIsAdmin == 1 {
+                self.interactor?.callNormalSignupAPI(params : signUpParams)
+            } else {
                 if UserDataModel.currentUser?.iUserId != nil && UserDataModel.currentUser?.iUserId != 0 {
                     self.goToOTPScreen()
                 } else {
                     self.interactor?.callEmailAvailabilityAPI(email : signUpParams["vEmail"]!)
                 }
+            }
         }
     }
     
@@ -113,7 +117,7 @@ class SignUpVCPresenter: SignUpVCPresentationProtocol {
     
     func getNormalSignupResponse(response : UserAuthResponse) {
         UserDataModel.currentUser = response.responseData
-        Authentication.setSignUpFlowStatus((response.responseData?.tiStep)!)
+        Authentication.setSignUpFlowStatus(response.responseData!.tiStep!)
         
         UserDataModel.setAuthKey(key: (response.responseData?.vAuthKey)!)
         if response.responseCode == 200 {

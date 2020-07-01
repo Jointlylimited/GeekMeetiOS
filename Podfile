@@ -38,4 +38,10 @@ target 'GeekMeets' do
   
   #  Animation
   pod 'lottie-ios'
+  
+  # XMPP
+   pod 'XMPPFramework/Swift'
+   pod 'RSKGrowingTextView'
+   pod 'OpalImagePicker'
+   pod 'SwiftMessages', '7.0.0'
 end

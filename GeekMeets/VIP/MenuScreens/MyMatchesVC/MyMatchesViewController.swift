@@ -13,6 +13,7 @@
 import UIKit
 
 protocol MyMatchesProtocol: class {
+    func getMatchResponse(response : MatchUser)
 }
 
 class MyMatchesViewController: UIViewController, MyMatchesProtocol {
@@ -22,7 +23,7 @@ class MyMatchesViewController: UIViewController, MyMatchesProtocol {
     @IBOutlet weak var tblMatchList: UITableView!
     
     var objMsgData : [MessageViewModel] = []
-    
+    var objMatchData : [SwipeUserFields] = []
     // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -61,6 +62,7 @@ class MyMatchesViewController: UIViewController, MyMatchesProtocol {
         super.viewDidLoad()
         self.registerTableViewCell()
         self.setStoryMsgViewData()
+        
     }
     
     func registerTableViewCell(){
@@ -69,6 +71,7 @@ class MyMatchesViewController: UIViewController, MyMatchesProtocol {
     
     func setStoryMsgViewData(){
         self.objMsgData = [MessageViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Sophia", msgTxt: "Matches on 11 Jan, 2019, 10:23 pm", msgCount: "2", msgTime: "11:23 pm"),MessageViewModel(userImage: #imageLiteral(resourceName: "img_intro_1"), userName: "Sophia", msgTxt: "Matches on 11 Jan, 2019, 10:23 pm", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "Image 64"), userName: "Linda Parker", msgTxt: "Matches on 11 Jan, 2019, 10:23 pm", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "Image 62"), userName: "Linda Parker", msgTxt: "Matches on 11 Jan, 2019, 10:23 pm", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Linda Parker", msgTxt: "Matches on 11 Jan, 2019, 10:23 pm", msgCount: "2", msgTime: "11:23 pm"),MessageViewModel(userImage: #imageLiteral(resourceName: "img_intro_1"), userName: "Sophia", msgTxt: "Matches on 11 Jan, 2019, 10:23 pm", msgCount: "2", msgTime: "11:23 pm")]
+        self.presenter?.callMatchListAPI()
     }
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.popVC()
@@ -82,6 +85,15 @@ class MyMatchesViewController: UIViewController, MyMatchesProtocol {
     }
 }
 
+extension MyMatchesViewController {
+    func getMatchResponse(response : MatchUser) {
+        if response.responseCode == 200 {
+            print(response.responseData)
+            self.objMatchData = response.responseData!
+            self.tblMatchList.reloadData()
+        }
+    }
+}
 //MARK: UITableView Delegate & Datasource Methods
 extension MyMatchesViewController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -89,7 +101,7 @@ extension MyMatchesViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.objMsgData.count
+        return self.objMatchData.count != 0 ? self.objMatchData.count : self.objMsgData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -102,10 +114,18 @@ extension MyMatchesViewController : UITableViewDataSource, UITableViewDelegate {
             
             cell.btnChat.alpha = 1.0
             
-            let data = objMsgData[indexPath.row]
-            cell.userImgView.image = data.userImage
-            cell.userName.text = data.userName
-            cell.msgText.text = data.msgTxt
+            if self.objMatchData.count != 0  {
+                let data = self.objMatchData[indexPath.row]
+                let url = URL(string:"\(data.vProfileImage!)")
+                cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_round"))
+                cell.userName.text = data.vProfileName
+                cell.msgText.text = "Matches on 10 Jun, 2020, 10:23 am"
+            } else {
+                let data = objMsgData[indexPath.row]
+                cell.userImgView.image = data.userImage
+                cell.userName.text = data.userName
+                cell.msgText.text = data.msgTxt
+            }
             cell.msgTime.alpha = 0.0
             cell.msgCount.alpha = 0.0
         }
@@ -118,7 +138,7 @@ extension MyMatchesViewController : UITableViewDataSource, UITableViewDelegate {
     @available(iOS 11.0, *)
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title:  "", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            self.objMsgData.remove(at: indexPath.row)
+//            self.objMsgData.remove(at: indexPath.row)
             self.tblMatchList.reloadData()
             //whatever
             success(true)

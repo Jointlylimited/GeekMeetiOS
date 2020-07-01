@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15508" systemVersion="18E224" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="XMPP_MessageArchiving_Custom" representedClassName="XMPP_MessageArchiving_Custom" syncable="YES">
+        <attribute name="bareJid" optional="YES" transient="YES"/>
+        <attribute name="bareJidStr" attributeType="String"/>
+        <attribute name="body" optional="YES" attributeType="String"/>
+        <attribute name="composing" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO"/>
+        <attribute name="downloading" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO"/>
+        <attribute name="error" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO"/>
+        <attribute name="fromAppID" optional="YES" attributeType="String"/>
+        <attribute name="fromJID" optional="YES" attributeType="Transformable"/>
+        <attribute name="localPath" optional="YES" attributeType="String"/>
+        <attribute name="mediaData" optional="YES" transient="YES" attributeType="Transformable"/>
+        <attribute name="message" optional="YES" transient="YES"/>
+        <attribute name="messageDate" optional="YES" attributeType="String"/>
+        <attribute name="messageId" optional="YES" attributeType="String"/>
+        <attribute name="messageStr" attributeType="String"/>
+        <attribute name="messageType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="msgStatus" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="outgoing" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO"/>
+        <attribute name="streamBareJidStr" attributeType="String"/>
+        <attribute name="thread" optional="YES" attributeType="String"/>
+        <attribute name="thumbLocalUrl" optional="YES" attributeType="String"/>
+        <attribute name="thumbUrl" optional="YES" attributeType="String"/>
+        <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="toAppID" optional="YES" attributeType="String"/>
+        <attribute name="toJID" optional="YES" attributeType="Transformable"/>
+        <attribute name="uploading" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO"/>
+        <attribute name="url" optional="YES" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="XMPP_MessageArchiving_Custom" positionX="-63" positionY="-18" width="128" height="433"/>
+    </elements>
+</model>

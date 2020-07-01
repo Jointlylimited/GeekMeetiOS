@@ -48,10 +48,7 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem Ipsum is simply dummy text of the industry." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ajA-f4-zB0">
-                        <rect key="frame" x="94" y="60" width="306" height="20.5"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="20.5" id="H7L-Kb-M4a"/>
-                        </constraints>
+                        <rect key="frame" x="94" y="63.5" width="306" height="17"/>
                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="12"/>
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="highlightedColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
@@ -78,7 +75,7 @@
                         </userDefinedRuntimeAttributes>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jYQ-kh-KEF">
-                        <rect key="frame" x="415" y="60" width="50" height="21"/>
+                        <rect key="frame" x="415" y="63.5" width="50" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="XPw-WQ-GFO"/>
                             <constraint firstAttribute="height" constant="21" id="kKV-nk-VI4"/>
@@ -117,7 +114,6 @@
                     <constraint firstItem="GHx-cr-P4F" firstAttribute="centerY" secondItem="HBP-bu-Nyi" secondAttribute="centerY" id="Hhg-Fi-CgT"/>
                     <constraint firstAttribute="trailing" secondItem="BSa-9p-uPg" secondAttribute="trailing" constant="20" id="IVN-0Z-cPZ"/>
                     <constraint firstItem="jYQ-kh-KEF" firstAttribute="top" secondItem="ajA-f4-zB0" secondAttribute="top" id="NsU-Uw-Kw5"/>
-                    <constraint firstAttribute="bottom" secondItem="ajA-f4-zB0" secondAttribute="bottom" constant="26.5" id="OMg-JB-kVT"/>
                     <constraint firstItem="GHx-cr-P4F" firstAttribute="top" secondItem="kYR-se-smc" secondAttribute="top" id="TXo-pj-lye"/>
                     <constraint firstItem="ajA-f4-zB0" firstAttribute="leading" secondItem="kYR-se-smc" secondAttribute="leading" id="Z9U-6j-S4V"/>
                     <constraint firstItem="ajA-f4-zB0" firstAttribute="bottom" secondItem="GHx-cr-P4F" secondAttribute="bottom" id="Zzd-xf-0Lp"/>
@@ -127,6 +123,7 @@
                     <constraint firstItem="GHx-cr-P4F" firstAttribute="leading" secondItem="HBP-bu-Nyi" secondAttribute="leading" constant="20" id="f51-SQ-uXf"/>
                     <constraint firstItem="kYR-se-smc" firstAttribute="top" secondItem="HBP-bu-Nyi" secondAttribute="top" constant="26.5" id="fjz-Gv-Son"/>
                     <constraint firstAttribute="trailing" secondItem="yLE-CU-cz8" secondAttribute="trailing" constant="20" id="j8g-Ue-yw3"/>
+                    <constraint firstItem="dW0-X4-SKa" firstAttribute="top" secondItem="GHx-cr-P4F" secondAttribute="bottom" constant="23.5" id="jC3-Lx-ODt"/>
                     <constraint firstItem="kYR-se-smc" firstAttribute="leading" secondItem="GHx-cr-P4F" secondAttribute="trailing" constant="20" id="kAe-fo-j6O"/>
                     <constraint firstItem="BSa-9p-uPg" firstAttribute="top" secondItem="kYR-se-smc" secondAttribute="top" id="x4o-wR-oEz"/>
                 </constraints>

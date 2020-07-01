@@ -14,6 +14,11 @@ import UIKit
 import CoreLocation
 import SDWebImage
 
+struct BlockUserListModel {
+    var objUser : BlockUserFields!
+    var objUserList : [BlockUserFields]!
+}
+
 enum MatchProfileListCells {
     
     case PreferenceCell(obj : [PreferenceAnswer])

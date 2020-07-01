@@ -54,7 +54,7 @@ class SignInPresenter: SignInPresentationProtocol {
     {
         UserDataModel.currentUser = response.responseData
         UserDataModel.setAuthKey(key: (response.responseData?.vAuthKey)!)
-        
+        Authentication.setSignUpFlowStatus(response.responseData!.tiStep!)
         if response.responseCode == 200 {
             self.setScreenAsPerLoginStatus(status: response.responseData!.tiStep!)
         } else if response.responseCode == 203 {
@@ -97,6 +97,8 @@ class SignInPresenter: SignInPresentationProtocol {
     
     func setScreenAsPerLoginStatus(status : Int) {
         Authentication.setLoggedInStatus(true)
+        AppSingleton.sharedInstance().chatBoxLogin()
+        
         if status == 0 {
             let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.SignUpScreen)
             if let view = self.viewController as? UIViewController

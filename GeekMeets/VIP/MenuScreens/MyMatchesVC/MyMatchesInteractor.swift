@@ -13,7 +13,7 @@
 import UIKit
 
 protocol MyMatchesInteractorProtocol {
-    func doSomething()
+    func callMatchListAPI()
 }
 
 protocol MyMatchesDataStore {
@@ -25,7 +25,22 @@ class MyMatchesInteractor: MyMatchesInteractorProtocol, MyMatchesDataStore {
     //var name: String = ""
     
     // MARK: Do something
-    func doSomething() {
-        
+    func callMatchListAPI() {
+        LoaderView.sharedInstance.showLoader()
+        UserAPI.matches(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getMatchResponse(response: response!)
+            } else if response?.responseCode == 400 {
+                self.presenter?.getMatchResponse(response: response!)
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getMatchResponse(response: response!)
+                }
+            }
+        }
     }
 }

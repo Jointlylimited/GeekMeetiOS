@@ -11,6 +11,12 @@ PODS:
   - AWSCore (2.13.2)
   - AWSS3 (2.13.2):
     - AWSCore (= 2.13.2)
+  - CocoaAsyncSocket (7.6.4)
+  - CocoaLumberjack (3.6.1):
+    - CocoaLumberjack/Core (= 3.6.1)
+  - CocoaLumberjack/Core (3.6.1)
+  - CocoaLumberjack/Swift (3.6.1):
+    - CocoaLumberjack/Core
   - Crashlytics (3.14.0):
     - Fabric (~> 1.10.2)
   - Fabric (1.10.2)
@@ -144,6 +150,15 @@ PODS:
   - IQKeyboardManagerSwift (6.5.5)
   - JSONModel (1.8.0)
   - Kingfisher (4.10.1)
+  - KissXML (5.3.1):
+    - KissXML/All (= 5.3.1)
+  - KissXML/Additions (5.3.1):
+    - KissXML/Core
+  - KissXML/All (5.3.1):
+    - KissXML/Additions
+    - KissXML/Core
+  - KissXML/Core (5.3.1)
+  - libidn (1.35)
   - lottie-ios (3.1.8)
   - Moya (13.0.1):
     - Moya/Core (= 13.0.1)
@@ -158,12 +173,16 @@ PODS:
   - NVActivityIndicatorView (4.8.0):
     - NVActivityIndicatorView/Presenter (= 4.8.0)
   - NVActivityIndicatorView/Presenter (4.8.0)
+  - OpalImagePicker (2.1.2)
   - PINCache (2.3)
   - PINOperation (1.1.2)
   - PromisesObjC (1.2.8)
   - Protobuf (3.11.4)
   - ReachabilitySwift (5.0.0)
   - Result (4.1.0)
+  - RSKGrowingTextView (6.0.3):
+    - RSKPlaceholderTextView (= 6.0.3)
+  - RSKPlaceholderTextView (6.0.3)
   - SDWebImage (5.7.3):
     - SDWebImage/Core (= 5.7.3)
   - SDWebImage/Core (5.7.3)
@@ -178,7 +197,18 @@ PODS:
   - SnapSDK/SCSDKCreativeKit (1.4.4)
   - SnapSDK/SCSDKLoginKit (1.4.4)
   - SnapSDK/SCSDKStoryKit (1.4.4)
+  - SwiftMessages (7.0.0):
+    - SwiftMessages/App (= 7.0.0)
+  - SwiftMessages/App (7.0.0)
   - SwiftyJSON (5.0.0)
+  - XMPPFramework/default (4.0.0):
+    - CocoaAsyncSocket (~> 7.6)
+    - CocoaLumberjack
+    - KissXML (~> 5.2)
+    - libidn (~> 1.35)
+  - XMPPFramework/Swift (4.0.0):
+    - CocoaLumberjack/Swift
+    - XMPPFramework/default
 
 DEPENDENCIES:
   - ActiveLabel
@@ -199,10 +229,14 @@ DEPENDENCIES:
   - lottie-ios
   - Moya
   - NVActivityIndicatorView
+  - OpalImagePicker
   - ReachabilitySwift
+  - RSKGrowingTextView
   - SDWebImage
   - SnapSDK
+  - SwiftMessages (= 7.0.0)
   - SwiftyJSON
+  - XMPPFramework/Swift
 
 SPEC REPOS:
   trunk:
@@ -212,6 +246,8 @@ SPEC REPOS:
     - AWSCognito
     - AWSCore
     - AWSS3
+    - CocoaAsyncSocket
+    - CocoaLumberjack
     - Crashlytics
     - Fabric
     - FacebookCore
@@ -240,19 +276,26 @@ SPEC REPOS:
     - IQKeyboardManagerSwift
     - JSONModel
     - Kingfisher
+    - KissXML
+    - libidn
     - lottie-ios
     - Moya
     - nanopb
     - NVActivityIndicatorView
+    - OpalImagePicker
     - PINCache
     - PINOperation
     - PromisesObjC
     - Protobuf
     - ReachabilitySwift
     - Result
+    - RSKGrowingTextView
+    - RSKPlaceholderTextView
     - SDWebImage
     - SnapSDK
+    - SwiftMessages
     - SwiftyJSON
+    - XMPPFramework
 
 SPEC CHECKSUMS:
   ActiveLabel: b8b2396fe25308d563601437d6605bf691c3b5db
@@ -261,6 +304,8 @@ SPEC CHECKSUMS:
   AWSCognito: 76ba3381182437140c460ae3849a15bc75a782f9
   AWSCore: 8e878a5b1b99cdf3d7df0c1c86be0bfcd6294c11
   AWSS3: 8eb4011854de8bee0fbbe25803a29f69cca31256
+  CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
+  CocoaLumberjack: b17ae15142558d08bbacf69775fa10c4abbebcc9
   Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   FacebookCore: ba86524b66cfa86d0f8e65d08faa8504a9f732dd
@@ -289,20 +334,27 @@ SPEC CHECKSUMS:
   IQKeyboardManagerSwift: 0fb93310284665245591f50f7a5e38de615960b7
   JSONModel: 02ab723958366a3fd27da57ea2af2113658762e9
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
+  KissXML: 5c8e0f2e8b9f071d3e1ae123dec3eb5da615c10c
+  libidn: e4576a956b797c584c77aaedfc6e3dd639b61bdc
   lottie-ios: 48fac6be217c76937e36e340e2d09cf7b10b7f5f
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   NVActivityIndicatorView: d24b7ebcf80af5dcd994adb650e2b6c93379270f
+  OpalImagePicker: 51cbf714f337a93c2631219f1a90389ba936077f
   PINCache: ce36ed282031b92fc7733ffe831f474ff80fddc2
   PINOperation: 24b774353ca248fcf87d67b2d61eef42087c125a
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
+  RSKGrowingTextView: 0718482ee121892b1eb9fe72e9eebd3ef46b81f0
+  RSKPlaceholderTextView: fc8c8932546298ec9d5e5572284aa42adb87b066
   SDWebImage: 97351f6582ceca541ea294ba66a1fcb342a331c2
   SnapSDK: 9ea8d26ca876b7f1d85fad2f2ec09852f3b156d0
+  SwiftMessages: a952f7a9103d9aeab93730a2861d2d8fcdd8758f
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
+  XMPPFramework: 5d31ff9f73dce031b24bc49bcf88093627a3a86e
 
-PODFILE CHECKSUM: 7c53764365aed6b7f2fe387468dbc91b078f2e93
+PODFILE CHECKSUM: 38f2abdc8dada4807775ddcfd1e6ccc088ad81ee
 
 COCOAPODS: 1.8.4

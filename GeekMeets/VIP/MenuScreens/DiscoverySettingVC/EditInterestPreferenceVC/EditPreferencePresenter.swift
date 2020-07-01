@@ -15,6 +15,9 @@ import UIKit
 protocol EditPreferencePresentationProtocol {
     func callCreatePreferenceAPI(params : Dictionary<String, String>)
     func getPostPreferenceResponse(response : CommonResponse)
+    
+    func callQuestionaryAPI()
+    func getQuestionaryResponse(response : PreferencesResponse)
 }
 
 class EditPreferencePresenter: EditPreferencePresentationProtocol {
@@ -27,5 +30,14 @@ class EditPreferencePresenter: EditPreferencePresentationProtocol {
     }
     func getPostPreferenceResponse(response : CommonResponse){
         self.viewController?.getPostPreferenceResponse(response : response)
+    }
+    
+    func callQuestionaryAPI() {
+       self.interactor?.callQuestionaryAPI()
+    }
+    
+    func getQuestionaryResponse(response : PreferencesResponse) {
+        UserDataModel.PreferenceData = response
+        self.viewController?.getPreferenceData(response : response)
     }
 }

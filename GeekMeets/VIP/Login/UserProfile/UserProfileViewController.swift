@@ -84,11 +84,7 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
         super.viewDidLoad()
         doSomething()
     }
-    
-    // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
+
     func doSomething() {
         
         if UserDataModel.SignUpUserResponse != nil {
@@ -97,25 +93,27 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
             self.tfDoB.text = user?.birthday
         }
         
+        if UserDataModel.currentUser?.tiIsAdmin == 1 {
+            let user = UserDataModel.currentUser
+            self.tfName.text = "\(user!.vName!)"
+        }
+        
         var components = DateComponents()
         components.year = -18
         
         let minData = Calendar.current.date(byAdding: components, to: Date())
-//        self.datePicker.minimumDate = minData
         self.datePicker.maximumDate = minData
         scrollView.delegate = self
         self.navigationController?.isNavigationBarHidden = false
         self.navigationItem.leftBarButtonItem = leftSideBackBarButton
         imgprofile.setCornerRadius(radius: imgprofile.frame.size.width/2)
         
-        
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         imgprofile.isUserInteractionEnabled = true
         imgprofile.addGestureRecognizer(tapGestureRecognizer)
     }
     
-    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
-    {
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
         let tappedImage = tapGestureRecognizer.view as! UIImageView
         print( "Your action")
         Getimage()
@@ -189,7 +187,6 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
         tfAbout?.resignFirstResponder()
     }
 }
-
 
 extension UserProfileViewController:  UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

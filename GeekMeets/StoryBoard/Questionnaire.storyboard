@@ -219,6 +219,7 @@
                             <constraint firstItem="PfB-8M-epI" firstAttribute="centerX" secondItem="5Lr-FH-cq4" secondAttribute="centerX" id="6br-56-R7j"/>
                             <constraint firstItem="CWO-U9-WCY" firstAttribute="top" secondItem="k66-cs-Ng3" secondAttribute="bottom" constant="8" id="8Sx-l5-H4d"/>
                             <constraint firstItem="p49-Gs-54P" firstAttribute="leading" secondItem="zfT-ca-EyP" secondAttribute="leading" constant="20" id="F4g-II-WGI"/>
+                            <constraint firstItem="PfB-8M-epI" firstAttribute="top" secondItem="njK-3X-63H" secondAttribute="bottom" constant="25" id="GEh-cq-X7p"/>
                             <constraint firstItem="zfT-ca-EyP" firstAttribute="trailing" secondItem="k66-cs-Ng3" secondAttribute="trailing" constant="20" id="J0b-LF-0x6"/>
                             <constraint firstItem="PfB-8M-epI" firstAttribute="height" secondItem="PQv-Uy-61H" secondAttribute="height" id="JsG-ID-GTZ"/>
                             <constraint firstItem="CWO-U9-WCY" firstAttribute="leading" secondItem="5Lr-FH-cq4" secondAttribute="leading" constant="20" id="LqP-cm-JeQ"/>
@@ -232,7 +233,6 @@
                             <constraint firstItem="DJB-Wb-In4" firstAttribute="top" secondItem="uWV-Mu-aDp" secondAttribute="bottom" constant="10" id="bfh-jr-7BS"/>
                             <constraint firstItem="PQv-Uy-61H" firstAttribute="centerX" secondItem="PfB-8M-epI" secondAttribute="centerX" id="eOn-6z-kW3"/>
                             <constraint firstItem="k66-cs-Ng3" firstAttribute="leading" secondItem="5Lr-FH-cq4" secondAttribute="leading" constant="20" id="fOg-gn-vBi"/>
-                            <constraint firstItem="njK-3X-63H" firstAttribute="height" secondItem="5Lr-FH-cq4" secondAttribute="height" multiplier="0.524862" id="h4T-av-hVN"/>
                             <constraint firstItem="PQv-Uy-61H" firstAttribute="top" secondItem="PfB-8M-epI" secondAttribute="bottom" constant="20" id="hIN-2I-xEW"/>
                             <constraint firstItem="uWV-Mu-aDp" firstAttribute="top" secondItem="zfT-ca-EyP" secondAttribute="top" id="j8P-rh-kyU"/>
                             <constraint firstItem="zfT-ca-EyP" firstAttribute="trailing" secondItem="p49-Gs-54P" secondAttribute="trailing" constant="40" id="kpO-gK-EkU"/>

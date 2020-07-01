@@ -71,8 +71,8 @@ class Interest_PreferenceViewController: UIViewController, Interest_PreferencePr
             self.tblViewBottomConstant.constant = 0
             self.btnUpdate.alpha = 0.0
         } else {
-            self.tblViewBottomConstant.constant = -80
-            self.btnUpdate.alpha = 1.0
+            self.tblViewBottomConstant.constant = 0 //-80
+            self.btnUpdate.alpha = 0.0 //1.0
         }
         self.registerTableViewCell()
     }

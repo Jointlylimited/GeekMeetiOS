@@ -64,7 +64,7 @@ class OTPEnterPresenter: OTPEnterPresentationProtocol {
         if response.responseCode == 400{
             self.viewController?.getVerifyOTPResponse(response: response)
         }else{
-            Authentication.setSignUpFlowStatus((response.responseData?.tiStep)!)
+            Authentication.setSignUpFlowStatus(response.responseData!.tiStep!)
             //        self.viewController?.getForgotPasswordResponse(response: response)
             self.actionVerifyOTP()
             

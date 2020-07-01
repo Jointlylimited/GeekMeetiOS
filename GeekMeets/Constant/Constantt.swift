@@ -51,6 +51,7 @@ struct GeekMeets_StoryBoard
     static let MissingWorkPlace = UIStoryboard(name: "AddMissingBussiness", bundle: nil)
     static let Dashboard = UIStoryboard(name: "Dashboard", bundle: nil)
     static let Menu = UIStoryboard(name: "Menu", bundle: nil)
+    static let Chat = UIStoryboard(name: "Chat", bundle: nil)
 }
 struct GeekMeets_ViewController
 {
@@ -106,6 +107,8 @@ struct GeekMeets_ViewController
     static let NotificationScreen = "NotificationListViewController"
     static let Interest_PreferenceScreen = "Interest_PreferenceViewController"
     static let Edit_PreferenceScreen = "EditPreferenceViewController"
+    static let OneToOneChatScreen = "OneToOneChatVC"
+    static let ChatListScreen = "ChatListVC"
 }
 
 struct Cells {
@@ -234,6 +237,8 @@ class AppSingleton: NSObject {
             logout()
             return
         }
+        self.chatBoxLogin()
+        
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.TabbarScreen) as! TabbarViewController
         controller.isFromMatch = fromMatch
         let navController = UINavigationController.init(rootViewController: controller)
@@ -258,6 +263,28 @@ class AppSingleton: NSObject {
             let controller = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange)
             let navController = UINavigationController.init(rootViewController: controller)
             AppDelObj.window?.rootViewController = navController
+        }
+    }
+    
+    func chatBoxLogin(){
+        let strID = "\(UserDataModel.currentUser!.vXmppUser ?? "")"
+        let strName = "\(UserDataModel.currentUser!.vName!)"
+        let photoUrl = "\(UserDataModel.currentUser!.vProfileImage ?? "")"
+        
+        SOXmpp.manager.UserName = "\(UserDataModel.currentUser!.vName!)"
+        SOXmpp.manager.profileImageUrl = "\(UserDataModel.currentUser!.vProfileImage ?? "")"
+        
+        var objLogin = Model_SOXmppLogin.init(strID, strName, photoUrl)
+        objLogin.userName = strName
+        //objLogin.saveToLocal()
+        SOXmpp.manager.Login(objLogin: objLogin) { (status) in
+            if status {
+                print("XMPP Login done")
+                //                    objLogin.saveToLocal()
+                UserDefaults.standard.set(true, forKey: kisUserLoggedIn)
+            } else {
+                print("XMPP Login failed")
+            }
         }
     }
     
