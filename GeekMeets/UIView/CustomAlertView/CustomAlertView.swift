@@ -9,7 +9,7 @@
 import UIKit
 
 protocol AlertViewDelegate: NSObjectProtocol {
-    func OkButtonAction()
+    func OkButtonAction(title : String)
     func cancelButtonAction()
 }
 
@@ -110,7 +110,7 @@ extension CustomAlertView {
     }
     
     @IBAction func btnOkAction(_ sender: UIButton) {
-        delegate?.OkButtonAction()
+        delegate?.OkButtonAction(title: (sender.titleLabel?.text!)!)
     }
     
     @IBAction func btnCentreAction(_ sender: UIButton) {

@@ -277,7 +277,7 @@ extension MenuViewController {
 
 //MARK: AlertView Delegate Methods
 extension MenuViewController : AlertViewDelegate {
-    func OkButtonAction() {
+    func OkButtonAction(title : String) {
         alertView.alpha = 0.0
         self.callSignoutAPI()
     }

@@ -49,9 +49,14 @@ class MessagesViewController: UIViewController, MessagesProtocol {
     
     @IBOutlet weak var tblMessageView: UITableView!
     @IBOutlet weak var StoryCollectionView: UICollectionView!
+    @IBOutlet weak var lblNoUser: UILabel!
+    
     
     var objStoryData : [StoryViewModel] = []
     var objMsgData : [MessageViewModel] = []
+    
+    var arrAllFriends:[Model_ChatFriendList] = [Model_ChatFriendList]()
+    var arrFriends:[Model_ChatFriendList] = [Model_ChatFriendList]()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -91,6 +96,11 @@ class MessagesViewController: UIViewController, MessagesProtocol {
         setStoryMsgViewData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.updateAndSortFriendList()
+    }
+    
     func registerTableViewCell(){
         self.tblMessageView.register(UINib.init(nibName: Cells.MessageListCell, bundle: Bundle.main), forCellReuseIdentifier: Cells.MessageListCell)
         self.StoryCollectionView.register(UINib.init(nibName: Cells.StoryCollectionCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.StoryCollectionCell)
@@ -101,7 +111,108 @@ class MessagesViewController: UIViewController, MessagesProtocol {
         self.objMsgData = [MessageViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Linda Parker", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"),MessageViewModel(userImage: #imageLiteral(resourceName: "img_intro_1"), userName: "Sophia", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "Image 64"), userName: "Sonia Mehta", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "Image 62"), userName: "Andrew Jackson", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Vina Parker", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"),MessageViewModel(userImage: #imageLiteral(resourceName: "img_intro_1"), userName: "Lily Ray", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm")]
         
         self.objStoryData = [StoryViewModel(userImage: #imageLiteral(resourceName: "Image 62"), userName: "Linda Parker"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Sophia"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 64"), userName: "Sonia Mehta"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 61"), userName: "Andrew Jackson"),StoryViewModel(userImage: #imageLiteral(resourceName: "Image 62"), userName: "Lily Ray"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Vina Parker")]
+        
+        //1
+        self.setupTableView()
+        
+        //2
+        self.setupXmppCallBackAndNotificationMethods()
     }
+    
+        private func setupXmppCallBackAndNotificationMethods() {
+            
+            //4
+            self.arrFriends = SOXmpp.manager.arrFriendsList
+            
+            //5
+            SOXmpp.manager.isChatListPresent = true
+            
+            //6
+            SOXmpp.manager._bFriendListUpdateCallback = { [weak self] in
+                DispatchQueue.main.async {
+                    self?.arrFriends = SOXmpp.manager.arrFriendsList
+                    self?.updateAndSortFriendList()
+                }
+            }
+            
+            //7
+            // observer for user online or offline status
+            NotificationCenter.default.addObserver(self, selector: #selector(xmppUserOnlineOfflineObserver), name: Notification_User_Online_Offline, object: nil)
+            //8
+            // observer for xmpp server connection
+            NotificationCenter.default.addObserver(self, selector: #selector(xmppServerConnectionObserver(_:)), name: NotificationXmppServerConnection, object: nil)
+        }
+        
+        
+        @objc func xmppServerConnectionObserver(_ nofificat: Notification) {
+            let alert = UIAlertController.init(title: "Error", message: "Connection issue",preferredStyle: .alert)
+            alert.addAction(UIAlertAction.init(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+
+        @objc func xmppUserOnlineOfflineObserver(_ nofificat: Notification) {
+            DispatchQueue.main.async {
+                self.arrFriends = SOXmpp.manager.arrFriendsList
+                self.updateAndSortFriendList()
+            }
+        }
+        
+        private func setupTableView() {
+//            TblList.delegate = self
+//            TblList.dataSource = self
+            self.tblMessageView.tableFooterView = UIView.init(frame: .zero)
+            self.tblMessageView.estimatedRowHeight = 44.0
+            self.tblMessageView.rowHeight = UITableView.automaticDimension
+        }
+        
+        
+        private func updateAndSortFriendList() {
+                
+            for (i,friend) in self.arrFriends.enumerated() {
+                
+                guard let arr = SOXmpp.manager.xmpp_FetchArchiving(with: friend.xmppJID!) else {
+                    print("no last message of friend \(friend.jID)")
+                    continue
+                }
+                self.arrFriends[i].objMessage = arr.last
+            }
+            self.arrFriends = self.arrFriends.sorted(by: { (obj1, obj2) -> Bool in
+                return obj1.objMessage != nil
+            })
+            self.arrFriends = self.arrFriends.sorted(by: { (obj1, obj2) -> Bool in
+                if obj1.objMessage == nil || obj2.objMessage == nil {
+                    return false
+                } else {
+                    return obj1.objMessage!.timestamp.compare(obj2.objMessage!.timestamp) == .orderedDescending
+                }
+            })
+            
+            self.arrAllFriends = self.arrFriends
+            self.updateNoDataLabel()
+    //        DispatchQueue.main.async {
+    //            if self.arrFriends.count != 0 {
+    //                self.lblNoUser.alpha = 0.0
+    //                self.TblList.alpha = 1.0
+    //                self.TblList.reloadData()
+    //            } else {
+    //                self.lblNoUser.alpha = 1.0
+    //                self.TblList.alpha = 0.0
+    //            }
+    //        }
+        }
+        
+        func updateNoDataLabel(){
+            if self.arrFriends.count != 0 {
+                self.lblNoUser.alpha = 0.0
+                self.tblMessageView.alpha = 1.0
+                self.tblMessageView.reloadData()
+            } else {
+                self.lblNoUser.alpha = 1.0
+                self.tblMessageView.alpha = 0.0
+            }
+            print(self.arrFriends)
+        }
+    
     @IBAction func btnSearchAction(_ sender: UIButton) {
         let searchVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.SearchScreen) as? SearchProfileViewController
         searchVC?.objMsgData = self.objMsgData
@@ -117,35 +228,109 @@ extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.objMsgData.count
+        return arrFriends.count // self.objMsgData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Cells.MessageListCell)
-        return cell!
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let cell = cell as? MessageListCell {
+        let cell : MessageListCell = tableView.dequeueReusableCell(withIdentifier: Cells.MessageListCell, for: indexPath) as! MessageListCell
+        
+        cell.selectionStyle = .none
+        let objfriend = arrFriends[indexPath.row]
+        
+        print(arrFriends.count)
+        print(objfriend)
+        // user name
+        if objfriend.vCard != nil {
+            cell.userName.text = objfriend.vCard!.nickname ?? ""
             
-            let data = objMsgData[indexPath.row]
-            cell.userImgView.image = data.userImage
-            cell.userName.text = data.userName
-            cell.msgText.text = data.msgTxt
-            cell.msgTime.text = data.msgTime
-            cell.msgCount.text = data.msgCount
+            // user image
+            let url = URL(string:"\(objfriend.vCard?.url ?? "")")
+            print(url)
+            cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_round"))
+        } else {
+            cell.userName.text = objfriend.name == "" ? objfriend.jID : objfriend.name
             
-            cell.btnChat.alpha = 0.0
+            
+            // user image
+            let url = URL(string:"\(objfriend.imagUrl)")
+            print(url)
+            cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_round"))
         }
+        // user status or msg time
+        // last msg
+        cell.msgText.text = ""
+        cell.msgTime.text = ""
+        
+        if objfriend.objMessage != nil {
+            
+            let msgType = XMPP_Message_Type.init(rawValue: objfriend.objMessage!.msgType!)
+            
+            switch msgType {
+            case .image,.video:
+                cell.msgText.text = "Media message......."
+            case .document:
+                cell.msgText.text = "Document message......."
+            default:
+                cell.msgText.text = "\(objfriend.objMessage!.strMsg ?? "")"
+            }
+            
+            cell.msgTime.text = SOXmpp.manager.DurationStringFromTimestamp( objfriend.objMessage!.timestamp)
+        }
+        
+        // count
+        cell.msgCount.text = ""
+        if let unreadCount = SOXmpp.manager.GetUnreadCound(of: arrFriends[indexPath.row].jID) , unreadCount > 0 {
+            cell.msgCount.text = "\(unreadCount)"
+            cell.msgCount.alpha = 1.0
+        } else {
+            cell.msgCount.alpha = 0.0
+        }
+        
+        cell.clickOnChatBtn = {
+            let obj = GeekMeets_StoryBoard.Chat.instantiateViewController(withIdentifier: GeekMeets_ViewController.OneToOneChatScreen) as! OneToOneChatVC
+            obj.objFriend = self.arrFriends[indexPath.row]
+            obj.modalPresentationStyle = .fullScreen
+            self.pushVC(obj)
+        }
+        
+        return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let obj = GeekMeets_StoryBoard.Chat.instantiateViewController(withIdentifier: GeekMeets_ViewController.OneToOneChatScreen) as! OneToOneChatVC
+        obj.objFriend = self.arrFriends[indexPath.row]
+        obj.modalPresentationStyle = .fullScreen
+        self.pushVC(obj)
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
-    }
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: Cells.MessageListCell)
+//        return cell!
+//    }
+    
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        if let cell = cell as? MessageListCell {
+//
+//            let data = objMsgData[indexPath.row]
+//            cell.userImgView.image = data.userImage
+//            cell.userName.text = data.userName
+//            cell.msgText.text = data.msgTxt
+//            cell.msgTime.text = data.msgTime
+//            cell.msgCount.text = data.msgCount
+//
+//            cell.btnChat.alpha = 0.0
+//        }
+//    }
+//
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return UITableView.automaticDimension
+//    }
+//
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 30
+//    }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView:UIView =  UIView()

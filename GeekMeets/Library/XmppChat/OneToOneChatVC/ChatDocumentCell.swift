@@ -19,6 +19,7 @@ class ChatDocumentCell: UITableViewCell {
     @IBOutlet weak var lblDateTime: UILabel!
     @IBOutlet weak var lblMsgStatus: UILabel!
     @IBOutlet weak var lblHeader: UILabel!
+    @IBOutlet weak var chatBubbleView: ChatBubbleView!
     
     var chatMsgObj: Model_ChatMessage?
     weak var delegate: ProtocolChatMessageRetry?

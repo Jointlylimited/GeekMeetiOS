@@ -120,6 +120,15 @@ extension MyMatchesViewController : UITableViewDataSource, UITableViewDelegate {
                 cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_round"))
                 cell.userName.text = data.vProfileName
                 cell.msgText.text = "Matches on 10 Jun, 2020, 10:23 am"
+                
+                cell.clickOnChatBtn = {
+                    let obj = GeekMeets_StoryBoard.Chat.instantiateViewController(withIdentifier: GeekMeets_ViewController.OneToOneChatScreen) as! OneToOneChatVC
+                    obj._userIDForRequestSend = data.vOtherUserXmpp
+                    obj.userName = data.vProfileName
+                    obj.imageString = data.vProfileImage
+                    obj.modalPresentationStyle = .fullScreen
+                    self.pushVC(obj)
+                }
             } else {
                 let data = objMsgData[indexPath.row]
                 cell.userImgView.image = data.userImage
@@ -128,6 +137,8 @@ extension MyMatchesViewController : UITableViewDataSource, UITableViewDelegate {
             }
             cell.msgTime.alpha = 0.0
             cell.msgCount.alpha = 0.0
+            
+            
         }
     }
     

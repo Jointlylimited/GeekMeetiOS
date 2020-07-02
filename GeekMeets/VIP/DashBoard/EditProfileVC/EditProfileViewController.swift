@@ -300,6 +300,12 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
     func getEditProfileResponse(response: UserAuthResponse){
         if response.responseCode == 200 {
             UserDataModel.currentUser = response.responseData
+            
+            //Update vcard
+            SOXmpp.manager.UserName = (response.responseData!.vName ?? "")
+            SOXmpp.manager.profileImageUrl = "\(response.responseData?.vProfileImage ?? "")"
+            SOXmpp.manager.xmpp_UpdateMyvCard()
+            
             if self.delegate != nil {
             }
             self.popVC()

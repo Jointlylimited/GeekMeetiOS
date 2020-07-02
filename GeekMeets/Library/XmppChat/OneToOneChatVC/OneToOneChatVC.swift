@@ -48,8 +48,11 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
     @IBOutlet weak var btnInfo:UIButton!
     @IBOutlet weak var viewPopUp: UIView!
     @IBOutlet weak var btnBlock: UIButton!
+    @IBOutlet weak var lblStatus: UILabel!
     
     var alertView: CustomOptionView!
+    var customAlertView: CustomAlertView!
+    var customImagePickerView: CustomPickImageView!
     
     var objFriend: Model_ChatFriendList?
     
@@ -104,7 +107,7 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
         print(self.objFriend)
         
         if self.objFriend == nil {
-            
+
             self.lblFriendName.text = self.userName ?? ""
             let url = URL(string: "\(self.imageString ?? "")")
             self.imgProfile!.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile"))
@@ -115,19 +118,21 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
             }
             
             if let _vcard = SOXmpp.manager.GetVcard(of: self.objFriend!.xmppJID!) {
-                self.lblFriendName.text = "\(_vcard.nickname ?? self.objFriend!.name)\n\(SOXmpp.manager._collectionFriendsStatus[objFriend!.jID] ?? "")"
+                self.lblFriendName.text = "\(_vcard.nickname ?? self.objFriend!.name)"
+                self.lblStatus.text = "\(SOXmpp.manager._collectionFriendsStatus[objFriend!.jID] ?? "")"
                 self.objFriend!.vCard = _vcard
                 let url = URL(string: "\(_vcard.url ?? "")")
                 self.imgProfile!.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile"))
             } else {
                 SOXmpp.manager.xmppvCardTempModule.fetchvCardTemp(for: self.objFriend!.xmppJID!, ignoreStorage: true)
-                self.lblFriendName.text = self.objFriend!.name != "" ?  "\(self.objFriend!.name)\n\(SOXmpp.manager._collectionFriendsStatus[objFriend!.jID] ?? "")" : self.objFriend!.jID
+                self.lblFriendName.text = self.objFriend!.name != "" ?  "\(self.objFriend!.name)" : self.objFriend!.jID
+                self.lblStatus.text = "\(SOXmpp.manager._collectionFriendsStatus[objFriend!.jID] ?? "")"
                 let url = URL(string: "\(self.objFriend?.imagUrl ?? "")")
                 self.imgProfile!.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile"))
             }
         }
-        lblNavTitle.sizeToFit()
-        navigationItem.titleView = lblNavTitle
+    //    lblNavTitle.sizeToFit()
+      //  navigationItem.titleView = lblNavTitle
         
         if UserDefaults.standard.value(forKey: "BlockUserStatus") != nil {
             if UserDefaults.standard.value(forKey: "BlockUserStatus") as! Int == 1 {
@@ -153,12 +158,14 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
         }
         
         if let _vcard = SOXmpp.manager.GetVcard(of: self.objFriend!.xmppJID!) {
-            lblNavTitle.text = "\(_vcard.nickname ?? objFriend!.name) \n Typing...."
+           // lblNavTitle.text = "\(_vcard.nickname ?? objFriend!.name)" // \n Typing....
+            self.lblStatus.text = "typing..."
         } else {
-            lblNavTitle.text = "\(self.objFriend!.name) \n Typing...."
+          //  lblNavTitle.text = "\(self.objFriend!.name)" // \n Typing....
+            self.lblStatus.text = "typing..."
         }
-        lblNavTitle.sizeToFit()
-        navigationItem.titleView = lblNavTitle
+     //   lblNavTitle.sizeToFit()
+     //   navigationItem.titleView = lblNavTitle
     }
     
     //MARK:-=============== XMPP METHODS ====================
@@ -555,7 +562,8 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
         
         if self.isBlock == 0 {
             self.view.endEditing(true)
-            self.openImagePickerActionSheet()
+//            self.openImagePickerActionSheet()
+            self.openImagePickerView()
         } else {
             self.showAlertView()
         }
@@ -606,6 +614,13 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
 //            self.present(alertController, animated: true, completion: nil)
 //        }
         
+    }
+    
+    func openImagePickerView(){
+        customImagePickerView = CustomPickImageView.initAlertView()
+        customImagePickerView.delegate = self
+        customImagePickerView.frame = self.view.frame
+        self.view.addSubview(customImagePickerView)
     }
     
     func openImagePickerActionSheet() {
@@ -874,12 +889,12 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
         //self.tblChat.scrollRectToVisible(cell.frame, animated: animated)
     }
     
-    func showOptionAlertView() {
-        alertView = CustomOptionView.initAlertView()
-      alertView.delegate = self
-      alertView.frame = self.view.frame
-      self.view.addSubview(alertView)
-    }
+        func showOptionAlertView() {
+            alertView = CustomOptionView.initAlertView()
+            alertView.delegate = self
+            alertView.frame = self.view.frame
+            self.view.addSubview(alertView)
+        }
     
     //MARK:- =====================ACTIONS==========================
     
@@ -910,7 +925,6 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
             let userId = self.objFriend?.jID != nil ? (self.objFriend?.jID.split("@").first ?? "") : self._userIDForRequestSend ?? ""
             if(self.isBlock == 1){
                 self.callBlock(userId: userId, tiStatus: 0)
-                
             }else{
                 self.callBlock(userId: userId ?? "", tiStatus: 1)
             }
@@ -957,8 +971,72 @@ extension OneToOneChatVC : CustomOptionViewDelegate {
     func OptionButtonAction(index : Int){
         print(index)
         self.alertView.removeFromSuperview()
+        if index == 0 {
+            customAlertView = CustomAlertView.initAlertView(title: "Unmatch", message: "You can not chat after unmatching \nAre you sure you want to clear chat?", btnRightStr: "Un-match", btnCancelStr: "Cancel", btnCenter: "", isSingleButton: false)
+        } else if index == 1 {
+            customAlertView = CustomAlertView.initAlertView(title: "Clear Chat", message: "Are you sure you want to clear chat?", btnRightStr: "Clear", btnCancelStr: "Cancel", btnCenter: "", isSingleButton: false)
+        } else if index == 2 {
+            customAlertView = CustomAlertView.initAlertView(title: "Delete", message: "Are you sure you want to delete?", btnRightStr: "Delete", btnCancelStr: "Cancel", btnCenter: "", isSingleButton: false)
+        } else if index == 3 {
+            customAlertView = CustomAlertView.initAlertView(title: isBlock == 1 ? kUnblockStr : kBlockStr, message: "User will not be able to see profile and cannot chat after blocking", btnRightStr: "Block", btnCancelStr: "Cancel", btnCenter: "", isSingleButton: false)
+        } else if index == 4 {
+            let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.ReportScreen) as! ReportViewController
+//            controller.ReportFor = "\(self.objMatchUserProfile.iUserId!)"
+            controller.tiReportType = 1
+            controller.modalTransitionStyle = .crossDissolve
+            controller.modalPresentationStyle = .overCurrentContext
+            self.presentVC(controller)
+        } else {
+            
+        }
+        customAlertView.delegate = self
+        customAlertView.frame = self.view.frame
+        AppDelObj.window?.addSubview(customAlertView)
+        
     }
 }
+
+//MARK: PickImageViewDelegate Delegate Methods
+extension OneToOneChatVC : PickImageViewDelegate {
+    func CameraButtonAction(){
+        self.customImagePickerView.removeFromSuperview()
+        openImagePickerActionSheet()
+    }
+    func GifButtonAction(){
+        
+    }
+    func LocationButtonAction(){
+        
+    }
+}
+
+//MARK: AlertView Delegate Methods
+extension OneToOneChatVC : AlertViewDelegate {
+    func OkButtonAction(title : String) {
+        customAlertView.alpha = 0.0
+        if title == "Un-match" {
+            
+        } else if title == "Clear" {
+            
+        } else if title == "Delete" {
+            
+        } else if title == "Block" {
+            let userId = self.objFriend?.jID != nil ? (self.objFriend?.jID.split("@").first ?? "") : self._userIDForRequestSend ?? ""
+            if(self.isBlock == 1){
+                self.callBlock(userId: userId, tiStatus: 0)
+            }else{
+                self.callBlock(userId: userId, tiStatus: 1)
+            }
+        } else {
+            
+        }
+    }
+    
+    func cancelButtonAction() {
+        customAlertView.alpha = 0.0
+    }
+}
+
 extension OneToOneChatVC {
     
     func checkConnection()->Bool{
@@ -981,14 +1059,16 @@ extension OneToOneChatVC {
         LoaderView.sharedInstance.showLoader()
         //Comment by divya - Till add xmpp credentials
 //        UserAPI.blockUnblock(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization , vXmppUser: userId, tiIsBlock: UserAPI.TiIsBlock_blockUnblock(rawValue: tiStatus)!) { (response, error) in
-//
-//            LoaderView.sharedInstance.hideLoader()
-//            if(error == nil){
-//                self.getBlockUserResponse(objSuccessResponse: response!)
-//            }else{
-//                self.displayAlert(strTitle: projectName, strMessage: (error?.localizedDescription)!)
-//            }
-//        }
+
+            UserAPI.blockUsers(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iBlockTo: userId, tiIsBlocked: "\(isBlock!)") { (response, error) in
+                
+            LoaderView.sharedInstance.hideLoader()
+            if(error == nil){
+                self.getBlockUserResponse(objSuccessResponse: response!)
+            }else{
+                self.displayAlert(strTitle: appName, strMessage: (error?.localizedDescription)!)
+            }
+        }
     }
     
     func deleteUser(){
@@ -1059,15 +1139,14 @@ extension OneToOneChatVC {
     //            _ = ValidationToast.showStatusMessage(message: msg,withToastType: ToastType.success)
                 self.arrBlockUserList.objUserList = response.responseData
                 let userId = self.objFriend?.jID != nil ? (self.objFriend?.jID.split("@").first ?? "") : self._userIDForRequestSend ?? ""
-                //Comment by divya - Till add xmpp credentials
-//                let arrBlockUser = self.arrBlockUserList.objUserList.filter { $0.vXmppUser! == userId }
-//                if arrBlockUser != nil && arrBlockUser.count != 0 {
-//                    isBlock = 1
-//                    SOXmpp.manager.xmpp_BlockUser(withJid : userId)
-//                    //                SKxmpp.manager()?.xmpp_BlockUser(withJid: JID)
-//                    self.btnBlock?.setTitle(kTitleUnBlock, for: .normal)
-//                    UserDefaults.standard.set(isBlock, forKey: "BlockUserStatus")
-//                }
+                let arrBlockUser = self.arrBlockUserList.objUserList.filter { $0.iUserId! == userId }
+                if arrBlockUser != nil && arrBlockUser.count != 0 {
+                    isBlock = 1
+                    SOXmpp.manager.xmpp_BlockUser(withJid : userId)
+                    //                SKxmpp.manager()?.xmpp_BlockUser(withJid: JID)
+                    self.btnBlock?.setTitle(kTitleUnBlock, for: .normal)
+                    UserDefaults.standard.set(isBlock, forKey: "BlockUserStatus")
+                }
                 
             } else {
     //            let msg = response.responseMessage ?? kSomethingWentWrong
@@ -1099,8 +1178,8 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
             case .text:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: ChatTextCell.reuseID_Outgoing, for: indexPath) as! ChatTextCell
-                
-                cell.imgAvatarView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile"))
+                cell.chatBubbleView.roundCorners([.topLeft, .bottomRight, .bottomLeft], radius: 10)
+//                cell.imgAvatarView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile"))
                 cell.ConfigureCell(with: chatMsg)
                 
                 return cell
@@ -1109,9 +1188,10 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: ChatMediaCell.reuseID_Outgoing, for: indexPath) as! ChatMediaCell
                 cell.delegate = self
-                cell.imgAvatarView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile"))
+                 cell.chatBubbleView.roundCorners([.topLeft, .bottomRight, .bottomLeft], radius: 10)
+//                cell.imgAvatarView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile"))
                 cell.ConfigureCell(with: chatMsg)
-                
+               
                 return cell
                 
     
@@ -1119,6 +1199,7 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: ChatDocumentCell.reuserID_Incoming, for: indexPath) as! ChatDocumentCell
                 cell.delegate = self
+                cell.chatBubbleView.roundCorners([.topRight, .bottomRight, .bottomRight], radius: 10)
                 cell.ConfigureCell(with: chatMsg)
                 
                 return cell
@@ -1134,8 +1215,8 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
             case .text:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: ChatTextCell.reuseID_Incoming, for: indexPath) as! ChatTextCell
-                
-                cell.imgAvatarView.image = self.imgProfile.image
+                cell.chatBubbleView.roundCorners([.topRight, .bottomLeft, .bottomRight], radius: 10)
+//                cell.imgAvatarView.image = self.imgProfile.image
                 cell.ConfigureCell(with: chatMsg)
                 
                 return cell
@@ -1143,7 +1224,8 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
             case .image,.video:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: ChatMediaCell.reuseID_Incoming, for: indexPath) as! ChatMediaCell
-                 cell.imgAvatarView.image = self.imgProfile.image
+//                 cell.imgAvatarView.image = self.imgProfile.image
+                cell.chatBubbleView.roundCorners([.topRight, .bottomLeft, .bottomRight], radius: 10)
                 cell.ConfigureCell(with: chatMsg)
                 
                 return cell
@@ -1152,7 +1234,7 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
             case .document:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: ChatDocumentCell.reuserID_Incoming, for: indexPath) as! ChatDocumentCell
-                
+                cell.chatBubbleView.roundCorners([.topRight, .bottomLeft, .bottomRight], radius: 10)
                 cell.ConfigureCell(with: chatMsg)
                 
                 return cell

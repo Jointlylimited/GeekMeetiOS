@@ -28,6 +28,7 @@ class ChatMediaCell: UITableViewCell {
     @IBOutlet weak var lblHeader: UILabel!
    
     @IBOutlet weak var imgAvatarView: UIImageView!
+    @IBOutlet weak var chatBubbleView: ChatBubbleView!
     
     var chatMsgObj: Model_ChatMessage?
     weak var delegate: ProtocolChatMessageRetry?
@@ -129,7 +130,7 @@ class ChatMediaCell: UITableViewCell {
         
         guard let chatMsg = self.chatMsgObj else { return }
         
-        switch chatMsg.msgStatus {
+       /* switch chatMsg.msgStatus {
         case 1:
             lblMsgStatus.text = "✓"
             lblMsgStatus.textColor = .white; break
@@ -142,7 +143,7 @@ class ChatMediaCell: UITableViewCell {
         default:
             lblMsgStatus.text = "Sending..."
             lblMsgStatus.textColor = .white
-        }
+        }*/
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

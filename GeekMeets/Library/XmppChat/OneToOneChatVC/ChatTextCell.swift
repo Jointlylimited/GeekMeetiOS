@@ -18,6 +18,7 @@ class ChatTextCell: UITableViewCell {
     @IBOutlet weak var lblDateTime: UILabel!
     @IBOutlet weak var lblHeader: UILabel!
     @IBOutlet weak var imgAvatarView: UIImageView!
+    @IBOutlet weak var chatBubbleView: ChatBubbleView!
     
     var chatMsgObj: Model_ChatMessage?
     
@@ -44,20 +45,20 @@ class ChatTextCell: UITableViewCell {
         
         guard let chatMsg = self.chatMsgObj else { return }
         
-        switch chatMsg.msgStatus {
-        case 1:
-            lblMsgStatus.text = "✓"
-            lblMsgStatus.textColor = .white; break
-        case 2:
-            lblMsgStatus.text = "✓✓"
-            lblMsgStatus.textColor = .white; break
-        case 3:
-            lblMsgStatus.text = "✓✓"
-            lblMsgStatus.textColor = .green; break
-        default:
-            lblMsgStatus.text = "Sending..."
-            lblMsgStatus.textColor = .white
-        }
+//        switch chatMsg.msgStatus {
+//        case 1:
+////            lblMsgStatus.text = "✓"
+////            lblMsgStatus.textColor = .white; break
+//        case 2:
+////            lblMsgStatus.text = "✓✓"
+////            lblMsgStatus.textColor = .white; break
+//        case 3:
+////            lblMsgStatus.text = "✓✓"
+////            lblMsgStatus.textColor = .green; break
+//        default:
+////            lblMsgStatus.text = "Sending..."
+////            lblMsgStatus.textColor = .white
+//        }
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

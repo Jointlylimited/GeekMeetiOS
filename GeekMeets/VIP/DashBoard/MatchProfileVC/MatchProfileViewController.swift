@@ -570,7 +570,7 @@ extension MatchProfileViewController {
 }
 
 extension MatchProfileViewController : AlertViewDelegate {
-    func OkButtonAction() {
+    func OkButtonAction(title : String) {
         alertView.removeFromSuperview()
         self.callBlockUserAPI()
     }

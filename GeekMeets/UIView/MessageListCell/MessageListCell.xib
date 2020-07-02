@@ -75,7 +75,7 @@
                         </userDefinedRuntimeAttributes>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jYQ-kh-KEF">
-                        <rect key="frame" x="415" y="63.5" width="50" height="21"/>
+                        <rect key="frame" x="415" y="71.5" width="50" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="XPw-WQ-GFO"/>
                             <constraint firstAttribute="height" constant="21" id="kKV-nk-VI4"/>
@@ -113,7 +113,7 @@
                     <constraint firstItem="dW0-X4-SKa" firstAttribute="leading" secondItem="HBP-bu-Nyi" secondAttribute="leading" constant="20" id="CBN-1e-TW8"/>
                     <constraint firstItem="GHx-cr-P4F" firstAttribute="centerY" secondItem="HBP-bu-Nyi" secondAttribute="centerY" id="Hhg-Fi-CgT"/>
                     <constraint firstAttribute="trailing" secondItem="BSa-9p-uPg" secondAttribute="trailing" constant="20" id="IVN-0Z-cPZ"/>
-                    <constraint firstItem="jYQ-kh-KEF" firstAttribute="top" secondItem="ajA-f4-zB0" secondAttribute="top" id="NsU-Uw-Kw5"/>
+                    <constraint firstItem="jYQ-kh-KEF" firstAttribute="top" secondItem="ajA-f4-zB0" secondAttribute="top" constant="8" id="NsU-Uw-Kw5"/>
                     <constraint firstItem="GHx-cr-P4F" firstAttribute="top" secondItem="kYR-se-smc" secondAttribute="top" id="TXo-pj-lye"/>
                     <constraint firstItem="ajA-f4-zB0" firstAttribute="leading" secondItem="kYR-se-smc" secondAttribute="leading" id="Z9U-6j-S4V"/>
                     <constraint firstItem="ajA-f4-zB0" firstAttribute="bottom" secondItem="GHx-cr-P4F" secondAttribute="bottom" id="Zzd-xf-0Lp"/>

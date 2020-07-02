@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -34,7 +34,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pl5-gF-uyZ">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pl5-gF-uyZ">
                                 <rect key="frame" x="0.0" y="119" width="414" height="694"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="oZ5-vR-Amp">
@@ -42,7 +42,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="dOF-MY-5v9">
-                                            <rect key="frame" x="0.0" y="42.666666666666664" width="414" height="117.33333333333334"/>
+                                            <rect key="frame" x="0.0" y="39.333333333333336" width="414" height="120.66666666666666"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="7bz-ZP-DzI">
                                                 <size key="itemSize" width="50" height="50"/>
@@ -52,10 +52,10 @@
                                             </collectionViewFlowLayout>
                                             <cells>
                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="J4n-aU-mqa">
-                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="49.999999999999993"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50.000000000000007"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="4zB-TX-z5G">
-                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="49.999999999999993"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50.000000000000007"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </collectionViewCellContentView>
                                                 </collectionViewCell>
@@ -66,7 +66,7 @@
                                             </connections>
                                         </collectionView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Matches (10)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vr8-yq-J2r">
-                                            <rect key="frame" x="20" y="15.000000000000002" width="374" height="19.666666666666671"/>
+                                            <rect key="frame" x="20" y="14.999999999999998" width="374" height="16.333333333333329"/>
                                             <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -102,13 +102,13 @@
                                 <rect key="frame" x="10" y="44" width="394" height="75"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Messages" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PNY-au-9cW">
-                                        <rect key="frame" x="8" y="30.666666666666675" width="143" height="39.333333333333343"/>
+                                        <rect key="frame" x="8.0000000000000071" y="37.333333333333329" width="127.66666666666669" height="32.666666666666671"/>
                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="28"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GHJ-nm-K6H">
-                                        <rect key="frame" x="344" y="23.999999999999996" width="50" height="52.666666666666657"/>
+                                        <rect key="frame" x="344" y="27.333333333333325" width="50" height="52.666666666666657"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="2zz-jH-D5O"/>
                                             <constraint firstAttribute="width" secondItem="GHJ-nm-K6H" secondAttribute="height" multiplier="21:22" id="vAX-0P-ixD"/>
@@ -2895,7 +2895,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/300" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rU0-y6-nlS">
-                                <rect key="frame" x="363" y="437" width="31" height="14"/>
+                                <rect key="frame" x="359.66666666666669" y="437" width="34.333333333333314" height="17"/>
                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="12"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -5142,7 +5142,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Annual" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l5h-MF-SL5">
-                                                                        <rect key="frame" x="20" y="20.666666666666629" width="40" height="15.333333333333336"/>
+                                                                        <rect key="frame" x="19.999999999999996" y="19.333333333333258" width="45.666666666666657" height="18.333333333333329"/>
                                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
@@ -5213,7 +5213,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monthly" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sBD-dk-R50">
-                                                                        <rect key="frame" x="20" y="20.666666666666629" width="47" height="15.333333333333336"/>
+                                                                        <rect key="frame" x="19.999999999999996" y="19.333333333333371" width="51.666666666666657" height="18.333333333333329"/>
                                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
@@ -5287,7 +5287,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Place your stories on the TOP list" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d4m-ke-dfD">
-                                                                        <rect key="frame" x="20" y="13.333333333333369" width="164.66666666666666" height="30.333333333333329"/>
+                                                                        <rect key="frame" x="20" y="10" width="164.66666666666666" height="36.666666666666664"/>
                                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
@@ -5469,7 +5469,7 @@
         <image name="icn_arrowblack" width="8" height="14.333333015441895"/>
         <image name="icn_back" width="16" height="17"/>
         <image name="icn_boosts" width="34" height="34"/>
-        <image name="icn_camera" width="34.666667938232422" height="26.333333969116211"/>
+        <image name="icn_camera" width="73" height="75"/>
         <image name="icn_capture" width="66" height="66"/>
         <image name="icn_close_black" width="16" height="16"/>
         <image name="icn_close_grey" width="10.333333015441895" height="10.333333015441895"/>

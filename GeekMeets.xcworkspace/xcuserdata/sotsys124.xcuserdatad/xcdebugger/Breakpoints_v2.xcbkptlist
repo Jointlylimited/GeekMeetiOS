@@ -134,16 +134,96 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F17ABCEC-30E7-44E5-89A7-B5B1EF8DD458"
+            uuid = "CD80EBEA-E0FA-4C1F-9141-C9DA12BBB80A"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GeekMeets/VIP/Login/SignInVC/SignInPresenter.swift"
+            filePath = "GeekMeets/VIP/DashBoard/EditProfileVC/EditProfileInteractor.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
-            landmarkName = "getSignInResponse(response:)"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
+            landmarkName = "callEdirProfileAPI(params:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "CD80EBEA-E0FA-4C1F-9141-C9DA12BBB80A - cc00ca8bc5a46d7f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Jointly.EditProfileInteractor.callEdirProfileAPI(params: Swift.Dictionary&lt;Swift.String, Swift.String&gt;) -&gt; ()"
+                  moduleName = "Jointly"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sotsys124/Documents/Divya/GitLab_Project/DatingApp/Code/Daveloment/geekmeetsios/GeekMeets/VIP/DashBoard/EditProfileVC/EditProfileInteractor.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "95"
+                  endingLineNumber = "95"
+                  offsetFromSymbolStart = "531">
+               </Location>
+               <Location
+                  uuid = "CD80EBEA-E0FA-4C1F-9141-C9DA12BBB80A - 65b9b532592cfa5b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Optional&lt;Jointly.UserAuthResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Jointly.EditProfileInteractor.callEdirProfileAPI(params: Swift.Dictionary&lt;Swift.String, Swift.String&gt;) -&gt; ()"
+                  moduleName = "Jointly"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sotsys124/Documents/Divya/GitLab_Project/DatingApp/Code/Daveloment/geekmeetsios/GeekMeets/VIP/DashBoard/EditProfileVC/EditProfileInteractor.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "96"
+                  endingLineNumber = "96"
+                  offsetFromSymbolStart = "253">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "07178AA0-FFBC-4135-8C20-B6A99CFF12B0"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GeekMeets/Library/XmppChat/OneToOneChatVC/OneToOneChatVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
+            landmarkName = "SetupXmppCallback()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DC9FE2B6-8FC0-4146-BB35-4527797FA15E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GeekMeets/Library/XmppChat/OneToOneChatVC/OneToOneChatVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
+            landmarkName = "SetTypingStatus()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4C81062D-8C39-4DD7-8874-2A8FDC5CF0A1"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GeekMeets/Library/XmppChat/OneToOneChatVC/OneToOneChatVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1025"
+            endingLineNumber = "1025"
+            landmarkName = "OkButtonAction(title:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

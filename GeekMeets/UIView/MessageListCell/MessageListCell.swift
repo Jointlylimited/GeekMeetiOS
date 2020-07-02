@@ -10,6 +10,9 @@ import UIKit
 
 class MessageListCell: UITableViewCell {
 
+    typealias ChatClickEvent = () -> Void
+    var clickOnChatBtn : ChatClickEvent!
+    
     @IBOutlet weak var userImgView: UIImageView!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var msgText: UILabel!
@@ -29,6 +32,6 @@ class MessageListCell: UITableViewCell {
         // Configure the view for the selected state
     }
     @IBAction func btnChatAction(_ sender: Any) {
+        self.clickOnChatBtn!()
     }
-    
 }
