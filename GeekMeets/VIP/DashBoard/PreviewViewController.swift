@@ -123,7 +123,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         self.player = AVPlayer(playerItem: avPlayerItem)
         self.playerLayer = AVPlayerLayer(player: self.player)
         
-        self.playerLayer?.frame = self.playView.bounds
+        self.playerLayer?.frame =  CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: self.view.frame.size.width, height: self.view.frame.size.height))
         self.playerLayer?.videoGravity = AVLayerVideoGravity.resizeAspect
         self.playerLayer?.zPosition = -1
         self.playView.layer.addSublayer(playerLayer!)
@@ -159,7 +159,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         controller!.delegate = self
         self.presentVC(controller!)
     }
-    @IBAction func btnAddtoStoryAction(_ sender: UIButton) {
+    @IBAction func btnAddtoStoryAction(_ sender: UIButton){
         if self.objPostData.tiStoryType == "0" {
             if cusText != nil {
                 let image = textToImage(drawText: cusText!.text as NSString, inImage: photo.image!, atPoint: CGPoint(x: self.cusText.x, y: self.cusText.y))
