@@ -189,16 +189,6 @@ class MessagesViewController: UIViewController, MessagesProtocol {
             
             self.arrAllFriends = self.arrFriends
             self.updateNoDataLabel()
-    //        DispatchQueue.main.async {
-    //            if self.arrFriends.count != 0 {
-    //                self.lblNoUser.alpha = 0.0
-    //                self.TblList.alpha = 1.0
-    //                self.TblList.reloadData()
-    //            } else {
-    //                self.lblNoUser.alpha = 1.0
-    //                self.TblList.alpha = 0.0
-    //            }
-    //        }
         }
         
         func updateNoDataLabel(){
