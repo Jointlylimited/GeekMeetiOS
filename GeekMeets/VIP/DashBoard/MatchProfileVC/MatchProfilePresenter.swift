@@ -22,7 +22,7 @@ protocol MatchProfilePresentationProtocol {
     func callStoryListAPI(id : Int)
     func getStoryListResponse(response: StoryResponse)
     
-    func callBlockUserAPI(iBlockTo: String, tiIsBlocked: String)
+    func callBlockUserAPI(vXmppUser: String, tiIsBlocked: String)
     func getBlockUserResponse(response : CommonResponse)
     
     func callBlockUserListAPI()
@@ -53,8 +53,8 @@ class MatchProfilePresenter: MatchProfilePresentationProtocol {
     func getStoryListResponse(response: StoryResponse){
         self.viewController?.getStoryListResponse(response: response)
     }
-    func callBlockUserAPI(iBlockTo: String, tiIsBlocked: String){
-        self.interactor?.callBlockUserAPI(iBlockTo: iBlockTo, tiIsBlocked: tiIsBlocked)
+    func callBlockUserAPI(vXmppUser: String, tiIsBlocked: String){
+        self.interactor?.callBlockUserAPI(vXmppUser: vXmppUser, tiIsBlocked: tiIsBlocked)
     }
     
     func getBlockUserResponse(response : CommonResponse){

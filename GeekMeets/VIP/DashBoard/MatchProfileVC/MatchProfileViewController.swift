@@ -190,7 +190,6 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         setTheme()
-        
         getUserCurrentLocation()
     }
     
@@ -325,7 +324,7 @@ extension MatchProfileViewController {
     }
     
     func callBlockUserAPI(){
-        self.presenter?.callBlockUserAPI(iBlockTo: "\(self.objMatchUserProfile!.iUserId!)", tiIsBlocked: "\(tiIsBlocked)")
+        self.presenter?.callBlockUserAPI(vXmppUser: "\(self.objMatchUserProfile!.vXmppUser!)", tiIsBlocked: "\(tiIsBlocked)")
     }
     
     func getBlockUserResponse(response : CommonResponse){

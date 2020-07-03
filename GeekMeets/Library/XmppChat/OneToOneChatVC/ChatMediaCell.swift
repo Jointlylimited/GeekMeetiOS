@@ -114,9 +114,9 @@ class ChatMediaCell: UITableViewCell {
         viewUploadContainer.isHidden = false
         activityIndicator.startAnimating()
         
-        if let _url = chatMsg.getThumbLocalPath() {
+        if let _url = URL(string: "\(fileUploadURL)\(chatMsg.thumbUrl)") /*chatMsg.getThumbLocalPath()*/ {
             
-            imgView.sd_setImage(with: _url, placeholderImage: nil, options: [.scaleDownLargeImages], context: nil)
+            imgView.sd_setImage(with: _url, placeholderImage: #imageLiteral(resourceName: "placeholder_rect"), options: [.scaleDownLargeImages], context: nil)
             
             if chatMsg.url.count > 0 {
                  self.viewUploadContainer.isHidden = true

@@ -39,7 +39,7 @@ let AWS_REGION = "us-east-1"
 let user_Profile = "UserProfile/"
 let story = "Story/"
 
-typealias completionBlock = (_ response: Any?, _ error: Error?) -> Void //3
+typealias completionBlock = (_ response: Any?, _ thumbpath : Any?, _ error: Error?) -> Void //3
 
 public class AWSHelper {
     

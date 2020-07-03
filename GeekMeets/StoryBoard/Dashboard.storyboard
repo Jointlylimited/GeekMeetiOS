@@ -156,6 +156,7 @@
                     <tabBarItem key="tabBarItem" title="" image="icn_message" selectedImage="message-square" id="Ly3-3y-3za"/>
                     <connections>
                         <outlet property="StoryCollectionView" destination="dOF-MY-5v9" id="HFE-UF-0Sv"/>
+                        <outlet property="lblNewMatches" destination="Vr8-yq-J2r" id="Xgm-Ww-Vej"/>
                         <outlet property="lblNoUser" destination="Adk-eV-xPn" id="lIz-jO-21u"/>
                         <outlet property="tblMessageView" destination="pl5-gF-uyZ" id="qAX-IB-5Pp"/>
                     </connections>
@@ -393,6 +394,7 @@
                     <connections>
                         <outlet property="RemainTimeView" destination="Tfe-JJ-tCj" id="lCD-ck-lEy"/>
                         <outlet property="btnEditProfile" destination="jwf-gu-ybP" id="cmK-6r-99a"/>
+                        <outlet property="btnNotification" destination="LiS-P7-gmg" id="WMj-AN-Yly"/>
                         <outlet property="headerViewHeightConstant" destination="wxs-VT-jUn" id="0Mu-hl-Hss"/>
                         <outlet property="imgProfile" destination="lj2-y6-rhf" id="db2-2r-2Af"/>
                         <outlet property="lblRemainTime" destination="0pr-ry-42e" id="buF-y2-Pwt"/>

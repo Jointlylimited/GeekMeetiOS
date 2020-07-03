@@ -14,6 +14,7 @@ import UIKit
 
 protocol MyMatchesProtocol: class {
     func getMatchResponse(response : MatchUser)
+    func getUnMatchResponse(response : CommonResponse)
 }
 
 class MyMatchesViewController: UIViewController, MyMatchesProtocol {
@@ -93,6 +94,12 @@ extension MyMatchesViewController {
             self.tblMatchList.reloadData()
         }
     }
+    
+    func getUnMatchResponse(response : CommonResponse){
+        if response.responseCode == 200 {
+           self.presenter?.callMatchListAPI()
+        } 
+    }
 }
 //MARK: UITableView Delegate & Datasource Methods
 extension MyMatchesViewController : UITableViewDataSource, UITableViewDelegate {
@@ -149,8 +156,7 @@ extension MyMatchesViewController : UITableViewDataSource, UITableViewDelegate {
     @available(iOS 11.0, *)
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title:  "", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-//            self.objMsgData.remove(at: indexPath.row)
-            self.tblMatchList.reloadData()
+            self.presenter?.callUnMatchUserAPI(iProfileId: "\(self.objMatchData[indexPath.row].iProfileId!)")
             //whatever
             success(true)
         })

@@ -12,14 +12,65 @@ import Alamofire
 
 open class NotificationAPI {
     /**
+     budge count of user notification
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func budgeCount(nonce: String, timestamp: Int, token: String, authorization: String, completion: @escaping ((_ data: ViewNotification?,_ error: Error?) -> Void)) {
+        budgeCountWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     budge count of user notification
+     - GET /notifications/budge-count
+     - examples: [{contentType=application/json, example={
+  "responseCode" : 200,
+  "responseMessage" : "Budge count.",
+  "responseData" : [ ]
+}}]
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+
+     - returns: RequestBuilder<ViewNotification>
+     */
+    open class func budgeCountWithRequestBuilder(nonce: String, timestamp: Int, token: String, authorization: String) -> RequestBuilder<ViewNotification> {
+        let path = "/notifications/budge-count"
+        let URLString = SwaggerClientAPI.basePath + path
+        let parameters: [String:Any]? = nil
+        
+        let url = URLComponents(string: URLString)
+        let nillableHeaders: [String: Any?] = [
+            "nonce": nonce,
+            "timestamp": timestamp.encodeToJSON(),
+            "token": token,
+            "authorization": authorization
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<ViewNotification>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
+    }
+
+    /**
      list of notification
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter authorization: (header)  
-     - parameter limit: (form)  
-     - parameter offset: (form)  
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter limit: (form)
+     - parameter offset: (form)
      - parameter completion: completion handler to receive the data and the error objects
      */
     open class func listNotification(nonce: String, timestamp: String, token: String, authorization: String, limit: Int, offset: Int, completion: @escaping ((_ data: NotificationResponse?,_ error: Error?) -> Void)) {
@@ -38,14 +89,14 @@ open class NotificationAPI {
   "responseData" : [ ]
 }}]
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter authorization: (header)  
-     - parameter limit: (form)  
-     - parameter offset: (form)  
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter limit: (form)
+     - parameter offset: (form)
 
-     - returns: RequestBuilder<NotificationResponse> 
+     - returns: RequestBuilder<NotificationResponse>
      */
     open class func listNotificationWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, limit: Int, offset: Int) -> RequestBuilder<NotificationResponse> {
         let path = "/notifications/list"
@@ -75,12 +126,12 @@ open class NotificationAPI {
     /**
      View Notification
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter authorization: (header)  
-     - parameter iNotificationId: (form)  
-     - parameter tiType: (form)  
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter iNotificationId: (form)
+     - parameter tiType: (form)
      - parameter isClearAll: (form) Pass 1 when clear the all notification (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -96,15 +147,15 @@ open class NotificationAPI {
      - POST /notifications/view
      - examples: [{contentType=application/json, example=""}]
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter authorization: (header)  
-     - parameter iNotificationId: (form)  
-     - parameter tiType: (form)  
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter iNotificationId: (form)
+     - parameter tiType: (form)
      - parameter isClearAll: (form) Pass 1 when clear the all notification (optional)
 
-     - returns: RequestBuilder<ViewNotification> 
+     - returns: RequestBuilder<ViewNotification>
      */
     open class func viewNotificationWithRequestBuilder(nonce: String, timestamp: Int, token: String, authorization: String, iNotificationId: String, tiType: String, isClearAll: Int? = nil) -> RequestBuilder<ViewNotification> {
         let path = "/notifications/view"

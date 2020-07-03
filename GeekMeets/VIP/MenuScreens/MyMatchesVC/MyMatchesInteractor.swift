@@ -14,6 +14,7 @@ import UIKit
 
 protocol MyMatchesInteractorProtocol {
     func callMatchListAPI()
+    func callUnMatchUserAPI(iProfileId : String)
 }
 
 protocol MyMatchesDataStore {
@@ -39,6 +40,25 @@ class MyMatchesInteractor: MyMatchesInteractorProtocol, MyMatchesDataStore {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
                 } else {
                     self.presenter?.getMatchResponse(response: response!)
+                }
+            }
+        }
+    }
+    
+    func callUnMatchUserAPI(iProfileId : String){
+        LoaderView.sharedInstance.showLoader()
+        UserAPI.unMatch(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iProfileId: iProfileId) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getUnMatchResponse(response: response!)
+            } else if response?.responseCode == 400 {
+                self.presenter?.getUnMatchResponse(response: response!)
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getUnMatchResponse(response: response!)
                 }
             }
         }

@@ -65,12 +65,12 @@ open class UserAPI {
      - parameter timestamp: (header)
      - parameter token: (header)
      - parameter authorization: (header)
-     - parameter iBlockTo: (form) UserId of user
+     - parameter vXmppUser: (form) Block user xmpp id
      - parameter tiIsBlocked: (form) 0-No,1-Yes
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func blockUsers(nonce: String, timestamp: String, token: String, authorization: String, iBlockTo: String, tiIsBlocked: String, completion: @escaping ((_ data: CommonResponse?,_ error: Error?) -> Void)) {
-        blockUsersWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, iBlockTo: iBlockTo, tiIsBlocked: tiIsBlocked).execute { (response, error) -> Void in
+    open class func blockUsers(nonce: String, timestamp: String, token: String, authorization: String, vXmppUser: String, tiIsBlocked: String, completion: @escaping ((_ data: CommonResponse?,_ error: Error?) -> Void)) {
+        blockUsersWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, vXmppUser: vXmppUser, tiIsBlocked: tiIsBlocked).execute { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
@@ -88,16 +88,16 @@ open class UserAPI {
      - parameter timestamp: (header)
      - parameter token: (header)
      - parameter authorization: (header)
-     - parameter iBlockTo: (form) UserId of user
+     - parameter vXmppUser: (form) Block user xmpp id
      - parameter tiIsBlocked: (form) 0-No,1-Yes
 
      - returns: RequestBuilder<CommonResponse>
      */
-    open class func blockUsersWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, iBlockTo: String, tiIsBlocked: String) -> RequestBuilder<CommonResponse> {
+    open class func blockUsersWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, vXmppUser: String, tiIsBlocked: String) -> RequestBuilder<CommonResponse> {
         let path = "/user/block-users"
         let URLString = SwaggerClientAPI.basePath + path
         let formParams: [String:Any?] = [
-            "iBlockTo": iBlockTo,
+            "vXmppUser": vXmppUser,
             "tiIsBlocked": tiIsBlocked
         ]
 
@@ -600,6 +600,63 @@ open class UserAPI {
     }
 
     /**
+     Update User location
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter fLatitude: (form)
+     - parameter fLongitude: (form)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func locationUpdate(nonce: String, timestamp: String, token: String, authorization: String, fLatitude: String, fLongitude: String, completion: @escaping ((_ data: UserAuthResponse?,_ error: Error?) -> Void)) {
+        locationUpdateWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, fLatitude: fLatitude, fLongitude: fLongitude).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Update User location
+     - POST /user/location-update
+     - examples: [{contentType=application/json, example=""}]
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter fLatitude: (form)
+     - parameter fLongitude: (form)
+
+     - returns: RequestBuilder<UserAuthResponse>
+     */
+    open class func locationUpdateWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, fLatitude: String, fLongitude: String) -> RequestBuilder<UserAuthResponse> {
+        let path = "/user/location-update"
+        let URLString = SwaggerClientAPI.basePath + path
+        let formParams: [String:Any?] = [
+            "fLatitude": fLatitude,
+            "fLongitude": fLongitude
+        ]
+
+        let nonNullParameters = APIHelper.rejectNil(formParams)
+        let parameters = APIHelper.convertBoolToString(nonNullParameters)
+        
+        let url = URLComponents(string: URLString)
+        let nillableHeaders: [String: Any?] = [
+            "nonce": nonce,
+            "timestamp": timestamp,
+            "token": token,
+            "authorization": authorization
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<UserAuthResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
+    }
+
+    /**
      Users Matches
      
      - parameter nonce: (header)
@@ -644,6 +701,66 @@ open class UserAPI {
         let requestBuilder: RequestBuilder<MatchUser>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
+    }
+
+    /**
+     request-for-email
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter language: (header) en&#x3D;English, fr&#x3D;French
+     - parameter iUserId: (form) iUserId
+     - parameter vEmail: (form) Email
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func requestForEmail(nonce: String, timestamp: Int, token: String, language: String, iUserId: String, vEmail: String, completion: @escaping ((_ data: CommonResponse?,_ error: Error?) -> Void)) {
+        requestForEmailWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, language: language, iUserId: iUserId, vEmail: vEmail).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     request-for-email
+     - POST /user/request-for-email
+     - examples: [{contentType=application/json, example={
+  "responseMessage" : "responseMessage",
+  "responseCode" : 0
+}}]
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter language: (header) en&#x3D;English, fr&#x3D;French
+     - parameter iUserId: (form) iUserId
+     - parameter vEmail: (form) Email
+
+     - returns: RequestBuilder<CommonResponse>
+     */
+    open class func requestForEmailWithRequestBuilder(nonce: String, timestamp: Int, token: String, language: String, iUserId: String, vEmail: String) -> RequestBuilder<CommonResponse> {
+        let path = "/user/request-for-email"
+        let URLString = SwaggerClientAPI.basePath + path
+        let formParams: [String:Any?] = [
+            "iUserId": iUserId,
+            "vEmail": vEmail
+        ]
+
+        let nonNullParameters = APIHelper.rejectNil(formParams)
+        let parameters = APIHelper.convertBoolToString(nonNullParameters)
+        
+        let url = URLComponents(string: URLString)
+        let nillableHeaders: [String: Any?] = [
+            "nonce": nonce,
+            "timestamp": timestamp.encodeToJSON(),
+            "token": token,
+            "language": language
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<CommonResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
     }
 
     /**
@@ -1318,6 +1435,63 @@ open class UserAPI {
     }
 
     /**
+     UnMatch User
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter iProfileId: (form)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func unMatch(nonce: String, timestamp: String, token: String, authorization: String, iProfileId: String, completion: @escaping ((_ data: CommonResponse?,_ error: Error?) -> Void)) {
+        unMatchWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, iProfileId: iProfileId).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     UnMatch User
+     - POST /user/un-match
+     - examples: [{contentType=application/json, example={
+  "responseMessage" : "responseMessage",
+  "responseCode" : 0
+}}]
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter iProfileId: (form)
+
+     - returns: RequestBuilder<CommonResponse>
+     */
+    open class func unMatchWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, iProfileId: String) -> RequestBuilder<CommonResponse> {
+        let path = "/user/un-match"
+        let URLString = SwaggerClientAPI.basePath + path
+        let formParams: [String:Any?] = [
+            "iProfileId": iProfileId
+        ]
+
+        let nonNullParameters = APIHelper.rejectNil(formParams)
+        let parameters = APIHelper.convertBoolToString(nonNullParameters)
+        
+        let url = URLComponents(string: URLString)
+        let nillableHeaders: [String: Any?] = [
+            "nonce": nonce,
+            "timestamp": timestamp,
+            "token": token,
+            "authorization": authorization
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<CommonResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
+    }
+
+    /**
      Other user profile
      
      - parameter nonce: (header)
@@ -1385,10 +1559,11 @@ open class UserAPI {
      - parameter iOTP: (form) One Time Password
      - parameter vCountryCode: (form) Country Code
      - parameter vPhone: (form) vPhone
+     - parameter tiStep: (form) pass Step-2 for only first time (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func verifyOtp(nonce: String, timestamp: Int, token: String, language: String, iUserId: String, iOTP: String, vCountryCode: String, vPhone: String, completion: @escaping ((_ data: UserAuthResponse?,_ error: Error?) -> Void)) {
-        verifyOtpWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, language: language, iUserId: iUserId, iOTP: iOTP, vCountryCode: vCountryCode, vPhone: vPhone).execute { (response, error) -> Void in
+    open class func verifyOtp(nonce: String, timestamp: Int, token: String, language: String, iUserId: String, iOTP: String, vCountryCode: String, vPhone: String, tiStep: String? = nil, completion: @escaping ((_ data: UserAuthResponse?,_ error: Error?) -> Void)) {
+        verifyOtpWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, language: language, iUserId: iUserId, iOTP: iOTP, vCountryCode: vCountryCode, vPhone: vPhone, tiStep: tiStep).execute { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
@@ -1407,17 +1582,19 @@ open class UserAPI {
      - parameter iOTP: (form) One Time Password
      - parameter vCountryCode: (form) Country Code
      - parameter vPhone: (form) vPhone
+     - parameter tiStep: (form) pass Step-2 for only first time (optional)
 
      - returns: RequestBuilder<UserAuthResponse>
      */
-    open class func verifyOtpWithRequestBuilder(nonce: String, timestamp: Int, token: String, language: String, iUserId: String, iOTP: String, vCountryCode: String, vPhone: String) -> RequestBuilder<UserAuthResponse> {
+    open class func verifyOtpWithRequestBuilder(nonce: String, timestamp: Int, token: String, language: String, iUserId: String, iOTP: String, vCountryCode: String, vPhone: String, tiStep: String? = nil) -> RequestBuilder<UserAuthResponse> {
         let path = "/user/verify-otp"
         let URLString = SwaggerClientAPI.basePath + path
         let formParams: [String:Any?] = [
             "iUserId": iUserId,
             "iOTP": iOTP,
             "vCountryCode": vCountryCode,
-            "vPhone": vPhone
+            "vPhone": vPhone,
+            "tiStep": tiStep
         ]
 
         let nonNullParameters = APIHelper.rejectNil(formParams)

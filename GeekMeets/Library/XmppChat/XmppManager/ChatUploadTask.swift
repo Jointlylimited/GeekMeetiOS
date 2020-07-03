@@ -53,7 +53,7 @@ class ChatUploadTask {
             self.delegate?.progress(progress: self.progress, objChatMsg: self.objChat)
         }
         
-        self.completionCallback = { _data,error in
+        self.completionCallback = { _data, _path, error in
             
             print("============== ChatUploadTask = completionCallback")
             
@@ -68,7 +68,7 @@ class ChatUploadTask {
                 return
             }
             
-            self.objChat.thumbUrl = _data! as! String
+            self.objChat.thumbUrl = _path! as! String
             self.objChat.url = _data! as! String
             self.objChat.body = (_data! as! String)
             self.objChat.strMsg = (_data! as! String)

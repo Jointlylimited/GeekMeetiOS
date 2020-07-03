@@ -39,6 +39,7 @@ class StoryViewModel {
 }
 
 protocol MessagesProtocol: class {
+    func getMatchResponse(response : MatchUser)
 }
 
 class MessagesViewController: UIViewController, MessagesProtocol {
@@ -51,12 +52,14 @@ class MessagesViewController: UIViewController, MessagesProtocol {
     @IBOutlet weak var StoryCollectionView: UICollectionView!
     @IBOutlet weak var lblNoUser: UILabel!
     
+    @IBOutlet weak var lblNewMatches: UILabel!
     
     var objStoryData : [StoryViewModel] = []
     var objMsgData : [MessageViewModel] = []
     
     var arrAllFriends:[Model_ChatFriendList] = [Model_ChatFriendList]()
     var arrFriends:[Model_ChatFriendList] = [Model_ChatFriendList]()
+    var objMatchData : [SwipeUserFields] = []
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -93,7 +96,9 @@ class MessagesViewController: UIViewController, MessagesProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.registerTableViewCell()
+        
         setStoryMsgViewData()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -105,6 +110,7 @@ class MessagesViewController: UIViewController, MessagesProtocol {
         self.tblMessageView.register(UINib.init(nibName: Cells.MessageListCell, bundle: Bundle.main), forCellReuseIdentifier: Cells.MessageListCell)
         self.StoryCollectionView.register(UINib.init(nibName: Cells.StoryCollectionCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.StoryCollectionCell)
         self.StoryCollectionView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        self.presenter?.callMatchListAPI()
     }
     
     func setStoryMsgViewData(){
@@ -211,6 +217,18 @@ class MessagesViewController: UIViewController, MessagesProtocol {
     }
 }
 
+extension MessagesViewController {
+    func getMatchResponse(response : MatchUser) {
+        if response.responseCode == 200 {
+            print(response.responseData)
+            self.objMatchData = response.responseData!
+            self.lblNewMatches.text = "New Matches (\(self.objMatchData.count))"
+            self.StoryCollectionView.reloadData()
+            self.tblMessageView.reloadData()
+        }
+    }
+}
+
 //MARK: Tableview Delegate & Datasource Methods
 extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -295,33 +313,6 @@ extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
         self.pushVC(obj)
     }
     
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: Cells.MessageListCell)
-//        return cell!
-//    }
-    
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        if let cell = cell as? MessageListCell {
-//
-//            let data = objMsgData[indexPath.row]
-//            cell.userImgView.image = data.userImage
-//            cell.userName.text = data.userName
-//            cell.msgText.text = data.msgTxt
-//            cell.msgTime.text = data.msgTime
-//            cell.msgCount.text = data.msgCount
-//
-//            cell.btnChat.alpha = 0.0
-//        }
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return UITableView.automaticDimension
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 30
-//    }
-    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView:UIView =  UIView()
         headerView.backgroundColor = .white
@@ -367,14 +358,15 @@ extension MessagesViewController : UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.objStoryData.count
+        return self.objMatchData.count != 0 ? self.objMatchData.count : 0 // self.objStoryData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell : StoryCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.StoryCollectionCell, for: indexPath) as! StoryCollectionCell
-        let data = self.objStoryData[indexPath.row]
-        cell.userImgView.image = data.userImage
-        cell.userName.text = data.userName
+        let data = self.objMatchData[indexPath.row]
+        let url = URL(string:"\(data.vProfileImage!)")
+        cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_round"))
+        cell.userName.text = data.vUserName
         
         cell.viewBorder.alpha = 0.0
         return cell

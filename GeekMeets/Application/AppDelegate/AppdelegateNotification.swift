@@ -85,11 +85,11 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     }
     
     func connectToFcm() {
-      Messaging.messaging().shouldEstablishDirectChannel = true
+        Messaging.messaging().shouldEstablishDirectChannel = true
         let token11 = Messaging.messaging().fcmToken
         if token11 != nil {
             print(token11)
-//            AppDelObj.deviceToken = token11!
+            //            AppDelObj.deviceToken = token11!
             UserDefaults.standard.set(token11, forKey: kDeviceToken)
             UserDefaults.standard.synchronize()
         }
@@ -116,32 +116,31 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
         
-         print("aps : \(userInfo["aps"])")
-               let dict = (userInfo["aps"] as! [String:Any])
-               let badge = (dict["badge"] as! Int)
-               AppDelObj.notificationBadgeCount = AppDelObj.notificationBadgeCount! + badge
-               
-               print(UIApplication.shared.applicationIconBadgeNumber)
-                UIApplication.shared.applicationIconBadgeNumber = UserDataModel.getNotificationCount() + 1
-                UserDataModel.setNotificationCount(count: UserDataModel.getNotificationCount() + 1)
-              
-               print(badge)
+        print("aps : \(userInfo["aps"])")
+        let dict = (userInfo["aps"] as! [String:Any])
+        let badge = (dict["badge"] as! Int)
+        AppDelObj.notificationBadgeCount = AppDelObj.notificationBadgeCount! + badge
+        print(UIApplication.shared.applicationIconBadgeNumber)
+        UIApplication.shared.applicationIconBadgeNumber = UserDataModel.getNotificationCount() + 1
+        UserDataModel.setNotificationCount(count: UserDataModel.getNotificationCount() + 1)
+        
+        print(badge)
     }
-
+    
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let userDict = response.notification.request.content.userInfo as! [String:Any]
         let decoder = JSONDecoder()
         
-//        guard userDict.jsonData() != nil else {
-//            completionHandler()
-//            return
-//        }
+        //        guard userDict.jsonData() != nil else {
+        //            completionHandler()
+        //            return
+        //        }
         
         let dict = (userDict["aps"] as! [String:Any])
         let badge = (dict["badge"] as! Int)
         print("badge :\(badge), System Badge : \(UIApplication.shared.applicationIconBadgeNumber)")
-//        self.callUpdateNotificationReadFlagApi(notificationId: Int((userDict["gcm.notification.iUserNotificationId"] as! NSString).intValue))
-    
+        //        self.callUpdateNotificationReadFlagApi(notificationId: Int((userDict["gcm.notification.iUserNotificationId"] as! NSString).intValue))
+        
         UserDataModel.setNotificationCount(count: UserDataModel.getNotificationCount() + 1)
         self.notificationBadgeCount = UserDataModel.getNotificationCount()
         

@@ -36,6 +36,15 @@ class AWSS3Manager {
         return (path: path, name: "\(timeStamp)\(imgExtension)" /*"\(prefix)\(timeStamp)\(imgExtension)"*/)
     }
     
+    // video data Path/Name
+    var videoURlUpload: (path: String, name: String) {
+        let folderName = "Chat/"
+        let timeStamp = Date().currentTimeMillis()
+        let videoExtension = ".mp4"
+        let path = "\(folderName)\(timeStamp)\(videoExtension)"
+        return (path: path, name: "\(timeStamp)\(videoExtension)")
+    }
+    
     func sequenceUpload()  {
         
         guard index < activeUploads.count else {
@@ -137,35 +146,79 @@ class AWSS3Manager {
     private func uploadfile(fileUrl: URL, fileName: String, contenType: String, progress: progressBlock?, completion: completionBlock?) {
         
         let fileData = try? Data.init(contentsOf: fileUrl)
-        let image = activeUploads.count == 0 ? activeUploads[0].image : activeUploads[activeUploads.count - 1].image
-        AWSHelper.setup()
-        AWSHelper.shared.upload(img: image!, imgPath: self.thumbURlUpload.path, imgName: self.thumbURlUpload.name) { [weak self] (isUploaded, path, error) in
-                    //                    DispatchQueue.main.async {
-                    //                        LoaderView.sharedInstance.hideLoader()
-                    //                    }
-                    guard let `self` = self else {return}
-                    if let err = error {
-                        print("ERROR : \(err.localizedDescription)")
-                        AppSingleton.sharedInstance().showAlert(err.localizedDescription, okTitle: "OK")
-//                        _ = ValidationToast.showStatusMessage(message: err.localizedDescription)
-                    } else if isUploaded {
+        if contenType == "image" {
+            let image = activeUploads.count == 0 ? activeUploads[0].image : activeUploads[activeUploads.count - 1].image
+            AWSHelper.setup()
+            AWSHelper.shared.upload(img: image!, imgPath: self.thumbURlUpload.path, imgName: self.thumbURlUpload.name) { [weak self] (isUploaded, path, error) in
+                //                    DispatchQueue.main.async {
+                //                        LoaderView.sharedInstance.hideLoader()
+                //                    }
+                guard let `self` = self else {return}
+                if let err = error {
+                    print("ERROR : \(err.localizedDescription)")
+                    AppSingleton.sharedInstance().showAlert(err.localizedDescription, okTitle: "OK")
+                    //                        _ = ValidationToast.showStatusMessage(message: err.localizedDescription)
+                } else if isUploaded {
+                    DispatchQueue.main.async {
                         DispatchQueue.main.async {
-                            DispatchQueue.main.async {
-                                            if let completionBlock = completion {
-                                                completionBlock(path, nil)
-                                            }
+                            if let completionBlock = completion {
+                                completionBlock(path, path, nil)
+                            }
                             //                AWSS3Manager.shared.sequenceUpload()
-                                        }
-                            //                            self.arryMsgs.removeLast()
-                            //                            self.viewController?.successLoadMessages(arry: self.arryMsgs, isLast:false)
-        //                    SKxmpp.manager()?.xmpp_SendMessage(self.dictBody(type: MediaType.image, text: nil, url: path, thumb_url: path, sticker_cat: nil, sticker_id: nil), timeStamp: appSingleton.getCurrentTimeStamp(), toUser: (self.receiver?.user_id)!)
                         }
-                    } else {
-                        AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
-//                        _ = ValidationToast.showStatusMessage(message: kSomethingWentWrong)
+                        //                            self.arryMsgs.removeLast()
+                        //                            self.viewController?.successLoadMessages(arry: self.arryMsgs, isLast:false)
+                        //                    SKxmpp.manager()?.xmpp_SendMessage(self.dictBody(type: MediaType.image, text: nil, url: path, thumb_url: path, sticker_cat: nil, sticker_id: nil), timeStamp: appSingleton.getCurrentTimeStamp(), toUser: (self.receiver?.user_id)!)
                     }
+                } else {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                    //                        _ = ValidationToast.showStatusMessage(message: kSomethingWentWrong)
                 }
-        
+            }
+        } else {
+            let image = activeUploads.count == 0 ? activeUploads[0].image : activeUploads[activeUploads.count - 1].image
+            AWSHelper.setup()
+            var thumbPath : String = ""
+            AWSHelper.shared.upload(img: image!, imgPath: self.thumbURlUpload.path, imgName: self.thumbURlUpload.name) { [weak self] (isUploaded, path, error) in
+                guard let `self` = self else {return}
+                if let err = error {
+                    print("ERROR : \(err.localizedDescription)")
+                    AppSingleton.sharedInstance().showAlert(err.localizedDescription, okTitle: "OK")
+                } else if isUploaded {
+                    DispatchQueue.main.async {
+                        DispatchQueue.main.async {
+                            if let completionBlock = completion {
+                                thumbPath = path!
+                            }
+                        }
+                    }
+                } else {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                }
+            }
+            
+            let url = activeUploads.count == 0 ? activeUploads[0].localPath : activeUploads[activeUploads.count - 1].localPath
+            AWSHelper.shared.uploadVideo(video: url, videoPath: videoURlUpload.path, videoName: videoURlUpload.name) { [weak self] (isUploaded, path, error) in
+                DispatchQueue.main.async {
+                    LoaderView.sharedInstance.hideLoader()
+                }
+                guard let `self` = self else {return}
+                if let err = error {
+                    print("ERROR : \(err.localizedDescription)")
+                  AppSingleton.sharedInstance().showAlert(err.localizedDescription, okTitle: "OK")
+                } else if isUploaded{
+                    DispatchQueue.main.async {
+                        DispatchQueue.main.async {
+                            if let completionBlock = completion {
+                                completionBlock(path, thumbPath, nil)
+                            }
+                        }
+                    }
+                } else {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                }
+            }
+        }
 //        Backendless.shared.file.uploadFile(fileName: fileName, filePath: fileUrl.absoluteString, content: fileData!, responseHandler: { (file) in
 //            print("File has been uploaded: \(file.fileUrl ?? "")")
 //            DispatchQueue.main.async {
@@ -217,11 +270,11 @@ class AWSS3Manager {
                     let publicURL = url?.appendingPathComponent(self.bucketName).appendingPathComponent(fileName)
                     print("Uploaded to:\(String(describing: publicURL))")
                     if let completionBlock = completion {
-                        completionBlock(publicURL?.absoluteString, nil)
+                        completionBlock(publicURL?.absoluteString, nil, nil)
                     }
                 } else {
                     if let completionBlock = completion {
-                        completionBlock(nil, error)
+                        completionBlock(nil, nil, error)
                     }
                 }
                 AWSS3Manager.shared.sequenceUpload()

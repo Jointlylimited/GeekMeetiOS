@@ -16,6 +16,7 @@ protocol NotificationListProtocol: class {
     func getNotificationListResponse(response : NotificationResponse)
     func getReadNotificationResponse(response: ViewNotification)
     func getClearAllNotificationResponse(response: ViewNotification)
+    func getBadgeCountResponse(response : ViewNotification)
 }
 
 struct NotificationListModel {
@@ -153,6 +154,16 @@ extension NotificationListViewController {
         self.objNotificationModel.removeAll()
         self.tblNotificationList.reloadData()
         self.popVC()
+    }
+    
+    func callBadgeCountAPI(){
+        self.presenter?.callBadgeCountAPI()
+    }
+    
+    func getBadgeCountResponse(response : ViewNotification) {
+        if response.responseCode == 200 {
+            UserDataModel.setNotificationCount(count: (response.responseData?.budgeCount)!)
+        } 
     }
 }
 

@@ -106,7 +106,6 @@ class UserDataModel : Codable {
         }
     }
     
-    
     @objc static func setNotificationCount(count: Int){
         UserDefaults.standard.set(count, forKey: kNotificationCount)
     }
@@ -114,13 +113,5 @@ class UserDataModel : Codable {
     @objc static func getNotificationCount() -> Int{
         return UserDefaults.standard.integer(forKey: kNotificationCount)
     }
-
-//    @objc static func setNotificationData(count: Int){
-//        UserDefaults.standard.set(count, forKey: kNotificationData)
-//    }
-//
-//    @objc static func getNotificationData() -> Int{
-//        return UserDefaults.standard.integer(forKey: kNotificationData)
-//    }
 }
 

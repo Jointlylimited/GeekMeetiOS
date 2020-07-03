@@ -16,7 +16,7 @@ protocol MatchProfileInteractorProtocol {
     func callUserProfileAPI(id : String, code : String)
     func callStoryListAPI(id : Int)
     
-    func callBlockUserAPI(iBlockTo: String, tiIsBlocked: String)
+    func callBlockUserAPI(vXmppUser: String, tiIsBlocked: String)
     func callBlockUserListAPI()
     func callReactEmojiAPI( iUserId: String, iMediaId: String, tiRactionType: String)
     
@@ -72,9 +72,9 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
         }
     }
     
-    func callBlockUserAPI(iBlockTo: String, tiIsBlocked: String) {
+    func callBlockUserAPI(vXmppUser: String, tiIsBlocked: String) {
         LoaderView.sharedInstance.showLoader()
-        UserAPI.blockUsers(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iBlockTo: iBlockTo, tiIsBlocked: tiIsBlocked) { (response, error) in
+        UserAPI.blockUsers(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vXmppUser: vXmppUser, tiIsBlocked: tiIsBlocked) { (response, error) in
             
             LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {

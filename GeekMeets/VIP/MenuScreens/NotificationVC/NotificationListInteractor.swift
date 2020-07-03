@@ -15,6 +15,7 @@ import UIKit
 protocol NotificationListInteractorProtocol {
     func callNotificationListAPI(offset: Int, limit: Int)
     func callReadAPI(iNotificationId : String, tiType : String)
+     func callBadgeCountAPI()
 }
 
 protocol NotificationListDataStore {
@@ -78,6 +79,25 @@ class NotificationListInteractor: NotificationListInteractorProtocol, Notificati
                     } else {
                         self.presenter?.getClearAllNotificationResponse(response: response!)
                     }
+                }
+            }
+        }
+    }
+    
+    func callBadgeCountAPI(){
+        LoaderView.sharedInstance.showLoader()
+        NotificationAPI.budgeCount(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getBadgeCountResponse(response: response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getBadgeCountResponse(response: response!)
                 }
             }
         }

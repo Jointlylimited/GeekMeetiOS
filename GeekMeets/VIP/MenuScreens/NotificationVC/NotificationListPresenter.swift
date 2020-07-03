@@ -20,6 +20,9 @@ protocol NotificationListPresentationProtocol {
     func getReadNotificationResponse(response: ViewNotification)
     
     func getClearAllNotificationResponse(response: ViewNotification)
+    
+    func callBadgeCountAPI()
+    func getBadgeCountResponse(response : ViewNotification)
 }
 
 class NotificationListPresenter: NotificationListPresentationProtocol {
@@ -45,5 +48,13 @@ class NotificationListPresenter: NotificationListPresentationProtocol {
     
     func getClearAllNotificationResponse(response: ViewNotification){
         self.viewController?.getClearAllNotificationResponse(response: response)
+    }
+    
+    func callBadgeCountAPI(){
+        self.interactor?.callBadgeCountAPI()
+    }
+    
+    func getBadgeCountResponse(response : ViewNotification) {
+        self.viewController?.getBadgeCountResponse(response: response)
     }
 }

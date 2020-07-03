@@ -43,6 +43,7 @@ class MenuViewController: UIViewController, MenuProtocol {
     @IBOutlet weak var lblUserNameAge: UILabel!
     @IBOutlet weak var imgProfile: UIImageView!
     @IBOutlet weak var lblVersion: UILabel!
+    @IBOutlet weak var btnNotification: UIButton!
     
     var alertView: CustomAlertView!
     var arrMenuModel : [MenuViewModel] = []
@@ -111,6 +112,12 @@ class MenuViewController: UIViewController, MenuProtocol {
             self.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_round"))
         }
         
+        
+        if UserDataModel.getNotificationCount() != 0 {
+            self.btnNotification.setImage(#imageLiteral(resourceName: "icn_notification"), for: .normal)
+        } else {
+            self.btnNotification.setImage(#imageLiteral(resourceName: "bell"), for: .normal)
+        }
         self.btnEditProfile.underlineButton(text: "Edit Profile", font: UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 12)!, color: #colorLiteral(red: 0.5294117647, green: 0.1803921569, blue: 0.7647058824, alpha: 1))
         arrMenuModel = [MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_my_match"), label: "My Matches (122)", rightImage: #imageLiteral(resourceName: "icn_arrow")),
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_manage_subscription"), label: "Manage Subscription", rightImage: #imageLiteral(resourceName: "icn_arrow")),

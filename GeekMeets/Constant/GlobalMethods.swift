@@ -29,7 +29,7 @@ var PreferenceIconsDict : [NSDictionary] = [["type" : "1", "icon" : #imageLitera
 var NotificationImages : [NSDictionary] = [["type" : "1", "image" : #imageLiteral(resourceName: "match")], ["type" : "2" , "image" : #imageLiteral(resourceName: "noti_boosts")], ["type" : "", "image" : #imageLiteral(resourceName: "noti_Subscription")]]
 
 enum MediaType: Int {
-    case image = 0, video
+    case image = 0, video, gif
 }
 
 let _maxImageSize              : CGSize  = CGSize(width: 1000, height: 1000)

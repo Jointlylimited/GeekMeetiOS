@@ -15,6 +15,9 @@ import UIKit
 protocol MyMatchesPresentationProtocol {
     func callMatchListAPI()
     func getMatchResponse(response : MatchUser)
+    
+    func callUnMatchUserAPI(iProfileId : String)
+    func getUnMatchResponse(response : CommonResponse)
 }
 
 class MyMatchesPresenter: MyMatchesPresentationProtocol {
@@ -27,5 +30,13 @@ class MyMatchesPresenter: MyMatchesPresentationProtocol {
     }
     func getMatchResponse(response : MatchUser){
         self.viewController?.getMatchResponse(response : response)
+    }
+    
+    func callUnMatchUserAPI(iProfileId : String){
+        self.interactor?.callUnMatchUserAPI(iProfileId : iProfileId)
+    }
+    
+    func getUnMatchResponse(response : CommonResponse){
+        self.viewController?.getUnMatchResponse(response: response)
     }
 }
