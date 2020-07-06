@@ -24,7 +24,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
                     self.showPermissionAlert()
                     return
                 }
-                
+                self.callPushStatusAPI(tiIsAcceptPush: "1")
                 self.getNotificationSettings()
             }
         } else {
@@ -159,6 +159,26 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     }
 }
 
+extension AppDelegate {
+    func callPushStatusAPI(tiIsAcceptPush : String) {
+        LoaderView.sharedInstance.showLoader()
+        UserAPI.setPushStatus(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vDeviceToken: vDeviceToken, tiIsAcceptPush: tiIsAcceptPush) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+//                UserDataModel.currentUser = response?.responseData
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+            } else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+//                     self.presenter?.getPushStatusResponse(response : response!)
+                }
+            }
+        }
+    }
+}
 extension AppDelegate: MessagingDelegate{
     
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {

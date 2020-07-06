@@ -19,6 +19,9 @@ protocol OTPEnterPresentationProtocol {
     func getVerifyOTPResponse(response : UserAuthResponse)
     func getResendOTPResponse(response : CommonResponse)
     func callResendOTPAPI(vCountryCode : String,vPhone : String)
+    
+    func callNewVerifyOTPAPI(iOTP : String,vCountryCode : String,vPhone : String)
+    func getNewVerifyOTPResponse(response : UserAuthResponse)
 }
 
 class OTPEnterPresenter: OTPEnterPresentationProtocol {
@@ -54,10 +57,7 @@ class OTPEnterPresenter: OTPEnterPresentationProtocol {
 //        }
     }
     func getResendOTPResponse(response : CommonResponse) {
-        
-        
         self.viewController?.getResendOTPResponse(response: response)
-        
     }
     func getVerifyOTPResponse(response : UserAuthResponse) {
         
@@ -71,4 +71,11 @@ class OTPEnterPresenter: OTPEnterPresentationProtocol {
         }
     }
     
+    func callNewVerifyOTPAPI(iOTP : String,vCountryCode : String,vPhone : String) {
+        self.interactor?.callNewVerifyOTPAPI(iOTP : iOTP,vCountryCode : vCountryCode,vPhone : vPhone)
+    }
+    
+    func getNewVerifyOTPResponse(response : UserAuthResponse) {
+        self.viewController?.getNewVerifyOTPResponse(response: response)
+    }
 }

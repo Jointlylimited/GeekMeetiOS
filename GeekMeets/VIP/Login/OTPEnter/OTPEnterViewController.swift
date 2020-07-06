@@ -16,6 +16,7 @@ protocol OTPEnterProtocol: class {
     func displaySomething()
     func getVerifyOTPResponse(response : UserAuthResponse)
     func getResendOTPResponse(response : CommonResponse)
+    func getNewVerifyOTPResponse(response : UserAuthResponse)
 }
 
 class OTPEnterViewController: UIViewController, OTPEnterProtocol {
@@ -48,7 +49,8 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     
     var strCountryCode: String = UserDataModel.currentUser?.vCountryCode ?? "+91"
     var strPhonenumber: String? = UserDataModel.currentUser?.vPhone ?? "756713373"
-    
+    var strNewCountryCode : String = ""
+    var strNewPhoneNumber : String = ""
     
     // MARK: Object lifecycle
     
@@ -125,8 +127,8 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
             strCountryCode = signUpParams!["vCountryCode"]!
             strPhonenumber = signUpParams!["vPhone"]!
         } else {
-            strCountryCode = UserDataModel.currentUser?.vCountryCode ?? ""
-            strPhonenumber = UserDataModel.currentUser?.vPhone ?? ""
+            strCountryCode = strNewCountryCode
+            strPhonenumber = strNewPhoneNumber
         }
         btnCountrycode.setTitle(strCountryCode, for: .normal)
         tfMobileNumber.text = "\(strCountryCode) \(strPhonenumber ?? "")"
@@ -205,8 +207,8 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
             self.presenter?.callVerifyOTPAPI(iOTP : otpStackView.getOTP(),vCountryCode : strCountryCode,vPhone : strPhonenumber ?? "7567173373", signUpParams : signUpParams)
             
         } else {
-            self.navigationController?.isNavigationBarHidden = true
-            self.showAlertView()
+            otpStackView.setAllFieldColor(isWarningColor: true, color: .yellow)
+            self.presenter?.callNewVerifyOTPAPI(iOTP : otpStackView.getOTP(),vCountryCode : strCountryCode,vPhone : strPhonenumber ?? "7567173373")
         }
     }
     
@@ -252,6 +254,16 @@ extension OTPEnterViewController {
         }
         self.displayAlert(strTitle: "", strMessage: response.responseMessage!)
     }
+    
+    func getNewVerifyOTPResponse(response : UserAuthResponse) {
+        if response.responseCode == 200 {
+            UserDataModel.currentUser = response.responseData
+            self.navigationController?.isNavigationBarHidden = true
+            self.showAlertView()
+        } else {
+            self.displayAlert(strTitle: "", strMessage: response.responseMessage!)
+        }
+    }
 }
 
 extension OTPEnterViewController : AlertViewCentreButtonDelegate {
@@ -259,6 +271,5 @@ extension OTPEnterViewController : AlertViewCentreButtonDelegate {
     func centerButtonAction(){
         let accVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.AccountSettingScreen)
         self.pop(toLast: accVC.classForCoder)
-      
     }
 }

@@ -23,7 +23,6 @@ class MyMatchesViewController: UIViewController, MyMatchesProtocol {
     
     @IBOutlet weak var tblMatchList: UITableView!
     
-    var objMsgData : [MessageViewModel] = []
     var objMatchData : [SwipeUserFields] = []
     // MARK: Object lifecycle
     
@@ -71,7 +70,6 @@ class MyMatchesViewController: UIViewController, MyMatchesProtocol {
     }
     
     func setStoryMsgViewData(){
-        self.objMsgData = [MessageViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Sophia", msgTxt: "Matches on 11 Jan, 2019, 10:23 pm", msgCount: "2", msgTime: "11:23 pm"),MessageViewModel(userImage: #imageLiteral(resourceName: "img_intro_1"), userName: "Sophia", msgTxt: "Matches on 11 Jan, 2019, 10:23 pm", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "Image 64"), userName: "Linda Parker", msgTxt: "Matches on 11 Jan, 2019, 10:23 pm", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "Image 62"), userName: "Linda Parker", msgTxt: "Matches on 11 Jan, 2019, 10:23 pm", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Linda Parker", msgTxt: "Matches on 11 Jan, 2019, 10:23 pm", msgCount: "2", msgTime: "11:23 pm"),MessageViewModel(userImage: #imageLiteral(resourceName: "img_intro_1"), userName: "Sophia", msgTxt: "Matches on 11 Jan, 2019, 10:23 pm", msgCount: "2", msgTime: "11:23 pm")]
         self.presenter?.callMatchListAPI()
     }
     @IBAction func btnBackAction(_ sender: UIButton) {
@@ -80,7 +78,7 @@ class MyMatchesViewController: UIViewController, MyMatchesProtocol {
     
     @IBAction func btnSearchAction(_ sender: UIButton) {
         let searchVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.SearchScreen) as? SearchProfileViewController
-        searchVC?.objMsgData = self.objMsgData
+        searchVC?.objMsgData = self.objMatchData
         searchVC?.isFromDiscover = false
         self.pushVC(searchVC!)
     }
@@ -89,7 +87,7 @@ class MyMatchesViewController: UIViewController, MyMatchesProtocol {
 extension MyMatchesViewController {
     func getMatchResponse(response : MatchUser) {
         if response.responseCode == 200 {
-            print(response.responseData)
+            UserDataModel.setMatchesCount(count: response.responseData!.count)
             self.objMatchData = response.responseData!
             self.tblMatchList.reloadData()
         }
@@ -108,7 +106,7 @@ extension MyMatchesViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.objMatchData.count != 0 ? self.objMatchData.count : self.objMsgData.count
+        return self.objMatchData.count != 0 ? self.objMatchData.count : 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -136,11 +134,6 @@ extension MyMatchesViewController : UITableViewDataSource, UITableViewDelegate {
                     obj.modalPresentationStyle = .fullScreen
                     self.pushVC(obj)
                 }
-            } else {
-                let data = objMsgData[indexPath.row]
-                cell.userImgView.image = data.userImage
-                cell.userName.text = data.userName
-                cell.msgText.text = data.msgTxt
             }
             cell.msgTime.alpha = 0.0
             cell.msgCount.alpha = 0.0
@@ -156,7 +149,7 @@ extension MyMatchesViewController : UITableViewDataSource, UITableViewDelegate {
     @available(iOS 11.0, *)
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title:  "", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            self.presenter?.callUnMatchUserAPI(iProfileId: "\(self.objMatchData[indexPath.row].iProfileId!)")
+            self.presenter?.callUnMatchUserAPI(iProfileId: "\(self.objMatchData[indexPath.row].vOtherUserXmpp!)")
             //whatever
             success(true)
         })

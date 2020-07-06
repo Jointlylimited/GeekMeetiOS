@@ -161,12 +161,16 @@ extension ContactUS_LegalViewController : UITableViewDataSource, UITableViewDele
             let commonVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.CommonPagesScreen) as! CommonPagesViewController
             if index == 0 {
                 commonVC.objCommonData = CommonModelData.Terms
+                commonVC.slug = CommonModelData.Terms.slugTitle
             } else if index == 1 {
                 commonVC.objCommonData = CommonModelData.Privacy
+                commonVC.slug = CommonModelData.Privacy.slugTitle
             } else if index == 2 {
                 commonVC.objCommonData = CommonModelData.About
+                commonVC.slug = CommonModelData.About.slugTitle
             } else {
                 commonVC.objCommonData = CommonModelData.Licenses
+                commonVC.slug = CommonModelData.Licenses.slugTitle
             }
             self.pushVC(commonVC)
         }

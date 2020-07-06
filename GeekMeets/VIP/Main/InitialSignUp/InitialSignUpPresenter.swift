@@ -93,7 +93,7 @@ class InitialSignUpPresenter: InitialSignUpPresentationProtocol {
     func getPrefernceResponse(response : PreferencesResponse){
         if response.responseCode == 200 {
             UserDataModel.UserPreferenceResponse = response
-             AppSingleton.sharedInstance().showHomeVC(fromMatch : false)
+            AppSingleton.sharedInstance().showHomeVC(fromMatch : false, userDict: [:])
         }
     }
     

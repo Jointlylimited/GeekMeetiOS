@@ -211,7 +211,7 @@ class MessagesViewController: UIViewController, MessagesProtocol {
     
     @IBAction func btnSearchAction(_ sender: UIButton) {
         let searchVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.SearchScreen) as? SearchProfileViewController
-        searchVC?.objMsgData = self.objMsgData
+        searchVC?.objMsgData = self.objMatchData
         searchVC?.isFromDiscover = false
         self.pushVC(searchVC!)
     }
@@ -241,7 +241,7 @@ extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : MessageListCell = tableView.dequeueReusableCell(withIdentifier: Cells.MessageListCell, for: indexPath) as! MessageListCell
-        
+        cell.btnChat.alpha = 0.0
         cell.selectionStyle = .none
         let objfriend = arrFriends[indexPath.row]
         

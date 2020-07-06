@@ -35,6 +35,9 @@ class MatchViewController: UIViewController, MatchProtocol {
     var isFromProfile : Bool = false
     var isFromNotification : Bool = false
     var OtherUserData : NSDictionary = [:]
+    var xmppUserID : String = ""
+    var name : String = ""
+    var imageString : String = ""
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -98,6 +101,9 @@ class MatchViewController: UIViewController, MatchProtocol {
                         print(url!)
                         self.matchUserImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
                     }
+                    self.xmppUserID = UserDetails.vXmppUser!
+                    self.name = UserDetails.vName!
+                    self.imageString = UserDetails.vProfileImage!
                 }
             } else {
                 if CardUserDetails != nil {
@@ -107,6 +113,9 @@ class MatchViewController: UIViewController, MatchProtocol {
                         print(url!)
                         self.matchUserImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
                     }
+                    self.xmppUserID = CardUserDetails.vXmppUser!
+                    self.name = CardUserDetails.vName!
+                    self.imageString = CardUserDetails.vProfileImage!
                 }
             }
         } else {
@@ -121,12 +130,15 @@ class MatchViewController: UIViewController, MatchProtocol {
     
     @IBAction func btnContinueSwippingAction(_ sender: UIButton) {
         self.dismissVC {
-            AppSingleton.sharedInstance().showHomeVC(fromMatch: false)
+            AppSingleton.sharedInstance().showHomeVC(fromMatch: false, userDict: [:])
         }
     }
     @IBAction func btnSendMsgAction(_ sender: UIButton) {
         self.dismissVC {
-            AppSingleton.sharedInstance().showHomeVC(fromMatch: true)
+            if self.xmppUserID != "" {
+            let dict = ["xmppUserID": self.xmppUserID, "name": self.name, "imageString": self.imageString]
+                AppSingleton.sharedInstance().showHomeVC(fromMatch: true, userDict: dict as NSDictionary)
+            }
         }
     }
 }

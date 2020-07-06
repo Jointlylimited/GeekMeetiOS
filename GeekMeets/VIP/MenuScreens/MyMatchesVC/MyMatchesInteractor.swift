@@ -47,7 +47,7 @@ class MyMatchesInteractor: MyMatchesInteractorProtocol, MyMatchesDataStore {
     
     func callUnMatchUserAPI(iProfileId : String){
         LoaderView.sharedInstance.showLoader()
-        UserAPI.unMatch(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iProfileId: iProfileId) { (response, error) in
+        UserAPI.unMatch(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vXmppUser: iProfileId) { (response, error) in
             
             LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {

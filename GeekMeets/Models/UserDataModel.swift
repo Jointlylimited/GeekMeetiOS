@@ -106,6 +106,14 @@ class UserDataModel : Codable {
         }
     }
     
+    @objc static func setMatchesCount(count: Int){
+        UserDefaults.standard.set(count, forKey: kMatchesCount)
+    }
+
+    @objc static func getMatchesCount() -> Int{
+        return UserDefaults.standard.integer(forKey: kMatchesCount)
+    }
+    
     @objc static func setNotificationCount(count: Int){
         UserDefaults.standard.set(count, forKey: kNotificationCount)
     }

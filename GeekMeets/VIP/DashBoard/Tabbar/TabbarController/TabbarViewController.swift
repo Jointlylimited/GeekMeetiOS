@@ -22,7 +22,7 @@ class TabbarViewController: UITabBarController, TabbarProtocol {
     
      
     var isFromMatch : Bool = false
-    
+    var userDict : NSDictionary = [:]
     // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -71,7 +71,13 @@ class TabbarViewController: UITabBarController, TabbarProtocol {
         if !isFromMatch {
             self.selectedIndex = 2
         } else {
-            self.selectedIndex = 1
+            delay(0.2) {
+                let obj = GeekMeets_StoryBoard.Chat.instantiateViewController(withIdentifier: GeekMeets_ViewController.OneToOneChatScreen) as! OneToOneChatVC
+                obj._userIDForRequestSend = self.userDict["xmppUserID"] as? String
+                obj.userName = self.userDict["name"] as? String
+                obj.imageString = self.userDict["imageString"] as? String
+                self.pushVC(obj)
+            }
         }
     }
 }

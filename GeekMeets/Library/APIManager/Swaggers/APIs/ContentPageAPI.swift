@@ -14,19 +14,22 @@ open class ContentPageAPI {
     /**
      * enum for parameter slug
      */
-    public enum Slug_contentPage: String { 
+    public enum Slug_contentPage: String {
         case aboutUs = "about-us"
         case privacyPolicy = "privacy-policy"
         case terms = "terms"
+        case contactUs = "contact-us"
+        case licenses = "licenses"
+        case tips = "tips"
     }
 
     /**
      Content Page
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter slug: (path)  
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter slug: (path)
      - parameter completion: completion handler to receive the data and the error objects
      */
     open class func contentPage(nonce: String, timestamp: String, token: String, slug: Slug_contentPage, completion: @escaping ((_ data: ContentPageResponse?,_ error: Error?) -> Void)) {
@@ -48,12 +51,12 @@ open class ContentPageAPI {
   }
 }}]
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter slug: (path)  
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter slug: (path)
 
-     - returns: RequestBuilder<ContentPageResponse> 
+     - returns: RequestBuilder<ContentPageResponse>
      */
     open class func contentPageWithRequestBuilder(nonce: String, timestamp: String, token: String, slug: Slug_contentPage) -> RequestBuilder<ContentPageResponse> {
         var path = "/content-pages/{slug}"

@@ -16,6 +16,7 @@ protocol OTPEnterInteractorProtocol {
     func doSomething()
     func callVerifyOTPAPI(iOTP : String,vCountryCode : String,vPhone : String)
     func callResendOTPAPI(vCountryCode : String,vPhone : String)
+    func callNewVerifyOTPAPI(iOTP : String,vCountryCode : String,vPhone : String)
 }
 
 protocol OTPEnterDataStore {
@@ -35,7 +36,7 @@ class OTPEnterInteractor: OTPEnterInteractorProtocol, OTPEnterDataStore {
       
         LoaderView.sharedInstance.showLoader()
       let intiUserId: Int = UserDataModel.currentUser!.iUserId!
-      UserAPI.verifyOtp(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, iUserId: String(intiUserId), iOTP: iOTP, vCountryCode: vCountryCode, vPhone:vPhone ){ (response, error) in
+      UserAPI.verifyOtp(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, iUserId: String(intiUserId), iOTP: iOTP, vCountryCode: vCountryCode, vPhone:vPhone, tiStep: "2"){ (response, error) in
             
         LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
@@ -74,4 +75,25 @@ class OTPEnterInteractor: OTPEnterInteractorProtocol, OTPEnterDataStore {
         }
     }
       
+    func callNewVerifyOTPAPI(iOTP : String,vCountryCode : String,vPhone : String) {
+      
+        LoaderView.sharedInstance.showLoader()
+      let intiUserId: Int = UserDataModel.currentUser!.iUserId!
+      UserAPI.verifyOtp(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, iUserId: String(intiUserId), iOTP: iOTP, vCountryCode: vCountryCode, vPhone:vPhone){ (response, error) in
+            
+        LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getNewVerifyOTPResponse(response: response!)
+            } else if response?.responseCode == 400 {
+                self.presenter?.getNewVerifyOTPResponse(response: response!)
+              
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getNewVerifyOTPResponse(response: response!)
+                }
+            }
+        }
+    }
 }

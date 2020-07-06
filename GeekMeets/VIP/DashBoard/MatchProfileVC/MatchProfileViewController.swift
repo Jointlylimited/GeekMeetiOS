@@ -219,7 +219,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     
     @IBAction func btnBackAction(_ sender: UIButton) {
         if isFromLink {
-            AppSingleton.sharedInstance().showHomeVC(fromMatch: false)
+            AppSingleton.sharedInstance().showHomeVC(fromMatch: false, userDict: [:])
         } else {
             if isFromHome {
                 self.dismissVC(completion: nil)
@@ -257,7 +257,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
         self.presentVC(controller)
     }
     @IBAction func btnBlockAction(_ sender: UIButton) {
-         self.showAlertView() //self.showPickImageView()
+         self.showAlertView()
     }
     
     func setProfileData(){
@@ -332,10 +332,10 @@ extension MatchProfileViewController {
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
             if tiIsBlocked == 0 {
                 self.tiIsBlocked = 1
-                self.btnBlock.setTitle("Unblock", for: .normal)
+                self.btnBlock.setTitle(kTitleUnBlock, for: .normal)
             } else {
                 self.tiIsBlocked = 0
-                self.btnBlock.setTitle("Block", for: .normal)
+                self.btnBlock.setTitle(kTitleBlock, for: .normal)
             }
         }
     }
@@ -346,7 +346,7 @@ extension MatchProfileViewController {
                 let data = response.responseData?.filter({($0.iUserId) == self.objMatchUserProfile.iUserId!})
                 if data!.count > 0 {
                     self.tiIsBlocked = 1
-                    self.btnBlock.setTitle("Unblock", for: .normal)
+                    self.btnBlock.setTitle(kTitleUnBlock, for: .normal)
                 }
             }
         }
@@ -372,7 +372,7 @@ extension MatchProfileViewController {
                 let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchScreen) as! MatchViewController
                 controller.isFromProfile = true
                 let data = self.objMatchUserProfile
-                controller.CardUserDetails = SearchUserFields(iUserId: data?.iUserId, vName: data?.vName, vProfileImage: data?.vProfileImage, tiAge: 0, vLiveIn: "", fLatitude: "", fLongitude: "", storyTime: "", photos: [])
+                controller.CardUserDetails = SearchUserFields(iUserId: data?.iUserId, vName: data?.vName, vProfileImage: data?.vProfileImage, tiAge: 0, vLiveIn: "", fLatitude: "", fLongitude: "", storyTime: "",vXmppUser: data?.vXmppUser,vXmppPassword: data?.vXmppPassword, photos: [])
                 controller.modalTransitionStyle = .crossDissolve
                 controller.modalPresentationStyle = .overCurrentContext
                 self.presentVC(controller)

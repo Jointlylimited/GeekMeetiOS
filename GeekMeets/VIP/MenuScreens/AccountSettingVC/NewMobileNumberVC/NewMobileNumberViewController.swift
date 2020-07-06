@@ -77,6 +77,8 @@ class NewMobileNumberViewController: UIViewController, NewMobileNumberProtocol {
     @IBAction func btnContinueAction(_ sender: GradientButton) {
         let otpVC = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter) as! OTPEnterViewController
         otpVC.isFromNewMobile = true
+        otpVC.strNewCountryCode = self.txtCountryCode.text ?? ""
+        otpVC.strNewPhoneNumber = self.txtMobNo.text ?? ""
         self.pushVC(otpVC)
     }
 }

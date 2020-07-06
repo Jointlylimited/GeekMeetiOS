@@ -12,6 +12,7 @@
 
 import UIKit
 import SDWebImage
+import CoreLocation
 
 class MenuViewModel {
     let leftImage: UIImage?
@@ -27,6 +28,8 @@ class MenuViewModel {
 
 protocol MenuProtocol: class {
     func getSignOutResponse(response : UserAuthResponse)
+    func getLocationUpdateResponse(response : UserAuthResponse)
+    func getPushStatusResponse(response : UserAuthResponse)
 }
 
 class MenuViewController: UIViewController, MenuProtocol {
@@ -118,8 +121,10 @@ class MenuViewController: UIViewController, MenuProtocol {
         } else {
             self.btnNotification.setImage(#imageLiteral(resourceName: "bell"), for: .normal)
         }
+        
         self.btnEditProfile.underlineButton(text: "Edit Profile", font: UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 12)!, color: #colorLiteral(red: 0.5294117647, green: 0.1803921569, blue: 0.7647058824, alpha: 1))
-        arrMenuModel = [MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_my_match"), label: "My Matches (122)", rightImage: #imageLiteral(resourceName: "icn_arrow")),
+        let matchCount = UserDataModel.getMatchesCount()
+        arrMenuModel = [MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_my_match"), label: "My Matches (\(matchCount))", rightImage: #imageLiteral(resourceName: "icn_arrow")),
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_manage_subscription"), label: "Manage Subscription", rightImage: #imageLiteral(resourceName: "icn_arrow")),
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_boosts_purple"), label: "Boosts (2)", rightImage: #imageLiteral(resourceName: "icn_arrow")),
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_top_geeks"), label: "Top Geeks (2)", rightImage: #imageLiteral(resourceName: "icn_arrow")),
@@ -131,6 +136,7 @@ class MenuViewController: UIViewController, MenuProtocol {
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_tips"), label: "Tips", rightImage: #imageLiteral(resourceName: "icn_arrow")),
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_contact"), label: "Contact Us", rightImage: #imageLiteral(resourceName: "icn_arrow")),
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_legal"), label: "Legal", rightImage: #imageLiteral(resourceName: "icn_arrow"))]
+        self.tblMenuList.reloadData()
     }
     
     private func startTimer() {
@@ -199,11 +205,38 @@ extension MenuViewController : UITableViewDataSource, UITableViewDelegate {
         
         cell.btnLeft.setImage(viewModel.leftImage, for: .normal)
         cell.lblTitle.text = viewModel.label
-        cell.btnRight.setImage(viewModel.rightImage, for: .normal)
+        
+        if indexPath.row == 6 || indexPath.row == 7 {
+            if UserDataModel.currentUser?.tiIsAcceptPush == 1 {
+                cell.btnRight.setImage(#imageLiteral(resourceName: "icn_on"), for: .normal)
+            } else {
+                cell.btnRight.setImage(#imageLiteral(resourceName: "icn_off"), for: .normal)
+            }
+        } else {
+            cell.btnRight.setImage(#imageLiteral(resourceName: "chevron-down (1)"), for: .normal)
+        }
         
         cell.clickOnSwitchBtn = {
-            if indexPath.row == 6 || indexPath.row == 7 {
+            if indexPath.row == 6 {
+                if UserDataModel.currentUser?.tiIsAcceptPush == 1 {
+                    self.presenter?.callPushStatusAPI(tiIsAcceptPush : "0")
+                    cell.btnRight.isSelected = false
+                } else {
+                    self.presenter?.callPushStatusAPI(tiIsAcceptPush : "1")
+                    cell.btnRight.isSelected = true
+                }
+//                cell.btnRight.isSelected = !cell.btnRight.isSelected
+//                 if cell.btnRight.isSelected {
+//                    self.presenter?.callPushStatusAPI(tiIsAcceptPush : "1")
+//                 } else {
+//                     self.presenter?.callPushStatusAPI(tiIsAcceptPush : "0")
+//                }
+            }
+            if indexPath.row == 7 {
                 cell.btnRight.isSelected = !cell.btnRight.isSelected
+                if cell.btnRight.isSelected {
+                    self.getUserCurrentLocation()
+                }
             }
         }
         cell.selectionStyle = .none
@@ -274,11 +307,45 @@ extension MenuViewController {
             self.displayAlert(strTitle: "", strMessage: response.responseMessage!)
         }
     }
+    
+    func callUpdateLocationAPI(fLatitude : String, fLongitude : String){
+        self.presenter?.callUpdateLocationAPI(fLatitude: fLatitude, fLongitude: fLongitude)
+    }
+    func getLocationUpdateResponse(response : UserAuthResponse){
+        if response.responseCode == 200 {
+            UserDataModel.currentUser = response.responseData
+//            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        }
+    }
+    
+    func getPushStatusResponse(response : UserAuthResponse){
+        if response.responseCode == 200 {
+            UserDataModel.currentUser = response.responseData
+//            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        }
+    }
+    
     func showAlertView() {
         alertView = CustomAlertView.initAlertView(title: "Logout", message: "Are you sure you want to Logout?", btnRightStr: "Logout", btnCancelStr: "Cancel", btnCenter: "", isSingleButton: false)
         alertView.delegate = self
         alertView.frame = self.view.frame
         AppDelObj.window?.addSubview(alertView)
+    }
+    
+    func getUserCurrentLocation() {
+        LocationManager.sharedInstance.getLocation { (currLocation, error) in
+            if error != nil {
+                print(error?.localizedDescription ?? "")
+                self.showAccessPopup(title: kLocationAccessTitle, msg: kLocationAccessMsg)
+                return
+            }
+            guard let _ = currLocation else {
+                return
+            }
+            if error == nil {
+                self.callUpdateLocationAPI(fLatitude: String(Float((currLocation?.coordinate.latitude)!)), fLongitude: String(Float((currLocation?.coordinate.longitude)!)))
+            }
+        }
     }
 }
 

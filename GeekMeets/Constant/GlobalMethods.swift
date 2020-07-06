@@ -76,6 +76,22 @@ enum CommonModelData {
             return "Licenses"
         }
     }
+    
+    var slugTitle : String {
+        switch self {
+        case .Tips:
+            return "tips"
+        case .Terms:
+            return "terms"
+        case .Privacy:
+            return "privacy-policy"
+        case .About:
+            return "about-us"
+        case .Licenses:
+            return "licenses"
+        }
+    }
+    
 }
 
 enum Interest_PreferenceData {

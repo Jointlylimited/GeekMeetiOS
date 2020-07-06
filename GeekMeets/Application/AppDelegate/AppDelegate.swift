@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if Authentication.getSignUpFlowStatus() == 0 || Authentication.getSignUpFlowStatus() == 1 || Authentication.getSignUpFlowStatus() == 2 || Authentication.getSignUpFlowStatus() == 3 {
                 AppSingleton.sharedInstance().moveToLogeedInScreen()
             } else {
-                AppSingleton.sharedInstance().showHomeVC(fromMatch : false)
+                AppSingleton.sharedInstance().showHomeVC(fromMatch : false, userDict: [:])
             }
         }
         

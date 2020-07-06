@@ -14,6 +14,8 @@ import UIKit
 
 protocol MenuInteractorProtocol {
     func callSignoutAPI()
+    func callUpdateLocationAPI(fLatitude : String, fLongitude : String)
+    func callPushStatusAPI(tiIsAcceptPush : String)
 }
 
 protocol MenuDataStore {
@@ -39,6 +41,44 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
                 } else {
                     AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+                }
+            }
+        }
+    }
+    
+    func callUpdateLocationAPI(fLatitude : String, fLongitude : String){
+        LoaderView.sharedInstance.showLoader()
+        UserAPI.locationUpdate(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, fLatitude: fLatitude, fLongitude: fLongitude) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getLocationUpdateResponse(response : response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+            } else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                     self.presenter?.getLocationUpdateResponse(response : response!)
+                }
+            }
+        }
+    }
+    
+    func callPushStatusAPI(tiIsAcceptPush : String) {
+        LoaderView.sharedInstance.showLoader()
+        UserAPI.setPushStatus(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vDeviceToken: vDeviceToken, tiIsAcceptPush: tiIsAcceptPush) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getPushStatusResponse(response : response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+            } else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                     self.presenter?.getPushStatusResponse(response : response!)
                 }
             }
         }

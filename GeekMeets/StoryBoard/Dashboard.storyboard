@@ -1296,7 +1296,7 @@
                                 <rect key="frame" x="25" y="341.66666666666669" width="364" height="213.00000000000006"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_intro_2" translatesAutoresizingMaskIntoConstraints="NO" id="Bad-DY-3NQ">
-                                        <rect key="frame" x="183" y="19.333333333333314" width="175" height="174"/>
+                                        <rect key="frame" x="219" y="19.333333333333314" width="175" height="174"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                 <real key="value" value="8"/>
@@ -1322,7 +1322,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image_1" translatesAutoresizingMaskIntoConstraints="NO" id="v2E-i9-GSD">
-                                        <rect key="frame" x="6" y="21.333333333333314" width="175" height="170.00000000000011"/>
+                                        <rect key="frame" x="-30" y="21.333333333333314" width="175" height="170"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="175" id="AfD-Hb-94a"/>
                                             <constraint firstAttribute="width" secondItem="v2E-i9-GSD" secondAttribute="height" multiplier="184:179" id="MH8-Nz-VMD"/>
@@ -1363,7 +1363,7 @@
                                 </constraints>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icn_like_purple" translatesAutoresizingMaskIntoConstraints="NO" id="4hq-cU-PjY">
-                                <rect key="frame" x="171" y="412" width="72" height="72"/>
+                                <rect key="frame" x="135" y="376" width="144" height="144"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Hrv-VY-8TJ">
                                 <rect key="frame" x="92" y="584" width="230" height="120"/>
@@ -1628,7 +1628,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image_1" translatesAutoresizingMaskIntoConstraints="NO" id="PVH-HH-BRI">
-                                            <rect key="frame" x="127" y="20" width="160" height="160.00000000000011"/>
+                                            <rect key="frame" x="127" y="20" width="160" height="160"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="160" id="06b-Vr-ctd"/>
                                                 <constraint firstAttribute="width" secondItem="PVH-HH-BRI" secondAttribute="height" multiplier="1:1" id="X37-3b-qIj"/>
@@ -2239,25 +2239,25 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="374" height="65"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instagram" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="41i-A0-G4y">
-                                                                            <rect key="frame" x="27.333333333333339" y="9" width="53.666666666666657" height="14"/>
+                                                                            <rect key="frame" x="44" y="15" width="53.666666666666657" height="14"/>
                                                                             <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="12"/>
                                                                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="https://www.instagram.com/Shopie Lee" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oKc-TK-HhM">
-                                                                            <rect key="frame" x="0.0" y="37" width="374" height="18"/>
+                                                                            <rect key="frame" x="0.0" y="49" width="374" height="18"/>
                                                                             <color key="textColor" red="0.1843137255" green="0.35686274509999999" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
                                                                             <textInputTraits key="textInputTraits"/>
                                                                         </textField>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ywr-Ai-gNd">
-                                                                            <rect key="frame" x="0.0" y="5" width="17.333333333333332" height="22"/>
+                                                                            <rect key="frame" x="0.0" y="5" width="34" height="34"/>
                                                                             <state key="normal" image="icn_Instagaram">
                                                                                 <color key="titleColor" red="0.52941176469999995" green="0.18039215689999999" blue="0.76470588240000004" alpha="1" colorSpace="calibratedRGB"/>
                                                                             </state>
                                                                         </button>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ih3-xZ-nTD">
-                                                                            <rect key="frame" x="0.0" y="63" width="374" height="1"/>
+                                                                            <rect key="frame" x="0.0" y="75" width="374" height="1"/>
                                                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.14999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="1" id="LYn-Ma-h8i"/>
@@ -2290,19 +2290,19 @@
                                                                     <rect key="frame" x="0.0" y="70" width="374" height="65"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Snapchat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Wy-q3-JC7">
-                                                                            <rect key="frame" x="30.666666666666668" y="9" width="51.666666666666657" height="14"/>
+                                                                            <rect key="frame" x="51" y="17" width="51.666666666666657" height="14"/>
                                                                             <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="12"/>
                                                                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="https://www.snapchat.com/Shopie Lee" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HRp-RO-Q23">
-                                                                            <rect key="frame" x="0.0" y="32" width="374" height="18"/>
+                                                                            <rect key="frame" x="0.0" y="48" width="374" height="18"/>
                                                                             <color key="textColor" red="0.1843137255" green="0.35686274509999999" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
                                                                             <textInputTraits key="textInputTraits"/>
                                                                         </textField>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v47-qQ-nPP">
-                                                                            <rect key="frame" x="0.0" y="58" width="374" height="1"/>
+                                                                            <rect key="frame" x="0.0" y="74" width="374" height="1"/>
                                                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.14999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="1" id="29a-Sj-KXq"/>
@@ -2312,7 +2312,7 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QvJ-dX-6l3">
-                                                                            <rect key="frame" x="0.0" y="5" width="20.666666666666668" height="22"/>
+                                                                            <rect key="frame" x="0.0" y="5" width="41" height="38"/>
                                                                             <state key="normal" image="icn_snapchat">
                                                                                 <color key="titleColor" red="0.52941176469999995" green="0.18039215689999999" blue="0.76470588240000004" alpha="1" colorSpace="calibratedRGB"/>
                                                                             </state>
@@ -2341,19 +2341,19 @@
                                                                     <rect key="frame" x="0.0" y="140" width="374" height="68"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Facebook" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L1M-Vm-Mql">
-                                                                            <rect key="frame" x="22.999999999999996" y="9" width="53.666666666666657" height="14"/>
+                                                                            <rect key="frame" x="31.666666666666668" y="16" width="53.666666666666657" height="14"/>
                                                                             <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="12"/>
                                                                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="https://www.facebook.com/Shopie Lee" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hOH-HD-nES">
-                                                                            <rect key="frame" x="0.0" y="32" width="374" height="18"/>
+                                                                            <rect key="frame" x="0.0" y="46" width="374" height="18"/>
                                                                             <color key="textColor" red="0.1843137255" green="0.35686274509999999" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
                                                                             <textInputTraits key="textInputTraits"/>
                                                                         </textField>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cqk-qN-VuR">
-                                                                            <rect key="frame" x="0.0" y="58" width="374" height="1"/>
+                                                                            <rect key="frame" x="0.0" y="72" width="374" height="1"/>
                                                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.14999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="1" id="UPt-Ae-Tww"/>
@@ -2363,7 +2363,7 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iyy-6q-9Gg">
-                                                                            <rect key="frame" x="0.0" y="5" width="9.3333333333333339" height="22"/>
+                                                                            <rect key="frame" x="0.0" y="5" width="18" height="36"/>
                                                                             <state key="normal" image="facebook">
                                                                                 <color key="titleColor" red="0.52941176469999995" green="0.18039215689999999" blue="0.76470588240000004" alpha="1" colorSpace="calibratedRGB"/>
                                                                             </state>
@@ -2453,7 +2453,7 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ATb-mJ-enO">
-                                                                            <rect key="frame" x="338.33333333333331" y="12" width="35.666666666666686" height="22"/>
+                                                                            <rect key="frame" x="303" y="1" width="71" height="44"/>
                                                                             <state key="normal" image="icn_off">
                                                                                 <color key="titleColor" red="0.52941176469999995" green="0.18039215689999999" blue="0.76470588240000004" alpha="1" colorSpace="calibratedRGB"/>
                                                                             </state>
@@ -2499,7 +2499,7 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tEb-7o-3I1">
-                                                                            <rect key="frame" x="338.33333333333331" y="12" width="35.666666666666686" height="22"/>
+                                                                            <rect key="frame" x="303" y="1" width="71" height="44"/>
                                                                             <state key="normal" image="icn_off"/>
                                                                             <state key="selected" image="icn_on"/>
                                                                             <connections>
@@ -2533,7 +2533,7 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ry-fB-je7">
-                                                                            <rect key="frame" x="338.33333333333331" y="12" width="35.666666666666686" height="22"/>
+                                                                            <rect key="frame" x="303" y="1" width="71" height="44"/>
                                                                             <state key="normal" image="icn_off"/>
                                                                             <state key="selected" image="icn_on"/>
                                                                             <connections>
@@ -2578,7 +2578,7 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IWW-cP-ivr">
-                                                                            <rect key="frame" x="338.33333333333331" y="11.333333333333314" width="35.666666666666686" height="22"/>
+                                                                            <rect key="frame" x="303" y="0.33333333333331439" width="71" height="44"/>
                                                                             <state key="normal" image="icn_off"/>
                                                                             <state key="selected" image="icn_on"/>
                                                                         </button>
@@ -3163,7 +3163,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JKv-Ig-K5m">
-                                <rect key="frame" x="274" y="172" width="130" height="35"/>
+                                <rect key="frame" x="274" y="154" width="130" height="35"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XEg-xO-IY6">
                                         <rect key="frame" x="0.0" y="0.0" width="130" height="35"/>
@@ -3233,7 +3233,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHt-EL-AKd">
-                                <rect key="frame" x="374" y="122" width="30" height="40"/>
+                                <rect key="frame" x="374" y="122" width="30" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="thX-40-UoD"/>
                                 </constraints>
@@ -3249,7 +3249,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="prc-So-VSL">
-                                <rect key="frame" x="186" y="788.33333333333337" width="42" height="32"/>
+                                <rect key="frame" x="196.33333333333334" y="798.33333333333337" width="21.333333333333343" height="22"/>
                                 <state key="normal" image="eye (1)"/>
                                 <connections>
                                     <action selector="btnViewStoryAction:" destination="3sL-cS-1YP" eventType="touchUpInside" id="zoe-gB-ZSf"/>
@@ -5156,7 +5156,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Annual" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l5h-MF-SL5">
-                                                                        <rect key="frame" x="20" y="20.666666666666742" width="40" height="15.333333333333336"/>
+                                                                        <rect key="frame" x="19.999999999999996" y="19.333333333333371" width="45.666666666666657" height="18.333333333333329"/>
                                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
@@ -5227,7 +5227,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monthly" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sBD-dk-R50">
-                                                                        <rect key="frame" x="20" y="20.666666666666629" width="47" height="15.333333333333336"/>
+                                                                        <rect key="frame" x="19.999999999999996" y="19.333333333333258" width="51.666666666666657" height="18.333333333333329"/>
                                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
@@ -5301,7 +5301,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Place your stories on the TOP list" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d4m-ke-dfD">
-                                                                        <rect key="frame" x="20" y="13.333333333333369" width="164.66666666666666" height="30.333333333333329"/>
+                                                                        <rect key="frame" x="20" y="10" width="164.66666666666666" height="36.666666666666664"/>
                                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
@@ -5483,7 +5483,7 @@
         <image name="icn_arrowblack" width="8" height="14.333333015441895"/>
         <image name="icn_back" width="16" height="17"/>
         <image name="icn_boosts" width="34" height="34"/>
-        <image name="icn_camera" width="34.666667938232422" height="26.333333969116211"/>
+        <image name="icn_camera" width="73" height="75"/>
         <image name="icn_capture" width="66" height="66"/>
         <image name="icn_close_black" width="16" height="16"/>
         <image name="icn_close_grey" width="10.333333015441895" height="10.333333015441895"/>

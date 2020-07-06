@@ -160,9 +160,11 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
         
         if let _vcard = SOXmpp.manager.GetVcard(of: self.objFriend!.xmppJID!) {
            // lblNavTitle.text = "\(_vcard.nickname ?? objFriend!.name)" // \n Typing....
+            self.lblFriendName.text = "\(_vcard.nickname ?? objFriend!.name)"
             self.lblStatus.text = "typing..."
         } else {
           //  lblNavTitle.text = "\(self.objFriend!.name)" // \n Typing....
+            self.lblFriendName.text = "\(self.objFriend!.name)"
             self.lblStatus.text = "typing..."
         }
      //   lblNavTitle.sizeToFit()
@@ -1032,24 +1034,26 @@ extension OneToOneChatVC : PickImageViewDelegate {
         openImagePickerActionSheet()
     }
     func GifButtonAction(){
-        photoLibraryAccess { [weak self] (status, isGrant) in
-            guard let `self` = self else {return}
-            if isGrant {
-                if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
-                    self.imagePicker = UIImagePickerController()
-                    self.imagePicker.delegate = self
-                    self.imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary;
-                    self.imagePicker.allowsEditing = false
-                    self.imagePicker.mediaTypes = [kUTTypeTIFF as String]
-//                    let mediaTypes:[String] = [kUTTypeGIF as String]
-//                    self.imagePicker.mediaTypes = mediaTypes
-                    self.mediaType = .gif
-                    self.present(self.imagePicker, animated: true, completion: nil)
-                }
-            } else {
-                //                AppSingleton.sharedInstance().showAlert(kPhotosAccessMsg, okTitle: "OK")
-            }
-        }
+        self.customImagePickerView.removeFromSuperview()
+        self.openLibrary()
+//        photoLibraryAccess { [weak self] (status, isGrant) in
+//            guard let `self` = self else {return}
+//            if isGrant {
+//                if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
+//                    self.imagePicker = UIImagePickerController()
+//                    self.imagePicker.delegate = self
+//                    self.imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary;
+//                    self.imagePicker.allowsEditing = false
+//                    self.imagePicker.mediaTypes = [kUTTypeTIFF as String]
+////                    let mediaTypes:[String] = [kUTTypeGIF as String]
+////                    self.imagePicker.mediaTypes = mediaTypes
+//                    self.mediaType = .gif
+//                    self.present(self.imagePicker, animated: true, completion: nil)
+//                }
+//            } else {
+//                //                AppSingleton.sharedInstance().showAlert(kPhotosAccessMsg, okTitle: "OK")
+//            }
+//        }
     }
     func LocationButtonAction(){
         
@@ -1101,7 +1105,7 @@ extension OneToOneChatVC {
     
     func callUnMatchUserAPI(iProfileId : String){
         LoaderView.sharedInstance.showLoader()
-        UserAPI.unMatch(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iProfileId: iProfileId) { (response, error) in
+        UserAPI.unMatch(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vXmppUser: iProfileId) { (response, error) in
             
             LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
@@ -1171,7 +1175,7 @@ extension OneToOneChatVC {
     }
     
     func callBlockUserListAPI() {
-        LoaderView.sharedInstance.showLoader()
+//        LoaderView.sharedInstance.showLoader()
         UserAPI.blockList(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
             LoaderView.sharedInstance.hideLoader()

@@ -19,9 +19,11 @@ public struct SearchUserFields: Codable {
     public var fLatitude: String?
     public var fLongitude: String?
     public var storyTime: String?
+    public var vXmppUser: String?
+    public var vXmppPassword: String?
     public var photos: [UserProfileMediaList]?
 
-    public init(iUserId: Int?, vName: String?, vProfileImage: String?, tiAge: Int?, vLiveIn: String?, fLatitude: String?, fLongitude: String?, storyTime: String?, photos: [UserProfileMediaList]?) {
+    public init(iUserId: Int?, vName: String?, vProfileImage: String?, tiAge: Int?, vLiveIn: String?, fLatitude: String?, fLongitude: String?, storyTime: String?, vXmppUser: String?, vXmppPassword: String?, photos: [UserProfileMediaList]?) {
         self.iUserId = iUserId
         self.vName = vName
         self.vProfileImage = vProfileImage
@@ -30,10 +32,12 @@ public struct SearchUserFields: Codable {
         self.fLatitude = fLatitude
         self.fLongitude = fLongitude
         self.storyTime = storyTime
+        self.vXmppUser = vXmppUser
+        self.vXmppPassword = vXmppPassword
         self.photos = photos
     }
 
-    public enum CodingKeys: String, CodingKey { 
+    public enum CodingKeys: String, CodingKey {
         case iUserId
         case vName
         case vProfileImage
@@ -42,6 +46,8 @@ public struct SearchUserFields: Codable {
         case fLatitude
         case fLongitude
         case storyTime = "StoryTime"
+        case vXmppUser
+        case vXmppPassword
         case photos
     }
 

@@ -15,6 +15,12 @@ import UIKit
 protocol MenuPresentationProtocol {
     func callSignoutAPI()
     func getSignoutResponse(response : UserAuthResponse)
+    
+    func callUpdateLocationAPI(fLatitude : String, fLongitude : String)
+    func getLocationUpdateResponse(response : UserAuthResponse)
+    
+    func callPushStatusAPI(tiIsAcceptPush : String)
+    func getPushStatusResponse(response : UserAuthResponse)
 }
 
 class MenuPresenter: MenuPresentationProtocol {
@@ -28,5 +34,21 @@ class MenuPresenter: MenuPresentationProtocol {
     
     func getSignoutResponse(response : UserAuthResponse){
         self.viewController?.getSignOutResponse(response : response)
+    }
+    
+    func callUpdateLocationAPI(fLatitude : String, fLongitude : String){
+        self.interactor?.callUpdateLocationAPI(fLatitude: fLatitude, fLongitude: fLongitude)
+    }
+    
+    func getLocationUpdateResponse(response : UserAuthResponse){
+        self.viewController?.getLocationUpdateResponse(response: response)
+    }
+    
+    func callPushStatusAPI(tiIsAcceptPush : String){
+        self.interactor?.callPushStatusAPI(tiIsAcceptPush : tiIsAcceptPush)
+    }
+    
+    func getPushStatusResponse(response : UserAuthResponse){
+        self.viewController?.getPushStatusResponse(response : response)
     }
 }

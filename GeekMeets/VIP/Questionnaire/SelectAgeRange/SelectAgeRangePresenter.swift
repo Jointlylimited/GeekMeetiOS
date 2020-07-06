@@ -48,7 +48,7 @@ class SelectAgeRangePresenter: SelectAgeRangePresentationProtocol {
     }
     
     func actionContinue() {
-        AppSingleton.sharedInstance().showHomeVC(fromMatch: false)
+        AppSingleton.sharedInstance().showHomeVC(fromMatch: false, userDict: [:])
 //        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.TabbarScreen)
 //        if let view = self.viewController as? UIViewController
 //        {

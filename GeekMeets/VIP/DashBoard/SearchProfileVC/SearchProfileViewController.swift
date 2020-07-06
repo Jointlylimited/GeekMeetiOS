@@ -24,11 +24,11 @@ class SearchProfileViewController: UIViewController, SearchProfileProtocol {
     @IBOutlet weak var btnSearch: UIButton!
     @IBOutlet weak var lblNoResult: UILabel!
     
-    var objMsgData : [MessageViewModel] = []
+    var objMsgData : [SwipeUserFields] = []
     var objStoryData : [StoryResponseArray] = []
-    var objFilterMsgData : [MessageViewModel] = []
+    var objFilterMsgData : [SwipeUserFields] = []
     var objFilterStoryData : [StoryResponseArray] = []
-    var objAllMsgData : [MessageViewModel] = []
+    var objAllMsgData : [SwipeUserFields] = []
     var objAllFilterStoryData : [StoryResponseArray] = []
     var isFromDiscover : Bool = true
     
@@ -122,8 +122,9 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
         if let cell = cell as? SearchListCell {
             if !self.isFromDiscover {
                 let data = objFilterMsgData[indexPath.row]
-                cell.imgProfile.image = data.userImage
-                cell.lblName.text = data.userName
+                let url = URL(string:"\(data.vProfileImage!)")
+                cell.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_round"))
+                cell.lblName.text = data.vProfileName
                 if self.txtSearchField.text != "" {
                     cell.btnClose.alpha = 1
                 } else {
@@ -231,10 +232,8 @@ extension SearchProfileViewController : UITextFieldDelegate {
                 self.objFilterMsgData.removeAll()
                 for data in self.objMsgData {
                     print(self.objFilterMsgData.count)
-                    if data.userName.lowercased().contains(textField.text!) {
-//                        if objFilterMsgData.count == 0 {
+                    if data.vProfileName!.lowercased().contains(textField.text!) {
                             self.objFilterMsgData.append(data)
-//                        }
                     }
                 }
             }
@@ -254,9 +253,7 @@ extension SearchProfileViewController : UITextFieldDelegate {
                 for data in self.objStoryData {
                     print(self.objFilterStoryData.count)
                     if data[0].vName!.lowercased().contains(textField.text!) {
-//                        if objFilterStoryData.count == 0 {
                         self.objFilterStoryData.append([data[0]])
-//                        }
                     }
                 }
             }

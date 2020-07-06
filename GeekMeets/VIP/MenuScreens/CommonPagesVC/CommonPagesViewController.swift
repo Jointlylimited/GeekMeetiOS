@@ -13,6 +13,7 @@
 import UIKit
 
 protocol CommonPagesProtocol: class {
+    func getContentResponse(response : ContentPageResponse)
 }
 
 class CommonPagesViewController: UIViewController, CommonPagesProtocol {
@@ -23,7 +24,7 @@ class CommonPagesViewController: UIViewController, CommonPagesProtocol {
     @IBOutlet weak var descView: UITextView!
     
     var objCommonData : CommonModelData?
-    
+    var slug : String = ""
     // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -66,9 +67,32 @@ class CommonPagesViewController: UIViewController, CommonPagesProtocol {
     
     func setData(){
         self.lblScreenTitle.text = objCommonData?.Title
+        if slug != "" {
+            self.presenter?.CallContentPageAPI(slug: slug)
+        }
     }
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.popVC()
     }
 }
 
+extension CommonPagesViewController {
+    func getContentResponse(response : ContentPageResponse){
+        if response.responseCode == 200 {
+            self.descView.text = response.responseData?.txContent?.html2AttributedString
+        }
+    }
+}
+
+extension String {
+    var html2AttributedString: String? {
+    guard let data = data(using: .utf8) else { return nil }
+    do {
+        return try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil).string
+
+    } catch let error as NSError {
+        print(error.localizedDescription)
+        return  nil
+    }
+  }
+}

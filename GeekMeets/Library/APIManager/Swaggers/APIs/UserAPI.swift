@@ -881,6 +881,63 @@ open class UserAPI {
     }
 
     /**
+     Set Push status
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter vDeviceToken: (form)
+     - parameter tiIsAcceptPush: (form) 0-No,1-Yes
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func setPushStatus(nonce: String, timestamp: String, token: String, authorization: String, vDeviceToken: String, tiIsAcceptPush: String, completion: @escaping ((_ data: UserAuthResponse?,_ error: Error?) -> Void)) {
+        setPushStatusWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, vDeviceToken: vDeviceToken, tiIsAcceptPush: tiIsAcceptPush).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Set Push status
+     - POST /user/set-push-status
+     - examples: [{contentType=application/json, example=""}]
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter vDeviceToken: (form)
+     - parameter tiIsAcceptPush: (form) 0-No,1-Yes
+
+     - returns: RequestBuilder<UserAuthResponse>
+     */
+    open class func setPushStatusWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, vDeviceToken: String, tiIsAcceptPush: String) -> RequestBuilder<UserAuthResponse> {
+        let path = "/user/set-push-status"
+        let URLString = SwaggerClientAPI.basePath + path
+        let formParams: [String:Any?] = [
+            "vDeviceToken": vDeviceToken,
+            "tiIsAcceptPush": tiIsAcceptPush
+        ]
+
+        let nonNullParameters = APIHelper.rejectNil(formParams)
+        let parameters = APIHelper.convertBoolToString(nonNullParameters)
+        
+        let url = URLComponents(string: URLString)
+        let nillableHeaders: [String: Any?] = [
+            "nonce": nonce,
+            "timestamp": timestamp,
+            "token": token,
+            "authorization": authorization
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<UserAuthResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
+    }
+
+    /**
      * enum for parameter tiDeviceType
      */
     public enum TiDeviceType_signIn: Int {
@@ -1441,11 +1498,11 @@ open class UserAPI {
      - parameter timestamp: (header)
      - parameter token: (header)
      - parameter authorization: (header)
-     - parameter iProfileId: (form)
+     - parameter vXmppUser: (form) Block user xmpp id
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func unMatch(nonce: String, timestamp: String, token: String, authorization: String, iProfileId: String, completion: @escaping ((_ data: CommonResponse?,_ error: Error?) -> Void)) {
-        unMatchWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, iProfileId: iProfileId).execute { (response, error) -> Void in
+    open class func unMatch(nonce: String, timestamp: String, token: String, authorization: String, vXmppUser: String, completion: @escaping ((_ data: CommonResponse?,_ error: Error?) -> Void)) {
+        unMatchWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, vXmppUser: vXmppUser).execute { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
@@ -1463,15 +1520,15 @@ open class UserAPI {
      - parameter timestamp: (header)
      - parameter token: (header)
      - parameter authorization: (header)
-     - parameter iProfileId: (form)
+     - parameter vXmppUser: (form) Block user xmpp id
 
      - returns: RequestBuilder<CommonResponse>
      */
-    open class func unMatchWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, iProfileId: String) -> RequestBuilder<CommonResponse> {
+    open class func unMatchWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, vXmppUser: String) -> RequestBuilder<CommonResponse> {
         let path = "/user/un-match"
         let URLString = SwaggerClientAPI.basePath + path
         let formParams: [String:Any?] = [
-            "iProfileId": iProfileId
+            "vXmppUser": vXmppUser
         ]
 
         let nonNullParameters = APIHelper.rejectNil(formParams)
