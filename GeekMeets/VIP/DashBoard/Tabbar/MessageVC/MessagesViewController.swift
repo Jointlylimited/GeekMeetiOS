@@ -278,6 +278,8 @@ extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
                 cell.msgText.text = "Media message......."
             case .document:
                 cell.msgText.text = "Document message......."
+            case .location:
+                cell.msgText.text = "Location message......."
             default:
                 cell.msgText.text = "\(objfriend.objMessage!.strMsg ?? "")"
             }

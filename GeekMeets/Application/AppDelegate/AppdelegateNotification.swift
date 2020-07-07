@@ -25,6 +25,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
                     return
                 }
                 self.callPushStatusAPI(tiIsAcceptPush: "1")
+                UserDataModel.setPushStatus(status: "1")
                 self.getNotificationSettings()
             }
         } else {
@@ -49,7 +50,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     
     
     func showPermissionAlert() {
-        
+        UserDataModel.setPushStatus(status: "0")
         let alert = UIAlertController(title: "Error", message: "Please enable access to Notifications in the Settings app.", preferredStyle: .alert)
         
         let settingsAction = UIAlertAction(title: "Settings", style: .default) { (alertAction) in
@@ -89,7 +90,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         let token11 = Messaging.messaging().fcmToken
         if token11 != nil {
             print(token11)
-            //            AppDelObj.deviceToken = token11!
+            AppDelObj.deviceToken = token11!
             UserDefaults.standard.set(token11, forKey: kDeviceToken)
             UserDefaults.standard.synchronize()
         }

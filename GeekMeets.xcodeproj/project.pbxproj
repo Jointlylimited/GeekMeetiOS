@@ -70,6 +70,8 @@
 		0B3C75BA245327F000CEDBBA /* ReportPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C75B7245327F000CEDBBA /* ReportPresenter.swift */; };
 		0B3C75BE2453280200CEDBBA /* CustomAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B3C75BC2453280200CEDBBA /* CustomAlertView.xib */; };
 		0B3C75BF2453280200CEDBBA /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C75BD2453280200CEDBBA /* CustomAlertView.swift */; };
+		0B46A61A24B45B9B005292AB /* ChatLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B46A61824B45B99005292AB /* ChatLocationCell.swift */; };
+		0B46A61B24B45B9B005292AB /* FullScreenMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B46A61924B45B9A005292AB /* FullScreenMapViewController.swift */; };
 		0B46B0C5245865F3006E0D87 /* ChangeEmailMobilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B46B0C2245865F3006E0D87 /* ChangeEmailMobilePresenter.swift */; };
 		0B46B0C6245865F3006E0D87 /* ChangeEmailMobileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B46B0C3245865F3006E0D87 /* ChangeEmailMobileViewController.swift */; };
 		0B46B0C7245865F3006E0D87 /* ChangeEmailMobileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B46B0C4245865F3006E0D87 /* ChangeEmailMobileInteractor.swift */; };
@@ -450,6 +452,8 @@
 		0B3C75B7245327F000CEDBBA /* ReportPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportPresenter.swift; sourceTree = "<group>"; };
 		0B3C75BC2453280200CEDBBA /* CustomAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomAlertView.xib; sourceTree = "<group>"; };
 		0B3C75BD2453280200CEDBBA /* CustomAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
+		0B46A61824B45B99005292AB /* ChatLocationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatLocationCell.swift; sourceTree = "<group>"; };
+		0B46A61924B45B9A005292AB /* FullScreenMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullScreenMapViewController.swift; sourceTree = "<group>"; };
 		0B46B0C2245865F3006E0D87 /* ChangeEmailMobilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailMobilePresenter.swift; sourceTree = "<group>"; };
 		0B46B0C3245865F3006E0D87 /* ChangeEmailMobileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailMobileViewController.swift; sourceTree = "<group>"; };
 		0B46B0C4245865F3006E0D87 /* ChangeEmailMobileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailMobileInteractor.swift; sourceTree = "<group>"; };
@@ -814,6 +818,8 @@
 		0B0013B324ACA4B700D2EE83 /* OneToOneChatVC */ = {
 			isa = PBXGroup;
 			children = (
+				0B46A61824B45B99005292AB /* ChatLocationCell.swift */,
+				0B46A61924B45B9A005292AB /* FullScreenMapViewController.swift */,
 				0B0013B424ACA4B700D2EE83 /* ChatMediaCell.swift */,
 				0B0013B524ACA4B700D2EE83 /* ChatBubbleView.swift */,
 				0B0013B624ACA4B700D2EE83 /* ChatDocumentCell.swift */,
@@ -2673,6 +2679,7 @@
 				F953B8D620467AFB00BE4F67 /* SettingsViewController.swift in Sources */,
 				0B0013D724ACA4B700D2EE83 /* AWSS3Manager.swift in Sources */,
 				F77E311B2456AEC100A213FF /* OTPStackView.swift in Sources */,
+				0B46A61B24B45B9B005292AB /* FullScreenMapViewController.swift in Sources */,
 				F7DFAE3724501192008863F3 /* Constant.swift in Sources */,
 				F96C2D262037E92B00F8CBC7 /* MirroringLabel.swift in Sources */,
 				0B921C2D24571BE40010AE04 /* usersCollectionViewCell.swift in Sources */,
@@ -2814,6 +2821,7 @@
 				F7F8F5BC2452BD3200CA82E7 /* SelectAgeCell.swift in Sources */,
 				F7780E3F245AD667003CA4BD /* Configuration.swift in Sources */,
 				0B0B4B0D247504F80047EB11 /* RangeSeekSlider.swift in Sources */,
+				0B46A61A24B45B9B005292AB /* ChatLocationCell.swift in Sources */,
 				0BF7081E244F1D6B003D6AB7 /* ReactEmojiCollectionCell.swift in Sources */,
 				0B0013CE24ACA4B700D2EE83 /* ChatTextCell.swift in Sources */,
 				0BC465D2247E2CC7006DF9D0 /* EditPreferencePresenter.swift in Sources */,

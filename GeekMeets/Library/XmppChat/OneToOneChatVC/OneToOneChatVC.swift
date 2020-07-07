@@ -160,11 +160,9 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
         
         if let _vcard = SOXmpp.manager.GetVcard(of: self.objFriend!.xmppJID!) {
            // lblNavTitle.text = "\(_vcard.nickname ?? objFriend!.name)" // \n Typing....
-            self.lblFriendName.text = "\(_vcard.nickname ?? objFriend!.name)"
             self.lblStatus.text = "typing..."
         } else {
           //  lblNavTitle.text = "\(self.objFriend!.name)" // \n Typing....
-            self.lblFriendName.text = "\(self.objFriend!.name)"
             self.lblStatus.text = "typing..."
         }
      //   lblNavTitle.sizeToFit()
@@ -1056,7 +1054,8 @@ extension OneToOneChatVC : PickImageViewDelegate {
 //        }
     }
     func LocationButtonAction(){
-        
+        self.customImagePickerView.removeFromSuperview()
+        self.getUserCurrentLocation()
     }
 }
 
@@ -1089,6 +1088,38 @@ extension OneToOneChatVC : AlertViewDelegate {
 }
 
 extension OneToOneChatVC {
+    
+    func getUserCurrentLocation() {
+           LocationManager.sharedInstance.getLocation { (currLocation, error) in
+               if error != nil {
+                   print(error?.localizedDescription ?? "")
+                   self.showAccessPopup(title: kLocationAccessTitle, msg: kLocationAccessMsg)
+                   return
+               }
+               guard let _ = currLocation else {
+                   return
+               }
+               if error == nil {
+                 let obj = self.GetChatMsgObject()
+                 obj.msgType = XMPP_Message_Type.location.rawValue
+                obj.strMsg = "\(String(Float((currLocation?.coordinate.latitude)!))),\(String(Float((currLocation?.coordinate.longitude)!)))"
+                 obj.body = "\(String(Float((currLocation?.coordinate.latitude)!))),\(String(Float((currLocation?.coordinate.longitude)!)))"
+                 let jsonStr = Chat_Utility.getOneToOneMsgBody(objChat: obj)
+                 print(jsonStr)
+                 
+                 DispatchQueue.main.async {
+                     XMPP_MessageArchiving_Custom.InsertMessage(obj: obj)
+                     
+                     self.arrChatMsg.append(obj)
+                     //self.GetDifferentDate()
+                     self.tblChat.reloadData()
+                     self.scrollToBottomAnimated(animated: true)
+                 }
+                 
+                 SOXmpp.manager.xmpp_SendMessage(bodyData: jsonStr, objMsg: obj)
+               }
+           }
+       }
     
     func checkConnection()->Bool{
             
@@ -1175,7 +1206,7 @@ extension OneToOneChatVC {
     }
     
     func callBlockUserListAPI() {
-//        LoaderView.sharedInstance.showLoader()
+        LoaderView.sharedInstance.showLoader()
         UserAPI.blockList(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
             LoaderView.sharedInstance.hideLoader()
@@ -1238,8 +1269,8 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
             case .text:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: ChatTextCell.reuseID_Outgoing, for: indexPath) as! ChatTextCell
-                cell.chatBubbleView.layer.roundCorners([.topLeft, .bottomRight, .bottomLeft], radius: 10)
-//                cell.imgAvatarView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile"))
+                
+                //                cell.imgAvatarView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile"))
                 cell.ConfigureCell(with: chatMsg)
                 
                 return cell
@@ -1248,22 +1279,28 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: ChatMediaCell.reuseID_Outgoing, for: indexPath) as! ChatMediaCell
                 cell.delegate = self
-                cell.chatBubbleView.layer.roundCorners([.topLeft, .bottomRight, .bottomLeft], radius: 10)
-//                cell.imgAvatarView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile"))
+                
+                //                cell.imgAvatarView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile"))
                 cell.ConfigureCell(with: chatMsg)
-               
+                
                 return cell
                 
-    
+                
             case .document:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: ChatDocumentCell.reuserID_Incoming, for: indexPath) as! ChatDocumentCell
                 cell.delegate = self
-                cell.chatBubbleView.layer.roundCorners([.topRight, .bottomRight, .bottomRight], radius: 10)
+                
                 cell.ConfigureCell(with: chatMsg)
                 
                 return cell
+            case .location:
+                let cell = tableView.dequeueReusableCell(withIdentifier: ChatLocationCell.reuserID_Outgoing, for: indexPath) as! ChatLocationCell
+                cell.delegate = self
                 
+                cell.ConfigureCell(with: chatMsg)
+                
+                return cell
             default:
                 return UITableViewCell()
             }
@@ -1275,7 +1312,7 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
             case .text:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: ChatTextCell.reuseID_Incoming, for: indexPath) as! ChatTextCell
-                cell.chatBubbleView.layer.roundCorners([.topRight, .bottomLeft, .bottomRight], radius: 10)
+                
 //                cell.imgAvatarView.image = self.imgProfile.image
                 cell.ConfigureCell(with: chatMsg)
                 
@@ -1285,7 +1322,7 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: ChatMediaCell.reuseID_Incoming, for: indexPath) as! ChatMediaCell
 //                 cell.imgAvatarView.image = self.imgProfile.image
-                cell.chatBubbleView.layer.roundCorners([.topRight, .bottomLeft, .bottomRight], radius: 10)
+//                cell.chatBubbleView.layer.roundCorners([.topRight, .bottomLeft, .bottomRight], radius: 10)
                 cell.ConfigureCell(with: chatMsg)
                 
                 return cell
@@ -1294,11 +1331,16 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
             case .document:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: ChatDocumentCell.reuserID_Incoming, for: indexPath) as! ChatDocumentCell
-                cell.chatBubbleView.layer.roundCorners([.topRight, .bottomLeft, .bottomRight], radius: 10)
+//                cell.chatBubbleView.layer.roundCorners([.topRight, .bottomLeft, .bottomRight], radius: 10)
                 cell.ConfigureCell(with: chatMsg)
                 
                 return cell
+            case .location:
+                let cell = tableView.dequeueReusableCell(withIdentifier: ChatLocationCell.reuserID_Incoming, for: indexPath) as! ChatLocationCell
+//                cell.chatBubbleView.layer.roundCorners([.topRight, .bottomLeft, .bottomRight], radius: 10)
+                cell.ConfigureCell(with: chatMsg)
                 
+                return cell
             default:
                 return UITableViewCell()
             }
@@ -1314,9 +1356,9 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
         case .video:
             var _url: URL?
             /*if let localPath = arrChatMsg[indexPath.row].url, localPath.count > 0 {
-                let tmpPath = URL(string:"\(fileUploadURL)\(localPath)") // URL.init(fileURLWithPath: localPath)
-                _url = tmpPath //Chat_Utility.documentsPath.appendingPathComponent(tmpPath)
-            } else*/
+             let tmpPath = URL(string:"\(fileUploadURL)\(localPath)") // URL.init(fileURLWithPath: localPath)
+             _url = tmpPath //Chat_Utility.documentsPath.appendingPathComponent(tmpPath)
+             } else*/
             if arrChatMsg[indexPath.row].url.count > 0  {
                 let localPath = URL.init(string: arrChatMsg[indexPath.row].url)
                 _url = URL(string:"\(fileUploadURL)\(localPath!)")
@@ -1335,27 +1377,34 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
             break
             
         case .image:
-//            let objVC = self.storyboard?.instantiateViewController(withIdentifier: "FullScreenImageVC") as! FullScreenImageVC
-//            objVC.objChatMsg = arrChatMsg[indexPath.row]
-//            DispatchQueue.main.async {
-//                self.present(objVC, animated: true, completion: nil)
-//            }
+            //            let objVC = self.storyboard?.instantiateViewController(withIdentifier: "FullScreenImageVC") as! FullScreenImageVC
+            //            objVC.objChatMsg = arrChatMsg[indexPath.row]
+            //            DispatchQueue.main.async {
+            //                self.present(objVC, animated: true, completion: nil)
+            //            }
             break
             
         case .document:
-//            let pdfViewController = PDFViewController()
-//            let urlRequest = NSURLRequest(url: URL.init(string: arrChatMsg[indexPath.row].url)!)
-//            pdfViewController.webView.loadRequest(urlRequest as URLRequest)
-//            let navigationController = UINavigationController(rootViewController: pdfViewController)
-//            pdfViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(dismissController(_:)))
-//            // Present the document.
-//            pdfViewController.navigationItem.title = "PDF Viewer"
-//            navigationController.modalPresentationStyle = .fullScreen
-//            DispatchQueue.main.async {
-//                self.present(navigationController, animated: true, completion: nil)
-//            }
+            //            let pdfViewController = PDFViewController()
+            //            let urlRequest = NSURLRequest(url: URL.init(string: arrChatMsg[indexPath.row].url)!)
+            //            pdfViewController.webView.loadRequest(urlRequest as URLRequest)
+            //            let navigationController = UINavigationController(rootViewController: pdfViewController)
+            //            pdfViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(dismissController(_:)))
+            //            // Present the document.
+            //            pdfViewController.navigationItem.title = "PDF Viewer"
+            //            navigationController.modalPresentationStyle = .fullScreen
+            //            DispatchQueue.main.async {
+            //                self.present(navigationController, animated: true, completion: nil)
+            //            }
             break
             
+        case .location:
+            let objVC = self.storyboard?.instantiateViewController(withIdentifier: "FullScreenMapViewController") as! FullScreenMapViewController
+            objVC.chatMsg = arrChatMsg[indexPath.row]
+            DispatchQueue.main.async {
+                self.present(objVC, animated: true, completion: nil)
+            }
+            break
         default:
             break
         }

@@ -90,6 +90,7 @@ public class XMPP_MessageArchiving_Custom: NSManagedObject {
         managedObj.localPath = obj.localPath
         managedObj.url = obj.url
         managedObj.thumbUrl = obj.thumbUrl
+//        managedObj.location = obj.location ?? CLLocation(latitude: CLLocationDegrees(exactly: 0.0)!, longitude: CLLocationDegrees(exactly: 0.0)!)
         
         do {
             try context.save()
@@ -128,7 +129,7 @@ public class XMPP_MessageArchiving_Custom: NSManagedObject {
                 managedObj.url = obj.url
                 managedObj.thumbUrl = obj.thumbUrl
                 managedObj.msgStatus = obj.msgStatus
-                
+//                managedObj.location = obj.location ?? CLLocation(latitude: CLLocationDegrees(exactly: 0.0)!, longitude: CLLocationDegrees(exactly: 0.0)!)
                 do {
                     try context.save()
                     print("update!")

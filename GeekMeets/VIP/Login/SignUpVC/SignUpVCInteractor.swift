@@ -14,7 +14,7 @@ import UIKit
 
 protocol SignUpVCInteractorProtocol {
     func callEmailAvailabilityAPI(email : String)
-    func callNormalSignupAPI(params : Dictionary<String, String>)
+    func callNormalSignupAPI(params : Dictionary<String, String>, tiIsLocationOn : String)
 }
 
 protocol SignUpVCDataStore {
@@ -44,12 +44,13 @@ class SignUpVCInteractor: SignUpVCInteractorProtocol, SignUpVCDataStore {
         }
     }
     
-    func callNormalSignupAPI(params : Dictionary<String, String>){
+    func callNormalSignupAPI(params : Dictionary<String, String>, tiIsLocationOn : String){
         let socialType = UserDataModel.getSocialType()
+        let tiIsAcceptPush = UserDataModel.getPushStatus()
         
         if UserDataModel.currentUser!.tiIsAdmin == 1 {
             LoaderView.sharedInstance.showLoader()
-            UserAPI.signUp(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, tiIsSocialLogin: UserAPI.TiIsSocialLogin_signUp(rawValue: params["tiIsSocialLogin"]!)!, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signUp(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId!, vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress, iUserId: "\(UserDataModel.currentUser!.iUserId!)", vSocialId: params["vSocialId"]!, vEmail: params["vEmail"]!, vPassword: params["vPassword"]!, vCountryCode: params["vCountryCode"]!, vPhone: params["vPhone"]!, vLiveIn: params["vLiveIn"]!, fLatitude: Float(params["fLatitude"]!), fLongitude: Float(params["fLongitude"]!)) { (response, error) in
+            UserAPI.signUp(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, tiIsSocialLogin: UserAPI.TiIsSocialLogin_signUp(rawValue: params["tiIsSocialLogin"]!)!, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signUp(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId!, vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress, iUserId: "\(UserDataModel.currentUser!.iUserId!)", vSocialId: params["vSocialId"]!, vEmail: params["vEmail"]!, vPassword: params["vPassword"]!, vCountryCode: params["vCountryCode"]!, vPhone: params["vPhone"]!, vLiveIn: params["vLiveIn"]!, fLatitude: Float(params["fLatitude"]!), fLongitude: Float(params["fLongitude"]!), tiIsLocationOn : tiIsLocationOn, tiIsAcceptPush : tiIsAcceptPush) { (response, error) in
                 
                 LoaderView.sharedInstance.hideLoader()
                 if response?.responseCode == 200 {
@@ -67,7 +68,7 @@ class SignUpVCInteractor: SignUpVCInteractorProtocol, SignUpVCDataStore {
         } else {
             if socialType != "" {
                 LoaderView.sharedInstance.showLoader()
-                UserAPI.signUp(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, tiIsSocialLogin: UserAPI.TiIsSocialLogin_signUp(rawValue: params["tiIsSocialLogin"]!)!, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signUp(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId!, vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress, vSocialId: params["vSocialId"]!, tiSocialType: UserAPI.TiSocialType_signUp(rawValue: socialType)!, vEmail: params["vEmail"]!, vPassword: params["vPassword"]!, vCountryCode: params["vCountryCode"]!, vPhone: params["vPhone"]!, vLiveIn: params["vLiveIn"]!, fLatitude: Float(params["fLatitude"]!), fLongitude: Float(params["fLongitude"]!)) { (response, error) in
+                UserAPI.signUp(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, tiIsSocialLogin: UserAPI.TiIsSocialLogin_signUp(rawValue: params["tiIsSocialLogin"]!)!, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signUp(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId!, vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress, vSocialId: params["vSocialId"]!, tiSocialType: UserAPI.TiSocialType_signUp(rawValue: socialType)!, vEmail: params["vEmail"]!, vPassword: params["vPassword"]!, vCountryCode: params["vCountryCode"]!, vPhone: params["vPhone"]!, vLiveIn: params["vLiveIn"]!, fLatitude: Float(params["fLatitude"]!), fLongitude: Float(params["fLongitude"]!), tiIsLocationOn : tiIsLocationOn, tiIsAcceptPush : tiIsAcceptPush) { (response, error) in
                     
                     LoaderView.sharedInstance.hideLoader()
                     if response?.responseCode == 200 {
@@ -84,7 +85,7 @@ class SignUpVCInteractor: SignUpVCInteractorProtocol, SignUpVCDataStore {
                 }
             } else {
                 LoaderView.sharedInstance.showLoader()
-                UserAPI.signUp(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, tiIsSocialLogin: UserAPI.TiIsSocialLogin_signUp(rawValue: params["tiIsSocialLogin"]!)!, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signUp(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId!, vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress, vSocialId: params["vSocialId"]!, vEmail: params["vEmail"]!, vPassword: params["vPassword"]!, vCountryCode: params["vCountryCode"]!, vPhone: params["vPhone"]!, vLiveIn: params["vLiveIn"]!, fLatitude: Float(params["fLatitude"]!), fLongitude: Float(params["fLongitude"]!)) { (response, error) in
+                UserAPI.signUp(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, tiIsSocialLogin: UserAPI.TiIsSocialLogin_signUp(rawValue: params["tiIsSocialLogin"]!)!, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signUp(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId!, vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress, vSocialId: params["vSocialId"]!, vEmail: params["vEmail"]!, vPassword: params["vPassword"]!, vCountryCode: params["vCountryCode"]!, vPhone: params["vPhone"]!, vLiveIn: params["vLiveIn"]!, fLatitude: Float(params["fLatitude"]!), fLongitude: Float(params["fLongitude"]!), tiIsLocationOn : tiIsLocationOn, tiIsAcceptPush : tiIsAcceptPush) { (response, error) in
                     
                     LoaderView.sharedInstance.hideLoader()
                     if response?.responseCode == 200 {

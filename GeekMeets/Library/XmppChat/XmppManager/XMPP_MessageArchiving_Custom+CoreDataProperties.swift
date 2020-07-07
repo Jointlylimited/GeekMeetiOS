@@ -9,6 +9,7 @@
 
 import Foundation
 import CoreData
+import CoreLocation
 
 
 extension XMPP_MessageArchiving_Custom {
@@ -43,5 +44,5 @@ extension XMPP_MessageArchiving_Custom {
     @NSManaged public var uploading: NSNumber?
     @NSManaged public var url: String?
     @NSManaged public var messageDate: String?
-
+//    @NSManaged public var location: CLLocation?
 }

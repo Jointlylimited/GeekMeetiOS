@@ -120,6 +120,14 @@ class UserDataModel : Codable {
 
     @objc static func getNotificationCount() -> Int{
         return UserDefaults.standard.integer(forKey: kNotificationCount)
+    } 
+    
+    @objc static func setPushStatus(status: String){
+        UserDefaults.standard.set(status, forKey: kPushStatus)
+    }
+    
+    @objc static func getPushStatus() -> String {
+        return UserDefaults.standard.value(forKey: kPushStatus) as? String ?? "0"
     }
 }
 

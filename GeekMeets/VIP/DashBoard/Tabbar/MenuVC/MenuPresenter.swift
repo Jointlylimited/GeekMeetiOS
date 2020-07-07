@@ -16,7 +16,7 @@ protocol MenuPresentationProtocol {
     func callSignoutAPI()
     func getSignoutResponse(response : UserAuthResponse)
     
-    func callUpdateLocationAPI(fLatitude : String, fLongitude : String)
+    func callUpdateLocationAPI(fLatitude : String, fLongitude : String, tiIsLocationOn : String)
     func getLocationUpdateResponse(response : UserAuthResponse)
     
     func callPushStatusAPI(tiIsAcceptPush : String)
@@ -36,8 +36,8 @@ class MenuPresenter: MenuPresentationProtocol {
         self.viewController?.getSignOutResponse(response : response)
     }
     
-    func callUpdateLocationAPI(fLatitude : String, fLongitude : String){
-        self.interactor?.callUpdateLocationAPI(fLatitude: fLatitude, fLongitude: fLongitude)
+    func callUpdateLocationAPI(fLatitude : String, fLongitude : String, tiIsLocationOn : String){
+        self.interactor?.callUpdateLocationAPI(fLatitude: fLatitude, fLongitude: fLongitude, tiIsLocationOn : tiIsLocationOn)
     }
     
     func getLocationUpdateResponse(response : UserAuthResponse){

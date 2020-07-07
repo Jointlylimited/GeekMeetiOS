@@ -190,7 +190,8 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         setTheme()
-        getUserCurrentLocation()
+        self.presenter?.callUserProfileAPI(id: self.UserID != nil ? "\(self.UserID!)" : "78", code : self.UserCode)
+//        getUserCurrentLocation()
     }
     
     func setTheme(){

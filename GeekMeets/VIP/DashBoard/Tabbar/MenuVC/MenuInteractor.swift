@@ -14,7 +14,7 @@ import UIKit
 
 protocol MenuInteractorProtocol {
     func callSignoutAPI()
-    func callUpdateLocationAPI(fLatitude : String, fLongitude : String)
+    func callUpdateLocationAPI(fLatitude : String, fLongitude : String, tiIsLocationOn : String)
     func callPushStatusAPI(tiIsAcceptPush : String)
 }
 
@@ -46,9 +46,9 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
         }
     }
     
-    func callUpdateLocationAPI(fLatitude : String, fLongitude : String){
+    func callUpdateLocationAPI(fLatitude : String, fLongitude : String, tiIsLocationOn : String){
         LoaderView.sharedInstance.showLoader()
-        UserAPI.locationUpdate(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, fLatitude: fLatitude, fLongitude: fLongitude) { (response, error) in
+        UserAPI.locationUpdate(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vDeviceToken: vDeviceToken, fLatitude: fLatitude, fLongitude: fLongitude, tiIsLocationOn : tiIsLocationOn) { (response, error) in
             
             LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {

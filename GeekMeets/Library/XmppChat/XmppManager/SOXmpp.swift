@@ -1268,6 +1268,8 @@ extension SOXmpp {
         case XMPP_Message_Type.image.rawValue, XMPP_Message_Type.video.rawValue, XMPP_Message_Type.document.rawValue:
             body = XMLElement.init(name: "body", stringValue: objMsg.thumbUrl);break
             
+        case XMPP_Message_Type.location.rawValue:
+            body = XMLElement.init(name: "body", stringValue: objMsg.body);break
         default:
             break
         }
@@ -1276,7 +1278,10 @@ extension SOXmpp {
         message.addAttribute(withName: "to", stringValue: "\(objMsg.ToJID!.bare)")
         message.addAttribute(withName: "type", stringValue: "chat")
         message.addAttribute(withName: "id", stringValue: objMsg.messageId)
-        
+//        if objMsg.location != nil {
+            message.addAttribute(withName: "latitude", stringValue: String((objMsg.strMsg?.split(",").first)!))
+           message.addAttribute(withName: "longitude", stringValue: String((objMsg.strMsg?.split(",").last)!))
+//        }
         message.addChild(body)
         message.addChild(subject)
         //message.addChild(msgDetail)
@@ -1351,7 +1356,10 @@ extension SOXmpp {
         message.addAttribute(withName: "to", stringValue: "\(objMsg.FromJID!.full)")
         message.addAttribute(withName: "from", stringValue: "\(objMsg.ToJID!.bare)")
         message.addAttribute(withName: "id", stringValue: objMsg.messageId)
-
+        print(objMsg.body)
+        message.addAttribute(withName: "latitude", stringValue: String((objMsg.strMsg?.split(",").first)!))
+        message.addAttribute(withName: "longitude", stringValue: String((objMsg.strMsg?.split(",").last)!))
+        
         message.addChild(x)
         message.addChild(request)
 

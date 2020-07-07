@@ -606,12 +606,14 @@ open class UserAPI {
      - parameter timestamp: (header)
      - parameter token: (header)
      - parameter authorization: (header)
+     - parameter vDeviceToken: (form)
      - parameter fLatitude: (form)
      - parameter fLongitude: (form)
+     - parameter tiIsLocationOn: (form) tiIsLocationOn (optional, default to 1)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func locationUpdate(nonce: String, timestamp: String, token: String, authorization: String, fLatitude: String, fLongitude: String, completion: @escaping ((_ data: UserAuthResponse?,_ error: Error?) -> Void)) {
-        locationUpdateWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, fLatitude: fLatitude, fLongitude: fLongitude).execute { (response, error) -> Void in
+    open class func locationUpdate(nonce: String, timestamp: String, token: String, authorization: String, vDeviceToken: String, fLatitude: String, fLongitude: String, tiIsLocationOn: String? = nil, completion: @escaping ((_ data: UserAuthResponse?,_ error: Error?) -> Void)) {
+        locationUpdateWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, vDeviceToken: vDeviceToken, fLatitude: fLatitude, fLongitude: fLongitude, tiIsLocationOn: tiIsLocationOn).execute { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
@@ -626,17 +628,21 @@ open class UserAPI {
      - parameter timestamp: (header)
      - parameter token: (header)
      - parameter authorization: (header)
+     - parameter vDeviceToken: (form)
      - parameter fLatitude: (form)
      - parameter fLongitude: (form)
+     - parameter tiIsLocationOn: (form) tiIsLocationOn (optional, default to 1)
 
      - returns: RequestBuilder<UserAuthResponse>
      */
-    open class func locationUpdateWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, fLatitude: String, fLongitude: String) -> RequestBuilder<UserAuthResponse> {
+    open class func locationUpdateWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, vDeviceToken: String, fLatitude: String, fLongitude: String, tiIsLocationOn: String? = nil) -> RequestBuilder<UserAuthResponse> {
         let path = "/user/location-update"
         let URLString = SwaggerClientAPI.basePath + path
         let formParams: [String:Any?] = [
+            "vDeviceToken": vDeviceToken,
             "fLatitude": fLatitude,
-            "fLongitude": fLongitude
+            "fLongitude": fLongitude,
+            "tiIsLocationOn": tiIsLocationOn
         ]
 
         let nonNullParameters = APIHelper.rejectNil(formParams)
@@ -1091,10 +1097,12 @@ open class UserAPI {
      - parameter vLiveIn: (form)  (optional, default to Newyork)
      - parameter fLatitude: (form) Latitude (optional, default to 23.12356)
      - parameter fLongitude: (form) Longitude (optional, default to 72.12356)
+     - parameter tiIsLocationOn: (form) tiIsLocationOn (optional, default to 1)
+     - parameter tiIsAcceptPush: (form) tiIsAcceptPush (optional, default to 1)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func signUp(nonce: String, timestamp: String, token: String, tiIsSocialLogin: TiIsSocialLogin_signUp, vTimeOffset: String, vTimeZone: String, vDeviceToken: String, tiDeviceType: TiDeviceType_signUp, vDeviceName: String, vDeviceUniqueId: String, vApiVersion: String, vAppVersion: String, vOsVersion: String, vIpAddress: String, iUserId: String? = nil, vSocialId: String? = nil, tiSocialType: TiSocialType_signUp? = nil, vEmail: String? = nil, vPassword: String? = nil, vCountryCode: String? = nil, vPhone: String? = nil, vLiveIn: String? = nil, fLatitude: Float? = nil, fLongitude: Float? = nil, completion: @escaping ((_ data: UserAuthResponse?,_ error: Error?) -> Void)) {
-        signUpWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, tiIsSocialLogin: tiIsSocialLogin, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: tiDeviceType, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId, vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOsVersion, vIpAddress: vIpAddress, iUserId: iUserId, vSocialId: vSocialId, tiSocialType: tiSocialType, vEmail: vEmail, vPassword: vPassword, vCountryCode: vCountryCode, vPhone: vPhone, vLiveIn: vLiveIn, fLatitude: fLatitude, fLongitude: fLongitude).execute { (response, error) -> Void in
+    open class func signUp(nonce: String, timestamp: String, token: String, tiIsSocialLogin: TiIsSocialLogin_signUp, vTimeOffset: String, vTimeZone: String, vDeviceToken: String, tiDeviceType: TiDeviceType_signUp, vDeviceName: String, vDeviceUniqueId: String, vApiVersion: String, vAppVersion: String, vOsVersion: String, vIpAddress: String, iUserId: String? = nil, vSocialId: String? = nil, tiSocialType: TiSocialType_signUp? = nil, vEmail: String? = nil, vPassword: String? = nil, vCountryCode: String? = nil, vPhone: String? = nil, vLiveIn: String? = nil, fLatitude: Float? = nil, fLongitude: Float? = nil, tiIsLocationOn: String? = nil, tiIsAcceptPush: String? = nil, completion: @escaping ((_ data: UserAuthResponse?,_ error: Error?) -> Void)) {
+        signUpWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, tiIsSocialLogin: tiIsSocialLogin, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: tiDeviceType, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId, vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOsVersion, vIpAddress: vIpAddress, iUserId: iUserId, vSocialId: vSocialId, tiSocialType: tiSocialType, vEmail: vEmail, vPassword: vPassword, vCountryCode: vCountryCode, vPhone: vPhone, vLiveIn: vLiveIn, fLatitude: fLatitude, fLongitude: fLongitude, tiIsLocationOn: tiIsLocationOn, tiIsAcceptPush: tiIsAcceptPush).execute { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
@@ -1129,10 +1137,12 @@ open class UserAPI {
      - parameter vLiveIn: (form)  (optional, default to Newyork)
      - parameter fLatitude: (form) Latitude (optional, default to 23.12356)
      - parameter fLongitude: (form) Longitude (optional, default to 72.12356)
+     - parameter tiIsLocationOn: (form) tiIsLocationOn (optional, default to 1)
+     - parameter tiIsAcceptPush: (form) tiIsAcceptPush (optional, default to 1)
 
      - returns: RequestBuilder<UserAuthResponse>
      */
-    open class func signUpWithRequestBuilder(nonce: String, timestamp: String, token: String, tiIsSocialLogin: TiIsSocialLogin_signUp, vTimeOffset: String, vTimeZone: String, vDeviceToken: String, tiDeviceType: TiDeviceType_signUp, vDeviceName: String, vDeviceUniqueId: String, vApiVersion: String, vAppVersion: String, vOsVersion: String, vIpAddress: String, iUserId: String? = nil, vSocialId: String? = nil, tiSocialType: TiSocialType_signUp? = nil, vEmail: String? = nil, vPassword: String? = nil, vCountryCode: String? = nil, vPhone: String? = nil, vLiveIn: String? = nil, fLatitude: Float? = nil, fLongitude: Float? = nil) -> RequestBuilder<UserAuthResponse> {
+    open class func signUpWithRequestBuilder(nonce: String, timestamp: String, token: String, tiIsSocialLogin: TiIsSocialLogin_signUp, vTimeOffset: String, vTimeZone: String, vDeviceToken: String, tiDeviceType: TiDeviceType_signUp, vDeviceName: String, vDeviceUniqueId: String, vApiVersion: String, vAppVersion: String, vOsVersion: String, vIpAddress: String, iUserId: String? = nil, vSocialId: String? = nil, tiSocialType: TiSocialType_signUp? = nil, vEmail: String? = nil, vPassword: String? = nil, vCountryCode: String? = nil, vPhone: String? = nil, vLiveIn: String? = nil, fLatitude: Float? = nil, fLongitude: Float? = nil, tiIsLocationOn: String? = nil, tiIsAcceptPush: String? = nil) -> RequestBuilder<UserAuthResponse> {
         let path = "/user/signup"
         let URLString = SwaggerClientAPI.basePath + path
         let formParams: [String:Any?] = [
@@ -1147,6 +1157,8 @@ open class UserAPI {
             "vLiveIn": vLiveIn,
             "fLatitude": fLatitude,
             "fLongitude": fLongitude,
+            "tiIsLocationOn": tiIsLocationOn,
+            "tiIsAcceptPush": tiIsAcceptPush,
             "vTimeOffset": vTimeOffset,
             "vTimeZone": vTimeZone,
             "vDeviceToken": vDeviceToken,

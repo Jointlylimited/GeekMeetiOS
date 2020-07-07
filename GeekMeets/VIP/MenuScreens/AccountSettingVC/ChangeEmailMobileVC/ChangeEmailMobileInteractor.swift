@@ -13,7 +13,7 @@
 import UIKit
 
 protocol ChangeEmailMobileInteractorProtocol {
-    func doSomething()
+    func callUpdateEmailAPI(iUserId: String, vEmail : String)
 }
 
 protocol ChangeEmailMobileDataStore {
@@ -25,7 +25,22 @@ class ChangeEmailMobileInteractor: ChangeEmailMobileInteractorProtocol, ChangeEm
     //var name: String = ""
     
     // MARK: Do something
-    func doSomething() {
-        
+    func callUpdateEmailAPI(iUserId: String, vEmail : String) {
+        LoaderView.sharedInstance.showLoader()
+        UserAPI.requestForEmail(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, iUserId: iUserId, vEmail: vEmail) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getUpdateEmailResponse(response : response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+            } else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getUpdateEmailResponse(response : response!)
+                }
+            }
+        }
     }
 }

@@ -14,7 +14,7 @@ import UIKit
 
 protocol SignUpVCPresentationProtocol {
     
-    func callSignUpRequest(signUpParams : Dictionary<String, String>)
+    func callSignUpRequest(signUpParams : Dictionary<String, String>, tiIsLocationOn : String)
     func getEmailAvailResponse(response : UserAuthResponse)
     func getNormalSignupResponse(response : UserAuthResponse)
     func goToOTPScreen()
@@ -24,12 +24,14 @@ class SignUpVCPresenter: SignUpVCPresentationProtocol {
     weak var viewController: SignUpVCProtocol?
     var interactor: SignUpVCInteractorProtocol?
     var signUpParams : Dictionary<String, String>?
+    var tiIsLocationOn : String = ""
     
-    func callSignUpRequest(signUpParams : Dictionary<String, String>){
+    func callSignUpRequest(signUpParams : Dictionary<String, String>, tiIsLocationOn : String){
         if validateSignUpParams(param: signUpParams) {
             self.signUpParams = signUpParams
+            self.tiIsLocationOn = tiIsLocationOn
             if UserDataModel.currentUser?.tiIsAdmin == 1 {
-                self.interactor?.callNormalSignupAPI(params : signUpParams)
+                self.interactor?.callNormalSignupAPI(params : signUpParams, tiIsLocationOn : tiIsLocationOn)
             } else {
                 if UserDataModel.currentUser?.iUserId != nil && UserDataModel.currentUser?.iUserId != 0 {
                     self.goToOTPScreen()
@@ -104,7 +106,7 @@ class SignUpVCPresenter: SignUpVCPresentationProtocol {
     
     func actionContinue(signUpParams : Dictionary<String, String>) {
 //        if signUpParams["vSocialId"]! == "" {
-            self.interactor?.callNormalSignupAPI(params : signUpParams)
+        self.interactor?.callNormalSignupAPI(params : signUpParams, tiIsLocationOn : self.tiIsLocationOn)
 //        } else {
 //            let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.UserProfile) as! UserProfileViewController
 //            controller.signUpParams = signUpParams

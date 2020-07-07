@@ -8,6 +8,7 @@
 
 import UIKit
 import XMPPFramework
+import CoreLocation
 
 class Model_ChatMessage {
     
@@ -55,6 +56,7 @@ class Model_ChatMessage {
     var thumbLocalUrl: String?
     var localPath: String?
     var thumbnailData: Data?
+    var location : CLLocation?
     
     //Added by Divya
     var imgProfileURL : String?
@@ -162,6 +164,7 @@ class Model_ChatMessage {
         thumbLocalUrl  = xmppMessageObj.thumbLocalUrl
         msgStatus = xmppMessageObj.msgStatus
         imgProfileURL = xmppMessageObj.thumbUrl ?? ""
+//        location = xmppMessageObj.location
         
     }
     

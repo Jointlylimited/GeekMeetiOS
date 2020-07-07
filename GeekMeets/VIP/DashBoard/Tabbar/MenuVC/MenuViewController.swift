@@ -206,8 +206,14 @@ extension MenuViewController : UITableViewDataSource, UITableViewDelegate {
         cell.btnLeft.setImage(viewModel.leftImage, for: .normal)
         cell.lblTitle.text = viewModel.label
         
-        if indexPath.row == 6 || indexPath.row == 7 {
+        if indexPath.row == 6 {
             if UserDataModel.currentUser?.tiIsAcceptPush == 1 {
+                cell.btnRight.setImage(#imageLiteral(resourceName: "icn_on"), for: .normal)
+            } else {
+                cell.btnRight.setImage(#imageLiteral(resourceName: "icn_off"), for: .normal)
+            }
+        } else if indexPath.row == 7 {
+            if UserDataModel.currentUser?.tiIsLocationOn == 1 {
                 cell.btnRight.setImage(#imageLiteral(resourceName: "icn_on"), for: .normal)
             } else {
                 cell.btnRight.setImage(#imageLiteral(resourceName: "icn_off"), for: .normal)
@@ -225,17 +231,14 @@ extension MenuViewController : UITableViewDataSource, UITableViewDelegate {
                     self.presenter?.callPushStatusAPI(tiIsAcceptPush : "1")
                     cell.btnRight.isSelected = true
                 }
-//                cell.btnRight.isSelected = !cell.btnRight.isSelected
-//                 if cell.btnRight.isSelected {
-//                    self.presenter?.callPushStatusAPI(tiIsAcceptPush : "1")
-//                 } else {
-//                     self.presenter?.callPushStatusAPI(tiIsAcceptPush : "0")
-//                }
             }
             if indexPath.row == 7 {
-                cell.btnRight.isSelected = !cell.btnRight.isSelected
-                if cell.btnRight.isSelected {
-                    self.getUserCurrentLocation()
+                if UserDataModel.currentUser?.tiIsLocationOn == 1 {
+                    self.getUserCurrentLocation(tiIsLocationOn: "0")
+                    cell.btnRight.isSelected = false
+                } else {
+                    self.getUserCurrentLocation(tiIsLocationOn: "1")
+                    cell.btnRight.isSelected = true
                 }
             }
         }
@@ -308,8 +311,8 @@ extension MenuViewController {
         }
     }
     
-    func callUpdateLocationAPI(fLatitude : String, fLongitude : String){
-        self.presenter?.callUpdateLocationAPI(fLatitude: fLatitude, fLongitude: fLongitude)
+    func callUpdateLocationAPI(fLatitude : String, fLongitude : String, tiIsLocationOn : String){
+        self.presenter?.callUpdateLocationAPI(fLatitude: fLatitude, fLongitude: fLongitude, tiIsLocationOn: tiIsLocationOn)
     }
     func getLocationUpdateResponse(response : UserAuthResponse){
         if response.responseCode == 200 {
@@ -332,7 +335,7 @@ extension MenuViewController {
         AppDelObj.window?.addSubview(alertView)
     }
     
-    func getUserCurrentLocation() {
+    func getUserCurrentLocation(tiIsLocationOn : String) {
         LocationManager.sharedInstance.getLocation { (currLocation, error) in
             if error != nil {
                 print(error?.localizedDescription ?? "")
@@ -343,7 +346,7 @@ extension MenuViewController {
                 return
             }
             if error == nil {
-                self.callUpdateLocationAPI(fLatitude: String(Float((currLocation?.coordinate.latitude)!)), fLongitude: String(Float((currLocation?.coordinate.longitude)!)))
+                self.callUpdateLocationAPI(fLatitude: String(Float((currLocation?.coordinate.latitude)!)), fLongitude: String(Float((currLocation?.coordinate.longitude)!)), tiIsLocationOn : tiIsLocationOn)
             }
         }
     }

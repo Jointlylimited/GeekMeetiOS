@@ -42,9 +42,10 @@ class ChatDocumentCell: UITableViewCell {
         
         if chatMsg.isOutgoing {
             self.setDeliverAndReadStatus()
+            self.chatBubbleView.layer.roundCorners([.topLeft, .bottomLeft, .bottomRight], radius: 10)
+        } else {
+            self.chatBubbleView.layer.roundCorners([.topRight, .bottomLeft, .bottomRight], radius: 10)
         }
-        
-        
     }
     
     private func setDeliverAndReadStatus() {

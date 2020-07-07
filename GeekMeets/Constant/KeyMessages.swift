@@ -69,7 +69,7 @@ let kBlockDesStr = "User will not able to see your profile after blocking"
 let kUnblockDesStr = "User will able to see your profile after unblocking"
 let kNotificationCount = "notificationCount"
 let kMatchesCount = "MatchesCount"
-
+let kPushStatus = "PushStatus"
 //AppName
 let appName = Bundle.main.infoDictionary!["CFBundleName"] as! String
 
