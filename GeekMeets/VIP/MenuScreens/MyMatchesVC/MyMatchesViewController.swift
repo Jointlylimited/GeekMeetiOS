@@ -132,6 +132,12 @@ extension MyMatchesViewController : UITableViewDataSource, UITableViewDelegate {
                     obj.userName = data.vProfileName
                     obj.imageString = data.vProfileImage
                     obj.modalPresentationStyle = .fullScreen
+                    
+                    //Update vcard
+                    SOXmpp.manager.UserName = UserDataModel.currentUser?.vName ?? ""
+                    SOXmpp.manager.profileImageUrl = UserDataModel.currentUser?.vProfileImage ?? ""
+                    SOXmpp.manager.xmpp_UpdateMyvCard()
+                    
                     self.pushVC(obj)
                 }
             }

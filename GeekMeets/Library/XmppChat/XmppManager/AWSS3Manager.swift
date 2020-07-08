@@ -45,6 +45,15 @@ class AWSS3Manager {
         return (path: path, name: "\(timeStamp)\(videoExtension)")
     }
     
+    // video data Path/Name
+    var gifURlUpload: (path: String, name: String) {
+        let folderName = "Chat/"
+        let timeStamp = Date().currentTimeMillis()
+        let gifExtension = ".gif"
+        let path = "\(folderName)\(timeStamp)\(gifExtension)"
+        return (path: path, name: "\(timeStamp)\(gifExtension)")
+    }
+    
     func sequenceUpload()  {
         
         guard index < activeUploads.count else {
@@ -73,6 +82,11 @@ class AWSS3Manager {
             
             let fileName = task.localPath.lastPathComponent
             self.uploadfile(fileUrl: task.localPath, fileName: fileName, contenType: "pdf", progress: task.progressCallback, completion: task.completionCallback)
+            
+        case .gif:
+            
+            let fileName = task.localPath.lastPathComponent
+            self.uploadfile(fileUrl: task.localPath, fileName: fileName, contenType: "gif", progress: task.progressCallback, completion: task.completionCallback)
             
         default:
             break
@@ -175,6 +189,28 @@ class AWSS3Manager {
                     //                        _ = ValidationToast.showStatusMessage(message: kSomethingWentWrong)
                 }
             }
+        } else if contenType == "video" {
+            let image = activeUploads.count == 0 ? activeUploads[0].image : activeUploads[activeUploads.count - 1].image
+            AWSHelper.setup()
+            var thumbPath : String = ""
+            AWSHelper.shared.upload(img: image!, imgPath: self.thumbURlUpload.path, imgName: self.thumbURlUpload.name) { [weak self] (isUploaded, path, error) in
+                guard let `self` = self else {return}
+                if let err = error {
+                    print("ERROR : \(err.localizedDescription)")
+                    AppSingleton.sharedInstance().showAlert(err.localizedDescription, okTitle: "OK")
+                } else if isUploaded {
+                    DispatchQueue.main.async {
+                        DispatchQueue.main.async {
+                            if let completionBlock = completion {
+                                thumbPath = path!
+                                self.uploadVideo(thumbUrl: thumbPath, completion: completionBlock)
+                            }
+                        }
+                    }
+                } else {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                }
+            }
         } else {
             let image = activeUploads.count == 0 ? activeUploads[0].image : activeUploads[activeUploads.count - 1].image
             AWSHelper.setup()
@@ -189,28 +225,7 @@ class AWSS3Manager {
                         DispatchQueue.main.async {
                             if let completionBlock = completion {
                                 thumbPath = path!
-                            }
-                        }
-                    }
-                } else {
-                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
-                }
-            }
-            
-            let url = activeUploads.count == 0 ? activeUploads[0].localPath : activeUploads[activeUploads.count - 1].localPath
-            AWSHelper.shared.uploadVideo(video: url, videoPath: videoURlUpload.path, videoName: videoURlUpload.name) { [weak self] (isUploaded, path, error) in
-                DispatchQueue.main.async {
-                    LoaderView.sharedInstance.hideLoader()
-                }
-                guard let `self` = self else {return}
-                if let err = error {
-                    print("ERROR : \(err.localizedDescription)")
-                  AppSingleton.sharedInstance().showAlert(err.localizedDescription, okTitle: "OK")
-                } else if isUploaded{
-                    DispatchQueue.main.async {
-                        DispatchQueue.main.async {
-                            if let completionBlock = completion {
-                                completionBlock(path, thumbPath, nil)
+                                self.uploadGif(thumbUrl: thumbPath, completion: completionBlock) 
                             }
                         }
                     }
@@ -290,6 +305,54 @@ class AWSS3Manager {
                 // your uploadTask
             }
             return nil
+        }
+    }
+    
+    func uploadVideo(thumbUrl : String, completion : completionBlock?){
+        let url = activeUploads.count == 0 ? activeUploads[0].localPath : activeUploads[activeUploads.count - 1].localPath
+        AWSHelper.shared.uploadVideo(video: url, videoPath: videoURlUpload.path, videoName: videoURlUpload.name) { [weak self] (isUploaded, path, error) in
+            DispatchQueue.main.async {
+                LoaderView.sharedInstance.hideLoader()
+            }
+            guard let `self` = self else {return}
+            if let err = error {
+                print("ERROR : \(err.localizedDescription)")
+                AppSingleton.sharedInstance().showAlert(err.localizedDescription, okTitle: "OK")
+            } else if isUploaded{
+                DispatchQueue.main.async {
+                    DispatchQueue.main.async {
+                        if let completionBlock = completion {
+                            completionBlock(path, thumbUrl, nil)
+                        }
+                    }
+                }
+            } else {
+                AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+            }
+        }
+    }
+    
+    func uploadGif(thumbUrl : String, completion : completionBlock?){
+        let url = activeUploads.count == 0 ? activeUploads[0].localPath : activeUploads[activeUploads.count - 1].localPath
+        AWSHelper.shared.uploadVideo(video: url, videoPath: gifURlUpload.path, videoName: gifURlUpload.name) { [weak self] (isUploaded, path, error) in
+            DispatchQueue.main.async {
+                LoaderView.sharedInstance.hideLoader()
+            }
+            guard let `self` = self else {return}
+            if let err = error {
+                print("ERROR : \(err.localizedDescription)")
+                AppSingleton.sharedInstance().showAlert(err.localizedDescription, okTitle: "OK")
+            } else if isUploaded{
+                DispatchQueue.main.async {
+                    DispatchQueue.main.async {
+                        if let completionBlock = completion {
+                            completionBlock(path, thumbUrl, nil)
+                        }
+                    }
+                }
+            } else {
+                AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+            }
         }
     }
 }

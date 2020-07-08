@@ -198,12 +198,16 @@ class MessagesViewController: UIViewController, MessagesProtocol {
         }
         
         func updateNoDataLabel(){
-            if self.arrFriends.count != 0 {
+            if self.arrFriends.count != 0  {
                 self.lblNoUser.alpha = 0.0
-                self.tblMessageView.alpha = 1.0
                 self.tblMessageView.reloadData()
             } else {
                 self.lblNoUser.alpha = 1.0
+//                self.tblMessageView.alpha = 0.0
+            }
+            if self.objMatchData.count != 0 {
+                self.tblMessageView.alpha = 1.0
+            } else {
                 self.tblMessageView.alpha = 0.0
             }
             print(self.arrFriends)
@@ -223,6 +227,7 @@ extension MessagesViewController {
             print(response.responseData)
             self.objMatchData = response.responseData!
             self.lblNewMatches.text = "New Matches (\(self.objMatchData.count))"
+             self.updateNoDataLabel()
             self.StoryCollectionView.reloadData()
             self.tblMessageView.reloadData()
         }
@@ -274,7 +279,7 @@ extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
             let msgType = XMPP_Message_Type.init(rawValue: objfriend.objMessage!.msgType!)
             
             switch msgType {
-            case .image,.video:
+            case .image,.video, .gif:
                 cell.msgText.text = "Media message......."
             case .document:
                 cell.msgText.text = "Document message......."
@@ -284,7 +289,7 @@ extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
                 cell.msgText.text = "\(objfriend.objMessage!.strMsg ?? "")"
             }
             
-            cell.msgTime.text = SOXmpp.manager.DurationStringFromTimestamp( objfriend.objMessage!.timestamp)
+            cell.msgTime.text = SOXmpp.manager.DurationStringFromTimestamp(objfriend.objMessage!.timestamp)
         }
         
         // count
@@ -292,8 +297,16 @@ extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
         if let unreadCount = SOXmpp.manager.GetUnreadCound(of: arrFriends[indexPath.row].jID) , unreadCount > 0 {
             cell.msgCount.text = "\(unreadCount)"
             cell.msgCount.alpha = 1.0
+            let formattedString = NSMutableAttributedString()
+            formattedString.bold(cell.msgText.text!)
+            cell.msgText.attributedText = formattedString
+            cell.msgText.textColor = .black
         } else {
             cell.msgCount.alpha = 0.0
+            let formattedString = NSMutableAttributedString()
+            formattedString.normal(cell.msgText.text!)
+            cell.msgText.attributedText = formattedString
+            cell.msgText.textColor = .lightGray
         }
         
         cell.clickOnChatBtn = {
@@ -360,7 +373,7 @@ extension MessagesViewController : UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.objMatchData.count != 0 ? self.objMatchData.count : 0 // self.objStoryData.count
+        return self.objMatchData.count != 0 ? self.objMatchData.count : 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

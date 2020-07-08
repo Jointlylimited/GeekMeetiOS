@@ -75,6 +75,9 @@ class ChatMediaCell: UITableViewCell {
         if chatMsg.msgType! == XMPP_Message_Type.video.rawValue {
             imgVideoPreview.isHidden = false
             self.setMediaVideoThumnail()
+        } else if chatMsg.msgType! == XMPP_Message_Type.gif.rawValue {
+            imgVideoPreview.isHidden = false
+            self.setMediaVideoThumnail()
         } else {
             imgVideoPreview.isHidden = true
             self.setMediaImage()

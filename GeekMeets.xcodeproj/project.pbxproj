@@ -175,6 +175,7 @@
 		0BABEAE02472451A000BC5E7 /* PreferenceOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BABEADD24724519000BC5E7 /* PreferenceOption.swift */; };
 		0BABEAE22472451A000BC5E7 /* PreferencesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BABEADF24724519000BC5E7 /* PreferencesResponse.swift */; };
 		0BABEAE424727264000BC5E7 /* PreferencesField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BABEAE324727264000BC5E7 /* PreferencesField.swift */; };
+		0BB2713D24B5844B00552BA8 /* FullScreenImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB2713C24B5844B00552BA8 /* FullScreenImageViewController.swift */; };
 		0BBB5CCD2498C11F00069320 /* NotificationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBB5CCC2498C11F00069320 /* NotificationResponse.swift */; };
 		0BBD65F72449C8A500CA178A /* MatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBD65F02449C8A400CA178A /* MatchViewController.swift */; };
 		0BBD65F82449C8A500CA178A /* MatchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBD65F12449C8A400CA178A /* MatchPresenter.swift */; };
@@ -560,6 +561,7 @@
 		0BABEADD24724519000BC5E7 /* PreferenceOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceOption.swift; sourceTree = "<group>"; };
 		0BABEADF24724519000BC5E7 /* PreferencesResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesResponse.swift; sourceTree = "<group>"; };
 		0BABEAE324727264000BC5E7 /* PreferencesField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesField.swift; sourceTree = "<group>"; };
+		0BB2713C24B5844B00552BA8 /* FullScreenImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenImageViewController.swift; sourceTree = "<group>"; };
 		0BBB5CCC2498C11F00069320 /* NotificationResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationResponse.swift; sourceTree = "<group>"; };
 		0BBD65F02449C8A400CA178A /* MatchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchViewController.swift; sourceTree = "<group>"; };
 		0BBD65F12449C8A400CA178A /* MatchPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchPresenter.swift; sourceTree = "<group>"; };
@@ -825,6 +827,7 @@
 				0B0013B624ACA4B700D2EE83 /* ChatDocumentCell.swift */,
 				0B0013B724ACA4B700D2EE83 /* ChatTextCell.swift */,
 				0B0013B824ACA4B700D2EE83 /* OneToOneChatVC.swift */,
+				0BB2713C24B5844B00552BA8 /* FullScreenImageViewController.swift */,
 			);
 			path = OneToOneChatVC;
 			sourceTree = "<group>";
@@ -2807,6 +2810,7 @@
 				F7CD7A4E24442F3A00E02A9E /* TutorialPageViewController.swift in Sources */,
 				0B53566E2450870F005571AF /* MyMatchesViewController.swift in Sources */,
 				F7780E34245AD667003CA4BD /* CodableHelper.swift in Sources */,
+				0BB2713D24B5844B00552BA8 /* FullScreenImageViewController.swift in Sources */,
 				0BEED98424A5BFCE00F08122 /* TouchConfiguration.swift in Sources */,
 				F79CA6F2244D9C5100C9A7EB /* UserProfileInteractor.swift in Sources */,
 				0BDB9DA2247640A800BA2F39 /* AWSHelper.swift in Sources */,

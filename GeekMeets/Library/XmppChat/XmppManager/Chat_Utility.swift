@@ -34,7 +34,7 @@ public enum XMPP_Message_Type: Int {
     case audioCalling   //13
     case sticker        //14
     case documentUpdated//15
-    
+    case gif
 //    func GetText() -> String {
 //        switch self {
 //        case .text: return ""
@@ -266,6 +266,9 @@ struct Chat_Utility {
             fileUrl = Chat_Utility.documentsPath.appendingPathComponent(fileName)
         } else if mediaType == .document {
             let fileName: String = ProcessInfo.processInfo.globallyUniqueString + (".pdf")
+            fileUrl = Chat_Utility.documentsPath.appendingPathComponent(fileName)
+        } else if mediaType == .gif {
+            let fileName: String = ProcessInfo.processInfo.globallyUniqueString + (".gif")
             fileUrl = Chat_Utility.documentsPath.appendingPathComponent(fileName)
         }
         

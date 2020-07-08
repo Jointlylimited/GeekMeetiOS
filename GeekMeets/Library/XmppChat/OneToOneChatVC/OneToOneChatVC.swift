@@ -49,6 +49,7 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
     @IBOutlet weak var viewPopUp: UIView!
     @IBOutlet weak var btnBlock: UIButton!
     @IBOutlet weak var lblStatus: UILabel!
+    @IBOutlet weak var imgOnline: UIImageView!
     
     var alertView: CustomOptionView!
     var customAlertView: CustomAlertView!
@@ -112,15 +113,17 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
             self.lblFriendName.text = self.userName ?? ""
             let url = URL(string: "\(self.imageString ?? "")")
             self.imgProfile!.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile"))
+            self.lblStatus.alpha = 0.0
         } else {
             
             guard self.objFriend != nil else {
                 return
             }
-            
+            self.lblStatus.alpha = 1.0
             if let _vcard = SOXmpp.manager.GetVcard(of: self.objFriend!.xmppJID!) {
                 self.lblFriendName.text = "\(_vcard.nickname ?? self.objFriend!.name)"
                 self.lblStatus.text = "\(SOXmpp.manager._collectionFriendsStatus[objFriend!.jID] ?? "")"
+                self.imgOnline.alpha = self.lblStatus.text == "online" ? 1.0 : 0.0
                 self.objFriend!.vCard = _vcard
                 let url = URL(string: "\(_vcard.url ?? "")")
                 self.imgProfile!.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile"))
@@ -128,6 +131,7 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
                 SOXmpp.manager.xmppvCardTempModule.fetchvCardTemp(for: self.objFriend!.xmppJID!, ignoreStorage: true)
                 self.lblFriendName.text = self.objFriend!.name != "" ?  "\(self.objFriend!.name)" : self.objFriend!.jID
                 self.lblStatus.text = "\(SOXmpp.manager._collectionFriendsStatus[objFriend!.jID] ?? "")"
+                self.imgOnline.alpha = self.lblStatus.text == "online" ? 1.0 : 0.0
                 let url = URL(string: "\(self.objFriend?.imagUrl ?? "")")
                 self.imgProfile!.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile"))
             }
@@ -157,13 +161,23 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
         guard SOXmpp.manager._arrTypingUsersIDs.contains(self.objFriend!.jID) else  {
             return
         }
-        
+        if objFriend == nil {
+            self.lblFriendName.text = self.userName
+            let url = URL(string: "\(self.imageString ?? "")")
+            self.imgProfile!.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile"))
+            return
+            
+        }
         if let _vcard = SOXmpp.manager.GetVcard(of: self.objFriend!.xmppJID!) {
            // lblNavTitle.text = "\(_vcard.nickname ?? objFriend!.name)" // \n Typing....
+            self.lblFriendName.text = "\(_vcard.nickname ?? objFriend!.name)"
             self.lblStatus.text = "typing..."
+            self.imgOnline.alpha = 1.0
         } else {
           //  lblNavTitle.text = "\(self.objFriend!.name)" // \n Typing....
+            self.lblFriendName.text = "\(self.objFriend!.name)"
             self.lblStatus.text = "typing..."
+            self.imgOnline.alpha = 1.0
         }
      //   lblNavTitle.sizeToFit()
      //   navigationItem.titleView = lblNavTitle
@@ -485,7 +499,7 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
 //            }
 //        }
 //    }
-    private func addMediaMessageTEST(mediaType: XMPP_Message_Type , phAssetUrl: URL) {
+    private func addMediaMessageTEST(mediaType: XMPP_Message_Type , phAssetUrl: URL, image : UIImage? = nil) {
 
         let obj = self.GetChatMsgObject()
         obj.msgType = mediaType.rawValue
@@ -495,7 +509,7 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
 
         let objUploadTask = ChatUploadTask.init(objChat: obj, localPath: phAssetUrl)
         objUploadTask.delegate = self
-        objUploadTask.image = generateThumb(from: phAssetUrl)
+        objUploadTask.image = generateThumb(from: phAssetUrl) != nil ? generateThumb(from: phAssetUrl) : image
         AWSS3Manager.shared.activeUploads.append(objUploadTask)
 
         DispatchQueue.main.async {
@@ -698,6 +712,9 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
         }
     }
     
+    func OpenGIF(){
+        
+    }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
@@ -926,11 +943,6 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
     //MARK:- =====================ACTIONS==========================
     
     @IBAction func profileBtnAction(_ sender: UIButton) {
-//        if self.viewPopUp!.alpha == 0.0 {
-//            self.viewPopUp!.alpha = 1.0
-//        } else {
-//            self.viewPopUp!.alpha = 0.0
-//        }
         self.showOptionAlertView()
     }
     
@@ -972,7 +984,7 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
         self.viewPopUp!.alpha = 0.0
          let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.ReportScreen) as! ReportViewController
             let techID = self.objFriend != nil ? self.objFriend?.jID.split("_").first!.components(separatedBy: CharacterSet.decimalDigits.inverted).last : _userIDForRequestSend?.split("_").first!.components(separatedBy: CharacterSet.decimalDigits.inverted).last
-//            controller.iTechnicianId = techID
+        controller.ReportFor = techID!
         self.pushVC(controller)
 
     }
@@ -1009,7 +1021,7 @@ extension OneToOneChatVC : CustomOptionViewDelegate {
         } else if index == 4 {
             let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.ReportScreen) as! ReportViewController
             let techID = self.objFriend != nil ? self.objFriend?.jID.split("_").first!.components(separatedBy: CharacterSet.decimalDigits.inverted).last : _userIDForRequestSend?.split("_").first!.components(separatedBy: CharacterSet.decimalDigits.inverted).last
-//            controller.ReportFor = "\(self.objMatchUserProfile.iUserId!)"
+            controller.ReportFor = techID!
             controller.tiReportType = 1
             controller.modalTransitionStyle = .crossDissolve
             controller.modalPresentationStyle = .overCurrentContext
@@ -1033,25 +1045,21 @@ extension OneToOneChatVC : PickImageViewDelegate {
     }
     func GifButtonAction(){
         self.customImagePickerView.removeFromSuperview()
-        self.openLibrary()
-//        photoLibraryAccess { [weak self] (status, isGrant) in
-//            guard let `self` = self else {return}
-//            if isGrant {
-//                if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
-//                    self.imagePicker = UIImagePickerController()
-//                    self.imagePicker.delegate = self
-//                    self.imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary;
-//                    self.imagePicker.allowsEditing = false
-//                    self.imagePicker.mediaTypes = [kUTTypeTIFF as String]
-////                    let mediaTypes:[String] = [kUTTypeGIF as String]
-////                    self.imagePicker.mediaTypes = mediaTypes
-//                    self.mediaType = .gif
-//                    self.present(self.imagePicker, animated: true, completion: nil)
-//                }
-//            } else {
-//                //                AppSingleton.sharedInstance().showAlert(kPhotosAccessMsg, okTitle: "OK")
-//            }
-//        }
+        photoLibraryAccess { [weak self] (status, isGrant) in
+            guard let `self` = self else {return}
+            if isGrant {
+                if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
+                    self.imagePicker = UIImagePickerController()
+                    self.imagePicker.delegate = self
+                    self.imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary;
+                    self.imagePicker.allowsEditing = false
+                    self.mediaType = .gif
+                    self.present(self.imagePicker, animated: true, completion: nil)
+                }
+            } else {
+                //                AppSingleton.sharedInstance().showAlert(kPhotosAccessMsg, okTitle: "OK")
+            }
+        }
     }
     func LocationButtonAction(){
         self.customImagePickerView.removeFromSuperview()
@@ -1226,15 +1234,12 @@ extension OneToOneChatVC {
         
          func getBlockUserListResponse(response : BlockUser) {
             if response.responseCode == 200 {
-    //            let msg = response.responseMessage ?? kSomethingWentWrong
-    //            _ = ValidationToast.showStatusMessage(message: msg,withToastType: ToastType.success)
                 self.arrBlockUserList.objUserList = response.responseData
                 let userId = self.objFriend?.jID != nil ? (self.objFriend?.jID.split("@").first ?? "") : self._userIDForRequestSend ?? ""
                 let arrBlockUser = self.arrBlockUserList.objUserList.filter { $0.iUserId! == userId }
                 if arrBlockUser != nil && arrBlockUser.count != 0 {
                     isBlock = 1
                     SOXmpp.manager.xmpp_BlockUser(withJid : userId)
-                    //                SKxmpp.manager()?.xmpp_BlockUser(withJid: JID)
                     self.btnBlock?.setTitle(kTitleUnBlock, for: .normal)
                     UserDefaults.standard.set(isBlock, forKey: "BlockUserStatus")
                 }
@@ -1269,17 +1274,15 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
             case .text:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: ChatTextCell.reuseID_Outgoing, for: indexPath) as! ChatTextCell
-                
                 //                cell.imgAvatarView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile"))
                 cell.ConfigureCell(with: chatMsg)
                 
                 return cell
                 
-            case .image ,.video:
+            case .image ,.video, .gif:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: ChatMediaCell.reuseID_Outgoing, for: indexPath) as! ChatMediaCell
                 cell.delegate = self
-                
                 //                cell.imgAvatarView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile"))
                 cell.ConfigureCell(with: chatMsg)
                 
@@ -1290,14 +1293,12 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: ChatDocumentCell.reuserID_Incoming, for: indexPath) as! ChatDocumentCell
                 cell.delegate = self
-                
                 cell.ConfigureCell(with: chatMsg)
                 
                 return cell
             case .location:
                 let cell = tableView.dequeueReusableCell(withIdentifier: ChatLocationCell.reuserID_Outgoing, for: indexPath) as! ChatLocationCell
                 cell.delegate = self
-                
                 cell.ConfigureCell(with: chatMsg)
                 
                 return cell
@@ -1312,17 +1313,15 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
             case .text:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: ChatTextCell.reuseID_Incoming, for: indexPath) as! ChatTextCell
-                
 //                cell.imgAvatarView.image = self.imgProfile.image
                 cell.ConfigureCell(with: chatMsg)
                 
                 return cell
                 
-            case .image,.video:
+            case .image,.video, .gif:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: ChatMediaCell.reuseID_Incoming, for: indexPath) as! ChatMediaCell
 //                 cell.imgAvatarView.image = self.imgProfile.image
-//                cell.chatBubbleView.layer.roundCorners([.topRight, .bottomLeft, .bottomRight], radius: 10)
                 cell.ConfigureCell(with: chatMsg)
                 
                 return cell
@@ -1331,13 +1330,11 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
             case .document:
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: ChatDocumentCell.reuserID_Incoming, for: indexPath) as! ChatDocumentCell
-//                cell.chatBubbleView.layer.roundCorners([.topRight, .bottomLeft, .bottomRight], radius: 10)
                 cell.ConfigureCell(with: chatMsg)
                 
                 return cell
             case .location:
                 let cell = tableView.dequeueReusableCell(withIdentifier: ChatLocationCell.reuserID_Incoming, for: indexPath) as! ChatLocationCell
-//                cell.chatBubbleView.layer.roundCorners([.topRight, .bottomLeft, .bottomRight], radius: 10)
                 cell.ConfigureCell(with: chatMsg)
                 
                 return cell
@@ -1355,10 +1352,6 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
         switch msgType {
         case .video:
             var _url: URL?
-            /*if let localPath = arrChatMsg[indexPath.row].url, localPath.count > 0 {
-             let tmpPath = URL(string:"\(fileUploadURL)\(localPath)") // URL.init(fileURLWithPath: localPath)
-             _url = tmpPath //Chat_Utility.documentsPath.appendingPathComponent(tmpPath)
-             } else*/
             if arrChatMsg[indexPath.row].url.count > 0  {
                 let localPath = URL.init(string: arrChatMsg[indexPath.row].url)
                 _url = URL(string:"\(fileUploadURL)\(localPath!)")
@@ -1377,13 +1370,24 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
             break
             
         case .image:
-            //            let objVC = self.storyboard?.instantiateViewController(withIdentifier: "FullScreenImageVC") as! FullScreenImageVC
-            //            objVC.objChatMsg = arrChatMsg[indexPath.row]
-            //            DispatchQueue.main.async {
-            //                self.present(objVC, animated: true, completion: nil)
-            //            }
+            let objVC = self.storyboard?.instantiateViewController(withIdentifier: "FullScreenImageViewController") as! FullScreenImageViewController
+            objVC.chatMsg = arrChatMsg[indexPath.row]
+            objVC.modalTransitionStyle = .crossDissolve
+            objVC.modalPresentationStyle = .overCurrentContext
+            DispatchQueue.main.async {
+                self.present(objVC, animated: true, completion: nil)
+            }
             break
             
+        case .gif:
+            let objVC = self.storyboard?.instantiateViewController(withIdentifier: "FullScreenImageViewController") as! FullScreenImageViewController
+            objVC.chatMsg = arrChatMsg[indexPath.row]
+            objVC.modalTransitionStyle = .crossDissolve
+            objVC.modalPresentationStyle = .overCurrentContext
+            DispatchQueue.main.async {
+                self.present(objVC, animated: true, completion: nil)
+            }
+            break
         case .document:
             //            let pdfViewController = PDFViewController()
             //            let urlRequest = NSURLRequest(url: URL.init(string: arrChatMsg[indexPath.row].url)!)
@@ -1401,6 +1405,8 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
         case .location:
             let objVC = self.storyboard?.instantiateViewController(withIdentifier: "FullScreenMapViewController") as! FullScreenMapViewController
             objVC.chatMsg = arrChatMsg[indexPath.row]
+            objVC.modalTransitionStyle = .crossDissolve
+            objVC.modalPresentationStyle = .overCurrentContext
             DispatchQueue.main.async {
                 self.present(objVC, animated: true, completion: nil)
             }
@@ -1458,11 +1464,8 @@ extension OneToOneChatVC: ProtocolChatMessageRetry {
             
             let objUploadTask = ChatUploadTask.init(objChat: objChat, localPath: _url)
             objUploadTask.delegate = self
-            
             AWSS3Manager.shared.activeUploads.append(objUploadTask)
-            
             XMPP_MessageArchiving_Custom.UpdateMessage(obj: objChat)
-            
             self.updateMessage(with: objChat)
             
             if AWSS3Manager.shared.index == 0 {
@@ -1553,15 +1556,27 @@ extension OneToOneChatVC: UIImagePickerControllerDelegate {
                       return
                 }
                 let _data = videoURL.getVideoData()
-                self.addMediaMessageTEST(mediaType: .video, phAssetUrl: videoURL)
+                self.addMediaMessageTEST(mediaType: .video, phAssetUrl: videoURL, image: nil)
 //                  self.addMediaMessage(with: _data!, mediaType: .image, image : pickedImage)
             } else {
-                guard let videoURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL else {
+                guard let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
                     //  guard let pickedImage = info[.editedImage] as? UIImage else {
-                    print(" ERROR === UIImagePickerController  while getting GIF")
+                    print(" ERROR === UIImagePickerConroller  while getting GIF")
                     return
                 }
-                let _data = videoURL.getVideoData()
+                if #available(iOS 11.0, *) {
+                    guard let videoURL = info[UIImagePickerController.InfoKey.imageURL] as? URL else {
+                        //  guard let pickedImage = info[.editedImage] as? UIImage else {
+                        print(" ERROR === UIImagePickerConroller  while getting GIF")
+                        return
+                    }
+                    self.addMediaMessageTEST(mediaType: .gif, phAssetUrl: videoURL, image: pickedImage)
+                } else {
+                    // Fallback on earlier versions
+                }
+                
+//                let _data = videoURL.getVideoData()
+                
             }
         }
     }
