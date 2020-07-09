@@ -140,7 +140,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         let dict = (userDict["aps"] as! [String:Any])
         let badge = (dict["badge"] as! Int)
         print("badge :\(badge), System Badge : \(UIApplication.shared.applicationIconBadgeNumber)")
-        //        self.callUpdateNotificationReadFlagApi(notificationId: Int((userDict["gcm.notification.iUserNotificationId"] as! NSString).intValue))
+        self.callReadAPI(iNotificationId: String(Int((userDict["gcm.notification.iUserNotificationId"] as! NSString).intValue)), tiType: "1")
         
         UserDataModel.setNotificationCount(count: UserDataModel.getNotificationCount() + 1)
         self.notificationBadgeCount = UserDataModel.getNotificationCount()
@@ -163,7 +163,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
 extension AppDelegate {
     func callPushStatusAPI(tiIsAcceptPush : String) {
         LoaderView.sharedInstance.showLoader()
-        UserAPI.setPushStatus(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vDeviceToken: vDeviceToken, tiIsAcceptPush: tiIsAcceptPush) { (response, error) in
+        UserAPI.setPushStatus(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vDeviceToken: AppDelObj.deviceToken, tiIsAcceptPush: tiIsAcceptPush) { (response, error) in
             
             LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
@@ -175,6 +175,43 @@ extension AppDelegate {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
                 } else {
 //                     self.presenter?.getPushStatusResponse(response : response!)
+                }
+            }
+        }
+    }
+    func callReadAPI(iNotificationId : String, tiType : String) {
+        LoaderView.sharedInstance.showLoader()
+        NotificationAPI.viewNotification(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization, iNotificationId: iNotificationId, tiType: tiType) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.callBadgeCountAPI()
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+//                    self.presenter?.getReadNotificationResponse(response: response!)
+                }
+            }
+        }
+    }
+    
+    func callBadgeCountAPI(){
+        LoaderView.sharedInstance.showLoader()
+        NotificationAPI.budgeCount(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                UserDataModel.setNotificationCount(count: UserDataModel.getNotificationCount() + 1)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    
                 }
             }
         }

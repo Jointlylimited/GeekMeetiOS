@@ -214,7 +214,6 @@ extension ReportViewController : UITableViewDataSource, UITableViewDelegate {
             tableView.reloadSections(sections, with: .none)
             self.tblViewHeightConstant.constant = CGFloat(85)
         } else {
-            
             arrReport.isSelectedReason = true
             let sections = IndexSet.init(integer: indexPath.row)
             tableView.reloadSections(sections, with: .none)

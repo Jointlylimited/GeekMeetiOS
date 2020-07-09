@@ -126,6 +126,7 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
         if !isFromNewMobile {
             strCountryCode = signUpParams!["vCountryCode"]!
             strPhonenumber = signUpParams!["vPhone"]!
+            startTimer()
         } else {
             strCountryCode = strNewCountryCode
             strPhonenumber = strNewPhoneNumber
@@ -134,7 +135,7 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
         tfMobileNumber.text = "\(strCountryCode) \(strPhonenumber ?? "")"
         btnCountrycode.isUserInteractionEnabled = false
         tfMobileNumber.isUserInteractionEnabled = false
-        startTimer()
+        
         
     }
     
@@ -207,6 +208,8 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
             self.presenter?.callVerifyOTPAPI(iOTP : otpStackView.getOTP(),vCountryCode : strCountryCode,vPhone : strPhonenumber ?? "7567173373", signUpParams : signUpParams)
             
         } else {
+            self.presenter?.callResendOTPAPI(vCountryCode : strCountryCode ,vPhone : strPhonenumber ?? "7567173373")
+            startTimer()
             otpStackView.setAllFieldColor(isWarningColor: true, color: .yellow)
             self.presenter?.callNewVerifyOTPAPI(iOTP : otpStackView.getOTP(),vCountryCode : strCountryCode,vPhone : strPhonenumber ?? "7567173373")
         }

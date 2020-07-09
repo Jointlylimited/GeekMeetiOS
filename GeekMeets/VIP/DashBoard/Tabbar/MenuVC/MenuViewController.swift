@@ -115,7 +115,6 @@ class MenuViewController: UIViewController, MenuProtocol {
             self.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_round"))
         }
         
-        
         if UserDataModel.getNotificationCount() != 0 {
             self.btnNotification.setImage(#imageLiteral(resourceName: "icn_notification"), for: .normal)
         } else {

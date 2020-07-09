@@ -133,6 +133,7 @@ class MatchViewController: UIViewController, MatchProtocol {
             AppSingleton.sharedInstance().showHomeVC(fromMatch: false, userDict: [:])
         }
     }
+    
     @IBAction func btnSendMsgAction(_ sender: UIButton) {
         self.dismissVC {
             if self.xmppUserID != "" {

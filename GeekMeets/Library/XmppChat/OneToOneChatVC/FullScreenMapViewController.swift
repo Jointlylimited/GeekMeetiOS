@@ -27,7 +27,6 @@ class FullScreenMapViewController: UIViewController {
         let regionRadius: CLLocationDistance = 1000
         let latStr = self.chatMsg?.strMsg?.split(",").first
         let lonStr = self.chatMsg?.strMsg?.split(",").last
-        print("\(latStr) \(lonStr)")
         
         if latStr != nil && lonStr != nil {
             let Location = CLLocationCoordinate2D(latitude: Double(latStr!)!, longitude:  Double(lonStr!)!)

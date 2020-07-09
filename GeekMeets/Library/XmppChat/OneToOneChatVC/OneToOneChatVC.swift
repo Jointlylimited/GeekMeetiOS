@@ -333,7 +333,7 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
             }
             //3
             var _url: URL!
-            if let path = item.localPath ,  let url = URL.init(string: path) {
+            if let path = item.localPath,  let url = URL.init(string: path) {
                 _url = url
             } else if let url = URL.init(string: item.thumbUrl) {
                  _url = url
@@ -359,7 +359,6 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
     
     
     //MARK:-=============== Send Button ====================
-    
     private func GetChatMsgObject() -> Model_ChatMessage {
         
         //let filterData = SOXmpp.manager.arrFriendsList.filter { $0 == self.objFriend }
@@ -456,15 +455,12 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
             AWSS3Manager.shared.activeUploads.append(objUploadTask)
 
             DispatchQueue.main.async {
-
                 XMPP_MessageArchiving_Custom.InsertMessage(obj: obj)
 
                 self.arrChatMsg.append(obj)
-                ///self.GetDifferentDate()
                 self.tblChat.reloadData()
 
                 self.fetchThumbnailForVideo()
-
                 self.scrollToBottomAnimated(animated: true)
             }
 
@@ -472,33 +468,11 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
 //                self.sendImage(image: image)
                 AWSS3Manager.shared.sequenceUpload()
 //            }
-
         } else {
             print("============== ERROR While saving Media to directory")
         }
     }
     
-//    func sendImage(image: UIImage){
-//        AWSHelper.setup()
-//        AWSHelper.shared.upload(img: image, imgPath: self.thumbURlUpload.path, imgName: self.thumbURlUpload.name) { [weak self] (isUploaded, path, error) in
-//            //                    DispatchQueue.main.async {
-//            //                        LoaderView.sharedInstance.hideLoader()
-//            //                    }
-//            guard let `self` = self else {return}
-//            if let err = error {
-//                print("ERROR : \(err.localizedDescription)")
-//                _ = ValidationToast.showStatusMessage(message: err.localizedDescription)
-//            } else if isUploaded {
-//                DispatchQueue.main.async {
-//                    //                            self.arryMsgs.removeLast()
-//                    //                            self.viewController?.successLoadMessages(arry: self.arryMsgs, isLast:false)
-////                    SKxmpp.manager()?.xmpp_SendMessage(self.dictBody(type: MediaType.image, text: nil, url: path, thumb_url: path, sticker_cat: nil, sticker_id: nil), timeStamp: appSingleton.getCurrentTimeStamp(), toUser: (self.receiver?.user_id)!)
-//                }
-//            } else {
-//                _ = ValidationToast.showStatusMessage(message: kSomethingWentWrong)
-//            }
-//        }
-//    }
     private func addMediaMessageTEST(mediaType: XMPP_Message_Type , phAssetUrl: URL, image : UIImage? = nil) {
 
         let obj = self.GetChatMsgObject()
@@ -566,9 +540,7 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
         self.updateMessage(with: objChatMsg)
     }
     
-    
     //MARK:- ===================== ATTACHMENT ==========================
-
     @IBAction func attachmentBtnAction(_ sender: UIButton) {
         
         if !checkConnection() {
@@ -629,7 +601,6 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
 //        DispatchQueue.main.async {
 //            self.present(alertController, animated: true, completion: nil)
 //        }
-        
     }
     
     func openImagePickerView(){
@@ -641,7 +612,7 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
     
     func openImagePickerActionSheet() {
            let camera = "Camera"
-           let photoGallery = "Photo Gallery"
+           let photoGallery = "Gallery"
             let video = "Video"
            let cancel = "Cancel"
            UIAlertController.showAlertWith(title: nil, message: nil, style: .actionSheet, buttons: [camera,photoGallery,video,cancel], controller: self) { (action) in
@@ -711,45 +682,10 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
             }
         }
     }
-    
-    func OpenGIF(){
-        
-    }
+
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
-    
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//        picker.dismiss(animated: true, completion: nil)
-//        if let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-//            if(isBlock == 1){
-//
-//            }else{
-//                DispatchQueue.global(qos: .userInteractive).async {
-//                     self?.uploadImagesAndSend(assests: assests)
-//                }
-//                //self.presenter?.sendImage(image: chosenImage)
-//                //self.finishSendingMessage(animated: true)
-//                //stopTypingNotification()
-//                //dismiss(animated:true, completion: nil)
-//            }
-//        }
-//    }
-    
-//    private func openImagerPicker() {
-//        let imagePicker = OpalImagePickerController()
-//
-//                presentOpalImagePickerController(imagePicker, animated: true, select: { [weak self](assests) in
-//                    imagePicker.dismiss(animated: true, completion: nil)
-//
-//                    DispatchQueue.global(qos: .userInteractive).async {
-//                        self?.uploadImagesAndSend(assests: assests)
-//                    }
-//
-//                }, cancel: { [weak self] in
-//                    imagePicker.dismiss(animated: true, completion: nil)
-//                }, completion: nil)
-//    }
     
     private func openDocumentPicker() {
         let types: [String] = [kUTTypePDF as String]
@@ -765,8 +701,7 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
     }
     
     let PHmanager = PHImageManager.default()
-    
-    
+
     func uploadImagesAndSend(assests: [PHAsset])  {
 
 //        if indexOfAsset >= arrSelectedAssets.count {
@@ -871,7 +806,7 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
             if _data != nil {
 //                self.addMediaMessage(with: _data!, mediaType: .document)
             } else {
-                print("============== ERROR PickDocument   Data ")
+                print("============== ERROR PickDocument Data")
             }
         }
     }
@@ -1011,13 +946,13 @@ extension OneToOneChatVC : CustomOptionViewDelegate {
         print(index)
         self.alertView.removeFromSuperview()
         if index == 0 {
-            customAlertView = CustomAlertView.initAlertView(title: "Unmatch", message: "You can not chat after unmatching \nAre you sure you want to clear chat?", btnRightStr: "Un-match", btnCancelStr: "Cancel", btnCenter: "", isSingleButton: false)
+            customAlertView = CustomAlertView.initAlertView(title: kUnMatchTitleStr, message: kUnMatchDesStr, btnRightStr: kUnMatchBtnStr, btnCancelStr: kTitleCancel, btnCenter: "", isSingleButton: false)
         } else if index == 1 {
-            customAlertView = CustomAlertView.initAlertView(title: "Clear Chat", message: "Are you sure you want to clear chat?", btnRightStr: "Clear", btnCancelStr: "Cancel", btnCenter: "", isSingleButton: false)
+            customAlertView = CustomAlertView.initAlertView(title: kClearTitleStr, message: kClearChatStr, btnRightStr: kClearBtnStr, btnCancelStr: kTitleCancel, btnCenter: "", isSingleButton: false)
         } else if index == 2 {
-            customAlertView = CustomAlertView.initAlertView(title: "Delete", message: "Are you sure you want to delete?", btnRightStr: "Delete", btnCancelStr: "Cancel", btnCenter: "", isSingleButton: false)
+            customAlertView = CustomAlertView.initAlertView(title: kDelTitleStr, message: kDelStr, btnRightStr: kDelTitleStr, btnCancelStr: kTitleCancel, btnCenter: "", isSingleButton: false)
         } else if index == 3 {
-            customAlertView = CustomAlertView.initAlertView(title: isBlock == 1 ? kUnblockStr : kBlockStr, message: isBlock == 1 ? kUnblockDesStr : kBlockDesStr, btnRightStr: isBlock == 1 ? kTitleUnBlock : kTitleBlock, btnCancelStr: "Cancel", btnCenter: "", isSingleButton: false)
+            customAlertView = CustomAlertView.initAlertView(title: isBlock == 1 ? kUnblockStr : kBlockStr, message: isBlock == 1 ? kUnblockDesStr : kBlockDesStr, btnRightStr: isBlock == 1 ? kTitleUnBlock : kTitleBlock, btnCancelStr: kTitleCancel, btnCenter: "", isSingleButton: false)
         } else if index == 4 {
             let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.ReportScreen) as! ReportViewController
             let techID = self.objFriend != nil ? self.objFriend?.jID.split("_").first!.components(separatedBy: CharacterSet.decimalDigits.inverted).last : _userIDForRequestSend?.split("_").first!.components(separatedBy: CharacterSet.decimalDigits.inverted).last
@@ -1071,12 +1006,12 @@ extension OneToOneChatVC : PickImageViewDelegate {
 extension OneToOneChatVC : AlertViewDelegate {
     func OkButtonAction(title : String) {
         customAlertView.alpha = 0.0
-        if title == "Un-match" {
+        if title == kUnMatchBtnStr {
             let userId = self.objFriend?.jID != nil ? (self.objFriend?.jID.split("@").first ?? "") : self._userIDForRequestSend ?? ""
             self.callUnMatchUserAPI(iProfileId: userId)
-        } else if title == "Clear" {
+        } else if title == kClearBtnStr {
             self.deleteUser()
-        } else if title == "Delete" {
+        } else if title == kDelTitleStr {
             self.deleteUser()
         } else if title == kTitleBlock || title == kTitleUnBlock {
             let userId = self.objFriend?.jID != nil ? (self.objFriend?.jID.split("@").first ?? "") : self._userIDForRequestSend ?? ""

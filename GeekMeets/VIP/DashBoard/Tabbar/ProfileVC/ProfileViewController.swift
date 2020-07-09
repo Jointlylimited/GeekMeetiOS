@@ -204,7 +204,6 @@ class ProfileViewController: UIViewController, ProfileProtocol {
     }
     
     func openSocialPlatform(url: URL) {
-        
         if UIApplication.shared.canOpenURL(url) {
             if #available(iOS 10.0, *) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)

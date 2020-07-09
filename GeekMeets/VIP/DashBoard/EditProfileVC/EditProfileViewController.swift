@@ -212,18 +212,15 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
         var components = DateComponents()
         components.year = -18
         let minData = Calendar.current.date(byAdding: components, to: Date())
-//        self.datePicker.minimumDate = minData
         self.datePicker.maximumDate = minData
         
         self.lblUserNameAge.text = "\(UserDataModel.currentUser?.vName ?? ""), \(UserDataModel.currentUser?.tiAge ?? 0)"
-        
         if self.userProfileModel == nil {
             self.userProfileModel = UserDataModel.currentUser
         }
         
         //ProfileImage setup
         if userProfileModel?.vProfileImage != "" {
-        
             let url = URL(string:"\(userProfileModel!.vProfileImage!)")
             print(url!)
             self.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_round"))
@@ -255,6 +252,7 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
         let params = RequestParameter.sharedInstance().editProfileParam(vEmail: userProfileModel?.vEmail ?? "", vProfileImage: userProfileModel?.vProfileImage?.split("UserProfile/").last ?? "", vName: userProfileModel?.vName ?? "", dDob: userProfileModel?.dDob ?? "", tiAge: "\(userProfileModel?.tiAge ?? 0)", tiGender: "\(userProfileModel?.tiGender ?? 0)", vLiveIn: userProfileModel?.vLiveIn ?? "", txCompanyDetail: userProfileModel?.txCompanyDetail ?? "", txAbout: userProfileModel?.txAbout ?? "", deletephotos : self.removePhotoStr, photos: "", vInstaLink: userProfileModel?.vInstaLink ?? "", vSnapLink: userProfileModel?.vSnapLink ?? "", vFbLink: userProfileModel?.vFbLink ?? "", tiIsShowAge: "\(userProfileModel?.tiIsShowAge ?? 0)", tiIsShowDistance: "\(userProfileModel?.tiIsShowDistance ?? 0)", tiIsShowContactNumber: "\(userProfileModel?.tiIsShowContactNumber ?? 0)", tiIsShowProfileToLikedUser: "\(userProfileModel?.tiIsShowProfileToLikedUser ?? 0)")
         self.presenter?.callEdirProfileAPI(params: params, images : self.imageArray)
     }
+    
     @IBAction func btnDonePickerAction(_ sender: UIBarButtonItem) {
         
         if sender.tag == 0 {
@@ -270,6 +268,7 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
         }
         self.tblEditProfileView.reloadData()
     }
+    
     @IBAction func btnChooseProfileAction(_ sender: UIButton) {
         self.showSetProfileView()
     }
@@ -384,12 +383,9 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
                 }
             }
         } else if objEditProfileData.cells[indexPath.section].cellID == "EditInterestCell" {
-//            if let cell = cell as? EditInterestCell {
-                
                 let queVC = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange) as? SelectAgeRangeViewController
                 queVC?.isFromSignUp = false
                 
-//            }
         } else if objEditProfileData.cells[indexPath.section].cellID == "EditPhotosCell" {
             if let cell = cell as? EditPhotosCell  {
                 
@@ -580,7 +576,6 @@ extension EditProfileViewController : UITextFieldDelegate {
                 textField.isUserInteractionEnabled = true
             } else {
                 textField.resignFirstResponder()
-//                textField.isUserInteractionEnabled = false
             }
         } else {
             

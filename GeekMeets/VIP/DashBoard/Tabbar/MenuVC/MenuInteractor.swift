@@ -67,7 +67,7 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
     
     func callPushStatusAPI(tiIsAcceptPush : String) {
         LoaderView.sharedInstance.showLoader()
-        UserAPI.setPushStatus(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vDeviceToken: vDeviceToken, tiIsAcceptPush: tiIsAcceptPush) { (response, error) in
+        UserAPI.setPushStatus(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vDeviceToken: AppDelObj.deviceToken, tiIsAcceptPush: tiIsAcceptPush) { (response, error) in
             
             LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {

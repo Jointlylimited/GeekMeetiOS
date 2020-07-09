@@ -145,7 +145,7 @@ extension NotificationListViewController {
         if response.responseCode == 200 {
             loadMore.index = 0
             callAPI()
-//            callBadgeCountAPI()
+            callBadgeCountAPI()
         } else {
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }

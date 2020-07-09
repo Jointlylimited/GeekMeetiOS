@@ -88,7 +88,6 @@ class DiscoverViewController: UIViewController, DiscoverProtocol {
     }
     
     func registerCollectionViewCell(){
-        
         self.StoryCollView.register(UINib.init(nibName: Cells.StoryCollectionCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.StoryCollectionCell)
         self.StoryCollView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         
@@ -139,7 +138,6 @@ extension DiscoverViewController{
 //                        self.objStoryArray!.removeAll(where: {$0.iUserId == obj.iUserId})
 //                    }
 //                }
-                
                 self.AllStoryCollView.reloadData()
                 self.StoryCollView.reloadData()
                 
@@ -176,7 +174,7 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.StoryCollView {
-            return (self.objStoryArray != nil ? self.objStoryArray!.count : 0) // (self.objOwnStoryArray!.count !=  0 ? self.objStoryArray!.count + 1 : self.objStoryArray!.count) : 0)
+            return (self.objStoryArray != nil ? self.objStoryArray!.count : 0)
         }
         else {
             return (self.objAllStoryArray != nil ? self.objAllStoryArray!.count : 0)

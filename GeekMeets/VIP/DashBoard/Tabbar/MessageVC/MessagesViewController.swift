@@ -347,7 +347,6 @@ extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
         let deleteAction = UIContextualAction(style: .normal, title:  "", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             self.objMsgData.remove(at: indexPath.row)
             self.tblMessageView.reloadData()
-            //whatever
             success(true)
         })
         let theImage: UIImage? = UIImage(named:"icn_trash")?.withRenderingMode(.alwaysOriginal)
@@ -355,7 +354,6 @@ extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
         deleteAction.image = theImage
         
         let volAction = UIContextualAction(style: .normal, title:  "", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            //whatever
             success(true)
         })
         let volImage: UIImage? = UIImage(named:"icn_volume")?.withRenderingMode(.alwaysOriginal)
