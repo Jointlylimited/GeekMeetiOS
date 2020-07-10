@@ -13,7 +13,8 @@
 import UIKit
 
 protocol ContactUS_LegalPresentationProtocol {
-    func presentSomething()
+    func callContactUsAPI()
+    func getContactUsResponse(response : ContactUsResponse)
 }
 
 class ContactUS_LegalPresenter: ContactUS_LegalPresentationProtocol {
@@ -21,7 +22,11 @@ class ContactUS_LegalPresenter: ContactUS_LegalPresentationProtocol {
     var interactor: ContactUS_LegalInteractorProtocol?
     
     // MARK: Present something
-    func presentSomething() {
-        
+    func callContactUsAPI() {
+        self.interactor?.callContactUsAPI()
+    }
+    
+    func getContactUsResponse(response : ContactUsResponse){
+        self.viewController?.getContactUsResponse(response : response)
     }
 }

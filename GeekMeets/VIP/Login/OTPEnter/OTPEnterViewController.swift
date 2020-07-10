@@ -124,8 +124,8 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
         otpStackView.centerYAnchor.constraint(equalTo: otpContainerView.centerYAnchor).isActive = true
         
         if !isFromNewMobile {
-            strCountryCode = signUpParams!["vCountryCode"]!
-            strPhonenumber = signUpParams!["vPhone"]!
+            strCountryCode = signUpParams != nil ? signUpParams!["vCountryCode"]! : UserDataModel.currentUser!.vCountryCode!
+            strPhonenumber = signUpParams != nil ? signUpParams!["vPhone"]! : UserDataModel.currentUser!.vPhone!
             startTimer()
         } else {
             strCountryCode = strNewCountryCode
@@ -136,14 +136,11 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
         btnCountrycode.isUserInteractionEnabled = false
         tfMobileNumber.isUserInteractionEnabled = false
         
-        
     }
     
     func displaySomething() {
         //nameTextField.text = viewModel.name
     }
-    
-    
     
     private func startTimer() {
         self.totalTime = 60

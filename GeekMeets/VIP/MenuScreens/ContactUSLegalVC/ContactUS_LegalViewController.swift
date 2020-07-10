@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import MessageUI
 
 struct ContactUSModel {
     var title : String?
@@ -25,6 +26,7 @@ struct ContactUSModel {
 }
 
 protocol ContactUS_LegalProtocol: class {
+    func getContactUsResponse(response : ContactUsResponse)
 }
 
 class ContactUS_LegalViewController: UIViewController, ContactUS_LegalProtocol {
@@ -84,9 +86,10 @@ class ContactUS_LegalViewController: UIViewController, ContactUS_LegalProtocol {
             self.tblLegalList.alpha = 1.0
         } else {
             self.lblViewTitle.text = "Contact Us"
-            self.setContactUsData()
+//            self.setContactUsData()
             self.tblContactList.alpha = 1.0
             self.tblLegalList.alpha = 0.0
+            self.presenter?.callContactUsAPI()
         }
     }
     
@@ -100,6 +103,35 @@ class ContactUS_LegalViewController: UIViewController, ContactUS_LegalProtocol {
     
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.popVC()
+    }
+    
+    
+    func configureMailComposer() -> MFMailComposeViewController{
+        
+        let mail = MFMailComposeViewController()
+        mail.mailComposeDelegate = self
+        mail.setToRecipients([self.objContactData[0].text!])
+        mail.setSubject("Feedback")
+        mail.setMessageBody("<p>Please give us your feedback.</p> <p>&nbsp;</p>  <p>&nbsp;</p> <p><br />Thank You!<br />Jointly Team<br /></p>", isHTML: true)
+        return mail
+    }
+        
+    func launchMailAppOnDevice() {
+        
+        let recipients = "mailto:?cc=&subject="
+        let body = "&body="
+        var email = "\(recipients)\(body)"
+        email = (email as NSString).addingPercentEscapes(using: String.Encoding.utf8.rawValue) ?? ""
+        if let url = URL(string: email) {
+            UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+        }
+    }
+    
+    func getContactUsResponse(response : ContactUsResponse){
+        if response.responseCode == 200 {
+            self.objContactData = [ContactUSModel(title: "Email", image: #imageLiteral(resourceName: "icn_email"), text: response.responseData?.vEmail ?? "john@gmail.com"), ContactUSModel(title: "Phone Number", image: #imageLiteral(resourceName: "icn_call"), text: response.responseData?.vPhone ?? "+1 123 455 852")]
+            self.tblContactList.reloadData()
+        }
     }
 }
 
@@ -156,7 +188,21 @@ extension ContactUS_LegalViewController : UITableViewDataSource, UITableViewDele
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let index = indexPath.row
         if tableView == self.tblContactList {
-            
+            if indexPath.row == 0 {
+                let mailComposeViewController = configureMailComposer()
+                if MFMailComposeViewController.canSendMail() {
+                    self.present(mailComposeViewController, animated: true, completion: nil)
+                } else {
+                    self.launchMailAppOnDevice()
+                }
+            } else {
+                let phoneNumber = self.objContactData[indexPath.row].text
+                if let url = NSURL(string: "tel://\(phoneNumber!)"), UIApplication.shared.canOpenURL(url as URL) {
+                    UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+                } else {
+                    AppSingleton.sharedInstance().showAlert("Unable to open in simulator", okTitle: "OK")
+                }
+            }
         } else {
             let commonVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.CommonPagesScreen) as! CommonPagesViewController
             if index == 0 {
@@ -174,5 +220,23 @@ extension ContactUS_LegalViewController : UITableViewDataSource, UITableViewDele
             }
             self.pushVC(commonVC)
         }
+    }
+}
+
+extension ContactUS_LegalViewController : MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        switch result.rawValue {
+        case MFMailComposeResult.cancelled.rawValue:
+               print("Cancelled")
+        case MFMailComposeResult.saved.rawValue:
+               print("Saved")
+        case MFMailComposeResult.sent.rawValue:
+               print("Sent")
+        case MFMailComposeResult.failed.rawValue:
+               print("Error: \(error?.localizedDescription)")
+           default:
+               break
+           }
+        controller.dismiss(animated: true, completion: nil)
     }
 }

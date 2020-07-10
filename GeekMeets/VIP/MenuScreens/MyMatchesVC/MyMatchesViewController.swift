@@ -22,6 +22,8 @@ class MyMatchesViewController: UIViewController, MyMatchesProtocol {
     var presenter : MyMatchesPresentationProtocol?
     
     @IBOutlet weak var tblMatchList: UITableView!
+    @IBOutlet weak var lblNoUser: UILabel!
+    @IBOutlet weak var btnSearch: UIButton!
     
     var objMatchData : [SwipeUserFields] = []
     // MARK: Object lifecycle
@@ -86,11 +88,18 @@ class MyMatchesViewController: UIViewController, MyMatchesProtocol {
 
 extension MyMatchesViewController {
     func getMatchResponse(response : MatchUser) {
-        if response.responseCode == 200 {
             UserDataModel.setMatchesCount(count: response.responseData!.count)
             self.objMatchData = response.responseData!
+            if self.objMatchData.count != 0 {
+                self.tblMatchList.alpha = 1.0
+                self.lblNoUser.alpha = 0.0
+                self.btnSearch.alpha = 1.0
+            } else {
+                self.tblMatchList.alpha = 0.0
+                self.lblNoUser.alpha = 1.0
+                self.btnSearch.alpha = 0.0
+            }
             self.tblMatchList.reloadData()
-        }
     }
     
     func getUnMatchResponse(response : CommonResponse){
@@ -124,27 +133,21 @@ extension MyMatchesViewController : UITableViewDataSource, UITableViewDelegate {
                 let url = URL(string:"\(data.vProfileImage!)")
                 cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_round"))
                 cell.userName.text = data.vProfileName
-                cell.msgText.text = "Matches on 10 Jun, 2020, 10:23 am"
+                cell.msgText.text = data.iMatchDateTime
                 
                 cell.clickOnChatBtn = {
                     let obj = GeekMeets_StoryBoard.Chat.instantiateViewController(withIdentifier: GeekMeets_ViewController.OneToOneChatScreen) as! OneToOneChatVC
+                    obj.objFriend?.jID = UserDataModel.currentUser?.vXmppUser ?? ""
                     obj._userIDForRequestSend = data.vOtherUserXmpp
                     obj.userName = data.vProfileName
                     obj.imageString = data.vProfileImage
                     obj.modalPresentationStyle = .fullScreen
-                    
-                    //Update vcard
-                    SOXmpp.manager.UserName = UserDataModel.currentUser?.vName ?? ""
-                    SOXmpp.manager.profileImageUrl = UserDataModel.currentUser?.vProfileImage ?? ""
-                    SOXmpp.manager.xmpp_UpdateMyvCard()
                     
                     self.pushVC(obj)
                 }
             }
             cell.msgTime.alpha = 0.0
             cell.msgCount.alpha = 0.0
-            
-            
         }
     }
     

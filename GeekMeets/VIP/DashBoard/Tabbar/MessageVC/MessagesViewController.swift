@@ -53,6 +53,7 @@ class MessagesViewController: UIViewController, MessagesProtocol {
     @IBOutlet weak var lblNoUser: UILabel!
     
     @IBOutlet weak var lblNewMatches: UILabel!
+    @IBOutlet weak var btnSearch: UIButton!
     
     var objStoryData : [StoryViewModel] = []
     var objMsgData : [MessageViewModel] = []
@@ -207,8 +208,12 @@ class MessagesViewController: UIViewController, MessagesProtocol {
             }
             if self.objMatchData.count != 0 {
                 self.tblMessageView.alpha = 1.0
+                self.btnSearch.alpha = 1.0
+                self.lblNoUser.alpha = 0.0
             } else {
                 self.tblMessageView.alpha = 0.0
+                self.btnSearch.alpha = 0.0
+                self.lblNoUser.alpha = 1.0
             }
             print(self.arrFriends)
         }
@@ -227,7 +232,7 @@ extension MessagesViewController {
             print(response.responseData)
             self.objMatchData = response.responseData!
             self.lblNewMatches.text = "New Matches (\(self.objMatchData.count))"
-             self.updateNoDataLabel()
+            self.updateNoDataLabel()
             self.StoryCollectionView.reloadData()
             self.tblMessageView.reloadData()
         }
@@ -345,7 +350,7 @@ extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
     @available(iOS 11.0, *)
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title:  "", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            self.objMsgData.remove(at: indexPath.row)
+//            self.objMsgData.remove(at: indexPath.row)
             self.tblMessageView.reloadData()
             success(true)
         })

@@ -108,7 +108,7 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
         
         print(self.objFriend)
         
-        if self.objFriend == nil {
+        if self.objFriend != nil {
 
             self.lblFriendName.text = self.userName ?? ""
             let url = URL(string: "\(self.imageString ?? "")")
@@ -1102,11 +1102,14 @@ extension OneToOneChatVC {
         }
     }
     func callBlock(userId:String,tiStatus:Int){
+        DispatchQueue.main.async {
+            LoaderView.sharedInstance.showLoader()
+        }
         
-        LoaderView.sharedInstance.showLoader()
         UserAPI.blockUsers(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vXmppUser: userId, tiIsBlocked: "\(tiStatus)") { (response, error) in
-                
-            LoaderView.sharedInstance.hideLoader()
+            DispatchQueue.main.async {
+                LoaderView.sharedInstance.hideLoader()
+            }
             if(error == nil){
                 self.getBlockUserResponse(objSuccessResponse: response!)
             }else{

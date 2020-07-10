@@ -67,6 +67,8 @@ extension UIWindow
     {
         let controller : UINavigationController = GeekMeets_StoryBoard.Main.instantiateViewController(withIdentifier: "navigationLogin") as! UINavigationController
 //        Authentication.setLoggedInStatus(true)
-        AppDelObj.window?.rootViewController = controller
+        delay(0.2) {
+            AppDelObj.window?.rootViewController = controller
+        }
     }
 }

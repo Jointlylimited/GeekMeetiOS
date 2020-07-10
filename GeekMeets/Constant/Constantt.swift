@@ -274,6 +274,7 @@ class AppSingleton: NSObject {
         
         SOXmpp.manager.UserName = "\(UserDataModel.currentUser!.vName!)"
         SOXmpp.manager.profileImageUrl = "\(UserDataModel.currentUser!.vProfileImage ?? "")"
+        SOXmpp.manager.xmpp_UpdateMyvCard()
         
         var objLogin = Model_SOXmppLogin.init(strID, strName, photoUrl)
         objLogin.userName = strName

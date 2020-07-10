@@ -22,7 +22,7 @@ public struct SwipeUserFields: Codable {
     public var vOtherUserXmpp: String?
     public var vOtherUserXmppPassword: String?
     public var iMatchDateTime: String?
-    
+
     public init(iUserId: Int?, iProfileId: Int?, vUserImage: String?, vProfileImage: String?, vUserName: String?, vProfileName: String?, tiSwipeType: Int?, iOtherUserId: Int?, vOtherUserXmpp: String?, vOtherUserXmppPassword: String?, iMatchDateTime: String?) {
         self.iUserId = iUserId
         self.iProfileId = iProfileId
@@ -36,5 +36,7 @@ public struct SwipeUserFields: Codable {
         self.vOtherUserXmppPassword = vOtherUserXmppPassword
         self.iMatchDateTime = iMatchDateTime
     }
+
+
 }
 

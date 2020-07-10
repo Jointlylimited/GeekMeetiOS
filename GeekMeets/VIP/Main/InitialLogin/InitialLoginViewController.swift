@@ -89,7 +89,6 @@ class InitialLoginViewController: UIViewController, InitialLoginProtocol {
     }
     
     // MARK:- IBAction Method
-    
     @IBAction func tapLabel(gesture: UITapGestureRecognizer) {
         
         let text = (lblPrivacyTerm.text)!

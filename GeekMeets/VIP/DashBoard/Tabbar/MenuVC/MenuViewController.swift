@@ -316,6 +316,7 @@ extension MenuViewController {
     func getLocationUpdateResponse(response : UserAuthResponse){
         if response.responseCode == 200 {
             UserDataModel.currentUser = response.responseData
+            self.tblMenuList.reloadData()
 //            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }
     }
@@ -323,6 +324,7 @@ extension MenuViewController {
     func getPushStatusResponse(response : UserAuthResponse){
         if response.responseCode == 200 {
             UserDataModel.currentUser = response.responseData
+            self.tblMenuList.reloadData()
 //            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }
     }

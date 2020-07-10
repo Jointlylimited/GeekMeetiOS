@@ -60,7 +60,7 @@ class OTPEnterPresenter: OTPEnterPresentationProtocol {
         self.viewController?.getResendOTPResponse(response: response)
     }
     func getVerifyOTPResponse(response : UserAuthResponse) {
-        
+        UserDataModel.currentUser = response.responseData
         if response.responseCode == 400{
             self.viewController?.getVerifyOTPResponse(response: response)
         }else{

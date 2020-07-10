@@ -218,6 +218,8 @@
 		0BE21281244976AF004817BC /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BE2126F244976AF004817BC /* Poppins-SemiBold.ttf */; };
 		0BE21282244976AF004817BC /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BE21270244976AF004817BC /* Poppins-Italic.ttf */; };
 		0BE21283244976AF004817BC /* Poppins-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BE21271244976AF004817BC /* Poppins-MediumItalic.ttf */; };
+		0BE56FE824B879A100A72A67 /* ContactUsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE56FE724B879A000A72A67 /* ContactUsResponse.swift */; };
+		0BE56FEA24B879F900A72A67 /* ContactUsFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE56FE924B879F900A72A67 /* ContactUsFields.swift */; };
 		0BE7226F247CFC3600BB8D23 /* 2.json in Resources */ = {isa = PBXBuildFile; fileRef = 0BE7226C247CFC3500BB8D23 /* 2.json */; };
 		0BE72273247D3F0800BB8D23 /* Purple_heart.json in Resources */ = {isa = PBXBuildFile; fileRef = 0BE72272247D3F0800BB8D23 /* Purple_heart.json */; };
 		0BE72275247D442900BB8D23 /* PreferenceAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE72274247D442900BB8D23 /* PreferenceAnswer.swift */; };
@@ -604,6 +606,8 @@
 		0BE2126F244976AF004817BC /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		0BE21270244976AF004817BC /* Poppins-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Italic.ttf"; sourceTree = "<group>"; };
 		0BE21271244976AF004817BC /* Poppins-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-MediumItalic.ttf"; sourceTree = "<group>"; };
+		0BE56FE724B879A000A72A67 /* ContactUsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactUsResponse.swift; sourceTree = "<group>"; };
+		0BE56FE924B879F900A72A67 /* ContactUsFields.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactUsFields.swift; sourceTree = "<group>"; };
 		0BE7226C247CFC3500BB8D23 /* 2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 2.json; sourceTree = "<group>"; };
 		0BE72272247D3F0800BB8D23 /* Purple_heart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Purple_heart.json; sourceTree = "<group>"; };
 		0BE72274247D442900BB8D23 /* PreferenceAnswer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceAnswer.swift; sourceTree = "<group>"; };
@@ -1655,6 +1659,8 @@
 		F7780E26245AD666003CA4BD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0BE56FE924B879F900A72A67 /* ContactUsFields.swift */,
+				0BE56FE724B879A000A72A67 /* ContactUsResponse.swift */,
 				0B8E855024ACB1F700C48B2C /* MatchUser.swift */,
 				0B04679A24A0C3680081E507 /* StoryResponseArray.swift */,
 				0BBB5CCC2498C11F00069320 /* NotificationResponse.swift */,
@@ -2600,6 +2606,7 @@
 				0B9499DB2451DBC4001AD1C8 /* AccountSettingViewController.swift in Sources */,
 				F96C2D292037E92B00F8CBC7 /* MirroringViewController.swift in Sources */,
 				0BBD65F72449C8A500CA178A /* MatchViewController.swift in Sources */,
+				0BE56FEA24B879F900A72A67 /* ContactUsFields.swift in Sources */,
 				0B56B60024861C06004A62D4 /* CustomImagePageControl.swift in Sources */,
 				0B319655244DE80500B38350 /* MenuInteractor.swift in Sources */,
 				0B319664244DE80500B38350 /* TabbarViewController.swift in Sources */,
@@ -2789,6 +2796,7 @@
 				F73002D22446F4D000BDD7FD /* InitialSignUpInteractor.swift in Sources */,
 				F716F2AA24498F630063680F /* SignUpVCViewController.swift in Sources */,
 				0B0013D524ACA4B700D2EE83 /* XMPP_MessageArchiving_Custom+CoreDataClass.swift in Sources */,
+				0BE56FE824B879A100A72A67 /* ContactUsResponse.swift in Sources */,
 				0B0013DA24ACA4B700D2EE83 /* Chat_Utility.swift in Sources */,
 				0BF5ACBF24926A49000B54E6 /* SearchUsers.swift in Sources */,
 				0B5356712450870F005571AF /* BoostViewController.swift in Sources */,
@@ -3023,7 +3031,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Basecode/Library",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.org.lacy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.org.jointly;
 				PRODUCT_NAME = Jointly;
 				PROVISIONING_PROFILE = "6fe03dd0-bb5b-416c-b4fe-1118ff86f17c";
 				PROVISIONING_PROFILE_SPECIFIER = "Wildcard Development";
@@ -3166,7 +3174,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Basecode/Library",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.org.lacy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.org.jointly;
 				PRODUCT_NAME = Jointly;
 				PROVISIONING_PROFILE = "6fe03dd0-bb5b-416c-b4fe-1118ff86f17c";
 				PROVISIONING_PROFILE_SPECIFIER = Development_LacyApp;
@@ -3194,7 +3202,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Basecode/Library",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.org.lacy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.org.jointly;
 				PRODUCT_NAME = Jointly;
 				PROVISIONING_PROFILE = "6fe03dd0-bb5b-416c-b4fe-1118ff86f17c";
 				PROVISIONING_PROFILE_SPECIFIER = Development_LacyApp;
