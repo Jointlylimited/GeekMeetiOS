@@ -108,7 +108,7 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
         
         print(self.objFriend)
         
-        if self.objFriend != nil {
+        if self.objFriend == nil {
 
             self.lblFriendName.text = self.userName ?? ""
             let url = URL(string: "\(self.imageString ?? "")")
