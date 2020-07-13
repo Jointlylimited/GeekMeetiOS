@@ -143,7 +143,7 @@ extension ContactUS_LegalViewController : UITableViewDataSource, UITableViewDele
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if !isForLegal {
-            return 2
+            return self.objContactData.count != 0 ? 2 : 0
         } else {
             return self.LegalTitleArray.count
         }
