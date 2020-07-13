@@ -3022,7 +3022,7 @@
 				CODE_SIGN_ENTITLEMENTS = GeekMeets/JointlyStaging.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.0.7;
+				CURRENT_PROJECT_VERSION = 1.0.8;
 				DEVELOPMENT_TEAM = 2MAYPF46D4;
 				INFOPLIST_FILE = "$(SRCROOT)/GeekMeets/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -3031,7 +3031,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Basecode/Library",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.org.jointly;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.packingtable.-";
 				PRODUCT_NAME = Jointly;
 				PROVISIONING_PROFILE = "6fe03dd0-bb5b-416c-b4fe-1118ff86f17c";
 				PROVISIONING_PROFILE_SPECIFIER = "Wildcard Development";
@@ -3165,7 +3165,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.0.7;
+				CURRENT_PROJECT_VERSION = 1.0.8;
 				DEVELOPMENT_TEAM = 9X86UPH4D8;
 				INFOPLIST_FILE = "$(SRCROOT)/GeekMeets/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -3193,7 +3193,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.0.7;
+				CURRENT_PROJECT_VERSION = 1.0.8;
 				DEVELOPMENT_TEAM = 9X86UPH4D8;
 				INFOPLIST_FILE = "$(SRCROOT)/GeekMeets/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;

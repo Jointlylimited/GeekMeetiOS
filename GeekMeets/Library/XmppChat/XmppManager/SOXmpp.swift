@@ -1532,4 +1532,15 @@ extension SOXmpp {
         trackingInfo?.elementID = elementID!
 //        trackingInfo?.createTimer(withDispatchQueue: queue)
     }
+    
+    func DeleteXmppUser(){
+        let query = XMLElement(name: "query", xmlns: "jabber:iq:register")
+        query.addChild(XMLElement(name: "remove"))
+
+        let iq = XMLElement(name: "iq")
+        iq.addAttribute(withName: "type", stringValue: "set")
+        iq.addAttribute(withName: "id", stringValue: "unreg1")
+        iq.addChild(query)
+        xmppStream.send(iq)
+    }
 }

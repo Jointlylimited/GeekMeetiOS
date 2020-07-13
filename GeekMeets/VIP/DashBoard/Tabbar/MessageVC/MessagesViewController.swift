@@ -351,7 +351,9 @@ extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title:  "", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
 //            self.objMsgData.remove(at: indexPath.row)
-            self.tblMessageView.reloadData()
+//            SOXmpp.manager.DeleteXmppUser()
+//            self.updateAndSortFriendList()
+//            self.tblMessageView.reloadData()
             success(true)
         })
         let theImage: UIImage? = UIImage(named:"icn_trash")?.withRenderingMode(.alwaysOriginal)
