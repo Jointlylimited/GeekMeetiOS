@@ -73,12 +73,14 @@ class NotificationListViewController: UIViewController, NotificationListProtocol
     override func viewDidLoad() {
         super.viewDidLoad()
         self.registerTableViewCell()
+//        self.callBadgeCountAPI()
     }
 
     func registerTableViewCell(){
         self.objNotificationModel = [SocialMediaLinkModel(image: #imageLiteral(resourceName: "match"), title: "Match", link: "Test match user"), SocialMediaLinkModel(image: #imageLiteral(resourceName: "noti_boosts"), title: "Notification", link: "Test notification"), SocialMediaLinkModel(image: #imageLiteral(resourceName: "noti_Subscription"), title: "Boost", link: "Test boost user")]
         self.tblNotificationList.register(UINib.init(nibName: Cells.NotificationListCell, bundle: Bundle.main), forCellReuseIdentifier: Cells.NotificationListCell)
         self.callAPI()
+        
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
@@ -134,6 +136,12 @@ extension NotificationListViewController {
             } else {
                 loadMore.index = 0
             }
+            let value = self.arrNotification.objNotificationList!.filter({($0.tiIsRead) != 1})
+            if value.count != 0 {
+                UserDataModel.setNotificationCount(count: value.count)
+            } else {
+                UserDataModel.setNotificationCount(count: 0)
+        }
             self.tblNotificationList.reloadData()
     }
     
@@ -145,7 +153,7 @@ extension NotificationListViewController {
         if response.responseCode == 200 {
             loadMore.index = 0
             callAPI()
-            callBadgeCountAPI()
+//            callBadgeCountAPI()
         } else {
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }
@@ -162,7 +170,7 @@ extension NotificationListViewController {
     
     func getBadgeCountResponse(response : ViewNotification) {
         if response.responseCode == 200 {
-            UserDataModel.setNotificationCount(count: (response.responseData?.budgeCount)!)
+//            UserDataModel.setNotificationCount(count: (response.responseData?.budgeCount)!)
         } 
     }
 }

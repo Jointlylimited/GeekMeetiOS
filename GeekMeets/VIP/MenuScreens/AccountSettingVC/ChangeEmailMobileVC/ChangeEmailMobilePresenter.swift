@@ -23,6 +23,13 @@ class ChangeEmailMobilePresenter: ChangeEmailMobilePresentationProtocol {
     
     // MARK: Present something
     func callUpdateEmailAPI(iUserId: String, vEmail: String) {
+        if vEmail.isEmpty {
+            self.viewController?.displayAlert(strTitle: "", strMessage: kEnterEmail)
+            return
+        } else if !vEmail.isEmail {
+            self.viewController?.displayAlert(strTitle: "", strMessage: kEnterValidEmail)
+            return
+        }
         self.interactor?.callUpdateEmailAPI(iUserId: iUserId, vEmail: vEmail)
     }
     

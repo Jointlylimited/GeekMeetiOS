@@ -14,6 +14,7 @@ import UIKit
 
 protocol ChangeEmailMobileProtocol: class {
     func getUpdateEmailResponse(response : CommonResponse)
+    func displayAlert(strTitle : String, strMessage : String)
 }
 
 class ChangeEmailMobileViewController: UIViewController, ChangeEmailMobileProtocol {
@@ -101,6 +102,10 @@ extension ChangeEmailMobileViewController {
             AppSingleton.sharedInstance().logout()
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }
+    }
+    
+    func displayAlert(strTitle : String, strMessage : String) {
+        self.showAlert(title: strTitle, message: strMessage)
     }
 }
 

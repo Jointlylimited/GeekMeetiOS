@@ -75,6 +75,20 @@ class NewMobileNumberViewController: UIViewController, NewMobileNumberProtocol {
     }
     
     @IBAction func btnContinueAction(_ sender: GradientButton) {
+        
+        if self.txtCountryCode.text!.isEmpty {
+            AppSingleton.sharedInstance().showAlert(kSelectCountryCode, okTitle: "OK")
+            return
+        }
+        
+        if self.txtMobNo.text!.isEmpty {
+            AppSingleton.sharedInstance().showAlert(KEnterMobileNo, okTitle: "OK")
+            return
+        }else if !self.txtMobNo.text!.isMobileNumber {
+            AppSingleton.sharedInstance().showAlert(KEnterValidMobileNo, okTitle: "OK")
+            return
+        }
+        
         let otpVC = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter) as! OTPEnterViewController
         otpVC.isFromNewMobile = true
         otpVC.strNewCountryCode = self.txtCountryCode.text ?? ""

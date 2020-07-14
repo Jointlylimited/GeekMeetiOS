@@ -38,6 +38,7 @@ class ContactUS_LegalViewController: UIViewController, ContactUS_LegalProtocol {
     @IBOutlet weak var tblContactList: UITableView!
     @IBOutlet weak var tblLegalList: UITableView!
     @IBOutlet weak var lblViewTitle: UILabel!
+    @IBOutlet weak var viewLogo: UIView!
     
     var LegalTitleArray = ["Terms & Conditions", "Privacy Policy", "About Us", "Licenses"]
     var objContactData : [ContactUSModel] = []
@@ -84,11 +85,13 @@ class ContactUS_LegalViewController: UIViewController, ContactUS_LegalProtocol {
             self.registerTableViewCell()
             self.tblContactList.alpha = 0.0
             self.tblLegalList.alpha = 1.0
+            self.viewLogo.alpha = 0.0
         } else {
             self.lblViewTitle.text = "Contact Us"
 //            self.setContactUsData()
             self.tblContactList.alpha = 1.0
             self.tblLegalList.alpha = 0.0
+            self.viewLogo.alpha = 1.0
             self.presenter?.callContactUsAPI()
         }
     }

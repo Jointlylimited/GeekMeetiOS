@@ -137,18 +137,21 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
             label.handleCustomTap(for: customType) {_ in
                 let commonVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.CommonPagesScreen) as! CommonPagesViewController
                 commonVC.objCommonData = CommonModelData.Terms
+                commonVC.slug = CommonModelData.Terms.slugTitle
                 self.pushVC(commonVC)
             }
             
             label.handleCustomTap(for: customType1) {_ in
                 let commonVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.CommonPagesScreen) as! CommonPagesViewController
                 commonVC.objCommonData = CommonModelData.Privacy
+                commonVC.slug = CommonModelData.Privacy.slugTitle
                 self.pushVC(commonVC)
             }
             
             label.handleCustomTap(for: customType2) {_ in
                 let commonVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.CommonPagesScreen) as! CommonPagesViewController
                 commonVC.objCommonData = CommonModelData.Privacy
+                commonVC.slug = CommonModelData.Privacy.slugTitle
                 self.pushVC(commonVC)
             }
         }

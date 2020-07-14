@@ -21,26 +21,26 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NotificationListCell" rowHeight="79" id="bgN-Xm-JGM" customClass="NotificationListCell" customModule="Jointly" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="485" height="86"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="bgN-Xm-JGM" id="eK5-eS-fBn">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bgN-Xm-JGM" id="eK5-eS-fBn">
                 <rect key="frame" x="0.0" y="0.0" width="485" height="86"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Linda Parker" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLC-tV-SGD">
-                        <rect key="frame" x="84" y="10" width="266" height="20"/>
+                        <rect key="frame" x="80" y="10" width="270" height="20"/>
                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LUS-AN-Vst">
-                        <rect key="frame" x="20" y="5" width="54" height="54"/>
+                        <rect key="frame" x="20" y="10" width="50" height="50"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="54" id="U82-JD-9i3"/>
+                            <constraint firstAttribute="height" constant="50" id="U82-JD-9i3"/>
                             <constraint firstAttribute="width" secondItem="LUS-AN-Vst" secondAttribute="height" multiplier="1:1" id="p6A-6b-1ip"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem Ipsum is simply dummy text of the industry." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yuO-T8-Vha">
-                        <rect key="frame" x="84" y="35" width="381" height="17"/>
+                        <rect key="frame" x="80" y="35" width="385" height="17"/>
                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="12"/>
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="highlightedColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
@@ -61,7 +61,7 @@
                         </userDefinedRuntimeAttributes>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S5e-D4-R3d">
-                        <rect key="frame" x="20" y="69" width="445" height="1"/>
+                        <rect key="frame" x="20" y="65" width="445" height="1"/>
                         <color key="backgroundColor" white="0.67000000000000004" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="Awz-uK-fRR"/>
@@ -75,9 +75,7 @@
                     <constraint firstItem="yuO-T8-Vha" firstAttribute="leading" secondItem="LUS-AN-Vst" secondAttribute="trailing" constant="10" id="0KL-Z5-2Xz"/>
                     <constraint firstItem="WKj-tF-fah" firstAttribute="top" secondItem="dLC-tV-SGD" secondAttribute="top" id="3z7-b0-vXa"/>
                     <constraint firstItem="S5e-D4-R3d" firstAttribute="leading" secondItem="LUS-AN-Vst" secondAttribute="leading" id="4Rw-Fc-PEi"/>
-                    <constraint firstItem="S5e-D4-R3d" firstAttribute="top" secondItem="LUS-AN-Vst" secondAttribute="bottom" constant="10" id="7lA-kI-udL"/>
-                    <constraint firstItem="LUS-AN-Vst" firstAttribute="centerY" secondItem="eK5-eS-fBn" secondAttribute="centerY" id="CpD-En-lvL"/>
-                    <constraint firstItem="LUS-AN-Vst" firstAttribute="top" secondItem="eK5-eS-fBn" secondAttribute="top" constant="5" id="KBD-2n-cIm"/>
+                    <constraint firstItem="LUS-AN-Vst" firstAttribute="top" secondItem="dLC-tV-SGD" secondAttribute="top" id="5xo-EG-uxZ"/>
                     <constraint firstItem="yuO-T8-Vha" firstAttribute="top" secondItem="dLC-tV-SGD" secondAttribute="bottom" constant="5" id="KN7-iQ-Dg0"/>
                     <constraint firstAttribute="trailing" secondItem="WKj-tF-fah" secondAttribute="trailing" constant="20" id="OHl-4L-IRj"/>
                     <constraint firstItem="yuO-T8-Vha" firstAttribute="trailing" secondItem="WKj-tF-fah" secondAttribute="trailing" id="Sbk-QD-eCl"/>
@@ -85,6 +83,7 @@
                     <constraint firstItem="LUS-AN-Vst" firstAttribute="leading" secondItem="eK5-eS-fBn" secondAttribute="leading" constant="20" id="j2K-72-bwh"/>
                     <constraint firstItem="dLC-tV-SGD" firstAttribute="leading" secondItem="LUS-AN-Vst" secondAttribute="trailing" constant="10" id="oR2-WG-cVp"/>
                     <constraint firstItem="S5e-D4-R3d" firstAttribute="trailing" secondItem="yuO-T8-Vha" secondAttribute="trailing" id="w7N-oY-7TK"/>
+                    <constraint firstItem="S5e-D4-R3d" firstAttribute="top" secondItem="yuO-T8-Vha" secondAttribute="bottom" constant="13" id="wD0-Og-Ein"/>
                     <constraint firstItem="WKj-tF-fah" firstAttribute="leading" secondItem="dLC-tV-SGD" secondAttribute="trailing" constant="20" id="zb3-iU-P8J"/>
                 </constraints>
             </tableViewCellContentView>
