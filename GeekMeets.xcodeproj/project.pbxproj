@@ -175,6 +175,9 @@
 		0BABEAE02472451A000BC5E7 /* PreferenceOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BABEADD24724519000BC5E7 /* PreferenceOption.swift */; };
 		0BABEAE22472451A000BC5E7 /* PreferencesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BABEADF24724519000BC5E7 /* PreferencesResponse.swift */; };
 		0BABEAE424727264000BC5E7 /* PreferencesField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BABEAE324727264000BC5E7 /* PreferencesField.swift */; };
+		0BABEB3524BD91010084A3E1 /* BoostGeekAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BABEB3424BD91000084A3E1 /* BoostGeekAPI.swift */; };
+		0BABEB3824BD912F0084A3E1 /* BoostGeekFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BABEB3624BD912F0084A3E1 /* BoostGeekFields.swift */; };
+		0BABEB3924BD912F0084A3E1 /* BoostGeekResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BABEB3724BD912F0084A3E1 /* BoostGeekResponse.swift */; };
 		0BB2713D24B5844B00552BA8 /* FullScreenImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB2713C24B5844B00552BA8 /* FullScreenImageViewController.swift */; };
 		0BBB5CCD2498C11F00069320 /* NotificationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBB5CCC2498C11F00069320 /* NotificationResponse.swift */; };
 		0BBD65F72449C8A500CA178A /* MatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBD65F02449C8A400CA178A /* MatchViewController.swift */; };
@@ -563,6 +566,9 @@
 		0BABEADD24724519000BC5E7 /* PreferenceOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceOption.swift; sourceTree = "<group>"; };
 		0BABEADF24724519000BC5E7 /* PreferencesResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesResponse.swift; sourceTree = "<group>"; };
 		0BABEAE324727264000BC5E7 /* PreferencesField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesField.swift; sourceTree = "<group>"; };
+		0BABEB3424BD91000084A3E1 /* BoostGeekAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoostGeekAPI.swift; sourceTree = "<group>"; };
+		0BABEB3624BD912F0084A3E1 /* BoostGeekFields.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoostGeekFields.swift; sourceTree = "<group>"; };
+		0BABEB3724BD912F0084A3E1 /* BoostGeekResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoostGeekResponse.swift; sourceTree = "<group>"; };
 		0BB2713C24B5844B00552BA8 /* FullScreenImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenImageViewController.swift; sourceTree = "<group>"; };
 		0BBB5CCC2498C11F00069320 /* NotificationResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationResponse.swift; sourceTree = "<group>"; };
 		0BBD65F02449C8A400CA178A /* MatchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchViewController.swift; sourceTree = "<group>"; };
@@ -1646,6 +1652,7 @@
 		F7780E20245AD666003CA4BD /* APIs */ = {
 			isa = PBXGroup;
 			children = (
+				0BABEB3424BD91000084A3E1 /* BoostGeekAPI.swift */,
 				0BD88AF624977A5800C8C025 /* NotificationAPI.swift */,
 				0B56B6072486506D004A62D4 /* MediaAPI.swift */,
 				0B8D0B31248114E9004465E1 /* ReportAPI.swift */,
@@ -1659,6 +1666,8 @@
 		F7780E26245AD666003CA4BD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0BABEB3624BD912F0084A3E1 /* BoostGeekFields.swift */,
+				0BABEB3724BD912F0084A3E1 /* BoostGeekResponse.swift */,
 				0BE56FE924B879F900A72A67 /* ContactUsFields.swift */,
 				0BE56FE724B879A000A72A67 /* ContactUsResponse.swift */,
 				0B8E855024ACB1F700C48B2C /* MatchUser.swift */,
@@ -2653,6 +2662,7 @@
 				0B8E855124ACB1F700C48B2C /* MatchUser.swift in Sources */,
 				F995BDC1204D1277005E5279 /* KeyMessages.swift in Sources */,
 				F716F2A524495EDD0063680F /* UITextFieldExtensions.swift in Sources */,
+				0BABEB3524BD91010084A3E1 /* BoostGeekAPI.swift in Sources */,
 				F9EDD431203BFF33008FA83F /* BaseModel.swift in Sources */,
 				F76A8D842440396800ED9947 /* BlockClass.swift in Sources */,
 				0B319663244DE80500B38350 /* TabbarPresenter.swift in Sources */,
@@ -2830,6 +2840,7 @@
 				0BCD4B2A245B0C210054A805 /* AddTextViewController.swift in Sources */,
 				0BEED98024A5BEB600F08122 /* TouchView.swift in Sources */,
 				0B6B4300247FCC52005240B8 /* CustomPickImageView.swift in Sources */,
+				0BABEB3824BD912F0084A3E1 /* BoostGeekFields.swift in Sources */,
 				F7F8F5BC2452BD3200CA82E7 /* SelectAgeCell.swift in Sources */,
 				F7780E3F245AD667003CA4BD /* Configuration.swift in Sources */,
 				0B0B4B0D247504F80047EB11 /* RangeSeekSlider.swift in Sources */,
@@ -2877,6 +2888,7 @@
 				F7F8F5C52452EDDC00CA82E7 /* SelectGenderCell.swift in Sources */,
 				0B6B4305247FDCD4005240B8 /* CustomOptionView.swift in Sources */,
 				0B31965E244DE80500B38350 /* ProfileCompanyCell.swift in Sources */,
+				0BABEB3924BD912F0084A3E1 /* BoostGeekResponse.swift in Sources */,
 				0BCD4B2F245B0C390054A805 /* CustomTextView.swift in Sources */,
 				0B9499D42451DBC4001AD1C8 /* DiscoverySettingViewController.swift in Sources */,
 				0B921C2A24571BE40010AE04 /* Content.m in Sources */,

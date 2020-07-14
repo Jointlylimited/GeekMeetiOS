@@ -13,6 +13,7 @@
 import UIKit
 
 protocol TopGeeksProtocol: class {
+    func getGeeksResponse(response : BoostGeekResponse)
 }
 
 class TopGeeksViewController: UIViewController, TopGeeksProtocol {
@@ -72,5 +73,20 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
             $0.isSelected = false
         }
         sender.isSelected = true
+    }
+}
+
+extension TopGeeksViewController {
+    func callCreateGeeksAPI() {
+        
+        let param = RequestParameter.sharedInstance().createBoostGeekParams(fPlanPrice: "", vPurchaseDate: "", iBoostGeekCount: "")
+        self.presenter?.callCreateGeeksAPI(param: param)
+    }
+    
+    func getGeeksResponse(response : BoostGeekResponse){
+        AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+    }
+    func callActiveBoostAPI(){
+        
     }
 }

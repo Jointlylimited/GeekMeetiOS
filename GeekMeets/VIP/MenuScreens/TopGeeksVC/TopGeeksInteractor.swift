@@ -13,7 +13,8 @@
 import UIKit
 
 protocol TopGeeksInteractorProtocol {
-    func doSomething()
+    func callCreateGeeksAPI(param : Dictionary<String, String>)
+    func callActiveGeeksAPI()
 }
 
 protocol TopGeeksDataStore {
@@ -25,7 +26,27 @@ class TopGeeksInteractor: TopGeeksInteractorProtocol, TopGeeksDataStore {
     //var name: String = ""
     
     // MARK: Do something
-    func doSomething() {
+    func callCreateGeeksAPI(param : Dictionary<String, String>) {
+        LoaderView.sharedInstance.showLoader()
+        BoostGeekAPI.createBoostGeek(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization, tiPlanType: 1, fPlanPrice: param["fPlanPrice"]!, vPurchaseDate:  param["vPurchaseDate"]!, iBoostGeekCount: Int(param["iBoostGeekCount"]!)!) { (response, error) in
+                
+                LoaderView.sharedInstance.hideLoader()
+                if response?.responseCode == 200 {
+                    self.presenter?.getGeeksResponse(response: response!)
+                } else if response?.responseCode == 400 {
+                    self.presenter?.getGeeksResponse(response: response!)
+                }  else {
+                    if error != nil {
+                        AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                    } else {
+                        self.presenter?.getGeeksResponse(response: response!)
+                    }
+                }
+                
+            }
+    }
+    
+    func callActiveGeeksAPI(){
         
     }
 }

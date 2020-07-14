@@ -13,6 +13,7 @@
 import UIKit
 
 protocol BoostProtocol: class {
+    func getBoostResponse(response : BoostGeekResponse)
 }
 
 class BoostViewController: UIViewController, BoostProtocol {
@@ -74,5 +75,21 @@ class BoostViewController: UIViewController, BoostProtocol {
             $0.isSelected = false
         }
         sender.isSelected = true
+    }
+}
+
+extension BoostViewController {
+    func callCreateBoostAPI() {
+        
+        let param = RequestParameter.sharedInstance().createBoostGeekParams(fPlanPrice: "", vPurchaseDate: "", iBoostGeekCount: "")
+        self.presenter?.callCreateBoostAPI(param : param)
+    }
+    
+    func getBoostResponse(response : BoostGeekResponse){
+        AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+    }
+    
+    func callActiveBoostAPI(){
+        
     }
 }

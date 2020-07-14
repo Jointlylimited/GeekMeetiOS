@@ -198,6 +198,10 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
             if objFilterStoryData.count != 0 {
                 matchVC!.UserID = objFilterStoryData[indexPath.row][0].iUserId
             }
+        } else {
+            if objFilterMsgData.count != 0 {
+                matchVC!.UserID = objFilterMsgData[indexPath.row].iUserId
+            }
         }
         matchVC!.isFromHome = false
         self.pushVC(matchVC!)

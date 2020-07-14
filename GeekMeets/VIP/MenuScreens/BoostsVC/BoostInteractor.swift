@@ -13,7 +13,8 @@
 import UIKit
 
 protocol BoostInteractorProtocol {
-    func doSomething()
+    func callCreateBoostAPI(param : Dictionary<String, String>)
+    func callActiveBoostAPI()
 }
 
 protocol BoostDataStore {
@@ -25,7 +26,28 @@ class BoostInteractor: BoostInteractorProtocol, BoostDataStore {
     //var name: String = ""
     
     // MARK: Do something
-    func doSomething() {
+    func callCreateBoostAPI(param : Dictionary<String, String>) {
+        
+        LoaderView.sharedInstance.showLoader()
+        BoostGeekAPI.createBoostGeek(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization, tiPlanType: 1, fPlanPrice: param["fPlanPrice"]!, vPurchaseDate:  param["vPurchaseDate"]!, iBoostGeekCount: Int(param["iBoostGeekCount"]!)!) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getBoostResponse(response: response!)
+            } else if response?.responseCode == 400 {
+                self.presenter?.getBoostResponse(response: response!)
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getBoostResponse(response: response!)
+                }
+            }
+            
+        }
+    }
+    
+    func callActiveBoostAPI(){
         
     }
 }
