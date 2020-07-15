@@ -1213,6 +1213,7 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: ChatTextCell.reuseID_Outgoing, for: indexPath) as! ChatTextCell
                 //                cell.imgAvatarView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "user_profile"))
+                cell.delegate = self
                 cell.ConfigureCell(with: chatMsg)
                 
                 return cell
@@ -1389,6 +1390,12 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
 }
 //MARK:-===================== Protocol ChatMessage Retry ==========
 extension OneToOneChatVC: ProtocolChatMessageRetry {
+    func UnsendBtnPressed(for objChat: Model_ChatMessage) {
+        if objChat.isOutgoing {
+            SOXmpp.manager.xmpp_RemoveSingleObject(withMessageId: objChat.messageId, withToUserId: self.objFriend!.jID)
+            self.loadMessages(msgObj: nil)
+        }
+    }
     
     func RetryBtnPressed(for objChat: Model_ChatMessage) {
         
@@ -1411,7 +1418,6 @@ extension OneToOneChatVC: ProtocolChatMessageRetry {
             }
         }
     }
-    
 }
 
 //MARK:-===================== UITextViewDelegate & TypingNotification ==========
@@ -1435,7 +1441,6 @@ extension OneToOneChatVC : RSKGrowingTextViewDelegate , UITextViewDelegate {
         
         
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.stopTypingNotification), object: textView)
-        
         self.perform(#selector(self.stopTypingNotification), with: textView, afterDelay: 1)
         
     }

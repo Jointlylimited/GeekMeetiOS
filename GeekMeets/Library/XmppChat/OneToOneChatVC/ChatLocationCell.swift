@@ -22,6 +22,7 @@ class ChatLocationCell: UITableViewCell {
     @IBOutlet weak var lblHeader: UILabel!
     @IBOutlet weak var chatBubbleView: ChatBubbleView!
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var BtnView: UIStackView!
     
     var chatMsgObj: Model_ChatMessage?
     weak var delegate: ProtocolChatMessageRetry?
@@ -30,15 +31,30 @@ class ChatLocationCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         self.selectionStyle = .none
+        self.BtnView.customize(backgroundColor: #colorLiteral(red: 0.75, green: 0.75, blue: 0.75, alpha: 0.5), radiusSize: 5.0)
     }
 
     @IBAction func retryBtnAction(_ sender: UIButton) {
+        self.BtnView.alpha = 0.0
         guard let chatMsg = self.chatMsgObj else { return }
         self.delegate?.RetryBtnPressed(for: chatMsg)
     }
     
+    @IBAction func btnMenuAction(_ sender: UIButton) {
+        if self.BtnView.alpha == 0.0 {
+            self.BtnView.alpha = 1.0
+        } else {
+            self.BtnView.alpha = 0.0
+        }
+    }
+    
+    @IBAction func unsendBtnAction(_ sender: UIButton) {
+        self.BtnView.alpha = 0.0
+        guard let chatMsg = self.chatMsgObj else { return }
+        self.delegate?.UnsendBtnPressed(for: chatMsg)
+    }
+    
     func ConfigureCell(with chatMsg: Model_ChatMessage) {
-        
         self.chatMsgObj = chatMsg
         lblDateTime.text = ST_DateFormater.GetTime(from: chatMsg.timestamp)
         setLocationOnMap()
@@ -47,9 +63,7 @@ class ChatLocationCell: UITableViewCell {
             self.chatBubbleView.layer.roundCorners([.topLeft, .bottomRight, .bottomLeft], radius: 10)
         } else {
             self.chatBubbleView.layer.roundCorners([.topRight, .bottomRight, .bottomLeft], radius: 10)
-        }
-        
-        
+        }   
     }
     
     private func setDeliverAndReadStatus() {
@@ -100,12 +114,6 @@ class ChatLocationCell: UITableViewCell {
             let viewRegion = MKCoordinateRegion(center: Location, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
             mapView.setRegion(viewRegion, animated: true)
         }
-//        let coordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: CLLocationDegrees(Double(latStr!)!)), longitude: CLLocationCoordinate2D(longitude: CLLocationDegrees(Double(lonStr!)!)), latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
-            
-            
-//            MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: CLLocationDegrees(exactly: Double(latStr!)!)), longitude: CLLocationCoordinate2D(latitude: CLLocationDegrees(exactly: Double(lonStr!)!)), latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
-
-//        mapView.setRegion(coordinateRegion, animated: true)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

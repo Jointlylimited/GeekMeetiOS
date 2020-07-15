@@ -11,6 +11,7 @@ import SDWebImage
 
 protocol ProtocolChatMessageRetry: class {
     func RetryBtnPressed(for objChat: Model_ChatMessage)
+    func UnsendBtnPressed(for objChat: Model_ChatMessage)
 }
 
 class ChatMediaCell: UITableViewCell {
@@ -26,7 +27,8 @@ class ChatMediaCell: UITableViewCell {
     @IBOutlet weak var lblMsgStatus: UILabel!
     @IBOutlet weak var lblDateTime: UILabel!
     @IBOutlet weak var lblHeader: UILabel!
-   
+    @IBOutlet weak var BtnView: UIStackView!
+    
     @IBOutlet weak var imgAvatarView: UIImageView!
     @IBOutlet weak var chatBubbleView: ChatBubbleView!
     
@@ -37,16 +39,30 @@ class ChatMediaCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         self.selectionStyle = .none
+        self.BtnView.customize(backgroundColor: #colorLiteral(red: 0.75, green: 0.75, blue: 0.75, alpha: 0.5), radiusSize: 5.0)
     }
 
     
     @IBAction func retryBtnAction(_ sender: UIButton) {
+        self.BtnView.alpha = 0.0
         guard let chatMsg = self.chatMsgObj else { return }
         self.delegate?.RetryBtnPressed(for: chatMsg)
     }
+    @IBAction func btnMenuAction(_ sender: UIButton) {
+        if self.BtnView.alpha == 0.0 {
+            self.BtnView.alpha = 1.0
+        } else {
+            self.BtnView.alpha = 0.0
+        }
+    }
+    
+    @IBAction func unsendBtnAction(_ sender: UIButton) {
+        self.BtnView.alpha = 0.0
+        guard let chatMsg = self.chatMsgObj else { return }
+        self.delegate?.UnsendBtnPressed(for: chatMsg)
+    }
     
     func ConfigureCell(with chatMsg: Model_ChatMessage) {
-        
         self.chatMsgObj = chatMsg
         
         lblDateTime.text = ST_DateFormater.GetTime(from: chatMsg.timestamp)

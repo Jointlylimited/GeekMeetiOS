@@ -19,17 +19,19 @@ class ChatTextCell: UITableViewCell {
     @IBOutlet weak var lblHeader: UILabel!
     @IBOutlet weak var imgAvatarView: UIImageView!
     @IBOutlet weak var chatBubbleView: ChatBubbleView!
+    @IBOutlet weak var BtnView: UIStackView!
     
     var chatMsgObj: Model_ChatMessage?
+    weak var delegate: ProtocolChatMessageRetry?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         self.selectionStyle = .none
+        self.BtnView.customize(backgroundColor: #colorLiteral(red: 0.7490196078, green: 0.75, blue: 0.75, alpha: 0.5), radiusSize: 5.0)
     }
 
     func ConfigureCell(with chatMsg: Model_ChatMessage) {
-        
         self.chatMsgObj = chatMsg
         
         lblMsg.text = chatMsg.strMsg
@@ -61,6 +63,26 @@ class ChatTextCell: UITableViewCell {
 ////            lblMsgStatus.text = "Sending..."
 ////            lblMsgStatus.textColor = .white
 //        }
+    }
+    
+    @IBAction func retryBtnAction(_ sender: UIButton) {
+        self.BtnView.alpha = 0.0
+        guard let chatMsg = self.chatMsgObj else { return }
+        self.delegate?.RetryBtnPressed(for: chatMsg)
+    }
+    
+    @IBAction func btnMenuAction(_ sender: UIButton) {
+        if self.BtnView.alpha == 0.0 {
+            self.BtnView.alpha = 1.0
+        } else {
+            self.BtnView.alpha = 0.0
+        }
+    }
+    
+    @IBAction func unsendBtnAction(_ sender: UIButton) {
+        self.BtnView.alpha = 0.0
+        guard let chatMsg = self.chatMsgObj else { return }
+        self.delegate?.UnsendBtnPressed(for: chatMsg)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

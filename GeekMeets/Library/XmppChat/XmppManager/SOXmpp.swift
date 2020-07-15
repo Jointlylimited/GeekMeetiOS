@@ -1533,19 +1533,137 @@ extension SOXmpp {
 //        trackingInfo?.createTimer(withDispatchQueue: queue)
     }
     
-    func DeleteXmppUser(userId: String?){
-        
-        let strUser = userId! + "\(Xmpp_MyDomain)"
-        let jd = XMPPJID(string: strUser)
-        
-        let value = DDXMLElement(name: "value", stringValue: userId!)
-        let query = XMLElement(name: "query", xmlns: "jabber:iq:register")
-        query.addChild(XMLElement(name: "remove"))
+    func xmpp_RemoveFriend(withJid friendID: String?) {
 
-        let iq = XMLElement(name: "iq")
-        iq.addAttribute(withName: "type", stringValue: "set")
-        iq.addAttribute(withName: "id", stringValue: "unreg1")
-        iq.addChild(query)
-        xmppStream.send(iq)
+        if !xmppStream.isConnected {
+            return
+        }
+        //friendID =10@localhost
+        //[xmppRoster subscribePresenceToUser:[XMPPJID jidWithString:[friendID stringByAppendingString:MyDomain]]];
+        //[xmppRoster addUser:[XMPPJID jidWithString:friendID] withNickname:friendID];
+        
+        let jd = XMPPJID(string: friendID!)
+        
+        xmppRoster.removeUser(jd!)
+        xmppRoster.unsubscribePresence(fromUser: jd!)
+        
+        self.xmpp_getFriendList()
+//        xmpp_getFriendListCompletion({
+//            if bUpdateRoster {
+//                bUpdateRoster(false)
+//            }
+//        })
     }
+    
+    func xmpp_RemoveSingleObject(withMessageId MsgID: String?, withToUserId toUserID: String?) {
+
+        let jd = XMPPJID(string: toUserID!)
+        
+        let context = CoreDataManager.sharedManager.managedContext()
+        let arrSkChats = xmpp_FetchSingleArchivingObject(MsgID, with: jd!)
+
+        (arrSkChats as NSArray).enumerateObjects({ skChat, idx, stop in
+            if let messageObject = (skChat as? NSManagedObject) {
+                context.delete(messageObject)
+            }
+        })
+
+        do {
+            try context.save()
+        } catch {
+        }
+    }
+
+        func xmpp_FetchSingleArchivingObject(_ MessageId: String?, with toUserID: XMPPJID) -> NSArray {
+
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>()
+        
+            let context = CoreDataManager.sharedManager.managedContext()
+            //let context = self.xmppCoreDataStorage.managedObjectContext!
+            
+            let messageEntity: NSEntityDescription = NSEntityDescription.entity(forEntityName:   "XMPP_MessageArchiving_Custom", in: context)!
+            
+            fetchRequest.entity = messageEntity
+            //fetchRequest.fetchOffset = pageOffset
+            //fetchRequest.fetchLimit = pageSize
+        
+            let sortDescriptor = NSSortDescriptor(key: "timestamp", ascending: false)
+            fetchRequest.sortDescriptors = [sortDescriptor]
+            
+             let predicate1 =  NSPredicate(format: "streamBareJidStr = %@","\(self.xmppStream.myJID!.bare)")
+            let predicate2 =  NSPredicate(format: "bareJidStr = %@","\(toUserID.bare)")
+            let predicateCompound = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1,predicate2])
+            fetchRequest.predicate = predicateCompound
+            //fetchRequest.predicate = NSPredicate(format: "(fromAppID = %@) AND (toAppID = %@)","\(self.xmppStream.myJID!.user!)\(toUserID.user!)")
+        
+            do {
+                var result = try context.fetch(fetchRequest)
+                guard var filteredResult = result as? [XMPP_MessageArchiving_Custom] else {
+                    return []
+                }
+    //            filteredResult = filteredResult.filter({ (evaluatedObject) -> Bool in
+    //                if evaluatedObject.message != nil && evaluatedObject.message.isMessageWithBody {
+    //                     return true
+    //                }
+    //                return false
+    //            })
+                
+                result = (result as NSArray).filtered(using: NSPredicate(block: { evaluatedObject, bindings in
+                    if (evaluatedObject as! XMPP_MessageArchiving_Custom).messageId == MessageId! {
+                        return true
+                    }
+                    return false
+    //                if evaluatedObject?.message().attributeStringValue(forName: "id") == MessageId {
+    //                    return true
+    //                }
+    //                return false
+                }))
+                
+    //            filteredResult = filteredResult.sorted(by: { (obj1, obj2) -> Bool in
+    //                return obj1.timestamp!.compare(obj2.timestamp!) == .orderedAscending
+    //            })
+    //            var arr = [Model_ChatMessage]()
+    //            for item in filteredResult {
+    //                let obj = Model_ChatMessage.init(xmppMessageObj: item)
+    //                arr.append(obj)
+    //            }
+                //printMsg(with: "\(filteredResult.count)")
+                return result as NSArray
+            } catch {
+                print(error.localizedDescription)
+            }
+        
+            return []
+        }
+
+    //func xmpp_FetchSingleObject(_ MessageId: String?, withUserId ToUserId: String?) -> [AnyHashable]? {
+    //    let fetchRequest = NSFetchRequest<NSFetchRequestResult>()
+    //
+    //    let context = CoreDataManager.sharedManager.managedContext()
+    //    var messageEntity: NSEntityDescription? = nil
+    //    if let context = context {
+    //        messageEntity = NSEntityDescription.entity(forEntityName: "XMPPMessageArchiving_Message_CoreDataObject", in: context)
+    //    }
+    //    fetchRequest.entity = messageEntity
+    //
+    //    let stryId = XMPPJID XMPPStream.xmppStream.myJID().bare()
+    //    if ToUserId != nil && ToUserId!.length {
+    //        fetchRequest.predicate = NSPredicate(format: "bareJidStr = %@ AND streamBareJidStr = %@", "\(ToUserId)\(MyDomain)", stryId)
+    //    }
+    //    var error: Error? = nil
+    //    var results: [Any]? = nil
+    //    do {
+    //        results = try context.fetch(fetchRequest)
+    //    } catch {
+    //    }
+    //    results = (results as NSArray?)?.filtered(using: NSPredicate(block: { evaluatedObject, bindings in
+    //        if evaluatedObject?.message().attributeStringValue(forName: "id") == MessageId {
+    //            return true
+    //        }
+    //        return false
+    //    }))
+    //    return results
+    //}
+
 }
+
