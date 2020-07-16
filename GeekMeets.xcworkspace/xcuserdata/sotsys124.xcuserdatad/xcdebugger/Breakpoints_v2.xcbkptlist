@@ -94,8 +94,8 @@
             filePath = "GeekMeets/VIP/DashBoard/Tabbar/MenuVC/MenuViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "208"
-            endingLineNumber = "208"
+            startingLineNumber = "215"
+            endingLineNumber = "215"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -126,8 +126,8 @@
             filePath = "GeekMeets/VIP/DashBoard/Tabbar/MenuVC/MenuViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
             landmarkName = "setTheme()"
             landmarkType = "7">
          </BreakpointContent>
@@ -183,65 +183,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "458D149E-C20C-4A48-9098-395AD8C630BC"
-            shouldBeEnabled = "Yes"
+            uuid = "23B7A7A5-E428-404C-BECE-D2955E47E725"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeekMeets/Library/XmppChat/XmppManager/SOXmpp.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1613"
-            endingLineNumber = "1613"
-            landmarkName = "xmpp_FetchSingleArchivingObject(_:with:)"
+            startingLineNumber = "1564"
+            endingLineNumber = "1564"
+            landmarkName = "xmpp_RemoveSingleObject(withMessageId:withToUserId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F6D24924-FCE9-4102-82D7-D7B5B508BB1E"
+            uuid = "23C82890-7F8D-4F49-B342-359AB7F663C2"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GeekMeets/Library/XmppChat/XmppManager/SOXmpp.swift"
+            filePath = "GeekMeets/VIP/MenuScreens/DiscoverySettingVC/EditInterestPreferenceVC/EditPreferenceViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1611"
-            endingLineNumber = "1611"
-            landmarkName = "xmpp_FetchSingleArchivingObject(_:with:)"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
+            landmarkName = "callCreatePreferenceAPI()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "F6D24924-FCE9-4102-82D7-D7B5B508BB1E - 987f8d0f4a42ca70"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Jointly.SOXmpp.xmpp_FetchSingleArchivingObject(_: Swift.Optional&lt;Swift.String&gt;, with: __C.XMPPJID) -&gt; __C.NSArray"
-                  moduleName = "Jointly"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sotsys124/Documents/Divya/GitLab_Project/DatingApp/Code/Daveloment/geekmeetsios/GeekMeets/Library/XmppChat/XmppManager/SOXmpp.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1611"
-                  endingLineNumber = "1611"
-                  offsetFromSymbolStart = "3846">
-               </Location>
-               <Location
-                  uuid = "F6D24924-FCE9-4102-82D7-D7B5B508BB1E - 87d6fe9c073d89c0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Any&gt;, Swift.Optional&lt;Swift.Dictionary&lt;Swift.String, Any&gt;&gt;) -&gt; Swift.Bool in Jointly.SOXmpp.xmpp_FetchSingleArchivingObject(_: Swift.Optional&lt;Swift.String&gt;, with: __C.XMPPJID) -&gt; __C.NSArray"
-                  moduleName = "Jointly"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sotsys124/Documents/Divya/GitLab_Project/DatingApp/Code/Daveloment/geekmeetsios/GeekMeets/Library/XmppChat/XmppManager/SOXmpp.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1612"
-                  endingLineNumber = "1612"
-                  offsetFromSymbolStart = "169">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "377704AB-EE78-4560-BD2F-6A16BAEA3ECE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GeekMeets/VIP/MenuScreens/DiscoverySettingVC/EditInterestPreferenceVC/EditPreferenceViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
+            landmarkName = "callCreatePreferenceAPI()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

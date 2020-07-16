@@ -100,6 +100,13 @@
 		0B535689245088DC005571AF /* EditProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B535681245088DB005571AF /* EditProfileInteractor.swift */; };
 		0B53568A245088DC005571AF /* EditInformationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B535682245088DB005571AF /* EditInformationCell.swift */; };
 		0B53568B245088DC005571AF /* EditPhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B535683245088DB005571AF /* EditPhotosCell.swift */; };
+		0B53A11824C012ED00F8AE1A /* TipsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53A11724C012ED00F8AE1A /* TipsViewController.swift */; };
+		0B53A11E24C0133800F8AE1A /* FirstDatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53A11B24C0133800F8AE1A /* FirstDatePresenter.swift */; };
+		0B53A11F24C0133800F8AE1A /* FirstDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53A11C24C0133800F8AE1A /* FirstDateViewController.swift */; };
+		0B53A12024C0133800F8AE1A /* FirstDateInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53A11D24C0133800F8AE1A /* FirstDateInteractor.swift */; };
+		0B53A12424C0134D00F8AE1A /* FirstCallPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53A12124C0134D00F8AE1A /* FirstCallPresenter.swift */; };
+		0B53A12524C0134D00F8AE1A /* FirstCallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53A12224C0134D00F8AE1A /* FirstCallViewController.swift */; };
+		0B53A12624C0134D00F8AE1A /* FirstCallInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53A12324C0134D00F8AE1A /* FirstCallInteractor.swift */; };
 		0B56B60024861C06004A62D4 /* CustomImagePageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B56B5FF24861C06004A62D4 /* CustomImagePageControl.swift */; };
 		0B56B60224862DE3004A62D4 /* OtherUserProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B56B60124862DE3004A62D4 /* OtherUserProfileModel.swift */; };
 		0B56B60524865040004A62D4 /* MediaReaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B56B6032486503F004A62D4 /* MediaReaction.swift */; };
@@ -197,6 +204,13 @@
 		0BCD4B2A245B0C210054A805 /* AddTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCD4B27245B0C200054A805 /* AddTextViewController.swift */; };
 		0BCD4B2E245B0C390054A805 /* RangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCD4B2C245B0C370054A805 /* RangeSlider.swift */; };
 		0BCD4B2F245B0C390054A805 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCD4B2D245B0C370054A805 /* CustomTextView.swift */; };
+		0BCE8CC524C011C50060AC01 /* CAPSPageMenu+UIGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCE8CBE24C011C50060AC01 /* CAPSPageMenu+UIGestureRecognizerDelegate.swift */; };
+		0BCE8CC624C011C50060AC01 /* CAPSPageMenu+Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCE8CBF24C011C50060AC01 /* CAPSPageMenu+Options.swift */; };
+		0BCE8CC724C011C50060AC01 /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCE8CC024C011C50060AC01 /* MenuItemView.swift */; };
+		0BCE8CC824C011C50060AC01 /* CAPSPageMenu+UIScrollViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCE8CC124C011C50060AC01 /* CAPSPageMenu+UIScrollViewDelegate.swift */; };
+		0BCE8CC924C011C50060AC01 /* CAPSPageMenu+UIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCE8CC224C011C50060AC01 /* CAPSPageMenu+UIConfiguration.swift */; };
+		0BCE8CCA24C011C50060AC01 /* CAPSPageMenuConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCE8CC324C011C50060AC01 /* CAPSPageMenuConfiguration.swift */; };
+		0BCE8CCB24C011C50060AC01 /* CAPSPageMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCE8CC424C011C50060AC01 /* CAPSPageMenu.swift */; };
 		0BD88AF724977A5800C8C025 /* NotificationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD88AF624977A5800C8C025 /* NotificationAPI.swift */; };
 		0BD88AFA24977ABA00C8C025 /* NotificationFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD88AF824977ABA00C8C025 /* NotificationFields.swift */; };
 		0BD88AFB24977ABA00C8C025 /* NotificationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD88AF924977ABA00C8C025 /* NotificationList.swift */; };
@@ -488,6 +502,13 @@
 		0B535681245088DB005571AF /* EditProfileInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileInteractor.swift; sourceTree = "<group>"; };
 		0B535682245088DB005571AF /* EditInformationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditInformationCell.swift; sourceTree = "<group>"; };
 		0B535683245088DB005571AF /* EditPhotosCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPhotosCell.swift; sourceTree = "<group>"; };
+		0B53A11724C012ED00F8AE1A /* TipsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipsViewController.swift; sourceTree = "<group>"; };
+		0B53A11B24C0133800F8AE1A /* FirstDatePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstDatePresenter.swift; sourceTree = "<group>"; };
+		0B53A11C24C0133800F8AE1A /* FirstDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstDateViewController.swift; sourceTree = "<group>"; };
+		0B53A11D24C0133800F8AE1A /* FirstDateInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstDateInteractor.swift; sourceTree = "<group>"; };
+		0B53A12124C0134D00F8AE1A /* FirstCallPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstCallPresenter.swift; sourceTree = "<group>"; };
+		0B53A12224C0134D00F8AE1A /* FirstCallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstCallViewController.swift; sourceTree = "<group>"; };
+		0B53A12324C0134D00F8AE1A /* FirstCallInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstCallInteractor.swift; sourceTree = "<group>"; };
 		0B56B5FF24861C06004A62D4 /* CustomImagePageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImagePageControl.swift; sourceTree = "<group>"; };
 		0B56B60124862DE3004A62D4 /* OtherUserProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserProfileModel.swift; sourceTree = "<group>"; };
 		0B56B6032486503F004A62D4 /* MediaReaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaReaction.swift; sourceTree = "<group>"; };
@@ -588,6 +609,13 @@
 		0BCD4B27245B0C200054A805 /* AddTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTextViewController.swift; sourceTree = "<group>"; };
 		0BCD4B2C245B0C370054A805 /* RangeSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSlider.swift; sourceTree = "<group>"; };
 		0BCD4B2D245B0C370054A805 /* CustomTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
+		0BCE8CBE24C011C50060AC01 /* CAPSPageMenu+UIGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CAPSPageMenu+UIGestureRecognizerDelegate.swift"; sourceTree = "<group>"; };
+		0BCE8CBF24C011C50060AC01 /* CAPSPageMenu+Options.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CAPSPageMenu+Options.swift"; sourceTree = "<group>"; };
+		0BCE8CC024C011C50060AC01 /* MenuItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
+		0BCE8CC124C011C50060AC01 /* CAPSPageMenu+UIScrollViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CAPSPageMenu+UIScrollViewDelegate.swift"; sourceTree = "<group>"; };
+		0BCE8CC224C011C50060AC01 /* CAPSPageMenu+UIConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CAPSPageMenu+UIConfiguration.swift"; sourceTree = "<group>"; };
+		0BCE8CC324C011C50060AC01 /* CAPSPageMenuConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAPSPageMenuConfiguration.swift; sourceTree = "<group>"; };
+		0BCE8CC424C011C50060AC01 /* CAPSPageMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAPSPageMenu.swift; sourceTree = "<group>"; };
 		0BD88AF624977A5800C8C025 /* NotificationAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationAPI.swift; sourceTree = "<group>"; };
 		0BD88AF824977ABA00C8C025 /* NotificationFields.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationFields.swift; sourceTree = "<group>"; };
 		0BD88AF924977ABA00C8C025 /* NotificationList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationList.swift; sourceTree = "<group>"; };
@@ -1055,6 +1083,7 @@
 		0B5356652450870F005571AF /* MenuScreens */ = {
 			isa = PBXGroup;
 			children = (
+				0B53A11624C012C300F8AE1A /* TipsVC */,
 				0B7F33D0246ED8AE007ADF8D /* NotificationVC */,
 				0B3C75AD245327DF00CEDBBA /* Share&EarnVC */,
 				0B9499C42451DBC3001AD1C8 /* AccountSettingVC */,
@@ -1111,6 +1140,36 @@
 				0B535683245088DB005571AF /* EditPhotosCell.swift */,
 			);
 			path = EditProfileVC;
+			sourceTree = "<group>";
+		};
+		0B53A11624C012C300F8AE1A /* TipsVC */ = {
+			isa = PBXGroup;
+			children = (
+				0B53A11A24C0131700F8AE1A /* FirstDate */,
+				0B53A11924C0130D00F8AE1A /* FirstCall */,
+				0B53A11724C012ED00F8AE1A /* TipsViewController.swift */,
+			);
+			path = TipsVC;
+			sourceTree = "<group>";
+		};
+		0B53A11924C0130D00F8AE1A /* FirstCall */ = {
+			isa = PBXGroup;
+			children = (
+				0B53A12124C0134D00F8AE1A /* FirstCallPresenter.swift */,
+				0B53A12224C0134D00F8AE1A /* FirstCallViewController.swift */,
+				0B53A12324C0134D00F8AE1A /* FirstCallInteractor.swift */,
+			);
+			path = FirstCall;
+			sourceTree = "<group>";
+		};
+		0B53A11A24C0131700F8AE1A /* FirstDate */ = {
+			isa = PBXGroup;
+			children = (
+				0B53A11B24C0133800F8AE1A /* FirstDatePresenter.swift */,
+				0B53A11C24C0133800F8AE1A /* FirstDateViewController.swift */,
+				0B53A11D24C0133800F8AE1A /* FirstDateInteractor.swift */,
+			);
+			path = FirstDate;
 			sourceTree = "<group>";
 		};
 		0B56B5FE24861C06004A62D4 /* CustomPageIndicator */ = {
@@ -1453,6 +1512,20 @@
 				0BCD4B2D245B0C370054A805 /* CustomTextView.swift */,
 			);
 			path = RangeSlider;
+			sourceTree = "<group>";
+		};
+		0BCE8CBD24C011C50060AC01 /* PageMenu */ = {
+			isa = PBXGroup;
+			children = (
+				0BCE8CBE24C011C50060AC01 /* CAPSPageMenu+UIGestureRecognizerDelegate.swift */,
+				0BCE8CBF24C011C50060AC01 /* CAPSPageMenu+Options.swift */,
+				0BCE8CC024C011C50060AC01 /* MenuItemView.swift */,
+				0BCE8CC124C011C50060AC01 /* CAPSPageMenu+UIScrollViewDelegate.swift */,
+				0BCE8CC224C011C50060AC01 /* CAPSPageMenu+UIConfiguration.swift */,
+				0BCE8CC324C011C50060AC01 /* CAPSPageMenuConfiguration.swift */,
+				0BCE8CC424C011C50060AC01 /* CAPSPageMenu.swift */,
+			);
+			path = PageMenu;
 			sourceTree = "<group>";
 		};
 		0BDB9D9E2476401300BA2F39 /* AWS */ = {
@@ -2030,6 +2103,7 @@
 		F90B4CC92032A7C1006ADAF6 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				0BCE8CBD24C011C50060AC01 /* PageMenu */,
 				0B0013AD24ACA4B700D2EE83 /* XmppChat */,
 				0BEED97724A5BEB600F08122 /* TouchVisualizer */,
 				0B0B4B08247504F70047EB11 /* RangeSlider */,
@@ -2621,6 +2695,7 @@
 				0B319664244DE80500B38350 /* TabbarViewController.swift in Sources */,
 				0B59586E245C632F006D500A /* SubscriptionVC.swift in Sources */,
 				F7780E38245AD667003CA4BD /* ContentPageResponse.swift in Sources */,
+				0B53A11E24C0133800F8AE1A /* FirstDatePresenter.swift in Sources */,
 				0B3C75B2245327DF00CEDBBA /* Share_EarnInteractor.swift in Sources */,
 				0BF707FE244F1D1C003D6AB7 /* DiscoverViewController.swift in Sources */,
 				0BF707FF244F1D1C003D6AB7 /* DiscoverInteractor.swift in Sources */,
@@ -2649,6 +2724,7 @@
 				0B46B0C6245865F3006E0D87 /* ChangeEmailMobileViewController.swift in Sources */,
 				F79CA6F1244D9C5100C9A7EB /* UserProfileViewController.swift in Sources */,
 				0B0013CB24ACA4B700D2EE83 /* ChatMediaCell.swift in Sources */,
+				0B53A12624C0134D00F8AE1A /* FirstCallInteractor.swift in Sources */,
 				0B6D84DD248A6AD300A93406 /* StoryResponseFields.swift in Sources */,
 				F7780E39245AD667003CA4BD /* ContentPageResponseFields.swift in Sources */,
 				0B9499D12451DBC4001AD1C8 /* ManageSubscriptionPresenter.swift in Sources */,
@@ -2668,9 +2744,11 @@
 				0B319663244DE80500B38350 /* TabbarPresenter.swift in Sources */,
 				F7DFAE3D24501192008863F3 /* CountryPickerWithSectionViewController.swift in Sources */,
 				0B3C75BF2453280200CEDBBA /* CustomAlertView.swift in Sources */,
+				0B53A12024C0133800F8AE1A /* FirstDateInteractor.swift in Sources */,
 				0B9499D92451DBC4001AD1C8 /* CommonPagesInteractor.swift in Sources */,
 				F7D5259B244869FB002D3A42 /* SignInInteractor.swift in Sources */,
 				F7164AC7244EB86F00853BFC /* AddPhotosInteractor.swift in Sources */,
+				0B53A12424C0134D00F8AE1A /* FirstCallPresenter.swift in Sources */,
 				0B0013CF24ACA4B700D2EE83 /* OneToOneChatVC.swift in Sources */,
 				0B319659244DE80500B38350 /* HomeViewController.swift in Sources */,
 				0B7F33C9246ED80D007ADF8D /* NotificationListCell.swift in Sources */,
@@ -2683,6 +2761,7 @@
 				F96C2D2D20380B1A00F8CBC7 /* Validator.swift in Sources */,
 				0B53568B245088DC005571AF /* EditPhotosCell.swift in Sources */,
 				F97A9A2821103F9B007C45F5 /* UIApplicationExtensions.swift in Sources */,
+				0BCE8CC824C011C50060AC01 /* CAPSPageMenu+UIScrollViewDelegate.swift in Sources */,
 				F79CA6F7244DD4D900C9A7EB /* RadioButton.swift in Sources */,
 				F716F2AB24498F630063680F /* SignUpVCInteractor.swift in Sources */,
 				0B56B60524865040004A62D4 /* MediaReaction.swift in Sources */,
@@ -2707,6 +2786,7 @@
 				0B31963A244DE7E100B38350 /* PhotoEmojiCell.swift in Sources */,
 				0B1CB9912459429200DA9264 /* NewMobileNumberInteractor.swift in Sources */,
 				0B7F33D6246ED8AE007ADF8D /* NotificationListPresenter.swift in Sources */,
+				0BCE8CCA24C011C50060AC01 /* CAPSPageMenuConfiguration.swift in Sources */,
 				0B0B4B0C247504F70047EB11 /* RangeSeekSliderDelegate.swift in Sources */,
 				0BF7080C244F1D3C003D6AB7 /* MatchProfileInteractor.swift in Sources */,
 				0B31965F244DE80500B38350 /* ProfileAboutCell.swift in Sources */,
@@ -2726,6 +2806,7 @@
 				0B0013D224ACA4B700D2EE83 /* SOXmpp.swift in Sources */,
 				0B80CFCF24768DA9001BE106 /* UserProfileMediaList.swift in Sources */,
 				0B53567A24508827005571AF /* CustomImageLayout.swift in Sources */,
+				0B53A12524C0134D00F8AE1A /* FirstCallViewController.swift in Sources */,
 				0BF7081A244F1D6B003D6AB7 /* StoryCollectionCell.swift in Sources */,
 				F7780E32245AD667003CA4BD /* UserAPI.swift in Sources */,
 				F953B8D420467AFB00BE4F67 /* SettingsInteractor.swift in Sources */,
@@ -2748,6 +2829,7 @@
 				F7780E30245AD667003CA4BD /* APIHelper.swift in Sources */,
 				F7DFAE3F24501192008863F3 /* CountryCell.swift in Sources */,
 				0B0013C824ACA4B700D2EE83 /* Model_ChatFriendList.swift in Sources */,
+				0B53A11824C012ED00F8AE1A /* TipsViewController.swift in Sources */,
 				F7780E3E245AD667003CA4BD /* Models.swift in Sources */,
 				F7E6DB532459B3DA0031A035 /* PreviewViewController.swift in Sources */,
 				0B6D84DC248A6AD300A93406 /* StoryResponse.swift in Sources */,
@@ -2769,7 +2851,9 @@
 				0B0B4B142475245E0047EB11 /* Interest_PreferenceViewController.swift in Sources */,
 				0BBD66032449C8F100CA178A /* CardView.swift in Sources */,
 				0BF70805244F1D2C003D6AB7 /* MessagesPresenter.swift in Sources */,
+				0BCE8CC524C011C50060AC01 /* CAPSPageMenu+UIGestureRecognizerDelegate.swift in Sources */,
 				0B51D28F245FE0A0005C7B88 /* HSFacebookLoginManager.swift in Sources */,
+				0B53A11F24C0133800F8AE1A /* FirstDateViewController.swift in Sources */,
 				0B8D0B392481188B004465E1 /* ReasonListFields.swift in Sources */,
 				0BF70803244F1D2C003D6AB7 /* MessagesViewController.swift in Sources */,
 				F7DFAE3C24501192008863F3 /* CountryManager.swift in Sources */,
@@ -2781,6 +2865,7 @@
 				0BCD4B2E245B0C390054A805 /* RangeSlider.swift in Sources */,
 				0B0013D624ACA4B700D2EE83 /* ChatUploadTask.swift in Sources */,
 				0B595871245C642B006D500A /* StickerView.swift in Sources */,
+				0BCE8CC924C011C50060AC01 /* CAPSPageMenu+UIConfiguration.swift in Sources */,
 				0BF7080B244F1D3C003D6AB7 /* MatchProfilePresenter.swift in Sources */,
 				F7F8F5D32452F8CF00CA82E7 /* SelectCategoriesInteractor.swift in Sources */,
 				0B535686245088DC005571AF /* EditProfileViewController.swift in Sources */,
@@ -2847,6 +2932,7 @@
 				0B46A61A24B45B9B005292AB /* ChatLocationCell.swift in Sources */,
 				0BF7081E244F1D6B003D6AB7 /* ReactEmojiCollectionCell.swift in Sources */,
 				0B0013CE24ACA4B700D2EE83 /* ChatTextCell.swift in Sources */,
+				0BCE8CC724C011C50060AC01 /* MenuItemView.swift in Sources */,
 				0BC465D2247E2CC7006DF9D0 /* EditPreferencePresenter.swift in Sources */,
 				F7164ACF244EE90700853BFC /* OTPEnterViewController.swift in Sources */,
 				0B53568A245088DC005571AF /* EditInformationCell.swift in Sources */,
@@ -2882,6 +2968,7 @@
 				0BE72275247D442900BB8D23 /* PreferenceAnswer.swift in Sources */,
 				F7164AC0244EB78600853BFC /* ForgotPasswordPresenter.swift in Sources */,
 				F77E311C2456AEC100A213FF /* OTPTextField.swift in Sources */,
+				0BCE8CC624C011C50060AC01 /* CAPSPageMenu+Options.swift in Sources */,
 				0B4CA0372457EA5200A3460B /* ChangePasswordViewController.swift in Sources */,
 				F7F8F5D12452F8CF00CA82E7 /* SelectCategoriesPresenter.swift in Sources */,
 				0B4CA0382457EA5200A3460B /* ChangePasswordInteractor.swift in Sources */,
@@ -2894,6 +2981,7 @@
 				0B921C2A24571BE40010AE04 /* Content.m in Sources */,
 				0B1CB98F2459429200DA9264 /* NewMobileNumberPresenter.swift in Sources */,
 				0B9499DA2451DBC4001AD1C8 /* AccountSettingPresenter.swift in Sources */,
+				0BCE8CCB24C011C50060AC01 /* CAPSPageMenu.swift in Sources */,
 				0B69E11D2487B6E700200168 /* PreferenceCell.swift in Sources */,
 				F7164ACE244EE90700853BFC /* OTPEnterPresenter.swift in Sources */,
 				F7780E37245AD667003CA4BD /* CommonResponse.swift in Sources */,
@@ -3034,7 +3122,7 @@
 				CODE_SIGN_ENTITLEMENTS = GeekMeets/JointlyStaging.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.0.9;
+				CURRENT_PROJECT_VERSION = 1.0.10;
 				DEVELOPMENT_TEAM = 2MAYPF46D4;
 				INFOPLIST_FILE = "$(SRCROOT)/GeekMeets/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -3178,7 +3266,7 @@
 				CODE_SIGN_ENTITLEMENTS = GeekMeets/JointlyStaging.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.0.9;
+				CURRENT_PROJECT_VERSION = 1.0.10;
 				DEVELOPMENT_TEAM = 2MAYPF46D4;
 				INFOPLIST_FILE = "$(SRCROOT)/GeekMeets/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -3207,7 +3295,7 @@
 				CODE_SIGN_ENTITLEMENTS = GeekMeets/JointlyStaging.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.0.9;
+				CURRENT_PROJECT_VERSION = 1.0.10;
 				DEVELOPMENT_TEAM = 2MAYPF46D4;
 				INFOPLIST_FILE = "$(SRCROOT)/GeekMeets/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;

@@ -30,6 +30,7 @@ protocol MenuProtocol: class {
     func getSignOutResponse(response : UserAuthResponse)
     func getLocationUpdateResponse(response : UserAuthResponse)
     func getPushStatusResponse(response : UserAuthResponse)
+    func getMatchResponse(response : MatchUser)
 }
 
 class MenuViewController: UIViewController, MenuProtocol {
@@ -89,7 +90,7 @@ class MenuViewController: UIViewController, MenuProtocol {
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setTheme()
+         self.presenter?.callMatchListAPI()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -98,7 +99,7 @@ class MenuViewController: UIViewController, MenuProtocol {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setTheme()
+//         self.presenter?.callMatchListAPI()
     }
     
     func setTheme() {
@@ -187,6 +188,12 @@ class MenuViewController: UIViewController, MenuProtocol {
     }
 }
 
+extension MenuViewController {
+    func getMatchResponse(response : MatchUser) {
+        UserDataModel.setMatchesCount(count: response.responseData!.count)
+        setTheme()
+    }
+}
 //MARK: Tableview Delegate & Datasource Methods
 extension MenuViewController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -280,9 +287,8 @@ extension MenuViewController : UITableViewDataSource, UITableViewDelegate {
             let shareVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.Share_EarnScreen)
             self.pushVC(shareVC)
         }*/ else if indexPath.row == 8 {
-            let commonVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.CommonPagesScreen) as! CommonPagesViewController
-            commonVC.objCommonData = CommonModelData.Tips
-            self.pushVC(commonVC)
+            let tipsVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.TipsScreen) as! TipsViewController
+            self.pushVC(tipsVC)
         } else if indexPath.row == 9 {
             let conVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.ContactUS_LegalScreen) as? ContactUS_LegalViewController
             conVC?.isForLegal = false

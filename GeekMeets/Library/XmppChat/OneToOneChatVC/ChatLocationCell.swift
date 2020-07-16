@@ -63,7 +63,7 @@ class ChatLocationCell: UITableViewCell {
             self.chatBubbleView.layer.roundCorners([.topLeft, .bottomRight, .bottomLeft], radius: 10)
         } else {
             self.chatBubbleView.layer.roundCorners([.topRight, .bottomRight, .bottomLeft], radius: 10)
-        }   
+        }
     }
     
     private func setDeliverAndReadStatus() {

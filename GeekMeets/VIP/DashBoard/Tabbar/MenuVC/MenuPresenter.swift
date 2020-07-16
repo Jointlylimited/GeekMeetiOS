@@ -21,6 +21,9 @@ protocol MenuPresentationProtocol {
     
     func callPushStatusAPI(tiIsAcceptPush : String)
     func getPushStatusResponse(response : UserAuthResponse)
+    
+    func callMatchListAPI()
+    func getMatchResponse(response : MatchUser)
 }
 
 class MenuPresenter: MenuPresentationProtocol {
@@ -50,5 +53,12 @@ class MenuPresenter: MenuPresentationProtocol {
     
     func getPushStatusResponse(response : UserAuthResponse){
         self.viewController?.getPushStatusResponse(response : response)
+    }
+    
+    func callMatchListAPI() {
+        self.interactor?.callMatchListAPI()
+    }
+    func getMatchResponse(response : MatchUser){
+        self.viewController?.getMatchResponse(response : response)
     }
 }

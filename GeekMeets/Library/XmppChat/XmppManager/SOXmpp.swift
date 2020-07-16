@@ -390,8 +390,9 @@ final class SOXmpp: NSObject {
         
         if status && xmppStream.isAuthenticated && self._bLoginCallback != nil {
             self._bLoginCallback!(true)
+        } else {
+            self._bLoginCallback!(false)
         }
-        
     }
     
     func xmpp_RegisterUserWithDetail(objLogin:Model_SOXmppLogin, completion:@escaping BlockCompletionBool) {
@@ -1558,7 +1559,7 @@ extension SOXmpp {
     func xmpp_RemoveSingleObject(withMessageId MsgID: String?, withToUserId toUserID: String?) {
 
         let jd = XMPPJID(string: toUserID!)
-        
+//        let context = self.xmppCoreDataStorage.managedObjectContext!
         let context = CoreDataManager.sharedManager.managedContext()
         let arrSkChats = xmpp_FetchSingleArchivingObject(MsgID, with: jd!)
 
@@ -1601,33 +1602,15 @@ extension SOXmpp {
                 guard var filteredResult = result as? [XMPP_MessageArchiving_Custom] else {
                     return []
                 }
-    //            filteredResult = filteredResult.filter({ (evaluatedObject) -> Bool in
-    //                if evaluatedObject.message != nil && evaluatedObject.message.isMessageWithBody {
-    //                     return true
-    //                }
-    //                return false
-    //            })
                 
                 result = (result as NSArray).filtered(using: NSPredicate(block: { evaluatedObject, bindings in
                     if (evaluatedObject as! XMPP_MessageArchiving_Custom).messageId == MessageId! {
                         return true
                     }
                     return false
-    //                if evaluatedObject?.message().attributeStringValue(forName: "id") == MessageId {
-    //                    return true
-    //                }
-    //                return false
+
                 }))
                 
-    //            filteredResult = filteredResult.sorted(by: { (obj1, obj2) -> Bool in
-    //                return obj1.timestamp!.compare(obj2.timestamp!) == .orderedAscending
-    //            })
-    //            var arr = [Model_ChatMessage]()
-    //            for item in filteredResult {
-    //                let obj = Model_ChatMessage.init(xmppMessageObj: item)
-    //                arr.append(obj)
-    //            }
-                //printMsg(with: "\(filteredResult.count)")
                 return result as NSArray
             } catch {
                 print(error.localizedDescription)
@@ -1635,35 +1618,26 @@ extension SOXmpp {
         
             return []
         }
-
-    //func xmpp_FetchSingleObject(_ MessageId: String?, withUserId ToUserId: String?) -> [AnyHashable]? {
-    //    let fetchRequest = NSFetchRequest<NSFetchRequestResult>()
-    //
-    //    let context = CoreDataManager.sharedManager.managedContext()
-    //    var messageEntity: NSEntityDescription? = nil
-    //    if let context = context {
-    //        messageEntity = NSEntityDescription.entity(forEntityName: "XMPPMessageArchiving_Message_CoreDataObject", in: context)
-    //    }
-    //    fetchRequest.entity = messageEntity
-    //
-    //    let stryId = XMPPJID XMPPStream.xmppStream.myJID().bare()
-    //    if ToUserId != nil && ToUserId!.length {
-    //        fetchRequest.predicate = NSPredicate(format: "bareJidStr = %@ AND streamBareJidStr = %@", "\(ToUserId)\(MyDomain)", stryId)
-    //    }
-    //    var error: Error? = nil
-    //    var results: [Any]? = nil
-    //    do {
-    //        results = try context.fetch(fetchRequest)
-    //    } catch {
-    //    }
-    //    results = (results as NSArray?)?.filtered(using: NSPredicate(block: { evaluatedObject, bindings in
-    //        if evaluatedObject?.message().attributeStringValue(forName: "id") == MessageId {
-    //            return true
-    //        }
-    //        return false
-    //    }))
-    //    return results
-    //}
-
+    func xmpp_DelSingleObject(withMessageId MsgID: String?, withToUserId toUserID: String?) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>()
+        let context = CoreDataManager.sharedManager.managedContext()
+        let entity = NSEntityDescription.entity(forEntityName: "XMPP_MessageArchiving_Custom", in: context)
+        fetchRequest.entity = entity
+        
+        var error: Error?
+        var items: [Any]? = nil
+        do {
+            items = try context.fetch(fetchRequest)
+        } catch {
+        }
+        
+        
+        for managedObject in items ?? [] {
+            guard let managedObject = managedObject as? NSManagedObject else {
+                continue
+            }
+            context.delete(managedObject)
+        }
+    }
 }
 

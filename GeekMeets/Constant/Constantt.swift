@@ -109,6 +109,9 @@ struct GeekMeets_ViewController
     static let Edit_PreferenceScreen = "EditPreferenceViewController"
     static let OneToOneChatScreen = "OneToOneChatVC"
     static let ChatListScreen = "ChatListVC"
+    static let TipsScreen = "TipsViewController"
+    static let FirstCallScreen = "FirstCallViewController"
+    static let FirstDateScreen = "FirstDateViewController"
 }
 
 struct Cells {
@@ -286,6 +289,19 @@ class AppSingleton: NSObject {
                 UserDefaults.standard.set(true, forKey: kisUserLoggedIn)
             } else {
                 print("XMPP Login failed")
+                SOXmpp.manager.xmpp_RegisterUserWithDetail(objLogin: objLogin) { (status) in
+                    if status {
+                        print("XMPP Registration done")
+                        //                    objLogin.saveToLocal()
+                        SOXmpp.manager.Login(objLogin: objLogin) { (status) in
+                            if status {
+                                print("XMPP Login done")
+                                //                    objLogin.saveToLocal()
+                                UserDefaults.standard.set(true, forKey: kisUserLoggedIn)
+                            }
+                        }
+                    }
+                }
             }
         }
     }

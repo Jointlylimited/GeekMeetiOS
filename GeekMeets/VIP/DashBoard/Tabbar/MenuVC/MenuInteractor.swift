@@ -16,6 +16,7 @@ protocol MenuInteractorProtocol {
     func callSignoutAPI()
     func callUpdateLocationAPI(fLatitude : String, fLongitude : String, tiIsLocationOn : String)
     func callPushStatusAPI(tiIsAcceptPush : String)
+    func callMatchListAPI()
 }
 
 protocol MenuDataStore {
@@ -79,6 +80,25 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
                 } else {
                      self.presenter?.getPushStatusResponse(response : response!)
+                }
+            }
+        }
+    }
+    
+    func callMatchListAPI() {
+        LoaderView.sharedInstance.showLoader()
+        UserAPI.matches(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getMatchResponse(response: response!)
+            } else if response?.responseCode == 400 {
+                self.presenter?.getMatchResponse(response: response!)
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getMatchResponse(response: response!)
                 }
             }
         }
