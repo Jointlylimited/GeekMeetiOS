@@ -96,14 +96,13 @@ class MessagesViewController: UIViewController, MessagesProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.registerTableViewCell()
-        
         setStoryMsgViewData()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.registerTableViewCell()
         self.updateAndSortFriendList()
     }
     

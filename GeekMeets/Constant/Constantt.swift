@@ -165,6 +165,11 @@ struct APPLANGUAGE {
     static let arabic = "ar"
 }
 
+struct ChatFont {
+    static let msgFont = DeviceType.hasNotch ? UIFont(name: "Poppins-Medium", size: 14) : UIFont(name: "Poppins-Medium", size: 12)
+    static let inputFont = DeviceType.hasNotch ? UIFont(name: "Poppins-Medium", size: 14) : UIFont(name: "Poppins-Medium", size: 12)
+}
+
 struct UserDefaultKeyName {
     static let kCurrentCustomerDetail = "CurrentCustomer"
     static let kCurrentProviderDetail = "kCurrentProvider"

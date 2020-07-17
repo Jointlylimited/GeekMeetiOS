@@ -1556,7 +1556,7 @@ extension SOXmpp {
 //        })
     }
     
-    func xmpp_RemoveSingleObject(withMessageId MsgID: String?, withToUserId toUserID: String?) {
+    func xmpp_RemoveSingleObject(withMessageId MsgID: String?, withToUserId toUserID: String?, obj : Model_ChatMessage) {
 
         let jd = XMPPJID(string: toUserID!)
 //        let context = self.xmppCoreDataStorage.managedObjectContext!
@@ -1565,6 +1565,7 @@ extension SOXmpp {
 
         (arrSkChats as NSArray).enumerateObjects({ skChat, idx, stop in
             if let messageObject = (skChat as? NSManagedObject) {
+                removeMessage(objMsg: obj)
                 context.delete(messageObject)
             }
         })
@@ -1637,7 +1638,21 @@ extension SOXmpp {
                 continue
             }
             context.delete(managedObject)
+            
         }
+    }
+    
+    func removeMessage(objMsg: Model_ChatMessage){
+        let message = XMLElement.init(name: "message")
+        message.addAttribute(withName: "to", stringValue: "\(objMsg.ToJID!.bare)")
+        message.addAttribute(withName: "id", stringValue: "remove1")
+        let remove = XMLElement.init(name: "remove")
+        remove.addAttribute(withName: "id", stringValue: "\(objMsg.ToJID!.bare)")
+        remove.addAttribute(withName: "xmlns", stringValue: "urn:xmpp:message-delete:0")
+        
+        message.addChild(remove)
+        
+        self.xmppStream.send(message)
     }
 }
 

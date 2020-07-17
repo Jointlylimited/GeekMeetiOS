@@ -110,25 +110,9 @@
             filePath = "GeekMeets/Library/XmppChat/OneToOneChatVC/OneToOneChatVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
             landmarkName = "SetTypingStatus()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "46E05609-0A40-4E36-A797-15B0DD94AFB0"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GeekMeets/VIP/DashBoard/Tabbar/MenuVC/MenuViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
-            landmarkName = "setTheme()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -183,48 +167,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "23B7A7A5-E428-404C-BECE-D2955E47E725"
+            uuid = "F8402FF9-8BB0-45B2-A962-F5054B536439"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeekMeets/Library/XmppChat/XmppManager/SOXmpp.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1564"
-            endingLineNumber = "1564"
-            landmarkName = "xmpp_RemoveSingleObject(withMessageId:withToUserId:)"
+            startingLineNumber = "1655"
+            endingLineNumber = "1655"
+            landmarkName = "removeMessage(objMsg:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "23C82890-7F8D-4F49-B342-359AB7F663C2"
+            uuid = "E1CBB40D-B40F-4F73-BC66-0621B8525BA3"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GeekMeets/VIP/MenuScreens/DiscoverySettingVC/EditInterestPreferenceVC/EditPreferenceViewController.swift"
+            filePath = "GeekMeets/Library/XmppChat/OneToOneChatVC/OneToOneChatVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
-            landmarkName = "callCreatePreferenceAPI()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "377704AB-EE78-4560-BD2F-6A16BAEA3ECE"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GeekMeets/VIP/MenuScreens/DiscoverySettingVC/EditInterestPreferenceVC/EditPreferenceViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
-            landmarkName = "callCreatePreferenceAPI()"
+            startingLineNumber = "1414"
+            endingLineNumber = "1414"
+            landmarkName = "RetryBtnPressed(for:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

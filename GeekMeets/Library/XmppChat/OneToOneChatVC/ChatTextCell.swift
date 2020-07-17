@@ -35,6 +35,7 @@ class ChatTextCell: UITableViewCell {
         self.chatMsgObj = chatMsg
         
         lblMsg.text = chatMsg.strMsg
+        lblMsg.font = ChatFont.msgFont
         lblDateTime.text = ST_DateFormater.GetTime(from: chatMsg.timestamp)
         
         if chatMsg.isOutgoing {

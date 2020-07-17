@@ -87,6 +87,7 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: UIResponder.keyboardDidHideNotification, object: nil)
         
         //4
+        inputTextView.font = ChatFont.inputFont!
         inputTextView.growingTextViewDelegate = self
         inputTextView.delegate = self
         
@@ -869,7 +870,7 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
     }
     
         func showOptionAlertView() {
-            alertView = CustomOptionView.initAlertView()
+            alertView = CustomOptionView.initAlertView(isblock : self.isBlock!)
             alertView.delegate = self
             alertView.frame = self.view.frame
             self.view.addSubview(alertView)
@@ -1392,7 +1393,7 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
 extension OneToOneChatVC: ProtocolChatMessageRetry {
     func UnsendBtnPressed(for objChat: Model_ChatMessage) {
         if objChat.isOutgoing {
-            SOXmpp.manager.xmpp_RemoveSingleObject(withMessageId: objChat.messageId, withToUserId: self.objFriend!.jID)
+            SOXmpp.manager.xmpp_RemoveSingleObject(withMessageId: objChat.messageId, withToUserId: self.objFriend!.jID, obj: objChat)
             self.loadMessages(msgObj: nil)
         }
     }
@@ -1402,21 +1403,46 @@ extension OneToOneChatVC: ProtocolChatMessageRetry {
         objChat.isUploading = true
         objChat.isError = false
         
-        if objChat.isOutgoing {
-            
-            let lastPath = URL(fileURLWithPath: objChat.localPath!).lastPathComponent
-            let _url = Chat_Utility.documentsPath.appendingPathComponent(lastPath)
-            
-            let objUploadTask = ChatUploadTask.init(objChat: objChat, localPath: _url)
-            objUploadTask.delegate = self
-            AWSS3Manager.shared.activeUploads.append(objUploadTask)
-            XMPP_MessageArchiving_Custom.UpdateMessage(obj: objChat)
-            self.updateMessage(with: objChat)
-            
-            if AWSS3Manager.shared.index == 0 {
-                AWSS3Manager.shared.sequenceUpload()
+        switch XMPP_Message_Type.init(rawValue: objChat.msgType!) {
+        case .text, .location:
+            if objChat.isOutgoing {
+                
+            }
+            break
+        default:
+            if objChat.isOutgoing {
+                if objChat.msgStatus != 1 && objChat.msgStatus != 2 && objChat.msgStatus != 3 {
+                    let lastPath = URL(fileURLWithPath: objChat.localPath!).lastPathComponent
+                    let _url = Chat_Utility.documentsPath.appendingPathComponent(lastPath)
+                    
+                    let objUploadTask = ChatUploadTask.init(objChat: objChat, localPath: _url)
+                    objUploadTask.delegate = self
+                    AWSS3Manager.shared.activeUploads.append(objUploadTask)
+                    XMPP_MessageArchiving_Custom.UpdateMessage(obj: objChat)
+                    self.updateMessage(with: objChat)
+                    
+                    if AWSS3Manager.shared.index == 0 {
+                        AWSS3Manager.shared.sequenceUpload()
+                    }
+                }
             }
         }
+        
+//        if objChat.isOutgoing {
+//
+//            let lastPath = URL(fileURLWithPath: objChat.localPath!).lastPathComponent
+//            let _url = Chat_Utility.documentsPath.appendingPathComponent(lastPath)
+//
+//            let objUploadTask = ChatUploadTask.init(objChat: objChat, localPath: _url)
+//            objUploadTask.delegate = self
+//            AWSS3Manager.shared.activeUploads.append(objUploadTask)
+//            XMPP_MessageArchiving_Custom.UpdateMessage(obj: objChat)
+//            self.updateMessage(with: objChat)
+//
+//            if AWSS3Manager.shared.index == 0 {
+//                AWSS3Manager.shared.sequenceUpload()
+//            }
+//        }
     }
 }
 

@@ -562,11 +562,6 @@ extension MatchProfileViewController {
       self.view.addSubview(alertView)
     }
     
-    func showPickImageView() {
-      customPickImageView = CustomOptionView.initAlertView()
-      customPickImageView.frame = self.view.frame
-      self.view.addSubview(customPickImageView)
-    }
 }
 
 extension MatchProfileViewController : AlertViewDelegate {

@@ -59,12 +59,12 @@ class CustomOptionView: UIView {
         }
     }
     
-    class func initAlertView() -> CustomOptionView {
+    class func initAlertView(isblock : Int) -> CustomOptionView {
         let view = Bundle.main.loadNibNamed("CustomOptionView", owner: nil, options: nil)?.first as! CustomOptionView
 //        view.viewCancel.dropShadow()
 //        view.viewRight.dropShadow()
 //        view.prepareUI()
-        
+        view.btnBlock.setTitle(isblock == 1 ? kTitleUnBlock : kTitleBlock, for: .normal)
         view.layoutIfNeeded()
         return view
     }
