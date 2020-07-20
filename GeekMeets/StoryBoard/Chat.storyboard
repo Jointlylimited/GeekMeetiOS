@@ -369,7 +369,7 @@
                                                         <action selector="btnMenuAction:" destination="RBv-Gr-pTz" eventType="touchUpInside" id="JYi-VP-H5Z"/>
                                                     </connections>
                                                 </button>
-                                                <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="L8G-I0-tw0">
+                                                <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="L8G-I0-tw0">
                                                     <rect key="frame" x="122.5" y="6.5" width="60" height="40"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RW8-KR-pfK">
@@ -450,6 +450,8 @@
                                             <outlet property="chatBubbleView" destination="qO0-hG-ua5" id="y2R-DP-nb1"/>
                                             <outlet property="lblDateTime" destination="RvC-ZT-wsT" id="xGf-6l-7XU"/>
                                             <outlet property="lblMsg" destination="soQ-en-07r" id="3PD-bQ-GXB"/>
+                                            <outlet property="resendView" destination="RW8-KR-pfK" id="g4K-Ah-hDG"/>
+                                            <outlet property="stackViewHeightConstant" destination="N0L-VD-H7U" id="kWw-2S-BiL"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ChatText_Incoming" rowHeight="75" id="ze1-IA-1VN" customClass="ChatTextCell" customModule="Jointly" customModuleProvider="target">
@@ -882,7 +884,7 @@
                                                         <action selector="btnMenuAction:" destination="MgY-m4-rGZ" eventType="touchUpInside" id="pre-CG-WVh"/>
                                                     </connections>
                                                 </button>
-                                                <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="3QO-WV-5N4">
+                                                <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="3QO-WV-5N4">
                                                     <rect key="frame" x="80" y="21.5" width="60" height="40"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MR2-Dj-w20">
@@ -971,6 +973,8 @@
                                             <outlet property="imgVideoPreview" destination="wnf-B6-xnt" id="nvW-U8-Qca"/>
                                             <outlet property="imgView" destination="Hfi-he-gd3" id="ZI7-BZ-7uI"/>
                                             <outlet property="lblDateTime" destination="ikI-QO-3hr" id="WDY-JL-sGV"/>
+                                            <outlet property="resendView" destination="MR2-Dj-w20" id="VTF-O2-i1x"/>
+                                            <outlet property="stackViewHeightConstant" destination="IOx-PG-73Z" id="44I-jb-O9U"/>
                                             <outlet property="viewUploadContainer" destination="kwM-Ag-6xI" id="Ky3-BT-0KJ"/>
                                         </connections>
                                     </tableViewCell>
@@ -1141,7 +1145,7 @@
                                                         <action selector="btnMenuAction:" destination="RWW-Vh-go7" eventType="touchUpInside" id="baZ-bO-4tB"/>
                                                     </connections>
                                                 </button>
-                                                <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="MHa-PZ-xgL">
+                                                <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="MHa-PZ-xgL">
                                                     <rect key="frame" x="120" y="23" width="60" height="40"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xda-M9-dWe">
@@ -1232,6 +1236,8 @@
                                             <outlet property="imgView" destination="nI0-vc-6gF" id="iEd-YC-6AT"/>
                                             <outlet property="lblDateTime" destination="dtp-J7-fAO" id="doc-sJ-8FZ"/>
                                             <outlet property="mapView" destination="Ci3-5s-H2j" id="YfT-G8-11v"/>
+                                            <outlet property="resendView" destination="Xda-M9-dWe" id="RKc-u9-XaE"/>
+                                            <outlet property="stackViewHeightConstant" destination="539-Lw-IFF" id="mpn-SR-gD0"/>
                                             <outlet property="viewUploadContainer" destination="0gF-mL-ShD" id="0FP-6S-gKF"/>
                                         </connections>
                                     </tableViewCell>

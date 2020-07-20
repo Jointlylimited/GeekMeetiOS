@@ -20,7 +20,7 @@ class FullScreenImageViewController: UIViewController {
     }
     
     func setImageViewData(){
-        LoaderView.sharedInstance.showLoader()
+        
         if chatMsg!.msgType! == "image" {
             if let _url = chatMsg!.getLocalPath() {
                 imgView.sd_setImage(with: _url, placeholderImage: #imageLiteral(resourceName: "placeholder_rect"), options: [.scaleDownLargeImages], context: nil)

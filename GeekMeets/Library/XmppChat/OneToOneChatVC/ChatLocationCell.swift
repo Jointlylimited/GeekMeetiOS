@@ -23,6 +23,8 @@ class ChatLocationCell: UITableViewCell {
     @IBOutlet weak var chatBubbleView: ChatBubbleView!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var BtnView: UIStackView!
+    @IBOutlet weak var resendView: UIView!
+    @IBOutlet weak var stackViewHeightConstant: NSLayoutConstraint!
     
     var chatMsgObj: Model_ChatMessage?
     weak var delegate: ProtocolChatMessageRetry?
@@ -31,7 +33,7 @@ class ChatLocationCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         self.selectionStyle = .none
-        self.BtnView.customize(backgroundColor: #colorLiteral(red: 0.75, green: 0.75, blue: 0.75, alpha: 0.5), radiusSize: 5.0)
+//        self.BtnView.customize(backgroundColor: #colorLiteral(red: 0.75, green: 0.75, blue: 0.75, alpha: 0.5), radiusSize: 5.0)
     }
 
     @IBAction func retryBtnAction(_ sender: UIButton) {
@@ -56,6 +58,17 @@ class ChatLocationCell: UITableViewCell {
     
     func ConfigureCell(with chatMsg: Model_ChatMessage) {
         self.chatMsgObj = chatMsg
+        
+        if self.chatMsgObj!.msgStatus != 1 && self.chatMsgObj!.msgStatus != 2 && self.chatMsgObj!.msgStatus != 3 {
+            self.BtnView.customize(backgroundColor: #colorLiteral(red: 0.75, green: 0.75, blue: 0.75, alpha: 0.5), radiusSize: 5.0, isSend: false)
+            self.stackViewHeightConstant.constant = 40
+        } else {
+            self.BtnView.removeArrangedSubview(resendView)
+            self.stackViewHeightConstant.constant = 20
+            self.resendView.alpha = 0.0
+            self.BtnView.customize(backgroundColor: #colorLiteral(red: 0.75, green: 0.75, blue: 0.75, alpha: 0.5), radiusSize: 5.0, isSend: true)
+        }
+        
         lblDateTime.text = ST_DateFormater.GetTime(from: chatMsg.timestamp)
         setLocationOnMap()
         if chatMsg.isOutgoing {

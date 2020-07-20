@@ -1199,11 +1199,20 @@ extension CALayer {
 }
 
 extension UIStackView {
-    func customize(backgroundColor: UIColor = .clear, radiusSize: CGFloat = 0) {
+    func customize(backgroundColor: UIColor = .clear, radiusSize: CGFloat = 0, isSend : Bool = false) {
         let subView = UIView(frame: bounds)
         subView.backgroundColor = backgroundColor
         subView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         insertSubview(subView, at: 0)
+        
+        let view = UIView(x: 0, y: subView.frame.y + subView.frame.height/2, w: bounds.width, h: 0.5)
+        view.backgroundColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
+        
+        if !isSend {
+            self.addSubview(view)
+        } else {
+            view.alpha = 0.0
+        }
         
         subView.layer.cornerRadius = radiusSize
         subView.layer.masksToBounds = true

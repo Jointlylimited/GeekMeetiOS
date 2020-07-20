@@ -1310,6 +1310,7 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
             break
             
         case .image:
+            LoaderView.sharedInstance.showLoader()
             let objVC = self.storyboard?.instantiateViewController(withIdentifier: "FullScreenImageViewController") as! FullScreenImageViewController
             objVC.chatMsg = arrChatMsg[indexPath.row]
             objVC.modalTransitionStyle = .crossDissolve
@@ -1320,10 +1321,12 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
             break
             
         case .gif:
+            LoaderView.sharedInstance.showLoader()
             let objVC = self.storyboard?.instantiateViewController(withIdentifier: "FullScreenImageViewController") as! FullScreenImageViewController
             objVC.chatMsg = arrChatMsg[indexPath.row]
             objVC.modalTransitionStyle = .crossDissolve
             objVC.modalPresentationStyle = .overCurrentContext
+            
             DispatchQueue.main.async {
                 self.present(objVC, animated: true, completion: nil)
             }
