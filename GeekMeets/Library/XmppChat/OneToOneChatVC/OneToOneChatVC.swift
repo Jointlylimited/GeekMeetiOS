@@ -1099,6 +1099,7 @@ extension OneToOneChatVC {
     
     func getUnMatchResponse(response : CommonResponse){
         if response.responseCode == 200 {
+            self.deleteUser()
            self.navigationController?.popViewController(animated: true)
         }
     }
