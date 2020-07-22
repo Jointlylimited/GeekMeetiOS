@@ -30,6 +30,7 @@ class MatchViewController: UIViewController, MatchProtocol {
     @IBOutlet weak var viewHeightConstant: NSLayoutConstraint!
     @IBOutlet weak var stackViewHeightConstant: NSLayoutConstraint!
     
+    @IBOutlet var MsgButtons: [UIButton]!
     var UserDetails : UserAuthResponseField!
     var CardUserDetails : SearchUserFields!
     var isFromProfile : Bool = false
@@ -138,6 +139,14 @@ class MatchViewController: UIViewController, MatchProtocol {
         self.dismissVC {
             if self.xmppUserID != "" {
             let dict = ["xmppUserID": self.xmppUserID, "name": self.name, "imageString": self.imageString]
+                AppSingleton.sharedInstance().showHomeVC(fromMatch: true, userDict: dict as NSDictionary)
+            }
+        }
+    }
+    @IBAction func btnSendRandomMsgAction(_ sender: UIButton) {
+        self.dismissVC {
+            if self.xmppUserID != "" {
+                let dict = ["xmppUserID": self.xmppUserID, "name": self.name, "imageString": self.imageString, "inputMsgText" : sender.titleLabel?.text]
                 AppSingleton.sharedInstance().showHomeVC(fromMatch: true, userDict: dict as NSDictionary)
             }
         }

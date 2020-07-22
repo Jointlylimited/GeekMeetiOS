@@ -75,9 +75,12 @@ class DiscoverySettingViewController: UIViewController, DiscoverySettingProtocol
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.registerTableViewCell()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.registerTableViewCell()
+    }
     func registerTableViewCell(){
         if !isFromMenu {
             self.lblTitle.text = "Edit Interests & Preferences"

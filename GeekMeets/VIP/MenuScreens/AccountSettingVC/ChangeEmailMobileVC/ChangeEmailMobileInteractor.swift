@@ -27,7 +27,7 @@ class ChangeEmailMobileInteractor: ChangeEmailMobileInteractorProtocol, ChangeEm
     // MARK: Do something
     func callUpdateEmailAPI(iUserId: String, vEmail : String) {
         LoaderView.sharedInstance.showLoader()
-        UserAPI.requestForEmail(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, iUserId: iUserId, vEmail: vEmail) { (response, error) in
+        UserAPI.requestForEmail(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, vEmail: vEmail, iUserId: iUserId) { (response, error) in
             
             LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {

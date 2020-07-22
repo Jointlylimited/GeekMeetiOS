@@ -109,9 +109,9 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if !self.isFromDiscover {
-            return self.objFilterMsgData.count
+            return self.objFilterMsgData.count != 0 ? self.objFilterMsgData.count : 0
         } else {
-            return self.objFilterStoryData.count
+            return self.objFilterStoryData.count != 0 ? self.objFilterStoryData.count : 0
         }
     }
     
@@ -135,6 +135,11 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
                     print("Click on close button.")
                     self.objFilterMsgData.remove(at: indexPath.row)
                     self.tblSearchList.reloadData()
+                    if self.objFilterMsgData.count == 0 {
+                        self.lblNoResult.alpha = 1
+                    } else {
+                        self.lblNoResult.alpha = 0
+                    }
                 }
             } else {
                 let data = objFilterStoryData[indexPath.row][0]
@@ -153,6 +158,11 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
                     print("Click on close button.")
                     self.objFilterStoryData.remove(at: indexPath.row)
                     self.tblSearchList.reloadData()
+                    if self.objFilterStoryData.count == 0 {
+                        self.lblNoResult.alpha = 1
+                    } else {
+                        self.lblNoResult.alpha = 0
+                    }
                 }
             }
         }
@@ -200,7 +210,7 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
             }
         } else {
             if objFilterMsgData.count != 0 {
-                matchVC!.UserID = objFilterMsgData[indexPath.row].iUserId
+                matchVC!.UserID = objFilterMsgData[indexPath.row].iOtherUserId
             }
         }
         matchVC!.isFromHome = false

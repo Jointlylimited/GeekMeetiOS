@@ -20,6 +20,9 @@ protocol SignInPresentationProtocol
     
     func actionForgotPassword()
     func gotoHomeScreen()
+    
+    func callVerifyEmailAPI(email : String)
+    func getEmailVerifyResponse(response : CommonResponse)
 }
 
 class SignInPresenter: SignInPresentationProtocol {
@@ -52,20 +55,40 @@ class SignInPresenter: SignInPresentationProtocol {
     
     func getSignInResponse(response : UserAuthResponse)
     {
-        UserDataModel.currentUser = response.responseData
-        UserDataModel.setAuthKey(key: (response.responseData?.vAuthKey)!)
-        Authentication.setSignUpFlowStatus(response.responseData!.tiStep!)
+       
         if response.responseCode == 200 {
+            UserDataModel.currentUser = response.responseData
+            UserDataModel.setAuthKey(key: (response.responseData?.vAuthKey)!)
+            Authentication.setSignUpFlowStatus(response.responseData!.tiStep!)
             self.setScreenAsPerLoginStatus(status: response.responseData!.tiStep!)
         } else if response.responseCode == 203 {
+            UserDataModel.currentUser = response.responseData
+            UserDataModel.setAuthKey(key: (response.responseData?.vAuthKey)!)
+            Authentication.setSignUpFlowStatus(response.responseData!.tiStep!)
+            self.setScreenAsPerLoginStatus(status: response.responseData!.tiStep!)
             let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter)
             if let view = self.viewController as? UIViewController
             {
                 view.pushVC(controller)
             }
+        }  else if response.responseCode == 401 {
+            self.viewController?.showAlertView()
         } else {
             self.viewController?.displayAlert(strTitle: "", strMessage: response.responseMessage!)
         }
+    }
+    
+    func callVerifyEmailAPI(email : String){
+        if email.isEmpty
+        {
+            self.viewController?.displayAlert(strTitle: "", strMessage: kEnterEmail)
+            return
+        }
+        self.interactor?.callVerifyEmailAPI(email : email)
+    }
+    
+    func getEmailVerifyResponse(response : CommonResponse) {
+        self.viewController?.displayAlert(strTitle: "", strMessage: response.responseMessage!)
     }
     
     func callPreferenceAPI(){
@@ -128,3 +151,5 @@ class SignInPresenter: SignInPresentationProtocol {
         }
     }
 }
+
+

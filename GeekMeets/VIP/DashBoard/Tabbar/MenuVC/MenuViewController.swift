@@ -321,7 +321,7 @@ extension MenuViewController {
     }
     func getLocationUpdateResponse(response : UserAuthResponse){
         if response.responseCode == 200 {
-            UserDataModel.currentUser = response.responseData
+            UserDataModel.currentUser?.tiIsLocationOn = response.responseData?.tiIsLocationOn
             self.tblMenuList.reloadData()
 //            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }
@@ -329,7 +329,7 @@ extension MenuViewController {
     
     func getPushStatusResponse(response : UserAuthResponse){
         if response.responseCode == 200 {
-            UserDataModel.currentUser = response.responseData
+            UserDataModel.currentUser?.tiIsAcceptPush = response.responseData?.tiIsAcceptPush
             self.tblMenuList.reloadData()
 //            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }

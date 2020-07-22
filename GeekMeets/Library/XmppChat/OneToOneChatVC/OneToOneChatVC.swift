@@ -69,6 +69,7 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
     var imageString : String?
     var arrBlockUserList = BlockUserListModel()
     var mediaType: MediaType = .image
+    var inputMsgText : String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,6 +91,7 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
         inputTextView.font = ChatFont.inputFont!
         inputTextView.growingTextViewDelegate = self
         inputTextView.delegate = self
+        inputTextView.text = inputMsgText
         
         self.scrollToBottomAnimated(animated: false)
         self.callBlockUserListAPI()
@@ -290,7 +292,8 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
             self.tblChat.reloadData()
             self.scrollToBottomAnimated(animated: true)
         }
-        
+        self.scrollToBottomAnimated(animated: true)
+        self.view.layoutIfNeeded()
         self.fetchThumbnailForVideo()
         
     }
@@ -1056,8 +1059,8 @@ extension OneToOneChatVC {
                      
                      self.arrChatMsg.append(obj)
                      //self.GetDifferentDate()
-                     self.tblChat.reloadData()
-                     self.scrollToBottomAnimated(animated: true)
+                    self.scrollToBottomAnimated(animated: true)
+                    self.tblChat.reloadData()
                  }
                  
                  SOXmpp.manager.xmpp_SendMessage(bodyData: jsonStr, objMsg: obj)
@@ -1079,7 +1082,7 @@ extension OneToOneChatVC {
     }
     
     func callUnMatchUserAPI(iProfileId : String){
-        LoaderView.sharedInstance.showLoader()
+//        LoaderView.sharedInstance.showLoader()
         UserAPI.unMatch(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vXmppUser: iProfileId) { (response, error) in
             
             LoaderView.sharedInstance.hideLoader()
@@ -1105,7 +1108,7 @@ extension OneToOneChatVC {
     }
     func callBlock(userId:String,tiStatus:Int){
         DispatchQueue.main.async {
-            LoaderView.sharedInstance.showLoader()
+//            LoaderView.sharedInstance.showLoader()
         }
         
         UserAPI.blockUsers(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vXmppUser: userId, tiIsBlocked: "\(tiStatus)") { (response, error) in
@@ -1154,7 +1157,7 @@ extension OneToOneChatVC {
     }
     
     func callBlockUserListAPI() {
-        LoaderView.sharedInstance.showLoader()
+//        LoaderView.sharedInstance.showLoader()
         UserAPI.blockList(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
             LoaderView.sharedInstance.hideLoader()
@@ -1410,7 +1413,11 @@ extension OneToOneChatVC: ProtocolChatMessageRetry {
         switch XMPP_Message_Type.init(rawValue: objChat.msgType!) {
         case .text, .location:
             if objChat.isOutgoing {
-                
+                if objChat.msgStatus != 1 && objChat.msgStatus != 2 && objChat.msgStatus != 3 {
+                } else {
+                    objChat.isUploading = false
+                    objChat.isError = true
+                }
             }
             break
         default:
@@ -1428,6 +1435,9 @@ extension OneToOneChatVC: ProtocolChatMessageRetry {
                     if AWSS3Manager.shared.index == 0 {
                         AWSS3Manager.shared.sequenceUpload()
                     }
+                } else {
+                    objChat.isUploading = false
+                    objChat.isError = true
                 }
             }
         }

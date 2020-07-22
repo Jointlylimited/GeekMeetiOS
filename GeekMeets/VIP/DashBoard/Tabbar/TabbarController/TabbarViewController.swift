@@ -76,6 +76,7 @@ class TabbarViewController: UITabBarController, TabbarProtocol {
                 obj._userIDForRequestSend = self.userDict["xmppUserID"] as? String
                 obj.userName = self.userDict["name"] as? String
                 obj.imageString = self.userDict["imageString"] as? String
+                obj.inputMsgText = self.userDict["inputMsgText"] != nil ? (self.userDict["inputMsgText"] as? String)! : ""
                 self.pushVC(obj)
             }
         }

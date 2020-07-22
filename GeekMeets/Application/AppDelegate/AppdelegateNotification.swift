@@ -19,15 +19,15 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {
                 (granted, error) in
                 print("Permission granted: \(granted)")
-//                if UserDataModel.currentUser != nil {
-//                    if UserDataModel.currentUser?.tiIsAcceptPush == 0 {
-//                        self.callPushStatusAPI(tiIsAcceptPush: "1")
-//                        UserDataModel.setPushStatus(status: "1")
-//                   }
-//                } else {
-//                    self.callPushStatusAPI(tiIsAcceptPush: "1")
-//                    UserDataModel.setPushStatus(status: "1")
-//                }
+                if UserDataModel.currentUser != nil {
+                    if UserDataModel.currentUser?.tiIsAcceptPush == 0 {
+                        self.callPushStatusAPI(tiIsAcceptPush: "1")
+                        UserDataModel.setPushStatus(status: "1")
+                   }
+                } else {
+                    self.callPushStatusAPI(tiIsAcceptPush: "1")
+                    UserDataModel.setPushStatus(status: "1")
+                }
                 
                 guard granted else {
                     self.showPermissionAlert()
@@ -171,12 +171,12 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
 extension AppDelegate {
     func callPushStatusAPI(tiIsAcceptPush : String) {
         DispatchQueue.main.async {
-            LoaderView.sharedInstance.showLoader()
+//            LoaderView.sharedInstance.showLoader()
         }
         
         UserAPI.setPushStatus(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vDeviceToken: AppDelObj.deviceToken, tiIsAcceptPush: tiIsAcceptPush) { (response, error) in
             DispatchQueue.main.async {
-                LoaderView.sharedInstance.hideLoader()
+//                LoaderView.sharedInstance.hideLoader()
             }
             if response?.responseCode == 200 {
                 //                UserDataModel.currentUser = response?.responseData
@@ -184,7 +184,7 @@ extension AppDelegate {
                 AppSingleton.sharedInstance().logout()
             } else {
                 if error != nil {
-                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+//                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
                 } else {
                     //                     self.presenter?.getPushStatusResponse(response : response!)
                 }

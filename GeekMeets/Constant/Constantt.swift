@@ -315,6 +315,7 @@ class AppSingleton: NSObject {
     {
         UserDataModel.currentUser = nil
         Authentication.setLoggedInStatus(false)
+        SOXmpp.manager.disconnect()
         
         //Facebook Logout
         let loginManager = LoginManager()

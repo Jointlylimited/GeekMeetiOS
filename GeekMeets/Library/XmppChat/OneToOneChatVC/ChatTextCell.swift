@@ -36,15 +36,15 @@ class ChatTextCell: UITableViewCell {
         self.chatMsgObj = chatMsg
         
         if chatMsg.isOutgoing {
-            if self.chatMsgObj!.msgStatus != 1 && self.chatMsgObj!.msgStatus != 2 && self.chatMsgObj!.msgStatus != 3 {
-                self.BtnView.customize(backgroundColor: #colorLiteral(red: 0.75, green: 0.75, blue: 0.75, alpha: 0.5), radiusSize: 5.0, isSend: false)
+//            if self.chatMsgObj!.msgStatus != 1 && self.chatMsgObj!.msgStatus != 2 && self.chatMsgObj!.msgStatus != 3 {
+                self.BtnView.customize(backgroundColor: #colorLiteral(red: 0.7490196078, green: 0.75, blue: 0.75, alpha: 0.3), radiusSize: 5.0, isSend: false)
                 self.stackViewHeightConstant.constant = 40
-            } else {
-                self.BtnView.removeArrangedSubview(resendView)
-                self.stackViewHeightConstant.constant = 20
-                self.resendView.alpha = 0.0
-                self.BtnView.customize(backgroundColor: #colorLiteral(red: 0.75, green: 0.75, blue: 0.75, alpha: 0.5), radiusSize: 5.0, isSend: true)
-            }
+//            } else {
+//                self.BtnView.removeArrangedSubview(resendView)
+//                self.stackViewHeightConstant.constant = 20
+//                self.resendView.alpha = 0.0
+//                self.BtnView.customize(backgroundColor: #colorLiteral(red: 0.75, green: 0.75, blue: 0.75, alpha: 0.5), radiusSize: 5.0, isSend: true)
+//            }
         }
             
         lblMsg.text = chatMsg.strMsg

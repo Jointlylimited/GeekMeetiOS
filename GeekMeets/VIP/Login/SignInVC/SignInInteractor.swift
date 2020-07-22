@@ -16,6 +16,7 @@ protocol SignInInteractorProtocol
 {
     func callSignInAPI(_ userName : String, password : String)
     func callQuestionaryAPI()
+    func callVerifyEmailAPI(email : String)
 }
 
 class SignInInteractor: SignInInteractorProtocol {
@@ -32,6 +33,8 @@ class SignInInteractor: SignInInteractorProtocol {
             if response?.responseCode == 200 {
                 self.presenter?.getSignInResponse(response : response!)
             } else if response?.responseCode == 203 {
+                self.presenter?.getSignInResponse(response : response!)
+            } else if response?.responseCode == 401 {
                 self.presenter?.getSignInResponse(response : response!)
             } else {
                 if error != nil {
@@ -60,6 +63,25 @@ class SignInInteractor: SignInInteractorProtocol {
                 }
             }
             
+        }
+    }
+    
+    func callVerifyEmailAPI(email : String){
+        LoaderView.sharedInstance.showLoader()
+        UserAPI.requestForEmail(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, vEmail: email) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getEmailVerifyResponse(response : response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+            } else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+                }
+            }
         }
     }
 }

@@ -16,6 +16,7 @@ import Crashlytics
 //MARK:- Protocol and Method
 protocol SignInProtocol: class{
     func displayAlert(strTitle : String, strMessage : String)
+    func showAlertView()
 }
 
 
@@ -33,6 +34,8 @@ class SignInViewController: UIViewController,SignInProtocol
     @IBOutlet weak var btnForgot: UIButton!
     @IBOutlet weak var btnSignIn: GradientButton!
     // MARK:- Object lifecycle
+    
+    var alertView: CustomAlertView!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -99,6 +102,13 @@ class SignInViewController: UIViewController,SignInProtocol
     @objc func clickOnSignUpBtn(){
         self.popVC()
     }
+    
+    func showAlertView() {
+        alertView = CustomAlertView.initAlertView(title: "Verify Email", message: "Your email address is not verified please verify your email address", btnRightStr: "Resend Link", btnCancelStr: "Cancel", btnCenter: "", isSingleButton: false)
+        alertView.delegate = self
+        alertView.frame = self.view.frame
+        AppDelObj.window?.addSubview(alertView)
+    }
 }
 
 //MARK:- IBAction Method
@@ -122,5 +132,17 @@ extension SignInViewController
     {
         sender.isSelected = !sender.isSelected
         tfPassword.isSecureTextEntry = !sender.isSelected
+    }
+}
+
+//MARK: AlertView Delegate Methods
+extension SignInViewController : AlertViewDelegate {
+    func OkButtonAction(title : String) {
+        alertView.alpha = 0.0
+        self.presenter?.callVerifyEmailAPI(email : self.tfEmail.text ?? "")
+    }
+    
+    func cancelButtonAction() {
+        alertView.alpha = 0.0
     }
 }

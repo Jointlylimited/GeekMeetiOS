@@ -76,7 +76,13 @@ class HomeViewController: UIViewController, HomeProtocol {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getUserCurrentLocation()
+        //        getUserCurrentLocation()
+        if UserDataModel.currentUser!.fLatitude != "" && UserDataModel.currentUser!.fLongitude != "" {
+            self.location = CLLocation(latitude: CLLocationDegrees(exactly: Double(UserDataModel.currentUser!.fLatitude!)!)!, longitude: CLLocationDegrees(exactly: Double(UserDataModel.currentUser!.fLongitude!)!)!)
+            self.presenter?.callUserCardAPI()
+        } else {
+            self.getUserCurrentLocation()
+        }
     }
     
     func setCards() {
@@ -166,7 +172,7 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
         return cardsData.count
     }
     func view(for cards: SwipeableCards, index: Int, reusingView: CardView?) -> CardView {
-
+        
         cardView = CardView.initCoachingAlertView(obj : self.objCardArray.objUserCard, location : self.location!)
         cardView.frame = CGRect(x: 20, y: DeviceType.hasNotch ? 120 : 50, w: ScreenSize.width - 40, h: ScreenSize.height - (DeviceType.hasNotch ? 220 : 150))
         cardView.setData(index: 0)

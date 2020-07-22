@@ -349,10 +349,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="FhO-T2-LU9">
-                                                    <rect key="frame" x="285.5" y="42" width="24.5" height="14"/>
+                                                    <rect key="frame" x="288" y="42" width="22" height="12"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RvC-ZT-wsT">
-                                                            <rect key="frame" x="0.0" y="0.0" width="24.5" height="14"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="22" height="12"/>
                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="10"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -475,10 +475,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="siP-pX-Wd9">
-                                                    <rect key="frame" x="10" y="42" width="24.5" height="14"/>
+                                                    <rect key="frame" x="10" y="42" width="22" height="12"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cz1-lZ-ptw">
-                                                            <rect key="frame" x="0.0" y="0.0" width="24.5" height="14"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="22" height="12"/>
                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="10"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -607,10 +607,10 @@
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="4xU-xK-TCH">
-                                                    <rect key="frame" x="10" y="86" width="24.5" height="14"/>
+                                                    <rect key="frame" x="10" y="86" width="22" height="12"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LpC-Rp-TUf">
-                                                            <rect key="frame" x="0.0" y="0.0" width="24.5" height="14"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="22" height="12"/>
                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="10"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -829,10 +829,10 @@
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="8ut-IE-xGA">
-                                                    <rect key="frame" x="285.5" y="76" width="24.5" height="14"/>
+                                                    <rect key="frame" x="288" y="76" width="22" height="12"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ikI-QO-3hr">
-                                                            <rect key="frame" x="0.0" y="0.0" width="24.5" height="14"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="22" height="12"/>
                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="10"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1125,10 +1125,10 @@
                                                     </constraints>
                                                 </view>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="x83-ju-pqP">
-                                                    <rect key="frame" x="285.5" y="74" width="24.5" height="14"/>
+                                                    <rect key="frame" x="288" y="76" width="22" height="12"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dtp-J7-fAO">
-                                                            <rect key="frame" x="0.0" y="0.0" width="24.5" height="14"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="22" height="12"/>
                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="10"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -1290,16 +1290,16 @@
                                                     </constraints>
                                                 </view>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="gxb-ZB-rwE">
-                                                    <rect key="frame" x="15" y="74" width="39.5" height="14"/>
+                                                    <rect key="frame" x="15" y="74.5" width="37" height="13.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Tk-m8-XEg">
-                                                            <rect key="frame" x="0.0" y="0.0" width="24.5" height="14"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="22" height="12"/>
                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="10"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="✓" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E2E-Pm-liv">
-                                                            <rect key="frame" x="29.5" y="0.0" width="10" height="13.5"/>
+                                                            <rect key="frame" x="27" y="0.0" width="10" height="13.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1386,16 +1386,14 @@
                                                 </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="8Ng-jE-Kqc" firstAttribute="top" secondItem="7gH-IT-ORu" secondAttribute="top" id="0px-dH-wE2"/>
                                                 <constraint firstAttribute="bottom" secondItem="gxb-ZB-rwE" secondAttribute="bottom" constant="8" id="2ur-he-Gug"/>
                                                 <constraint firstItem="jpo-dG-6mg" firstAttribute="centerY" secondItem="s4C-Lv-TGv" secondAttribute="centerY" id="6fJ-32-Gd0"/>
-                                                <constraint firstItem="8Ng-jE-Kqc" firstAttribute="bottom" secondItem="7gH-IT-ORu" secondAttribute="bottom" id="7dM-Ug-WCo"/>
                                                 <constraint firstItem="7gH-IT-ORu" firstAttribute="top" secondItem="xyu-31-aRS" secondAttribute="top" constant="15" id="G5F-dm-dZH"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="7gH-IT-ORu" secondAttribute="bottom" constant="25" id="ITj-BT-d0r"/>
                                                 <constraint firstItem="WvX-Fi-340" firstAttribute="height" secondItem="7gH-IT-ORu" secondAttribute="height" id="Jhs-My-R4r"/>
-                                                <constraint firstItem="8Ng-jE-Kqc" firstAttribute="trailing" secondItem="7gH-IT-ORu" secondAttribute="trailing" id="K0a-6Q-IbU"/>
                                                 <constraint firstItem="WvX-Fi-340" firstAttribute="centerX" secondItem="7gH-IT-ORu" secondAttribute="centerX" id="KhJ-dm-POq"/>
-                                                <constraint firstItem="8Ng-jE-Kqc" firstAttribute="leading" secondItem="7gH-IT-ORu" secondAttribute="leading" id="Xqh-KQ-exh"/>
+                                                <constraint firstItem="8Ng-jE-Kqc" firstAttribute="leading" secondItem="s4C-Lv-TGv" secondAttribute="leading" constant="20" id="LpP-aL-MiQ"/>
+                                                <constraint firstItem="8Ng-jE-Kqc" firstAttribute="bottom" secondItem="s4C-Lv-TGv" secondAttribute="bottom" constant="-5" id="Nwl-aM-T8B"/>
                                                 <constraint firstItem="WvX-Fi-340" firstAttribute="centerY" secondItem="7gH-IT-ORu" secondAttribute="centerY" id="abR-GN-Fmu"/>
                                                 <constraint firstItem="s4C-Lv-TGv" firstAttribute="top" secondItem="xyu-31-aRS" secondAttribute="top" constant="10" id="aoe-2j-RfS"/>
                                                 <constraint firstItem="iWR-NF-16j" firstAttribute="leading" secondItem="jpo-dG-6mg" secondAttribute="trailing" constant="10" id="cRr-2t-xun"/>
@@ -1404,8 +1402,10 @@
                                                 <constraint firstItem="s4C-Lv-TGv" firstAttribute="trailing" secondItem="7gH-IT-ORu" secondAttribute="trailing" constant="20" id="kDJ-xt-KUS"/>
                                                 <constraint firstItem="jpo-dG-6mg" firstAttribute="leading" secondItem="s4C-Lv-TGv" secondAttribute="trailing" constant="10" id="t82-hq-6Iy"/>
                                                 <constraint firstItem="WvX-Fi-340" firstAttribute="width" secondItem="7gH-IT-ORu" secondAttribute="width" id="vCE-L3-9vF"/>
+                                                <constraint firstItem="8Ng-jE-Kqc" firstAttribute="trailing" secondItem="s4C-Lv-TGv" secondAttribute="trailing" constant="-20" id="w3M-UV-tO0"/>
                                                 <constraint firstItem="iWR-NF-16j" firstAttribute="centerY" secondItem="jpo-dG-6mg" secondAttribute="centerY" id="wvu-yT-2px"/>
                                                 <constraint firstAttribute="bottom" secondItem="s4C-Lv-TGv" secondAttribute="bottom" constant="20" id="xGf-DV-0zB"/>
+                                                <constraint firstItem="8Ng-jE-Kqc" firstAttribute="top" secondItem="s4C-Lv-TGv" secondAttribute="top" constant="5" id="zkt-fY-bac"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <constraints>

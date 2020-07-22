@@ -1208,11 +1208,11 @@ extension UIStackView {
         let view = UIView(x: 0, y: subView.frame.y + subView.frame.height/2, w: bounds.width, h: 0.5)
         view.backgroundColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
         
-        if !isSend {
+//        if !isSend {
             self.addSubview(view)
-        } else {
-            view.alpha = 0.0
-        }
+//        } else {
+//            view.alpha = 0.0
+//        }
         
         subView.layer.cornerRadius = radiusSize
         subView.layer.masksToBounds = true

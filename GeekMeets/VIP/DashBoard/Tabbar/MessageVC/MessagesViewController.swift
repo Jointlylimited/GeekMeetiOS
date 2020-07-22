@@ -109,7 +109,13 @@ class MessagesViewController: UIViewController, MessagesProtocol {
     func registerTableViewCell(){
         self.tblMessageView.register(UINib.init(nibName: Cells.MessageListCell, bundle: Bundle.main), forCellReuseIdentifier: Cells.MessageListCell)
         self.StoryCollectionView.register(UINib.init(nibName: Cells.StoryCollectionCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.StoryCollectionCell)
+        
         self.StoryCollectionView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        
+        let layout1 = CustomImageLayout()
+        layout1.scrollDirection = .horizontal
+        self.StoryCollectionView.collectionViewLayout = layout1
+        
         self.presenter?.callMatchListAPI()
     }
     
@@ -209,6 +215,7 @@ class MessagesViewController: UIViewController, MessagesProtocol {
                 self.tblMessageView.alpha = 1.0
                 self.btnSearch.alpha = 1.0
                 self.lblNoUser.alpha = 0.0
+//                self.StoryCollectionView.reloadData()
             } else {
                 self.tblMessageView.alpha = 0.0
                 self.btnSearch.alpha = 0.0

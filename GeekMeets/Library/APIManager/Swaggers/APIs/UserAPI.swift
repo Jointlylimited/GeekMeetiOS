@@ -710,48 +710,48 @@ open class UserAPI {
     }
 
     /**
-     request-for-email
-     
-     - parameter nonce: (header)
-     - parameter timestamp: (header)
-     - parameter token: (header)
-     - parameter language: (header) en&#x3D;English, fr&#x3D;French
-     - parameter iUserId: (form) iUserId
-     - parameter vEmail: (form) Email
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    open class func requestForEmail(nonce: String, timestamp: Int, token: String, language: String, iUserId: String, vEmail: String, completion: @escaping ((_ data: CommonResponse?,_ error: Error?) -> Void)) {
-        requestForEmailWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, language: language, iUserId: iUserId, vEmail: vEmail).execute { (response, error) -> Void in
+         request-for-email
+         
+         - parameter nonce: (header)
+         - parameter timestamp: (header)
+         - parameter token: (header)
+         - parameter language: (header) en&#x3D;English, fr&#x3D;French
+         - parameter vEmail: (form) Email
+         - parameter iUserId: (form) iUserId (optional)
+         - parameter completion: completion handler to receive the data and the error objects
+         */
+    open class func requestForEmail(nonce: String, timestamp: Int, token: String, language: String, vEmail: String, iUserId: String? = nil, completion: @escaping ((_ data: CommonResponse?,_ error: Error?) -> Void)) {
+        requestForEmailWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, language: language, vEmail: vEmail, iUserId: iUserId).execute { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
 
 
-    /**
-     request-for-email
-     - POST /user/request-for-email
-     - examples: [{contentType=application/json, example={
-  "responseMessage" : "responseMessage",
-  "responseCode" : 0
-}}]
-     
-     - parameter nonce: (header)
-     - parameter timestamp: (header)
-     - parameter token: (header)
-     - parameter language: (header) en&#x3D;English, fr&#x3D;French
-     - parameter iUserId: (form) iUserId
-     - parameter vEmail: (form) Email
+        /**
+         request-for-email
+         - POST /user/request-for-email
+         - examples: [{contentType=application/json, example={
+      "responseMessage" : "responseMessage",
+      "responseCode" : 0
+    }}]
+         
+         - parameter nonce: (header)
+         - parameter timestamp: (header)
+         - parameter token: (header)
+         - parameter language: (header) en&#x3D;English, fr&#x3D;French
+         - parameter vEmail: (form) Email
+         - parameter iUserId: (form) iUserId (optional)
 
-     - returns: RequestBuilder<CommonResponse>
-     */
-    open class func requestForEmailWithRequestBuilder(nonce: String, timestamp: Int, token: String, language: String, iUserId: String, vEmail: String) -> RequestBuilder<CommonResponse> {
+         - returns: RequestBuilder<CommonResponse>
+         */
+    open class func requestForEmailWithRequestBuilder(nonce: String, timestamp: Int, token: String, language: String, vEmail: String, iUserId: String? = nil) -> RequestBuilder<CommonResponse> {
         let path = "/user/request-for-email"
         let URLString = SwaggerClientAPI.basePath + path
         let formParams: [String:Any?] = [
             "iUserId": iUserId,
             "vEmail": vEmail
         ]
-
+        
         let nonNullParameters = APIHelper.rejectNil(formParams)
         let parameters = APIHelper.convertBoolToString(nonNullParameters)
         
@@ -763,12 +763,11 @@ open class UserAPI {
             "language": language
         ]
         let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
-
+        
         let requestBuilder: RequestBuilder<CommonResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
-
+        
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
     }
-
     /**
      request-for-otp
      

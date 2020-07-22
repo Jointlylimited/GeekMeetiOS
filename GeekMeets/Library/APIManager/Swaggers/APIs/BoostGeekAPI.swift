@@ -14,11 +14,11 @@ open class BoostGeekAPI {
     /**
      Active boost/geek plan
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter authorization: (header)  
-     - parameter tiPlanType: (form) 1-boost,2-geek 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter tiPlanType: (form) 1-boost,2-geek
      - parameter completion: completion handler to receive the data and the error objects
      */
     open class func activeBoostGeek(nonce: String, timestamp: Int, token: String, authorization: String, tiPlanType: Int, completion: @escaping ((_ data: BoostGeekResponse?,_ error: Error?) -> Void)) {
@@ -33,13 +33,13 @@ open class BoostGeekAPI {
      - POST /boost-geek-plans/active-boost-geek
      - examples: [{contentType=application/json, example=""}]
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter authorization: (header)  
-     - parameter tiPlanType: (form) 1-boost,2-geek 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter tiPlanType: (form) 1-boost,2-geek
 
-     - returns: RequestBuilder<BoostGeekResponse> 
+     - returns: RequestBuilder<BoostGeekResponse>
      */
     open class func activeBoostGeekWithRequestBuilder(nonce: String, timestamp: Int, token: String, authorization: String, tiPlanType: Int) -> RequestBuilder<BoostGeekResponse> {
         let path = "/boost-geek-plans/active-boost-geek"
@@ -68,14 +68,14 @@ open class BoostGeekAPI {
     /**
      Purchase boost/geek plan
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter authorization: (header)  
-     - parameter tiPlanType: (form) 1-boost,2-geek 
-     - parameter fPlanPrice: (form)  
-     - parameter vPurchaseDate: (form)  
-     - parameter iBoostGeekCount: (form) pass the number of boost/geeks 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter tiPlanType: (form) 1-boost,2-geek
+     - parameter fPlanPrice: (form)
+     - parameter vPurchaseDate: (form)
+     - parameter iBoostGeekCount: (form) pass the number of boost/geeks
      - parameter completion: completion handler to receive the data and the error objects
      */
     open class func createBoostGeek(nonce: String, timestamp: Int, token: String, authorization: String, tiPlanType: Int, fPlanPrice: String, vPurchaseDate: String, iBoostGeekCount: Int, completion: @escaping ((_ data: BoostGeekResponse?,_ error: Error?) -> Void)) {
@@ -90,16 +90,16 @@ open class BoostGeekAPI {
      - POST /boost-geek-plans/create
      - examples: [{contentType=application/json, example=""}]
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter authorization: (header)  
-     - parameter tiPlanType: (form) 1-boost,2-geek 
-     - parameter fPlanPrice: (form)  
-     - parameter vPurchaseDate: (form)  
-     - parameter iBoostGeekCount: (form) pass the number of boost/geeks 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter tiPlanType: (form) 1-boost,2-geek
+     - parameter fPlanPrice: (form)
+     - parameter vPurchaseDate: (form)
+     - parameter iBoostGeekCount: (form) pass the number of boost/geeks
 
-     - returns: RequestBuilder<BoostGeekResponse> 
+     - returns: RequestBuilder<BoostGeekResponse>
      */
     open class func createBoostGeekWithRequestBuilder(nonce: String, timestamp: Int, token: String, authorization: String, tiPlanType: Int, fPlanPrice: String, vPurchaseDate: String, iBoostGeekCount: Int) -> RequestBuilder<BoostGeekResponse> {
         let path = "/boost-geek-plans/create"
