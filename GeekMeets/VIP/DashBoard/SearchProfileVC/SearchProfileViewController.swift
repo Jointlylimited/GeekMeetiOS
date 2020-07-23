@@ -133,12 +133,14 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
                 
                 cell.clickOnCloseBtn = {
                     print("Click on close button.")
-                    self.objFilterMsgData.remove(at: indexPath.row)
-                    self.tblSearchList.reloadData()
-                    if self.objFilterMsgData.count == 0 {
-                        self.lblNoResult.alpha = 1
-                    } else {
-                        self.lblNoResult.alpha = 0
+                    if self.objFilterMsgData.count != 0 {
+                        self.objFilterMsgData.remove(at: indexPath.row)
+                        self.tblSearchList.reloadData()
+                        if self.objFilterMsgData.count == 0 {
+                            self.lblNoResult.alpha = 1
+                        } else {
+                            self.lblNoResult.alpha = 0
+                        }
                     }
                 }
             } else {
@@ -156,12 +158,14 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
                 }
                 cell.clickOnCloseBtn = {
                     print("Click on close button.")
-                    self.objFilterStoryData.remove(at: indexPath.row)
-                    self.tblSearchList.reloadData()
-                    if self.objFilterStoryData.count == 0 {
-                        self.lblNoResult.alpha = 1
-                    } else {
-                        self.lblNoResult.alpha = 0
+                    if self.objFilterStoryData.count != 0 {
+                        self.objFilterStoryData.remove(at: indexPath.row)
+                        self.tblSearchList.reloadData()
+                        if self.objFilterStoryData.count == 0 {
+                            self.lblNoResult.alpha = 1
+                        } else {
+                            self.lblNoResult.alpha = 0
+                        }
                     }
                 }
             }
