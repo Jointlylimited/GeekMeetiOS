@@ -138,6 +138,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     @IBOutlet weak var lblDistance: GradientLabel!
     @IBOutlet weak var btnBlock: UIButton!
     @IBOutlet weak var btnViewStories: UIButton!
+    @IBOutlet weak var btnFavourite: UIButton!
     
     var UserID : Int!
     var alertView: CustomAlertView!
@@ -198,6 +199,11 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
         SDImageCache.shared.clearMemory()
         SDImageCache.shared.clearDisk()
         
+        if isFromHome {
+            self.btnFavourite.alpha = 1.0
+        } else {
+            self.btnFavourite.alpha = 0.0
+        }
         self.profileView.frame = DeviceType.iPhone5orSE ? CGRect(x: 0, y: 0, w: ScreenSize.width, h: 500) : (DeviceType.iPhoneXRMax ||  DeviceType.iPhone678p ? CGRect(x: 0, y: 0, w: ScreenSize.width, h: 650) : CGRect(x: 0, y: 0, w: ScreenSize.width, h: 550))
         self.arrayDetails = fetchUserData()
         self.registerCollectionViewCell()

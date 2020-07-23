@@ -27,6 +27,8 @@ protocol InitialSignUpPresentationProtocol {
     
     func gotoSignUpScreen(signParams : UserAuthResponseField)
     func getPrefernceResponse(response : PreferencesResponse)
+    
+    func callSignInForAppleAPI(params : Dictionary<String, String>)
 }
 
 class InitialSignUpPresenter: InitialSignUpPresentationProtocol {
@@ -107,6 +109,10 @@ class InitialSignUpPresenter: InitialSignUpPresentationProtocol {
         
         let param = RequestParameter.sharedInstance().socialSigninParams(tiSocialType: "4", accessKey: token, service: "snapchat")
         self.interactor?.callSocialSignInAPI(params: param)
+    }
+    
+    func callSignInForAppleAPI(params : Dictionary<String, String>) {
+        self.interactor?.callSocialSignInAPI(params: params)
     }
     
     //MARK: If user not registered go to sign up screen

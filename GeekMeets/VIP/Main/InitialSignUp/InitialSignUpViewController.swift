@@ -191,7 +191,101 @@ extension  InitialSignUpViewController{
         self.presenter?.callSnapchatLoginRequest(objLoginVC : self)
     }
     @IBAction func actionAppleSignUp(_ sender: Any) {
-      
+        self.handleAppleIdRequest()
+    }
+    
+    @objc func handleAppleIdRequest() {
+        if #available(iOS 13.0, *) {
+            let appleIDProvider = ASAuthorizationAppleIDProvider()
+            let request = appleIDProvider.createRequest()
+            request.requestedScopes = [.fullName, .email]
+            let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+            authorizationController.delegate = self
+            authorizationController.presentationContextProvider = self
+            authorizationController.performRequests()
+            performExistingAccountSetupFlows()
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    
+    private func performExistingAccountSetupFlows() {
+        if let userIdentifier = UserDefaults.standard.object(forKey: "userIdentifier1") as? String {
+            if #available(iOS 13.0, *) {
+                let authorizationProvider = ASAuthorizationAppleIDProvider()
+                authorizationProvider.getCredentialState(forUserID: userIdentifier) { (state, error) in
+                    switch (state) {
+                    case .authorized:
+                        print("Account Found - Signed In")
+                        DispatchQueue.main.async {
+
+                        }
+                        break
+                    case .revoked:
+                        print("No Account Found")
+                        fallthrough
+                    case .notFound:
+                        print("No Account Found")
+                        DispatchQueue.main.async {
+                            
+                        }
+                    default:
+                        break
+                    }
+                }
+            } else {
+                // Fallback on earlier versions
+            }
+            
+        }
+           
+       }
+}
+
+extension InitialSignUpViewController : ASAuthorizationControllerPresentationContextProviding {
+    @available(iOS 13.0, *)
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        // return the current view window
+        return self.view.window!
+    }
+}
+
+extension InitialSignUpViewController : ASAuthorizationControllerDelegate {
+    
+    // ASAuthorizationControllerDelegate function for successful authorization
+    @available(iOS 13.0, *)
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            // Create an account in your system.
+            let userIdentifier = appleIDCredential.user
+            let userFirstName = appleIDCredential.fullName?.givenName
+            let userLastName = appleIDCredential.fullName?.familyName
+            let userEmail = appleIDCredential.email
+            
+            let defaults = UserDefaults.standard
+            defaults.set(userIdentifier, forKey: "userIdentifier1")
+            
+            //Save the UserIdentifier somewhere in your server/database
+            let signupModel = SignUpUserModel(email: userEmail, password: "", confirmpassword: "", mobile: "", countryCode: "", firstName: userFirstName, lastName: userLastName, phone: "", birthday: "")
+            UserDataModel.SignUpUserResponse = signupModel
+            
+            let param = RequestParameter.sharedInstance().socialSigninParams(tiSocialType: "5", accessKey: userIdentifier, service: "Apple")
+            self.presenter?.callSignInForAppleAPI(params: param)
+
+            //Navigate to other view controller
+        } else if let passwordCredential = authorization.credential as? ASPasswordCredential {
+            // Sign in using an existing iCloud Keychain credential.
+            let username = passwordCredential.user
+            let password = passwordCredential.password
+            
+            //Navigate to other view controller
+        }
+    }
+    
+    @available(iOS 13.0, *)
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        //Handle error here
+        print("Sign In Error : \(error.localizedDescription)")
     }
 }
 

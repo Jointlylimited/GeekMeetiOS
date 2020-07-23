@@ -99,7 +99,7 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
             self.tfPassword.isUserInteractionEnabled = false
             self.tfConfirmPassword.isUserInteractionEnabled = false
             
-            self.tfPassword.placeholder = "Password needed"
+            self.tfPassword.placeholder = "Password not needed"
             self.tfConfirmPassword.placeholder = "Confirm Password not needed"
         }
         
@@ -170,7 +170,7 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
             }
             if error == nil {
                 self.location = currLocation
-                self.getAddressFromLatLon(pdblLatitude:(currLocation?.coordinate.latitude)!, withLongitude: (currLocation?.coordinate.longitude)!)
+                self.getAddressFromLatLon(pdblLatitude:(currLocation?.coordinate.latitude)!, withLongitude:  (currLocation?.coordinate.longitude)!)
             }
         }
     }
