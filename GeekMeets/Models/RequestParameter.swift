@@ -177,11 +177,10 @@ class RequestParameter: NSObject {
         return requestDictionary
     }
     
-    func createBoostGeekParams(fPlanPrice : String, vPurchaseDate:String, iBoostGeekCount:String) -> Dictionary<String,String> {
+    func createBoostGeekParams(fPlanPrice : String, iBoostGeekCount:String) -> Dictionary<String,String> {
         
         var requestDictionary : Dictionary<String,String> = Dictionary()
         requestDictionary["fPlanPrice"] = fPlanPrice
-        requestDictionary["vPurchaseDate"] = vPurchaseDate
         requestDictionary["iBoostGeekCount"] = iBoostGeekCount
         
         return requestDictionary

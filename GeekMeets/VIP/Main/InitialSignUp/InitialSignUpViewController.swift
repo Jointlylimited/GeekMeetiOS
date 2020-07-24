@@ -264,7 +264,7 @@ extension InitialSignUpViewController : ASAuthorizationControllerDelegate {
             
             let defaults = UserDefaults.standard
             defaults.set(userIdentifier, forKey: "userIdentifier1")
-            
+              
             //Save the UserIdentifier somewhere in your server/database
             let signupModel = SignUpUserModel(email: userEmail, password: "", confirmpassword: "", mobile: "", countryCode: "", firstName: userFirstName, lastName: userLastName, phone: "", birthday: "")
             UserDataModel.SignUpUserResponse = signupModel

@@ -17,6 +17,7 @@ protocol BoostPresentationProtocol {
     func getBoostResponse(response : BoostGeekResponse)
     
     func callActiveBoostAPI()
+    func getActiveBoostResponse(response : BoostGeekResponse)
 }
 
 class BoostPresenter: BoostPresentationProtocol {
@@ -33,6 +34,10 @@ class BoostPresenter: BoostPresentationProtocol {
     }
     
     func callActiveBoostAPI(){
+        self.interactor?.callActiveBoostAPI()
+    }
+    
+    func getActiveBoostResponse(response : BoostGeekResponse){
         
     }
 }

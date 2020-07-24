@@ -14,6 +14,7 @@ import UIKit
 
 protocol TopGeeksProtocol: class {
     func getGeeksResponse(response : BoostGeekResponse)
+    func getActiveGeeksResponse(response : BoostGeekResponse)
 }
 
 class TopGeeksViewController: UIViewController, TopGeeksProtocol {
@@ -21,6 +22,7 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     var presenter : TopGeeksPresentationProtocol?
     
     @IBOutlet var btnTopGeekColl: [UIButton]!
+    var planDict : NSDictionary = [:]
     
     // MARK: Object lifecycle
     
@@ -73,13 +75,19 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
             $0.isSelected = false
         }
         sender.isSelected = true
+        
+        if sender.tag == 0 {
+            planDict = ["fPlanPrice" : "10", "iBoostGeekCount" : "10"]
+        } else {
+            planDict = ["fPlanPrice" : "18", "iBoostGeekCount" : "20"]
+        }
     }
 }
 
 extension TopGeeksViewController {
     func callCreateGeeksAPI() {
         
-        let param = RequestParameter.sharedInstance().createBoostGeekParams(fPlanPrice: "", vPurchaseDate: "", iBoostGeekCount: "")
+        let param = RequestParameter.sharedInstance().createBoostGeekParams(fPlanPrice: planDict["fPlanPrice"] as! String, iBoostGeekCount: planDict["iBoostGeekCount"] as! String)
         self.presenter?.callCreateGeeksAPI(param: param)
     }
     
@@ -87,6 +95,10 @@ extension TopGeeksViewController {
         AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
     }
     func callActiveBoostAPI(){
-        
+        self.presenter?.callActiveBoostAPI()
+    }
+    
+    func getActiveGeeksResponse(response : BoostGeekResponse){
+        print(response)
     }
 }

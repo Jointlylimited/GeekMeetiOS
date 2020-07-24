@@ -14,6 +14,7 @@ import UIKit
 
 protocol BoostProtocol: class {
     func getBoostResponse(response : BoostGeekResponse)
+    func getActiveBoostResponse(response : BoostGeekResponse)
 }
 
 class BoostViewController: UIViewController, BoostProtocol {
@@ -24,6 +25,7 @@ class BoostViewController: UIViewController, BoostProtocol {
     
     @IBOutlet var btnBoostColl: [UIButton]!
     @IBOutlet weak var scrollView: UIScrollView!
+    var planDict : NSDictionary = [:]
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -75,13 +77,19 @@ class BoostViewController: UIViewController, BoostProtocol {
             $0.isSelected = false
         }
         sender.isSelected = true
+        
+        if sender.tag == 0 {
+            planDict = ["fPlanPrice" : "100", "iBoostGeekCount" : "10"]
+        } else {
+            planDict = ["fPlanPrice" : "150", "iBoostGeekCount" : "20"]
+        }
     }
 }
 
 extension BoostViewController {
-    func callCreateBoostAPI() {
+    func callCreateBoostAPI(fPlanPrice: String, iBoostGeekCount: String) {
         
-        let param = RequestParameter.sharedInstance().createBoostGeekParams(fPlanPrice: "", vPurchaseDate: "", iBoostGeekCount: "")
+        let param = RequestParameter.sharedInstance().createBoostGeekParams(fPlanPrice: planDict["fPlanPrice"] as! String, iBoostGeekCount: planDict["iBoostGeekCount"] as! String)
         self.presenter?.callCreateBoostAPI(param : param)
     }
     
@@ -90,6 +98,10 @@ extension BoostViewController {
     }
     
     func callActiveBoostAPI(){
-        
+        self.presenter?.callActiveBoostAPI()
+    }
+    
+    func getActiveBoostResponse(response : BoostGeekResponse){
+        print(response)
     }
 }

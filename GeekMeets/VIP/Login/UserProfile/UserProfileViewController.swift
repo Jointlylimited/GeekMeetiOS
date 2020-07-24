@@ -89,7 +89,7 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
         
         if UserDataModel.SignUpUserResponse != nil {
             let user = UserDataModel.SignUpUserResponse
-            self.tfName.text = "\(user!.firstName!) \(user!.lastName!)"
+            self.tfName.text = "\(user?.firstName ?? "") \(user?.lastName ?? "")"
             self.tfDoB.text = user?.birthday
         }
         

@@ -16,7 +16,8 @@ protocol TopGeeksPresentationProtocol {
     func callCreateGeeksAPI(param : Dictionary<String, String>)
     func getGeeksResponse(response : BoostGeekResponse)
     
-    func callActiveGeeksAPI()
+    func callActiveBoostAPI()
+    func getActiveGeeksResponse(response : BoostGeekResponse)
 }
 
 class TopGeeksPresenter: TopGeeksPresentationProtocol {
@@ -32,7 +33,11 @@ class TopGeeksPresenter: TopGeeksPresentationProtocol {
         self.viewController?.getGeeksResponse(response : response)
     }
     
-    func callActiveGeeksAPI(){
-        
+    func callActiveBoostAPI(){
+        self.interactor?.callActiveGeeksAPI()
+    }
+    
+    func getActiveGeeksResponse(response : BoostGeekResponse){
+        self.viewController?.getActiveGeeksResponse(response: response)
     }
 }

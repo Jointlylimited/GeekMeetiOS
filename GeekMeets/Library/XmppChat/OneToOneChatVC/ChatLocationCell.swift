@@ -71,33 +71,33 @@ class ChatLocationCell: UITableViewCell {
         }
         
         lblDateTime.text = ST_DateFormater.GetTime(from: chatMsg.timestamp)
+//        if chatMsg.isOutgoing {
+//            self.setDeliverAndReadStatus()
+//            self.chatBubbleView.layer.roundCorners([.topLeft, .bottomRight, .bottomLeft], radius: 10)
+//        } else {
+//            self.chatBubbleView.layer.roundCorners([.topRight, .bottomRight, .bottomLeft], radius: 10)
+//        }
         setLocationOnMap()
-        if chatMsg.isOutgoing {
-            self.setDeliverAndReadStatus()
-            self.chatBubbleView.layer.roundCorners([.topLeft, .bottomRight, .bottomLeft], radius: 10)
-        } else {
-            self.chatBubbleView.layer.roundCorners([.topRight, .bottomRight, .bottomLeft], radius: 10)
-        }
     }
     
     private func setDeliverAndReadStatus() {
         
         guard let chatMsg = self.chatMsgObj else { return }
         
-//        switch chatMsg.msgStatus {
-//        case 1:
-//            lblMsgStatus.text = "✓"
-//            lblMsgStatus.textColor = .black; break
-//        case 2:
-//            lblMsgStatus.text = "✓✓"
-//            lblMsgStatus.textColor = .black; break
-//        case 3:
-//            lblMsgStatus.text = "✓✓"
-//            lblMsgStatus.textColor = .green; break
-//        default:
-//            lblMsgStatus.text = "Sending..."
-//            lblMsgStatus.textColor = .black
-//        }
+        //        switch chatMsg.msgStatus {
+        //        case 1:
+        //            lblMsgStatus.text = "✓"
+        //            lblMsgStatus.textColor = .black; break
+        //        case 2:
+        //            lblMsgStatus.text = "✓✓"
+        //            lblMsgStatus.textColor = .black; break
+        //        case 3:
+        //            lblMsgStatus.text = "✓✓"
+        //            lblMsgStatus.textColor = .green; break
+        //        default:
+        //            lblMsgStatus.text = "Sending..."
+        //            lblMsgStatus.textColor = .black
+        //        }
         
         if chatMsg.isError {
             viewUploadContainer.isHidden = false
