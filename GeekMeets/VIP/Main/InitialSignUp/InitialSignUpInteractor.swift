@@ -81,7 +81,7 @@ class InitialSignUpInteractor: InitialSignUpInteractorProtocol, InitialSignUpDat
     }
         
       private func fetchSnapUserInfo(_ completion: @escaping ((UserEntity?, Error?) -> ())){
-          let graphQLQuery = "{me{displayName bitmoji{avatar} externalId}}" // "{me{displayName, bitmoji{avatar}}}"
+          let graphQLQuery = "{me{displayName bitmoji{avatar} externalId}}"
           
           SCSDKLoginClient
               .fetchUserData(

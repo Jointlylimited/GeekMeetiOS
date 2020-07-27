@@ -37,6 +37,12 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
     @IBOutlet weak var lblPrivacyTerm: ActiveLabel!
     @IBOutlet weak var btnLogin: UIButton!
     
+    let clientId = ""
+    let clientSecret = ""
+    let redirectUri = ""
+    var InstaAccessToken : String?
+    var InstaUserID : String?
+    var isSuccssess : Bool = false
     
     // MARK: Object lifecycle
     
@@ -194,6 +200,25 @@ extension  InitialSignUpViewController{
         self.handleAppleIdRequest()
     }
     
+    private func setupInstagramSignIn()
+    {
+        
+        if InstaUserID == nil && InstaAccessToken == nil
+        {
+            let instagramAuthViewController = InstagramLoginVC(clientId: clientId, clientSecret: clientSecret, redirectUri: redirectUri)
+            instagramAuthViewController.delegate = self
+            let navController = UINavigationController(rootViewController: instagramAuthViewController)
+            present(navController, animated: true)
+        }
+        else
+        {
+            if let ID = InstaUserID
+            {
+//                fetchInstaPhoto(strUrl: "https://graph.instagram.com/\(ID)/media?fields=id,caption,media_url,media_type&access_token=\(InstaAccessToken!)", accessToken: InstaAccessToken!, strPageToken: "")
+            }
+        }
+    }
+    
     @objc func handleAppleIdRequest() {
         if #available(iOS 13.0, *) {
             let appleIDProvider = ASAuthorizationAppleIDProvider()
@@ -240,6 +265,25 @@ extension  InitialSignUpViewController{
         }
            
        }
+}
+
+extension InitialSignUpViewController: InstagramAuthDelegate {
+    func instagramAuthControllerDidFinish(accessToken: String?,id: String?, error: Error?) {
+        if let error = error {
+            print("Error logging in to Instagram: \(error.localizedDescription)")
+            
+        } else {
+            isSuccssess = true
+            InstaAccessToken = accessToken!
+            InstaUserID = id
+            print("Access token: \(accessToken!)")
+            let signupModel = SignUpUserModel(email: "", password: "", confirmpassword: "", mobile: "", countryCode: "", firstName: "", lastName: "", phone: "", birthday: "")
+            UserDataModel.SignUpUserResponse = signupModel
+            
+            let param = RequestParameter.sharedInstance().socialSigninParams(tiSocialType: "3", accessKey: accessToken!, service: "Instagram")
+            self.presenter?.callSignInForAppleAPI(params: param)
+        }
+    }
 }
 
 extension InitialSignUpViewController : ASAuthorizationControllerPresentationContextProviding {

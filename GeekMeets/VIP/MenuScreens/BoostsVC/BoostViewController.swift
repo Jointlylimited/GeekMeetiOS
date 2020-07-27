@@ -69,6 +69,11 @@ class BoostViewController: UIViewController, BoostProtocol {
     
     @IBAction func btnContinueAction(_ sender: UIButton) {
         self.dismissVC(completion: nil)
+//        self.callCreateBoostAPI()
+    }
+    
+    @IBAction func btnBoostNowAction(_ sender: UIButton) {
+        
     }
     
     @IBAction func btnBoostAction(_ sender: UIButton) {
@@ -87,7 +92,7 @@ class BoostViewController: UIViewController, BoostProtocol {
 }
 
 extension BoostViewController {
-    func callCreateBoostAPI(fPlanPrice: String, iBoostGeekCount: String) {
+    func callCreateBoostAPI() {
         
         let param = RequestParameter.sharedInstance().createBoostGeekParams(fPlanPrice: planDict["fPlanPrice"] as! String, iBoostGeekCount: planDict["iBoostGeekCount"] as! String)
         self.presenter?.callCreateBoostAPI(param : param)
