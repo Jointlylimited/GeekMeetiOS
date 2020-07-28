@@ -78,13 +78,13 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     }
     
     @IBAction func btnContinueAction(_ sender: UIButton) {
-        self.dismissVC(completion: nil)
-//        self.callCreateGeeksAPI()
+//        self.dismissVC(completion: nil)
+        self.callCreateGeeksAPI()
     }
     
     @IBAction func btnActiveNowAction(_ sender: UIButton) {
-        self.dismissVC(completion: nil)
-//        self.callActiveGeeksAPI()
+//        self.dismissVC(completion: nil)
+        self.callActiveGeeksAPI()
     }
     
     @IBAction func btnTopGeekAction(_ sender: UIButton) {
@@ -106,7 +106,7 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     
     @objc func updateTime() {
       print("Timer : \(totalMin):\(totalSecond)")
-      if totalSecond != 0 || totalMin != 0 || totalHour != 0 {
+      if totalSecond != 0 || totalMin != 0 {
         if totalSecond != 0 {
           totalSecond -= 1
         }
@@ -118,6 +118,8 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
         self.lblRemainingTime.text = "\(totalMin!):\(totalSecond!) Remaining"
         
         if "\(totalMin!)".firstCharacterAsString == "0" && "\(totalSecond!)".firstCharacterAsString == "0" {
+            totalMin = 0
+            totalSecond = 0
           endTimer()
           self.lblRemainingTime.text = "\(00):\(00) Remaining"
         }

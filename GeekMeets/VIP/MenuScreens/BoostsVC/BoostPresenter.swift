@@ -32,7 +32,7 @@ class BoostPresenter: BoostPresentationProtocol {
         self.interactor?.callBoostPlansAPI()
     }
     func getBoostPlansResponse(response : BoostGeekResponse){
-        self.viewController?.getBoostResponse(response: response)
+        self.viewController?.getBoostPlansResponse(response: response)
     }
     
     func callCreateBoostAPI(param : Dictionary<String, String>){

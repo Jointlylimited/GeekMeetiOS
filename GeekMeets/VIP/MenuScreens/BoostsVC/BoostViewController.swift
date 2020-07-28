@@ -70,7 +70,7 @@ class BoostViewController: UIViewController, BoostProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.presenter?.callBoostPlansAPI()
+        self.presenter?.callBoostPlansAPI()
     }
 
     @IBAction func btnBackAction(_ sender: UIButton) {
@@ -78,13 +78,13 @@ class BoostViewController: UIViewController, BoostProtocol {
     }
     
     @IBAction func btnContinueAction(_ sender: UIButton) {
-        self.dismissVC(completion: nil)
-//        self.callCreateBoostAPI()
+       // self.dismissVC(completion: nil)
+        self.callCreateBoostAPI()
     }
     
     @IBAction func btnBoostNowAction(_ sender: UIButton) {
-//        self.callActiveBoostAPI()
-        self.dismissVC(completion: nil)
+        self.callActiveBoostAPI()
+       // self.dismissVC(completion: nil)
     }
     
     @IBAction func btnBoostAction(_ sender: UIButton) {
@@ -108,21 +108,29 @@ class BoostViewController: UIViewController, BoostProtocol {
     
     @objc func updateTime() {
       
-      if totalSecond != 0 || totalMin != 0 {
+      if totalSecond != nil || totalMin != nil {
         if totalSecond != 0 {
           totalSecond -= 1
         }
         
-        if "\(totalSecond!)".firstCharacterAsString == "0" {
-          totalSecond = 60
-          totalMin -= 1
+//        if "\(totalSecond!)".firstCharacterAsString == "0" {
+//          totalSecond = 60
+//          totalMin -= 1
+//        }
+//
+//        if "\(totalMin!)".firstCharacterAsString == "0" {
+//          totalMin = 60
+//          totalHour -= 1
+//        }
+        self.lblRemainingTime.text = "\(totalMin!):\(totalSecond!) Remaining"
+        
+        if "\(totalMin!)".firstCharacterAsString == "0" && "\(totalSecond!)".firstCharacterAsString == "0" {
+            totalMin = 0
+            totalSecond = 0
+          endTimer()
+          self.lblRemainingTime.text = "\(00):\(00) Remaining"
         }
         
-        if "\(totalMin!)".firstCharacterAsString == "0" {
-          totalMin = 60
-          totalHour -= 1
-        }
-        self.lblRemainingTime.text = "\(totalMin!):\(totalSecond!) Remaining"
       } else {
         endTimer()
         self.lblRemainingTime.text = "\(00):\(00) Remaining"
@@ -159,6 +167,7 @@ extension BoostViewController {
         print(response)
         if response.responseCode == 200 {
             self.btnActiveBoostPlans.setTitle("\(response.responseData?.pendingBoost ?? 0)", for: .normal)
+            setPlansDetails(date: (response.responseData?.iExpireAt)!)
         }
     }
     

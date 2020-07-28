@@ -30,7 +30,7 @@ class TopGeeksInteractor: TopGeeksInteractorProtocol, TopGeeksDataStore {
     
     func callGeeksPlansAPI(){
         LoaderView.sharedInstance.showLoader()
-        BoostGeekAPI.boostGeekPlans(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiType: 1) { (response, error) in
+        BoostGeekAPI.boostGeekPlans(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiType: 2) { (response, error) in
             
             LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
@@ -49,7 +49,7 @@ class TopGeeksInteractor: TopGeeksInteractorProtocol, TopGeeksDataStore {
     
     func callCreateGeeksAPI(param : Dictionary<String, String>) {
         LoaderView.sharedInstance.showLoader()
-        BoostGeekAPI.createBoostGeek(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization, tiPlanType: 1, fPlanPrice: param["fPlanPrice"]!, vPurchaseDate:  authToken.timeStamp, iBoostGeekCount: Int(param["iBoostGeekCount"]!)!) { (response, error) in
+        BoostGeekAPI.createBoostGeek(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization, tiPlanType: 2, fPlanPrice: param["fPlanPrice"]!, vPurchaseDate:  authToken.timeStamp, iBoostGeekCount: Int(param["iBoostGeekCount"]!)!) { (response, error) in
             
             LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {

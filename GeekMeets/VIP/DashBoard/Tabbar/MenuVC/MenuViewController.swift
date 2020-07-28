@@ -105,7 +105,7 @@ class MenuViewController: UIViewController, MenuProtocol {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //         self.presenter?.callMatchListAPI()
+//        self.presenter?.callMatchListAPI()
     }
     
     func setTheme() {
@@ -114,9 +114,9 @@ class MenuViewController: UIViewController, MenuProtocol {
         
         //Geeks Functionality
 //        startTimer()
-        self.RemainTimeView.alpha = 0.0
-        self.remainTimeViewHeightConstant.constant = 0
-        self.profileView.frame = CGRect(x: 0, y: 0, w: ScreenSize.width, h: 250)
+//        self.RemainTimeView.alpha = 0.0
+//        self.remainTimeViewHeightConstant.constant = 0
+//        self.profileView.frame = CGRect(x: 0, y: 0, w: ScreenSize.width, h: 250)
         
         //Profile Name & Image setup
         self.lblUserNameAge.text = "\(UserDataModel.currentUser?.vName ?? ""), \(UserDataModel.currentUser?.tiAge ?? 0)"
@@ -172,9 +172,11 @@ class MenuViewController: UIViewController, MenuProtocol {
         self.lblRemainTime.text = "\(totalMin!):\(totalSecond!) Remaining"
         
         if "\(totalMin!)".firstCharacterAsString == "0" && "\(totalSecond!)".firstCharacterAsString == "0" {
-                 endTimer()
-                 self.lblRemainTime.text = "\(00):\(00) Remaining"
-               }
+            totalMin = 0
+            totalSecond = 0
+            endTimer()
+            self.lblRemainTime.text = "\(00):\(00) Remaining"
+        }
         
       } else {
         endTimer()
@@ -245,7 +247,10 @@ extension MenuViewController {
         if response.responseCode == 200 {
             setPlansDetails(date: (response.responseData?.iExpireAt)!)
         } else {
-            
+            setTheme()
+            self.RemainTimeView.alpha = 0.0
+            self.remainTimeViewHeightConstant.constant = 0
+            self.profileView.frame = CGRect(x: 0, y: 0, w: ScreenSize.width, h: 250)
         }
     }
 }
