@@ -20,6 +20,9 @@ protocol HomePresentationProtocol {
     func getSwipeCardResponse(response : SwipeUser)
     
     func gotoMatchVC()
+    
+    func callUpdateLocationAPI(fLatitude : String, fLongitude : String, tiIsLocationOn : String)
+    func getLocationUpdateResponse(response : UserAuthResponse)
 }
 
 class HomePresenter: HomePresentationProtocol {
@@ -50,5 +53,13 @@ class HomePresenter: HomePresentationProtocol {
         {
             view.presentVC(controller)
         }
+    }
+    
+    func callUpdateLocationAPI(fLatitude : String, fLongitude : String, tiIsLocationOn : String){
+        self.interactor?.callUpdateLocationAPI(fLatitude: fLatitude, fLongitude: fLongitude, tiIsLocationOn : tiIsLocationOn)
+    }
+    
+    func getLocationUpdateResponse(response : UserAuthResponse){
+        self.viewController?.getLocationUpdateResponse(response: response)
     }
 }

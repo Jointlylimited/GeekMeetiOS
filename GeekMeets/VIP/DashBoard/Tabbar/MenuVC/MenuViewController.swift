@@ -31,6 +31,7 @@ protocol MenuProtocol: class {
     func getLocationUpdateResponse(response : UserAuthResponse)
     func getPushStatusResponse(response : UserAuthResponse)
     func getMatchResponse(response : MatchUser)
+    func getGeeksPlansResponse(response : BoostGeekResponse)
 }
 
 class MenuViewController: UIViewController, MenuProtocol {
@@ -52,8 +53,13 @@ class MenuViewController: UIViewController, MenuProtocol {
     var alertView: CustomAlertView!
     var arrMenuModel : [MenuViewModel] = []
     var genderArray : [String] = ["Male", "Female", "Others", "Prefer not to say"]
-    var timer: Timer?
+    
+    var timer = Timer()
     var totalTime = 600
+    var totalDay : Int!
+    var totalHour : Int!
+    var totalMin : Int!
+    var totalSecond : Int!
     
     // MARK: Object lifecycle
     
@@ -90,7 +96,7 @@ class MenuViewController: UIViewController, MenuProtocol {
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-         self.presenter?.callMatchListAPI()
+        self.presenter?.callMatchListAPI()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -99,17 +105,21 @@ class MenuViewController: UIViewController, MenuProtocol {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//         self.presenter?.callMatchListAPI()
+        //         self.presenter?.callMatchListAPI()
     }
     
     func setTheme() {
         self.navigationController?.isNavigationBarHidden = true
         self.lblVersion.text = "Version \(Bundle.main.releaseVersionNumber!) Build \(Bundle.main.buildVersionNumber!)"
         
-        startTimer()
-        self.lblUserNameAge.text = "\(UserDataModel.currentUser?.vName ?? ""), \(UserDataModel.currentUser?.tiAge ?? 0)"
+        //Geeks Functionality
+//        startTimer()
+        self.RemainTimeView.alpha = 0.0
+        self.remainTimeViewHeightConstant.constant = 0
+        self.profileView.frame = CGRect(x: 0, y: 0, w: ScreenSize.width, h: 250)
         
-        //ProfileImage setup
+        //Profile Name & Image setup
+        self.lblUserNameAge.text = "\(UserDataModel.currentUser?.vName ?? ""), \(UserDataModel.currentUser?.tiAge ?? 0)"
         if UserDataModel.currentUser?.vProfileImage != "" {
             let url = URL(string:"\(UserDataModel.currentUser!.vProfileImage!)")
             print(url!)
@@ -133,45 +143,59 @@ class MenuViewController: UIViewController, MenuProtocol {
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_manage_subscription"), label: "Push Notification", rightImage: #imageLiteral(resourceName: "icn_off")),
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_location"), label: "Location", rightImage: #imageLiteral(resourceName: "icn_off")),
                         /*MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_share"), label: "Share & Earn", rightImage: #imageLiteral(resourceName: "icn_arrow")),*/
-                        MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_tips"), label: "Tips", rightImage: #imageLiteral(resourceName: "icn_arrow")),
-                        MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_contact"), label: "Contact Us", rightImage: #imageLiteral(resourceName: "icn_arrow")),
-                        MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_legal"), label: "Legal", rightImage: #imageLiteral(resourceName: "icn_arrow"))]
+            MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_tips"), label: "Tips", rightImage: #imageLiteral(resourceName: "icn_arrow")),
+            MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_contact"), label: "Contact Us", rightImage: #imageLiteral(resourceName: "icn_arrow")),
+            MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_legal"), label: "Legal", rightImage: #imageLiteral(resourceName: "icn_arrow"))]
         self.tblMenuList.reloadData()
     }
     
-    private func startTimer() {
-        self.totalTime = 60
-        self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+    func startTimer() {
+      timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
     }
-       
-    @objc func updateTimer() {
-        self.lblRemainTime.text = "\(self.timeFormatted(self.totalTime)) Remaining" // will show timer
-        if totalTime != 0 {
-            totalTime -= 1
-        } else {
-            if let timer = self.timer {
-                self.RemainTimeView.alpha = 0.0
-                self.remainTimeViewHeightConstant.constant = 0
-                self.profileView.frame = CGRect(x: 0, y: 0, w: ScreenSize.width, h: 250)
-                timer.invalidate()
-                self.timer = nil
-                self.tblMenuList.reloadData()
-            }
+    
+    @objc func updateTime() {
+      
+      if totalSecond != nil || totalMin != nil {
+        if totalSecond != 0 {
+          totalSecond -= 1
         }
+        
+//        if "\(totalSecond!)".firstCharacterAsString == "0" {
+//          totalSecond = 60
+//          totalMin -= 1
+//        }
+//
+//        if "\(totalMin!)".firstCharacterAsString == "0" {
+//          totalMin = 60
+//          totalHour -= 1
+//        }
+        self.lblRemainTime.text = "\(totalMin!):\(totalSecond!) Remaining"
+        
+        if "\(totalMin!)".firstCharacterAsString == "0" && "\(totalSecond!)".firstCharacterAsString == "0" {
+                 endTimer()
+                 self.lblRemainTime.text = "\(00):\(00) Remaining"
+               }
+        
+      } else {
+        endTimer()
+        self.RemainTimeView.alpha = 0.0
+        self.remainTimeViewHeightConstant.constant = 0
+        self.profileView.frame = CGRect(x: 0, y: 0, w: ScreenSize.width, h: 250)
+        timer.invalidate()
+        self.tblMenuList.reloadData()
+      }
     }
-       
-    func stopTimer(){
-        if self.timer != nil {
-            timer!.invalidate()
-        }
+    
+    func endTimer() {
+      timer.invalidate()
     }
+    
     func timeFormatted(_ totalSeconds: Int) -> String {
         let seconds: Int = totalSeconds % 60
         let minutes: Int = (totalSeconds / 60) % 60
         return String(format: "%02d:%02d", minutes, seconds)
     }
     @IBAction func btnLogOutAction(_ sender: UIButton) {
-        stopTimer()
         self.showAlertView()
     }
     @IBAction func btnEditProfileAction(_ sender: UIButton) {
@@ -186,12 +210,43 @@ class MenuViewController: UIViewController, MenuProtocol {
     func displayAlert(strTitle : String, strMessage : String) {
         self.showAlert(title: strTitle, message: strMessage)
     }
+    
+    func setPlansDetails(date : String){
+        let Dateformatter = DateFormatter()
+        Dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let myTimeInterval = TimeInterval(Int((date))!)
+        let date1 = Date(timeIntervalSince1970: TimeInterval(myTimeInterval))
+        
+        let dateStr1 = Dateformatter.string(from: date1)
+        let dateStr2 = Dateformatter.string(from: Date())
+        
+        if dateStr1 != "" {
+            (totalHour, totalMin, totalSecond) = timeGapBetweenDates(previousDate: dateStr1, currentDate: dateStr2)
+        }
+        if dateStr1.compare(dateStr2) == .orderedDescending  {
+            startTimer()
+        } else {
+            //         viewTimer.isHidden = true
+            //         viewMeeting.isHidden = false
+        }
+    }
 }
 
 extension MenuViewController {
     func getMatchResponse(response : MatchUser) {
         UserDataModel.setMatchesCount(count: response.responseData!.count)
         setTheme()
+        self.presenter?.callGeeksPlansAPI()
+    }
+    
+    func getGeeksPlansResponse(response : BoostGeekResponse){
+        print(response)
+        if response.responseCode == 200 {
+            setPlansDetails(date: (response.responseData?.iExpireAt)!)
+        } else {
+            
+        }
     }
 }
 //MARK: Tableview Delegate & Datasource Methods

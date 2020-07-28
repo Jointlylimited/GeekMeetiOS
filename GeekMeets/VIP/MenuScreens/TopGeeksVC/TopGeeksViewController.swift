@@ -13,8 +13,10 @@
 import UIKit
 
 protocol TopGeeksProtocol: class {
+    func getGeeksPlansResponse(response : BoostGeekResponse)
     func getGeeksResponse(response : BoostGeekResponse)
     func getActiveGeeksResponse(response : BoostGeekResponse)
+    
 }
 
 class TopGeeksViewController: UIViewController, TopGeeksProtocol {
@@ -22,7 +24,15 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     var presenter : TopGeeksPresentationProtocol?
     
     @IBOutlet var btnTopGeekColl: [UIButton]!
+    @IBOutlet weak var btnActivePlans: UIButton!
+    @IBOutlet weak var lblRemainingTime: UILabel!
+    
     var planDict : NSDictionary = [:]
+    var timer = Timer()
+    var totalDay : Int!
+    var totalHour : Int!
+    var totalMin : Int!
+    var totalSecond : Int!
     
     // MARK: Object lifecycle
     
@@ -60,6 +70,7 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.presenter?.callGeeksPlansAPI()
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
@@ -72,7 +83,8 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     }
     
     @IBAction func btnActiveNowAction(_ sender: UIButton) {
-        
+        self.dismissVC(completion: nil)
+//        self.callActiveGeeksAPI()
     }
     
     @IBAction func btnTopGeekAction(_ sender: UIButton) {
@@ -87,23 +99,96 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
             planDict = ["fPlanPrice" : "18", "iBoostGeekCount" : "20"]
         }
     }
+    
+    func startTimer() {
+      timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+    }
+    
+    @objc func updateTime() {
+      print("Timer : \(totalMin):\(totalSecond)")
+      if totalSecond != 0 || totalMin != 0 || totalHour != 0 {
+        if totalSecond != 0 {
+          totalSecond -= 1
+        }
+        
+        if "\(totalSecond!)".firstCharacterAsString == "0" {
+          totalSecond = 60
+          totalMin -= 1
+        }
+        self.lblRemainingTime.text = "\(totalMin!):\(totalSecond!) Remaining"
+        
+        if "\(totalMin!)".firstCharacterAsString == "0" && "\(totalSecond!)".firstCharacterAsString == "0" {
+          endTimer()
+          self.lblRemainingTime.text = "\(00):\(00) Remaining"
+        }
+        
+      } else {
+        endTimer()
+        self.lblRemainingTime.text = "\(00):\(00) Remaining"
+      }
+    }
+    
+    func endTimer() {
+      timer.invalidate()
+    }
+    
+    func setPlansDetails(date : String){
+        let Dateformatter = DateFormatter()
+        Dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let myTimeInterval = TimeInterval(Int((date))!)
+        let date1 = Date(timeIntervalSince1970: TimeInterval(myTimeInterval))
+        
+        let dateStr1 = Dateformatter.string(from: date1)
+        let dateStr2 = Dateformatter.string(from: Date())
+        
+        if dateStr1 != "" {
+            (totalHour, totalMin, totalSecond) = timeGapBetweenDates(previousDate: dateStr1, currentDate: dateStr2)
+        }
+        if dateStr1.compare(dateStr2) == .orderedDescending  {
+            startTimer()
+        } else {
+            //         viewTimer.isHidden = true
+            //         viewMeeting.isHidden = false
+        }
+    }
 }
 
 extension TopGeeksViewController {
+    
+    func getGeeksPlansResponse(response : BoostGeekResponse){
+        print(response)
+        if response.responseCode == 200 {
+            self.btnActivePlans.setTitle("\(response.responseData?.pendingGeek ?? 0)", for: .normal)
+            setPlansDetails(date: (response.responseData?.iExpireAt)!)
+        }
+    }
+    
     func callCreateGeeksAPI() {
-        
         let param = RequestParameter.sharedInstance().createBoostGeekParams(fPlanPrice: planDict["fPlanPrice"] as! String, iBoostGeekCount: planDict["iBoostGeekCount"] as! String)
         self.presenter?.callCreateGeeksAPI(param: param)
     }
     
     func getGeeksResponse(response : BoostGeekResponse){
-        AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        if response.responseCode == 200 {
+            self.lblRemainingTime.text = "Remaining"
+        } else {
+            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        }
     }
-    func callActiveBoostAPI(){
-        self.presenter?.callActiveBoostAPI()
+    func callActiveGeeksAPI(){
+        self.presenter?.callActiveGeeksAPI()
     }
     
     func getActiveGeeksResponse(response : BoostGeekResponse){
         print(response)
+        if response.responseCode == 200 {
+            self.btnActivePlans.setTitle("\(response.responseData?.pendingGeek ?? 0)", for: .normal)
+            setPlansDetails(date: (response.responseData?.iExpireAt)!)
+        } else {
+            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        }
     }
 }
+
+

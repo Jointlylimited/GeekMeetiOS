@@ -17,6 +17,7 @@ protocol MenuInteractorProtocol {
     func callUpdateLocationAPI(fLatitude : String, fLongitude : String, tiIsLocationOn : String)
     func callPushStatusAPI(tiIsAcceptPush : String)
     func callMatchListAPI()
+    func callGeeksPlansAPI()
 }
 
 protocol MenuDataStore {
@@ -60,7 +61,7 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
                 } else {
-                     self.presenter?.getLocationUpdateResponse(response : response!)
+                    self.presenter?.getLocationUpdateResponse(response : response!)
                 }
             }
         }
@@ -79,7 +80,7 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
                 } else {
-                     self.presenter?.getPushStatusResponse(response : response!)
+                    self.presenter?.getPushStatusResponse(response : response!)
                 }
             }
         }
@@ -99,6 +100,25 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
                 } else {
                     self.presenter?.getMatchResponse(response: response!)
+                }
+            }
+        }
+    }
+    
+    func callGeeksPlansAPI(){
+        LoaderView.sharedInstance.showLoader()
+        BoostGeekAPI.boostGeekPlans(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiType: 1) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getGeeksPlansResponse(response: response!)
+            } else if response?.responseCode == 400 {
+                self.presenter?.getGeeksPlansResponse(response: response!)
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getGeeksPlansResponse(response: response!)
                 }
             }
         }

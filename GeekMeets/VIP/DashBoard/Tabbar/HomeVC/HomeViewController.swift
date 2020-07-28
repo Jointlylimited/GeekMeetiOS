@@ -16,6 +16,7 @@ import CoreLocation
 protocol HomeProtocol: class {
     func getUserCardResponse(response : SearchUsers)
     func getSwipeCardResponse(response : SwipeUser)
+    func getLocationUpdateResponse(response : UserAuthResponse)
 }
 
 struct CardDetailsModel {
@@ -77,10 +78,14 @@ class HomeViewController: UIViewController, HomeProtocol {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //        getUserCurrentLocation()
-        if UserDataModel.currentUser!.fLatitude != "" && UserDataModel.currentUser!.fLongitude != "" {
-            self.location = CLLocation(latitude: CLLocationDegrees(exactly: Double(UserDataModel.currentUser!.fLatitude!)!)!, longitude: CLLocationDegrees(exactly: Double(UserDataModel.currentUser!.fLongitude!)!)!)
-            self.presenter?.callUserCardAPI()
-        } else {
+        if UserDataModel.currentUser != nil {
+            if UserDataModel.currentUser?.tiIsLocationOn == 0 {
+                self.getUserCurrentLocation()
+            } else {
+                self.location = CLLocation(latitude: CLLocationDegrees(exactly: Double(UserDataModel.currentUser!.fLatitude!)!)!, longitude: CLLocationDegrees(exactly: Double(UserDataModel.currentUser!.fLongitude!)!)!)
+                self.presenter?.callUserCardAPI()
+            }
+        }else {
             self.getUserCurrentLocation()
         }
     }
@@ -120,6 +125,14 @@ class HomeViewController: UIViewController, HomeProtocol {
             }
             if error == nil {
                 self.location = currLocation
+                if UserDataModel.currentUser != nil {
+                    if UserDataModel.currentUser?.tiIsLocationOn == 0 {
+                        self.callUpdateLocationAPI(fLatitude: String(Float((currLocation?.coordinate.latitude)!)), fLongitude: String(Float((currLocation?.coordinate.longitude)!)), tiIsLocationOn : "1")
+                        
+                    }
+                } else {
+                    self.callUpdateLocationAPI(fLatitude: String(Float((currLocation?.coordinate.latitude)!)), fLongitude: String(Float((currLocation?.coordinate.longitude)!)), tiIsLocationOn : "1")
+                }
                 self.presenter?.callUserCardAPI()
             }
         }
@@ -163,6 +176,21 @@ extension HomeViewController {
             }
         }
     }
+    
+    func callUpdateLocationAPI(fLatitude : String, fLongitude : String, tiIsLocationOn : String){
+            self.presenter?.callUpdateLocationAPI(fLatitude: fLatitude, fLongitude: fLongitude, tiIsLocationOn: tiIsLocationOn)
+        }
+        func getLocationUpdateResponse(response : UserAuthResponse){
+            if response.responseCode == 200 {
+                UserDataModel.currentUser?.tiIsLocationOn = response.responseData?.tiIsLocationOn
+                if UserDataModel.currentUser?.tiIsLocationOn == 0 {
+                    UserDataModel.setPushStatus(status: "1")
+                } else {
+                    UserDataModel.setPushStatus(status: "0")
+                }
+    //            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+            }
+        }
 }
 
 //MARK: SwipeableCard Delegate & Datasource Methods

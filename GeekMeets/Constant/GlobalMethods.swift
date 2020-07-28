@@ -342,6 +342,91 @@ extension UIViewController {
             }
         }
     }
+    func timeGapBetweenDates(previousDate : String,currentDate : String)  -> (Int, Int, Int)
+    {
+        let dateString1 = previousDate
+        let dateString2 = currentDate
+        
+        let Dateformatter = DateFormatter()
+        Dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let date1 = Dateformatter.date(from: dateString1)
+        let date2 = Dateformatter.date(from: dateString2)
+        //       startDate = date1!
+        //       endDate = Calendar.current.date(byAdding: .day, value: 1, to: date2!)
+        let distanceBetweenDates: TimeInterval? = date2?.timeIntervalSince(date1!)
+        let secondsInAnHour: Double = 3600
+        let minsInAnHour: Double = 60
+        let secondsInDays: Double = 86400
+        let secondsInWeek: Double = 604800
+        let secondsInMonths : Double = 2592000
+        let secondsInYears : Double = 31104000
+        
+        let minBetweenDates = Int((distanceBetweenDates! / minsInAnHour))
+        let hoursBetweenDates = Int((distanceBetweenDates! / secondsInAnHour))
+        let daysBetweenDates = Int((distanceBetweenDates! / secondsInDays))
+        let weekBetweenDates = Int((distanceBetweenDates! / secondsInWeek))
+        let monthsbetweenDates = Int((distanceBetweenDates! / secondsInMonths))
+        let yearbetweenDates = Int((distanceBetweenDates! / secondsInYears))
+        let secbetweenDates = Int(distanceBetweenDates!)
+        
+        if yearbetweenDates > 0
+        {
+            print(yearbetweenDates,"years")//0 years
+        }
+        if monthsbetweenDates > 0
+        {
+            print(monthsbetweenDates,"months")//0 months
+        }
+        if weekBetweenDates > 0
+        {
+            print(weekBetweenDates,"weeks")//0 weeks
+        }
+        if daysBetweenDates > 0
+        {
+            print(daysBetweenDates,"days")//5 days
+        }
+        if hoursBetweenDates > 0
+        {
+            print(hoursBetweenDates,"hours")//120 hours
+        }
+        if minBetweenDates > 0
+        {
+            print(minBetweenDates,"minutes")//7200 minutes
+        }
+        if secbetweenDates > 0
+        {
+            print(secbetweenDates,"seconds")//seconds
+        }
+        //       totalSecond = hoursBetweenDates
+        //       totalDay = -daysBetweenDates
+//        let (h,m,s) = secondsToHoursMinutesSeconds(seconds: secbetweenDates)
+        
+        let totalHour = 0 // -(seconds / 3600)
+        //       }
+        let totalMin = -((secbetweenDates % 3600) / 60)
+        let totalSecond = -((secbetweenDates % 3600) % 60)
+        print(totalHour, totalMin, totalSecond)
+        
+        return (totalHour, totalMin, totalSecond)
+        //       if date1?.compare(date2!) == .orderedDescending  {
+        //         startTimer()
+        //       } else {
+        ////         viewTimer.isHidden = true
+        ////         viewMeeting.isHidden = false
+        //       }
+    }
+    
+//    func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int) {
+//        //       if totalDay > 0 {
+//        //         totalHour = (-(seconds / 3600)) - (totalDay*24)
+//        //       } else {
+//        totalHour = 0 // -(seconds / 3600)
+//        //       }
+//        totalMin = -((seconds % 3600) / 60)
+//        totalSecond = -((seconds % 3600) % 60)
+//        return (totalHour, totalMin, totalSecond)
+//    }
 }
 
 extension Bundle {

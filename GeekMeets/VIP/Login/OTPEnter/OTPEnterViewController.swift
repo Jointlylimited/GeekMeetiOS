@@ -96,6 +96,7 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
             self.navigationController?.isNavigationBarHidden = true
         } else {
             self.navigationController?.isNavigationBarHidden = false
+            
         }
     }
     
@@ -130,6 +131,9 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
         } else {
             strCountryCode = strNewCountryCode
             strPhonenumber = strNewPhoneNumber
+            
+            self.presenter?.callResendOTPAPI(vCountryCode : strCountryCode ,vPhone : strPhonenumber ?? "7567173373")
+            startTimer()
         }
         btnCountrycode.setTitle(strCountryCode, for: .normal)
         tfMobileNumber.text = "\(strCountryCode) \(strPhonenumber ?? "")"
@@ -205,8 +209,6 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
             self.presenter?.callVerifyOTPAPI(iOTP : otpStackView.getOTP(),vCountryCode : strCountryCode,vPhone : strPhonenumber ?? "7567173373", signUpParams : signUpParams)
             
         } else {
-            self.presenter?.callResendOTPAPI(vCountryCode : strCountryCode ,vPhone : strPhonenumber ?? "7567173373")
-            startTimer()
             otpStackView.setAllFieldColor(isWarningColor: true, color: .yellow)
             self.presenter?.callNewVerifyOTPAPI(iOTP : otpStackView.getOTP(),vCountryCode : strCountryCode,vPhone : strPhonenumber ?? "7567173373")
         }

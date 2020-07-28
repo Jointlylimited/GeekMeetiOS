@@ -23,6 +23,7 @@ protocol SignInPresentationProtocol
     
     func callVerifyEmailAPI(email : String)
     func getEmailVerifyResponse(response : CommonResponse)
+    func getPushStatusResponse(response : UserAuthResponse)
 }
 
 class SignInPresenter: SignInPresentationProtocol {
@@ -98,6 +99,20 @@ class SignInPresenter: SignInPresentationProtocol {
     func getPrefernceResponse(response : PreferencesResponse){
         if response.responseCode == 200 {
             UserDataModel.UserPreferenceResponse = response
+            if UserDataModel.currentUser != nil {
+                if UserDataModel.currentUser?.tiIsAcceptPush == 0 {
+                    self.interactor?.callPushStatusAPI()
+                }
+            } else {
+                self.interactor?.callPushStatusAPI()
+            }
+            AppSingleton.sharedInstance().showHomeVC(fromMatch : false, userDict: [:])
+        }
+    }
+    
+    func getPushStatusResponse(response : UserAuthResponse){
+        if response.responseCode == 200 {
+            UserDataModel.currentUser?.tiIsAcceptPush = response.responseData?.tiIsAcceptPush
             AppSingleton.sharedInstance().showHomeVC(fromMatch : false, userDict: [:])
         }
     }

@@ -15,6 +15,7 @@ import UIKit
 protocol HomeInteractorProtocol {
      func callUserCardAPI()
      func callSwipeCardAPI(iProfileId : String, tiSwipeType : String)
+    func callUpdateLocationAPI(fLatitude : String, fLongitude : String, tiIsLocationOn : String)
 }
 
 protocol HomeDataStore {
@@ -59,6 +60,25 @@ class HomeInteractor: HomeInteractorProtocol, HomeDataStore {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
                 } else {
                     self.presenter?.getSwipeCardResponse(response : response!)
+                }
+            }
+        }
+    }
+    
+    func callUpdateLocationAPI(fLatitude : String, fLongitude : String, tiIsLocationOn : String){
+//        LoaderView.sharedInstance.showLoader()
+        UserAPI.locationUpdate(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vDeviceToken: vDeviceToken, fLatitude: fLatitude, fLongitude: fLongitude, tiIsLocationOn : tiIsLocationOn) { (response, error) in
+            
+//            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getLocationUpdateResponse(response : response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+            } else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getLocationUpdateResponse(response : response!)
                 }
             }
         }

@@ -13,6 +13,7 @@
 import UIKit
 
 protocol TopGeeksInteractorProtocol {
+    func callGeeksPlansAPI()
     func callCreateGeeksAPI(param : Dictionary<String, String>)
     func callActiveGeeksAPI()
 }
@@ -26,24 +27,43 @@ class TopGeeksInteractor: TopGeeksInteractorProtocol, TopGeeksDataStore {
     //var name: String = ""
     
     // MARK: Do something
+    
+    func callGeeksPlansAPI(){
+        LoaderView.sharedInstance.showLoader()
+        BoostGeekAPI.boostGeekPlans(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiType: 1) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getGeeksPlansResponse(response: response!)
+            } else if response?.responseCode == 400 {
+                self.presenter?.getGeeksPlansResponse(response: response!)
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getGeeksPlansResponse(response: response!)
+                }
+            }
+        }
+    }
+    
     func callCreateGeeksAPI(param : Dictionary<String, String>) {
         LoaderView.sharedInstance.showLoader()
         BoostGeekAPI.createBoostGeek(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization, tiPlanType: 1, fPlanPrice: param["fPlanPrice"]!, vPurchaseDate:  authToken.timeStamp, iBoostGeekCount: Int(param["iBoostGeekCount"]!)!) { (response, error) in
-                
-                LoaderView.sharedInstance.hideLoader()
-                if response?.responseCode == 200 {
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getGeeksResponse(response: response!)
+            } else if response?.responseCode == 400 {
+                self.presenter?.getGeeksResponse(response: response!)
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
                     self.presenter?.getGeeksResponse(response: response!)
-                } else if response?.responseCode == 400 {
-                    self.presenter?.getGeeksResponse(response: response!)
-                }  else {
-                    if error != nil {
-                        AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
-                    } else {
-                        self.presenter?.getGeeksResponse(response: response!)
-                    }
                 }
-                
             }
+        }
     }
     
     func callActiveGeeksAPI(){
@@ -62,7 +82,6 @@ class TopGeeksInteractor: TopGeeksInteractorProtocol, TopGeeksDataStore {
                     self.presenter?.getGeeksResponse(response: response!)
                 }
             }
-            
         }
     }
 }

@@ -13,6 +13,7 @@
 import UIKit
 
 protocol BoostInteractorProtocol {
+    func callBoostPlansAPI()
     func callCreateBoostAPI(param : Dictionary<String, String>)
     func callActiveBoostAPI()
 }
@@ -26,6 +27,25 @@ class BoostInteractor: BoostInteractorProtocol, BoostDataStore {
     //var name: String = ""
     
     // MARK: Do something
+    func callBoostPlansAPI(){
+        LoaderView.sharedInstance.showLoader()
+        BoostGeekAPI.boostGeekPlans(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiType: 2) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getBoostPlansResponse(response: response!)
+            } else if response?.responseCode == 400 {
+                self.presenter?.getBoostPlansResponse(response: response!)
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getBoostPlansResponse(response: response!)
+                }
+            }
+        }
+    }
+    
     func callCreateBoostAPI(param : Dictionary<String, String>) {
         
         LoaderView.sharedInstance.showLoader()
@@ -43,7 +63,6 @@ class BoostInteractor: BoostInteractorProtocol, BoostDataStore {
                     self.presenter?.getBoostResponse(response: response!)
                 }
             }
-            
         }
     }
     
@@ -63,7 +82,6 @@ class BoostInteractor: BoostInteractorProtocol, BoostDataStore {
                     self.presenter?.getBoostResponse(response: response!)
                 }
             }
-            
         }
     }
 }

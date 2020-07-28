@@ -19,15 +19,12 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {
                 (granted, error) in
                 print("Permission granted: \(granted)")
-//                if UserDataModel.currentUser != nil {
-//                    if UserDataModel.currentUser?.tiIsAcceptPush == 0 {
-//                        self.callPushStatusAPI(tiIsAcceptPush: "1")
-//                        UserDataModel.setPushStatus(status: "1")
-//                   }
-//                } else {
+                if granted {
+                    UserDataModel.setPushStatus(status: "1")
+                } else {
 //                    self.callPushStatusAPI(tiIsAcceptPush: "1")
-//                    UserDataModel.setPushStatus(status: "1")
-//                }
+                    UserDataModel.setPushStatus(status: "0")
+                }
                 
                 guard granted else {
                     self.showPermissionAlert()

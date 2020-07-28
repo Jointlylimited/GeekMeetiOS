@@ -17,6 +17,7 @@ protocol SignInInteractorProtocol
     func callSignInAPI(_ userName : String, password : String)
     func callQuestionaryAPI()
     func callVerifyEmailAPI(email : String)
+    func callPushStatusAPI()
 }
 
 class SignInInteractor: SignInInteractorProtocol {
@@ -84,4 +85,27 @@ class SignInInteractor: SignInInteractorProtocol {
             }
         }
     }
+    
+    func callPushStatusAPI() {
+            DispatchQueue.main.async {
+    //            LoaderView.sharedInstance.showLoader()
+            }
+            
+        UserAPI.setPushStatus(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vDeviceToken: AppDelObj.deviceToken, tiIsAcceptPush: UserDataModel.getPushStatus()) { (response, error) in
+                DispatchQueue.main.async {
+    //                LoaderView.sharedInstance.hideLoader()
+                }
+                if response?.responseCode == 200 {
+                    self.presenter?.getPushStatusResponse(response : response!)
+                } else if response?.responseCode == 203 {
+                    AppSingleton.sharedInstance().logout()
+                } else {
+                    if error != nil {
+                        AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                    } else {
+                        self.presenter?.getPushStatusResponse(response : response!)
+                    }
+                }
+            }
+        }
 }

@@ -66,6 +66,58 @@ open class BoostGeekAPI {
     }
 
     /**
+     details of boost nad geek plans
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter tiType: (path) 1-boost,2-geek
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func boostGeekPlans(nonce: String, timestamp: String, token: String, authorization: String, tiType: Int, completion: @escaping ((_ data: BoostGeekResponse?,_ error: Error?) -> Void)) {
+        boostGeekPlansWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, tiType: tiType).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     details of boost nad geek plans
+     - GET /boost-geek-plans/detail/{tiType}
+     - examples: [{contentType=application/json, example=""}]
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter tiType: (path) 1-boost,2-geek
+
+     - returns: RequestBuilder<BoostGeekResponse>
+     */
+    open class func boostGeekPlansWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, tiType: Int) -> RequestBuilder<BoostGeekResponse> {
+        var path = "/boost-geek-plans/detail/{tiType}"
+        let tiTypePreEscape = "\(tiType)"
+        let tiTypePostEscape = tiTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{tiType}", with: tiTypePostEscape, options: .literal, range: nil)
+        let URLString = SwaggerClientAPI.basePath + path
+        let parameters: [String:Any]? = nil
+        
+        let url = URLComponents(string: URLString)
+        let nillableHeaders: [String: Any?] = [
+            "nonce": nonce,
+            "timestamp": timestamp,
+            "token": token,
+            "authorization": authorization
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<BoostGeekResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
+    }
+
+    /**
      Purchase boost/geek plan
      
      - parameter nonce: (header)

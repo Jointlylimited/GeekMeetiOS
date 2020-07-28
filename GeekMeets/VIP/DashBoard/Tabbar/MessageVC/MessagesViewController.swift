@@ -203,26 +203,28 @@ class MessagesViewController: UIViewController, MessagesProtocol {
             self.updateNoDataLabel()
         }
         
-        func updateNoDataLabel(){
-            if self.arrFriends.count != 0  {
-                self.lblNoUser.alpha = 0.0
-                self.tblMessageView.reloadData()
-            } else {
-                self.lblNoUser.alpha = 1.0
-//                self.tblMessageView.alpha = 0.0
-            }
-            if self.objMatchData.count != 0 {
-                self.tblMessageView.alpha = 1.0
-                self.btnSearch.alpha = 1.0
-                self.lblNoUser.alpha = 0.0
-//                self.StoryCollectionView.reloadData()
-            } else {
-                self.tblMessageView.alpha = 0.0
-                self.btnSearch.alpha = 0.0
-                self.lblNoUser.alpha = 1.0
-            }
-            print(self.arrFriends)
+    func updateNoDataLabel(){
+        if self.objMatchData.count != 0 {
+            self.tblMessageView.alpha = 1.0
+            self.btnSearch.alpha = 1.0
+            self.lblNoUser.alpha = 0.0
+            //                self.StoryCollectionView.reloadData()
+        } else {
+            self.tblMessageView.alpha = 0.0
+            self.btnSearch.alpha = 0.0
+            self.lblNoUser.alpha = 1.0
         }
+        
+        if self.arrFriends.count != 0  {
+            self.lblNoUser.alpha = 0.0
+            self.tblMessageView.reloadData()
+        } else {
+            self.lblNoUser.alpha = 1.0
+            self.tblMessageView.reloadData()
+        }
+        
+        print(self.arrFriends)
+    }
     
     @IBAction func btnSearchAction(_ sender: UIButton) {
         let searchVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.SearchScreen) as? SearchProfileViewController
@@ -252,7 +254,7 @@ extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrFriends.count // self.objMsgData.count
+        return arrFriends.count != 0 ? arrFriends.count : 0 // self.objMsgData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -356,10 +358,15 @@ extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
     @available(iOS 11.0, *)
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title:  "", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            let jid = self.arrFriends[indexPath.row].jID
-            SOXmpp.manager.xmpp_RemoveFriend(withJid: jid)
-            self.updateAndSortFriendList()
-            self.tblMessageView.reloadData()
+            if self.arrFriends.count != 0 {
+                let jid = self.arrFriends[indexPath.row].jID
+                SOXmpp.manager.xmpp_RemoveFriend(withJid: jid)
+                DispatchQueue.main.async {
+                    self.setupXmppCallBackAndNotificationMethods()
+                    self.updateAndSortFriendList()
+                    
+                }
+            }
             success(true)
         })
         let theImage: UIImage? = UIImage(named:"icn_trash")?.withRenderingMode(.alwaysOriginal)

@@ -24,6 +24,9 @@ protocol MenuPresentationProtocol {
     
     func callMatchListAPI()
     func getMatchResponse(response : MatchUser)
+    
+    func callGeeksPlansAPI()
+    func getGeeksPlansResponse(response : BoostGeekResponse)
 }
 
 class MenuPresenter: MenuPresentationProtocol {
@@ -60,5 +63,12 @@ class MenuPresenter: MenuPresentationProtocol {
     }
     func getMatchResponse(response : MatchUser){
         self.viewController?.getMatchResponse(response : response)
+    }
+    
+    func callGeeksPlansAPI(){
+        self.interactor?.callGeeksPlansAPI()
+    }
+    func getGeeksPlansResponse(response : BoostGeekResponse){
+        self.viewController?.getGeeksPlansResponse(response : response)
     }
 }

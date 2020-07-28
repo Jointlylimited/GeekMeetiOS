@@ -1549,11 +1549,6 @@ extension SOXmpp {
         xmppRoster.unsubscribePresence(fromUser: jd!)
         
         self.xmpp_getFriendList()
-//        xmpp_getFriendListCompletion({
-//            if bUpdateRoster {
-//                bUpdateRoster(false)
-//            }
-//        })
     }
     
     func xmpp_RemoveSingleObject(withMessageId MsgID: String?, withToUserId toUserID: String?, obj : Model_ChatMessage) {

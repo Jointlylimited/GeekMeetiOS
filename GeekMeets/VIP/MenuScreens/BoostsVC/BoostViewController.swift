@@ -13,6 +13,7 @@
 import UIKit
 
 protocol BoostProtocol: class {
+    func getBoostPlansResponse(response : BoostGeekResponse)
     func getBoostResponse(response : BoostGeekResponse)
     func getActiveBoostResponse(response : BoostGeekResponse)
 }
@@ -25,7 +26,15 @@ class BoostViewController: UIViewController, BoostProtocol {
     
     @IBOutlet var btnBoostColl: [UIButton]!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var btnActiveBoostPlans: UIButton!
+    @IBOutlet weak var lblRemainingTime: UILabel!
+    
     var planDict : NSDictionary = [:]
+    var timer = Timer()
+    var totalDay : Int!
+    var totalHour : Int!
+    var totalMin : Int!
+    var totalSecond : Int!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -61,6 +70,7 @@ class BoostViewController: UIViewController, BoostProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        self.presenter?.callBoostPlansAPI()
     }
 
     @IBAction func btnBackAction(_ sender: UIButton) {
@@ -73,7 +83,8 @@ class BoostViewController: UIViewController, BoostProtocol {
     }
     
     @IBAction func btnBoostNowAction(_ sender: UIButton) {
-        
+//        self.callActiveBoostAPI()
+        self.dismissVC(completion: nil)
     }
     
     @IBAction func btnBoostAction(_ sender: UIButton) {
@@ -89,17 +100,79 @@ class BoostViewController: UIViewController, BoostProtocol {
             planDict = ["fPlanPrice" : "150", "iBoostGeekCount" : "20"]
         }
     }
+    
+    
+    func startTimer() {
+      timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+    }
+    
+    @objc func updateTime() {
+      
+      if totalSecond != 0 || totalMin != 0 {
+        if totalSecond != 0 {
+          totalSecond -= 1
+        }
+        
+        if "\(totalSecond!)".firstCharacterAsString == "0" {
+          totalSecond = 60
+          totalMin -= 1
+        }
+        
+        if "\(totalMin!)".firstCharacterAsString == "0" {
+          totalMin = 60
+          totalHour -= 1
+        }
+        self.lblRemainingTime.text = "\(totalMin!):\(totalSecond!) Remaining"
+      } else {
+        endTimer()
+        self.lblRemainingTime.text = "\(00):\(00) Remaining"
+      }
+    }
+    
+    func endTimer() {
+      timer.invalidate()
+    }
+    
+    func setPlansDetails(date : String){
+        let Dateformatter = DateFormatter()
+        Dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let myTimeInterval = TimeInterval(Int((date))!)
+        let date1 = Date(timeIntervalSince1970: TimeInterval(myTimeInterval))
+        
+        let dateStr1 = Dateformatter.string(from: date1)
+        let dateStr2 = Dateformatter.string(from: Date())
+        
+        if dateStr1 != "" {
+            timeGapBetweenDates(previousDate: dateStr1, currentDate: dateStr2)
+        }
+        if dateStr1.compare(dateStr2) == .orderedDescending  {
+            startTimer()
+        } else {
+
+        }
+    }
 }
 
 extension BoostViewController {
+    func getBoostPlansResponse(response : BoostGeekResponse){
+        print(response)
+        if response.responseCode == 200 {
+            self.btnActiveBoostPlans.setTitle("\(response.responseData?.pendingBoost ?? 0)", for: .normal)
+        }
+    }
+    
     func callCreateBoostAPI() {
-        
         let param = RequestParameter.sharedInstance().createBoostGeekParams(fPlanPrice: planDict["fPlanPrice"] as! String, iBoostGeekCount: planDict["iBoostGeekCount"] as! String)
         self.presenter?.callCreateBoostAPI(param : param)
     }
     
     func getBoostResponse(response : BoostGeekResponse){
-        AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        if response.responseCode == 200 {
+            self.btnActiveBoostPlans.setTitle("\(response.responseData?.pendingBoost ?? 0)", for: .normal)
+        } else {
+            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        }
     }
     
     func callActiveBoostAPI(){
@@ -108,5 +181,10 @@ extension BoostViewController {
     
     func getActiveBoostResponse(response : BoostGeekResponse){
         print(response)
+        if response.responseCode == 200 {
+            self.btnActiveBoostPlans.setTitle("\(response.responseData?.pendingBoost ?? 0)", for: .normal)
+        } else {
+            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        }
     }
 }

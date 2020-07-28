@@ -13,10 +13,13 @@
 import UIKit
 
 protocol TopGeeksPresentationProtocol {
+    func callGeeksPlansAPI()
+    func getGeeksPlansResponse(response : BoostGeekResponse)
+    
     func callCreateGeeksAPI(param : Dictionary<String, String>)
     func getGeeksResponse(response : BoostGeekResponse)
     
-    func callActiveBoostAPI()
+    func callActiveGeeksAPI()
     func getActiveGeeksResponse(response : BoostGeekResponse)
 }
 
@@ -25,6 +28,13 @@ class TopGeeksPresenter: TopGeeksPresentationProtocol {
     var interactor: TopGeeksInteractorProtocol?
     
     // MARK: Present something
+    func callGeeksPlansAPI(){
+        self.interactor?.callGeeksPlansAPI()
+    }
+    func getGeeksPlansResponse(response : BoostGeekResponse){
+        self.viewController?.getGeeksPlansResponse(response : response)
+    }
+    
     func callCreateGeeksAPI(param : Dictionary<String, String>) {
         self.interactor?.callCreateGeeksAPI(param: param)
     }
@@ -33,7 +43,7 @@ class TopGeeksPresenter: TopGeeksPresentationProtocol {
         self.viewController?.getGeeksResponse(response : response)
     }
     
-    func callActiveBoostAPI(){
+    func callActiveGeeksAPI(){
         self.interactor?.callActiveGeeksAPI()
     }
     
