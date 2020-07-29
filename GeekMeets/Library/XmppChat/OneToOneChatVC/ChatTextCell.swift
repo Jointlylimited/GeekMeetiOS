@@ -51,12 +51,12 @@ class ChatTextCell: UITableViewCell {
         lblMsg.font = ChatFont.msgFont
         lblDateTime.text = ST_DateFormater.GetTime(from: chatMsg.timestamp)
         
-        if chatMsg.isOutgoing {
-            self.setDeliverAndReadStatus()
-            self.chatBubbleView.layer.roundCorners([.topLeft, .bottomRight, .bottomLeft], radius: 10)
-        } else {
-            self.chatBubbleView.layer.roundCorners([.topRight, .bottomRight, .bottomLeft], radius: 10)
-        }
+//        if chatMsg.isOutgoing {
+//            self.setDeliverAndReadStatus()
+//            self.chatBubbleView.layer.roundCorners([.topLeft, .bottomRight, .bottomLeft], radius: 10)
+//        } else {
+//            self.chatBubbleView.layer.roundCorners([.topRight, .bottomRight, .bottomLeft], radius: 10)
+//        }
     }
     
     private func setDeliverAndReadStatus() {

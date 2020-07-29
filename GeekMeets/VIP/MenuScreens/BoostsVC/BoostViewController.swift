@@ -28,6 +28,7 @@ class BoostViewController: UIViewController, BoostProtocol {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var btnActiveBoostPlans: UIButton!
     @IBOutlet weak var lblRemainingTime: UILabel!
+    @IBOutlet weak var btnBoostNow: UIButton!
     
     var planDict : NSDictionary = [:]
     var timer = Timer()
@@ -78,13 +79,13 @@ class BoostViewController: UIViewController, BoostProtocol {
     }
     
     @IBAction func btnContinueAction(_ sender: UIButton) {
-       // self.dismissVC(completion: nil)
-        self.callCreateBoostAPI()
+        self.dismissVC(completion: nil)
+//        self.callCreateBoostAPI()
     }
     
     @IBAction func btnBoostNowAction(_ sender: UIButton) {
-        self.callActiveBoostAPI()
-       // self.dismissVC(completion: nil)
+//        self.callActiveBoostAPI()
+        self.dismissVC(completion: nil)
     }
     
     @IBAction func btnBoostAction(_ sender: UIButton) {
@@ -160,6 +161,17 @@ class BoostViewController: UIViewController, BoostProtocol {
 
         }
     }
+    
+    func setBoostNowButton(data : BoostGeekFields){
+        if data.pendingBoost != 0 && data.iExpireAt != "" {
+            self.btnBoostNow.alpha = 1.0
+            self.btnBoostNow.isUserInteractionEnabled = true
+            setPlansDetails(date: (data.iExpireAt)!)
+        } else {
+            self.btnBoostNow.alpha = 0.5
+            self.btnBoostNow.isUserInteractionEnabled = false
+        }
+    }
 }
 
 extension BoostViewController {
@@ -167,7 +179,7 @@ extension BoostViewController {
         print(response)
         if response.responseCode == 200 {
             self.btnActiveBoostPlans.setTitle("\(response.responseData?.pendingBoost ?? 0)", for: .normal)
-            setPlansDetails(date: (response.responseData?.iExpireAt)!)
+            setBoostNowButton(data : response.responseData!)
         }
     }
     
@@ -179,6 +191,7 @@ extension BoostViewController {
     func getBoostResponse(response : BoostGeekResponse){
         if response.responseCode == 200 {
             self.btnActiveBoostPlans.setTitle("\(response.responseData?.pendingBoost ?? 0)", for: .normal)
+            setBoostNowButton(data : response.responseData!)
         } else {
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }
@@ -192,6 +205,7 @@ extension BoostViewController {
         print(response)
         if response.responseCode == 200 {
             self.btnActiveBoostPlans.setTitle("\(response.responseData?.pendingBoost ?? 0)", for: .normal)
+            setBoostNowButton(data : response.responseData!)
         } else {
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }

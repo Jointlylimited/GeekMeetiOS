@@ -94,12 +94,12 @@ class ChatMediaCell: UITableViewCell {
             btnRetry.isHidden = true
         }
         
-        if chatMsg.isOutgoing {
-            self.setDeliverAndReadStatus()
-            self.chatBubbleView.layer.roundCorners([.topLeft, .bottomRight, .bottomLeft], radius: 10)
-        } else {
-            self.chatBubbleView.layer.roundCorners([.topRight, .bottomRight, .bottomLeft], radius: 10)
-        }
+//        if chatMsg.isOutgoing {
+//            self.setDeliverAndReadStatus()
+//            self.chatBubbleView.layer.roundCorners([.topLeft, .bottomRight, .bottomLeft], radius: 10)
+//        } else {
+//            self.chatBubbleView.layer.roundCorners([.topRight, .bottomRight, .bottomLeft], radius: 10)
+//        }
         if chatMsg.msgType! == XMPP_Message_Type.video.rawValue {
             imgVideoPreview.isHidden = false
             self.setMediaVideoThumnail()

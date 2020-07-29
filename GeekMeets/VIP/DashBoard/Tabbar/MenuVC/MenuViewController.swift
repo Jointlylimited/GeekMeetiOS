@@ -114,9 +114,9 @@ class MenuViewController: UIViewController, MenuProtocol {
         
         //Geeks Functionality
 //        startTimer()
-//        self.RemainTimeView.alpha = 0.0
-//        self.remainTimeViewHeightConstant.constant = 0
-//        self.profileView.frame = CGRect(x: 0, y: 0, w: ScreenSize.width, h: 250)
+        self.RemainTimeView.alpha = 0.0
+        self.remainTimeViewHeightConstant.constant = 0
+        self.profileView.frame = CGRect(x: 0, y: 0, w: ScreenSize.width, h: 250)
         
         //Profile Name & Image setup
         self.lblUserNameAge.text = "\(UserDataModel.currentUser?.vName ?? ""), \(UserDataModel.currentUser?.tiAge ?? 0)"
@@ -239,13 +239,20 @@ extension MenuViewController {
     func getMatchResponse(response : MatchUser) {
         UserDataModel.setMatchesCount(count: response.responseData!.count)
         setTheme()
-        self.presenter?.callGeeksPlansAPI()
+        //self.presenter?.callGeeksPlansAPI()
     }
     
     func getGeeksPlansResponse(response : BoostGeekResponse){
         print(response)
         if response.responseCode == 200 {
-            setPlansDetails(date: (response.responseData?.iExpireAt)!)
+            if response.responseData?.iExpireAt != "" {
+                setPlansDetails(date: (response.responseData?.iExpireAt)!)
+            } else {
+                setTheme()
+                self.RemainTimeView.alpha = 0.0
+                self.remainTimeViewHeightConstant.constant = 0
+                self.profileView.frame = CGRect(x: 0, y: 0, w: ScreenSize.width, h: 250)
+            }
         } else {
             setTheme()
             self.RemainTimeView.alpha = 0.0

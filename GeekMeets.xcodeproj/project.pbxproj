@@ -3122,7 +3122,7 @@
 				CODE_SIGN_ENTITLEMENTS = GeekMeets/JointlyStaging.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.0.14;
+				CURRENT_PROJECT_VERSION = 1.0;
 				DEVELOPMENT_TEAM = 8HPY99SV74;
 				INFOPLIST_FILE = "$(SRCROOT)/GeekMeets/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -3131,6 +3131,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Basecode/Library",
 				);
+				MARKETING_VERSION = 1.0.15;
 				PRODUCT_BUNDLE_IDENTIFIER = com.org.jointly;
 				PRODUCT_NAME = Jointly;
 				PROVISIONING_PROFILE = "6fe03dd0-bb5b-416c-b4fe-1118ff86f17c";
@@ -3266,7 +3267,7 @@
 				CODE_SIGN_ENTITLEMENTS = GeekMeets/JointlyStaging.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.0.14;
+				CURRENT_PROJECT_VERSION = 1.0;
 				DEVELOPMENT_TEAM = 8HPY99SV74;
 				INFOPLIST_FILE = "$(SRCROOT)/GeekMeets/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -3275,6 +3276,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Basecode/Library",
 				);
+				MARKETING_VERSION = 1.0.15;
 				PRODUCT_BUNDLE_IDENTIFIER = com.org.jointly;
 				PRODUCT_NAME = Jointly;
 				PROVISIONING_PROFILE = "6fe03dd0-bb5b-416c-b4fe-1118ff86f17c";
@@ -3295,7 +3297,7 @@
 				CODE_SIGN_ENTITLEMENTS = GeekMeets/JointlyStaging.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: JOINTLY LLC (8HPY99SV74)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.0.14;
+				CURRENT_PROJECT_VERSION = 1.0;
 				DEVELOPMENT_TEAM = 8HPY99SV74;
 				INFOPLIST_FILE = "$(SRCROOT)/GeekMeets/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -3304,6 +3306,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Basecode/Library",
 				);
+				MARKETING_VERSION = 1.0.15;
 				PRODUCT_BUNDLE_IDENTIFIER = com.org.jointly;
 				PRODUCT_NAME = Jointly;
 				PROVISIONING_PROFILE = "6fe03dd0-bb5b-416c-b4fe-1118ff86f17c";

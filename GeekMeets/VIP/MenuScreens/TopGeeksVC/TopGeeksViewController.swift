@@ -26,6 +26,7 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     @IBOutlet var btnTopGeekColl: [UIButton]!
     @IBOutlet weak var btnActivePlans: UIButton!
     @IBOutlet weak var lblRemainingTime: UILabel!
+    @IBOutlet weak var btnActiveNow: UIButton!
     
     var planDict : NSDictionary = [:]
     var timer = Timer()
@@ -154,6 +155,17 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
             //         viewMeeting.isHidden = false
         }
     }
+    
+    func setActiveNowButton(data : BoostGeekFields){
+        if data.pendingGeek != 0 && data.iExpireAt != "" {
+            self.btnActiveNow.alpha = 1.0
+            self.btnActiveNow.isUserInteractionEnabled = true
+            setPlansDetails(date: (data.iExpireAt)!)
+        } else {
+            self.btnActiveNow.alpha = 0.5
+            self.btnActiveNow.isUserInteractionEnabled = false
+        }
+    }
 }
 
 extension TopGeeksViewController {
@@ -162,7 +174,7 @@ extension TopGeeksViewController {
         print(response)
         if response.responseCode == 200 {
             self.btnActivePlans.setTitle("\(response.responseData?.pendingGeek ?? 0)", for: .normal)
-            setPlansDetails(date: (response.responseData?.iExpireAt)!)
+            setActiveNowButton(data : response.responseData!)
         }
     }
     
@@ -173,7 +185,8 @@ extension TopGeeksViewController {
     
     func getGeeksResponse(response : BoostGeekResponse){
         if response.responseCode == 200 {
-            self.lblRemainingTime.text = "Remaining"
+            self.btnActivePlans.setTitle("\(response.responseData?.pendingGeek ?? 0)", for: .normal)
+            setActiveNowButton(data : response.responseData!)
         } else {
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }
@@ -185,8 +198,7 @@ extension TopGeeksViewController {
     func getActiveGeeksResponse(response : BoostGeekResponse){
         print(response)
         if response.responseCode == 200 {
-            self.btnActivePlans.setTitle("\(response.responseData?.pendingGeek ?? 0)", for: .normal)
-            setPlansDetails(date: (response.responseData?.iExpireAt)!)
+            setActiveNowButton(data : response.responseData!)
         } else {
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }

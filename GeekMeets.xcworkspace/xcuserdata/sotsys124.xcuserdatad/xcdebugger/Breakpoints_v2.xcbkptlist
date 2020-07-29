@@ -183,22 +183,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "428307D6-78F3-44F3-A505-AD8ECA9673AC"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GeekMeets/VIP/MenuScreens/DiscoverySettingVC/EditInterestPreferenceVC/EditPreferenceViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
-            landmarkName = "callCreatePreferenceAPI()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "6E807891-6CA0-4CEA-BB6D-C51AFB27D7B6"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -711,32 +695,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "47115DA8-DA7F-43A7-A297-A8049CE2DC78"
+            uuid = "94B47251-444A-4BF8-B064-1DF81DB6DB2E"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GeekMeets/VIP/MenuScreens/TopGeeksVC/TopGeeksViewController.swift"
+            filePath = "GeekMeets/VIP/DashBoard/SearchProfileVC/SearchProfileViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "187"
-            endingLineNumber = "187"
-            landmarkName = "getActiveGeeksResponse(response:)"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
+            landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "69C2058E-4817-450E-B8B6-F5148E767FA9"
+            uuid = "37632BCE-4BEB-4FF5-8362-13B6E55DEE83"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GeekMeets/VIP/MenuScreens/TopGeeksVC/TopGeeksViewController.swift"
+            filePath = "GeekMeets/Library/APIManager/Swaggers/APIs/UserAPI.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
-            landmarkName = "updateTime()"
+            startingLineNumber = "1041"
+            endingLineNumber = "1041"
+            landmarkName = "signInWithRequestBuilder(nonce:timestamp:token:vEmail:vPassword:vTimeOffset:vTimeZone:vDeviceToken:tiDeviceType:vDeviceName:vDeviceUniqueId:vApiVersion:vAppVersion:vOsVersion:vIpAddress:fLatitude:fLongitude:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

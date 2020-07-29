@@ -107,7 +107,7 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
     
     func callGeeksPlansAPI(){
 //        LoaderView.sharedInstance.showLoader()
-        BoostGeekAPI.boostGeekPlans(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiType: 2) { (response, error) in
+        BoostGeekAPI.boostGeekPlans(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiType: 1) { (response, error) in
             
 //            LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
