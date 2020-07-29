@@ -79,13 +79,13 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     }
     
     @IBAction func btnContinueAction(_ sender: UIButton) {
-//        self.dismissVC(completion: nil)
-        self.callCreateGeeksAPI()
+        self.dismissVC(completion: nil)
+//        self.callCreateGeeksAPI()
     }
     
     @IBAction func btnActiveNowAction(_ sender: UIButton) {
-//        self.dismissVC(completion: nil)
-        self.callActiveGeeksAPI()
+        self.dismissVC(completion: nil)
+//        self.callActiveGeeksAPI()
     }
     
     @IBAction func btnTopGeekAction(_ sender: UIButton) {
