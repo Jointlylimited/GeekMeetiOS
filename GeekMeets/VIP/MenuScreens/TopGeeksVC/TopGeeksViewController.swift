@@ -79,13 +79,13 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     }
     
     @IBAction func btnContinueAction(_ sender: UIButton) {
-        self.dismissVC(completion: nil)
-//        self.callCreateGeeksAPI()
+//        self.dismissVC(completion: nil)
+        self.callCreateGeeksAPI()
     }
     
     @IBAction func btnActiveNowAction(_ sender: UIButton) {
-        self.dismissVC(completion: nil)
-//        self.callActiveGeeksAPI()
+//        self.dismissVC(completion: nil)
+        self.callActiveGeeksAPI()
     }
     
     @IBAction func btnTopGeekAction(_ sender: UIButton) {
@@ -95,9 +95,13 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
         sender.isSelected = true
         
         if sender.tag == 0 {
-            planDict = ["fPlanPrice" : "10", "iBoostGeekCount" : "10"]
+            planDict = ["fPlanPrice" : "1.99", "iBoostGeekCount" : "1"]
+        } else if sender.tag == 1 {
+            planDict = ["fPlanPrice" : "6.99", "iBoostGeekCount" : "4"]
+        } else if sender.tag == 2 {
+            planDict = ["fPlanPrice" : "9.99", "iBoostGeekCount" : "8"]
         } else {
-            planDict = ["fPlanPrice" : "18", "iBoostGeekCount" : "20"]
+            planDict = ["fPlanPrice" : "14.99", "iBoostGeekCount" : "20"]
         }
     }
     
@@ -115,6 +119,10 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
         if "\(totalSecond!)".firstCharacterAsString == "0" {
           totalSecond = 60
           totalMin -= 1
+        }
+        if "\(totalMin!)".firstCharacterAsString == "0" {
+         // totalMin = 60
+          totalHour -= 1
         }
         self.lblRemainingTime.text = "\(totalMin!):\(totalSecond!) Remaining"
         
@@ -157,13 +165,15 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     }
     
     func setActiveNowButton(data : BoostGeekFields){
-        if data.pendingGeek != 0 && data.iExpireAt != "" {
+        if data.pendingGeek != 0 && data.iExpireAt == "" {
             self.btnActiveNow.alpha = 1.0
             self.btnActiveNow.isUserInteractionEnabled = true
-            setPlansDetails(date: (data.iExpireAt)!)
         } else {
             self.btnActiveNow.alpha = 0.5
             self.btnActiveNow.isUserInteractionEnabled = false
+            if data.iExpireAt != "" {
+                setPlansDetails(date: (data.iExpireAt)!)
+            }
         }
     }
 }

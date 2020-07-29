@@ -61,6 +61,9 @@ class MenuViewController: UIViewController, MenuProtocol {
     var totalMin : Int!
     var totalSecond : Int!
     
+    var GeekPlans : Int = 0
+    var Boosts : Int = 0
+    
     // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -96,7 +99,7 @@ class MenuViewController: UIViewController, MenuProtocol {
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.presenter?.callMatchListAPI()
+//        self.presenter?.callMatchListAPI()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -105,7 +108,7 @@ class MenuViewController: UIViewController, MenuProtocol {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        self.presenter?.callMatchListAPI()
+        self.presenter?.callMatchListAPI()
     }
     
     func setTheme() {
@@ -114,9 +117,9 @@ class MenuViewController: UIViewController, MenuProtocol {
         
         //Geeks Functionality
 //        startTimer()
-        self.RemainTimeView.alpha = 0.0
-        self.remainTimeViewHeightConstant.constant = 0
-        self.profileView.frame = CGRect(x: 0, y: 0, w: ScreenSize.width, h: 250)
+//        self.RemainTimeView.alpha = 0.0
+//        self.remainTimeViewHeightConstant.constant = 0
+//        self.profileView.frame = CGRect(x: 0, y: 0, w: ScreenSize.width, h: 250)
         
         //Profile Name & Image setup
         self.lblUserNameAge.text = "\(UserDataModel.currentUser?.vName ?? ""), \(UserDataModel.currentUser?.tiAge ?? 0)"
@@ -136,8 +139,8 @@ class MenuViewController: UIViewController, MenuProtocol {
         let matchCount = UserDataModel.getMatchesCount()
         arrMenuModel = [MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_my_match"), label: "My Matches (\(matchCount))", rightImage: #imageLiteral(resourceName: "icn_arrow")),
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_manage_subscription"), label: "Manage Subscription", rightImage: #imageLiteral(resourceName: "icn_arrow")),
-                        MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_boosts_purple"), label: "Boosts (2)", rightImage: #imageLiteral(resourceName: "icn_arrow")),
-                        MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_top_geeks"), label: "Top Geeks (2)", rightImage: #imageLiteral(resourceName: "icn_arrow")),
+                        MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_boosts_purple"), label: "Boosts (\(self.Boosts))", rightImage: #imageLiteral(resourceName: "icn_arrow")),
+                        MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_top_geeks"), label: "Top Geeks (\(self.GeekPlans))", rightImage: #imageLiteral(resourceName: "icn_arrow")),
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_user_purple"), label: "Account Settings", rightImage: #imageLiteral(resourceName: "icn_arrow")),
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_discovery"), label: "Discovery Settings", rightImage: #imageLiteral(resourceName: "icn_arrow")),
                         MenuViewModel(leftImage: #imageLiteral(resourceName: "icn_manage_subscription"), label: "Push Notification", rightImage: #imageLiteral(resourceName: "icn_off")),
@@ -160,16 +163,15 @@ class MenuViewController: UIViewController, MenuProtocol {
           totalSecond -= 1
         }
         
-//        if "\(totalSecond!)".firstCharacterAsString == "0" {
-//          totalSecond = 60
-//          totalMin -= 1
-//        }
-//
-//        if "\(totalMin!)".firstCharacterAsString == "0" {
+        if "\(totalSecond!)".firstCharacterAsString == "0" {
+          totalSecond = 60
+          totalMin -= 1
+        }
+
+        if "\(totalMin!)".firstCharacterAsString == "0" {
 //          totalMin = 60
-//          totalHour -= 1
-//        }
-        self.lblRemainTime.text = "\(totalMin!):\(totalSecond!) Remaining"
+          totalHour -= 1
+        }
         
         if "\(totalMin!)".firstCharacterAsString == "0" && "\(totalSecond!)".firstCharacterAsString == "0" {
             totalMin = 0
@@ -177,6 +179,7 @@ class MenuViewController: UIViewController, MenuProtocol {
             endTimer()
             self.lblRemainTime.text = "\(00):\(00) Remaining"
         }
+        self.lblRemainTime.text = "\(totalMin!):\(totalSecond!) Remaining"
         
       } else {
         endTimer()
@@ -239,26 +242,31 @@ extension MenuViewController {
     func getMatchResponse(response : MatchUser) {
         UserDataModel.setMatchesCount(count: response.responseData!.count)
         setTheme()
-        //self.presenter?.callGeeksPlansAPI()
+        self.presenter?.callGeeksPlansAPI()
     }
     
     func getGeeksPlansResponse(response : BoostGeekResponse){
         print(response)
         if response.responseCode == 200 {
+            self.GeekPlans = response.responseData?.pendingGeek ?? 0
+            self.Boosts = response.responseData?.pendingBoost ?? 0
             if response.responseData?.iExpireAt != "" {
                 setPlansDetails(date: (response.responseData?.iExpireAt)!)
+                self.RemainTimeView.alpha = 1.0
+                self.remainTimeViewHeightConstant.constant = 80
+                self.profileView.frame = CGRect(x: 0, y: 0, w: ScreenSize.width, h: 340)
             } else {
-                setTheme()
+                
                 self.RemainTimeView.alpha = 0.0
                 self.remainTimeViewHeightConstant.constant = 0
                 self.profileView.frame = CGRect(x: 0, y: 0, w: ScreenSize.width, h: 250)
             }
         } else {
-            setTheme()
             self.RemainTimeView.alpha = 0.0
             self.remainTimeViewHeightConstant.constant = 0
             self.profileView.frame = CGRect(x: 0, y: 0, w: ScreenSize.width, h: 250)
         }
+        setTheme()
     }
 }
 //MARK: Tableview Delegate & Datasource Methods

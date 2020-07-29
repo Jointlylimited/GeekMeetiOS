@@ -79,13 +79,13 @@ class BoostViewController: UIViewController, BoostProtocol {
     }
     
     @IBAction func btnContinueAction(_ sender: UIButton) {
-        self.dismissVC(completion: nil)
-//        self.callCreateBoostAPI()
+//        self.dismissVC(completion: nil)
+        self.callCreateBoostAPI()
     }
     
     @IBAction func btnBoostNowAction(_ sender: UIButton) {
-//        self.callActiveBoostAPI()
-        self.dismissVC(completion: nil)
+        self.callActiveBoostAPI()
+//        self.dismissVC(completion: nil)
     }
     
     @IBAction func btnBoostAction(_ sender: UIButton) {
@@ -96,9 +96,13 @@ class BoostViewController: UIViewController, BoostProtocol {
         sender.isSelected = true
         
         if sender.tag == 0 {
-            planDict = ["fPlanPrice" : "100", "iBoostGeekCount" : "10"]
+            planDict = ["fPlanPrice" : "1.99", "iBoostGeekCount" : "1"]
+        } else if sender.tag == 1 {
+            planDict = ["fPlanPrice" : "3.99", "iBoostGeekCount" : "5"]
+        } else if sender.tag == 2 {
+            planDict = ["fPlanPrice" : "6.99", "iBoostGeekCount" : "8"]
         } else {
-            planDict = ["fPlanPrice" : "150", "iBoostGeekCount" : "20"]
+            planDict = ["fPlanPrice" : "14.99", "iBoostGeekCount" : "10"]
         }
     }
     
@@ -114,15 +118,15 @@ class BoostViewController: UIViewController, BoostProtocol {
           totalSecond -= 1
         }
         
-//        if "\(totalSecond!)".firstCharacterAsString == "0" {
-//          totalSecond = 60
-//          totalMin -= 1
-//        }
-//
-//        if "\(totalMin!)".firstCharacterAsString == "0" {
-//          totalMin = 60
-//          totalHour -= 1
-//        }
+        if "\(totalSecond!)".firstCharacterAsString == "0" {
+         totalSecond = 60
+          totalMin -= 1
+        }
+
+        if "\(totalMin!)".firstCharacterAsString == "0" {
+         // totalMin = 60
+          totalHour -= 1
+        }
         self.lblRemainingTime.text = "\(totalMin!):\(totalSecond!) Remaining"
         
         if "\(totalMin!)".firstCharacterAsString == "0" && "\(totalSecond!)".firstCharacterAsString == "0" {
@@ -153,7 +157,7 @@ class BoostViewController: UIViewController, BoostProtocol {
         let dateStr2 = Dateformatter.string(from: Date())
         
         if dateStr1 != "" {
-            timeGapBetweenDates(previousDate: dateStr1, currentDate: dateStr2)
+            (totalHour, totalMin, totalSecond) = timeGapBetweenDates(previousDate: dateStr1, currentDate: dateStr2)
         }
         if dateStr1.compare(dateStr2) == .orderedDescending  {
             startTimer()
@@ -163,13 +167,15 @@ class BoostViewController: UIViewController, BoostProtocol {
     }
     
     func setBoostNowButton(data : BoostGeekFields){
-        if data.pendingBoost != 0 && data.iExpireAt != "" {
+        if data.pendingBoost != 0 && data.iExpireAt == "" {
             self.btnBoostNow.alpha = 1.0
             self.btnBoostNow.isUserInteractionEnabled = true
-            setPlansDetails(date: (data.iExpireAt)!)
         } else {
             self.btnBoostNow.alpha = 0.5
             self.btnBoostNow.isUserInteractionEnabled = false
+            if data.iExpireAt != "" {
+                setPlansDetails(date: (data.iExpireAt)!)
+            }
         }
     }
 }

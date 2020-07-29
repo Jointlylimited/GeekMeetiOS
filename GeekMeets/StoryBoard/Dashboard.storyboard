@@ -5162,8 +5162,8 @@
                                                                             <action selector="btnPopularAction:" destination="bpF-go-bTJ" eventType="touchUpInside" id="PUY-Ad-Vfu"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$100" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8E-gq-xwe">
-                                                                        <rect key="frame" x="246.33333333333329" y="10" width="57.666666666666657" height="36.666666666666664"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$89.99" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8E-gq-xwe">
+                                                                        <rect key="frame" x="218.66666666666666" y="10" width="85.333333333333343" height="36.666666666666664"/>
                                                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="26"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
@@ -5233,8 +5233,8 @@
                                                                             <action selector="btnPopularAction:" destination="bpF-go-bTJ" eventType="touchUpInside" id="BSb-Pc-bBR"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rNN-ed-aJL">
-                                                                        <rect key="frame" x="263" y="10" width="41" height="36.666666666666664"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$9.99" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rNN-ed-aJL">
+                                                                        <rect key="frame" x="235.33333333333334" y="10" width="68.666666666666657" height="36.666666666666664"/>
                                                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="26"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
@@ -5496,7 +5496,7 @@
         <image name="icn_arrowblack" width="8" height="14.333333015441895"/>
         <image name="icn_back" width="16" height="17"/>
         <image name="icn_boosts" width="34" height="34"/>
-        <image name="icn_camera" width="73" height="75"/>
+        <image name="icn_camera" width="34.666667938232422" height="26.333333969116211"/>
         <image name="icn_capture" width="66" height="66"/>
         <image name="icn_close_black" width="16" height="16"/>
         <image name="icn_close_grey" width="10.333333015441895" height="10.333333015441895"/>
