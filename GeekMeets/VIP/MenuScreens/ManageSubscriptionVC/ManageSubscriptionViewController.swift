@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import StoreKit
 
 protocol ManageSubscriptionProtocol: class {
 }
@@ -23,6 +24,11 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     
     @IBOutlet var btnSubColl: [UIButton]!
     @IBOutlet var btnStackList: [UIButton]!
+    
+    var productKey : String = ""
+    var transactionInProgress = false
+    var priceIn : String = "10$"
+    var product : SKProduct?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -71,7 +77,8 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     }
     
     @IBAction func btnContinueAction(_ sender: UIButton) {
-        self.dismissVC(completion: nil)
+//        self.dismissVC(completion: nil)
+        doSubscription(key : productKey)
     }
     
     @IBAction func btnSubscriptionAction(_ sender: UIButton) {
@@ -79,5 +86,93 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
             $0.isSelected = false
         }
         sender.isSelected = true
+        
+        if sender.tag == 0 {
+            productKey = SubscriptionKeys.Monthly.productKey
+        } else {
+            productKey = SubscriptionKeys.Annualy.productKey
+        }
     }
+}
+
+extension ManageSubscriptionViewController {
+    func doSubscription(key : String){
+        if SKPaymentQueue.canMakePayments() {
+            let productRequest = SKProductsRequest(productIdentifiers: [key])
+            productRequest.delegate = self
+            productRequest.start()
+        }
+        else {
+            //   self.btnCreateVideo.hideLoading()
+            //self.btnCreateVideo.isEnabled = false
+            print("Cannot perform In App Purchases.")
+        }
+    }
+}
+
+extension ManageSubscriptionViewController : SKProductsRequestDelegate, SKPaymentTransactionObserver {
+
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+    //    btnCreateVideo.showLoading()
+        if let transaction = transactions.first {
+            switch transaction.transactionState {
+                
+            case .purchasing:
+                print("Purchasing....")
+            
+            case .purchased:
+                print("Transaction completed successfully.")
+          //      btnCreateVideo.hideLoading()
+                SKPaymentQueue.default().finishTransaction(transaction)
+                transactionInProgress = false
+                AppSingleton.sharedInstance().isSubscription = true
+                LoaderView.sharedInstance.hideLoader()
+                // self.goAhead()
+            case .failed:
+          //      self.btnCreateVideo.hideLoading()
+                print("Transaction Failed");
+                LoaderView.sharedInstance.hideLoader()
+                SKPaymentQueue.default().finishTransaction(transaction)
+                transactionInProgress = false
+                AppSingleton.sharedInstance().isSubscription = true
+        
+            case .restored:
+                print("Restored ... ")
+            case .deferred:
+                LoaderView.sharedInstance.hideLoader()
+                print(transaction.transactionState.rawValue)
+            }
+        }
+    }
+    
+    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+     //   btnCreateVideo.showLoading()
+        if response.products.count != 0 {
+            guard let prod = response.products.first else { LoaderView.sharedInstance.showLoader(); return}
+            self.product = prod
+            
+            let currencyFormatter = NumberFormatter()
+            currencyFormatter.locale = prod.priceLocale
+            currencyFormatter.maximumFractionDigits = 2
+            currencyFormatter.minimumFractionDigits = 2
+            currencyFormatter.alwaysShowsDecimalSeparator = true
+            currencyFormatter.numberStyle = .currency
+            let someAmount = prod.price
+            let price: String? = currencyFormatter.string(from: someAmount as NSNumber)
+
+            let formattedPrice = price!
+            self.priceIn = formattedPrice
+          //  btnCreateVideo.hideLoading()
+            //self.btnCreateVideo.isEnabled = true
+        }
+        else {
+        //    btnCreateVideo.hideLoading()
+            print("There are no products.")
+            LoaderView.sharedInstance.hideLoader()
+            request.cancel()
+            //self.btnCreateVideo.isEnabled = true
+        }
+    }
+    
+    
 }

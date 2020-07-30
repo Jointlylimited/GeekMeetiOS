@@ -94,6 +94,9 @@ let kSomethingWentWrong = "Something went wrong...Please try again"
 let kLoogedIntoOtherDevice = "It is look like you logged in another device."
 let kUserCurrentLocation = "kUserCurrentLocation"
 let kMobileVerifySucc = "Your mobile is changed & verified Successfully"
+let kSubscription = "Subscription"
+let kBoost = "Boost"
+let kTopStory = "TopStory"
 
 class KeyMessages: NSObject {
 

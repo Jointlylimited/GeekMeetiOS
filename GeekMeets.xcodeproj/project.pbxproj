@@ -178,6 +178,7 @@
 		0B9499E12451DBC4001AD1C8 /* ContactUS_LegalInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9499CE2451DBC4001AD1C8 /* ContactUS_LegalInteractor.swift */; };
 		0B9499E22451DBC4001AD1C8 /* ContactUS_LegalPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9499CF2451DBC4001AD1C8 /* ContactUS_LegalPresenter.swift */; };
 		0B9499E32451DBC4001AD1C8 /* ContactUS_LegalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9499D02451DBC4001AD1C8 /* ContactUS_LegalViewController.swift */; };
+		0B9931B024D2C93200948C97 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B9931AF24D2C93100948C97 /* StoreKit.framework */; };
 		0BABEADC247244F1000BC5E7 /* PreferencesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BABEADB247244F1000BC5E7 /* PreferencesAPI.swift */; };
 		0BABEAE02472451A000BC5E7 /* PreferenceOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BABEADD24724519000BC5E7 /* PreferenceOption.swift */; };
 		0BABEAE22472451A000BC5E7 /* PreferencesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BABEADF24724519000BC5E7 /* PreferencesResponse.swift */; };
@@ -583,6 +584,7 @@
 		0B9499CE2451DBC4001AD1C8 /* ContactUS_LegalInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactUS_LegalInteractor.swift; sourceTree = "<group>"; };
 		0B9499CF2451DBC4001AD1C8 /* ContactUS_LegalPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactUS_LegalPresenter.swift; sourceTree = "<group>"; };
 		0B9499D02451DBC4001AD1C8 /* ContactUS_LegalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactUS_LegalViewController.swift; sourceTree = "<group>"; };
+		0B9931AF24D2C93100948C97 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		0BABEADB247244F1000BC5E7 /* PreferencesAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesAPI.swift; sourceTree = "<group>"; };
 		0BABEADD24724519000BC5E7 /* PreferenceOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceOption.swift; sourceTree = "<group>"; };
 		0BABEADF24724519000BC5E7 /* PreferencesResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesResponse.swift; sourceTree = "<group>"; };
@@ -827,6 +829,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5B521D13F02F46FBABC5C21 /* Pods_GeekMeets.framework in Frameworks */,
+				0B9931B024D2C93200948C97 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1638,6 +1641,7 @@
 		726C361F901BCA60F229557E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0B9931AF24D2C93100948C97 /* StoreKit.framework */,
 				EC146BF9C834F09E88494EB4 /* Pods_GeekMeets.framework */,
 			);
 			name = Frameworks;
@@ -2579,6 +2583,7 @@
 				"${PODS_ROOT}/SnapSDK/SCSDKStoryKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyStoreKit/SwiftyStoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/XMPPFramework/XMPPFramework.framework",
 				"${BUILT_PRODUCTS_DIR}/libidn/libidn.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
@@ -2626,6 +2631,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCSDKStoryKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMessages.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyStoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XMPPFramework.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libidn.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",

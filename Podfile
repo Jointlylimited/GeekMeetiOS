@@ -44,4 +44,7 @@ target 'GeekMeets' do
    pod 'RSKGrowingTextView'
    pod 'OpalImagePicker'
    pod 'SwiftMessages', '7.0.0'
+   
+   # In-App
+   pod 'SwiftyStoreKit'
 end

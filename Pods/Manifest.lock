@@ -201,6 +201,7 @@ PODS:
     - SwiftMessages/App (= 7.0.0)
   - SwiftMessages/App (7.0.0)
   - SwiftyJSON (5.0.0)
+  - SwiftyStoreKit (0.15.0)
   - XMPPFramework/default (4.0.0):
     - CocoaAsyncSocket (~> 7.6)
     - CocoaLumberjack
@@ -236,6 +237,7 @@ DEPENDENCIES:
   - SnapSDK
   - SwiftMessages (= 7.0.0)
   - SwiftyJSON
+  - SwiftyStoreKit
   - XMPPFramework/Swift
 
 SPEC REPOS:
@@ -295,6 +297,7 @@ SPEC REPOS:
     - SnapSDK
     - SwiftMessages
     - SwiftyJSON
+    - SwiftyStoreKit
     - XMPPFramework
 
 SPEC CHECKSUMS:
@@ -353,8 +356,9 @@ SPEC CHECKSUMS:
   SnapSDK: 9ea8d26ca876b7f1d85fad2f2ec09852f3b156d0
   SwiftMessages: a952f7a9103d9aeab93730a2861d2d8fcdd8758f
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
+  SwiftyStoreKit: 033d06b6f87955405d3f844a18a7687c2438592a
   XMPPFramework: 5d31ff9f73dce031b24bc49bcf88093627a3a86e
 
-PODFILE CHECKSUM: 38f2abdc8dada4807775ddcfd1e6ccc088ad81ee
+PODFILE CHECKSUM: 5c50b704b18c434fb095e2ca129d5b2ceee1144f
 
 COCOAPODS: 1.8.4

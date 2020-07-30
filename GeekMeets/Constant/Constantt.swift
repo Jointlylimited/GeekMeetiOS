@@ -237,6 +237,51 @@ class AppSingleton: NSObject {
         AppDelObj.window!.rootViewController!.present(alertController, animated: true, completion: nil)
     }
     
+    var isSubscription : Bool {
+        get{
+            return UserDefaults.standard.bool(forKey: kSubscription)
+        }
+        set{
+            UserDefaults.standard.set(newValue, forKey: kSubscription)
+            if isSubscription {
+                //                self.getRemainigCount = 3
+            }
+            else {
+                
+            }
+        }
+    }
+    
+    var isBoost : Bool {
+        get{
+            return UserDefaults.standard.bool(forKey: kBoost)
+        }
+        set{
+            UserDefaults.standard.set(newValue, forKey: kBoost)
+            if isBoost {
+                //                self.getRemainigCount = 3
+            }
+            else {
+                
+            }
+        }
+    }
+    
+    var isTopStory : Bool {
+        get{
+            return UserDefaults.standard.bool(forKey: kTopStory)
+        }
+        set{
+            UserDefaults.standard.set(newValue, forKey: kTopStory)
+            if isTopStory {
+                //                self.getRemainigCount = 3
+            }
+            else {
+                
+            }
+        }
+    }
+    
     func showHomeVC(fromMatch : Bool, userDict : NSDictionary){
         Authentication.setLoggedInStatus(true)
         UserDataModel.currentUser = UserDataModel.lastLoginUser

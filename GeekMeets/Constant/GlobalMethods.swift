@@ -172,6 +172,61 @@ enum Interest_PreferenceData {
     }
 }
 
+enum BoostPurchase {
+    case OneBoost
+    case FiveBoost
+    case EightBoost
+    case MostPopular
+    
+    var productKey : String {
+        switch self {
+        case .OneBoost:
+            return "com.jointly.oneboost"
+        case .FiveBoost:
+            return "com.jointly.onetopstory"
+        case .EightBoost:
+            return "com.jointly.monthlysubscription"
+        case .MostPopular:
+            return "com.jointly.bundlepackage"
+        }
+    }
+}
+
+enum TopStoryPurchase {
+    case OneStory
+    case FourStory
+    case EightStory
+    case MostPopular
+    
+    var productKey : String {
+        switch self {
+        case .OneStory:
+            return "com.jointly.onetopstory"
+        case .FourStory:
+            return "com.jointly.fourtopstory"
+        case .EightStory:
+            return "com.jointly.eighttopstory"
+        case .MostPopular:
+            return "com.jointly.bundlepackage"
+        }
+    }
+}
+
+enum SubscriptionKeys {
+    
+    case Monthly
+    case Annualy
+    
+    var productKey : String {
+        switch self {
+        case .Monthly:
+            return "com.jointly.monthlysubscription"
+        case .Annualy:
+            return "com.jointly.yearlysubscription"
+        }
+    }
+}
+
 fileprivate let formatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateFormat = "dd-MM-yyyy"
