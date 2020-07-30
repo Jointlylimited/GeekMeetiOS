@@ -443,6 +443,44 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
         print("deinit")
     }
     
+    func btnResendAction(objChat: Model_ChatMessage){
+        if !checkConnection() {
+            return
+        }
+        
+        if self.isBlock == 0 {
+
+            self.inputTextView.text = ""
+            
+            let obj = self.GetChatMsgObject()
+            obj.strMsg = objChat.strMsg
+            obj.body = objChat.body
+            obj.msgType = objChat.msgType
+            
+            if obj.msgType! == XMPP_Message_Type.image.rawValue {
+                obj.url = objChat.url
+            } else {
+                obj.url = objChat.url
+                obj.thumbUrl = objChat.thumbUrl
+            }
+            let jsonStr = Chat_Utility.getOneToOneMsgBody(objChat: obj)
+            print(jsonStr)
+            
+            DispatchQueue.main.async {
+                XMPP_MessageArchiving_Custom.InsertMessage(obj: obj)
+                
+                self.arrChatMsg.append(obj)
+                self.tblChat.reloadData()
+                self.scrollToBottomAnimated(animated: true)
+            }
+            
+            SOXmpp.manager.xmpp_SendMessage(bodyData: jsonStr, objMsg: obj)
+        } else {
+            self.showAlertView()
+        }
+    }
+    
+    
     private func addMediaMessage(with data: Data , mediaType: XMPP_Message_Type, image : UIImage) {
         
         if let localPath = Chat_Utility.Save_Media_ToDocumentDirectory(mediaType: mediaType, data: data).0 {
@@ -1049,7 +1087,7 @@ extension OneToOneChatVC {
                if error == nil {
                  let obj = self.GetChatMsgObject()
                  obj.msgType = XMPP_Message_Type.location.rawValue
-                obj.strMsg = "\(String(Float((currLocation?.coordinate.latitude)!))),\(String(Float((currLocation?.coordinate.longitude)!)))"
+                 obj.strMsg = "\(String(Float((currLocation?.coordinate.latitude)!))),\(String(Float((currLocation?.coordinate.longitude)!)))"
                  obj.body = "\(String(Float((currLocation?.coordinate.latitude)!))),\(String(Float((currLocation?.coordinate.longitude)!)))"
                  let jsonStr = Chat_Utility.getOneToOneMsgBody(objChat: obj)
                  print(jsonStr)
@@ -1406,57 +1444,21 @@ extension OneToOneChatVC: ProtocolChatMessageRetry {
     }
     
     func RetryBtnPressed(for objChat: Model_ChatMessage) {
-        
-        objChat.isUploading = true
-        objChat.isError = false
-        
+
         switch XMPP_Message_Type.init(rawValue: objChat.msgType!) {
         case .text, .location:
             if objChat.isOutgoing {
-                if objChat.msgStatus != 1 && objChat.msgStatus != 2 && objChat.msgStatus != 3 {
-                } else {
-                    objChat.isUploading = false
-                    objChat.isError = true
-                }
+                btnResendAction(objChat: objChat)
             }
             break
         default:
             if objChat.isOutgoing {
-                if objChat.msgStatus != 1 && objChat.msgStatus != 2 && objChat.msgStatus != 3 {
-                    let lastPath = URL(fileURLWithPath: objChat.localPath!).lastPathComponent
-                    let _url = Chat_Utility.documentsPath.appendingPathComponent(lastPath)
-                    
-                    let objUploadTask = ChatUploadTask.init(objChat: objChat, localPath: _url)
-                    objUploadTask.delegate = self
-                    AWSS3Manager.shared.activeUploads.append(objUploadTask)
-                    XMPP_MessageArchiving_Custom.UpdateMessage(obj: objChat)
-                    self.updateMessage(with: objChat)
-                    
-                    if AWSS3Manager.shared.index == 0 {
-                        AWSS3Manager.shared.sequenceUpload()
-                    }
-                } else {
-                    objChat.isUploading = false
-                    objChat.isError = true
-                }
+                
+                objChat.isUploading = false
+                objChat.isError = false
+                btnResendAction(objChat: objChat)
             }
         }
-        
-//        if objChat.isOutgoing {
-//
-//            let lastPath = URL(fileURLWithPath: objChat.localPath!).lastPathComponent
-//            let _url = Chat_Utility.documentsPath.appendingPathComponent(lastPath)
-//
-//            let objUploadTask = ChatUploadTask.init(objChat: objChat, localPath: _url)
-//            objUploadTask.delegate = self
-//            AWSS3Manager.shared.activeUploads.append(objUploadTask)
-//            XMPP_MessageArchiving_Custom.UpdateMessage(obj: objChat)
-//            self.updateMessage(with: objChat)
-//
-//            if AWSS3Manager.shared.index == 0 {
-//                AWSS3Manager.shared.sequenceUpload()
-//            }
-//        }
     }
 }
 

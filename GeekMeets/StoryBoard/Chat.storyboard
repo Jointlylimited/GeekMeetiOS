@@ -450,6 +450,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="BtnView" destination="L8G-I0-tw0" id="mtO-ja-loK"/>
+                                            <outlet property="btnOption" destination="J2f-XE-MH3" id="PBm-4y-p27"/>
                                             <outlet property="chatBubbleView" destination="qO0-hG-ua5" id="y2R-DP-nb1"/>
                                             <outlet property="lblDateTime" destination="RvC-ZT-wsT" id="xGf-6l-7XU"/>
                                             <outlet property="lblMsg" destination="soQ-en-07r" id="3PD-bQ-GXB"/>
@@ -986,6 +987,7 @@
                                         <connections>
                                             <outlet property="BtnView" destination="3QO-WV-5N4" id="7ta-JV-EPP"/>
                                             <outlet property="activityIndicator" destination="Zw7-Wt-Udt" id="xRg-ut-yO7"/>
+                                            <outlet property="btnOption" destination="14X-fX-oIt" id="bqM-Y1-JEY"/>
                                             <outlet property="btnRetry" destination="kWW-2H-UlJ" id="pf1-g2-KzK"/>
                                             <outlet property="chatBubbleView" destination="ZMT-eH-lEK" id="e0l-qZ-4if"/>
                                             <outlet property="imgVideoPreview" destination="wnf-B6-xnt" id="nvW-U8-Qca"/>
@@ -1254,6 +1256,7 @@
                                         <connections>
                                             <outlet property="BtnView" destination="MHa-PZ-xgL" id="QYW-nw-nWq"/>
                                             <outlet property="activityIndicator" destination="jso-fZ-75X" id="9E3-Nu-zXk"/>
+                                            <outlet property="btnOption" destination="Hdl-ce-1f8" id="FCP-h6-iGl"/>
                                             <outlet property="btnRetry" destination="4Of-IQ-mAo" id="tjg-fk-m1X"/>
                                             <outlet property="chatBubbleView" destination="5lY-q9-rD8" id="005-xZ-k8a"/>
                                             <outlet property="imgView" destination="nI0-vc-6gF" id="iEd-YC-6AT"/>

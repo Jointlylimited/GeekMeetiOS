@@ -33,6 +33,7 @@ class ChatMediaCell: UITableViewCell {
     @IBOutlet weak var chatBubbleView: ChatBubbleView!
     @IBOutlet weak var resendView: UIView!
     @IBOutlet weak var stackViewHeightConstant: NSLayoutConstraint!
+    @IBOutlet weak var btnOption: UIButton!
     
     var chatMsgObj: Model_ChatMessage?
     weak var delegate: ProtocolChatMessageRetry?
@@ -68,6 +69,7 @@ class ChatMediaCell: UITableViewCell {
         
         if chatMsg.isOutgoing {
 //            if self.chatMsgObj!.msgStatus != 1 && self.chatMsgObj!.msgStatus != 2 && self.chatMsgObj!.msgStatus != 3 {
+                self.btnOption.alpha = 0.0
                 self.BtnView.customize(backgroundColor: #colorLiteral(red: 0.7490196078, green: 0.75, blue: 0.75, alpha: 0.3), radiusSize: 7.0, isSend: false)
                 self.stackViewHeightConstant.constant = 50
 //            } else {
@@ -92,14 +94,11 @@ class ChatMediaCell: UITableViewCell {
         } else {
             viewUploadContainer.isHidden = true
             btnRetry.isHidden = true
+            if chatMsg.isOutgoing {
+                self.btnOption.alpha = 1.0
+            }
         }
         
-//        if chatMsg.isOutgoing {
-//            self.setDeliverAndReadStatus()
-//            self.chatBubbleView.layer.roundCorners([.topLeft, .bottomRight, .bottomLeft], radius: 10)
-//        } else {
-//            self.chatBubbleView.layer.roundCorners([.topRight, .bottomRight, .bottomLeft], radius: 10)
-//        }
         if chatMsg.msgType! == XMPP_Message_Type.video.rawValue {
             imgVideoPreview.isHidden = false
             self.setMediaVideoThumnail()

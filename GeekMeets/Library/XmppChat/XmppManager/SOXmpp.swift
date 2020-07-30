@@ -1279,10 +1279,10 @@ extension SOXmpp {
         message.addAttribute(withName: "to", stringValue: "\(objMsg.ToJID!.bare)")
         message.addAttribute(withName: "type", stringValue: "chat")
         message.addAttribute(withName: "id", stringValue: objMsg.messageId)
-//        if objMsg.location != nil {
+        if objMsg.strMsg != "" {
             message.addAttribute(withName: "latitude", stringValue: String((objMsg.strMsg?.split(",").first)!))
            message.addAttribute(withName: "longitude", stringValue: String((objMsg.strMsg?.split(",").last)!))
-//        }
+        }
         message.addChild(body)
         message.addChild(subject)
         //message.addChild(msgDetail)
@@ -1358,8 +1358,10 @@ extension SOXmpp {
         message.addAttribute(withName: "from", stringValue: "\(objMsg.ToJID!.bare)")
         message.addAttribute(withName: "id", stringValue: objMsg.messageId)
         print(objMsg.body)
-        message.addAttribute(withName: "latitude", stringValue: String((objMsg.strMsg?.split(",").first)!))
-        message.addAttribute(withName: "longitude", stringValue: String((objMsg.strMsg?.split(",").last)!))
+        if objMsg.strMsg != "" {
+            message.addAttribute(withName: "latitude", stringValue: String((objMsg.strMsg?.split(",").first)!))
+            message.addAttribute(withName: "longitude", stringValue: String((objMsg.strMsg?.split(",").last)!))
+        }
         
         message.addChild(x)
         message.addChild(request)
