@@ -1556,7 +1556,6 @@ extension SOXmpp {
     func xmpp_RemoveSingleObject(withMessageId MsgID: String?, withToUserId toUserID: String?, obj : Model_ChatMessage) {
 
         let jd = XMPPJID(string: toUserID!)
-//        let context = self.xmppCoreDataStorage.managedObjectContext!
         let context = CoreDataManager.sharedManager.managedContext()
         let arrSkChats = xmpp_FetchSingleArchivingObject(MsgID, with: jd!)
 
@@ -1640,16 +1639,21 @@ extension SOXmpp {
     }
     
     func removeMessage(objMsg: Model_ChatMessage){
-        let message = XMLElement.init(name: "message")
-        message.addAttribute(withName: "to", stringValue: "\(objMsg.ToJID!.bare)")
-        message.addAttribute(withName: "id", stringValue: "remove1")
+        
         let remove = XMLElement.init(name: "remove")
-        remove.addAttribute(withName: "id", stringValue: "\(objMsg.ToJID!.bare)")
-        remove.addAttribute(withName: "xmlns", stringValue: "urn:xmpp:message-delete:0")
+        remove.addAttribute(withName: "xmlns", stringValue: "urn:xmpp:archive")
+        remove.addAttribute(withName: "with", stringValue: "\(objMsg.ToJID!.bare)")
+        remove.addAttribute(withName: "start", stringValue: "\(objMsg.messageDate)")
+        remove.addAttribute(withName: "end", stringValue: "\(objMsg.messageDate)")
+                
+        let iq = DDXMLElement.init(name: "iq")
+        iq.addAttribute(withName: "type", stringValue: "set")
+        iq.addAttribute(withName: "id", stringValue: "remove1")
         
-        message.addChild(remove)
+        iq.addChild(remove)
         
-        self.xmppStream.send(message)
+        print("==================IQ ==\(iq)")
+        self.xmppStream.send(iq)
     }
 }
 

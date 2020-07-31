@@ -27,6 +27,9 @@ protocol MenuPresentationProtocol {
     
     func callGeeksPlansAPI()
     func getGeeksPlansResponse(response : BoostGeekResponse)
+    
+    func callBoostPlansAPI()
+    func getBoostPlansResponse(response : BoostGeekResponse)
 }
 
 class MenuPresenter: MenuPresentationProtocol {
@@ -70,5 +73,12 @@ class MenuPresenter: MenuPresentationProtocol {
     }
     func getGeeksPlansResponse(response : BoostGeekResponse){
         self.viewController?.getGeeksPlansResponse(response : response)
+    }
+    
+    func callBoostPlansAPI(){
+        self.interactor?.callBoostPlansAPI()
+    }
+    func getBoostPlansResponse(response : BoostGeekResponse){
+        self.viewController?.getBoostPlansResponse(response : response)
     }
 }

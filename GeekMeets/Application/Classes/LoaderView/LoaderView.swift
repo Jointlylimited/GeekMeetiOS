@@ -46,7 +46,9 @@ import Lottie
         starAnimationView.contentMode = .scaleAspectFill
         starAnimationView.loopMode = .repeat(Float(100))
         view.addSubview(starAnimationView)
-        AppDelObj.window?.addSubview(view)
+        delay(0.2) {
+            AppDelObj.window?.addSubview(self.view)
+        }
         starAnimationView.play()
         
 //        if activity == nil {

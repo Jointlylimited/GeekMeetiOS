@@ -49,7 +49,7 @@ class TopGeeksInteractor: TopGeeksInteractorProtocol, TopGeeksDataStore {
     
     func callCreateGeeksAPI(param : Dictionary<String, String>) {
         LoaderView.sharedInstance.showLoader()
-        BoostGeekAPI.createBoostGeek(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization, tiPlanType: 2, fPlanPrice: param["fPlanPrice"]!, vPurchaseDate:  authToken.timeStamp, iBoostGeekCount: Int(param["iBoostGeekCount"]!)!) { (response, error) in
+        BoostGeekAPI.createBoostGeek(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization, tiPlanType: Int(param["tiPlanType"]!)!, fPlanPrice: param["fPlanPrice"]!, vPurchaseDate: authToken.timeStamp, iBoostCount: Int(param["iBoostCount"]!)!, iGeekCount: Int(param["iGeekCount"]!)!) { (response, error) in
             
             LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {

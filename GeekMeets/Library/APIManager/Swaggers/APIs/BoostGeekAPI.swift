@@ -124,14 +124,15 @@ open class BoostGeekAPI {
      - parameter timestamp: (header)
      - parameter token: (header)
      - parameter authorization: (header)
-     - parameter tiPlanType: (form) 1-boost,2-geek
+     - parameter tiPlanType: (form) 1-boost,2-geek,3-combine
      - parameter fPlanPrice: (form)
      - parameter vPurchaseDate: (form)
-     - parameter iBoostGeekCount: (form) pass the number of boost/geeks
+     - parameter iBoostCount: (form) pass the number of boost (optional)
+     - parameter iGeekCount: (form) pass the number of geek (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func createBoostGeek(nonce: String, timestamp: Int, token: String, authorization: String, tiPlanType: Int, fPlanPrice: String, vPurchaseDate: String, iBoostGeekCount: Int, completion: @escaping ((_ data: BoostGeekResponse?,_ error: Error?) -> Void)) {
-        createBoostGeekWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, tiPlanType: tiPlanType, fPlanPrice: fPlanPrice, vPurchaseDate: vPurchaseDate, iBoostGeekCount: iBoostGeekCount).execute { (response, error) -> Void in
+    open class func createBoostGeek(nonce: String, timestamp: Int, token: String, authorization: String, tiPlanType: Int, fPlanPrice: String, vPurchaseDate: String, iBoostCount: Int? = nil, iGeekCount: Int? = nil, completion: @escaping ((_ data: BoostGeekResponse?,_ error: Error?) -> Void)) {
+        createBoostGeekWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, tiPlanType: tiPlanType, fPlanPrice: fPlanPrice, vPurchaseDate: vPurchaseDate, iBoostCount: iBoostCount, iGeekCount: iGeekCount).execute { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
@@ -146,21 +147,23 @@ open class BoostGeekAPI {
      - parameter timestamp: (header)
      - parameter token: (header)
      - parameter authorization: (header)
-     - parameter tiPlanType: (form) 1-boost,2-geek
+     - parameter tiPlanType: (form) 1-boost,2-geek,3-combine
      - parameter fPlanPrice: (form)
      - parameter vPurchaseDate: (form)
-     - parameter iBoostGeekCount: (form) pass the number of boost/geeks
+     - parameter iBoostCount: (form) pass the number of boost (optional)
+     - parameter iGeekCount: (form) pass the number of geek (optional)
 
      - returns: RequestBuilder<BoostGeekResponse>
      */
-    open class func createBoostGeekWithRequestBuilder(nonce: String, timestamp: Int, token: String, authorization: String, tiPlanType: Int, fPlanPrice: String, vPurchaseDate: String, iBoostGeekCount: Int) -> RequestBuilder<BoostGeekResponse> {
+    open class func createBoostGeekWithRequestBuilder(nonce: String, timestamp: Int, token: String, authorization: String, tiPlanType: Int, fPlanPrice: String, vPurchaseDate: String, iBoostCount: Int? = nil, iGeekCount: Int? = nil) -> RequestBuilder<BoostGeekResponse> {
         let path = "/boost-geek-plans/create"
         let URLString = SwaggerClientAPI.basePath + path
         let formParams: [String:Any?] = [
             "tiPlanType": tiPlanType.encodeToJSON(),
             "fPlanPrice": fPlanPrice,
             "vPurchaseDate": vPurchaseDate,
-            "iBoostGeekCount": iBoostGeekCount.encodeToJSON()
+            "iBoostCount": iBoostCount?.encodeToJSON(),
+            "iGeekCount": iGeekCount?.encodeToJSON()
         ]
 
         let nonNullParameters = APIHelper.rejectNil(formParams)

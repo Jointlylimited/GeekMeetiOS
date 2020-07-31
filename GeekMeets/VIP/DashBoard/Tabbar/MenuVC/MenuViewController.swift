@@ -32,6 +32,7 @@ protocol MenuProtocol: class {
     func getPushStatusResponse(response : UserAuthResponse)
     func getMatchResponse(response : MatchUser)
     func getGeeksPlansResponse(response : BoostGeekResponse)
+    func getBoostPlansResponse(response : BoostGeekResponse)
 }
 
 class MenuViewController: UIViewController, MenuProtocol {
@@ -168,31 +169,43 @@ class MenuViewController: UIViewController, MenuProtocol {
           totalMin -= 1
         }
 
-        if "\(totalMin!)".firstCharacterAsString == "0" {
+        if totalMin != 0 {
 //          totalMin = 60
           totalHour -= 1
+        } else {
+            totalMin = 0
         }
         
-        if "\(totalMin!)".firstCharacterAsString == "0" && "\(totalSecond!)".firstCharacterAsString == "0" {
+        if totalMin! == 0 && totalSecond! == 0 {
             totalMin = 0
             totalSecond = 0
-            endTimer()
+            updateTimerView()
             self.lblRemainTime.text = "\(00):\(00) Remaining"
         }
         self.lblRemainTime.text = "\(totalMin!):\(totalSecond!) Remaining"
         
       } else {
+        updateTimerView()
+      }
+    }
+    
+    func endTimer() {
+      timer.invalidate()
+    }
+    
+    func updateTimerView(){
         endTimer()
         self.RemainTimeView.alpha = 0.0
         self.remainTimeViewHeightConstant.constant = 0
         self.profileView.frame = CGRect(x: 0, y: 0, w: ScreenSize.width, h: 250)
         timer.invalidate()
         self.tblMenuList.reloadData()
-      }
     }
     
-    func endTimer() {
-      timer.invalidate()
+    func updateView(){
+        self.RemainTimeView.alpha = 0.0
+        self.remainTimeViewHeightConstant.constant = 0
+        self.profileView.frame = CGRect(x: 0, y: 0, w: ScreenSize.width, h: 250)
     }
     
     func timeFormatted(_ totalSeconds: Int) -> String {
@@ -232,8 +245,6 @@ class MenuViewController: UIViewController, MenuProtocol {
         if dateStr1.compare(dateStr2) == .orderedDescending  {
             startTimer()
         } else {
-            //         viewTimer.isHidden = true
-            //         viewMeeting.isHidden = false
         }
     }
 }
@@ -246,25 +257,30 @@ extension MenuViewController {
     }
     
     func getGeeksPlansResponse(response : BoostGeekResponse){
-        print(response)
         if response.responseCode == 200 {
             self.GeekPlans = response.responseData?.pendingGeek ?? 0
+        }
+        self.presenter?.callBoostPlansAPI()
+    }
+    
+    func getBoostPlansResponse(response : BoostGeekResponse){
+        print(response)
+        if response.responseCode == 200 {
             self.Boosts = response.responseData?.pendingBoost ?? 0
-            if response.responseData?.iExpireAt != "" {
-                setPlansDetails(date: (response.responseData?.iExpireAt)!)
-                self.RemainTimeView.alpha = 1.0
-                self.remainTimeViewHeightConstant.constant = 80
-                self.profileView.frame = CGRect(x: 0, y: 0, w: ScreenSize.width, h: 340)
+            if response.responseData?.tiPlanType == 1 {
+                if response.responseData?.iExpireAt != "" {
+                    setPlansDetails(date: (response.responseData?.iExpireAt)!)
+                    self.RemainTimeView.alpha = 1.0
+                    self.remainTimeViewHeightConstant.constant = 80
+                    self.profileView.frame = CGRect(x: 0, y: 0, w: ScreenSize.width, h: 340)
+                } else {
+                    updateView()
+                }
             } else {
-                
-                self.RemainTimeView.alpha = 0.0
-                self.remainTimeViewHeightConstant.constant = 0
-                self.profileView.frame = CGRect(x: 0, y: 0, w: ScreenSize.width, h: 250)
+                updateView()
             }
         } else {
-            self.RemainTimeView.alpha = 0.0
-            self.remainTimeViewHeightConstant.constant = 0
-            self.profileView.frame = CGRect(x: 0, y: 0, w: ScreenSize.width, h: 250)
+            updateView()
         }
         setTheme()
     }

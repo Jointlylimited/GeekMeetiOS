@@ -96,13 +96,13 @@ class BoostViewController: UIViewController, BoostProtocol {
         sender.isSelected = true
         
         if sender.tag == 0 {
-            planDict = ["fPlanPrice" : "1.99", "iBoostGeekCount" : "1"]
+            planDict = ["fPlanPrice" : "1.99", "tiPlanType": "1", "iBoostCount" : "1", "iGeekCount" : "0"]
         } else if sender.tag == 1 {
-            planDict = ["fPlanPrice" : "3.99", "iBoostGeekCount" : "5"]
+            planDict = ["fPlanPrice" : "3.99",  "tiPlanType": "1", "iBoostGeekCount" : "5", "iGeekCount" : "0"]
         } else if sender.tag == 2 {
-            planDict = ["fPlanPrice" : "6.99", "iBoostGeekCount" : "8"]
+            planDict = ["fPlanPrice" : "6.99", "tiPlanType": "1", "iBoostGeekCount" : "8", "iGeekCount" : "0"]
         } else {
-            planDict = ["fPlanPrice" : "14.99", "iBoostGeekCount" : "10"]
+            planDict = ["fPlanPrice" : "14.99", "tiPlanType": "3", "iBoostGeekCount" : "10", "iGeekCount" : "10"]
         }
     }
     
@@ -190,14 +190,13 @@ extension BoostViewController {
     }
     
     func callCreateBoostAPI() {
-        let param = RequestParameter.sharedInstance().createBoostGeekParams(fPlanPrice: planDict["fPlanPrice"] as! String, iBoostGeekCount: planDict["iBoostGeekCount"] as! String)
+        let param = RequestParameter.sharedInstance().createBoostGeekParams(fPlanPrice: planDict["fPlanPrice"] as! String, tiPlanType: planDict["tiPlanType"] as! String, iBoostCount: planDict["iBoostCount"] as! String, iGeekCount: planDict["iGeekCount"] as! String)
         self.presenter?.callCreateBoostAPI(param : param)
     }
     
     func getBoostResponse(response : BoostGeekResponse){
         if response.responseCode == 200 {
-            self.btnActiveBoostPlans.setTitle("\(response.responseData?.pendingBoost ?? 0)", for: .normal)
-            setBoostNowButton(data : response.responseData!)
+            self.presenter?.callBoostPlansAPI()
         } else {
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }

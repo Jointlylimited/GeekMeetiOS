@@ -95,13 +95,13 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
         sender.isSelected = true
         
         if sender.tag == 0 {
-            planDict = ["fPlanPrice" : "1.99", "iBoostGeekCount" : "1"]
+            planDict = ["fPlanPrice" : "1.99", "tiPlanType": "2", "iBoostCount" : "0", "iGeekCount" : "1"]
         } else if sender.tag == 1 {
-            planDict = ["fPlanPrice" : "6.99", "iBoostGeekCount" : "4"]
+            planDict = ["fPlanPrice" : "6.99", "tiPlanType": "2", "iBoostCount" : "0", "iGeekCount" : "4"]
         } else if sender.tag == 2 {
-            planDict = ["fPlanPrice" : "9.99", "iBoostGeekCount" : "8"]
+            planDict = ["fPlanPrice" : "9.99", "tiPlanType": "2", "iBoostCount" : "0", "iGeekCount" : "8"]
         } else {
-            planDict = ["fPlanPrice" : "14.99", "iBoostGeekCount" : "20"]
+            planDict = ["fPlanPrice" : "14.99", "tiPlanType": "3", "iBoostCount" : "10", "iGeekCount" : "10"]
         }
     }
     
@@ -189,14 +189,13 @@ extension TopGeeksViewController {
     }
     
     func callCreateGeeksAPI() {
-        let param = RequestParameter.sharedInstance().createBoostGeekParams(fPlanPrice: planDict["fPlanPrice"] as! String, iBoostGeekCount: planDict["iBoostGeekCount"] as! String)
+        let param = RequestParameter.sharedInstance().createBoostGeekParams(fPlanPrice: planDict["fPlanPrice"] as! String, tiPlanType: planDict["tiPlanType"] as! String, iBoostCount: planDict["iBoostCount"] as! String, iGeekCount: planDict["iGeekCount"] as! String)
         self.presenter?.callCreateGeeksAPI(param: param)
     }
     
     func getGeeksResponse(response : BoostGeekResponse){
         if response.responseCode == 200 {
-            self.btnActivePlans.setTitle("\(response.responseData?.pendingGeek ?? 0)", for: .normal)
-            setActiveNowButton(data : response.responseData!)
+            self.presenter?.callGeeksPlansAPI()
         } else {
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }
