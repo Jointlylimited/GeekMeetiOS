@@ -217,7 +217,7 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
         
         // observer for refresh chat
         NotificationCenter.default.addObserver(self, selector: #selector(refreshChat), name: Notification_RefreshChat, object: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshChatAfterDelete), name: Notification_RefreshChatAfterDelete, object: nil)
         AWSS3Manager.shared.activeUploads.forEach { $0.delegate = self }
         
         self.loadMessages(msgObj: nil)
@@ -233,6 +233,9 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
         self.loadMessages(msgObj: nil)
     }
     
+    @objc func refreshChatAfterDelete() {
+        self.loadMessages(msgObj: nil)
+    }
     
     func loadMessages(msgObj: Model_ChatMessage?) {
         
@@ -1439,7 +1442,10 @@ extension OneToOneChatVC: ProtocolChatMessageRetry {
     func UnsendBtnPressed(for objChat: Model_ChatMessage) {
         if objChat.isOutgoing {
             SOXmpp.manager.xmpp_RemoveSingleObject(withMessageId: objChat.messageId, withToUserId: self.objFriend!.jID, obj: objChat)
-            self.loadMessages(msgObj: nil)
+//            self.loadMessages(msgObj: nil)
+            SetupXmppCallback()
+//            SOXmpp.manager.xmpp_RemoveArchiving(withID: XMPPJID(string: self.objFriend!.jID)!)
+//            refreshChat()
         }
     }
     

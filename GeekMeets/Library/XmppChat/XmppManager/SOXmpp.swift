@@ -24,6 +24,7 @@ typealias BlockCompletionVoid = ()->Void
 let NotificationXmppServerConnection: Notification.Name = Notification.Name.init(rawValue: "NotificationXmppServerConnection")
 let Notification_User_Online_Offline: Notification.Name = Notification.Name.init(rawValue: "Notification_User_Online_Offline")
 let Notification_RefreshChat: Notification.Name = Notification.Name.init(rawValue: "Notification_RefreshChat")
+let Notification_RefreshChatAfterDelete: Notification.Name = Notification.Name.init(rawValue: "Notification_RefreshChatAfterDelete")
 
 final class SOXmpp: NSObject {
     
@@ -1654,6 +1655,8 @@ extension SOXmpp {
         
         print("==================IQ ==\(iq)")
         self.xmppStream.send(iq)
+//        self._bFriendListUpdateCallback?()
+//        NotificationCenter.default.post(name: Notification_RefreshChatAfterDelete, object: nil, userInfo: nil)
     }
 }
 

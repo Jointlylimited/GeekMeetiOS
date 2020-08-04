@@ -13,7 +13,8 @@
 import UIKit
 
 protocol ManageSubscriptionPresentationProtocol {
-    func presentSomething()
+    func callCreateSubscriptionAPI(param : Dictionary<String, String>)
+    func getSubscriptionResponse(response : SubscriptionResponse)
 }
 
 class ManageSubscriptionPresenter: ManageSubscriptionPresentationProtocol {
@@ -21,7 +22,10 @@ class ManageSubscriptionPresenter: ManageSubscriptionPresentationProtocol {
     var interactor: ManageSubscriptionInteractorProtocol?
     
     // MARK: Present something
-    func presentSomething() {
-        
+    func callCreateSubscriptionAPI(param : Dictionary<String, String>) {
+        self.interactor?.callCreateSubscriptionAPI(param : param)
+    }
+    func getSubscriptionResponse(response : SubscriptionResponse){
+        self.viewController?.getSubscriptionResponse(response: response)
     }
 }

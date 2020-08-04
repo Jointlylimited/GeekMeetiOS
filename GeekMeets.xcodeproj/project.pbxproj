@@ -28,6 +28,9 @@
 		0B0013D924ACA4B700D2EE83 /* Model_ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0013C524ACA4B700D2EE83 /* Model_ChatMessage.swift */; };
 		0B0013DA24ACA4B700D2EE83 /* Chat_Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0013C624ACA4B700D2EE83 /* Chat_Utility.swift */; };
 		0B04679B24A0C3680081E507 /* StoryResponseArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B04679A24A0C3680081E507 /* StoryResponseArray.swift */; };
+		0B060DB624D977A600EF5C21 /* SubscriptionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B060DB524D977A500EF5C21 /* SubscriptionAPI.swift */; };
+		0B060DB924D977CE00EF5C21 /* SubscriptionFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B060DB724D977CD00EF5C21 /* SubscriptionFields.swift */; };
+		0B060DBA24D977CE00EF5C21 /* SubscriptionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B060DB824D977CE00EF5C21 /* SubscriptionResponse.swift */; };
 		0B0AC39F24583EF600B91DF5 /* UIAlertControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0AC39E24583EF600B91DF5 /* UIAlertControllerExtension.swift */; };
 		0B0B4B0C247504F70047EB11 /* RangeSeekSliderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0B4B09247504F70047EB11 /* RangeSeekSliderDelegate.swift */; };
 		0B0B4B0D247504F80047EB11 /* RangeSeekSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0B4B0A247504F70047EB11 /* RangeSeekSlider.swift */; };
@@ -430,6 +433,9 @@
 		0B0013C524ACA4B700D2EE83 /* Model_ChatMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model_ChatMessage.swift; sourceTree = "<group>"; };
 		0B0013C624ACA4B700D2EE83 /* Chat_Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat_Utility.swift; sourceTree = "<group>"; };
 		0B04679A24A0C3680081E507 /* StoryResponseArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryResponseArray.swift; sourceTree = "<group>"; };
+		0B060DB524D977A500EF5C21 /* SubscriptionAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionAPI.swift; sourceTree = "<group>"; };
+		0B060DB724D977CD00EF5C21 /* SubscriptionFields.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionFields.swift; sourceTree = "<group>"; };
+		0B060DB824D977CE00EF5C21 /* SubscriptionResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionResponse.swift; sourceTree = "<group>"; };
 		0B06C35B249C76FB00D17929 /* JointlyStaging.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JointlyStaging.entitlements; sourceTree = "<group>"; };
 		0B0AC39E24583EF600B91DF5 /* UIAlertControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertControllerExtension.swift; sourceTree = "<group>"; };
 		0B0B4B09247504F70047EB11 /* RangeSeekSliderDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSeekSliderDelegate.swift; sourceTree = "<group>"; };
@@ -1729,6 +1735,7 @@
 		F7780E20245AD666003CA4BD /* APIs */ = {
 			isa = PBXGroup;
 			children = (
+				0B060DB524D977A500EF5C21 /* SubscriptionAPI.swift */,
 				0BABEB3424BD91000084A3E1 /* BoostGeekAPI.swift */,
 				0BD88AF624977A5800C8C025 /* NotificationAPI.swift */,
 				0B56B6072486506D004A62D4 /* MediaAPI.swift */,
@@ -1743,6 +1750,8 @@
 		F7780E26245AD666003CA4BD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0B060DB724D977CD00EF5C21 /* SubscriptionFields.swift */,
+				0B060DB824D977CE00EF5C21 /* SubscriptionResponse.swift */,
 				0BABEB3624BD912F0084A3E1 /* BoostGeekFields.swift */,
 				0BABEB3724BD912F0084A3E1 /* BoostGeekResponse.swift */,
 				0BE56FE924B879F900A72A67 /* ContactUsFields.swift */,
@@ -2743,6 +2752,7 @@
 				F7780E3C245AD667003CA4BD /* Extensions.swift in Sources */,
 				0B8E855124ACB1F700C48B2C /* MatchUser.swift in Sources */,
 				F995BDC1204D1277005E5279 /* KeyMessages.swift in Sources */,
+				0B060DB924D977CE00EF5C21 /* SubscriptionFields.swift in Sources */,
 				F716F2A524495EDD0063680F /* UITextFieldExtensions.swift in Sources */,
 				0BABEB3524BD91010084A3E1 /* BoostGeekAPI.swift in Sources */,
 				F9EDD431203BFF33008FA83F /* BaseModel.swift in Sources */,
@@ -2781,6 +2791,7 @@
 				0BC465D6247E4D2B006DF9D0 /* SelectTextTypeCell.swift in Sources */,
 				F90B4CDE2032AAB8006ADAF6 /* AppDelegate.swift in Sources */,
 				0BD88AF724977A5800C8C025 /* NotificationAPI.swift in Sources */,
+				0B060DB624D977A600EF5C21 /* SubscriptionAPI.swift in Sources */,
 				F953B8D620467AFB00BE4F67 /* SettingsViewController.swift in Sources */,
 				0B0013D724ACA4B700D2EE83 /* AWSS3Manager.swift in Sources */,
 				F77E311B2456AEC100A213FF /* OTPStackView.swift in Sources */,
@@ -2971,6 +2982,7 @@
 				0BFCD80F246A9847004A2282 /* InstagramLoginVC.swift in Sources */,
 				0B535688245088DC005571AF /* EditProfilePresenter.swift in Sources */,
 				F7780E3B245AD667003CA4BD /* UserAuthResponseField.swift in Sources */,
+				0B060DBA24D977CE00EF5C21 /* SubscriptionResponse.swift in Sources */,
 				0BE72275247D442900BB8D23 /* PreferenceAnswer.swift in Sources */,
 				F7164AC0244EB78600853BFC /* ForgotPasswordPresenter.swift in Sources */,
 				F77E311C2456AEC100A213FF /* OTPTextField.swift in Sources */,

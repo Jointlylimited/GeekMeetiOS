@@ -186,5 +186,17 @@ class RequestParameter: NSObject {
         requestDictionary["iGeekCount"] = iGeekCount
         return requestDictionary
     }
+    
+    func createSubscriptionParams(vTransactionId: String, tiType: String, fPrice: String, vReceiptData: String, iStartDate: String, iEndDate: String) -> Dictionary<String, String> {
+        
+        var requestDictionary : Dictionary<String,String> = Dictionary()
+        requestDictionary["vTransactionId"] = vTransactionId
+        requestDictionary["tiType"] = tiType
+        requestDictionary["fPrice"] = fPrice
+        requestDictionary["vReceiptData"] = vReceiptData
+        requestDictionary["iStartDate"] = iStartDate
+        requestDictionary["iEndDate"] = iEndDate
+        return requestDictionary
+    }
 }
 

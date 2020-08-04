@@ -14,6 +14,7 @@ import UIKit
 import StoreKit
 
 protocol ManageSubscriptionProtocol: class {
+    func getSubscriptionResponse(response : SubscriptionResponse)
 }
 
 class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProtocol {
@@ -76,9 +77,22 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
         self.dismissVC(completion: nil)
     }
     
+    public func GetNextDayCurrentTimeStamp() -> String {
+        let df = DateFormatter()
+        let date = NSDate()
+        let nextDate = Calendar.current.date(byAdding: .day, value: 1, to: date as Date)
+        df.dateFormat = "yyyyMMddhhmmss"
+        let NewDate = df.string(from: nextDate as! Date)
+        return NewDate.replacingOccurrences(of: ":", with: "")
+    }
+    
     @IBAction func btnContinueAction(_ sender: UIButton) {
 //        self.dismissVC(completion: nil)
-        doSubscription(key : productKey)
+//        doSubscription(key : productKey)
+        
+        let endDate = self.GetNextDayCurrentTimeStamp()
+        let param = RequestParameter.sharedInstance().createSubscriptionParams(vTransactionId: "1214665932543", tiType: "1", fPrice: "1.99", vReceiptData: "13ncksncocwbwibck", iStartDate: authToken.timeStamp, iEndDate: endDate)
+        self.presenter?.callCreateSubscriptionAPI(param: param)
     }
     
     @IBAction func btnSubscriptionAction(_ sender: UIButton) {
@@ -106,6 +120,13 @@ extension ManageSubscriptionViewController {
             //   self.btnCreateVideo.hideLoading()
             //self.btnCreateVideo.isEnabled = false
             print("Cannot perform In App Purchases.")
+        }
+    }
+    
+    func getSubscriptionResponse(response : SubscriptionResponse){
+        print(response)
+        if response.responseCode == 200 {
+            UserDataModel.currentUser?.tiIsSubscribed = 1
         }
     }
 }

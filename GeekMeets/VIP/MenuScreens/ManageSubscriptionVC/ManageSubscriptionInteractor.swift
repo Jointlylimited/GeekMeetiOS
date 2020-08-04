@@ -13,7 +13,7 @@
 import UIKit
 
 protocol ManageSubscriptionInteractorProtocol {
-    func doSomething()
+    func callCreateSubscriptionAPI(param : Dictionary<String, String>)
 }
 
 protocol ManageSubscriptionDataStore {
@@ -25,7 +25,22 @@ class ManageSubscriptionInteractor: ManageSubscriptionInteractorProtocol, Manage
     //var name: String = ""
     
     // MARK: Do something
-    func doSomething() {
-        
+    func callCreateSubscriptionAPI(param : Dictionary<String, String>) {
+        LoaderView.sharedInstance.showLoader()
+        SubscriptionAPI.createSubscription(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vTransactionId: param["vTransactionId"]!, tiType: param["tiType"]!, fPrice: param["fPrice"]!, vReceiptData: param["vReceiptData"]!, iStartDate: param["iStartDate"]!, iEndDate: param["iEndDate"]!) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getSubscriptionResponse(response: response!)
+            } else if response?.responseCode == 400 {
+                self.presenter?.getSubscriptionResponse(response: response!)
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getSubscriptionResponse(response: response!)
+                }
+            }
+        }
     }
 }

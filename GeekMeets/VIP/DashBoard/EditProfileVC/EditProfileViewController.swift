@@ -52,7 +52,7 @@ enum EditProfileListCells {
         case .SocialCell:
             return 225
         case .PrivacyCell:
-            return 300
+            return 225
         }
     }
     
@@ -117,7 +117,9 @@ struct EditProfileData {
     cell.append(.InterestCell)
     cell.append(.PhotosCell)
     cell.append(.SocialCell)
-    cell.append(.PrivacyCell)
+    if UserDataModel.currentUser?.tiIsSubscribed == 1 {
+        cell.append(.PrivacyCell)
+    }
     
     return cell
   }
