@@ -84,12 +84,12 @@ public class CardView: UIView {
             if(distanceInMeters <= 1609)
             {
                 let s =   String(format: "%.2f", distanceInMeters)
-                dis = s + " mi"
+                dis = s + " mi "
             }
             else
             {
                 let s =   String(format: "%.2f", distanceInMeters)
-                dis = s + " mi"
+                dis = s + " mi "
             }
             return " \(dis) "
         } else {

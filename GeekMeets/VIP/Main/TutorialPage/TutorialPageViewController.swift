@@ -114,7 +114,7 @@ class TutorialPageViewController: UIViewController, TutorialPageProtocol {
   }
   @IBAction func actionSkip(_ sender : UIButton)
     {
-        
+        self.presenter?.actionNextButton()
     }
 }
 

@@ -198,5 +198,14 @@ class RequestParameter: NSObject {
         requestDictionary["iEndDate"] = iEndDate
         return requestDictionary
     }
+    
+    func createBoostGeekParams(iSubscriptionId : String, iEndDate: String, isExpire:String) -> Dictionary<String,String> {
+        
+        var requestDictionary : Dictionary<String,String> = Dictionary()
+        requestDictionary["iSubscriptionId"] = iSubscriptionId
+        requestDictionary["iEndDate"] = iEndDate
+        requestDictionary["isExpire"] = isExpire
+        return requestDictionary
+    }
 }
 

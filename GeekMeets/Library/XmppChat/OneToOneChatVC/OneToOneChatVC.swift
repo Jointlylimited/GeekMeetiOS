@@ -234,7 +234,17 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
     }
     
     @objc func refreshChatAfterDelete() {
-        self.loadMessages(msgObj: nil)
+        if let arr = SOXmpp.manager.xmpp_FetchArchiving(with: self.objFriend!.xmppJID!) {  // 3
+            self.arrChatMsg = arr
+            //self.GetDifferentDate()
+            self.tblChat.reloadData()
+
+            self.arrChatMsg.forEach { (item) in
+                SOXmpp.manager.sendReadMessageStatus(objMsg: item)
+            }
+
+            self.scrollToBottomAnimated(animated: true)
+        }
     }
     
     func loadMessages(msgObj: Model_ChatMessage?) {
@@ -966,8 +976,8 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
             let techID = self.objFriend != nil ? self.objFriend?.jID.split("_").first!.components(separatedBy: CharacterSet.decimalDigits.inverted).last : _userIDForRequestSend?.split("_").first!.components(separatedBy: CharacterSet.decimalDigits.inverted).last
         controller.ReportFor = techID!
         self.pushVC(controller)
-
     }
+    
     @IBAction func btnClearChatPressed(_ sender: Any) {
         self.viewPopUp!.alpha = 0.0
         let alertController = UIAlertController(title: appName, message: "Are you sure you want to clear this chat?", preferredStyle: .alert)
@@ -1013,7 +1023,6 @@ extension OneToOneChatVC : CustomOptionViewDelegate {
         customAlertView.delegate = self
         customAlertView.frame = self.view.frame
         AppDelObj.window?.addSubview(customAlertView)
-        
     }
 }
 
@@ -1432,20 +1441,14 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
     @objc private func dismissController(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
-    
-//    private func getViewAndHeighForHeader(indexPath: IndexPath) ->(UIView?,CGFloat) {
-//        
-//    }
 }
 //MARK:-===================== Protocol ChatMessage Retry ==========
 extension OneToOneChatVC: ProtocolChatMessageRetry {
     func UnsendBtnPressed(for objChat: Model_ChatMessage) {
         if objChat.isOutgoing {
+            objChat.isForRemove = true
             SOXmpp.manager.xmpp_RemoveSingleObject(withMessageId: objChat.messageId, withToUserId: self.objFriend!.jID, obj: objChat)
-//            self.loadMessages(msgObj: nil)
-            SetupXmppCallback()
-//            SOXmpp.manager.xmpp_RemoveArchiving(withID: XMPPJID(string: self.objFriend!.jID)!)
-//            refreshChat()
+            self.loadMessages(msgObj: nil)
         }
     }
     

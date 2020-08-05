@@ -13,7 +13,9 @@
 import UIKit
 
 protocol ManageSubscriptionInteractorProtocol {
+    func callSubscriptionDetailsAPI()
     func callCreateSubscriptionAPI(param : Dictionary<String, String>)
+    func callUpdateSubscriptionAPI(param : Dictionary<String, String>)
 }
 
 protocol ManageSubscriptionDataStore {
@@ -25,6 +27,25 @@ class ManageSubscriptionInteractor: ManageSubscriptionInteractorProtocol, Manage
     //var name: String = ""
     
     // MARK: Do something
+    func callSubscriptionDetailsAPI(){
+        LoaderView.sharedInstance.showLoader()
+        SubscriptionAPI.subscriptionDetails(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getSubscriptionDetailsResponse(response: response!)
+            } else if response?.responseCode == 400 {
+                self.presenter?.getSubscriptionDetailsResponse(response: response!)
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getSubscriptionDetailsResponse(response: response!)
+                }
+            }
+        }
+    }
+    
     func callCreateSubscriptionAPI(param : Dictionary<String, String>) {
         LoaderView.sharedInstance.showLoader()
         SubscriptionAPI.createSubscription(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vTransactionId: param["vTransactionId"]!, tiType: param["tiType"]!, fPrice: param["fPrice"]!, vReceiptData: param["vReceiptData"]!, iStartDate: param["iStartDate"]!, iEndDate: param["iEndDate"]!) { (response, error) in
@@ -39,6 +60,25 @@ class ManageSubscriptionInteractor: ManageSubscriptionInteractorProtocol, Manage
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
                 } else {
                     self.presenter?.getSubscriptionResponse(response: response!)
+                }
+            }
+        }
+    }
+    
+    func callUpdateSubscriptionAPI(param : Dictionary<String, String>){
+        LoaderView.sharedInstance.showLoader()
+        SubscriptionAPI.updateSubscription(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iSubscriptionId: param["iSubscriptionId"]!, iEndDate: param["iEndDate"]!) { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.presenter?.getUpdateSubscriptionResponse(response: response!)
+            } else if response?.responseCode == 400 {
+                self.presenter?.getUpdateSubscriptionResponse(response: response!)
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getUpdateSubscriptionResponse(response: response!)
                 }
             }
         }

@@ -621,13 +621,16 @@ extension SOXmpp: XMPPStreamDelegate {
             //1
             let obj = Model_ChatMessage.init(xmppMessageObj: message)
             
+            if obj.isForRemove == false {
             //2
-            XMPP_MessageArchiving_Custom.InsertMessage(obj: obj)
-            
-            if self._bUpdateChatList != nil {
-                self._bUpdateChatList!(obj)
+                XMPP_MessageArchiving_Custom.InsertMessage(obj: obj)
+                if self._bUpdateChatList != nil {
+                    self._bUpdateChatList!(obj)
+                }
+            } else {
+                XMPP_MessageArchiving_Custom.RemoveMessage(obj: obj)
+                fetchArchieveingAfterDeleteMsg()
             }
-            
             //AppDelegate.shared.showNotificaiton(objChat: obj)
             
         }
@@ -666,8 +669,12 @@ extension SOXmpp: XMPPStreamDelegate {
             //1
             let obj = Model_ChatMessage.init(xmppMessageObj: message)
             //2
-            self.updateMessageStatus(status: .sent, messageID: obj.messageId)
-            
+            if obj.isForRemove == false {
+                self.updateMessageStatus(status: .sent, messageID: obj.messageId)
+            } else {
+                XMPP_MessageArchiving_Custom.RemoveMessage(obj: obj)
+                fetchArchieveingAfterDeleteMsg()
+            }
         }
     }
     
@@ -1013,7 +1020,6 @@ extension SOXmpp {
                 self._bUpdateChatList!(msg)
             }
         }
-        
     }
     
     func xmpp_SendTypingNotification(to jid:XMPPJID , isTyping: Bool) {
@@ -1562,7 +1568,9 @@ extension SOXmpp {
 
         (arrSkChats as NSArray).enumerateObjects({ skChat, idx, stop in
             if let messageObject = (skChat as? NSManagedObject) {
-                removeMessage(objMsg: obj)
+                let jsonStr = Chat_Utility.getOneToOneMsgBody(objChat: obj)
+                print(jsonStr)
+                SOXmpp.manager.xmpp_SendMessage(bodyData: jsonStr, objMsg: obj)
                 context.delete(messageObject)
             }
         })
@@ -1616,47 +1624,9 @@ extension SOXmpp {
         
             return []
         }
-    func xmpp_DelSingleObject(withMessageId MsgID: String?, withToUserId toUserID: String?) {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>()
-        let context = CoreDataManager.sharedManager.managedContext()
-        let entity = NSEntityDescription.entity(forEntityName: "XMPP_MessageArchiving_Custom", in: context)
-        fetchRequest.entity = entity
-        
-        var error: Error?
-        var items: [Any]? = nil
-        do {
-            items = try context.fetch(fetchRequest)
-        } catch {
-        }
-        
-        
-        for managedObject in items ?? [] {
-            guard let managedObject = managedObject as? NSManagedObject else {
-                continue
-            }
-            context.delete(managedObject)
-            
-        }
-    }
     
-    func removeMessage(objMsg: Model_ChatMessage){
-        
-        let remove = XMLElement.init(name: "remove")
-        remove.addAttribute(withName: "xmlns", stringValue: "urn:xmpp:archive")
-        remove.addAttribute(withName: "with", stringValue: "\(objMsg.ToJID!.bare)")
-        remove.addAttribute(withName: "start", stringValue: "\(objMsg.messageDate)")
-        remove.addAttribute(withName: "end", stringValue: "\(objMsg.messageDate)")
-                
-        let iq = DDXMLElement.init(name: "iq")
-        iq.addAttribute(withName: "type", stringValue: "set")
-        iq.addAttribute(withName: "id", stringValue: "remove1")
-        
-        iq.addChild(remove)
-        
-        print("==================IQ ==\(iq)")
-        self.xmppStream.send(iq)
-//        self._bFriendListUpdateCallback?()
-//        NotificationCenter.default.post(name: Notification_RefreshChatAfterDelete, object: nil, userInfo: nil)
+    func fetchArchieveingAfterDeleteMsg(){
+        NotificationCenter.default.post(name: Notification_RefreshChatAfterDelete, object: nil, userInfo: nil)
     }
 }
 

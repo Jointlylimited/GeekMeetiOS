@@ -152,6 +152,81 @@ public class XMPP_MessageArchiving_Custom: NSManagedObject {
         
     }
     
+    class func RemoveMessage(obj: Model_ChatMessage) {
+        
+        let context = CoreDataManager.sharedManager.managedContext()
+        
+        let fetchRequest: NSFetchRequest =  NSFetchRequest<NSFetchRequestResult>.init()
+        fetchRequest.entity = NSEntityDescription.entity(forEntityName: "XMPP_MessageArchiving_Custom", in: context)
+        fetchRequest.predicate = NSPredicate(format: "messageId = %@","\(obj.messageId)")
+        
+        do {
+            
+            let results = try context.fetch(fetchRequest)
+            if results.count > 0 {
+                
+                let managedObj = results.first as! XMPP_MessageArchiving_Custom
+                context.delete(managedObj)
+                do {
+                    try context.save()
+                    print("update!")
+                } catch let error as NSError  {
+                    print("Could not save \(error), \(error.userInfo)")
+                }
+                
+            } else {
+                print("  ============= message not found ")
+                return
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    class func xmpp_FetchSingleArchivingObject(_ MessageId: String?, with toUserID: XMPPJID) -> NSArray {
+
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>()
+    
+        let context = CoreDataManager.sharedManager.managedContext()
+        //let context = self.xmppCoreDataStorage.managedObjectContext!
+        
+        let messageEntity: NSEntityDescription = NSEntityDescription.entity(forEntityName:   "XMPP_MessageArchiving_Custom", in: context)!
+        
+        fetchRequest.entity = messageEntity
+        //fetchRequest.fetchOffset = pageOffset
+        //fetchRequest.fetchLimit = pageSize
+    
+        let sortDescriptor = NSSortDescriptor(key: "timestamp", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        let predicate1 =  NSPredicate(format: "streamBareJidStr = %@","\(toUserID.bare)")
+        let predicate2 =  NSPredicate(format: "bareJidStr = %@","\(toUserID.bare)")
+        let predicateCompound = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1,predicate2])
+        fetchRequest.predicate = predicateCompound
+        //fetchRequest.predicate = NSPredicate(format: "(fromAppID = %@) AND (toAppID = %@)","\(self.xmppStream.myJID!.user!)\(toUserID.user!)")
+    
+        do {
+            var result = try context.fetch(fetchRequest)
+            guard var filteredResult = result as? [XMPP_MessageArchiving_Custom] else {
+                return []
+            }
+            
+            result = (result as NSArray).filtered(using: NSPredicate(block: { evaluatedObject, bindings in
+                if (evaluatedObject as! XMPP_MessageArchiving_Custom).messageId == MessageId! {
+                    return true
+                }
+                return false
+
+            }))
+            
+            return result as NSArray
+        } catch {
+            print(error.localizedDescription)
+        }
+    
+        return []
+    }
+    
     class func fetchMessageObj(with messageId: String) -> Model_ChatMessage? {
         
         let context = CoreDataManager.sharedManager.managedContext()

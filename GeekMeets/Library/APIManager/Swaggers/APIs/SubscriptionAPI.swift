@@ -14,16 +14,16 @@ open class SubscriptionAPI {
     /**
      create subscription
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter authorization: (header)  
-     - parameter vTransactionId: (form) transaction id 
-     - parameter tiType: (form) 1-daily, 2-monthly, 3-yearly 
-     - parameter fPrice: (form) subscription plan price 
-     - parameter vReceiptData: (form) receipt data 
-     - parameter iStartDate: (form) starting date 
-     - parameter iEndDate: (form) ending date 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter vTransactionId: (form) transaction id
+     - parameter tiType: (form) 1-daily, 2-monthly, 3-yearly
+     - parameter fPrice: (form) subscription plan price
+     - parameter vReceiptData: (form) receipt data
+     - parameter iStartDate: (form) starting date
+     - parameter iEndDate: (form) ending date
      - parameter completion: completion handler to receive the data and the error objects
      */
     open class func createSubscription(nonce: String, timestamp: String, token: String, authorization: String, vTransactionId: String, tiType: String, fPrice: String, vReceiptData: String, iStartDate: String, iEndDate: String, completion: @escaping ((_ data: SubscriptionResponse?,_ error: Error?) -> Void)) {
@@ -38,18 +38,18 @@ open class SubscriptionAPI {
      - POST /user-subscription/create
      - examples: [{contentType=application/json, example=""}]
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter authorization: (header)  
-     - parameter vTransactionId: (form) transaction id 
-     - parameter tiType: (form) 1-daily, 2-monthly, 3-yearly 
-     - parameter fPrice: (form) subscription plan price 
-     - parameter vReceiptData: (form) receipt data 
-     - parameter iStartDate: (form) starting date 
-     - parameter iEndDate: (form) ending date 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter vTransactionId: (form) transaction id
+     - parameter tiType: (form) 1-daily, 2-monthly, 3-yearly
+     - parameter fPrice: (form) subscription plan price
+     - parameter vReceiptData: (form) receipt data
+     - parameter iStartDate: (form) starting date
+     - parameter iEndDate: (form) ending date
 
-     - returns: RequestBuilder<SubscriptionResponse> 
+     - returns: RequestBuilder<SubscriptionResponse>
      */
     open class func createSubscriptionWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, vTransactionId: String, tiType: String, fPrice: String, vReceiptData: String, iStartDate: String, iEndDate: String) -> RequestBuilder<SubscriptionResponse> {
         let path = "/user-subscription/create"
@@ -76,6 +76,116 @@ open class SubscriptionAPI {
         let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
 
         let requestBuilder: RequestBuilder<SubscriptionResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
+    }
+
+    /**
+     details of  subscription
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func subscriptionDetails(nonce: String, timestamp: String, token: String, authorization: String, completion: @escaping ((_ data: SubscriptionResponse?,_ error: Error?) -> Void)) {
+        subscriptionDetailsWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     details of  subscription
+     - GET /user-subscription/subscription-details/
+     - examples: [{contentType=application/json, example=""}]
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+
+     - returns: RequestBuilder<SubscriptionResponse>
+     */
+    open class func subscriptionDetailsWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String) -> RequestBuilder<SubscriptionResponse> {
+        let path = "/user-subscription/subscription-details/"
+        let URLString = SwaggerClientAPI.basePath + path
+        let parameters: [String:Any]? = nil
+        
+        let url = URLComponents(string: URLString)
+        let nillableHeaders: [String: Any?] = [
+            "nonce": nonce,
+            "timestamp": timestamp,
+            "token": token,
+            "authorization": authorization
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<SubscriptionResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
+    }
+
+    /**
+     update subscription
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter iSubscriptionId: (form)
+     - parameter iEndDate: (form) ending date
+     - parameter isExpire: (form) 0-No,1-Yes (optional, default to 0)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func updateSubscription(nonce: String, timestamp: String, token: String, authorization: String, iSubscriptionId: String, iEndDate: String, isExpire: String? = nil, completion: @escaping ((_ data: CommonResponse?,_ error: Error?) -> Void)) {
+        updateSubscriptionWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, iSubscriptionId: iSubscriptionId, iEndDate: iEndDate, isExpire: isExpire).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     update subscription
+     - POST /user-subscription/update
+     - examples: [{contentType=application/json, example={
+  "responseMessage" : "responseMessage",
+  "responseCode" : 0
+}}]
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter iSubscriptionId: (form)
+     - parameter iEndDate: (form) ending date
+     - parameter isExpire: (form) 0-No,1-Yes (optional, default to 0)
+
+     - returns: RequestBuilder<CommonResponse>
+     */
+    open class func updateSubscriptionWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, iSubscriptionId: String, iEndDate: String, isExpire: String? = nil) -> RequestBuilder<CommonResponse> {
+        let path = "/user-subscription/update"
+        let URLString = SwaggerClientAPI.basePath + path
+        let formParams: [String:Any?] = [
+            "iSubscriptionId": iSubscriptionId,
+            "isExpire": isExpire,
+            "iEndDate": iEndDate
+        ]
+
+        let nonNullParameters = APIHelper.rejectNil(formParams)
+        let parameters = APIHelper.convertBoolToString(nonNullParameters)
+        
+        let url = URLComponents(string: URLString)
+        let nillableHeaders: [String: Any?] = [
+            "nonce": nonce,
+            "timestamp": timestamp,
+            "token": token,
+            "authorization": authorization
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<CommonResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
     }

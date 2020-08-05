@@ -81,6 +81,7 @@ public struct XMPP_Message_Key {
     static let fromGroup = "fromGroup"
     static let thumbUrl = "thumbUrl"
     static let url = "url"
+    static let isForRemove = "isForRemove"
 }
 
 struct Chat_Utility {
@@ -114,7 +115,7 @@ struct Chat_Utility {
         dict[XMPP_Message_Key.fromGroup] = "false"
         dict[XMPP_Message_Key.thumbUrl] = objChat.thumbUrl
         dict[XMPP_Message_Key.url] = objChat.url
-        
+        dict[XMPP_Message_Key.isForRemove] = objChat.isForRemove
         
         let param = self.getJsonString(from: dict)
         return param

@@ -60,6 +60,7 @@ class Model_ChatMessage {
     
     //Added by Divya
     var imgProfileURL : String?
+    var isForRemove: Bool = false
     
     init() {
     
@@ -120,7 +121,7 @@ class Model_ChatMessage {
             
             thumbUrl = _dicInfo[XMPP_Message_Key.thumbUrl] as? String ?? ""
             url = _dicInfo[XMPP_Message_Key.url] as? String ?? ""
-            
+            isForRemove = _dicInfo[XMPP_Message_Key.isForRemove] as? Bool ?? false
         } catch let error {
             print(error.localizedDescription)
         }

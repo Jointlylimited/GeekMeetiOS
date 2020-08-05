@@ -14,7 +14,9 @@ import UIKit
 import StoreKit
 
 protocol ManageSubscriptionProtocol: class {
+    func getSubscriptionDetailsResponse(response : SubscriptionResponse)
     func getSubscriptionResponse(response : SubscriptionResponse)
+    func getUpdateSubscriptionResponse(response : CommonResponse)
 }
 
 class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProtocol {
@@ -25,6 +27,7 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     
     @IBOutlet var btnSubColl: [UIButton]!
     @IBOutlet var btnStackList: [UIButton]!
+    @IBOutlet weak var btnValidDate: UIButton!
     
     var productKey : String = ""
     var transactionInProgress = false
@@ -65,7 +68,7 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setTheme()
+        self.presenter?.callSubscriptionDetailsAPI()
     }
     
     func setTheme(){
@@ -89,7 +92,6 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     @IBAction func btnContinueAction(_ sender: UIButton) {
 //        self.dismissVC(completion: nil)
 //        doSubscription(key : productKey)
-        
         let endDate = self.GetNextDayCurrentTimeStamp()
         let param = RequestParameter.sharedInstance().createSubscriptionParams(vTransactionId: "1214665932543", tiType: "1", fPrice: "1.99", vReceiptData: "13ncksncocwbwibck", iStartDate: authToken.timeStamp, iEndDate: endDate)
         self.presenter?.callCreateSubscriptionAPI(param: param)
@@ -117,16 +119,34 @@ extension ManageSubscriptionViewController {
             productRequest.start()
         }
         else {
-            //   self.btnCreateVideo.hideLoading()
-            //self.btnCreateVideo.isEnabled = false
             print("Cannot perform In App Purchases.")
         }
+    }
+    
+    func getSubscriptionDetailsResponse(response : SubscriptionResponse){
+        if response.responseCode == 200 {
+            if response.responseData?.iEndDate != nil {
+//                let date = Date(timeIntervalSince1970: Double(response.responseData!.iEndDate!)!).agoStringFromTime()
+                self.btnValidDate.setTitle("Valid till \(response.responseData!.iEndDate!)", for: .normal)
+            }
+        }
+        setTheme()
     }
     
     func getSubscriptionResponse(response : SubscriptionResponse){
         print(response)
         if response.responseCode == 200 {
             UserDataModel.currentUser?.tiIsSubscribed = 1
+            if response.responseData?.iEndDate != nil {
+//                let date = Date(timeIntervalSince1970: Double(response.responseData!.iEndDate!)!).agoStringFromTime()
+                self.btnValidDate.setTitle("Valid till \(response.responseData!.iEndDate!)", for: .normal)
+            }
+        }
+    }
+    
+    func getUpdateSubscriptionResponse(response : CommonResponse){
+        if response.responseCode == 200 {
+            self.presenter?.callSubscriptionDetailsAPI()
         }
     }
 }
@@ -134,7 +154,6 @@ extension ManageSubscriptionViewController {
 extension ManageSubscriptionViewController : SKProductsRequestDelegate, SKPaymentTransactionObserver {
 
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-    //    btnCreateVideo.showLoading()
         if let transaction = transactions.first {
             switch transaction.transactionState {
                 
@@ -143,14 +162,12 @@ extension ManageSubscriptionViewController : SKProductsRequestDelegate, SKPaymen
             
             case .purchased:
                 print("Transaction completed successfully.")
-          //      btnCreateVideo.hideLoading()
                 SKPaymentQueue.default().finishTransaction(transaction)
                 transactionInProgress = false
                 AppSingleton.sharedInstance().isSubscription = true
                 LoaderView.sharedInstance.hideLoader()
                 // self.goAhead()
             case .failed:
-          //      self.btnCreateVideo.hideLoading()
                 print("Transaction Failed");
                 LoaderView.sharedInstance.hideLoader()
                 SKPaymentQueue.default().finishTransaction(transaction)
@@ -167,7 +184,6 @@ extension ManageSubscriptionViewController : SKProductsRequestDelegate, SKPaymen
     }
     
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-     //   btnCreateVideo.showLoading()
         if response.products.count != 0 {
             guard let prod = response.products.first else { LoaderView.sharedInstance.showLoader(); return}
             self.product = prod
@@ -183,17 +199,11 @@ extension ManageSubscriptionViewController : SKProductsRequestDelegate, SKPaymen
 
             let formattedPrice = price!
             self.priceIn = formattedPrice
-          //  btnCreateVideo.hideLoading()
-            //self.btnCreateVideo.isEnabled = true
         }
         else {
-        //    btnCreateVideo.hideLoading()
             print("There are no products.")
             LoaderView.sharedInstance.hideLoader()
             request.cancel()
-            //self.btnCreateVideo.isEnabled = true
         }
     }
-    
-    
 }
