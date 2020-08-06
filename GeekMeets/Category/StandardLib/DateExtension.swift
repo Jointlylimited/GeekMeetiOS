@@ -116,5 +116,17 @@ extension Date {
     var isLastDayOfMonth: Bool {
         return dayAfter.month != month
     }
+    
+    func formattedDateString(format: String? = "MMM d, h:mm a") -> String {
+         
+    let dateFormatter = DateFormatter()
+    dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+//    dateFormatter.timeZone = TimeZone(abbreviation: "Australia/Sydney")
+    dateFormatter.amSymbol = "AM"
+    dateFormatter.pmSymbol = "PM"
+    dateFormatter.calendar = Calendar(identifier: .gregorian)
+    dateFormatter.dateFormat = format
+    return dateFormatter.string(from: self)
+    }
 }
 

@@ -16,6 +16,7 @@ protocol ManageSubscriptionInteractorProtocol {
     func callSubscriptionDetailsAPI()
     func callCreateSubscriptionAPI(param : Dictionary<String, String>)
     func callUpdateSubscriptionAPI(param : Dictionary<String, String>)
+    func callUserProfileAPI()
 }
 
 protocol ManageSubscriptionDataStore {
@@ -31,7 +32,7 @@ class ManageSubscriptionInteractor: ManageSubscriptionInteractorProtocol, Manage
         LoaderView.sharedInstance.showLoader()
         SubscriptionAPI.subscriptionDetails(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+//            LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.presenter?.getSubscriptionDetailsResponse(response: response!)
             } else if response?.responseCode == 400 {
@@ -79,6 +80,26 @@ class ManageSubscriptionInteractor: ManageSubscriptionInteractorProtocol, Manage
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
                 } else {
                     self.presenter?.getUpdateSubscriptionResponse(response: response!)
+                }
+            }
+        }
+    }
+    
+    func callUserProfileAPI(){
+//        LoaderView.sharedInstance.showLoader()
+        UserAPI.userProfile(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iUserId: "\(UserDataModel.currentUser!.iUserId!)", vReferralCode: "") { (response, error) in
+            
+            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                print((response?.responseData!)!)
+                self.presenter?.getUserProfileResponse(response: (response?.responseData!)!)
+            } else if response?.responseCode == 400 {
+                self.presenter?.getUserProfileResponse(response: (response?.responseData!)!)
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getUserProfileResponse(response: (response?.responseData!)!)
                 }
             }
         }

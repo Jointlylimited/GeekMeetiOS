@@ -199,7 +199,7 @@ class RequestParameter: NSObject {
         return requestDictionary
     }
     
-    func createBoostGeekParams(iSubscriptionId : String, iEndDate: String, isExpire:String) -> Dictionary<String,String> {
+    func updateSubscriptionParams(iSubscriptionId : String, iEndDate: String, isExpire:String) -> Dictionary<String,String> {
         
         var requestDictionary : Dictionary<String,String> = Dictionary()
         requestDictionary["iSubscriptionId"] = iSubscriptionId

@@ -10,6 +10,11 @@ import UIKit
 import AVFoundation
 import AVKit
 
+
+protocol PostStoryDelegate {
+    func getSubscriptionResponse(status: Bool)
+}
+
 protocol PreviewProtocol: class {
     func getPostStoryResponse(response: CommonResponse)
 }
@@ -166,12 +171,12 @@ class PreviewViewController: UIViewController, PreviewProtocol {
                 self.objPostData.arrMedia[0].img = image
                 print(image)
             }
-            self.callPostStoryAPI(obj: self.objPostData)
+            ManageSubscriptionScreen()
         } else {
             if cusText != nil {
                 self.addtextToVideo()
             } else {
-                self.callPostStoryAPI(obj: self.objPostData)
+                ManageSubscriptionScreen()
             }
         }
     }
@@ -383,8 +388,27 @@ class PreviewViewController: UIViewController, PreviewProtocol {
             }
         })
     }
+    
+    func ManageSubscriptionScreen(){
+        
+        if UserDataModel.currentUser?.tiIsSubscribed == 0 {
+            let subVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.ManageSubscriptionScreen) as! ManageSubscriptionViewController
+            subVC.modalTransitionStyle = .crossDissolve
+            subVC.modalPresentationStyle = .overCurrentContext
+            subVC.isFromStory = true
+            subVC.postStoryDelegate = self
+            self.presentVC(subVC)
+        } else {
+            self.callPostStoryAPI(obj: self.objPostData)
+        }
+    }
 }
 
+extension PreviewViewController : PostStoryDelegate {
+    func getSubscriptionResponse(status: Bool){
+            self.callPostStoryAPI(obj: self.objPostData)
+    }
+}
 //MARK: API Methods
 extension PreviewViewController {
     
@@ -394,10 +418,8 @@ extension PreviewViewController {
     
     func getPostStoryResponse(response: CommonResponse){
         if response.responseCode == 200 {
-           // self.moveToTabVC()
-             let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.SubscriptionScreen) as? SubscriptionVC
-            self.pushVC(controller!)
-            //        self.callPostStoryAPI(obj: self.objPostData)
+            self.moveToTabVC()
+ 
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }
     }

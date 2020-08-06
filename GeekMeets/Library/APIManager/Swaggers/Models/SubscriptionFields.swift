@@ -19,8 +19,9 @@ public struct SubscriptionFields: Codable {
     public var iEndDate: String?
     public var tiType: Int?
     public var fPrice: String?
+    public var tiIsPurchased: Int?
 
-    public init(iSubscriptionId: Int?, iUserId: Int?, vTransactionId: String?, vReceiptData: String?, iStartDate: String?, iEndDate: String?, tiType: Int?, fPrice: String?) {
+    public init(iSubscriptionId: Int?, iUserId: Int?, vTransactionId: String?, vReceiptData: String?, iStartDate: String?, iEndDate: String?, tiType: Int?, fPrice: String?, tiIsPurchased: Int?) {
         self.iSubscriptionId = iSubscriptionId
         self.iUserId = iUserId
         self.vTransactionId = vTransactionId
@@ -29,6 +30,7 @@ public struct SubscriptionFields: Codable {
         self.iEndDate = iEndDate
         self.tiType = tiType
         self.fPrice = fPrice
+        self.tiIsPurchased = tiIsPurchased
     }
 
 

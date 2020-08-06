@@ -17,6 +17,7 @@ protocol ManageSubscriptionProtocol: class {
     func getSubscriptionDetailsResponse(response : SubscriptionResponse)
     func getSubscriptionResponse(response : SubscriptionResponse)
     func getUpdateSubscriptionResponse(response : CommonResponse)
+    func getUserProfileResponse(response : UserAuthResponseField)
 }
 
 class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProtocol {
@@ -28,11 +29,17 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     @IBOutlet var btnSubColl: [UIButton]!
     @IBOutlet var btnStackList: [UIButton]!
     @IBOutlet weak var btnValidDate: UIButton!
+    @IBOutlet weak var bg_Image: UIImageView!
+    @IBOutlet weak var btnSkip: UIButton!
     
     var productKey : String = ""
     var transactionInProgress = false
     var priceIn : String = "10$"
     var product : SKProduct?
+    var subscriptionDetails : SubscriptionFields?
+    var planDict : NSDictionary = [:]
+    var isFromStory : Bool = false
+    var postStoryDelegate : PostStoryDelegate!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -72,6 +79,8 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     }
     
     func setTheme(){
+        self.bg_Image.image = !self.isFromStory ? #imageLiteral(resourceName: "Manage Subscription_bg") : #imageLiteral(resourceName: "Subscription_bg")
+        self.btnSkip.alpha = self.isFromStory ? 1.0 : 0.0
         for btn in btnStackList {
             btn.titleLabel?.font = DeviceType.iPhone5orSE ? UIFont(name: FontTypePoppins.Poppins_Medium.rawValue, size: 12.0) : UIFont(name: FontTypePoppins.Poppins_Medium.rawValue, size: 16.0)
         }
@@ -82,19 +91,58 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     
     public func GetNextDayCurrentTimeStamp() -> String {
         let df = DateFormatter()
-        let date = NSDate()
-        let nextDate = Calendar.current.date(byAdding: .day, value: 1, to: date as Date)
+        let date = Date()
+        let nextDate = Calendar.current.date(byAdding: .day, value: 1, to: date)
         df.dateFormat = "yyyyMMddhhmmss"
-        let NewDate = df.string(from: nextDate as! Date)
+        let NewDate = df.string(from: nextDate!)
         return NewDate.replacingOccurrences(of: ":", with: "")
     }
     
     @IBAction func btnContinueAction(_ sender: UIButton) {
-//        self.dismissVC(completion: nil)
 //        doSubscription(key : productKey)
-        let endDate = self.GetNextDayCurrentTimeStamp()
-        let param = RequestParameter.sharedInstance().createSubscriptionParams(vTransactionId: "1214665932543", tiType: "1", fPrice: "1.99", vReceiptData: "13ncksncocwbwibck", iStartDate: authToken.timeStamp, iEndDate: endDate)
-        self.presenter?.callCreateSubscriptionAPI(param: param)
+        if self.subscriptionDetails != nil {
+            let value = self.subscriptionDetails?.tiIsPurchased
+            if value == nil || value == 0 {
+                var endDateStr : String = ""
+                if planDict.count != 0 {
+                    if planDict["tiType"] as! String == "2" {
+                        let endDate = Calendar.current.date(byAdding: .month, value: 1, to: Date())
+                        endDateStr = "\(endDate!.currentTimeMillis())"
+                    } else {
+                        let endDate = Calendar.current.date(byAdding: .year, value: 1, to: Date())
+                        endDateStr = "\(endDate!.currentTimeMillis())"
+                    }
+                } else {
+                    let endDate = Calendar.current.date(byAdding: .day, value: 1, to: Date())
+                    endDateStr = "\(endDate!.currentTimeMillis())"
+                }
+                let param = RequestParameter.sharedInstance().createSubscriptionParams(vTransactionId: "1214665932543", tiType: "1", fPrice: "1.99", vReceiptData: "13ncksncocwbwibck", iStartDate: "\(Date().currentTimeMillis())", iEndDate: endDateStr)
+                self.presenter?.callCreateSubscriptionAPI(param: param)
+            } else {
+                if UserDataModel.currentUser?.tiIsSubscribed == 0 {
+                    let param = RequestParameter.sharedInstance().updateSubscriptionParams(iSubscriptionId: "\(self.subscriptionDetails?.iSubscriptionId!)", iEndDate: "\(self.subscriptionDetails?.iEndDate!)", isExpire: "1")
+                    self.presenter?.callUpdateSubscriptionAPI(param: param)
+                } else {
+                    AppSingleton.sharedInstance().showAlert("You have already subscribed!", okTitle: "OK")
+                }
+            }
+        }else {
+            var endDateStr : String = ""
+            if planDict.count != 0 {
+                if planDict["tiType"] as! String == "2" {
+                    let endDate = Calendar.current.date(byAdding: .month, value: 1, to: Date())
+                    endDateStr = "\(endDate!.currentTimeMillis())"
+                } else {
+                    let endDate = Calendar.current.date(byAdding: .year, value: 1, to: Date())
+                    endDateStr = "\(endDate!.currentTimeMillis())"
+                }
+            } else {
+                let endDate = Calendar.current.date(byAdding: .day, value: 1, to: Date())
+                endDateStr = "\(endDate!.currentTimeMillis())"
+            }
+            let param = RequestParameter.sharedInstance().createSubscriptionParams(vTransactionId: "1214665932543", tiType: "1", fPrice: "1.99", vReceiptData: "13ncksncocwbwibck", iStartDate: "\(Date().currentTimeMillis())", iEndDate: endDateStr)
+            self.presenter?.callCreateSubscriptionAPI(param: param)
+        }
     }
     
     @IBAction func btnSubscriptionAction(_ sender: UIButton) {
@@ -105,8 +153,15 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
         
         if sender.tag == 0 {
             productKey = SubscriptionKeys.Monthly.productKey
+            planDict = ["productKey" : SubscriptionKeys.Monthly.productKey, "tiType": "2", "fPrice" : "9.99"]
         } else {
             productKey = SubscriptionKeys.Annualy.productKey
+            planDict = ["productKey" : SubscriptionKeys.Monthly.productKey, "tiType": "3", "fPrice" : "89.99"]
+        }
+    }
+    @IBAction func btnSkipAndContinueAction(_ sender: UIButton) {
+        dismissVC {
+            self.postStoryDelegate.getSubscriptionResponse(status: false)
         }
     }
 }
@@ -125,21 +180,32 @@ extension ManageSubscriptionViewController {
     
     func getSubscriptionDetailsResponse(response : SubscriptionResponse){
         if response.responseCode == 200 {
+            self.subscriptionDetails = response.responseData
             if response.responseData?.iEndDate != nil {
-//                let date = Date(timeIntervalSince1970: Double(response.responseData!.iEndDate!)!).agoStringFromTime()
-                self.btnValidDate.setTitle("Valid till \(response.responseData!.iEndDate!)", for: .normal)
+                let timeStamp = Date(timeIntervalSince1970: Double(response.responseData!.iEndDate!)!)
+                let dateString = timeStamp.formattedDateString(format: "dd MMM, yyyy")
+                self.btnValidDate.setTitle("Valid till \(dateString)", for: .normal)
             }
         }
+        self.presenter?.callUserProfileAPI()
         setTheme()
     }
     
     func getSubscriptionResponse(response : SubscriptionResponse){
         print(response)
         if response.responseCode == 200 {
+            self.subscriptionDetails = response.responseData
             UserDataModel.currentUser?.tiIsSubscribed = 1
             if response.responseData?.iEndDate != nil {
-//                let date = Date(timeIntervalSince1970: Double(response.responseData!.iEndDate!)!).agoStringFromTime()
-                self.btnValidDate.setTitle("Valid till \(response.responseData!.iEndDate!)", for: .normal)
+                let timeStamp = Date(timeIntervalSince1970: Double(response.responseData!.iEndDate!)!)
+                let dateString = timeStamp.formattedDateString(format: "dd MMM, yyyy")
+                self.btnValidDate.setTitle("Valid till \(dateString)", for: .normal)
+            }
+            
+            if self.isFromStory {
+                dismissVC {
+                    self.postStoryDelegate.getSubscriptionResponse(status: true)
+                }
             }
         }
     }
@@ -148,6 +214,10 @@ extension ManageSubscriptionViewController {
         if response.responseCode == 200 {
             self.presenter?.callSubscriptionDetailsAPI()
         }
+    }
+    
+    func getUserProfileResponse(response : UserAuthResponseField){
+        UserDataModel.currentUser = response
     }
 }
 

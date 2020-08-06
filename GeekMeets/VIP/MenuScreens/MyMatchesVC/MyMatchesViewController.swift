@@ -146,6 +146,12 @@ extension MyMatchesViewController : UITableViewDataSource, UITableViewDelegate {
                     self.pushVC(obj)
                 }
             }
+            
+            if UserDataModel.currentUser?.tiIsSubscribed == 1 {
+                cell.btnChat.alpha = 1
+            } else {
+                cell.btnChat.alpha = 0
+            }
             cell.msgTime.alpha = 0.0
             cell.msgCount.alpha = 0.0
         }

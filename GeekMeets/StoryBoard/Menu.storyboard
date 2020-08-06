@@ -379,7 +379,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bGS-N3-4bk">
                                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="52.666666666666664"/>
                                                                 <subviews>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="olK-t0-QiW">
+                                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="olK-t0-QiW">
                                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="52.666666666666664"/>
                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="15" maxY="0.0"/>
                                                                         <state key="normal" image="uncheck"/>
@@ -577,10 +577,22 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d9l-xf-XjR">
+                                                <rect key="frame" x="20" y="643" width="374" height="32"/>
+                                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
+                                                <state key="normal" title="Skip &amp; continue uploading Story">
+                                                    <color key="titleColor" red="0.52941176469999995" green="0.18039215689999999" blue="0.76470588240000004" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="btnSkipAndContinueAction:" destination="ghm-0Y-hIn" eventType="touchUpInside" id="7AA-Dz-gDk"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="d9l-xf-XjR" firstAttribute="trailing" secondItem="pHw-xV-Ra8" secondAttribute="trailing" id="09L-WX-ZJd"/>
                                             <constraint firstItem="ZCS-5E-JtU" firstAttribute="top" secondItem="4dN-ha-XG8" secondAttribute="bottom" constant="20" id="2aV-z6-gwR"/>
                                             <constraint firstItem="X0G-Go-zFg" firstAttribute="centerX" secondItem="4ug-AR-z0y" secondAttribute="centerX" id="3g1-lv-TFU"/>
+                                            <constraint firstItem="d9l-xf-XjR" firstAttribute="top" secondItem="pHw-xV-Ra8" secondAttribute="bottom" constant="-1.3333333333333712" id="5lJ-7f-fBI"/>
                                             <constraint firstAttribute="trailing" secondItem="pHw-xV-Ra8" secondAttribute="trailing" constant="20" id="6qb-Di-dq7"/>
                                             <constraint firstItem="pHw-xV-Ra8" firstAttribute="trailing" secondItem="ZCS-5E-JtU" secondAttribute="trailing" id="B00-oe-rVi"/>
                                             <constraint firstItem="ZCS-5E-JtU" firstAttribute="trailing" secondItem="4dN-ha-XG8" secondAttribute="trailing" id="D0K-KA-h2b"/>
@@ -588,6 +600,7 @@
                                             <constraint firstItem="pHw-xV-Ra8" firstAttribute="top" secondItem="ZCS-5E-JtU" secondAttribute="bottom" constant="20" id="Jtl-ul-Mkq"/>
                                             <constraint firstItem="ZCS-5E-JtU" firstAttribute="leading" secondItem="4ug-AR-z0y" secondAttribute="leading" constant="20" id="VUl-DH-uHa"/>
                                             <constraint firstItem="4dN-ha-XG8" firstAttribute="top" secondItem="p1e-WW-Bt2" secondAttribute="bottom" constant="5" id="hz6-ZI-VV4"/>
+                                            <constraint firstItem="d9l-xf-XjR" firstAttribute="leading" secondItem="pHw-xV-Ra8" secondAttribute="leading" id="jVu-Sz-VVa"/>
                                             <constraint firstItem="pHw-xV-Ra8" firstAttribute="leading" secondItem="4ug-AR-z0y" secondAttribute="leading" constant="20" id="nVM-gE-Mkv"/>
                                             <constraint firstItem="p1e-WW-Bt2" firstAttribute="top" secondItem="4ug-AR-z0y" secondAttribute="top" constant="100" id="oDs-TP-SoI"/>
                                             <constraint firstItem="myR-gB-nT4" firstAttribute="top" secondItem="X0G-Go-zFg" secondAttribute="bottom" constant="-9" id="vt5-66-BoK"/>
@@ -623,6 +636,8 @@
                         <viewLayoutGuide key="safeArea" id="Jhg-pU-rLi"/>
                     </view>
                     <connections>
+                        <outlet property="bg_Image" destination="JQp-wF-NLQ" id="4Ip-bl-puV"/>
+                        <outlet property="btnSkip" destination="d9l-xf-XjR" id="wzb-oJ-Nho"/>
                         <outlet property="btnValidDate" destination="N6C-xJ-KeY" id="zR3-RL-bTa"/>
                         <outletCollection property="btnSubColl" destination="olK-t0-QiW" collectionClass="NSMutableArray" id="FBu-fJ-cxL"/>
                         <outletCollection property="btnSubColl" destination="Jab-26-XX8" collectionClass="NSMutableArray" id="tkn-CH-6EX"/>
@@ -634,7 +649,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BJ0-Of-f8Z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1596" y="635"/>
+            <point key="canvasLocation" x="1595.6521739130435" y="634.82142857142856"/>
         </scene>
         <!--Top Geeks View Controller-->
         <scene sceneID="a53-CM-xqc">
@@ -2578,7 +2593,7 @@
                                 <rect key="frame" x="8" y="44" width="398" height="85"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Mobile Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jtv-fk-OnE">
-                                        <rect key="frame" x="8" y="40.666666666666671" width="284.33333333333331" height="39.333333333333329"/>
+                                        <rect key="frame" x="8" y="47.333333333333329" width="257.33333333333331" height="32.666666666666671"/>
                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="28"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -2609,7 +2624,7 @@
                                 <rect key="frame" x="8" y="149" width="398" height="80"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mobile Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NQE-eI-X3F">
-                                        <rect key="frame" x="8" y="10" width="108.33333333333333" height="13"/>
+                                        <rect key="frame" x="8" y="10" width="96.666666666666671" height="13"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="13" id="o1C-Fz-LP1"/>
                                         </constraints>
@@ -2687,7 +2702,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a1W-eT-SMn" customClass="GradientButton" customModule="Jointly" customModuleProvider="target">
-                                <rect key="frame" x="132" y="329" width="150" height="40"/>
+                                <rect key="frame" x="132" y="322.33333333333331" width="150" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="s4Z-zh-fdx"/>
                                     <constraint firstAttribute="width" constant="150" id="wHl-hf-vXN"/>
@@ -2712,7 +2727,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We will send a verification code to verify your mobile number" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f1f-Lz-DyI">
-                                <rect key="frame" x="20" y="259" width="374" height="39.333333333333314"/>
+                                <rect key="frame" x="20" y="259" width="374" height="32.666666666666686"/>
                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
                                 <color key="textColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>

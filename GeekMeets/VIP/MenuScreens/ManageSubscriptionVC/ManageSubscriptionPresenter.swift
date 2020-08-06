@@ -21,6 +21,9 @@ protocol ManageSubscriptionPresentationProtocol {
     
     func callUpdateSubscriptionAPI(param : Dictionary<String, String>)
     func getUpdateSubscriptionResponse(response : CommonResponse)
+    
+    func callUserProfileAPI()
+    func getUserProfileResponse(response : UserAuthResponseField)
 }
 
 class ManageSubscriptionPresenter: ManageSubscriptionPresentationProtocol {
@@ -46,6 +49,14 @@ class ManageSubscriptionPresenter: ManageSubscriptionPresentationProtocol {
         self.interactor?.callUpdateSubscriptionAPI(param: param)
     }
     func getUpdateSubscriptionResponse(response : CommonResponse){
-        
+        self.viewController?.getUpdateSubscriptionResponse(response: response)
+    }
+    
+    func callUserProfileAPI(){
+        self.interactor?.callUserProfileAPI()
+    }
+    
+    func getUserProfileResponse(response : UserAuthResponseField){
+        self.viewController?.getUserProfileResponse(response : response)
     }
 }
