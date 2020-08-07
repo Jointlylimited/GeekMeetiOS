@@ -185,7 +185,9 @@ extension BoostViewController {
         print(response)
         if response.responseCode == 200 {
             self.btnActiveBoostPlans.setTitle("\(response.responseData?.pendingBoost ?? 0)", for: .normal)
-            setBoostNowButton(data : response.responseData!)
+            if response.responseData?.tiPlanType == 1 || response.responseData?.tiPlanType == 3 {
+                setBoostNowButton(data : response.responseData!)
+            }
         }
     }
     
@@ -210,7 +212,9 @@ extension BoostViewController {
         print(response)
         if response.responseCode == 200 {
             self.btnActiveBoostPlans.setTitle("\(response.responseData?.pendingBoost ?? 0)", for: .normal)
-            setBoostNowButton(data : response.responseData!)
+            if response.responseData?.tiPlanType == 1 || response.responseData?.tiPlanType == 3 {
+                setBoostNowButton(data : response.responseData!)
+            }
         } else {
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }

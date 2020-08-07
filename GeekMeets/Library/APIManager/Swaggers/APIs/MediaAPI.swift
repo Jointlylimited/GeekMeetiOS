@@ -14,13 +14,13 @@ open class MediaAPI {
     /**
      Apply reaction on user pic
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter authorization: (header)  
-     - parameter iUserId: (form) user id for other user 
-     - parameter iMediaId: (form) media id for pic 
-     - parameter tiRactionType: (form) 1-heart,2-hearteyes,3-heartkiss 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter iUserId: (form) user id for other user
+     - parameter iMediaId: (form) media id for pic
+     - parameter tiRactionType: (form) 1-heart,2-hearteyes,3-heartkiss
      - parameter completion: completion handler to receive the data and the error objects
      */
     open class func applyReaction(nonce: String, timestamp: String, token: String, authorization: String, iUserId: String, iMediaId: String, tiRactionType: String, completion: @escaping ((_ data: MediaReaction?,_ error: Error?) -> Void)) {
@@ -35,15 +35,15 @@ open class MediaAPI {
      - POST /users-story/apply-reaction
      - examples: [{contentType=application/json, example=""}]
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter authorization: (header)  
-     - parameter iUserId: (form) user id for other user 
-     - parameter iMediaId: (form) media id for pic 
-     - parameter tiRactionType: (form) 1-heart,2-hearteyes,3-heartkiss 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter iUserId: (form) user id for other user
+     - parameter iMediaId: (form) media id for pic
+     - parameter tiRactionType: (form) 1-heart,2-hearteyes,3-heartkiss
 
-     - returns: RequestBuilder<MediaReaction> 
+     - returns: RequestBuilder<MediaReaction>
      */
     open class func applyReactionWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, iUserId: String, iMediaId: String, tiRactionType: String) -> RequestBuilder<MediaReaction> {
         let path = "/users-story/apply-reaction"
@@ -74,12 +74,12 @@ open class MediaAPI {
     /**
      post users story
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter authorization: (header)  
-     - parameter txStory: (form) story content 
-     - parameter tiStoryType: (form) 0-Image, 1-Video, 2-Text 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter txStory: (form) story content
+     - parameter tiStoryType: (form) 0-Image, 1-Video, 2-Text
      - parameter vThumbnail: (form) video thumbnail (optional, default to abc.mp4)
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -98,15 +98,15 @@ open class MediaAPI {
   "responseCode" : 0
 }}]
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter authorization: (header)  
-     - parameter txStory: (form) story content 
-     - parameter tiStoryType: (form) 0-Image, 1-Video, 2-Text 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter txStory: (form) story content
+     - parameter tiStoryType: (form) 0-Image, 1-Video, 2-Text
      - parameter vThumbnail: (form) video thumbnail (optional, default to abc.mp4)
 
-     - returns: RequestBuilder<CommonResponse> 
+     - returns: RequestBuilder<CommonResponse>
      */
     open class func createStoryWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, txStory: String, tiStoryType: String, vThumbnail: String? = nil) -> RequestBuilder<CommonResponse> {
         let path = "/users-story/create"
@@ -137,11 +137,11 @@ open class MediaAPI {
     /**
      delete users story
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter authorization: (header)  
-     - parameter _id: (path)  
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter _id: (path)
      - parameter completion: completion handler to receive the data and the error objects
      */
     open class func deleteStory(nonce: String, timestamp: String, token: String, authorization: String, _id: String, completion: @escaping ((_ data: CommonResponse?,_ error: Error?) -> Void)) {
@@ -159,13 +159,13 @@ open class MediaAPI {
   "responseCode" : 0
 }}]
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter authorization: (header)  
-     - parameter _id: (path)  
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter _id: (path)
 
-     - returns: RequestBuilder<CommonResponse> 
+     - returns: RequestBuilder<CommonResponse>
      */
     open class func deleteStoryWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, _id: String) -> RequestBuilder<CommonResponse> {
         var path = "/users-story/delete/{id}"
@@ -192,11 +192,11 @@ open class MediaAPI {
     /**
      list users story
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter authorization: (header)  
-     - parameter _id: (path) 0-No,1-Yes 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter _id: (path) 0-No,1-Yes
      - parameter completion: completion handler to receive the data and the error objects
      */
     open class func listStory(nonce: String, timestamp: String, token: String, authorization: String, _id: Int, completion: @escaping ((_ data: StoryResponse?,_ error: Error?) -> Void)) {
@@ -211,13 +211,13 @@ open class MediaAPI {
      - GET /users-story/list/{id}
      - examples: [{contentType=application/json, example=""}]
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter authorization: (header)  
-     - parameter _id: (path) 0-No,1-Yes 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter _id: (path) 0-No,1-Yes
 
-     - returns: RequestBuilder<StoryResponse> 
+     - returns: RequestBuilder<StoryResponse>
      */
     open class func listStoryWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, _id: Int) -> RequestBuilder<StoryResponse> {
         var path = "/users-story/list/{id}"
@@ -244,11 +244,11 @@ open class MediaAPI {
     /**
      view users story
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter authorization: (header)  
-     - parameter iStoryId: (form) story content 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter iStoryId: (form) story content
      - parameter completion: completion handler to receive the data and the error objects
      */
     open class func viewStory(nonce: String, timestamp: String, token: String, authorization: String, iStoryId: String, completion: @escaping ((_ data: CommonResponse?,_ error: Error?) -> Void)) {
@@ -266,13 +266,13 @@ open class MediaAPI {
   "responseCode" : 0
 }}]
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter authorization: (header)  
-     - parameter iStoryId: (form) story content 
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter iStoryId: (form) story content
 
-     - returns: RequestBuilder<CommonResponse> 
+     - returns: RequestBuilder<CommonResponse>
      */
     open class func viewStoryWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, iStoryId: String) -> RequestBuilder<CommonResponse> {
         let path = "/users-story/view"

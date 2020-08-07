@@ -8,13 +8,14 @@
 import Foundation
 
 
+
 public struct StoryResponse: Codable {
 
     public var responseCode: Int?
     public var responseMessage: String?
-    public var responseData: [StoryResponseArray]?
+    public var responseData: StoryResponseData?
 
-    public init(responseCode: Int?, responseMessage: String?, responseData: [StoryResponseArray]?) {
+    public init(responseCode: Int?, responseMessage: String?, responseData: StoryResponseData?) {
         self.responseCode = responseCode
         self.responseMessage = responseMessage
         self.responseData = responseData
@@ -22,3 +23,4 @@ public struct StoryResponse: Codable {
 
 
 }
+

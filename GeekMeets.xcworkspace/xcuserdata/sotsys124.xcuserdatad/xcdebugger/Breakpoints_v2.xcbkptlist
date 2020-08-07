@@ -87,48 +87,96 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6A6A7DBB-BE7B-4E1D-8794-9861B23F94B1"
-            shouldBeEnabled = "No"
+            uuid = "563689AE-6DBB-43E5-B0FD-2A0B911D7D5C"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GeekMeets/VIP/DashBoard/Tabbar/DiscoverVC/DiscoverInteractor.swift"
+            filePath = "GeekMeets/Library/APIManager/Swaggers/APIs/NotificationAPI.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "callStoryListAPI()"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
+            landmarkName = "viewNotificationWithRequestBuilder(nonce:timestamp:token:authorization:iNotificationId:tiType:isClearAll:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B485D5EB-B920-47BB-A5FA-66084C628BE9"
+            uuid = "C53EA614-957A-4D33-9E3B-DE69D760BDC3"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GeekMeets/VIP/DashBoard/PreviewViewController.swift"
+            filePath = "GeekMeets/VIP/DashBoard/Tabbar/DiscoverVC/DiscoverViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "394"
-            endingLineNumber = "394"
-            landmarkName = "ManageSubscriptionScreen()"
+            startingLineNumber = "262"
+            endingLineNumber = "262"
+            landmarkName = "collectionView(_:didSelectItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "74318A43-3E33-4D36-B243-78603686DF9D"
+            uuid = "BED61D7E-EDA7-402A-BC1D-85AC0F7EA343"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GeekMeets/VIP/DashBoard/Tabbar/HomeVC/HomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "229"
+            endingLineNumber = "229"
+            landmarkName = "view(for:index:reusingView:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7D5653ED-18BB-4C3B-ADE2-76E8AC3B324D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GeekMeets/VIP/DashBoard/Tabbar/HomeVC/HomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "215"
+            endingLineNumber = "215"
+            landmarkName = "view(for:index:reusingView:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "938F2759-C47A-49F1-88EA-16B014456435"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeekMeets/VIP/DashBoard/PreviewViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "409"
-            endingLineNumber = "409"
-            landmarkName = "getSubscriptionResponse(status:)"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
+            landmarkName = "btnAddtoStoryAction(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DF11971C-49E7-43A7-9C41-EE09EA550C0A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GeekMeets/VIP/DashBoard/PreviewViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "385"
+            endingLineNumber = "385"
+            landmarkName = "addtextToVideo()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

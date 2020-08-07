@@ -184,7 +184,9 @@ extension TopGeeksViewController {
         print(response)
         if response.responseCode == 200 {
             self.btnActivePlans.setTitle("\(response.responseData?.pendingGeek ?? 0)", for: .normal)
-            setActiveNowButton(data : response.responseData!)
+            if response.responseData?.tiPlanType == 2 || response.responseData?.tiPlanType == 3 {
+                setActiveNowButton(data : response.responseData!)
+            }
         }
     }
     
@@ -207,7 +209,9 @@ extension TopGeeksViewController {
     func getActiveGeeksResponse(response : BoostGeekResponse){
         print(response)
         if response.responseCode == 200 {
-            setActiveNowButton(data : response.responseData!)
+            if response.responseData?.tiPlanType == 2 || response.responseData?.tiPlanType == 3 {
+                setActiveNowButton(data : response.responseData!)
+            }
         } else {
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }

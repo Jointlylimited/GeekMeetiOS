@@ -204,7 +204,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
         } else {
             self.btnFavourite.alpha = 0.0
         }
-        self.profileView.frame = DeviceType.iPhone5orSE ? CGRect(x: 0, y: 0, w: ScreenSize.width, h: 500) : (DeviceType.iPhoneXRMax ||  DeviceType.iPhone678p ? CGRect(x: 0, y: 0, w: ScreenSize.width, h: 650) : CGRect(x: 0, y: 0, w: ScreenSize.width, h: 550))
+        self.profileView.frame = DeviceType.iPhone5orSE ? CGRect(x: 0, y: 0, w: ScreenSize.width, h: 500) : (DeviceType.iPhoneXRMax ? CGRect(x: 0, y: 0, w: ScreenSize.width, h: 800) : (DeviceType.iPhone678 ? CGRect(x: 0, y: 0, w: ScreenSize.width, h: 600) : CGRect(x: 0, y: 0, w: ScreenSize.width, h: 700)))
         self.arrayDetails = fetchUserData()
         self.registerCollectionViewCell()
         self.MatchProfileCollView.reloadData()
@@ -242,7 +242,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
             controller!.modalTransitionStyle = .crossDissolve
             controller!.modalPresentationStyle = .overCurrentContext
             controller!.isFromMatchVC = true
-            controller?.pages = self.objStoryArray!
+            controller?.pages = [self.objStoryArray![0]]
             self.presentVC(controller!)
         }
     }
@@ -321,8 +321,8 @@ extension MatchProfileViewController {
     func getStoryListResponse(response: StoryResponse){
         if response.responseCode == 200 {
             self.presenter?.callBlockUserListAPI()
-            self.objStoryArray = response.responseData
-            if self.objStoryArray != nil && self.objStoryArray!.count != 0 {
+            self.objStoryArray = response.responseData?.bottomStory
+            if self.objStoryArray?.count != 1 {
                 self.btnViewStories.alpha = 1
             } else {
                 self.btnViewStories.alpha = 0
@@ -485,6 +485,7 @@ extension MatchProfileViewController : UICollectionViewDataSource, UICollectionV
         
         let photoString = self.objMatchUserProfile.photos![indexPath.row]
         cell.ReactEmojiView.alpha = cell.btnLike.isSelected ? 1.0 : 0.0
+        cell.emojiStackView.alpha = 0.0
         
         if (self.objMatchUserProfile != nil && photoString.reaction != nil) {
             print(photoString.reaction!)

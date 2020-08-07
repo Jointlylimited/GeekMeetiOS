@@ -35,7 +35,7 @@ class HomeViewController: UIViewController, HomeProtocol {
     var cardView = CardView()
     var objCardArray = CardDetailsModel()
     var location:CLLocation?
-    
+    var SwipeValue : Int = 0
     // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -72,6 +72,7 @@ class HomeViewController: UIViewController, HomeProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        SwipeValue = Authentication.getSwipeStatus()!
 //        getUserCurrentLocation()
     }
     
@@ -211,12 +212,33 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
         
         cardView.clickOnClose = {
             print("Close Action clicked!")
-            self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "0")
+            if UserDataModel.currentUser?.tiIsSubscribed == 0 {
+                if self.SwipeValue != 0 {
+                    self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "0")
+                    Authentication.setSwipeStatus(self.SwipeValue - 1)
+                    self.SwipeValue = Authentication.getSwipeStatus()!
+                } else {
+                    Authentication.setSwipeStatus(0)
+                    AppSingleton.sharedInstance().showAlert(kSwipeLimit, okTitle: "OK")
+                }
+            } else {
+                self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "0")
+            }
         }
-        
         cardView.clickOnFavourite = {
             print("Favourite Action clicked!")
-             self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "1")
+            if UserDataModel.currentUser?.tiIsSubscribed == 0 {
+                if self.SwipeValue != 0 {
+                    self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "1")
+                    Authentication.setSwipeStatus(self.SwipeValue - 1)
+                    self.SwipeValue = Authentication.getSwipeStatus()!
+                } else {
+                    Authentication.setSwipeStatus(0)
+                    AppSingleton.sharedInstance().showAlert(kSwipeLimit, okTitle: "OK")
+                }
+            } else {
+                self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "1")
+            }
         }
         
         cardView.clickOnView = {
@@ -237,11 +259,33 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
     }
     func cards(_ cards: SwipeableCards, didLeftRemovedItemAt index: Int) {
         print("<--\(index)")
-         self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "0")
+        if UserDataModel.currentUser?.tiIsSubscribed == 0 {
+            if SwipeValue != 0 {
+                self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "0")
+                Authentication.setSwipeStatus(SwipeValue - 1)
+                SwipeValue = Authentication.getSwipeStatus()!
+            } else {
+                Authentication.setSwipeStatus(0)
+                AppSingleton.sharedInstance().showAlert(kSwipeLimit, okTitle: "OK")
+            }
+        } else {
+            self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "0")
+        }
     }
     func cards(_ cards: SwipeableCards, didRightRemovedItemAt index: Int) {
         print("\(index)-->")
-         self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "1")
+        if UserDataModel.currentUser?.tiIsSubscribed == 0 {
+            if SwipeValue != 0 {
+                self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "1")
+                Authentication.setSwipeStatus(SwipeValue - 1)
+                SwipeValue = Authentication.getSwipeStatus()!
+            } else {
+                Authentication.setSwipeStatus(0)
+                AppSingleton.sharedInstance().showAlert(kSwipeLimit, okTitle: "OK")
+            }
+        } else {
+            self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "1")
+        }
     }
     func cards(_ cards: SwipeableCards, didRemovedItemAt index: Int) {
         print("index of removed card:\(index)")

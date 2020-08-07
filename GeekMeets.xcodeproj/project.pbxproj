@@ -221,6 +221,7 @@
 		0BD88AFF2497AD0200C8C025 /* ViewNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD88AFE2497AD0200C8C025 /* ViewNotification.swift */; };
 		0BDB9DA02476405000BA2F39 /* iOSawsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 0BDB9D9F2476405000BA2F39 /* iOSawsconfiguration.json */; };
 		0BDB9DA2247640A800BA2F39 /* AWSHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDB9DA1247640A800BA2F39 /* AWSHelper.swift */; };
+		0BE0314524DC459E004323C7 /* StoryResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE0314424DC459D004323C7 /* StoryResponseData.swift */; };
 		0BE21272244976AF004817BC /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BE21260244976AF004817BC /* Poppins-ExtraLight.ttf */; };
 		0BE21273244976AF004817BC /* Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BE21261244976AF004817BC /* Poppins-ThinItalic.ttf */; };
 		0BE21274244976AF004817BC /* Poppins-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BE21262244976AF004817BC /* Poppins-ExtraLightItalic.ttf */; };
@@ -630,6 +631,7 @@
 		0BD88AFE2497AD0200C8C025 /* ViewNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewNotification.swift; sourceTree = "<group>"; };
 		0BDB9D9F2476405000BA2F39 /* iOSawsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = iOSawsconfiguration.json; sourceTree = "<group>"; };
 		0BDB9DA1247640A800BA2F39 /* AWSHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSHelper.swift; sourceTree = "<group>"; };
+		0BE0314424DC459D004323C7 /* StoryResponseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryResponseData.swift; sourceTree = "<group>"; };
 		0BE21260244976AF004817BC /* Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
 		0BE21261244976AF004817BC /* Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
 		0BE21262244976AF004817BC /* Poppins-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
@@ -1750,6 +1752,7 @@
 		F7780E26245AD666003CA4BD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0BE0314424DC459D004323C7 /* StoryResponseData.swift */,
 				0B060DB724D977CD00EF5C21 /* SubscriptionFields.swift */,
 				0B060DB824D977CE00EF5C21 /* SubscriptionResponse.swift */,
 				0BABEB3624BD912F0084A3E1 /* BoostGeekFields.swift */,
@@ -2763,6 +2766,7 @@
 				0B53A12024C0133800F8AE1A /* FirstDateInteractor.swift in Sources */,
 				0B9499D92451DBC4001AD1C8 /* CommonPagesInteractor.swift in Sources */,
 				F7D5259B244869FB002D3A42 /* SignInInteractor.swift in Sources */,
+				0BE0314524DC459E004323C7 /* StoryResponseData.swift in Sources */,
 				F7164AC7244EB86F00853BFC /* AddPhotosInteractor.swift in Sources */,
 				0B53A12424C0134D00F8AE1A /* FirstCallPresenter.swift in Sources */,
 				0B0013CF24ACA4B700D2EE83 /* OneToOneChatVC.swift in Sources */,

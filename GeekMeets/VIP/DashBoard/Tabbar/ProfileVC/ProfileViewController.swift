@@ -364,7 +364,7 @@ extension ProfileViewController : UICollectionViewDataSource, UICollectionViewDe
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell : PhotoEmojiCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PhotoEmojiCell, for: indexPath) as! PhotoEmojiCell
-        
+        cell.emojiStackView.alpha = 0.0
          if UserDataModel.currentUser?.photos == nil || UserDataModel.currentUser?.photos?.count == 0 {
             cell.userImgView.image = imageArray[indexPath.row]
          } else {

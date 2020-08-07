@@ -136,6 +136,8 @@ struct DeviceType {
     static let iPhone678p    = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.maxWH == 736.0
     static let iPhoneX       = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.maxWH == 812.0
     static let iPhoneXRMax   = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.maxLength == 896.0
+    static let iPhone11   = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.maxLength == 1125.0
+    static let iPhone11or11Pro   = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.maxLength == 1242.0
     static var hasNotch: Bool {
         return iPhoneX || iPhoneXRMax
     }
@@ -283,6 +285,7 @@ class AppSingleton: NSObject {
     }
     
     func showHomeVC(fromMatch : Bool, userDict : NSDictionary){
+        Authentication.setSwipeStatus(10)
         Authentication.setLoggedInStatus(true)
         UserDataModel.currentUser = UserDataModel.lastLoginUser
         UserDataModel.UserPreferenceResponse = UserDataModel.UserPreferenceData
@@ -302,6 +305,7 @@ class AppSingleton: NSObject {
     }
         
     func moveToLogeedInScreen(){
+        
         if Authentication.getSignUpFlowStatus() == 0 {
             let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.SignUpScreen)
             let navController = UINavigationController.init(rootViewController: controller)

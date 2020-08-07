@@ -475,6 +475,7 @@ extension EditProfileViewController : UICollectionViewDataSource, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell : PhotoEmojiCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PhotoEmojiCell, for: indexPath) as! PhotoEmojiCell
+        cell.emojiStackView.alpha = 0.0
         cell.emojiStackView.spacing = DeviceType.iPhone5orSE ? 2 : 10
         
         if indexPath.row < self.userPhotosModel.count {

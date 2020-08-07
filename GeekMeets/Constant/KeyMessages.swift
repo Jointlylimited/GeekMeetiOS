@@ -97,6 +97,11 @@ let kMobileVerifySucc = "Your mobile is changed & verified Successfully"
 let kSubscription = "Subscription"
 let kBoost = "Boost"
 let kTopStory = "TopStory"
+let kkAuthKey = "vAuthKey"
+let kLoggedInStatus = "isUserLoggedIn"
+let kSignUpFlowStatus = "SignUpFlowStatus"
+let kSwipeStatus = "SwipeStatus"
+let kSwipeLimit = "You have exceeded your swipe limit, Subscribe to check other further profiles..."
 
 class KeyMessages: NSObject {
 
