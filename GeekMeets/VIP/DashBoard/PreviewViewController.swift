@@ -43,6 +43,22 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     var finalVidURL : URL!
     let commmonPreset = AVAssetExportPreset1280x720
     var stickerView2 : StickerView!
+    var textView = UITextView()
+    var fontSize : CGFloat = 0.0
+    
+    private var beginningPoint = CGPoint.zero
+    private var beginningCenter = CGPoint.zero
+    
+    private var initialBounds = CGRect.zero
+    private var initialDistance:CGFloat = 0
+    private var deltaAngle:CGFloat = 0
+    
+    private lazy var moveGesture = {
+        return UIPanGestureRecognizer(target: self, action: #selector(handleMoveGesture(_:)))
+    }()
+    private lazy var rotateGesture = {
+        return UIPanGestureRecognizer(target: self, action: #selector(handleRotateGesture(_:)))
+    }()
     
     private var _selectedStickerView:StickerView?
     var selectedStickerView:StickerView? {
@@ -117,6 +133,8 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     func ImageProcess(){
         photo.image = self.objPostData.arrMedia[0].img
         self.navigationController?.isNavigationBarHidden = true
+        self.PhotoView.addGestureRecognizer(self.moveGesture)
+//        self.PhotoView.addGestureRecognizer(self.rotateGesture)
     }
     
     // MARK: Manual Functions
@@ -232,12 +250,14 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     
     func setLabel(text : CustomTextView){
         self.cusText = text
-        let textView = UITextView.init(frame: CGRect.init(x: 0, y: 0, width: self.cusText.width, height: self.cusText.height))
+        self.textView = UITextView.init(frame: CGRect.init(x: 0, y: 0, width: self.cusText.width, height: self.cusText.height))
         textView.text = text.text
         textView.textColor = text.color
         textView.font = text.font
         textView.textAlignment = .center
         textView.backgroundColor = .clear
+        let newSize = textView.sizeThatFits(CGSize(width: textView.width, height: CGFloat.greatestFiniteMagnitude))
+        textView.frame.size = CGSize(width: max(newSize.width, textView.width), height: newSize.height)
         
         adjustTextViewHeight(textView : textView)
         
@@ -245,6 +265,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         stickerView2.center = CGPoint.init(x: self.cusText.width/2, y: self.cusText.height/2)
         stickerView2.delegate = self
         stickerView2.setImage(UIImage.init(named: "Close")!, forHandler: StickerViewHandler.close)
+        stickerView2.setImage(UIImage.init(named: "Rotate")!, forHandler: StickerViewHandler.rotate)
         stickerView2.showEditingHandlers = false
         self.view.addSubview(stickerView2)
     }
@@ -402,6 +423,71 @@ class PreviewViewController: UIViewController, PreviewProtocol {
             self.callPostStoryAPI(obj: self.objPostData)
         }
     }
+    
+    // MARK: - Gesture Handlers
+    @objc
+    func handleMoveGesture(_ recognizer: UIPanGestureRecognizer) {
+        let touchLocation = recognizer.location(in: self.PhotoView)
+        switch recognizer.state {
+        case .began:
+            self.beginningPoint = touchLocation
+            self.beginningCenter = self.PhotoView.center
+//            if let delegate = self.delegate {
+//                delegate.stickerViewDidBeginMoving(self)
+//            }
+        case .changed:
+            self.PhotoView.center = CGPoint(x: self.beginningCenter.x + (touchLocation.x - self.beginningPoint.x), y: self.beginningCenter.y + (touchLocation.y - self.beginningPoint.y))
+//            if let delegate = self.delegate {
+//                delegate.stickerViewDidChangeMoving(self)
+//            }
+        case .ended:
+            self.PhotoView.center = CGPoint(x: self.beginningCenter.x + (touchLocation.x - self.beginningPoint.x), y: self.beginningCenter.y + (touchLocation.y - self.beginningPoint.y))
+//            if let delegate = self.delegate {
+//                delegate.stickerViewDidEndMoving(self)
+//            }
+        default:
+            break
+        }
+//        self.view.layoutIfNeeded()
+    }
+    
+    @objc
+    func handleRotateGesture(_ recognizer: UIPanGestureRecognizer) {
+        let touchLocation = recognizer.location(in: self.PhotoView)
+        let center = self.PhotoView.center
+        
+        switch recognizer.state {
+        case .began:
+            self.deltaAngle = CGFloat(atan2f(Float(touchLocation.y - center.y), Float(touchLocation.x - center.x))) - CGAffineTransformGetAngle(self.PhotoView.transform)
+            self.initialBounds = self.PhotoView.bounds
+            self.initialDistance = CGPointGetDistance(point1: center, point2: touchLocation)
+//            if let delegate = self.delegate {
+//                delegate.stickerViewDidBeginRotating(self)
+//            }
+        case .changed:
+            let angle = atan2f(Float(touchLocation.y - center.y), Float(touchLocation.x - center.x))
+            let angleDiff = Float(self.deltaAngle) - angle
+            self.PhotoView.transform = CGAffineTransform(rotationAngle: CGFloat(-angleDiff))
+            
+            var scale = CGPointGetDistance(point1: center, point2: touchLocation) / self.initialDistance
+//            let minimumScale = CGFloat(self.minimumSize)/min(self.initialBounds.size.width, self.initialBounds.size.height)
+//            scale = max(scale, minimumScale)
+            let scaledBounds = CGRectScale(self.initialBounds, wScale: scale, hScale: scale)
+            self.PhotoView.bounds = scaledBounds
+//            self.PhotoView.setN-eedsDisplay()
+            
+//            if let delegate = self.delegate {
+//                delegate.stickerViewDidChangeRotating(self)
+//            }
+        case .ended:
+            print("Ended")
+//            if let delegate = self.delegate {
+//                delegate.stickerViewDidEndRotating(self)
+//            }
+        default:
+            break
+        }
+    }
 }
 
 extension PreviewViewController : PostStoryDelegate {
@@ -419,7 +505,6 @@ extension PreviewViewController {
     func getPostStoryResponse(response: CommonResponse){
         if response.responseCode == 200 {
             self.moveToTabVC()
- 
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }
     }
@@ -452,7 +537,16 @@ extension PreviewViewController: StickerViewDelegate {
     }
     
     func stickerViewDidChangeRotating(_ stickerView: StickerView) {
-        
+        self.fontSize = self.cusText.fontSize
+//        textView.size = stickerView2.size
+//        textView.sizeToFit()
+//        adjustTextViewHeight(textView : self.textView)
+        print("Before : \(self.fontSize)")
+        if self.fontSize > 8 {
+            print("After : \(self.fontSize)")
+            self.fontSize = self.fontSize - 1
+            textView.font = UIFont(name: self.cusText.font.familyName, size: self.fontSize)
+        }
     }
     
     func stickerViewDidEndRotating(_ stickerView: StickerView) {
@@ -481,3 +575,4 @@ extension FileManager {
         }
     }
 }
+

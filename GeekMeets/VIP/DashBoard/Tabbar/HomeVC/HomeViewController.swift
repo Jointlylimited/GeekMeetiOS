@@ -138,6 +138,13 @@ class HomeViewController: UIViewController, HomeProtocol {
             }
         }
     }
+    
+    func presentSubVC(){
+        let subVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.ManageSubscriptionScreen) as! ManageSubscriptionViewController
+        subVC.modalTransitionStyle = .crossDissolve
+        subVC.modalPresentationStyle = .overCurrentContext
+        self.presentVC(subVC)
+    }
 }
 
 //MARK: API Methods
@@ -219,7 +226,7 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
                     self.SwipeValue = Authentication.getSwipeStatus()!
                 } else {
                     Authentication.setSwipeStatus(0)
-                    AppSingleton.sharedInstance().showAlert(kSwipeLimit, okTitle: "OK")
+                    self.presentSubVC()
                 }
             } else {
                 self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "0")
@@ -234,7 +241,7 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
                     self.SwipeValue = Authentication.getSwipeStatus()!
                 } else {
                     Authentication.setSwipeStatus(0)
-                    AppSingleton.sharedInstance().showAlert(kSwipeLimit, okTitle: "OK")
+                    self.presentSubVC()
                 }
             } else {
                 self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "1")
@@ -266,7 +273,7 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
                 SwipeValue = Authentication.getSwipeStatus()!
             } else {
                 Authentication.setSwipeStatus(0)
-                AppSingleton.sharedInstance().showAlert(kSwipeLimit, okTitle: "OK")
+                self.presentSubVC()
             }
         } else {
             self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "0")
@@ -281,7 +288,7 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
                 SwipeValue = Authentication.getSwipeStatus()!
             } else {
                 Authentication.setSwipeStatus(0)
-                AppSingleton.sharedInstance().showAlert(kSwipeLimit, okTitle: "OK")
+                self.presentSubVC()
             }
         } else {
             self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "1")

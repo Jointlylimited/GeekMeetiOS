@@ -61,7 +61,7 @@
                         </userDefinedRuntimeAttributes>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S5e-D4-R3d">
-                        <rect key="frame" x="20" y="75" width="445" height="1"/>
+                        <rect key="frame" x="20" y="83" width="445" height="1"/>
                         <color key="backgroundColor" white="0.67000000000000004" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="Awz-uK-fRR"/>
@@ -80,7 +80,7 @@
                     <constraint firstItem="yuO-T8-Vha" firstAttribute="top" secondItem="dLC-tV-SGD" secondAttribute="bottom" constant="5" id="KN7-iQ-Dg0"/>
                     <constraint firstAttribute="trailing" secondItem="WKj-tF-fah" secondAttribute="trailing" constant="20" id="OHl-4L-IRj"/>
                     <constraint firstItem="yuO-T8-Vha" firstAttribute="trailing" secondItem="WKj-tF-fah" secondAttribute="trailing" id="Sbk-QD-eCl"/>
-                    <constraint firstAttribute="bottom" secondItem="S5e-D4-R3d" secondAttribute="bottom" constant="10" id="Tg9-YZ-VAk"/>
+                    <constraint firstAttribute="bottom" secondItem="S5e-D4-R3d" secondAttribute="bottom" constant="2" id="Tg9-YZ-VAk"/>
                     <constraint firstItem="dLC-tV-SGD" firstAttribute="top" secondItem="eK5-eS-fBn" secondAttribute="top" constant="10" id="isH-hP-0sp"/>
                     <constraint firstItem="LUS-AN-Vst" firstAttribute="leading" secondItem="eK5-eS-fBn" secondAttribute="leading" constant="20" id="j2K-72-bwh"/>
                     <constraint firstItem="dLC-tV-SGD" firstAttribute="leading" secondItem="LUS-AN-Vst" secondAttribute="trailing" constant="10" id="oR2-WG-cVp"/>

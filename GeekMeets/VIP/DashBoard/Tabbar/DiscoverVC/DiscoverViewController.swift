@@ -193,10 +193,10 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.StoryCollView {
-            return (self.objStoryArray != nil ? self.objStoryArray!.count : 0)
+            return (self.objStoryArray != nil && self.objStoryArray?[0].count != 0 ? self.objStoryArray!.count : 0)
         }
         else {
-            return (self.objAllStoryArray != nil ? self.objAllStoryArray!.count : 0)
+            return (self.objAllStoryArray != nil && self.objAllStoryArray?[0].count != 0 ? self.objAllStoryArray!.count : 0)
         }
     }
     

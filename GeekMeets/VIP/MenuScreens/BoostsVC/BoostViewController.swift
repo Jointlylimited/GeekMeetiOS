@@ -129,7 +129,7 @@ class BoostViewController: UIViewController, BoostProtocol {
         }
         self.lblRemainingTime.text = "\(totalMin!):\(totalSecond!) Remaining"
         
-        if "\(totalMin!)".firstCharacterAsString == "0" && "\(totalSecond!)".firstCharacterAsString == "0" {
+        if totalMin! == 0 && totalSecond! == 0 {
             totalMin = 0
             totalSecond = 0
           endTimer()

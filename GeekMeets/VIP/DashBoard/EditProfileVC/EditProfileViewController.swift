@@ -489,7 +489,7 @@ extension EditProfileViewController : UICollectionViewDataSource, UICollectionVi
             }
             let photoString = userPhotosModel[indexPath.row]
             if photoString.reaction?.count != 0 {
-                cell.emojiStackView.alpha = 1
+                cell.emojiStackView.alpha = 0.0
                 if photoString.reaction!.count == 3 {
                     cell.btnKiss.setTitle((photoString.reaction?.count != 0 && photoString.reaction![2].vCount != "0") ? photoString.reaction![2].vCount : "0", for: .normal)
                     cell.btnLove.setTitle((photoString.reaction?.count != 0 && photoString.reaction![1].vCount != "0") ? photoString.reaction![1].vCount : "0", for: .normal)
