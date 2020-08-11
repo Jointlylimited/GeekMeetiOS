@@ -80,6 +80,7 @@ struct GeekMeets_ViewController
     static let TabbarScreen = "TabbarViewController"
     static let MatchScreen = "MatchViewController"
     static let MatchProfileScreen = "MatchProfileViewController"
+    static let ProfileScreen = "ProfileViewController"
     static let EditProfileScreen = "EditProfileViewController"
     static let MyMatchesScreen = "MyMatchesViewController"
     static let BoostScreen = "BoostViewController"
@@ -112,6 +113,10 @@ struct GeekMeets_ViewController
     static let TipsScreen = "TipsViewController"
     static let FirstCallScreen = "FirstCallViewController"
     static let FirstDateScreen = "FirstDateViewController"
+    static let MatchLikeScreen = "MatchLikesViewController"
+    static let MatchByBothScreen = "MatchByBothViewController"
+    static let MyLikesScreen = "MyLikesViewController"
+    static let LikesScreen = "LikesViewController"
 }
 
 struct Cells {

@@ -94,11 +94,11 @@ class ViewController: UIViewController {
         cameraAccess { [weak self] (status, isGrant) in
             guard let `self` = self else {return}
             if isGrant {
-                self.setupCaptureSession()
-                self.setupDevice()
-                self.setupInputOutput()
-                self.setupPreviewLayer()
-                self.startRunningCaptureSession()
+//                self.setupCaptureSession()
+//                self.setupDevice()
+//                self.setupInputOutput()
+//                self.setupPreviewLayer()
+//                self.startRunningCaptureSession()
             }
         }
     }

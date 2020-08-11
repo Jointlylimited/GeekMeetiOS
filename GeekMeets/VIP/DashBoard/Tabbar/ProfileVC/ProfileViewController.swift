@@ -197,6 +197,10 @@ class ProfileViewController: UIViewController, ProfileProtocol {
         self.tblProfile.reloadData()
     }
     
+    @IBAction func btnBackAction(_ sender: UIButton) {
+        self.popVC()
+    }
+    
     @IBAction func btnEditProfileAction(_ sender: UIButton) {
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.EditProfileScreen) as! EditProfileViewController
         controller.delegate = self

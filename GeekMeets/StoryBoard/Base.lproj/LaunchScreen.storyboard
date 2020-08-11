@@ -19,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_launchbg" translatesAutoresizingMaskIntoConstraints="NO" id="gbQ-ZQ-rLB">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_plain" translatesAutoresizingMaskIntoConstraints="NO" id="gbQ-ZQ-rLB">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon_Splash" translatesAutoresizingMaskIntoConstraints="NO" id="afi-aa-1Wi">
@@ -63,6 +63,6 @@
     </scenes>
     <resources>
         <image name="Icon_Splash" width="138" height="188"/>
-        <image name="img_launchbg" width="375" height="812"/>
+        <image name="bg_plain" width="375" height="812"/>
     </resources>
 </document>

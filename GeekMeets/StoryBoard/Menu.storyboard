@@ -127,7 +127,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EKc-Qd-DGw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-857.97101449275374" y="629.46428571428567"/>
+            <point key="canvasLocation" x="-2791" y="1314"/>
         </scene>
         <!--Manage Subscription View Controller-->
         <scene sceneID="rtP-oI-hXS">
@@ -708,19 +708,19 @@
                                                 <rect key="frame" x="20" y="170" width="374" height="80"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Currently Activated" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J7d-cf-i4h">
-                                                        <rect key="frame" x="5" y="10.000000000000002" width="137.66666666666666" height="19.666666666666671"/>
+                                                        <rect key="frame" x="5.0000000000000071" y="9.9999999999999982" width="119.66666666666669" height="16.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9:35 Remaining" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="adL-jv-gDu">
-                                                        <rect key="frame" x="261" y="10.000000000000002" width="108" height="19.666666666666671"/>
+                                                        <rect key="frame" x="271.33333333333331" y="9.9999999999999982" width="97.666666666666686" height="16.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your stories are on the top stories list" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DnL-j0-Cbp">
-                                                        <rect key="frame" x="20" y="39.666666666666686" width="334" height="19.666666666666671"/>
+                                                        <rect key="frame" x="20" y="36.333333333333314" width="334" height="16.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -760,13 +760,13 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get your profile on the top in your area for 30 mins &amp; get more matches using Boosts" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xcC-ef-S0l">
-                                                        <rect key="frame" x="20" y="49.666666666666686" width="334" height="33.666666666666657"/>
+                                                        <rect key="frame" x="20" y="49.666666666666686" width="334" height="28"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="12"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Tl-Zj-YU9">
-                                                        <rect key="frame" x="107" y="93.333333333333314" width="160" height="30"/>
+                                                        <rect key="frame" x="107" y="87.666666666666686" width="160" height="30"/>
                                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="rib-un-6uU"/>
@@ -786,7 +786,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kEZ-bB-Uyu">
-                                                        <rect key="frame" x="304" y="4" width="50" height="32"/>
+                                                        <rect key="frame" x="304" y="5.3333333333333144" width="50" height="29"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="50" id="UWm-qu-4cn"/>
                                                         </constraints>
@@ -862,7 +862,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 Boosts  + 10 Top Stories" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VgQ-1C-piT">
-                                                                        <rect key="frame" x="20" y="19" width="204" height="18.333333333333329"/>
+                                                                        <rect key="frame" x="20" y="20.333333333333371" width="204" height="15.333333333333336"/>
                                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
@@ -999,7 +999,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Top Story" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bgv-oh-69y">
-                                                                        <rect key="frame" x="20" y="19.333333333333371" width="67" height="18.333333333333329"/>
+                                                                        <rect key="frame" x="20" y="20.666666666666629" width="66.666666666666671" height="15.333333333333336"/>
                                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
@@ -1070,7 +1070,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4 Top Stories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="InN-gU-BdK">
-                                                                        <rect key="frame" x="20" y="19.333333333333371" width="82" height="18.333333333333329"/>
+                                                                        <rect key="frame" x="20" y="20.666666666666742" width="76.333333333333329" height="15.333333333333336"/>
                                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
@@ -1141,7 +1141,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8 Top Stories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5gp-VR-rh9">
-                                                                        <rect key="frame" x="20" y="19.333333333333258" width="82" height="18.333333333333329"/>
+                                                                        <rect key="frame" x="20" y="20.666666666666629" width="76.333333333333329" height="15.333333333333336"/>
                                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
@@ -3951,6 +3951,237 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pau-XV-LK4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3308.6956521739135" y="2029.6875"/>
+        </scene>
+        <!--Match Likes View Controller-->
+        <scene sceneID="3wF-kJ-VCh">
+            <objects>
+                <viewController storyboardIdentifier="MatchLikesViewController" id="lQS-fJ-SrX" customClass="MatchLikesViewController" customModule="Jointly" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BSi-KJ-DgC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="URd-WG-D08">
+                                <rect key="frame" x="10" y="44" width="394" height="85"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Matches" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ORh-3w-0H1">
+                                        <rect key="frame" x="8.0000000000000071" y="40.666666666666671" width="123.66666666666669" height="39.333333333333329"/>
+                                        <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="28"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9UO-Eb-cPN">
+                                        <rect key="frame" x="5" y="7.9999999999999982" width="30" height="31.333333333333329"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="ANp-mV-sLW"/>
+                                            <constraint firstAttribute="width" secondItem="9UO-Eb-cPN" secondAttribute="height" multiplier="25:26" id="Asj-1A-F6d"/>
+                                        </constraints>
+                                        <state key="normal" image="icn_back"/>
+                                        <connections>
+                                            <action selector="btnBackAction:" destination="lQS-fJ-SrX" eventType="touchUpInside" id="jFA-DN-M52"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="85" id="Afd-iD-3KK"/>
+                                    <constraint firstAttribute="bottom" secondItem="ORh-3w-0H1" secondAttribute="bottom" constant="5" id="VOC-Lr-dWF"/>
+                                    <constraint firstItem="9UO-Eb-cPN" firstAttribute="top" secondItem="URd-WG-D08" secondAttribute="top" constant="8" id="XhT-5O-LEd"/>
+                                    <constraint firstItem="9UO-Eb-cPN" firstAttribute="leading" secondItem="URd-WG-D08" secondAttribute="leading" constant="5" id="nWc-BN-t60"/>
+                                    <constraint firstItem="ORh-3w-0H1" firstAttribute="leading" secondItem="URd-WG-D08" secondAttribute="leading" constant="8" id="roR-BD-c62"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="URd-WG-D08" firstAttribute="top" secondItem="V9P-h3-bqx" secondAttribute="top" id="89m-jQ-gLt"/>
+                            <constraint firstItem="URd-WG-D08" firstAttribute="leading" secondItem="BSi-KJ-DgC" secondAttribute="leading" constant="10" id="IaQ-Fq-seh"/>
+                            <constraint firstAttribute="trailing" secondItem="URd-WG-D08" secondAttribute="trailing" constant="10" id="kCd-fM-9lc"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="V9P-h3-bqx"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="icn_message" id="Omm-pL-Nvk"/>
+                    <connections>
+                        <outlet property="lblScreenTitle" destination="ORh-3w-0H1" id="CvO-Bl-dIU"/>
+                        <outlet property="viewNavigation" destination="URd-WG-D08" id="JFS-bE-ZJC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hEb-K2-Q9L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2790" y="629"/>
+        </scene>
+        <!--My Likes View Controller-->
+        <scene sceneID="JIa-6s-NaG">
+            <objects>
+                <viewController storyboardIdentifier="MyLikesViewController" id="oJ7-la-AM4" customClass="MyLikesViewController" customModule="Jointly" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="OQI-hc-LfG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6Xv-3c-6RJ">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="gwL-td-DwF" customClass="MessageListCell" customModule="Jointly" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gwL-td-DwF" id="NMC-7a-8aw">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="oJ7-la-AM4" id="etJ-za-qrV"/>
+                                    <outlet property="delegate" destination="oJ7-la-AM4" id="phH-1K-t9R"/>
+                                </connections>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="no results found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gW3-gm-fdb">
+                                <rect key="frame" x="20" y="433" width="374" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="di1-0A-dYU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="6Xv-3c-6RJ" firstAttribute="top" secondItem="zCk-r1-LKQ" secondAttribute="top" id="9aj-E2-8oX"/>
+                            <constraint firstItem="6Xv-3c-6RJ" firstAttribute="bottom" secondItem="zCk-r1-LKQ" secondAttribute="bottom" id="ARY-yJ-IK5"/>
+                            <constraint firstItem="zCk-r1-LKQ" firstAttribute="trailing" secondItem="gW3-gm-fdb" secondAttribute="trailing" constant="20" id="Aaa-Xt-65b"/>
+                            <constraint firstItem="gW3-gm-fdb" firstAttribute="leading" secondItem="OQI-hc-LfG" secondAttribute="leading" constant="20" id="IRf-wL-PFk"/>
+                            <constraint firstItem="gW3-gm-fdb" firstAttribute="centerY" secondItem="OQI-hc-LfG" secondAttribute="centerY" id="bJK-BZ-Y92"/>
+                            <constraint firstItem="6Xv-3c-6RJ" firstAttribute="leading" secondItem="zCk-r1-LKQ" secondAttribute="leading" id="fa1-Rb-hRB"/>
+                            <constraint firstItem="6Xv-3c-6RJ" firstAttribute="trailing" secondItem="zCk-r1-LKQ" secondAttribute="trailing" id="gWb-h2-hJO"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="zCk-r1-LKQ"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="icn_message" id="zNU-5I-wCT"/>
+                    <connections>
+                        <outlet property="lblNoUser" destination="gW3-gm-fdb" id="lR3-81-v0f"/>
+                        <outlet property="tblMatchList" destination="6Xv-3c-6RJ" id="c5w-bK-Vwu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yi6-5F-2qH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1396" y="627"/>
+        </scene>
+        <!--Likes View Controller-->
+        <scene sceneID="01J-CR-jU9">
+            <objects>
+                <viewController storyboardIdentifier="LikesViewController" id="O7Q-db-cB3" customClass="LikesViewController" customModule="Jointly" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9uu-8d-Ryq">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="C0m-w7-a9X">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="y6N-qg-R4v" customClass="MessageListCell" customModule="Jointly" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="y6N-qg-R4v" id="9yi-KC-naU">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="O7Q-db-cB3" id="Y7n-16-wTM"/>
+                                    <outlet property="delegate" destination="O7Q-db-cB3" id="Wh1-8v-TSp"/>
+                                </connections>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="no results found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6tM-OX-IPs">
+                                <rect key="frame" x="20" y="433" width="374" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="mPq-Rv-phA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="C0m-w7-a9X" firstAttribute="trailing" secondItem="x8C-Tg-JL8" secondAttribute="trailing" id="58B-8b-PVh"/>
+                            <constraint firstItem="x8C-Tg-JL8" firstAttribute="trailing" secondItem="6tM-OX-IPs" secondAttribute="trailing" constant="20" id="83P-Bk-K7J"/>
+                            <constraint firstItem="C0m-w7-a9X" firstAttribute="bottom" secondItem="x8C-Tg-JL8" secondAttribute="bottom" id="OyA-3f-W7W"/>
+                            <constraint firstItem="C0m-w7-a9X" firstAttribute="leading" secondItem="x8C-Tg-JL8" secondAttribute="leading" id="WWa-V7-nSO"/>
+                            <constraint firstItem="C0m-w7-a9X" firstAttribute="top" secondItem="x8C-Tg-JL8" secondAttribute="top" id="XTL-oR-1m6"/>
+                            <constraint firstItem="6tM-OX-IPs" firstAttribute="centerY" secondItem="9uu-8d-Ryq" secondAttribute="centerY" id="bYv-E8-HG6"/>
+                            <constraint firstItem="6tM-OX-IPs" firstAttribute="leading" secondItem="9uu-8d-Ryq" secondAttribute="leading" constant="20" id="ksJ-2V-7oE"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="x8C-Tg-JL8"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="icn_message" id="wiM-ZX-Z5z"/>
+                    <connections>
+                        <outlet property="lblNoUser" destination="6tM-OX-IPs" id="ns4-P2-98T"/>
+                        <outlet property="tblMatchList" destination="C0m-w7-a9X" id="h6n-Jf-2Rx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zwt-dh-dBr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-739" y="627"/>
+        </scene>
+        <!--Match By Both View Controller-->
+        <scene sceneID="YMN-Ga-NCU">
+            <objects>
+                <viewController storyboardIdentifier="MatchByBothViewController" id="nTl-U2-wYk" customClass="MatchByBothViewController" customModule="Jointly" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ER4-Qv-rbF">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gOv-or-m5n">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="jnL-Aj-LrN" customClass="MessageListCell" customModule="Jointly" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jnL-Aj-LrN" id="Gmd-H9-cux">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="nTl-U2-wYk" id="VnG-PK-pdY"/>
+                                    <outlet property="delegate" destination="nTl-U2-wYk" id="ukM-mr-t7h"/>
+                                </connections>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="no results found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YZU-8f-JB3">
+                                <rect key="frame" x="20" y="433" width="374" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="j2B-6N-zqb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="YZU-8f-JB3" firstAttribute="leading" secondItem="ER4-Qv-rbF" secondAttribute="leading" constant="20" id="0re-5D-GHj"/>
+                            <constraint firstItem="gOv-or-m5n" firstAttribute="leading" secondItem="DCm-YC-FEU" secondAttribute="leading" id="9pz-3S-OZJ"/>
+                            <constraint firstItem="YZU-8f-JB3" firstAttribute="centerY" secondItem="ER4-Qv-rbF" secondAttribute="centerY" id="UVc-jE-kFz"/>
+                            <constraint firstItem="gOv-or-m5n" firstAttribute="bottom" secondItem="DCm-YC-FEU" secondAttribute="bottom" id="aiA-pO-9fB"/>
+                            <constraint firstItem="gOv-or-m5n" firstAttribute="top" secondItem="DCm-YC-FEU" secondAttribute="top" id="jA6-q7-Riv"/>
+                            <constraint firstItem="gOv-or-m5n" firstAttribute="trailing" secondItem="DCm-YC-FEU" secondAttribute="trailing" id="quT-rH-Ipn"/>
+                            <constraint firstItem="DCm-YC-FEU" firstAttribute="trailing" secondItem="YZU-8f-JB3" secondAttribute="trailing" constant="20" id="zWV-MT-4Sb"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="DCm-YC-FEU"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="icn_message" id="Pdf-4h-AaS"/>
+                    <connections>
+                        <outlet property="lblNoUser" destination="YZU-8f-JB3" id="pYw-KC-kRn"/>
+                        <outlet property="tblMatchList" destination="gOv-or-m5n" id="I2n-2m-CXP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cGf-SZ-9pa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2077" y="627"/>
         </scene>
     </scenes>
     <resources>

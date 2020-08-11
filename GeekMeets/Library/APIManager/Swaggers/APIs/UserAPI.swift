@@ -669,10 +669,11 @@ open class UserAPI {
      - parameter timestamp: (header)
      - parameter token: (header)
      - parameter authorization: (header)
+     - parameter tiType: (path) 0-Match,1-MyLike,2-Likes
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func matches(nonce: String, timestamp: String, token: String, authorization: String, completion: @escaping ((_ data: MatchUser?,_ error: Error?) -> Void)) {
-        matchesWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization).execute { (response, error) -> Void in
+    open class func matches(nonce: String, timestamp: String, token: String, authorization: String, tiType: Int, completion: @escaping ((_ data: MatchUser?,_ error: Error?) -> Void)) {
+        matchesWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, tiType: tiType).execute { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
@@ -680,18 +681,22 @@ open class UserAPI {
 
     /**
      Users Matches
-     - GET /user/matches
+     - GET /user/matches/{tiType}
      - examples: [{contentType=application/json, example=""}]
      
      - parameter nonce: (header)
      - parameter timestamp: (header)
      - parameter token: (header)
      - parameter authorization: (header)
+     - parameter tiType: (path) 0-Match,1-MyLike,2-Likes
 
      - returns: RequestBuilder<MatchUser>
      */
-    open class func matchesWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String) -> RequestBuilder<MatchUser> {
-        let path = "/user/matches"
+    open class func matchesWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, tiType: Int) -> RequestBuilder<MatchUser> {
+        var path = "/user/matches/{tiType}"
+        let tiTypePreEscape = "\(tiType)"
+        let tiTypePostEscape = tiTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{tiType}", with: tiTypePostEscape, options: .literal, range: nil)
         let URLString = SwaggerClientAPI.basePath + path
         let parameters: [String:Any]? = nil
         
@@ -708,6 +713,7 @@ open class UserAPI {
 
         return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
     }
+
 
     /**
          request-for-email

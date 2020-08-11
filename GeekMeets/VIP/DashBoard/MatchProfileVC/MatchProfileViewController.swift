@@ -140,6 +140,9 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     @IBOutlet weak var btnViewStories: UIButton!
     @IBOutlet weak var btnFavourite: UIButton!
     
+    @IBOutlet weak var viewButtons: UIStackView!
+    @IBOutlet weak var viewEditProfile: UIView!
+    
     var UserID : Int!
     var alertView: CustomAlertView!
     var customPickImageView: CustomOptionView!
@@ -204,6 +207,15 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
         } else {
             self.btnFavourite.alpha = 0.0
         }
+        
+        if self.UserID == UserDataModel.currentUser?.iUserId {
+            self.viewButtons.alpha = 0.0
+            self.viewEditProfile.alpha = 1.0
+        } else {
+            self.viewButtons.alpha = 1.0
+            self.viewEditProfile.alpha = 0.0
+        }
+        
         self.profileView.frame = DeviceType.iPhone5orSE ? CGRect(x: 0, y: 0, w: ScreenSize.width, h: 500) : (DeviceType.iPhoneXRMax ? CGRect(x: 0, y: 0, w: ScreenSize.width, h: 800) : (DeviceType.iPhone678 ? CGRect(x: 0, y: 0, w: ScreenSize.width, h: 600) : CGRect(x: 0, y: 0, w: ScreenSize.width, h: 700)))
         self.arrayDetails = fetchUserData()
         self.registerCollectionViewCell()
@@ -265,6 +277,11 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     }
     @IBAction func btnBlockAction(_ sender: UIButton) {
          self.showAlertView()
+    }
+    
+    @IBAction func btnEditProfileAction(_ sender: GradientButton) {
+        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.EditProfileScreen) as! EditProfileViewController
+        self.pushVC(controller)
     }
     
     func setProfileData(){

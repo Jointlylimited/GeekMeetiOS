@@ -89,7 +89,7 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
     
     func callMatchListAPI() {
         LoaderView.sharedInstance.showLoader()
-        UserAPI.matches(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
+        UserAPI.matches(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiType: 0) { (response, error) in
             
             LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {

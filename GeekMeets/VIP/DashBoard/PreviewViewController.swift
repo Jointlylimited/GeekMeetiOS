@@ -133,7 +133,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     func ImageProcess(){
         photo.image = self.objPostData.arrMedia[0].img
         self.navigationController?.isNavigationBarHidden = true
-        self.PhotoView.addGestureRecognizer(self.moveGesture)
+//        self.PhotoView.addGestureRecognizer(self.moveGesture)
 //        self.PhotoView.addGestureRecognizer(self.rotateGesture)
     }
     
@@ -184,17 +184,17 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     }
     @IBAction func btnAddtoStoryAction(_ sender: UIButton){
         if self.objPostData.tiStoryType == "0" {
+
             if cusText != nil {
-                let image = textToImage(drawText: cusText!.text as NSString, inImage: photo.image!, atPoint: CGPoint(x: self.cusText.x, y: self.cusText.y))
-                self.objPostData.arrMedia[0].img = image
-                print(image)
+                let textImage = textToImage(drawText: cusText!.text as NSString, inImage: photo.image!, atPoint: CGPoint(x: self.cusText.x, y: self.cusText.y))
+                self.objPostData.arrMedia[0].img = textImage
             }
-            ManageSubscriptionScreen()
+            self.callPostStoryAPI(obj: self.objPostData)
         } else {
             if cusText != nil {
                 self.addtextToVideo()
             } else {
-                ManageSubscriptionScreen()
+                self.callPostStoryAPI(obj: self.objPostData)
             }
         }
     }
@@ -492,7 +492,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
 
 extension PreviewViewController : PostStoryDelegate {
     func getSubscriptionResponse(status: Bool){
-            self.callPostStoryAPI(obj: self.objPostData)
+        self.callPostStoryAPI(obj: self.objPostData)
     }
 }
 //MARK: API Methods
@@ -537,16 +537,16 @@ extension PreviewViewController: StickerViewDelegate {
     }
     
     func stickerViewDidChangeRotating(_ stickerView: StickerView) {
-        self.fontSize = self.cusText.fontSize
-//        textView.size = stickerView2.size
-//        textView.sizeToFit()
-//        adjustTextViewHeight(textView : self.textView)
-        print("Before : \(self.fontSize)")
-        if self.fontSize > 8 {
-            print("After : \(self.fontSize)")
-            self.fontSize = self.fontSize - 1
-            textView.font = UIFont(name: self.cusText.font.familyName, size: self.fontSize)
-        }
+//        self.fontSize = self.cusText.fontSize
+////        textView.size = stickerView2.size
+////        textView.sizeToFit()
+////        adjustTextViewHeight(textView : self.textView)
+//        print("Before : \(self.fontSize)")
+//        if self.fontSize > 8 {
+//            print("After : \(self.fontSize)")
+//            self.fontSize = self.fontSize - 1
+//            textView.font = UIFont(name: self.cusText.font.familyName, size: self.fontSize)
+//        }
     }
     
     func stickerViewDidEndRotating(_ stickerView: StickerView) {

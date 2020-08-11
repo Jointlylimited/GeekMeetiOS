@@ -145,6 +145,21 @@ class HomeViewController: UIViewController, HomeProtocol {
         subVC.modalPresentationStyle = .overCurrentContext
         self.presentVC(subVC)
     }
+    
+    func pushMatchVC(){
+        let matchVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchLikeScreen)
+        self.pushVC(matchVC)
+    }
+    
+    @IBAction func btnMatchAction(_ sender: UIButton) {
+        if UserDataModel.currentUser?.tiIsSubscribed == 0 {
+            if self.SwipeValue != 0 {
+                pushMatchVC()
+            } else {
+                presentSubVC()
+            }
+        }
+    }
 }
 
 //MARK: API Methods
