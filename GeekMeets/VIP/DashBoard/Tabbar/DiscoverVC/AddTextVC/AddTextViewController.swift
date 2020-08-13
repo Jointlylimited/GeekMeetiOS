@@ -146,15 +146,19 @@ extension AddTextViewController : UICollectionViewDataSource, UICollectionViewDe
         } else {
             let cell : SelectTextTypeCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.SelectTextTypeCell, for: indexPath) as! SelectTextTypeCell
             let text = self.textTypeArray[indexPath.row]
-            cell.btnText.setTitle(text, for: .normal)
+            cell.btnText.setTitle("Aa", for: .normal)
+            cell.btnText.titleLabel?.font = UIFont(name: "Poppins-\(text)", size: 16.0)
             
             if self.SelectedIndexArray.contains(indexPath.row) {
-                cell.btnText.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+                cell.btnText.setTitleColor(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1), for: .normal)
+                cell.btnText.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
                 let font = UIFont(name: "Poppins-\(text)", size: cusTextView.fontSize)
                 self.textView.font = font
                 self.cusTextView.font = font
+                
             } else {
-                cell.btnText.setTitleColor(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), for: .normal)
+                cell.btnText.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+                cell.btnText.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
             }
 
             cell.clickOnText = {
@@ -194,7 +198,7 @@ extension AddTextViewController : UICollectionViewDataSource, UICollectionViewDe
             let size = (name as NSString).size(withAttributes: [
                 NSAttributedString.Key.font : UIFont(name: FontTypePoppins.Poppins_SemiBold.rawValue, size: FontSizePoppins.sizeNormalTitleNav.rawValue)!
             ])
-            return CGSize(width: size.width + 20, height: yourHeight)
+            return CGSize(width: 50, height: yourHeight) //CGSize(width: size.width + 20, height: yourHeight)
         }
     }
 }

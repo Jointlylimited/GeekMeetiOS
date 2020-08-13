@@ -31,6 +31,8 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     @IBOutlet weak var btnValidDate: UIButton!
     @IBOutlet weak var bg_Image: UIImageView!
     @IBOutlet weak var btnSkip: UIButton!
+    @IBOutlet var btnViews: [UIView]!
+    @IBOutlet weak var bgViewHeightConstant: NSLayoutConstraint!
     
     var productKey : String = ""
     var transactionInProgress = false
@@ -79,11 +81,12 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     }
     
     func setTheme(){
-        self.bg_Image.image = !self.isFromStory ? #imageLiteral(resourceName: "Manage Subscription_bg") : #imageLiteral(resourceName: "Subscription_bg")
+        self.bg_Image.image = !self.isFromStory ? #imageLiteral(resourceName: "Manage Subscription_bg1") : #imageLiteral(resourceName: "Subscription_bg")
         self.btnSkip.alpha = self.isFromStory ? 1.0 : 0.0
-        for btn in btnStackList {
+        self.bgViewHeightConstant.constant = DeviceType.hasNotch || DeviceType.iPhone11 || DeviceType.iPhone11or11Pro ? 230 : 180
+       /* for btn in btnStackList {
             btn.titleLabel?.font = DeviceType.iPhone5orSE ? UIFont(name: FontTypePoppins.Poppins_Medium.rawValue, size: 12.0) : UIFont(name: FontTypePoppins.Poppins_Medium.rawValue, size: 16.0)
-        }
+        }*/
     }
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.dismissVC(completion: nil)
@@ -150,6 +153,8 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
             $0.isSelected = false
         }
         sender.isSelected = true
+        resetButtonView()
+        btnViews[sender.tag].backgroundColor = .lightGray
         
         if sender.tag == 0 {
             productKey = SubscriptionKeys.Monthly.productKey
@@ -162,6 +167,12 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     @IBAction func btnSkipAndContinueAction(_ sender: UIButton) {
         dismissVC {
             self.postStoryDelegate.getSubscriptionResponse(status: false)
+        }
+    }
+    
+    func resetButtonView(){
+        btnViews.forEach {
+            $0.backgroundColor = .white
         }
     }
 }
@@ -194,6 +205,7 @@ extension ManageSubscriptionViewController {
     func getSubscriptionResponse(response : SubscriptionResponse){
         print(response)
         if response.responseCode == 200 {
+            resetButtonView()
             self.subscriptionDetails = response.responseData
             UserDataModel.currentUser?.tiIsSubscribed = 1
             if response.responseData?.iEndDate != nil {
@@ -212,6 +224,7 @@ extension ManageSubscriptionViewController {
     
     func getUpdateSubscriptionResponse(response : CommonResponse){
         if response.responseCode == 200 {
+            resetButtonView()
             self.presenter?.callSubscriptionDetailsAPI()
         }
     }

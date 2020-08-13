@@ -13,6 +13,8 @@ class ProfileSubscriptionViewController: UIViewController {
 
     @IBOutlet weak var lblUserNameAge: UILabel!
     @IBOutlet weak var imgProfile: UIImageView!
+    @IBOutlet weak var lblActiveGeek: UILabel!
+    @IBOutlet weak var lblActiveBoost: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +37,7 @@ class ProfileSubscriptionViewController: UIViewController {
             print(url!)
             self.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_round"))
         }
+        self.callGeeksPlansAPI()
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
@@ -92,5 +95,61 @@ class ProfileSubscriptionViewController: UIViewController {
         topVC.modalTransitionStyle = .crossDissolve
         topVC.modalPresentationStyle = .overCurrentContext
         self.presentVC(topVC)
+    }
+}
+
+extension ProfileSubscriptionViewController {
+    func callGeeksPlansAPI(){
+        //        LoaderView.sharedInstance.showLoader()
+        BoostGeekAPI.boostGeekPlans(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiType: 2) { (response, error) in
+            
+            //            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.getGeeksPlansResponse(response: response!)
+            } else if response?.responseCode == 400 {
+                self.getGeeksPlansResponse(response: response!)
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.getGeeksPlansResponse(response: response!)
+                }
+            }
+        }
+    }
+        
+    func callBoostPlansAPI(){
+        //        LoaderView.sharedInstance.showLoader()
+        BoostGeekAPI.boostGeekPlans(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiType: 1) { (response, error) in
+            
+            //            LoaderView.sharedInstance.hideLoader()
+            if response?.responseCode == 200 {
+                self.getBoostPlansResponse(response: response!)
+            } else if response?.responseCode == 400 {
+                self.getBoostPlansResponse(response: response!)
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.getBoostPlansResponse(response: response!)
+                }
+            }
+        }
+    }
+    func getGeeksPlansResponse(response : BoostGeekResponse){
+        if response.responseCode == 200 {
+            self.lblActiveGeek.text = response.responseData?.pendingGeek != 0 ? "\(response.responseData!.pendingGeek!) Active" : "Inactive"
+            self.callBoostPlansAPI()
+        } else {
+            self.lblActiveGeek.text = "Inactive"
+        }
+    }
+    
+    func getBoostPlansResponse(response : BoostGeekResponse) {
+        if response.responseCode == 200 {
+            self.lblActiveBoost.text = response.responseData?.pendingGeek != 0 ? "\(response.responseData!.pendingBoost!) Active" : "Inactive"
+        } else {
+            self.lblActiveBoost.text = "Inactive"
+        }
     }
 }

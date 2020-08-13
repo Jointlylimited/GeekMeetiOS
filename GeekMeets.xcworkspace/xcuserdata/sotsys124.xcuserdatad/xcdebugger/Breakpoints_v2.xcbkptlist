@@ -8,14 +8,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "9B81D91A-84AA-40A8-83A2-FF704E63FD33"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeekMeets/VIP/MenuScreens/ManageSubscriptionVC/ManageSubscriptionViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
             landmarkName = "btnContinueAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -24,7 +24,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "614BA1D7-2473-41CC-A681-C6E20039AC41"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeekMeets/VIP/MenuScreens/ManageSubscriptionVC/ManageSubscriptionInteractor.swift"
@@ -37,7 +37,7 @@
             <Locations>
                <Location
                   uuid = "614BA1D7-2473-41CC-A681-C6E20039AC41 - 3f3d358981bc314e"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "Jointly.ManageSubscriptionInteractor.callCreateSubscriptionAPI(param: Swift.Dictionary&lt;Swift.String, Swift.String&gt;) -&gt; ()"
@@ -52,7 +52,7 @@
                </Location>
                <Location
                   uuid = "614BA1D7-2473-41CC-A681-C6E20039AC41 - 7692c835074d2ef0"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #1 (Swift.Optional&lt;Jointly.SubscriptionResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Jointly.ManageSubscriptionInteractor.callCreateSubscriptionAPI(param: Swift.Dictionary&lt;Swift.String, Swift.String&gt;) -&gt; ()"
@@ -72,7 +72,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "6D251134-DEE4-48E5-AEAB-589CA6854DD8"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeekMeets/Library/APIManager/Swaggers/APIs/SubscriptionAPI.swift"
@@ -87,24 +87,8 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "563689AE-6DBB-43E5-B0FD-2A0B911D7D5C"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GeekMeets/Library/APIManager/Swaggers/APIs/NotificationAPI.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "183"
-            endingLineNumber = "183"
-            landmarkName = "viewNotificationWithRequestBuilder(nonce:timestamp:token:authorization:iNotificationId:tiType:isClearAll:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "C53EA614-957A-4D33-9E3B-DE69D760BDC3"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeekMeets/VIP/DashBoard/Tabbar/DiscoverVC/DiscoverViewController.swift"
@@ -145,6 +129,22 @@
             startingLineNumber = "191"
             endingLineNumber = "191"
             landmarkName = "btnAddtoStoryAction(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2ADF1457-FECF-459B-83E2-DB13A1B8741B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GeekMeets/VIP/MenuScreens/ManageSubscriptionVC/ManageSubscriptionViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
+            landmarkName = "btnSubscriptionAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -38,10 +38,24 @@ let _maxImageSize              : CGSize  = CGSize(width: 1000, height: 1000)
 let _minImageSize              : CGSize  = CGSize(width: 800, height: 800)
 
 enum FontTypePoppins: String {
-    case Poppins_Regular = "Poppins-Regular"
+    case Poppins_ExtraLight = "Poppins-ExtraLight"
+    case Poppins_ThinItalic = "Poppins-ThinItalic"
+    case Poppins_ExtraLightItalic = "Poppins-ExtraLightItalic"
+    case Poppins_BoldItalic = "Poppins-BoldItalic"
+    case Poppins_Light = "Poppins-Light"
     case Poppins_Medium = "Poppins-Medium"
+    case Poppins_SemiBoldItalic = "Poppins-SemiBoldItalic"
+    case Poppins_ExtraBoldItalic = "Poppins-ExtraBoldItalic"
+    case Poppins_ExtraBold = "Poppins-ExtraBold"
+    case Poppins_BlackItalic = "Poppins-BlackItalic"
+    case Poppins_Regular = "Poppins-Regular"
+    case Poppins_LightItalic = "Poppins-LightItalic"
     case Poppins_Bold = "Poppins-Bold"
+    case Poppins_Black = "Poppins-Black"
+    case Poppins_Thin = "Poppins-Thin"
     case Poppins_SemiBold = "Poppins-SemiBold"
+    case Poppins_Italic = "Poppins-Italic"
+    case Poppins_MediumItalic = "Poppins-MediumItalic"
     
 }
 

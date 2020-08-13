@@ -27,6 +27,8 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     @IBOutlet weak var btnActivePlans: UIButton!
     @IBOutlet weak var lblRemainingTime: UILabel!
     @IBOutlet weak var btnActiveNow: UIButton!
+    @IBOutlet var btnViews: [UIView]!
+    @IBOutlet weak var bgViewHeightConstant: NSLayoutConstraint!
     
     var planDict : NSDictionary = [:]
     var timer = Timer()
@@ -71,6 +73,7 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.bgViewHeightConstant.constant = DeviceType.hasNotch || DeviceType.iPhone11 || DeviceType.iPhone11or11Pro ? 230 : 180
         self.presenter?.callGeeksPlansAPI()
     }
     
@@ -93,6 +96,8 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
             $0.isSelected = false
         }
         sender.isSelected = true
+        resetButtonView()
+        btnViews[sender.tag].backgroundColor = .lightGray
         
         if sender.tag == 0 {
             planDict = ["fPlanPrice" : "1.99", "tiPlanType": "2", "iBoostCount" : "0", "iGeekCount" : "1"]
@@ -141,6 +146,12 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     
     func endTimer() {
       timer.invalidate()
+    }
+    
+    func resetButtonView(){
+        btnViews.forEach {
+            $0.backgroundColor = .white
+        }
     }
     
     func setPlansDetails(date : String){
@@ -197,6 +208,7 @@ extension TopGeeksViewController {
     
     func getGeeksResponse(response : BoostGeekResponse){
         if response.responseCode == 200 {
+            resetButtonView()
             self.presenter?.callGeeksPlansAPI()
         } else {
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
@@ -209,6 +221,7 @@ extension TopGeeksViewController {
     func getActiveGeeksResponse(response : BoostGeekResponse){
         print(response)
         if response.responseCode == 200 {
+            resetButtonView()
             if response.responseData?.tiPlanType == 2 || response.responseData?.tiPlanType == 3 {
                 setActiveNowButton(data : response.responseData!)
             }

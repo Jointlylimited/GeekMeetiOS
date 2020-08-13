@@ -328,7 +328,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
             print("unable to add video track")
             return
         }
-      if audioTrack != nil{
+//      if audioTrack != nil{
         if let compositionaudioTrack: AVMutableCompositionTrack = composition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: trackID) {
             do {
               try compositionaudioTrack.insertTimeRange(vid_timerange, of: audioTrack!, at: CMTime.zero)
@@ -343,7 +343,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
             return
         }
         
-      }
+//      }
         let size = videoTrack.naturalSize
         
         // create text Layer
