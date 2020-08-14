@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 import AVKit
-
+import CropPickerView
 
 protocol PostStoryDelegate {
     func getSubscriptionResponse(status: Bool)
@@ -23,13 +23,15 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     
     var presenter : PreviewPresentationProtocol?
     
-    @IBOutlet weak var photo: UIImageView!
+    @IBOutlet weak var photo: JLStickerImageView!
     @IBOutlet weak var PhotoView: UIView!
     @IBOutlet weak var btnPlayPause: UIButton!
     @IBOutlet weak var previewView: UIView!
     @IBOutlet weak var thumbImageView: UIImageView!
     @IBOutlet weak var playView: UIView!
     @IBOutlet fileprivate weak var scrubber: UISlider!
+    @IBOutlet weak var stickerView: JLStickerImageView!
+    @IBOutlet weak var cropPickerView: CropPickerView!
     
     var player: AVPlayer?
     var playerLayer:AVPlayerLayer?
@@ -131,8 +133,10 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     }
     
     func ImageProcess(){
+        self.cropPickerView.image = self.objPostData.arrMedia[0].img
         photo.image = self.objPostData.arrMedia[0].img
         self.navigationController?.isNavigationBarHidden = true
+        self.cropPickerView.delegate = self
 //        self.PhotoView.addGestureRecognizer(self.moveGesture)
 //        self.PhotoView.addGestureRecognizer(self.rotateGesture)
     }
@@ -184,10 +188,22 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     }
     @IBAction func btnAddtoStoryAction(_ sender: UIButton){
         if self.objPostData.tiStoryType == "0" {
-
+            self.cropPickerView.crop { (error, image) in
+                if let error = (error as NSError?) {
+                    let alertController = UIAlertController(title: "Error", message: error.domain, preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                    self.present(alertController, animated: true, completion: nil)
+                    return
+                }
+                self.photo.image = image
+                self.objPostData.arrMedia[0].img = image
+            }
+            
             if cusText != nil {
-                let textImage = textToImage(drawText: cusText!.text as NSString, inImage: photo.image!, atPoint: CGPoint(x: self.cusText.x, y: self.cusText.y))
-                self.objPostData.arrMedia[0].img = textImage
+                stickerView.image = photo.image!
+                let image = stickerView.renderContentOnView()
+//                let textImage = textToImage(drawText: cusText!.text as NSString, inImage: photo.image!, atPoint: CGPoint(x: self.cusText.x, y: self.cusText.y))
+                self.objPostData.arrMedia[0].img = image
             }
             self.callPostStoryAPI(obj: self.objPostData)
         } else {
@@ -261,13 +277,44 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         
         adjustTextViewHeight(textView : textView)
         
+        stickerView.addLabel(text : text.text)
+        stickerView.textColor = text.color
+        stickerView.textAlpha = 1
+        stickerView.currentlyEditingLabel.closeView!.image = UIImage(named: "Close")
+        stickerView.currentlyEditingLabel.rotateView?.image = UIImage(named: "Rotate")
+        stickerView.currentlyEditingLabel.border?.strokeColor = UIColor.brown.cgColor
+        stickerView.currentlyEditingLabel.labelTextView?.font = text.font
+       // stickerView.currentlyEditingLabel.labelTextView?.becomeFirstResponder()
+        self.view.addSubview(stickerView)
+        /*
         stickerView2 = StickerView.init(contentView: textView)
         stickerView2.center = CGPoint.init(x: self.cusText.width/2, y: self.cusText.height/2)
         stickerView2.delegate = self
         stickerView2.setImage(UIImage.init(named: "Close")!, forHandler: StickerViewHandler.close)
         stickerView2.setImage(UIImage.init(named: "Rotate")!, forHandler: StickerViewHandler.rotate)
         stickerView2.showEditingHandlers = false
-        self.view.addSubview(stickerView2)
+        self.view.addSubview(stickerView2)*/
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            let currentPoint = touch.location(in: self.view)
+            // do something with your currentPoint
+        }
+    }
+
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            let currentPoint = touch.location(in: self.view)
+            // do something with your currentPoint
+        }
+    }
+
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            let currentPoint = touch.location(in: self.view)
+            // do something with your currentPoint
+        }
     }
     
     func adjustTextViewHeight(textView : UITextView) {
@@ -348,7 +395,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         
         // create text Layer
         let titleLayer = CATextLayer()
-        titleLayer.frame = CGRect(x: self.stickerView2.x, y: self.stickerView2.y, width: size.width, height: size.height)
+        titleLayer.frame = CGRect(x: self.stickerView.x, y: self.stickerView.y, width: size.width, height: size.height)
         titleLayer.string = self.cusText.text
         titleLayer.font = self.cusText.font
         titleLayer.foregroundColor = self.cusText.color.cgColor
@@ -559,6 +606,16 @@ extension PreviewViewController: StickerViewDelegate {
     
     func stickerViewDidTap(_ stickerView: StickerView) {
         self.selectedStickerView = stickerView
+    }
+}
+
+// MARK: CropPickerViewDelegate
+extension PreviewViewController: CropPickerViewDelegate {
+    func cropPickerView(_ cropPickerView: CropPickerView, error: Error) {
+        
+    }
+    func cropPickerView(_ cropPickerView: CropPickerView, image: UIImage) {
+        
     }
 }
 

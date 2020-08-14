@@ -35,6 +35,7 @@ class DiscoverViewController: UIViewController, DiscoverProtocol {
     @IBOutlet weak var tblDiscoverList: UITableView!
     @IBOutlet weak var lblNoData: UILabel!
     @IBOutlet weak var btnAddStory: UIButton!
+    @IBOutlet weak var TopStoryView: UIView!
     
     var objStoryData : [StoryViewModel] = []
     var arrayDetails :  [UserDetail] = []
@@ -147,6 +148,11 @@ extension DiscoverViewController{
                     res1[0].iUserId == UserDataModel.currentUser?.iUserId
                 })
                     
+                if self.objStoryArray == nil && self.objStoryArray?[0].count == 0 {
+                    self.TopStoryView.height = 0
+                } else {
+                    self.TopStoryView.height = 141
+                }
 //                self.objOwnStoryArray = self.objStoryArray!.filter({ (res1) -> Bool in
 //                    res1.filter({$0.iUserId == UserDataModel.currentUser?.iUserId})
 //                })

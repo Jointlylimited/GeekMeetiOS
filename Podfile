@@ -47,4 +47,5 @@ target 'GeekMeets' do
    
    # In-App
    pod 'SwiftyStoreKit'
+   pod 'CropPickerView'
 end

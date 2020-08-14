@@ -27,10 +27,10 @@ class DiscoverInteractor: DiscoverInteractorProtocol, DiscoverDataStore {
     
     // MARK: Do something
     func callStoryListAPI() {
-        LoaderView.sharedInstance.showLoader()
+//        LoaderView.sharedInstance.showLoader()
         MediaAPI.listStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, _id: 0) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+//            LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.presenter?.getStoryListResponse(response: response!)
             } else if response?.responseCode == 400 {

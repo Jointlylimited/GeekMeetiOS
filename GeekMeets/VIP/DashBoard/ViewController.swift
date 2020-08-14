@@ -87,6 +87,11 @@ class ViewController: UIViewController {
     var objPostData = PostData()
     var imagePicker: UIImagePickerController!
     
+    //Zoom in - out
+    let minimumZoom: CGFloat = 1.0
+    let maximumZoom: CGFloat = 3.0
+    var lastZoomFactor: CGFloat = 1.0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -157,15 +162,49 @@ class ViewController: UIViewController {
         cameraPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
         cameraPreviewLayer?.frame = self.view.frame
         self.view.layer.insertSublayer(cameraPreviewLayer!, at: 0)
+        
+        //Zoom in - out
+        let pinchRecognizer = UIPinchGestureRecognizer(target: self, action:#selector(pinch(_:)))
+        self.view.addGestureRecognizer(pinchRecognizer)
     }
     
     func startRunningCaptureSession() {
         captureSession.startRunning()
     }
     
-    
     override var prefersStatusBarHidden: Bool {
         return true
+    }
+    
+    //Zoom in - out
+    @objc func pinch(_ pinch: UIPinchGestureRecognizer) {
+        guard let device = currentCamera else { return }
+
+        // Return zoom value between the minimum and maximum zoom values
+        func minMaxZoom(_ factor: CGFloat) -> CGFloat {
+            return min(min(max(factor, minimumZoom), maximumZoom), device.activeFormat.videoMaxZoomFactor)
+        }
+
+        func update(scale factor: CGFloat) {
+            do {
+                try device.lockForConfiguration()
+                defer { device.unlockForConfiguration() }
+                device.videoZoomFactor = factor
+            } catch {
+                print("\(error.localizedDescription)")
+            }
+        }
+
+        let newScaleFactor = minMaxZoom(pinch.scale * lastZoomFactor)
+
+        switch pinch.state {
+        case .began: fallthrough
+        case .changed: update(scale: newScaleFactor)
+        case .ended:
+            lastZoomFactor = minMaxZoom(newScaleFactor)
+            update(scale: lastZoomFactor)
+        default: break
+        }
     }
     
     @IBAction func cameraButtonTouch(_ sender: Any) {

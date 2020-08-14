@@ -226,6 +226,11 @@
 		0BCE8CC924C011C50060AC01 /* CAPSPageMenu+UIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCE8CC224C011C50060AC01 /* CAPSPageMenu+UIConfiguration.swift */; };
 		0BCE8CCA24C011C50060AC01 /* CAPSPageMenuConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCE8CC324C011C50060AC01 /* CAPSPageMenuConfiguration.swift */; };
 		0BCE8CCB24C011C50060AC01 /* CAPSPageMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCE8CC424C011C50060AC01 /* CAPSPageMenu.swift */; };
+		0BD7EDEC24E659C40047EEDB /* JLStickerImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD7EDE724E659C30047EEDB /* JLStickerImageView.swift */; };
+		0BD7EDED24E659C40047EEDB /* JLStickerLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD7EDE824E659C30047EEDB /* JLStickerLabelView.swift */; };
+		0BD7EDEE24E659C40047EEDB /* JLAttributedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD7EDE924E659C30047EEDB /* JLAttributedTextView.swift */; };
+		0BD7EDEF24E659C40047EEDB /* CalcuteFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD7EDEA24E659C30047EEDB /* CalcuteFunctions.swift */; };
+		0BD7EDF024E659C40047EEDB /* adjustToFitFontOrWidth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD7EDEB24E659C30047EEDB /* adjustToFitFontOrWidth.swift */; };
 		0BD88AF724977A5800C8C025 /* NotificationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD88AF624977A5800C8C025 /* NotificationAPI.swift */; };
 		0BD88AFA24977ABA00C8C025 /* NotificationFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD88AF824977ABA00C8C025 /* NotificationFields.swift */; };
 		0BD88AFB24977ABA00C8C025 /* NotificationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD88AF924977ABA00C8C025 /* NotificationList.swift */; };
@@ -647,6 +652,11 @@
 		0BCE8CC224C011C50060AC01 /* CAPSPageMenu+UIConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CAPSPageMenu+UIConfiguration.swift"; sourceTree = "<group>"; };
 		0BCE8CC324C011C50060AC01 /* CAPSPageMenuConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAPSPageMenuConfiguration.swift; sourceTree = "<group>"; };
 		0BCE8CC424C011C50060AC01 /* CAPSPageMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAPSPageMenu.swift; sourceTree = "<group>"; };
+		0BD7EDE724E659C30047EEDB /* JLStickerImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JLStickerImageView.swift; sourceTree = "<group>"; };
+		0BD7EDE824E659C30047EEDB /* JLStickerLabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JLStickerLabelView.swift; sourceTree = "<group>"; };
+		0BD7EDE924E659C30047EEDB /* JLAttributedTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JLAttributedTextView.swift; sourceTree = "<group>"; };
+		0BD7EDEA24E659C30047EEDB /* CalcuteFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalcuteFunctions.swift; sourceTree = "<group>"; };
+		0BD7EDEB24E659C30047EEDB /* adjustToFitFontOrWidth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adjustToFitFontOrWidth.swift; sourceTree = "<group>"; };
 		0BD88AF624977A5800C8C025 /* NotificationAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationAPI.swift; sourceTree = "<group>"; };
 		0BD88AF824977ABA00C8C025 /* NotificationFields.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationFields.swift; sourceTree = "<group>"; };
 		0BD88AF924977ABA00C8C025 /* NotificationList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationList.swift; sourceTree = "<group>"; };
@@ -1264,6 +1274,7 @@
 		0B59586F245C642B006D500A /* StickerView */ = {
 			isa = PBXGroup;
 			children = (
+				0BD7EDE624E659C30047EEDB /* Source */,
 				0B595870245C642B006D500A /* StickerView.swift */,
 			);
 			path = StickerView;
@@ -1610,6 +1621,18 @@
 				0BCE8CC424C011C50060AC01 /* CAPSPageMenu.swift */,
 			);
 			path = PageMenu;
+			sourceTree = "<group>";
+		};
+		0BD7EDE624E659C30047EEDB /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				0BD7EDE724E659C30047EEDB /* JLStickerImageView.swift */,
+				0BD7EDE824E659C30047EEDB /* JLStickerLabelView.swift */,
+				0BD7EDE924E659C30047EEDB /* JLAttributedTextView.swift */,
+				0BD7EDEA24E659C30047EEDB /* CalcuteFunctions.swift */,
+				0BD7EDEB24E659C30047EEDB /* adjustToFitFontOrWidth.swift */,
+			);
+			path = Source;
 			sourceTree = "<group>";
 		};
 		0BDB9D9E2476401300BA2F39 /* AWS */ = {
@@ -2636,6 +2659,7 @@
 				"${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaAsyncSocket/CocoaAsyncSocket.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
+				"${BUILT_PRODUCTS_DIR}/CropPickerView/CropPickerView.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
@@ -2684,6 +2708,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaAsyncSocket.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CropPickerView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
@@ -2803,6 +2828,7 @@
 				F76A8D872440396800ED9947 /* DocumentDirectory.swift in Sources */,
 				0BD88AFB24977ABA00C8C025 /* NotificationList.swift in Sources */,
 				0B319661244DE80500B38350 /* ProfileViewController.swift in Sources */,
+				0BD7EDEC24E659C40047EEDB /* JLStickerImageView.swift in Sources */,
 				0B5356732450870F005571AF /* BoostPresenter.swift in Sources */,
 				F9A453C6203AA74B0065C9FD /* SignUpInteractor.swift in Sources */,
 				0B74993024E2CD8600628CC9 /* MatchByBothPresenter.swift in Sources */,
@@ -2875,10 +2901,12 @@
 				0BD88AF724977A5800C8C025 /* NotificationAPI.swift in Sources */,
 				0B060DB624D977A600EF5C21 /* SubscriptionAPI.swift in Sources */,
 				F953B8D620467AFB00BE4F67 /* SettingsViewController.swift in Sources */,
+				0BD7EDEF24E659C40047EEDB /* CalcuteFunctions.swift in Sources */,
 				0B0013D724ACA4B700D2EE83 /* AWSS3Manager.swift in Sources */,
 				F77E311B2456AEC100A213FF /* OTPStackView.swift in Sources */,
 				0B46A61B24B45B9B005292AB /* FullScreenMapViewController.swift in Sources */,
 				F7DFAE3724501192008863F3 /* Constant.swift in Sources */,
+				0BD7EDF024E659C40047EEDB /* adjustToFitFontOrWidth.swift in Sources */,
 				F96C2D262037E92B00F8CBC7 /* MirroringLabel.swift in Sources */,
 				0B921C2D24571BE40010AE04 /* usersCollectionViewCell.swift in Sources */,
 				0B921C3524571C510010AE04 /* SearchProfileInteractor.swift in Sources */,
@@ -2926,6 +2954,7 @@
 				0BED36672488ED27006A293E /* PreviewPresenter.swift in Sources */,
 				0BBD65F92449C8A500CA178A /* MatchInteractor.swift in Sources */,
 				F7780E30245AD667003CA4BD /* APIHelper.swift in Sources */,
+				0BD7EDEE24E659C40047EEDB /* JLAttributedTextView.swift in Sources */,
 				F7DFAE3F24501192008863F3 /* CountryCell.swift in Sources */,
 				0B0013C824ACA4B700D2EE83 /* Model_ChatFriendList.swift in Sources */,
 				0B53A11824C012ED00F8AE1A /* TipsViewController.swift in Sources */,
@@ -2963,6 +2992,7 @@
 				0B319665244DE80500B38350 /* TabbarInteractor.swift in Sources */,
 				F9A453D5203AA74B0065C9FD /* SplashViewController.swift in Sources */,
 				0BEED97F24A5BEB600F08122 /* Visualizer.swift in Sources */,
+				0BD7EDED24E659C40047EEDB /* JLStickerLabelView.swift in Sources */,
 				0BCD4B2E245B0C390054A805 /* RangeSlider.swift in Sources */,
 				0B0013D624ACA4B700D2EE83 /* ChatUploadTask.swift in Sources */,
 				0B595871245C642B006D500A /* StickerView.swift in Sources */,
