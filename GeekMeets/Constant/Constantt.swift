@@ -290,7 +290,6 @@ class AppSingleton: NSObject {
     }
     
     func showHomeVC(fromMatch : Bool, userDict : NSDictionary){
-        Authentication.setSwipeStatus(10)
         Authentication.setLoggedInStatus(true)
         UserDataModel.currentUser = UserDataModel.lastLoginUser
         UserDataModel.UserPreferenceResponse = UserDataModel.UserPreferenceData

@@ -242,7 +242,8 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
                     Authentication.setSwipeStatus(self.SwipeValue - 1)
                     self.SwipeValue = Authentication.getSwipeStatus()!
                 } else {
-                    Authentication.setSwipeStatus(0)
+                    Authentication.setSwipeStatus(10)
+                    self.SwipeValue = Authentication.getSwipeStatus()!
                     self.presentSubVC()
                 }
             } else {
@@ -257,7 +258,8 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
                     Authentication.setSwipeStatus(self.SwipeValue - 1)
                     self.SwipeValue = Authentication.getSwipeStatus()!
                 } else {
-                    Authentication.setSwipeStatus(0)
+                    Authentication.setSwipeStatus(10)
+                    self.SwipeValue = Authentication.getSwipeStatus()!
                     self.presentSubVC()
                 }
             } else {
@@ -289,7 +291,8 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
                 Authentication.setSwipeStatus(SwipeValue - 1)
                 SwipeValue = Authentication.getSwipeStatus()!
             } else {
-                Authentication.setSwipeStatus(0)
+                Authentication.setSwipeStatus(10)
+                self.SwipeValue = Authentication.getSwipeStatus()!
                 self.presentSubVC()
             }
         } else {
@@ -304,7 +307,8 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
                 Authentication.setSwipeStatus(SwipeValue - 1)
                 SwipeValue = Authentication.getSwipeStatus()!
             } else {
-                Authentication.setSwipeStatus(0)
+                Authentication.setSwipeStatus(10)
+                self.SwipeValue = Authentication.getSwipeStatus()!
                 self.presentSubVC()
             }
         } else {
