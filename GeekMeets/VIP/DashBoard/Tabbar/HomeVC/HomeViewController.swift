@@ -152,12 +152,14 @@ class HomeViewController: UIViewController, HomeProtocol {
     }
     
     @IBAction func btnMatchAction(_ sender: UIButton) {
-        if UserDataModel.currentUser?.tiIsSubscribed == 0 {
-            if self.SwipeValue != 0 {
+        if UserDataModel.currentUser?.tiIsSubscribed == 1 {
+//            if self.SwipeValue != 0 {
                 pushMatchVC()
-            } else {
-                presentSubVC()
-            }
+//            } else {
+//                presentSubVC()
+//            }
+        } else {
+            presentSubVC()
         }
     }
 }

@@ -27,6 +27,9 @@
 		0B0013D824ACA4B700D2EE83 /* XMPP_MessageArchiving_Custom+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0013C424ACA4B700D2EE83 /* XMPP_MessageArchiving_Custom+CoreDataProperties.swift */; };
 		0B0013D924ACA4B700D2EE83 /* Model_ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0013C524ACA4B700D2EE83 /* Model_ChatMessage.swift */; };
 		0B0013DA24ACA4B700D2EE83 /* Chat_Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0013C624ACA4B700D2EE83 /* Chat_Utility.swift */; };
+		0B00E39324EA48C3007FAFF8 /* ZDStickerView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0B00E38E24EA48C3007FAFF8 /* ZDStickerView.bundle */; };
+		0B00E39424EA48C3007FAFF8 /* ZDStickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B00E39124EA48C3007FAFF8 /* ZDStickerView.m */; };
+		0B00E39524EA48C3007FAFF8 /* SPGripViewBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B00E39224EA48C3007FAFF8 /* SPGripViewBorderView.m */; };
 		0B04679B24A0C3680081E507 /* StoryResponseArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B04679A24A0C3680081E507 /* StoryResponseArray.swift */; };
 		0B060DB624D977A600EF5C21 /* SubscriptionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B060DB524D977A500EF5C21 /* SubscriptionAPI.swift */; };
 		0B060DB924D977CE00EF5C21 /* SubscriptionFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B060DB724D977CD00EF5C21 /* SubscriptionFields.swift */; };
@@ -449,6 +452,11 @@
 		0B0013C424ACA4B700D2EE83 /* XMPP_MessageArchiving_Custom+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XMPP_MessageArchiving_Custom+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0B0013C524ACA4B700D2EE83 /* Model_ChatMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model_ChatMessage.swift; sourceTree = "<group>"; };
 		0B0013C624ACA4B700D2EE83 /* Chat_Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat_Utility.swift; sourceTree = "<group>"; };
+		0B00E38E24EA48C3007FAFF8 /* ZDStickerView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZDStickerView.bundle; sourceTree = "<group>"; };
+		0B00E38F24EA48C3007FAFF8 /* ZDStickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDStickerView.h; sourceTree = "<group>"; };
+		0B00E39024EA48C3007FAFF8 /* SPGripViewBorderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGripViewBorderView.h; sourceTree = "<group>"; };
+		0B00E39124EA48C3007FAFF8 /* ZDStickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZDStickerView.m; sourceTree = "<group>"; };
+		0B00E39224EA48C3007FAFF8 /* SPGripViewBorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGripViewBorderView.m; sourceTree = "<group>"; };
 		0B04679A24A0C3680081E507 /* StoryResponseArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryResponseArray.swift; sourceTree = "<group>"; };
 		0B060DB524D977A500EF5C21 /* SubscriptionAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionAPI.swift; sourceTree = "<group>"; };
 		0B060DB724D977CD00EF5C21 /* SubscriptionFields.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionFields.swift; sourceTree = "<group>"; };
@@ -938,6 +946,18 @@
 			path = XmppManager;
 			sourceTree = "<group>";
 		};
+		0B00E38D24EA48C3007FAFF8 /* ZDStickerView */ = {
+			isa = PBXGroup;
+			children = (
+				0B00E38E24EA48C3007FAFF8 /* ZDStickerView.bundle */,
+				0B00E38F24EA48C3007FAFF8 /* ZDStickerView.h */,
+				0B00E39024EA48C3007FAFF8 /* SPGripViewBorderView.h */,
+				0B00E39124EA48C3007FAFF8 /* ZDStickerView.m */,
+				0B00E39224EA48C3007FAFF8 /* SPGripViewBorderView.m */,
+			);
+			path = ZDStickerView;
+			sourceTree = "<group>";
+		};
 		0B0B4B08247504F70047EB11 /* RangeSlider */ = {
 			isa = PBXGroup;
 			children = (
@@ -1274,6 +1294,7 @@
 		0B59586F245C642B006D500A /* StickerView */ = {
 			isa = PBXGroup;
 			children = (
+				0B00E38D24EA48C3007FAFF8 /* ZDStickerView */,
 				0BD7EDE624E659C30047EEDB /* Source */,
 				0B595870245C642B006D500A /* StickerView.swift */,
 			);
@@ -2561,6 +2582,7 @@
 				0B6B4301247FCC52005240B8 /* CustomPickImageView.xib in Resources */,
 				0BF70819244F1D6B003D6AB7 /* StoryCollectionCell.xib in Resources */,
 				0BE2127B244976AF004817BC /* Poppins-BlackItalic.ttf in Resources */,
+				0B00E39324EA48C3007FAFF8 /* ZDStickerView.bundle in Resources */,
 				0B56BA1124ACA716008A5BCE /* Chat.storyboard in Resources */,
 				F7DFAE3E24501192008863F3 /* tickMark.png in Resources */,
 				0B3C75BE2453280200CEDBBA /* CustomAlertView.xib in Resources */,
@@ -2832,6 +2854,7 @@
 				0B5356732450870F005571AF /* BoostPresenter.swift in Sources */,
 				F9A453C6203AA74B0065C9FD /* SignUpInteractor.swift in Sources */,
 				0B74993024E2CD8600628CC9 /* MatchByBothPresenter.swift in Sources */,
+				0B00E39524EA48C3007FAFF8 /* SPGripViewBorderView.m in Sources */,
 				0B7F33D4246ED8AE007ADF8D /* NotificationListViewController.swift in Sources */,
 				0BF707FD244F1D1C003D6AB7 /* DiscoverPresenter.swift in Sources */,
 				0BBB5CCD2498C11F00069320 /* NotificationResponse.swift in Sources */,
@@ -3028,6 +3051,7 @@
 				0B5356712450870F005571AF /* BoostViewController.swift in Sources */,
 				F7F8F5C22452EAE400CA82E7 /* SelectGenderViewController.swift in Sources */,
 				F7CD7A4F24442F3A00E02A9E /* TutorialPageInteractor.swift in Sources */,
+				0B00E39424EA48C3007FAFF8 /* ZDStickerView.m in Sources */,
 				F90B4CE52032F4A6006ADAF6 /* SOService.swift in Sources */,
 				0BBD66072449C8FC00CA178A /* SwipeableCards.swift in Sources */,
 				F7F8F5CC2452F87A00CA82E7 /* SelectSocialMediaInteractor.swift in Sources */,
@@ -3267,7 +3291,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Basecode/Library",
 				);
-				MARKETING_VERSION = 1.0.16;
+				MARKETING_VERSION = 1.0.17;
 				PRODUCT_BUNDLE_IDENTIFIER = com.org.jointly;
 				PRODUCT_NAME = Jointly;
 				PROVISIONING_PROFILE = "6fe03dd0-bb5b-416c-b4fe-1118ff86f17c";
@@ -3412,7 +3436,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Basecode/Library",
 				);
-				MARKETING_VERSION = 1.0.16;
+				MARKETING_VERSION = 1.0.17;
 				PRODUCT_BUNDLE_IDENTIFIER = com.org.jointly;
 				PRODUCT_NAME = Jointly;
 				PROVISIONING_PROFILE = "6fe03dd0-bb5b-416c-b4fe-1118ff86f17c";
@@ -3442,7 +3466,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Basecode/Library",
 				);
-				MARKETING_VERSION = 1.0.16;
+				MARKETING_VERSION = 1.0.17;
 				PRODUCT_BUNDLE_IDENTIFIER = com.org.jointly;
 				PRODUCT_NAME = Jointly;
 				PROVISIONING_PROFILE = "6fe03dd0-bb5b-416c-b4fe-1118ff86f17c";

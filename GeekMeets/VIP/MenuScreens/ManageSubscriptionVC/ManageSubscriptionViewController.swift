@@ -196,6 +196,8 @@ extension ManageSubscriptionViewController {
                 let timeStamp = Date(timeIntervalSince1970: Double(response.responseData!.iEndDate!)!)
                 let dateString = timeStamp.formattedDateString(format: "dd MMM, yyyy")
                 self.btnValidDate.setTitle("Valid till \(dateString)", for: .normal)
+            } else {
+                self.btnValidDate.setTitle("No data available", for: .normal)
             }
         }
         self.presenter?.callUserProfileAPI()

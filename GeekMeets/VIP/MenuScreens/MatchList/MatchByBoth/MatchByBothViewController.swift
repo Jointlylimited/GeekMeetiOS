@@ -131,8 +131,7 @@ extension MatchByBothViewController : UITableViewDataSource, UITableViewDelegate
                     obj.userName = data.vProfileName
                     obj.imageString = data.vProfileImage
                     obj.modalPresentationStyle = .fullScreen
-                    
-                    self.pushVC(obj)
+                    self.parentNavigationController?.pushViewController(obj, animated: true)
                 }
             }
             

@@ -47,6 +47,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     var stickerView2 : StickerView!
     var textView = UITextView()
     var fontSize : CGFloat = 0.0
+    var imgview : UIImageView?
     
     private var beginningPoint = CGPoint.zero
     private var beginningCenter = CGPoint.zero
@@ -137,6 +138,28 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         photo.image = self.objPostData.arrMedia[0].img
         self.navigationController?.isNavigationBarHidden = true
         self.cropPickerView.delegate = self
+        
+        imgview = UIImageView(image: photo.image)
+        
+        if photo.image!.size.width > ScreenSize.width ||
+            photo.image!.size.height > ScreenSize.height {
+            imgview?.contentMode = .scaleAspectFit
+        } else {
+            imgview?.contentMode = .center
+        }
+        let gripFrame = CGRect(x: 50, y: (ScreenSize.height - (ScreenSize.width - 100)/2), width: ScreenSize.width - 100, height: ScreenSize.width - 100)
+        let contentView = UIView(frame: photo.frame)
+        contentView.backgroundColor = UIColor.black
+        contentView.addSubview(imgview!)
+
+        let userResizableView1 = ZDStickerView(frame: gripFrame)
+        userResizableView1.tag = 0
+        userResizableView1.stickerViewDelegate = self
+        userResizableView1.contentView = contentView //contentView;
+        userResizableView1.preventsPositionOutsideSuperview = false
+        userResizableView1.translucencySticker = false
+        userResizableView1.showEditingHandles()
+        view.addSubview(userResizableView1)
 //        self.PhotoView.addGestureRecognizer(self.moveGesture)
 //        self.PhotoView.addGestureRecognizer(self.rotateGesture)
     }
@@ -188,7 +211,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     }
     @IBAction func btnAddtoStoryAction(_ sender: UIButton){
         if self.objPostData.tiStoryType == "0" {
-            self.cropPickerView.crop { (error, image) in
+            /*self.cropPickerView.crop { (error, image) in
                 if let error = (error as NSError?) {
                     let alertController = UIAlertController(title: "Error", message: error.domain, preferredStyle: .alert)
                     alertController.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
@@ -197,10 +220,11 @@ class PreviewViewController: UIViewController, PreviewProtocol {
                 }
                 self.photo.image = image
                 self.objPostData.arrMedia[0].img = image
-            }
+            }*/
             
             if cusText != nil {
-                stickerView.image = photo.image!
+                stickerView.image = imgview?.image!
+//                stickerView.transform = imgview!.transform
                 let image = stickerView.renderContentOnView()
 //                let textImage = textToImage(drawText: cusText!.text as NSString, inImage: photo.image!, atPoint: CGPoint(x: self.cusText.x, y: self.cusText.y))
                 self.objPostData.arrMedia[0].img = image
@@ -565,49 +589,59 @@ extension PreviewViewController : TextViewControllerDelegate {
     }
 }
 
-// MARK: StickerViewDelegate
-extension PreviewViewController: StickerViewDelegate {
-    func stickerViewDidBeginMoving(_ stickerView: StickerView) {
-        self.selectedStickerView = stickerView
+extension PreviewViewController : ZDStickerViewDelegate {
+    func stickerViewDidClose(_ sticker: ZDStickerView!) {
+        print(sticker)
     }
-    
-    func stickerViewDidChangeMoving(_ stickerView: StickerView) {
-        
-    }
-    
-    func stickerViewDidEndMoving(_ stickerView: StickerView) {
-        
-    }
-    
-    func stickerViewDidBeginRotating(_ stickerView: StickerView) {
-        
-    }
-    
-    func stickerViewDidChangeRotating(_ stickerView: StickerView) {
-//        self.fontSize = self.cusText.fontSize
-////        textView.size = stickerView2.size
-////        textView.sizeToFit()
-////        adjustTextViewHeight(textView : self.textView)
-//        print("Before : \(self.fontSize)")
-//        if self.fontSize > 8 {
-//            print("After : \(self.fontSize)")
-//            self.fontSize = self.fontSize - 1
-//            textView.font = UIFont(name: self.cusText.font.familyName, size: self.fontSize)
-//        }
-    }
-    
-    func stickerViewDidEndRotating(_ stickerView: StickerView) {
-        
-    }
-    
-    func stickerViewDidClose(_ stickerView: StickerView) {
-        self.cusText = nil
-    }
-    
-    func stickerViewDidTap(_ stickerView: StickerView) {
-        self.selectedStickerView = stickerView
+    func stickerViewDidEndEditing(_ sticker: ZDStickerView!) {
+//        self.imgview?.frame = sticker.frame
+        print(sticker)
     }
 }
+
+// MARK: StickerViewDelegate
+//extension PreviewViewController: StickerViewDelegate {
+//    func stickerViewDidBeginMoving(_ stickerView: StickerView) {
+//        self.selectedStickerView = stickerView
+//    }
+//
+//    func stickerViewDidChangeMoving(_ stickerView: StickerView) {
+//
+//    }
+//
+//    func stickerViewDidEndMoving(_ stickerView: StickerView) {
+//
+//    }
+//
+//    func stickerViewDidBeginRotating(_ stickerView: StickerView) {
+//
+//    }
+//
+//    func stickerViewDidChangeRotating(_ stickerView: StickerView) {
+////        self.fontSize = self.cusText.fontSize
+//////        textView.size = stickerView2.size
+//////        textView.sizeToFit()
+//////        adjustTextViewHeight(textView : self.textView)
+////        print("Before : \(self.fontSize)")
+////        if self.fontSize > 8 {
+////            print("After : \(self.fontSize)")
+////            self.fontSize = self.fontSize - 1
+////            textView.font = UIFont(name: self.cusText.font.familyName, size: self.fontSize)
+////        }
+//    }
+//
+//    func stickerViewDidEndRotating(_ stickerView: StickerView) {
+//
+//    }
+//
+////    func stickerViewDidClose(_ stickerView: StickerView) {
+////        self.cusText = nil
+////    }
+//
+//    func stickerViewDidTap(_ stickerView: StickerView) {
+//        self.selectedStickerView = stickerView
+//    }
+//}
 
 // MARK: CropPickerViewDelegate
 extension PreviewViewController: CropPickerViewDelegate {
