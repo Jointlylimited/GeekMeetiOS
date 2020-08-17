@@ -199,6 +199,9 @@ extension HomeViewController {
                     self.presenter?.callUserCardAPI()
                 }
             }
+        } else {
+            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "Ok")
+            self.presentSubVC()
         }
     }
     

@@ -154,6 +154,7 @@ struct ScreenSize {
     static let frame = CGRect(x: 0, y: 0, width: ScreenSize.width, height: ScreenSize.height)
     static let maxWH = max(ScreenSize.width, ScreenSize.height)
     static let maxLength = ScreenSize.height
+    static let size = CGSize(width: ScreenSize.width, height: ScreenSize.height)
 }
 
 struct AppCommonColor {

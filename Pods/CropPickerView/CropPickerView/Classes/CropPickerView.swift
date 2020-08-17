@@ -176,6 +176,21 @@ public class CropPickerView: UIView {
         return imageView
     }()
     
+    private lazy var resizeImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = #imageLiteral(resourceName: "Rotate")
+        self.scrollView.addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        self.scrollView.edgesConstraint(subView: imageView)
+        self.scrollView.sizeConstraint(subView: imageView)
+        self.bottomConstraint(item: cropView, subView: imageView, constant: -10)
+        self.leadingConstraint(item: cropView, subView: imageView, constant: 10)
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.resizeTranslate(gesture:)))
+        imageView.addGestureRecognizer(panGesture)
+        self.addSubview(imageView)
+        return imageView
+    }()
+    
     private lazy var dimView: CropDimView = {
         self.scrollView.alpha = 1
         let view = CropDimView()
@@ -312,6 +327,13 @@ public class CropPickerView: UIView {
     private var cropBottomConstraint: NSLayoutConstraint?
     
     private var lineButtonTouchPoint: CGPoint?
+    private var prevPoint: CGPoint?
+    private var kSPUserResizableViewGlobalInset : CGFloat = 5.0
+    private var kSPUserResizableViewDefaultMinWidth : CGFloat = 48.0
+    private var kSPUserResizableViewInteractiveBorderSize : CGFloat = 10.0
+    private var kZDStickerViewControlSize : CGFloat = 36.0
+    private var minWidth : CGFloat?
+    private var minHeight : CGFloat?
     
     // MARK: Init
     
@@ -418,6 +440,17 @@ extension CropPickerView {
             button.delegate = self
             button.addTarget(self, action: #selector(self.cropButtonTouchDown(_:forEvent:)), for: .touchDown)
             button.addTarget(self, action: #selector(self.cropButtonTouchUpInside(_:forEvent:)), for: .touchUpInside)
+        }
+        
+        if (kSPUserResizableViewDefaultMinWidth > self.bounds.size.width*0.5)
+        {
+            self.minWidth = kSPUserResizableViewDefaultMinWidth;
+            self.minHeight = self.bounds.size.height * (kSPUserResizableViewDefaultMinWidth/self.bounds.size.width);
+        }
+        else
+        {
+            self.minWidth = self.bounds.size.width*0.5;
+            self.minHeight = self.bounds.size.height*0.5;
         }
     }
     
@@ -656,6 +689,55 @@ extension CropPickerView {
             self.cropBottomConstraint?.constant = bConstant
         }
         self.dimLayerMask(animated: false)
+    }
+    
+    @objc private func resizeTranslate(gesture : UIPanGestureRecognizer) {
+        if gesture.state == .began {
+            prevPoint = gesture.location(in: self)
+            setNeedsDisplay()
+        } else if gesture.state == .changed {
+            prevPoint = gesture.location(in: self)
+            setNeedsDisplay()
+            if bounds.size.width < minWidth! || bounds.size.height < minHeight! {
+                bounds = CGRect(
+                    x: bounds.origin.x,
+                    y: bounds.origin.y,
+                    width: minWidth! + 1,
+                    height: CGFloat(minHeight! + 1))
+                resizeImageView.frame = CGRect(
+                    x: bounds.size.width - kZDStickerViewControlSize,
+                    y: bounds.size.height - kZDStickerViewControlSize,
+                    width: kZDStickerViewControlSize,
+                    height: kZDStickerViewControlSize)
+            } else {
+                let point = gesture.location(in: self)
+                var wChange: Float = 0.0
+                var hChange: Float = 0.0
+
+                wChange = Float((point.x - prevPoint!.x))
+                let wRatioChange = wChange / Float(bounds.size.width)
+
+                hChange = wRatioChange * Float(bounds.size.height)
+
+                if Double(abs(wChange)) > 50.0 || Double(abs(hChange)) > 50.0 {
+                    prevPoint = gesture.location(ofTouch: 0, in: self)
+                    return
+                }
+
+                bounds = CGRect(
+                    x: bounds.origin.x,
+                    y: bounds.origin.y,
+                    width: CGFloat(bounds.size.width + CGFloat(wChange)),
+                    height: CGFloat(bounds.size.height + CGFloat(hChange)))
+                resizeImageView.frame = CGRect(
+                    x: bounds.size.width - kZDStickerViewControlSize,
+                    y: bounds.size.height - kZDStickerViewControlSize,
+                    width: kZDStickerViewControlSize,
+                    height: kZDStickerViewControlSize)
+            }
+        } else {
+            
+        }
     }
 }
 
