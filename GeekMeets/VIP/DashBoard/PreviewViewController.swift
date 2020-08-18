@@ -139,7 +139,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         self.navigationController?.isNavigationBarHidden = true
         self.cropPickerView.delegate = self
         
-       /* imgview = UIImageView(image: photo.image)
+        imgview = UIImageView(image: photo.image)
         
         if photo.image!.size.width > ScreenSize.width ||
             photo.image!.size.height > ScreenSize.height {
@@ -159,7 +159,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         userResizableView1.preventsPositionOutsideSuperview = false
         userResizableView1.translucencySticker = false
         userResizableView1.showEditingHandles()
-        view.addSubview(userResizableView1)*/
+        view.addSubview(userResizableView1)
 //        self.cropPickerView.addGestureRecognizer(self.moveGesture)
 //        self.PhotoView.addGestureRecognizer(self.rotateGesture)
     }
@@ -211,16 +211,16 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     }
     @IBAction func btnAddtoStoryAction(_ sender: UIButton){
         if self.objPostData.tiStoryType == "0" {
-            self.cropPickerView.crop { (error, image) in
-                if let error = (error as NSError?) {
-                    let alertController = UIAlertController(title: "Error", message: error.domain, preferredStyle: .alert)
-                    alertController.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-                    self.present(alertController, animated: true, completion: nil)
-                    return
-                }
-                self.photo.image = image
-                self.objPostData.arrMedia[0].img = image
-            }
+//            self.cropPickerView.crop { (error, image) in
+//                if let error = (error as NSError?) {
+//                    let alertController = UIAlertController(title: "Error", message: error.domain, preferredStyle: .alert)
+//                    alertController.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+//                    self.present(alertController, animated: true, completion: nil)
+//                    return
+//                }
+//                self.photo.image = image
+//                self.objPostData.arrMedia[0].img = image
+//            }
             
             if cusText != nil {
 //                stickerView.frame = ScreenSize.frame
@@ -302,7 +302,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         
         adjustTextViewHeight(textView : textView)
         
-        stickerView.addLabel(text : text.text)
+        stickerView.addLabel(text : text.text, font: text.font.fontName)
         stickerView.textColor = text.color
         stickerView.textAlpha = 1
         stickerView.currentlyEditingLabel.closeView!.image = UIImage(named: "Close")
@@ -357,7 +357,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         UIGraphicsBeginImageContextWithOptions(image.size, false, scale)
         
         image.draw(in: CGRect(origin: CGPoint.zero, size: image.size))
-        
+         
         let rect = CGRect(origin: point, size: image.size)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
@@ -589,60 +589,19 @@ extension PreviewViewController : TextViewControllerDelegate {
         setLabel(text : text)
     }
 }
-
-//extension PreviewViewController : ZDStickerViewDelegate {
-//    func stickerViewDidClose(_ sticker: ZDStickerView!) {
-//        print(sticker)
-//    }
-//    func stickerViewDidEndEditing(_ sticker: ZDStickerView!) {
-////        self.imgview?.frame = sticker.frame
-//        print(sticker)
-//    }
-//}
-
-// MARK: StickerViewDelegate
-extension PreviewViewController: StickerViewDelegate {
-    func stickerViewDidBeginMoving(_ stickerView: StickerView) {
-        self.selectedStickerView = stickerView
+                                                                                                           
+extension PreviewViewController : ZDStickerViewDelegate {
+    func stickerViewDidClose(_ sticker: ZDStickerView!) {
+        print(sticker)
     }
-
-    func stickerViewDidChangeMoving(_ stickerView: StickerView) {
-
-    }
-
-    func stickerViewDidEndMoving(_ stickerView: StickerView) {
-
-    }
-
-    func stickerViewDidBeginRotating(_ stickerView: StickerView) {
-
-    }
-
-    func stickerViewDidChangeRotating(_ stickerView: StickerView) {
-//        self.fontSize = self.cusText.fontSize
-////        textView.size = stickerView2.size
-////        textView.sizeToFit()
-////        adjustTextViewHeight(textView : self.textView)
-//        print("Before : \(self.fontSize)")
-//        if self.fontSize > 8 {
-//            print("After : \(self.fontSize)")
-//            self.fontSize = self.fontSize - 1
-//            textView.font = UIFont(name: self.cusText.font.familyName, size: self.fontSize)
-//        }
-    }
-
-    func stickerViewDidEndRotating(_ stickerView: StickerView) {
-
-    }
-
-    func stickerViewDidClose(_ stickerView: StickerView) {
-        self.cusText = nil
-    }
-
-    func stickerViewDidTap(_ stickerView: StickerView) {
-        self.selectedStickerView = stickerView
+    func stickerViewDidEndEditing(_ sticker: ZDStickerView!) {
+//        self.imgview?.frame = sticker.frame
+        print(sticker)
     }
 }
+
+// MARK: StickerViewDelegate
+//extension PreviewViewController: StickerViewDelegate
 
 // MARK: CropPickerViewDelegate
 extension PreviewViewController: CropPickerViewDelegate {

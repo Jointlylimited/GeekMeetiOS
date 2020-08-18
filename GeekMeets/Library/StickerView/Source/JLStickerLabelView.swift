@@ -207,7 +207,6 @@ public class JLStickerLabelView: UIView {
         
         self.setupImageView()
         self.setupBorder()
-        
         self.insertSubview(imageView!, at: 0)
         
         self.setup()
