@@ -28,10 +28,10 @@ class BoostInteractor: BoostInteractorProtocol, BoostDataStore {
     
     // MARK: Do something
     func callBoostPlansAPI(){
-        LoaderView.sharedInstance.showLoader()
+//        LoaderView.sharedInstance.showLoader()
         BoostGeekAPI.boostGeekPlans(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiType: 1) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+//            LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.presenter?.getBoostPlansResponse(response: response!)
             } else if response?.responseCode == 400 {

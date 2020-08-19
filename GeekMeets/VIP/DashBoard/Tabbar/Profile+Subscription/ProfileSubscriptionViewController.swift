@@ -138,7 +138,7 @@ extension ProfileSubscriptionViewController {
     }
     func getGeeksPlansResponse(response : BoostGeekResponse){
         if response.responseCode == 200 {
-            self.lblActiveGeek.text = response.responseData?.pendingGeek != 0 ? "\(response.responseData!.pendingGeek!) Active" : "Inactive"
+            self.lblActiveGeek.text = response.responseData?.pendingGeek != 0 ? "\(response.responseData!.pendingGeek!) Pending" : (response.responseData?.iExpireAt != "" ? "Active" : "Inactive")
             self.callBoostPlansAPI()
         } else {
             self.lblActiveGeek.text = "Inactive"
@@ -147,7 +147,7 @@ extension ProfileSubscriptionViewController {
     
     func getBoostPlansResponse(response : BoostGeekResponse) {
         if response.responseCode == 200 {
-            self.lblActiveBoost.text = response.responseData?.pendingGeek != 0 ? "\(response.responseData!.pendingBoost!) Active" : "Inactive"
+            self.lblActiveBoost.text = response.responseData?.pendingGeek != 0 ? "\(response.responseData!.pendingBoost!) Active" : (response.responseData?.iExpireAt != "" ? "Active" : "Inactive")
         } else {
             self.lblActiveBoost.text = "Inactive"
         }

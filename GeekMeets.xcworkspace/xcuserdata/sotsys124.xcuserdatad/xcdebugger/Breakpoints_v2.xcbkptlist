@@ -94,8 +94,8 @@
             filePath = "GeekMeets/VIP/DashBoard/Tabbar/DiscoverVC/DiscoverViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "268"
-            endingLineNumber = "268"
+            startingLineNumber = "271"
+            endingLineNumber = "271"
             landmarkName = "collectionView(_:didSelectItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -142,8 +142,8 @@
             filePath = "GeekMeets/VIP/DashBoard/PreviewViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "600"
-            endingLineNumber = "600"
+            startingLineNumber = "509"
+            endingLineNumber = "509"
             landmarkName = "stickerViewDidEndEditing(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -152,14 +152,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "CF60897F-5233-4282-B7A4-819EFEF1D5FD"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeekMeets/Library/StickerView/Source/JLStickerImageView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
+            startingLineNumber = "137"
+            endingLineNumber = "137"
             landmarkName = "renderContentOnView()"
             landmarkType = "7">
          </BreakpointContent>
@@ -167,16 +167,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "60765FCA-46D2-4EF5-B2F0-CA9C113E1319"
-            shouldBeEnabled = "Yes"
+            uuid = "B9973ED5-6B5B-492C-A58E-E93CD6E24163"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GeekMeets/VIP/DashBoard/PreviewViewController.swift"
+            filePath = "GeekMeets/Library/StickerView/Source/JLStickerImageView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "231"
-            endingLineNumber = "231"
-            landmarkName = "btnAddtoStoryAction(_:)"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
+            landmarkName = "resizeImage(transform:frame:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

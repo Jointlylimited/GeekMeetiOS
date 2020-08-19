@@ -148,10 +148,12 @@ extension DiscoverViewController{
                     res1[0].iUserId == UserDataModel.currentUser?.iUserId
                 })
                     
-                if self.objStoryArray == nil && self.objStoryArray?[0].count == 0 {
+                if self.objStoryArray == nil || self.objStoryArray?[0].count == 0 {
                     self.TopStoryView.height = 0
+                    self.tblDiscoverList.willRemoveSubview(TopStoryView)
                 } else {
                     self.TopStoryView.height = 141
+                    self.tblDiscoverList.insertSubview(self.TopStoryView, at: 0)
                 }
 //                self.objOwnStoryArray = self.objStoryArray!.filter({ (res1) -> Bool in
 //                    res1.filter({$0.iUserId == UserDataModel.currentUser?.iUserId})
@@ -168,6 +170,7 @@ extension DiscoverViewController{
                 
                 self.AllStoryCollView.reloadData()
                 self.StoryCollView.reloadData()
+                self.tblDiscoverList.reloadData()
                 
             } else {
                 self.tblDiscoverList.alpha = 0
@@ -312,7 +315,11 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == self.StoryCollView {
-            return CGSize(width: 80, height: 130)
+            if self.objStoryArray == nil || self.objStoryArray?[0].count == 0 {
+                return CGSize(width: 0, height: 0)
+            } else {
+                return CGSize(width: 80, height: 130)
+            }
         } else {
             let width = ScreenSize.width/2 - 12
             return CGSize(width: width, height: width)

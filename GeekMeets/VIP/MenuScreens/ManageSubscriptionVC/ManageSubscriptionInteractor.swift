@@ -32,7 +32,7 @@ class ManageSubscriptionInteractor: ManageSubscriptionInteractorProtocol, Manage
         LoaderView.sharedInstance.showLoader()
         SubscriptionAPI.subscriptionDetails(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
-//            LoaderView.sharedInstance.hideLoader()
+            LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.presenter?.getSubscriptionDetailsResponse(response: response!)
             } else if response?.responseCode == 400 {

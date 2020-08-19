@@ -48,6 +48,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     var textView = UITextView()
     var fontSize : CGFloat = 0.0
     var imgview : UIImageView?
+    var userResizableView1 = ZDStickerView()
     
     private var beginningPoint = CGPoint.zero
     private var beginningCenter = CGPoint.zero
@@ -55,13 +56,6 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     private var initialBounds = CGRect.zero
     private var initialDistance:CGFloat = 0
     private var deltaAngle:CGFloat = 0
-    
-    private lazy var moveGesture = {
-        return UIPanGestureRecognizer(target: self, action: #selector(handleMoveGesture(_:)))
-    }()
-    private lazy var rotateGesture = {
-        return UIPanGestureRecognizer(target: self, action: #selector(handleRotateGesture(_:)))
-    }()
     
     private var _selectedStickerView:StickerView?
     var selectedStickerView:StickerView? {
@@ -147,12 +141,12 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         } else {
             imgview?.contentMode = .center
         }
-        let gripFrame = CGRect(x: 50, y: ((ScreenSize.height - ScreenSize.width - 100)/2), width: ScreenSize.width - 100, height: ScreenSize.width - 100)
+        let gripFrame = CGRect(x: 0, y: ((ScreenSize.height - ScreenSize.width)/2), width: ScreenSize.width, height: ScreenSize.width)
         let contentView = UIView(frame: photo.frame)
         contentView.backgroundColor = UIColor.black
         contentView.addSubview(imgview!)
 
-        let userResizableView1 = ZDStickerView(frame: gripFrame)
+        userResizableView1 = ZDStickerView(frame: gripFrame)
         userResizableView1.tag = 0
         userResizableView1.stickerViewDelegate = self
         userResizableView1.contentView = contentView //contentView;
@@ -160,8 +154,6 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         userResizableView1.translucencySticker = false
         userResizableView1.showEditingHandles()
         view.addSubview(userResizableView1)
-//        self.cropPickerView.addGestureRecognizer(self.moveGesture)
-//        self.PhotoView.addGestureRecognizer(self.rotateGesture)
     }
     
     // MARK: Manual Functions
@@ -211,25 +203,11 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     }
     @IBAction func btnAddtoStoryAction(_ sender: UIButton){
         if self.objPostData.tiStoryType == "0" {
-//            self.cropPickerView.crop { (error, image) in
-//                if let error = (error as NSError?) {
-//                    let alertController = UIAlertController(title: "Error", message: error.domain, preferredStyle: .alert)
-//                    alertController.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-//                    self.present(alertController, animated: true, completion: nil)
-//                    return
-//                }
-//                self.photo.image = image
-//                self.objPostData.arrMedia[0].img = image
-//            }
-            
-            if cusText != nil {
-//                stickerView.frame = ScreenSize.frame
-                stickerView.image = self.photo.image //imgview?.image!
-//                stickerView.transform = imgview!.transform
-                let image = stickerView.renderContentOnView()
-//                let textImage = textToImage(drawText: cusText!.text as NSString, inImage: photo.image!, atPoint: CGPoint(x: self.cusText.x, y: self.cusText.y))
-                self.objPostData.arrMedia[0].img = image
-            }
+            stickerView.image = self.photo.image
+            let image1 = stickerView.resizeImage(transform : userResizableView1.transform, frame : userResizableView1.frame)
+            stickerView.image = image1
+            let image = stickerView.renderContentOnView()
+            self.objPostData.arrMedia[0].img = image
             self.callPostStoryAPI(obj: self.objPostData)
         } else {
             if cusText != nil {
@@ -311,14 +289,6 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         stickerView.currentlyEditingLabel.labelTextView?.font = text.font
        // stickerView.currentlyEditingLabel.labelTextView?.becomeFirstResponder()
         self.view.addSubview(stickerView)
-        /*
-        stickerView2 = StickerView.init(contentView: textView)
-        stickerView2.center = CGPoint.init(x: self.cusText.width/2, y: self.cusText.height/2)
-        stickerView2.delegate = self
-        stickerView2.setImage(UIImage.init(named: "Close")!, forHandler: StickerViewHandler.close)
-        stickerView2.setImage(UIImage.init(named: "Rotate")!, forHandler: StickerViewHandler.rotate)
-        stickerView2.showEditingHandlers = false
-        self.view.addSubview(stickerView2)*/
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -493,71 +463,6 @@ class PreviewViewController: UIViewController, PreviewProtocol {
             self.presentVC(subVC)
         } else {
             self.callPostStoryAPI(obj: self.objPostData)
-        }
-    }
-    
-    // MARK: - Gesture Handlers
-    @objc
-    func handleMoveGesture(_ recognizer: UIPanGestureRecognizer) {
-        let touchLocation = recognizer.location(in: self.PhotoView)
-        switch recognizer.state {
-        case .began:
-            self.beginningPoint = touchLocation
-            self.beginningCenter = self.PhotoView.center
-//            if let delegate = self.delegate {
-//                delegate.stickerViewDidBeginMoving(self)
-//            }
-        case .changed:
-            self.PhotoView.center = CGPoint(x: self.beginningCenter.x + (touchLocation.x - self.beginningPoint.x), y: self.beginningCenter.y + (touchLocation.y - self.beginningPoint.y))
-//            if let delegate = self.delegate {
-//                delegate.stickerViewDidChangeMoving(self)
-//            }
-        case .ended:
-            self.PhotoView.center = CGPoint(x: self.beginningCenter.x + (touchLocation.x - self.beginningPoint.x), y: self.beginningCenter.y + (touchLocation.y - self.beginningPoint.y))
-//            if let delegate = self.delegate {
-//                delegate.stickerViewDidEndMoving(self)
-//            }
-        default:
-            break
-        }
-//        self.view.layoutIfNeeded()
-    }
-    
-    @objc
-    func handleRotateGesture(_ recognizer: UIPanGestureRecognizer) {
-        let touchLocation = recognizer.location(in: self.PhotoView)
-        let center = self.PhotoView.center
-        
-        switch recognizer.state {
-        case .began:
-            self.deltaAngle = CGFloat(atan2f(Float(touchLocation.y - center.y), Float(touchLocation.x - center.x))) - CGAffineTransformGetAngle(self.PhotoView.transform)
-            self.initialBounds = self.PhotoView.bounds
-            self.initialDistance = CGPointGetDistance(point1: center, point2: touchLocation)
-//            if let delegate = self.delegate {
-//                delegate.stickerViewDidBeginRotating(self)
-//            }
-        case .changed:
-            let angle = atan2f(Float(touchLocation.y - center.y), Float(touchLocation.x - center.x))
-            let angleDiff = Float(self.deltaAngle) - angle
-            self.PhotoView.transform = CGAffineTransform(rotationAngle: CGFloat(-angleDiff))
-            
-            var scale = CGPointGetDistance(point1: center, point2: touchLocation) / self.initialDistance
-//            let minimumScale = CGFloat(self.minimumSize)/min(self.initialBounds.size.width, self.initialBounds.size.height)
-//            scale = max(scale, minimumScale)
-            let scaledBounds = CGRectScale(self.initialBounds, wScale: scale, hScale: scale)
-            self.PhotoView.bounds = scaledBounds
-//            self.PhotoView.setN-eedsDisplay()
-            
-//            if let delegate = self.delegate {
-//                delegate.stickerViewDidChangeRotating(self)
-//            }
-        case .ended:
-            print("Ended")
-//            if let delegate = self.delegate {
-//                delegate.stickerViewDidEndRotating(self)
-//            }
-        default:
-            break
         }
     }
 }
