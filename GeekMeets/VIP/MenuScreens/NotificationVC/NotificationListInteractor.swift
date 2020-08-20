@@ -28,10 +28,10 @@ class NotificationListInteractor: NotificationListInteractorProtocol, Notificati
     
     // MARK: Do something
     func callNotificationListAPI(offset: Int, limit: Int) {
-        LoaderView.sharedInstance.showLoader()
+//        LoaderView.sharedInstance.showLoader()
         NotificationAPI.listNotification(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, limit: limit, offset: offset) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+//            LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.presenter?.getNotificationListResponse(response : response!)
             } else if response?.responseCode == 203 {

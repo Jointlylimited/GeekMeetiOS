@@ -143,8 +143,12 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
                 let endDate = Calendar.current.date(byAdding: .day, value: 1, to: Date())
                 endDateStr = "\(endDate!.currentTimeMillis())"
             }
-            let param = RequestParameter.sharedInstance().createSubscriptionParams(vTransactionId: "1214665932543", tiType: "1", fPrice: "1.99", vReceiptData: "13ncksncocwbwibck", iStartDate: "\(Date().currentTimeMillis())", iEndDate: endDateStr)
-            self.presenter?.callCreateSubscriptionAPI(param: param)
+            let param = RequestParameter.sharedInstance().createSubscriptionParams(vTransactionId: "1214665932543", tiType: planDict["tiType"] as! String, fPrice: planDict["fPrice"] as! String, vReceiptData: "13ncksncocwbwibck", iStartDate: "\(Date().currentTimeMillis())", iEndDate: endDateStr)
+            if planDict != [:] {
+                self.presenter?.callCreateSubscriptionAPI(param: param)
+            } else {
+                AppSingleton.sharedInstance().showAlert("Please select plan", okTitle: "OK")
+            }
         }
     }
     
@@ -196,6 +200,8 @@ extension ManageSubscriptionViewController {
                 let timeStamp = Date(timeIntervalSince1970: Double(response.responseData!.iEndDate!)!)
                 let dateString = timeStamp.formattedDateString(format: "dd MMM, yyyy")
                 self.btnValidDate.setTitle("Valid till \(dateString)", for: .normal)
+                let type = ((response.responseData?.tiType)! != 0 && (response.responseData?.tiType)! != 1) ? (response.responseData?.tiType)! - 2 : (response.responseData?.tiType)!
+                btnViews[type].backgroundColor = .lightGray
             } else {
                 self.btnValidDate.setTitle("No data available", for: .normal)
             }

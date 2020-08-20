@@ -281,6 +281,7 @@ class ViewController: UIViewController {
 
         let maxDuration = CMTime(seconds: 30, preferredTimescale: 600)
         movieFileOutput.maxRecordedDuration = maxDuration
+        movieFileOutput.movieFragmentInterval = CMTime.invalid
         self.innerView.backgroundColor = .red
         if gestureRecognizer.state == UIGestureRecognizer.State.began {
             debugPrint("long press started")

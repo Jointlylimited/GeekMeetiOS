@@ -83,7 +83,11 @@ class BoostViewController: UIViewController, BoostProtocol {
     
     @IBAction func btnContinueAction(_ sender: UIButton) {
 //        self.dismissVC(completion: nil)
-        self.callCreateBoostAPI()
+        if planDict != [:] {
+            self.callCreateBoostAPI()
+        } else {
+            AppSingleton.sharedInstance().showAlert("Please select plan", okTitle: "OK")
+        }
     }
     
     @IBAction func btnBoostNowAction(_ sender: UIButton) {

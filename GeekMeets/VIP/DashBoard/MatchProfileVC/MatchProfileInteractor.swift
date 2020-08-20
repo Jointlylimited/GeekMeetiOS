@@ -37,7 +37,7 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
         LoaderView.sharedInstance.showLoader()
         UserAPI.userProfile(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iUserId: id, vReferralCode: code) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+//            LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 print((response?.responseData!)!)
                 self.presenter?.getUserProfileResponse(response: (response?.responseData!)!)
@@ -54,10 +54,10 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
     }
     
     func callStoryListAPI(id : Int) {
-        LoaderView.sharedInstance.showLoader()
+//        LoaderView.sharedInstance.showLoader()
         MediaAPI.listStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, _id: id) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+//            LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.presenter?.getStoryListResponse(response: response!)
             } else if response?.responseCode == 400 {
@@ -93,7 +93,7 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
     }
     
     func callBlockUserListAPI(){
-        LoaderView.sharedInstance.showLoader()
+//        LoaderView.sharedInstance.showLoader()
         UserAPI.blockList(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
             LoaderView.sharedInstance.hideLoader()
