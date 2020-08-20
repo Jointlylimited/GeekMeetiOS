@@ -121,7 +121,7 @@ extension JLStickerImageView {
         //
         //        // Get the resized image from the context and a UIImage
         let newImage:UIImage = UIImage(cgImage: bitmap!.makeImage()!)
-        
+        self.image = newImage
         return newImage
     }
     

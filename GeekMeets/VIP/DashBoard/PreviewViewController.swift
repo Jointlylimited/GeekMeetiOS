@@ -205,8 +205,10 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         if self.objPostData.tiStoryType == "0" {
             stickerView.image = self.photo.image
             let image1 = stickerView.resizeImage(transform : userResizableView1.transform, frame : userResizableView1.frame)
-            stickerView.image = image1
+//            stickerView.image = image1
+//            userResizableView1.alpha = 0.0
             let image = stickerView.renderContentOnView()
+            stickerView.image = nil
             self.objPostData.arrMedia[0].img = image
             self.callPostStoryAPI(obj: self.objPostData)
         } else {
