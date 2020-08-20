@@ -28,10 +28,12 @@ class NotificationListInteractor: NotificationListInteractorProtocol, Notificati
     
     // MARK: Do something
     func callNotificationListAPI(offset: Int, limit: Int) {
-//        LoaderView.sharedInstance.showLoader()
+        LoaderView.sharedInstance.showLoader()
         NotificationAPI.listNotification(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, limit: limit, offset: offset) { (response, error) in
             
-//            LoaderView.sharedInstance.hideLoader()
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
             if response?.responseCode == 200 {
                 self.presenter?.getNotificationListResponse(response : response!)
             } else if response?.responseCode == 203 {
@@ -48,10 +50,12 @@ class NotificationListInteractor: NotificationListInteractorProtocol, Notificati
     
     func callReadAPI(iNotificationId : String, tiType : String) {
         if iNotificationId != "" {
-            LoaderView.sharedInstance.showLoader()
+//            LoaderView.sharedInstance.showLoader()
             NotificationAPI.viewNotification(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization, iNotificationId: iNotificationId, tiType: tiType) { (response, error) in
                 
-                LoaderView.sharedInstance.hideLoader()
+//                delay(0.2) {
+//                    LoaderView.sharedInstance.hideLoader()
+//                }
                 if response?.responseCode == 200 {
                     self.presenter?.getReadNotificationResponse(response: response!)
                 } else if response?.responseCode == 203 {
@@ -65,10 +69,12 @@ class NotificationListInteractor: NotificationListInteractorProtocol, Notificati
                 }
             }
         } else {
-            LoaderView.sharedInstance.showLoader()
+//            LoaderView.sharedInstance.showLoader()
             NotificationAPI.viewNotification(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization, iNotificationId: iNotificationId, tiType: tiType, isClearAll: 1) { (response, error) in
                 
-                LoaderView.sharedInstance.hideLoader()
+//                delay(0.2) {
+//                    LoaderView.sharedInstance.hideLoader()
+//                }
                 if response?.responseCode == 200 {
                     self.presenter?.getClearAllNotificationResponse(response: response!)
                 } else if response?.responseCode == 203 {
@@ -88,7 +94,9 @@ class NotificationListInteractor: NotificationListInteractorProtocol, Notificati
         LoaderView.sharedInstance.showLoader()
         NotificationAPI.budgeCount(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
             if response?.responseCode == 200 {
                 self.presenter?.getBadgeCountResponse(response: response!)
             } else if response?.responseCode == 203 {

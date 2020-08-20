@@ -84,7 +84,7 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     @IBAction func btnContinueAction(_ sender: UIButton) {
 //        self.dismissVC(completion: nil)
         if planDict != [:] {
-            self.callActiveGeeksAPI()
+            self.callCreateGeeksAPI()
         } else {
             AppSingleton.sharedInstance().showAlert("Please select plan", okTitle: "OK")
         }

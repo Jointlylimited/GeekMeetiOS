@@ -29,7 +29,9 @@ class MyLikesInteractor: MyLikesInteractorProtocol, MyLikesDataStore {
            LoaderView.sharedInstance.showLoader()
            UserAPI.matches(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiType: 1) { (response, error) in
                
-               LoaderView.sharedInstance.hideLoader()
+               delay(0.2) {
+                   LoaderView.sharedInstance.hideLoader()
+               }
                if response?.responseCode == 200 {
                    self.presenter?.getMatchResponse(response: response!)
                } else if response?.responseCode == 400 {

@@ -33,7 +33,9 @@ class ChangePasswordInteractor: ChangePasswordInteractorProtocol, ChangePassword
         LoaderView.sharedInstance.showLoader()
       UserAPI.changePassword(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization, vCurrentPassword: vCurrentPassword, vNewPassword: vNewPassword ){ (response, error) in
             
-        LoaderView.sharedInstance.hideLoader()
+        delay(0.2) {
+            LoaderView.sharedInstance.hideLoader()
+        }
             if response?.responseCode == 200 {
                 self.presenter?.getChangePasswordResponse(response: response!)
             } else if response?.responseCode == 400 {

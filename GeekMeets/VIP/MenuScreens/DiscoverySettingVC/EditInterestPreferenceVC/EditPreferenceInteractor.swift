@@ -31,7 +31,9 @@ class EditPreferenceInteractor: EditPreferenceInteractorProtocol, EditPreference
             LoaderView.sharedInstance.showLoader()
             PreferencesAPI.update(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization, tiPreferenceType: params["tiPreferenceType"]!, iPreferenceId: params["iPreferenceId"]!, iOptionId: params["iOptionId"]!) { (response, error) in
                 
-                LoaderView.sharedInstance.hideLoader()
+                delay(0.2) {
+                    LoaderView.sharedInstance.hideLoader()
+                }
                 if response?.responseCode == 200 {
                     self.presenter?.getPostPreferenceResponse(response : response!)
                 } else if response?.responseCode == 203 {
@@ -48,7 +50,9 @@ class EditPreferenceInteractor: EditPreferenceInteractorProtocol, EditPreference
             LoaderView.sharedInstance.showLoader()
             PreferencesAPI.update(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization, tiPreferenceType: params["tiPreferenceType"]!, iPreferenceId: params["iPreferenceId"]!, iAnswerId: params["iAnswerId"]!, iOptionId: params["iOptionId"]!) { (response, error) in
                 
-                LoaderView.sharedInstance.hideLoader()
+                delay(0.2) {
+                    LoaderView.sharedInstance.hideLoader()
+                }
                 if response?.responseCode == 200 {
                     self.presenter?.getPostPreferenceResponse(response : response!)
                 } else if response?.responseCode == 203 {
@@ -68,7 +72,9 @@ class EditPreferenceInteractor: EditPreferenceInteractorProtocol, EditPreference
         LoaderView.sharedInstance.showLoader()
         PreferencesAPI.list(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
             if response?.responseCode == 200 {
                 self.presenter?.getQuestionaryResponse(response : response!)
             } else if response?.responseCode == 203 {

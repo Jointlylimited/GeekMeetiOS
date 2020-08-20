@@ -34,7 +34,9 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
         LoaderView.sharedInstance.showLoader()
         UserAPI.signout(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
             if response?.responseCode == 200 {
                 self.presenter?.getSignoutResponse(response : response!)
             } else if response?.responseCode == 203 {
@@ -53,7 +55,9 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
         LoaderView.sharedInstance.showLoader()
         UserAPI.locationUpdate(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vDeviceToken: vDeviceToken, fLatitude: fLatitude, fLongitude: fLongitude, tiIsLocationOn : tiIsLocationOn) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
             if response?.responseCode == 200 {
                 self.presenter?.getLocationUpdateResponse(response : response!)
             } else if response?.responseCode == 203 {
@@ -72,7 +76,9 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
         LoaderView.sharedInstance.showLoader()
         UserAPI.setPushStatus(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vDeviceToken: AppDelObj.deviceToken, tiIsAcceptPush: tiIsAcceptPush) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
             if response?.responseCode == 200 {
                 self.presenter?.getPushStatusResponse(response : response!)
             } else if response?.responseCode == 203 {

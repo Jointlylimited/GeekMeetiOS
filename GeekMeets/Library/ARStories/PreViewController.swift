@@ -65,17 +65,6 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
             }
         }
         
-        let attributedString = NSMutableAttributedString(string: items[pageIndex].vName!, attributes: [NSAttributedString.Key.font:UIFont(name: FontTypePoppins.Poppins_SemiBold.rawValue, size: 12.0)!])
-        let range = (items[pageIndex].vName! as NSString).range(of: items[pageIndex].iCreatedAt!)
-        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.white, range: range)
-         
-        let attributedString2 = NSMutableAttributedString(string: " \(items[pageIndex].iCreatedAt!)", attributes: [NSAttributedString.Key.font:UIFont(name: FontTypePoppins.Poppins_Medium.rawValue, size: 12.0)!])
-        let range2 = (" \(items[pageIndex].iCreatedAt!)" as NSString).range(of: " \(items[pageIndex].iCreatedAt!)")
-        attributedString2.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.white.withAlphaComponent(0.5), range: range2)
-        
-        attributedString.append(attributedString2)
-        lblUserName.attributedText = attributedString
-        
         userProfileImage.layer.cornerRadius = self.userProfileImage.frame.size.height / 2;
         if items[pageIndex].txStory != "" {
             let url = URL(string:"\(items[pageIndex].vProfileImage!)")
@@ -172,6 +161,18 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
     
     //MARK: - Play or show image
     func playVideoOrLoadImage(index: NSInteger) {
+        
+        let attributedString = NSMutableAttributedString(string: items[index].vName!, attributes: [NSAttributedString.Key.font:UIFont(name: FontTypePoppins.Poppins_SemiBold.rawValue, size: 12.0)!])
+        let range = (items[index].vName! as NSString).range(of: items[index].iCreatedAt!)
+        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.white, range: range)
+         
+        let attributedString2 = NSMutableAttributedString(string: " \(items[index].iCreatedAt!)", attributes: [NSAttributedString.Key.font:UIFont(name: FontTypePoppins.Poppins_Medium.rawValue, size: 12.0)!])
+        let range2 = (" \(items[index].iCreatedAt!)" as NSString).range(of: " \(items[index].iCreatedAt!)")
+        attributedString2.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.white.withAlphaComponent(0.5), range: range2)
+        
+        attributedString.append(attributedString2)
+        lblUserName.attributedText = attributedString
+        
         if item[index].tiStoryType! == "0" {
             self.SPB.duration = 5
             self.imagePreview.isHidden = false

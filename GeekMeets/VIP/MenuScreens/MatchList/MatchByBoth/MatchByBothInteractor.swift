@@ -30,7 +30,9 @@ class MatchByBothInteractor: MatchByBothInteractorProtocol, MatchByBothDataStore
         LoaderView.sharedInstance.showLoader()
         UserAPI.matches(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiType: 0) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
             if response?.responseCode == 200 {
                 self.presenter?.getMatchResponse(response: response!)
             } else if response?.responseCode == 400 {
@@ -49,7 +51,9 @@ class MatchByBothInteractor: MatchByBothInteractorProtocol, MatchByBothDataStore
         LoaderView.sharedInstance.showLoader()
         UserAPI.unMatch(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vXmppUser: iProfileId) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
             if response?.responseCode == 200 {
                 self.presenter?.getUnMatchResponse(response: response!)
             } else if response?.responseCode == 400 {

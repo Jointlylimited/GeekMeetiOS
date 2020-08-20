@@ -186,7 +186,9 @@ class PreviewInteractor: PreviewInteractorProtocol, PreviewDataStore {
         if obj.tiStoryType == "1" {
             MediaAPI.createStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, txStory: self.objPost.txStory, tiStoryType: obj.tiStoryType, vThumbnail: self.objPost.vThumbnail) { (response, error) in
                 
-                LoaderView.sharedInstance.hideLoader()
+                delay(0.2) {
+                    LoaderView.sharedInstance.hideLoader()
+                }
                 if response?.responseCode == 200 {
                     self.presenter?.getPostStoryResponse(response: response!)
                 } else if response?.responseCode == 400 {
@@ -202,7 +204,9 @@ class PreviewInteractor: PreviewInteractorProtocol, PreviewDataStore {
         } else {
             MediaAPI.createStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, txStory: self.objPost.txStory, tiStoryType: obj.tiStoryType) { (response, error) in
                 
-                LoaderView.sharedInstance.hideLoader()
+                delay(0.2) {
+                    LoaderView.sharedInstance.hideLoader()
+                }
                 if response?.responseCode == 200 {
                     self.presenter?.getPostStoryResponse(response: response!)
                 } else if response?.responseCode == 400 {

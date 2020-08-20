@@ -30,7 +30,9 @@ class ReportInteractor: ReportInteractorProtocol, ReportDataStore {
         LoaderView.sharedInstance.showLoader()
         ReportAPI.listReason(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
             if response?.responseCode == 200 {
                 self.presenter?.getReportListResponse(response : response!)
             } else if response?.responseCode == 203 {
@@ -49,7 +51,9 @@ class ReportInteractor: ReportInteractorProtocol, ReportDataStore {
         LoaderView.sharedInstance.showLoader()
         ReportAPI.createReport(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiReportType: params["tiReportType"]!, iReasonId: params["iReasonId"]!, vReportText: params["vReportText"]!, iReportedFor: params["iReportedFor"]!, iStoryId : params["iStoryId"]!) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
             if response?.responseCode == 200 {
                 self.presenter?.getPostReportResponse(response : response!)
             } else if response?.responseCode == 203 {

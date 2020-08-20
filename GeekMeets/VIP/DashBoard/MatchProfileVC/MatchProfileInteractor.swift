@@ -136,7 +136,9 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
         LoaderView.sharedInstance.showLoader()
         UserAPI.swipeUser(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iProfileId: iProfileId, tiSwipeType: tiSwipeType) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
             if response?.responseCode == 200 {
                 self.presenter?.getSwipeCardResponse(response : response!)
             } else if response?.responseCode == 203 {

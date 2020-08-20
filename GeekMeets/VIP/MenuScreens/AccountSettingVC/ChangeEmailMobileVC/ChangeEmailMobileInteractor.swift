@@ -29,7 +29,9 @@ class ChangeEmailMobileInteractor: ChangeEmailMobileInteractorProtocol, ChangeEm
         LoaderView.sharedInstance.showLoader()
         UserAPI.requestForEmail(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, vEmail: vEmail, iUserId: iUserId) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
             if response?.responseCode == 200 {
                 self.presenter?.getUpdateEmailResponse(response : response!)
             } else if response?.responseCode == 203 {

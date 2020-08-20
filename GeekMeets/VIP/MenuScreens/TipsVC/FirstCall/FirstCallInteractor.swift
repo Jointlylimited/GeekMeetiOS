@@ -29,8 +29,9 @@ class FirstCallInteractor: FirstCallInteractorProtocol, FirstCallDataStore {
         
         LoaderView.sharedInstance.showLoader()
         ContentPageAPI.contentPage(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, slug: ContentPageAPI.Slug_contentPage(rawValue: "tips")!) { (response, error) in
-            
-            LoaderView.sharedInstance.hideLoader()
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
             if response?.responseCode == 200 {
                 self.presenter?.getContentPageResponse(response:response!)
             } else if response?.responseCode == 203 {

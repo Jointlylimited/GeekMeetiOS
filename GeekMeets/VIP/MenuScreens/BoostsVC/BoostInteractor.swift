@@ -31,7 +31,9 @@ class BoostInteractor: BoostInteractorProtocol, BoostDataStore {
 //        LoaderView.sharedInstance.showLoader()
         BoostGeekAPI.boostGeekPlans(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiType: 1) { (response, error) in
             
-//            LoaderView.sharedInstance.hideLoader()
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
             if response?.responseCode == 200 {
                 self.presenter?.getBoostPlansResponse(response: response!)
             } else if response?.responseCode == 400 {
@@ -51,7 +53,9 @@ class BoostInteractor: BoostInteractorProtocol, BoostDataStore {
         LoaderView.sharedInstance.showLoader()
         BoostGeekAPI.createBoostGeek(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization, tiPlanType: Int(param["tiPlanType"]!)!, fPlanPrice: param["fPlanPrice"]!, vPurchaseDate: authToken.timeStamp, iBoostCount: Int(param["iBoostCount"]!)!, iGeekCount: Int(param["iGeekCount"]!)!) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+//            delay(0.2) {
+//                LoaderView.sharedInstance.hideLoader()
+//            }
             if response?.responseCode == 200 {
                 self.presenter?.getBoostResponse(response: response!)
             } else if response?.responseCode == 400 {
@@ -70,7 +74,9 @@ class BoostInteractor: BoostInteractorProtocol, BoostDataStore {
         LoaderView.sharedInstance.showLoader()
         BoostGeekAPI.activeBoostGeek(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization, tiPlanType: 1) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
             if response?.responseCode == 200 {
                 self.presenter?.getBoostResponse(response: response!)
             } else if response?.responseCode == 400 {

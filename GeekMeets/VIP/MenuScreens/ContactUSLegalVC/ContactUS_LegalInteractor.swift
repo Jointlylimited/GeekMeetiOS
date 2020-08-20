@@ -29,7 +29,9 @@ class ContactUS_LegalInteractor: ContactUS_LegalInteractorProtocol, ContactUS_Le
         LoaderView.sharedInstance.showLoader()
         ContentPageAPI.contactUs(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
             if response?.responseCode == 200 {
                 self.presenter?.getContactUsResponse(response : response!)
             } else if response?.responseCode == 203 {

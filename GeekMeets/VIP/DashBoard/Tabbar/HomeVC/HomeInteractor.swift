@@ -31,7 +31,9 @@ class HomeInteractor: HomeInteractorProtocol, HomeDataStore {
         LoaderView.sharedInstance.showLoader()
         UserAPI.cardList(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
             if response?.responseCode == 200 {
                 self.presenter?.getUserCardResponse(response : response!)
             } else if response?.responseCode == 203 {
@@ -50,7 +52,9 @@ class HomeInteractor: HomeInteractorProtocol, HomeDataStore {
         LoaderView.sharedInstance.showLoader()
         UserAPI.swipeUser(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iProfileId: iProfileId, tiSwipeType: tiSwipeType) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
             if response?.responseCode == 200 {
                 self.presenter?.getSwipeCardResponse(response : response!)
             } else if response?.responseCode == 203 {
@@ -66,10 +70,12 @@ class HomeInteractor: HomeInteractorProtocol, HomeDataStore {
     }
     
     func callUpdateLocationAPI(fLatitude : String, fLongitude : String, tiIsLocationOn : String){
-//        LoaderView.sharedInstance.showLoader()
+        LoaderView.sharedInstance.showLoader()
         UserAPI.locationUpdate(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vDeviceToken: vDeviceToken, fLatitude: fLatitude, fLongitude: fLongitude, tiIsLocationOn : tiIsLocationOn) { (response, error) in
             
-//            LoaderView.sharedInstance.hideLoader()
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
             if response?.responseCode == 200 {
                 self.presenter?.getLocationUpdateResponse(response : response!)
             } else if response?.responseCode == 203 {

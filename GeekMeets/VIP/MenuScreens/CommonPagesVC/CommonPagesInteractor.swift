@@ -29,7 +29,9 @@ class CommonPagesInteractor: CommonPagesInteractorProtocol, CommonPagesDataStore
         LoaderView.sharedInstance.showLoader()
         ContentPageAPI.contentPage(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, slug: ContentPageAPI.Slug_contentPage(rawValue: slug)!) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
             if response?.responseCode == 200 {
                 self.presenter?.getContentResponse(response : response!)
             } else if response?.responseCode == 203 {

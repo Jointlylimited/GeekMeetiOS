@@ -27,10 +27,12 @@ class DiscoverInteractor: DiscoverInteractorProtocol, DiscoverDataStore {
     
     // MARK: Do something
     func callStoryListAPI() {
-//        LoaderView.sharedInstance.showLoader()
+        LoaderView.sharedInstance.showLoader()
         MediaAPI.listStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, _id: 0) { (response, error) in
             
-//            LoaderView.sharedInstance.hideLoader()
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
             if response?.responseCode == 200 {
                 self.presenter?.getStoryListResponse(response: response!)
             } else if response?.responseCode == 400 {
@@ -49,7 +51,9 @@ class DiscoverInteractor: DiscoverInteractorProtocol, DiscoverDataStore {
         LoaderView.sharedInstance.showLoader()
         MediaAPI.viewStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iStoryId: iStoryId) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
             if response?.responseCode == 200 {
                 self.presenter?.getViewStoryResponse(response: response!)
             } else if response?.responseCode == 400 {
