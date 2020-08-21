@@ -121,14 +121,18 @@ class ViewController: UIViewController {
 //        self.innerView.cornerRadius = self.innerView.w/2
 //        self.innerView.backgroundColor = .white
         
-        let microphone = AVCaptureDevice.default(for: AVMediaType.audio)!
-        do {
-            let micInput = try AVCaptureDeviceInput(device: microphone)
-            if captureSession.canAddInput(micInput) {
-                captureSession.addInput(micInput)
+        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera], mediaType: AVMediaType.audio, position: AVCaptureDevice.Position.unspecified)
+        let devices = deviceDiscoverySession.devices
+        
+        for device in devices{
+            do {
+                let micInput = try AVCaptureDeviceInput(device: device)
+                if captureSession.canAddInput(micInput) {
+                    captureSession.addInput(micInput)
+                }
+            } catch {
+                print("Error setting device audio input: \(error)")
             }
-        } catch {
-            print("Error setting device audio input: \(error)")
         }
         
         captureSession.addOutput(movieFileOutput)
