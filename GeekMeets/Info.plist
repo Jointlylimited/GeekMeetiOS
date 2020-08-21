@@ -144,5 +144,7 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>$(PROJECT_NAME) required access Microphone</string>
 </dict>
 </plist>
