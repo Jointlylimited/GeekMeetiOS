@@ -291,7 +291,9 @@ class ViewController: UIViewController {
           if newVideoInput == nil || err != nil {
               print("Error creating capture device input: \(err?.localizedDescription)")
           } else {
-              session.addInput(newVideoInput)
+            if session.inputs.isEmpty {
+                session.addInput(newVideoInput)
+            }
           }
 
           //Commit all the configuration changes at once
