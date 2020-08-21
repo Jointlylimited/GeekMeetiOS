@@ -147,7 +147,7 @@ extension ProfileSubscriptionViewController {
     
     func getBoostPlansResponse(response : BoostGeekResponse) {
         if response.responseCode == 200 {
-            self.lblActiveBoost.text = response.responseData?.pendingGeek != 0 ? "\(response.responseData!.pendingBoost!) Active" : (response.responseData?.iExpireAt != "" ? "Active" : "Inactive")
+            self.lblActiveBoost.text = response.responseData?.pendingBoost != 0 ? "\(response.responseData!.pendingBoost!) Pending" : (response.responseData?.iExpireAt != "" ? "Active" : "Inactive")
         } else {
             self.lblActiveBoost.text = "Inactive"
         }

@@ -30,7 +30,10 @@ class SignInInteractor: SignInInteractorProtocol {
         LoaderView.sharedInstance.showLoader()
         UserAPI.signIn(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, vEmail: userName, vPassword: password, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signIn(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId!, vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress) { (response, error) in
 
-            LoaderView.sharedInstance.hideLoader()
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
+            
             if response?.responseCode == 200 {
                 self.presenter?.getSignInResponse(response : response!)
             } else if response?.responseCode == 203 {
@@ -71,7 +74,10 @@ class SignInInteractor: SignInInteractorProtocol {
         LoaderView.sharedInstance.showLoader()
         UserAPI.requestForEmail(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, vEmail: email) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
+            
             if response?.responseCode == 200 {
                 self.presenter?.getEmailVerifyResponse(response : response!)
             } else if response?.responseCode == 203 {

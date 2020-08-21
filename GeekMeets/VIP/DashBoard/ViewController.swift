@@ -120,6 +120,17 @@ class ViewController: UIViewController {
         captureSession.sessionPreset = AVCaptureSession.Preset.photo
 //        self.innerView.cornerRadius = self.innerView.w/2
 //        self.innerView.backgroundColor = .white
+        
+        let microphone = AVCaptureDevice.default(for: AVMediaType.audio)!
+        do {
+            let micInput = try AVCaptureDeviceInput(device: microphone)
+            if captureSession.canAddInput(micInput) {
+                captureSession.addInput(micInput)
+            }
+        } catch {
+            print("Error setting device audio input: \(error)")
+        }
+        
         captureSession.addOutput(movieFileOutput)
         movieFileOutput.maxRecordedDuration = CMTime(seconds: 30, preferredTimescale: 600)
         let longPressGesture = UILongPressGestureRecognizer.init(target: self, action: #selector(handleLongPress))
