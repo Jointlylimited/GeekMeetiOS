@@ -259,7 +259,7 @@ class ViewController: UIViewController {
   @IBAction func actionchangeCamrePosition(_ sender: Any) {
       //Change camera source
     if let session:AVCaptureSession = captureSession {
-          //Remove existing input
+          //Remove existing input6
           guard let currentCameraInput: AVCaptureInput = session.inputs.first else {
               return
           }
@@ -292,10 +292,9 @@ class ViewController: UIViewController {
               print("Error creating capture device input: \(err?.localizedDescription)")
           } else {
             if session.inputs.isEmpty {
-                session.addInput(newVideoInput)
+                session.addInput(newVideoInput) 
             }
           }
-
           //Commit all the configuration changes at once
           session.commitConfiguration()
       }
