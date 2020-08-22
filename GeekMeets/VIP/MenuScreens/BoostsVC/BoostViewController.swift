@@ -105,7 +105,7 @@ class BoostViewController: UIViewController, BoostProtocol {
         btnViews[sender.tag].backgroundColor = .lightGray
         
         if sender.tag == 0 {
-            planDict = ["fPlanPrice" : "1.99", "tiPlanType": "1", "iBoostCount" : "1", "iGeekCount" : "0"]
+            planDict = ["fPlanPrice" : "1.99", "tiPlanType": "1", "iBoostGeekCount" : "1", "iGeekCount" : "0"]
         } else if sender.tag == 1 {
             planDict = ["fPlanPrice" : "3.99",  "tiPlanType": "1", "iBoostGeekCount" : "5", "iGeekCount" : "0"]
         } else if sender.tag == 2 {
@@ -207,7 +207,7 @@ extension BoostViewController {
     }
     
     func callCreateBoostAPI() {
-        let param = RequestParameter.sharedInstance().createBoostGeekParams(fPlanPrice: planDict["fPlanPrice"] as! String, tiPlanType: planDict["tiPlanType"] as! String, iBoostCount: planDict["iBoostCount"] as! String, iGeekCount: planDict["iGeekCount"] as! String)
+        let param = RequestParameter.sharedInstance().createBoostGeekParams(fPlanPrice: planDict["fPlanPrice"] as! String, tiPlanType: planDict["tiPlanType"] as! String, iBoostCount: planDict["iBoostGeekCount"] as! String, iGeekCount: planDict["iGeekCount"] as! String)
         self.presenter?.callCreateBoostAPI(param : param)
     }
     
