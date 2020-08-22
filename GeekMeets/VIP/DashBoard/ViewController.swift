@@ -292,8 +292,11 @@ class ViewController: UIViewController {
               print("Error creating capture device input: \(err?.localizedDescription)")
           } else {
             if session.inputs.isEmpty {
-                session.addInput(newVideoInput) 
+                session.addInput(newVideoInput)
             }
+//            if session.inputs.isEmpty {
+//                session.addInput(newVideoInput)
+//            }
           }
           //Commit all the configuration changes at once
           session.commitConfiguration()
