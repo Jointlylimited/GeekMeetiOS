@@ -205,8 +205,6 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         if self.objPostData.tiStoryType == "0" {
             stickerView.image = self.photo.image
             let image1 = stickerView.resizeImage(transform : userResizableView1.transform, frame : userResizableView1.frame)
-//            stickerView.image = image1
-//            userResizableView1.alpha = 0.0
             let image = stickerView.renderContentOnView()
             stickerView.image = nil
             self.objPostData.arrMedia[0].img = image
@@ -230,7 +228,6 @@ class PreviewViewController: UIViewController, PreviewProtocol {
                sender.isSelected = false
                 player?.pause()
            }
-           
        }
     
     @IBAction func scrub(_ sender: ThemeSlider) {
@@ -249,7 +246,6 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         tabVC.isFromMatch = false
         self.pop(toLast: tabVC.classForCoder)
     }
-    
     
     @objc func playerDidFinishPlaying(sender: Notification) {
         self.player?.seek(to: CMTime.zero)
@@ -289,7 +285,6 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         stickerView.currentlyEditingLabel.rotateView?.image = UIImage(named: "Rotate")
         stickerView.currentlyEditingLabel.border?.strokeColor = UIColor.brown.cgColor
         stickerView.currentlyEditingLabel.labelTextView?.font = text.font
-       // stickerView.currentlyEditingLabel.labelTextView?.becomeFirstResponder()
         self.view.addSubview(stickerView)
     }
     
@@ -344,21 +339,21 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     }
     
     func addtextToVideo(){
-
+        
         let composition = AVMutableComposition()
         let vidAsset = AVURLAsset(url: self.objPostData.arrMedia[0].videoURL!, options: nil)
-
+        
         // get video track
         let vtrack =  vidAsset.tracks(withMediaType: AVMediaType.video)
         let videoTrack: AVAssetTrack = vtrack[0]
-      let audioTrack = vidAsset.tracks(withMediaType: AVMediaType.audio).first
+        let audioTrack = vidAsset.tracks(withMediaType: AVMediaType.audio).first
         let vid_timerange = CMTimeRangeMake(start: CMTime.zero, duration: vidAsset.duration)
-
+        
         let tr: CMTimeRange = CMTimeRange(start: CMTime.zero, duration: CMTime(seconds: 10.0, preferredTimescale: 600))
         composition.insertEmptyTimeRange(tr)
-
+        
         let trackID:CMPersistentTrackID = CMPersistentTrackID(kCMPersistentTrackID_Invalid)
-
+        
         if let compositionvideoTrack: AVMutableCompositionTrack = composition.addMutableTrack(withMediaType: AVMediaType.video, preferredTrackID: trackID) {
             do {
                 try compositionvideoTrack.insertTimeRange(vid_timerange, of: videoTrack, at: CMTime.zero)
@@ -367,27 +362,27 @@ class PreviewViewController: UIViewController, PreviewProtocol {
                 print("error")
             }
             compositionvideoTrack.preferredTransform = videoTrack.preferredTransform
-
+            
         } else {
             print("unable to add video track")
             return
         }
-//      if audioTrack != nil{
+        //      if audioTrack != nil{
         if let compositionaudioTrack: AVMutableCompositionTrack = composition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: trackID) {
             do {
-              try compositionaudioTrack.insertTimeRange(vid_timerange, of: audioTrack!, at: CMTime.zero)
+                try compositionaudioTrack.insertTimeRange(vid_timerange, of: audioTrack!, at: CMTime.zero)
                 
             } catch {
                 print("error")
             }
-          compositionaudioTrack.preferredTransform = audioTrack!.preferredTransform
-
+            compositionaudioTrack.preferredTransform = audioTrack!.preferredTransform
+            
         } else {
             print("unable to add audio track")
             return
         }
         
-//      }
+        //      }
         let size = videoTrack.naturalSize
         
         // create text Layer
@@ -400,21 +395,21 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         titleLayer.alignmentMode = CATextLayerAlignmentMode.center
         titleLayer.isWrapped = true
         titleLayer.displayIfNeeded()
-
+        
         let videolayer = CALayer()
         videolayer.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-
+        
         let parentlayer = CALayer()
         parentlayer.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         parentlayer.addSublayer(videolayer)
         parentlayer.addSublayer(titleLayer)
         parentlayer.isGeometryFlipped = true
-
+        
         let layercomposition = AVMutableVideoComposition()
         layercomposition.frameDuration = CMTimeMake(value: 1, timescale: 30)
         layercomposition.renderSize = size
         layercomposition.animationTool = AVVideoCompositionCoreAnimationTool(postProcessingAsVideoLayer: videolayer, in: parentlayer)
-
+        
         // instruction for watermark
         let instruction = AVMutableVideoCompositionInstruction()
         instruction.timeRange = CMTimeRangeMake(start: CMTime.zero, duration: composition.duration)
@@ -422,21 +417,21 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         let layerinstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: videotrack)
         instruction.layerInstructions = NSArray(object: layerinstruction) as [AnyObject] as! [AVVideoCompositionLayerInstruction]
         layercomposition.instructions = NSArray(object: instruction) as [AnyObject] as! [AVVideoCompositionInstructionProtocol]
-
+        
         //  create new file to receive data
         let dirPaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let docsDir = dirPaths[0] as NSString
         let movieFilePath = docsDir.appendingPathComponent("result.mov")
         let movieDestinationUrl = NSURL(fileURLWithPath: movieFilePath)
-
+        
         // use AVAssetExportSession to export video
         let assetExport = AVAssetExportSession(asset: composition, presetName:AVAssetExportPresetHighestQuality)
         assetExport?.outputFileType = AVFileType.mov
         assetExport?.videoComposition = layercomposition
-
+        
         // Check exist and remove old file
         FileManager.default.removeItemIfExisted(movieDestinationUrl as URL)
-
+        
         assetExport?.outputURL = movieDestinationUrl as URL
         assetExport?.exportAsynchronously(completionHandler: {
             switch assetExport!.status {
@@ -474,6 +469,7 @@ extension PreviewViewController : PostStoryDelegate {
         self.callPostStoryAPI(obj: self.objPostData)
     }
 }
+
 //MARK: API Methods
 extension PreviewViewController {
     

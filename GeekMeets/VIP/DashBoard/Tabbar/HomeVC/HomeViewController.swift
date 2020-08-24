@@ -69,16 +69,13 @@ class HomeViewController: UIViewController, HomeProtocol {
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         SwipeValue = Authentication.getSwipeStatus()!
-//        getUserCurrentLocation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //        getUserCurrentLocation()
         if UserDataModel.currentUser != nil {
             if UserDataModel.currentUser?.tiIsLocationOn == 0 {
                 self.getUserCurrentLocation()
@@ -98,13 +95,6 @@ class HomeViewController: UIViewController, HomeProtocol {
     }
     
     func makeCardsData() {
-        
-//        cardView = CardView.initCoachingAlertView()
-//        cardView.frame = CGRect(x: 20, y: 0, w: ScreenSize.width - 40, h: ScreenSize.height - 100)
-//        cardView.setData(index: 0)
-//        cardView.imgCollView.dataSource = self
-//        cardView.imgCollView.delegate = self
-        
         for i in 0..<self.objCardArray.arrUserCardList.count {
             cardsData.append(i)
         }
@@ -153,11 +143,7 @@ class HomeViewController: UIViewController, HomeProtocol {
     
     @IBAction func btnMatchAction(_ sender: UIButton) {
         if UserDataModel.currentUser?.tiIsSubscribed == 1 {
-//            if self.SwipeValue != 0 {
-                pushMatchVC()
-//            } else {
-//                presentSubVC()
-//            }
+            pushMatchVC()
         } else {
             presentSubVC()
         }
@@ -172,7 +158,6 @@ extension HomeViewController {
             setCards()
         } else {
             AppSingleton.sharedInstance().showAlert("No other profiles available", okTitle: "OK")
-//            self.presenter?.callUserCardAPI()
         }
     }
     
@@ -206,27 +191,27 @@ extension HomeViewController {
     }
     
     func callUpdateLocationAPI(fLatitude : String, fLongitude : String, tiIsLocationOn : String){
-            self.presenter?.callUpdateLocationAPI(fLatitude: fLatitude, fLongitude: fLongitude, tiIsLocationOn: tiIsLocationOn)
-        }
-        func getLocationUpdateResponse(response : UserAuthResponse){
-            if response.responseCode == 200 {
-                UserDataModel.currentUser?.tiIsLocationOn = response.responseData?.tiIsLocationOn
-                if UserDataModel.currentUser?.tiIsLocationOn == 0 {
-                    UserDataModel.setPushStatus(status: "1")
-                } else {
-                    UserDataModel.setPushStatus(status: "0")
-                }
-    //            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        self.presenter?.callUpdateLocationAPI(fLatitude: fLatitude, fLongitude: fLongitude, tiIsLocationOn: tiIsLocationOn)
+    }
+    
+    func getLocationUpdateResponse(response : UserAuthResponse){
+        if response.responseCode == 200 {
+            UserDataModel.currentUser?.tiIsLocationOn = response.responseData?.tiIsLocationOn
+            if UserDataModel.currentUser?.tiIsLocationOn == 0 {
+                UserDataModel.setPushStatus(status: "1")
+            } else {
+                UserDataModel.setPushStatus(status: "0")
             }
         }
+    }
 }
 
 //MARK: SwipeableCard Delegate & Datasource Methods
 extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate {
-    // SwipeableCardsDataSource methods
     func numberOfTotalCards(in cards: SwipeableCards) -> Int {
         return cardsData.count
     }
+    
     func view(for cards: SwipeableCards, index: Int, reusingView: CardView?) -> CardView {
         
         cardView = CardView.initCoachingAlertView(obj : self.objCardArray.objUserCard, location : self.location!)
@@ -286,6 +271,7 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
     func cards(_ cards: SwipeableCards, beforeSwipingItemAt index: Int) {
         print("Begin swiping card \(index)!")
     }
+    
     func cards(_ cards: SwipeableCards, didLeftRemovedItemAt index: Int) {
         print("<--\(index)")
         if UserDataModel.currentUser?.tiIsSubscribed == 0 {
@@ -302,6 +288,7 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
             self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "0")
         }
     }
+    
     func cards(_ cards: SwipeableCards, didRightRemovedItemAt index: Int) {
         print("\(index)-->")
         if UserDataModel.currentUser?.tiIsSubscribed == 0 {
@@ -318,6 +305,7 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
             self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "1")
         }
     }
+    
     func cards(_ cards: SwipeableCards, didRemovedItemAt index: Int) {
         print("index of removed card:\(index)")
     }

@@ -74,7 +74,6 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.presenter?.callSubscriptionDetailsAPI()
@@ -88,6 +87,7 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
             btn.titleLabel?.font = DeviceType.iPhone5orSE ? UIFont(name: FontTypePoppins.Poppins_Medium.rawValue, size: 12.0) : UIFont(name: FontTypePoppins.Poppins_Medium.rawValue, size: 16.0)
         }*/
     }
+    
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.dismissVC(completion: nil)
     }
@@ -243,7 +243,6 @@ extension ManageSubscriptionViewController {
 }
 
 extension ManageSubscriptionViewController : SKProductsRequestDelegate, SKPaymentTransactionObserver {
-
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         if let transaction = transactions.first {
             switch transaction.transactionState {

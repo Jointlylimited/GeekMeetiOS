@@ -70,7 +70,6 @@ class BoostViewController: UIViewController, BoostProtocol {
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.bgViewHeightConstant.constant = DeviceType.hasNotch || DeviceType.iPhone11 || DeviceType.iPhone11or11Pro ? 230 : 180
@@ -82,7 +81,6 @@ class BoostViewController: UIViewController, BoostProtocol {
     }
     
     @IBAction func btnContinueAction(_ sender: UIButton) {
-//        self.dismissVC(completion: nil)
         if planDict != [:] {
             self.callCreateBoostAPI()
         } else {
@@ -92,7 +90,6 @@ class BoostViewController: UIViewController, BoostProtocol {
     
     @IBAction func btnBoostNowAction(_ sender: UIButton) {
         self.callActiveBoostAPI()
-//        self.dismissVC(completion: nil)
     }
     
     @IBAction func btnBoostAction(_ sender: UIButton) {

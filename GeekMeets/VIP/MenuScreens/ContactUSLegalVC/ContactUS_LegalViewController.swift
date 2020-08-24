@@ -76,7 +76,6 @@ class ContactUS_LegalViewController: UIViewController, ContactUS_LegalProtocol {
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -88,7 +87,6 @@ class ContactUS_LegalViewController: UIViewController, ContactUS_LegalProtocol {
             self.viewLogo.alpha = 0.0
         } else {
             self.lblViewTitle.text = "Contact Us"
-//            self.setContactUsData()
             self.tblContactList.alpha = 1.0
             self.tblLegalList.alpha = 0.0
             self.viewLogo.alpha = 1.0
@@ -108,7 +106,6 @@ class ContactUS_LegalViewController: UIViewController, ContactUS_LegalProtocol {
         self.popVC()
     }
     
-    
     func configureMailComposer() -> MFMailComposeViewController{
         
         let mail = MFMailComposeViewController()
@@ -120,7 +117,6 @@ class ContactUS_LegalViewController: UIViewController, ContactUS_LegalProtocol {
     }
         
     func launchMailAppOnDevice() {
-        
         let recipients = "mailto:?cc=&subject="
         let body = "&body="
         var email = "\(recipients)\(body)"

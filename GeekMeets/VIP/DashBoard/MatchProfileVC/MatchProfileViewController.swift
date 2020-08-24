@@ -170,7 +170,6 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = MatchProfileInteractor()
@@ -188,14 +187,11 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setTheme()
         self.presenter?.callUserProfileAPI(id: self.UserID != nil ? "\(self.UserID!)" : "78", code : self.UserCode)
-//        getUserCurrentLocation()
     }
     
     func setTheme(){
@@ -262,12 +258,13 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     @IBAction func btnMatchAction(_ sender: UIButton) {
         self.callSwipeCardAPI(iProfileId: "\(self.UserID!)", tiSwipeType: "1")
     }
+    
     @IBAction func btnShareAction(_ sender: UIButton) {
         let msg = "Hello User, \n\nUse my referral code \(self.objMatchUserProfile.vReferralCode!) to register yourself on the \(appName) app. \n\nThank you,\nJointly Team"
         shareInviteApp(message: msg, link: "jointly://path/\(self.objMatchUserProfile.vReferralCode!)", controller: self)
     }
+    
     @IBAction func btnReportAction(_ sender: UIButton) {
-        //        self.presenter?.gotoReportVC()
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.ReportScreen) as! ReportViewController
         controller.ReportFor = "\(self.objMatchUserProfile.iUserId!)"
         controller.tiReportType = 1
@@ -275,6 +272,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
         controller.modalPresentationStyle = .overCurrentContext
         self.presentVC(controller)
     }
+    
     @IBAction func btnBlockAction(_ sender: UIButton) {
          self.showAlertView()
     }
@@ -312,7 +310,6 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     }
     
     func openSocialPlatform(url: URL) {
-        
         if UIApplication.shared.canOpenURL(url) {
             if #available(iOS 10.0, *) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -329,7 +326,6 @@ extension MatchProfileViewController {
         print(response)
         self.objMatchUserProfile = response
         self.objProfileData.data = response.preference!
-        //            self.objProfileData.str = response.txAbout!
         setProfileData()
         self.presenter?.callStoryListAPI(id : self.UserID != nil ? self.UserID! : 78)
         
@@ -438,7 +434,7 @@ extension MatchProfileViewController : UITableViewDataSource, UITableViewDelegat
                 cell.RegisterCellView()
                 cell.preferenceDetailsArray = self.objMatchUserProfile.preference!
             }
-        }else {
+        } else {
             if let cell = cell as? ProfileSocialCell  {
                 cell.clickOnBtn = { (index) in
                     print(index!)
@@ -493,7 +489,7 @@ extension MatchProfileViewController : UICollectionViewDataSource, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return (self.objMatchUserProfile != nil && self.objMatchUserProfile.photos!.count != 0) ? self.objMatchUserProfile.photos!.count : 0 //imageArray.count
+        return (self.objMatchUserProfile != nil && self.objMatchUserProfile.photos!.count != 0) ? self.objMatchUserProfile.photos!.count : 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

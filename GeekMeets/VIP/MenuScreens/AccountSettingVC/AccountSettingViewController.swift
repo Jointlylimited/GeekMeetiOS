@@ -55,11 +55,11 @@ class AccountSettingViewController: UIViewController, AccountSettingProtocol {
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.registerTableViewCell()
     }
+    
     func registerTableViewCell(){
         self.tblAccountList.register(UINib.init(nibName: Cells.CommonTblListCell, bundle: Bundle.main), forCellReuseIdentifier: Cells.CommonTblListCell)
         
@@ -90,9 +90,7 @@ extension AccountSettingViewController : UITableViewDataSource, UITableViewDeleg
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let cell = cell as? CommonTblListCell {
             
-            
             let data = self.objAccountData[indexPath.row]
-            
             cell.lblTitle.text = data.title
             cell.lblDesc.text = data.description
         }
@@ -120,7 +118,6 @@ extension AccountSettingViewController : UITableViewDataSource, UITableViewDeleg
         } else {
             let changeVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.ChangePasswordScreen)
             self.pushVC(changeVC)
-          
         }
     }
 }

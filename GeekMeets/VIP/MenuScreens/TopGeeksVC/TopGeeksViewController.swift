@@ -70,7 +70,6 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.bgViewHeightConstant.constant = DeviceType.hasNotch || DeviceType.iPhone11 || DeviceType.iPhone11or11Pro ? 230 : 180
@@ -82,7 +81,6 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     }
     
     @IBAction func btnContinueAction(_ sender: UIButton) {
-//        self.dismissVC(completion: nil)
         if planDict != [:] {
             self.callCreateGeeksAPI()
         } else {
@@ -91,7 +89,6 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     }
     
     @IBAction func btnActiveNowAction(_ sender: UIButton) {
-//        self.dismissVC(completion: nil)
         self.callActiveGeeksAPI()
     }
     

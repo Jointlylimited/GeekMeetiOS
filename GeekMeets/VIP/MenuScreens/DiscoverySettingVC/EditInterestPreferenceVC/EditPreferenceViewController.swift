@@ -72,7 +72,6 @@ class EditPreferenceViewController: UIViewController, EditPreferenceProtocol {
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -149,6 +148,7 @@ class EditPreferenceViewController: UIViewController, EditPreferenceProtocol {
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.popVC()
     }
+    
     @IBAction func btnDoneAction(_ sender: GradientButton) {
         self.callCreatePreferenceAPI()
     }

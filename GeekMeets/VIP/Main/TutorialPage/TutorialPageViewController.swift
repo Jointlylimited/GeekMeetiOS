@@ -24,9 +24,9 @@ class TutorialPageViewController: UIViewController, TutorialPageProtocol {
     @IBOutlet var clViewTutorial : UICollectionView!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var btnNext: UIButton!
-  var tutorialData : [TutorialData] = [.firstPage, .secondPage, .thirdPage]
-    // MARK: Object lifecycle
+    var tutorialData : [TutorialData] = [.firstPage, .secondPage, .thirdPage]
     
+    // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -38,7 +38,6 @@ class TutorialPageViewController: UIViewController, TutorialPageProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = TutorialPageInteractor()
@@ -56,22 +55,14 @@ class TutorialPageViewController: UIViewController, TutorialPageProtocol {
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         doSomething()
     }
-    
-    // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
+
     func doSomething() {
-      
       clViewTutorial.frame.size = self.view.frame.size
-        
     }
     
     func displaySomething() {
@@ -79,7 +70,6 @@ class TutorialPageViewController: UIViewController, TutorialPageProtocol {
     }
   
    // MARK:- IBAction Method
-  
   @IBAction func actionNext(_ sender : UIButton)
   {
       if pageControl.currentPage == self.tutorialData.count - 1
@@ -95,7 +85,6 @@ class TutorialPageViewController: UIViewController, TutorialPageProtocol {
 //              self.presenter?.actionNextButton()
 //          }
         self.presenter?.actionNextButton()
-        
       }
       else
       {

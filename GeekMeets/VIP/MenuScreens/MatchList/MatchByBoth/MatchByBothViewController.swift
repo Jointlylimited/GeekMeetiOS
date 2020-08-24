@@ -60,7 +60,6 @@ class MatchByBothViewController: UIViewController, MatchByBothProtocol {
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.registerTableViewCell()

@@ -72,7 +72,6 @@ class DiscoverySettingViewController: UIViewController, DiscoverySettingProtocol
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -81,6 +80,7 @@ class DiscoverySettingViewController: UIViewController, DiscoverySettingProtocol
         super.viewWillAppear(animated)
         self.registerTableViewCell()
     }
+    
     func registerTableViewCell(){
         if !isFromMenu {
             self.lblTitle.text = "Edit Interests & Preferences"
@@ -99,6 +99,7 @@ class DiscoverySettingViewController: UIViewController, DiscoverySettingProtocol
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.popVC()
     }
+    
     @IBAction func btnChangeAction(_ sender: GradientButton) {
         self.popVC()
     }

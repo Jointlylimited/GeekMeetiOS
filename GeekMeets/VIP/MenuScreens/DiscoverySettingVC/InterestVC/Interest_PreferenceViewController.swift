@@ -64,7 +64,6 @@ class Interest_PreferenceViewController: UIViewController, Interest_PreferencePr
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         if isFromMenu {
@@ -80,7 +79,6 @@ class Interest_PreferenceViewController: UIViewController, Interest_PreferencePr
     func registerTableViewCell(){
         
         self.lblTitle.text = header_title
-        
         if self.lblTitle.text!.count >= (DeviceType.iPhone5orSE ? 40 : 45) {
             self.viewHeightConstant.constant = 185
         } else if self.lblTitle.text!.count >= 20 {
@@ -118,6 +116,7 @@ class Interest_PreferenceViewController: UIViewController, Interest_PreferencePr
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.popVC()
     }
+    
     @IBAction func btnUpdateAction(_ sender: GradientButton) {
         self.presenter?.callQuestionaryAPI()
     }
@@ -175,7 +174,6 @@ extension Interest_PreferenceViewController : UITableViewDataSource, UITableView
         self.pushVC(queVC!)
     }
 }
-
 
 extension Interest_PreferenceViewController : SelectInterestAgeGenderDelegate {
     func getSelectedValue(index: Int, data: String) {

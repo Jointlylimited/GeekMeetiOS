@@ -58,12 +58,10 @@ class CommonPagesViewController: UIViewController, CommonPagesProtocol {
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setData()
     }
-    
     
     func setData(){
         self.lblScreenTitle.text = objCommonData?.Title
@@ -71,6 +69,7 @@ class CommonPagesViewController: UIViewController, CommonPagesProtocol {
             self.presenter?.CallContentPageAPI(slug: slug)
         }
     }
+    
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.popVC()
     }
@@ -89,7 +88,6 @@ extension String {
     guard let data = data(using: .utf8) else { return nil }
     do {
         return try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil).string
-
     } catch let error as NSError {
         print(error.localizedDescription)
         return  nil

@@ -143,6 +143,7 @@ class MatchViewController: UIViewController, MatchProtocol {
             }
         }
     }
+    
     @IBAction func btnSendRandomMsgAction(_ sender: UIButton) {
         self.dismissVC {
             if self.xmppUserID != "" {

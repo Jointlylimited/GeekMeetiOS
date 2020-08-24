@@ -116,12 +116,6 @@ class MenuViewController: UIViewController, MenuProtocol {
         self.navigationController?.isNavigationBarHidden = true
         self.lblVersion.text = "Version \(Bundle.main.releaseVersionNumber!) Build \(Bundle.main.buildVersionNumber!)"
         
-        //Geeks Functionality
-//        startTimer()
-//        self.RemainTimeView.alpha = 0.0
-//        self.remainTimeViewHeightConstant.constant = 0
-//        self.profileView.frame = CGRect(x: 0, y: 0, w: ScreenSize.width, h: 250)
-        
         //Profile Name & Image setup
         self.lblUserNameAge.text = "\(UserDataModel.currentUser?.vName ?? ""), \(UserDataModel.currentUser?.tiAge ?? 0)"
         if UserDataModel.currentUser?.vProfileImage != "" {
@@ -213,13 +207,16 @@ class MenuViewController: UIViewController, MenuProtocol {
         let minutes: Int = (totalSeconds / 60) % 60
         return String(format: "%02d:%02d", minutes, seconds)
     }
+    
     @IBAction func btnLogOutAction(_ sender: UIButton) {
         self.showAlertView()
     }
+    
     @IBAction func btnEditProfileAction(_ sender: UIButton) {
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.EditProfileScreen) as! EditProfileViewController
         self.pushVC(controller)
     }
+    
     @IBAction func btnNotificationAction(_ sender: UIButton) {
         let controller = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.NotificationScreen)
         self.pushVC(controller)

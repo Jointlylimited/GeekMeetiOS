@@ -60,7 +60,6 @@ class MyLikesViewController: UIViewController, MyLikesProtocol {
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.registerTableViewCell()
@@ -123,7 +122,6 @@ extension MyLikesViewController : UITableViewDataSource, UITableViewDelegate {
         if let cell = cell as? MessageListCell {
             
             cell.btnChat.alpha = 0.0
-            
             if self.objMatchData.count != 0  {
                 let data = self.objMatchData[indexPath.row]
                 let url = URL(string:"\(data.vProfileImage!)")
@@ -138,16 +136,9 @@ extension MyLikesViewController : UITableViewDataSource, UITableViewDelegate {
                     obj.userName = data.vProfileName
                     obj.imageString = data.vProfileImage
                     obj.modalPresentationStyle = .fullScreen
-                    
                     self.pushVC(obj)
                 }
             }
-            
-//            if UserDataModel.currentUser?.tiIsSubscribed == 1 {
-//                cell.btnChat.alpha = 1
-//            } else {
-//                cell.btnChat.alpha = 0
-//            }
             cell.msgTime.alpha = 0.0
             cell.msgCount.alpha = 0.0
         }
@@ -156,17 +147,4 @@ extension MyLikesViewController : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
-    
-//    @available(iOS 11.0, *)
-//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-//        let deleteAction = UIContextualAction(style: .normal, title:  "", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-//            self.presenter?.callUnMatchUserAPI(iProfileId: "\(self.objMatchData[indexPath.row].vOtherUserXmpp!)")
-//            //whatever
-//            success(true)
-//        })
-//        let theImage: UIImage? = UIImage(named:"icn_unmatch")?.withRenderingMode(.alwaysOriginal)
-//        deleteAction.backgroundColor = #colorLiteral(red: 1, green: 0.8941176471, blue: 0.8941176471, alpha: 1)
-//        deleteAction.image = theImage
-//        return UISwipeActionsConfiguration(actions: [deleteAction])
-//    }
 }

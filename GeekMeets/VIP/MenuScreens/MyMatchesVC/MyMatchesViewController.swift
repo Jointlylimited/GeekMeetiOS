@@ -60,12 +60,10 @@ class MyMatchesViewController: UIViewController, MyMatchesProtocol {
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.registerTableViewCell()
         self.setStoryMsgViewData()
-        
     }
     
     func registerTableViewCell(){
@@ -75,6 +73,7 @@ class MyMatchesViewController: UIViewController, MyMatchesProtocol {
     func setStoryMsgViewData(){
         self.presenter?.callMatchListAPI()
     }
+    
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.popVC()
     }

@@ -69,18 +69,15 @@ class NotificationListViewController: UIViewController, NotificationListProtocol
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.registerTableViewCell()
-//        self.callBadgeCountAPI()
     }
 
     func registerTableViewCell(){
         self.objNotificationModel = [SocialMediaLinkModel(image: #imageLiteral(resourceName: "match"), title: "Match", link: "Test match user"), SocialMediaLinkModel(image: #imageLiteral(resourceName: "noti_boosts"), title: "Notification", link: "Test notification"), SocialMediaLinkModel(image: #imageLiteral(resourceName: "noti_Subscription"), title: "Boost", link: "Test boost user")]
         self.tblNotificationList.register(UINib.init(nibName: Cells.NotificationListCell, bundle: Bundle.main), forCellReuseIdentifier: Cells.NotificationListCell)
         self.callAPI()
-        
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
@@ -155,7 +152,6 @@ extension NotificationListViewController {
         if response.responseCode == 200 {
             loadMore.index = 0
             callAPI()
-//            callBadgeCountAPI()
         } else {
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }
@@ -184,7 +180,7 @@ extension NotificationListViewController : UITableViewDataSource, UITableViewDel
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.arrNotification.objNotificationList != nil ? self.arrNotification.objNotificationList.count : 0 //self.objNotificationModel.count
+        return self.arrNotification.objNotificationList != nil ? self.arrNotification.objNotificationList.count : 0 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
