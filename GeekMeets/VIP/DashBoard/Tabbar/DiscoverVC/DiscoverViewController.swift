@@ -155,6 +155,18 @@ extension DiscoverViewController{
                     self.TopStoryView.height = 141
                     self.tblDiscoverList.insertSubview(self.TopStoryView, at: 0)
                 }
+                
+                if self.objAllStoryArray == nil || self.objAllStoryArray?[0].count == 0 {
+                    self.tblDiscoverList.alpha = 0
+                    self.btnSearch.alpha = 0
+                    self.lblNoData.alpha = 1
+                } else {
+                    self.tblDiscoverList.alpha = 1
+                    self.btnSearch.alpha = 1
+                    self.lblNoData.alpha = 0
+                }
+                
+                
 //                self.objOwnStoryArray = self.objStoryArray!.filter({ (res1) -> Bool in
 //                    res1.filter({$0.iUserId == UserDataModel.currentUser?.iUserId})
 //                })
