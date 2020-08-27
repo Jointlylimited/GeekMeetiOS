@@ -157,7 +157,7 @@ extension HomeViewController {
             self.objCardArray.arrUserCardList = response.responseData
             setCards()
         } else {
-            AppSingleton.sharedInstance().showAlert("No other profiles available", okTitle: "OK")
+            AppSingleton.sharedInstance().showAlert(kNoProfile, okTitle: "OK")
         }
     }
     

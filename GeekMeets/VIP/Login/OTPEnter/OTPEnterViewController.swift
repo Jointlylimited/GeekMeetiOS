@@ -96,7 +96,7 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
             self.navigationController?.isNavigationBarHidden = true
         } else {
             self.navigationController?.isNavigationBarHidden = false
-            
+
         }
     }
     
@@ -112,10 +112,6 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
         print(signUpParams)
         self.navigationController?.isNavigationBarHidden = false
         self.navigationItem.leftBarButtonItem = leftSideBackBarButton
-        let range = (btnResend!.currentTitle! as NSString).range(of: "Resend")
-        let attributedString = NSMutableAttributedString(string:(btnResend?.currentTitle)!)
-        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: AppCommonColor.pinkColor , range: range)
-        btnResend?.setAttributedTitle(attributedString, for: .normal)
         
         btnVerifyOTP.isHidden = true
         otpContainerView.addSubview(otpStackView)
@@ -146,6 +142,14 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
         //nameTextField.text = viewModel.name
     }
     
+    func enableResendButton(){
+        self.btnResend.isUserInteractionEnabled = true
+        let range = (btnResend!.currentTitle! as NSString).range(of: "Resend")
+        let attributedString = NSMutableAttributedString(string:(btnResend?.currentTitle)!)
+        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: AppCommonColor.pinkColor , range: range)
+        btnResend?.setAttributedTitle(attributedString, for: .normal)
+    }
+    
     private func startTimer() {
         self.totalTime = 60
         self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
@@ -158,8 +162,7 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
             totalTime -= 1
         } else {
             if let timer = self.timer {
-                self.btnResend.isUserInteractionEnabled = true
-                
+                self.enableResendButton()
                 timer.invalidate()
                 self.timer = nil
             }

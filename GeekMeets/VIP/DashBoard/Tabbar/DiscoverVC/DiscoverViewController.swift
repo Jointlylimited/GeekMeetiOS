@@ -109,11 +109,16 @@ class DiscoverViewController: UIViewController, DiscoverProtocol {
     }
 
     @IBAction func btnSearchAction(_ sender: UIButton) {
+        let searchVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.SearchScreen) as? SearchProfileViewController
         if self.objStoryArray != nil && self.objStoryArray?[0].count != 0 {
-            let searchVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.SearchScreen) as? SearchProfileViewController
             searchVC?.objStoryData = self.objStoryArray!
             searchVC?.isFromDiscover = true
             self.pushVC(searchVC!)
+        } else if self.objAllStoryArray != nil && self.objAllStoryArray?[0].count != 0 {
+            searchVC?.objStoryData = self.objAllStoryArray!
+            searchVC?.isFromDiscover = true
+            self.pushVC(searchVC!)
+        } else {
         }
     }
     

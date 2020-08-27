@@ -160,6 +160,7 @@ extension NotificationListViewController {
         self.objNotificationModel.removeAll()
         self.tblNotificationList.reloadData()
         self.popVC()
+        AppSingleton.sharedInstance().showAlert(kClearNotification, okTitle: "OK")
     }
     
     func callBadgeCountAPI(){

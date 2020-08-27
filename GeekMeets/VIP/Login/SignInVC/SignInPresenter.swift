@@ -67,11 +67,6 @@ class SignInPresenter: SignInPresentationProtocol {
             UserDataModel.setAuthKey(key: (response.responseData?.vAuthKey)!)
             Authentication.setSignUpFlowStatus(response.responseData!.tiStep!)
             self.setScreenAsPerLoginStatus(status: response.responseData!.tiStep!)
-            let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter)
-            if let view = self.viewController as? UIViewController
-            {
-                view.pushVC(controller)
-            }
         }  else if response.responseCode == 401 {
             self.viewController?.showAlertView()
         } else {
@@ -134,7 +129,6 @@ class SignInPresenter: SignInPresentationProtocol {
     }
     
     func setScreenAsPerLoginStatus(status : Int) {
-        Authentication.setLoggedInStatus(true)
         AppSingleton.sharedInstance().chatBoxLogin()
         
         if status == 0 {
@@ -156,6 +150,7 @@ class SignInPresenter: SignInPresentationProtocol {
                 view.pushVC(controller)
             }
         } else if status == 3 {
+            Authentication.setLoggedInStatus(true)
             let controller = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange)
             if let view = self.viewController as? UIViewController
             {

@@ -104,7 +104,7 @@ class SignInViewController: UIViewController,SignInProtocol
     }
     
     func showAlertView() {
-        alertView = CustomAlertView.initAlertView(title: "Verify Email", message: "Your email address is not verified please verify your email address", btnRightStr: "Resend Link", btnCancelStr: "Cancel", btnCenter: "", isSingleButton: false)
+        alertView = CustomAlertView.initAlertView(title: kVerifyEmail, message: kNotVerifyMail, btnRightStr: kResendLink, btnCancelStr: kTitleCancel, btnCenter: "", isSingleButton: false)
         alertView.delegate = self
         alertView.frame = self.view.frame
         AppDelObj.window?.addSubview(alertView)
@@ -118,8 +118,8 @@ extension SignInViewController
     {
         /*let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.UserProfile) as! UserProfileViewController
          self.pushVC(controller)*/
-        //        Crashlytics.sharedInstance().crash()
-        //        self.presenter?.gotoHomeScreen()
+//                Crashlytics.sharedInstance().crash()
+//        self.presenter?.gotoHomeScreen()
         self.presenter?.callSignInAPI(tfEmail.text ?? "", password: tfPassword.text ?? "")
     }
     

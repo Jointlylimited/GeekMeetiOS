@@ -200,6 +200,7 @@ extension EditPreferenceViewController {
             UserDataModel.UserPreferenceResponse = response
             let discVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.DiscoverySettingScreen)
             self.pop(toLast: discVC.classForCoder)
+            AppSingleton.sharedInstance().showAlert(kPreferenceUpdate, okTitle: "OK")
         }
     }
 }

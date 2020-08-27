@@ -60,9 +60,16 @@ class AccountSettingViewController: UIViewController, AccountSettingProtocol {
         self.registerTableViewCell()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setAccountDetails()
+    }
     func registerTableViewCell(){
         self.tblAccountList.register(UINib.init(nibName: Cells.CommonTblListCell, bundle: Bundle.main), forCellReuseIdentifier: Cells.CommonTblListCell)
-        
+        setAccountDetails()
+    }
+    
+    func setAccountDetails(){
         self.objAccountData = [CommonCellModel(title: "Mobile Number", description: "\(UserDataModel.currentUser?.vCountryCode ?? "")  \(UserDataModel.currentUser?.vPhone ?? "")", isDescAvailable: true), CommonCellModel(title: "Email Address", description: "\(UserDataModel.currentUser?.vEmail ?? "")", isDescAvailable: true), CommonCellModel(title: "Change Password", description: "", isDescAvailable: false)]
     }
     

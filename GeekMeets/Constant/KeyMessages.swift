@@ -78,6 +78,12 @@ let kUnMatchBtnStr = "Un-match"
 let kNotificationCount = "notificationCount"
 let kMatchesCount = "MatchesCount"
 let kPushStatus = "PushStatus"
+let kVerifyEmail = "Verify Email"
+let kNotVerifyMail = "Your email address is not verified please verify your email address"
+let kResendLink = "Resend Link"
+let kClearNotification = "You had successfully cleared all notifications."
+let kPreferenceUpdate = "Preference updated successfuly."
+let kNoProfile = "No other profiles available"
 //AppName
 let appName = Bundle.main.infoDictionary!["CFBundleName"] as! String
 
