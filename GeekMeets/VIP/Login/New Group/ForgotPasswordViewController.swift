@@ -23,8 +23,8 @@ class ForgotPasswordViewController: UIViewController, ForgotPasswordProtocol {
     
     @IBOutlet weak var btnSend: GradientButton!
     @IBOutlet weak var tfEmail: BottomBorderTF!
-    // MARK: Object lifecycle
     
+    // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -36,7 +36,6 @@ class ForgotPasswordViewController: UIViewController, ForgotPasswordProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = ForgotPasswordInteractor()
@@ -56,11 +55,11 @@ class ForgotPasswordViewController: UIViewController, ForgotPasswordProtocol {
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         doSomething()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
@@ -80,7 +79,6 @@ extension ForgotPasswordViewController{
 }
 
 extension ForgotPasswordViewController{
-    
     func displayAlert(strTitle : String, strMessage : String) {
         self.showAlert(title: strTitle, message: strMessage)
     }

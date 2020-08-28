@@ -19,12 +19,9 @@ protocol SignInProtocol: class{
     func showAlertView()
 }
 
-
 //MARK:-
-
 class SignInViewController: UIViewController,SignInProtocol
 {
-    
     //var interactor : SignInInteractorProtocol?
     var presenter : SignInPresentationProtocol?
     
@@ -33,10 +30,10 @@ class SignInViewController: UIViewController,SignInProtocol
     @IBOutlet weak var btnSignUp : UIButton?
     @IBOutlet weak var btnForgot: UIButton!
     @IBOutlet weak var btnSignIn: GradientButton!
-    // MARK:- Object lifecycle
     
     var alertView: CustomAlertView!
     
+    // MARK:- Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -48,7 +45,6 @@ class SignInViewController: UIViewController,SignInProtocol
     }
     
     // MARK:- Setup
-    
     private func setup() {
         let viewController = self
         let interactor = SignInInteractor()
@@ -68,7 +64,6 @@ class SignInViewController: UIViewController,SignInProtocol
     
     
     // MARK:- View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         doSomething()
@@ -86,6 +81,11 @@ class SignInViewController: UIViewController,SignInProtocol
         btnSignUp?.addTarget(self, action:#selector(clickOnSignUpBtn) , for: .touchUpInside)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
     override func viewDidAppear(_ animated: Bool)
     {
         super.viewDidAppear(animated)
@@ -99,8 +99,14 @@ class SignInViewController: UIViewController,SignInProtocol
         self.showAlert(title: strTitle, message: strMessage)
     }
     
-    @objc func clickOnSignUpBtn(){
+    @IBAction func btnBackAction(_ sender: UIButton) {
         self.popVC()
+    }
+    
+    @objc func clickOnSignUpBtn(){
+        let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.SignUpScreen) as! SignUpVCViewController
+        controller.socialType = false
+        self.pushVC(controller)
     }
     
     func showAlertView() {

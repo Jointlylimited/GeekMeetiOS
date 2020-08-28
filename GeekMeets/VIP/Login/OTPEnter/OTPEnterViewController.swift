@@ -13,7 +13,6 @@
 import UIKit
 
 protocol OTPEnterProtocol: class {
-    func displaySomething()
     func getVerifyOTPResponse(response : UserAuthResponse)
     func getResendOTPResponse(response : CommonResponse)
     func getNewVerifyOTPResponse(response : UserAuthResponse)
@@ -53,7 +52,6 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     var strNewPhoneNumber : String = ""
     
     // MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -65,7 +63,6 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = OTPEnterInteractor()
@@ -138,15 +135,19 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
         
     }
     
-    func displaySomething() {
-        //nameTextField.text = viewModel.name
-    }
-    
     func enableResendButton(){
         self.btnResend.isUserInteractionEnabled = true
         let range = (btnResend!.currentTitle! as NSString).range(of: "Resend")
         let attributedString = NSMutableAttributedString(string:(btnResend?.currentTitle)!)
         attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: AppCommonColor.pinkColor , range: range)
+        btnResend?.setAttributedTitle(attributedString, for: .normal)
+    }
+    
+    func disableResendButton(){
+        self.btnResend.isUserInteractionEnabled = false
+        let range = (btnResend!.currentTitle! as NSString).range(of: "Resend")
+        let attributedString = NSMutableAttributedString(string:(btnResend?.currentTitle)!)
+        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: AppCommonColor.customColor , range: range)
         btnResend?.setAttributedTitle(attributedString, for: .normal)
     }
     
@@ -183,10 +184,6 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     
     @IBAction func actionEditMobileNumber(_ sender: Any) {
         self.popVC()
-        /*  displayAlert(strTitle : "", strMessage : "Now you can Edit phone number")
-         btnCountrycode.isUserInteractionEnabled = true
-         tfMobileNumber.isUserInteractionEnabled = true*/
-        
     }
     
     @IBAction func actionSelectCountryCode(_ sender: Any) {
@@ -199,14 +196,12 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     {
         strCountryCode = country.dialingCode!
         btnCountrycode.setTitle(country.dialingCode, for: .normal)
-        //          btnCountryCode.setImage(country.flag?.resizeImage(targetSize:  CGSize(width: btnCountryCode.frame.height / 2, height: btnCountryCode.frame.height / 2)).withRenderingMode(.alwaysOriginal), for: .normal)
     }
     
     @IBAction func actionVerifyOTP(_ sender: Any) {
         btnCountrycode.isUserInteractionEnabled = false
         tfMobileNumber.isUserInteractionEnabled = false
         if !isFromNewMobile {
-            //        strPhonenumber = tfMobileNumber.text
             print("Final OTP : ",otpStackView.getOTP())
             otpStackView.setAllFieldColor(isWarningColor: true, color: .yellow)
             self.presenter?.callVerifyOTPAPI(iOTP : otpStackView.getOTP(),vCountryCode : strCountryCode,vPhone : strPhonenumber ?? "7567173373", signUpParams : signUpParams)
@@ -221,13 +216,11 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     {
         btnCountrycode.isUserInteractionEnabled = false
         tfMobileNumber.isUserInteractionEnabled = false
-        //      strPhonenumber = tfMobileNumber.text
         otpStackView.clearTextField()
         self.presenter?.callResendOTPAPI(vCountryCode : strCountryCode ,vPhone : strPhonenumber ?? "7567173373")
     }
     
     func displayAlert(strTitle : String, strMessage : String) {
-        //nameTextField.text = viewModel.name
         self.showAlert(title: strTitle, message: strMessage)
     }
 }
@@ -255,7 +248,7 @@ extension OTPEnterViewController {
     func getResendOTPResponse(response: CommonResponse) {
         if response.responseCode == 200  {
             startTimer()
-            btnResend.isUserInteractionEnabled = false
+            disableResendButton()
         }
         self.displayAlert(strTitle: "", strMessage: response.responseMessage!)
     }

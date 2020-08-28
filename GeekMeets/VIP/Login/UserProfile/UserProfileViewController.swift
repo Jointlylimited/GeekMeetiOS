@@ -47,7 +47,6 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
     @IBOutlet weak var datePicker: UIDatePicker!
     
     // MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -59,7 +58,6 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = UserProfileInteractor()
@@ -79,7 +77,6 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         doSomething()
@@ -124,7 +121,6 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
     }
     
     @IBAction func btnSelectGender(sender:UIButton){
-        
         let buttonArray = [btnMale,btnFemale,btnOther,btnPreferNottoSay]
         buttonArray.forEach{
             

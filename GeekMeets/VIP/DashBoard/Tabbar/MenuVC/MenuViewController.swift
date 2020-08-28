@@ -320,19 +320,19 @@ extension MenuViewController : UITableViewDataSource, UITableViewDelegate {
             if indexPath.row == 6 {
                 if UserDataModel.currentUser?.tiIsAcceptPush == 1 {
                     self.presenter?.callPushStatusAPI(tiIsAcceptPush : "0")
-                    cell.btnRight.isSelected = false
+//                    cell.btnRight.isSelected = false
                 } else {
                     self.presenter?.callPushStatusAPI(tiIsAcceptPush : "1")
-                    cell.btnRight.isSelected = true
+//                    cell.btnRight.isSelected = true
                 }
             }
             if indexPath.row == 7 {
                 if UserDataModel.currentUser?.tiIsLocationOn == 1 {
                     self.getUserCurrentLocation(tiIsLocationOn: "0")
-                    cell.btnRight.isSelected = false
+//                    cell.btnRight.isSelected = false
                 } else {
                     self.getUserCurrentLocation(tiIsLocationOn: "1")
-                    cell.btnRight.isSelected = true
+//                    cell.btnRight.isSelected = true
                 }
             }
         }
@@ -407,6 +407,7 @@ extension MenuViewController {
     func callUpdateLocationAPI(fLatitude : String, fLongitude : String, tiIsLocationOn : String){
         self.presenter?.callUpdateLocationAPI(fLatitude: fLatitude, fLongitude: fLongitude, tiIsLocationOn: tiIsLocationOn)
     }
+    
     func getLocationUpdateResponse(response : UserAuthResponse){
         if response.responseCode == 200 {
             UserDataModel.currentUser?.tiIsLocationOn = response.responseData?.tiIsLocationOn
@@ -424,7 +425,7 @@ extension MenuViewController {
     }
     
     func showAlertView() {
-        alertView = CustomAlertView.initAlertView(title: "Logout", message: "Are you sure you want to Logout?", btnRightStr: "Logout", btnCancelStr: "Cancel", btnCenter: "", isSingleButton: false)
+        alertView = CustomAlertView.initAlertView(title: kLogout, message: kLogoutStr, btnRightStr: kLogout, btnCancelStr: kTitleCancel, btnCenter: "", isSingleButton: false)
         alertView.delegate = self
         alertView.frame = self.view.frame
         AppDelObj.window?.addSubview(alertView)

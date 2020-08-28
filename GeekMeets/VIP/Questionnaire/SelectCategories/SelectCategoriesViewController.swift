@@ -13,7 +13,6 @@
 import UIKit
 
 protocol SelectCategoriesProtocol: class {
-    func displaySomething()
     func displayQuesionsData(Data : [QuestionnaireModel])
 }
 
@@ -22,7 +21,7 @@ class SelectCategoriesViewController: UIViewController, SelectCategoriesProtocol
     var presenter : SelectCategoriesPresentationProtocol?
     var arrQuestionnaire:[QuestionnaireModel] = []
     var arrCategoriesSelected:[Int] = [0]
-          
+    
     @IBOutlet weak var clnSelectCategories: UICollectionView!
     // MARK: Object lifecycle
     
@@ -57,94 +56,84 @@ class SelectCategoriesViewController: UIViewController, SelectCategoriesProtocol
     
     
     // MARK: View lifecycle
-        
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            doSomething()
-        }
-        
-        // MARK: Do something
-        
-        //@IBOutlet weak var nameTextField: UITextField!
-        
-        func doSomething() {
-             self.navigationController?.isNavigationBarHidden = true
-          self.presenter?.callQuestionnaireRequest()
-        }
-        
-        func displaySomething() {
-            //nameTextField.text = viewModel.name
-        }
-        func displayQuesionsData(Data: [QuestionnaireModel]) {
-            print(Data)
-            arrQuestionnaire = Data
-            print( arrQuestionnaire[0].response_set?.response_option?[3].name!)
-        }
-      
-      //MARK: IBAction Method
-      
-        @IBAction func actionContinues(_ sender: Any) {
-               self.presenter?.actionContinue()
-         }
-        @IBAction func actionSkip(_ sender: Any) {
-               self.presenter?.actionSkip()
-         }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        doSomething()
+    }
+    
+    // MARK: Do something
+    func doSomething() {
+        self.navigationController?.isNavigationBarHidden = true
+        self.presenter?.callQuestionnaireRequest()
     }
 
+    func displayQuesionsData(Data: [QuestionnaireModel]) {
+        print(Data)
+        arrQuestionnaire = Data
+        print( arrQuestionnaire[0].response_set?.response_option?[3].name!)
+    }
+    
+    //MARK: IBAction Method
+    @IBAction func actionContinues(_ sender: Any) {
+        self.presenter?.actionContinue()
+    }
+    
+    @IBAction func actionSkip(_ sender: Any) {
+        self.presenter?.actionSkip()
+    }
+}
 
-
-    //MARK:UICollectionview
-
-    extension SelectCategoriesViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,SelectCategoriesDelegate
+//MARK:UICollectionview
+extension SelectCategoriesViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,SelectCategoriesDelegate
+{
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return arrQuestionnaire[0].response_set?.response_option?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
-      
-        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-          return arrQuestionnaire[0].response_set?.response_option?.count ?? 0
-        }
+        let cell : SelectCategoriesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectCategoriesCell", for: indexPath) as! SelectCategoriesCell
+        cell.delegate = self
+        cell.indexPath = indexPath
+        cell.btnSelectCategories.setTitle(arrQuestionnaire[0].response_set?.response_option?[indexPath.row].name!, for: .normal)
+        cell.btnSelectCategories.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+        cell.btnSelectCategories.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5), for: .normal)
         
-        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
-        {
-            let cell : SelectCategoriesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectCategoriesCell", for: indexPath) as! SelectCategoriesCell
-            cell.delegate = self
-            cell.indexPath = indexPath
-            cell.btnSelectCategories.setTitle(arrQuestionnaire[0].response_set?.response_option?[indexPath.row].name!, for: .normal)
-            cell.btnSelectCategories.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
-            cell.btnSelectCategories.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5), for: .normal)
-          if arrCategoriesSelected.contains(indexPath.row) {
+        if arrCategoriesSelected.contains(indexPath.row) {
             cell.btnSelectCategories.layer.borderColor = #colorLiteral(red: 0.7098039216, green: 0.3254901961, blue: 0.8941176471, alpha: 1)
             cell.btnSelectCategories.setTitleColor(#colorLiteral(red: 0.7098039216, green: 0.3254901961, blue: 0.8941176471, alpha: 1), for: .normal)
-          }
-              return cell
         }
-        
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-          let yourWidth = collectionView.bounds.width/3.0
-          let yourHeight = CGFloat(50)
-          return CGSize(width: yourWidth, height: yourHeight)
-        }
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-            return UIEdgeInsets.zero
-        }
-
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-          
-            return 0
-          
-        }
-
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-            return 0
-        }
-       
-        func actionSelectCategories(at index: IndexPath) {
-          if arrCategoriesSelected.contains(index.row){
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let yourWidth = collectionView.bounds.width/3.0
+        let yourHeight = CGFloat(50)
+        return CGSize(width: yourWidth, height: yourHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets.zero
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func actionSelectCategories(at index: IndexPath) {
+        if arrCategoriesSelected.contains(index.row){
             if let index = arrCategoriesSelected.index(of: index.row) {
                 arrCategoriesSelected.remove(at: index)
             }
-          }else{
-          arrCategoriesSelected.append(index.row)
-          }
-          clnSelectCategories.reloadData()
+        } else {
+            arrCategoriesSelected.append(index.row)
         }
+        clnSelectCategories.reloadData()
     }
+}
 

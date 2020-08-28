@@ -60,14 +60,13 @@ class OTPEnterPresenter: OTPEnterPresentationProtocol {
         self.viewController?.getResendOTPResponse(response: response)
     }
     func getVerifyOTPResponse(response : UserAuthResponse) {
-        UserDataModel.currentUser = response.responseData
+//        UserDataModel.currentUser = response.responseData
         if response.responseCode == 400{
             self.viewController?.getVerifyOTPResponse(response: response)
         }else{
             Authentication.setSignUpFlowStatus(response.responseData!.tiStep!)
             //        self.viewController?.getForgotPasswordResponse(response: response)
             self.actionVerifyOTP()
-            
         }
     }
     

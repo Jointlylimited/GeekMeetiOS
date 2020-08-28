@@ -84,6 +84,8 @@ let kResendLink = "Resend Link"
 let kClearNotification = "You had successfully cleared all notifications."
 let kPreferenceUpdate = "Preference updated successfuly."
 let kNoProfile = "No other profiles available"
+let kLogout = "Logout"
+let kLogoutStr = "Are you sure you want to Logout?"
 //AppName
 let appName = Bundle.main.infoDictionary!["CFBundleName"] as! String
 

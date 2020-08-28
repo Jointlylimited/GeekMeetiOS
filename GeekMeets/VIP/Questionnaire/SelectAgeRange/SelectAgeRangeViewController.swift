@@ -85,7 +85,6 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()

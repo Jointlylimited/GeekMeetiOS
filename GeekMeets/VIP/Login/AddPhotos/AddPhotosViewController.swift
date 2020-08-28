@@ -40,7 +40,6 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
     }
     
     // MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -52,7 +51,6 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = AddPhotosInteractor()
@@ -72,7 +70,6 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         doSomething()

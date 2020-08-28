@@ -49,7 +49,6 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = SignUpVCInteractor()
@@ -69,7 +68,6 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         doSomething()
@@ -119,7 +117,6 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
     func setCountryPickerData(_ country : Country)
     {
         btnCountrycode.setTitle(country.dialingCode, for: .normal)
-        //          btnCountryCode.setImage(country.flag?.resizeImage(targetSize:  CGSize(width: btnCountryCode.frame.height / 2, height: btnCountryCode.frame.height / 2)).withRenderingMode(.alwaysOriginal), for: .normal)
     }
     
     //MARK: IBAction Method
@@ -128,7 +125,6 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
     }
     
     @IBAction func actionContinue(_ sender: Any) {
-        
         let params = RequestParameter.sharedInstance().signUpParam(vEmail: tfEmailAddress.text ?? "", vPassword: tfPassword?.text ?? "", vConfirmPassword : tfConfirmPassword.text ?? "", vCountryCode: btnCountrycode.titleLabel?.text ?? "", vPhone: tfMobileNumber.text ?? "", termsChecked : termsChecked, vSocialId : (UserDataModel.currentUser == nil || UserDataModel.currentUser?.tiIsSocialLogin == nil) ? "" : (UserDataModel.currentUser?.vSocialId!)!, vLiveIn : vLiveIn, fLatitude : self.location != nil ? "\(self.location?.coordinate.latitude ?? 0.0)" : "0.0", fLongitude: self.location != nil ? "\(self.location?.coordinate.longitude ?? 0.0)" : "0.0", tiIsSocialLogin : UserDataModel.currentUser?.tiIsAdmin == 1 ? "0" : ((UserDataModel.currentUser == nil || UserDataModel.currentUser?.tiIsSocialLogin == nil) ? "0" : "1"))
         
         self.presenter?.callSignUpRequest(signUpParams: params, tiIsLocationOn : self.location != nil ? "1" : "0")
@@ -218,7 +214,6 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
                     print(addressString)
                 }
         })
-        
     }
 }
 
