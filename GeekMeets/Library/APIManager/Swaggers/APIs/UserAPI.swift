@@ -1505,7 +1505,7 @@ open class UserAPI {
         let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
 
         let requestBuilder: RequestBuilder<SwipeUser>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
-
+        print("URL : \(URLString), \nHeader Parameter : \(headerParameters), \nParameters : \(parameters!)")
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
     }
 

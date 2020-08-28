@@ -12,7 +12,7 @@ import KissXML
 import CoreData
 import CFNetwork
 
-private let Xmpp_Host = "dev1.spaceo.in" // 172.16.18.97
+private let Xmpp_Host = "dev1.spaceo.in" //Live : "3.129.31.9"  // Local : 172.16.18.97
 private let Xmpp_Port: UInt16 = 5222
 
 private let Xmpp_MyDomain: String = "@localhost"
