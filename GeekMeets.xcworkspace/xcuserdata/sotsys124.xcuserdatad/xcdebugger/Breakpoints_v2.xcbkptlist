@@ -135,22 +135,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7F5DDC76-AC19-4DAB-BF6C-7FDF0DDD227E"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GeekMeets/VIP/DashBoard/Tabbar/MenuVC/MenuInteractor.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "callPushStatusAPI(tiIsAcceptPush:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "1BFBF353-6F72-45CC-9A58-D4AAA1762C97"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -273,38 +257,6 @@
             startingLineNumber = "662"
             endingLineNumber = "662"
             landmarkName = "locationUpdateWithRequestBuilder(nonce:timestamp:token:authorization:vDeviceToken:fLatitude:fLongitude:tiIsLocationOn:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2E83995A-6B57-4DDF-BF35-4A81A2011CED"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GeekMeets/Library/APIManager/Swaggers/APIs/UserAPI.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "948"
-            endingLineNumber = "948"
-            landmarkName = "setPushStatusWithRequestBuilder(nonce:timestamp:token:authorization:vDeviceToken:tiIsAcceptPush:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E43E3467-0DF6-4BB1-A354-C42D9457F81C"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GeekMeets/VIP/Login/OTPEnter/OTPEnterInteractor.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
-            landmarkName = "callVerifyOTPAPI(iOTP:vCountryCode:vPhone:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
