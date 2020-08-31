@@ -41,6 +41,9 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
             if response?.responseCode == 200 {
                 print((response?.responseData!)!)
                 self.presenter?.getUserProfileResponse(response: (response?.responseData!)!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.presenter?.getUserProfileResponse(response: (response?.responseData!)!)
             }  else {
@@ -60,6 +63,9 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
 //            LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.presenter?.getStoryListResponse(response: response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.presenter?.getStoryListResponse(response: response!)
             }  else {
@@ -79,6 +85,9 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
             LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.presenter?.getBlockUserResponse(response: response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.presenter?.getBlockUserResponse(response: response!)
             }  else {
@@ -99,6 +108,9 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
             LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.presenter?.getBlockUserListResponse(response: response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.presenter?.getBlockUserListResponse(response: response!)
             }  else {
@@ -119,6 +131,9 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
             LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.presenter?.getReactEmojiResponse(response: response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.presenter?.getReactEmojiResponse(response: response!)
             }  else {
@@ -143,6 +158,7 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
                 self.presenter?.getSwipeCardResponse(response : response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
             } else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")

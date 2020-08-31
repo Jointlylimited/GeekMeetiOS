@@ -1138,6 +1138,9 @@ extension OneToOneChatVC {
             LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.getUnMatchResponse(response: response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.getUnMatchResponse(response: response!)
             }  else {
@@ -1215,6 +1218,7 @@ extension OneToOneChatVC {
                 self.getBlockUserListResponse(response : response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
             } else {
                 if error != nil {
 //                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")

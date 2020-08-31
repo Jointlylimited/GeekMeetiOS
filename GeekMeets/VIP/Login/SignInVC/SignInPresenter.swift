@@ -59,11 +59,13 @@ class SignInPresenter: SignInPresentationProtocol {
        
         if response.responseCode == 200 {
             UserDataModel.currentUser = response.responseData
+            UserDataModel.currentUser = UserDataModel.lastLoginUser
             UserDataModel.setAuthKey(key: (response.responseData?.vAuthKey)!)
             Authentication.setSignUpFlowStatus(response.responseData!.tiStep!)
             self.setScreenAsPerLoginStatus(status: response.responseData!.tiStep!)
         } else if response.responseCode == 203 {
             UserDataModel.currentUser = response.responseData
+            UserDataModel.currentUser = UserDataModel.lastLoginUser
             UserDataModel.setAuthKey(key: (response.responseData?.vAuthKey)!)
             Authentication.setSignUpFlowStatus(response.responseData!.tiStep!)
             self.setScreenAsPerLoginStatus(status: response.responseData!.tiStep!)
@@ -138,12 +140,14 @@ class SignInPresenter: SignInPresentationProtocol {
                 view.pushVC(controller)
             }
         } else if status == 1 {
+            Authentication.setLoggedInStatus(true)
             let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter) as? OTPEnterViewController
             if let view = self.viewController as? UIViewController
             {
                 view.pushVC(controller!)
             }
         } else if status == 2 {
+            Authentication.setLoggedInStatus(true)
             let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.UserProfile) as! UserProfileViewController
             if let view = self.viewController as? UIViewController
             {

@@ -312,6 +312,12 @@ class AppSingleton: NSObject {
         
     func moveToLogeedInScreen(){
         
+        UserDataModel.currentUser = UserDataModel.lastLoginUser
+        if UserDataModel.currentUser == nil {
+            logout()
+            return
+        }
+        
         if Authentication.getSignUpFlowStatus() == 0 {
             let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.SignUpScreen)
             let navController = UINavigationController.init(rootViewController: controller)

@@ -95,21 +95,22 @@ class AddPhotosInteractor: AddPhotosInteractorProtocol, AddPhotosDataStore {
             LoaderView.sharedInstance.showLoader()
         }
         UserAPI.signUpInfo(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iUserId: "\(UserDataModel.currentUser?.iUserId ?? 1)", vName: signParams["vName"]!, dDob: signParams["dDob"]!, tiAge: signParams["tiAge"]!, tiGender: UserAPI.TiGender_signUpInfo(rawValue: signParams["tiGender"]!)!, iCurrentStatus: UserAPI.ICurrentStatus_signUpInfo(rawValue: signParams["iCurrentStatus"]!)!, txCompanyDetail: signParams["txCompanyDetail"]!, txAbout: signParams["txAbout"]!, photos: signParams["photos"]!, vProfileImage: signParams["vProfileImage"]!) { (response, error) in
-               
-//            DispatchQueue.main.async {
-                LoaderView.sharedInstance.hideLoader()
-//            }
-               if response?.responseCode == 200 {
-                   self.presenter?.getSignUpResponse(response : response!)
-               } else if response?.responseCode == 203 {
-                   AppSingleton.sharedInstance().logout()
-               } else {
-                   if error != nil {
-                       AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
-                   } else {
-                       AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
-                   }
-               }
-           }
-       }
+            
+            //            DispatchQueue.main.async {
+            LoaderView.sharedInstance.hideLoader()
+            //            }
+            if response?.responseCode == 200 {
+                self.presenter?.getSignUpResponse(response : response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+            } else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+                }
+            }
+        }
+    }
 }

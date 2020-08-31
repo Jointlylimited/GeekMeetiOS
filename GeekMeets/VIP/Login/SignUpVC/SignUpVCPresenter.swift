@@ -100,6 +100,7 @@ class SignUpVCPresenter: SignUpVCPresentationProtocol {
     func getEmailAvailResponse(response : UserAuthResponse) {
         if response.responseCode == 200 {
             UserDataModel.currentUser = response.responseData
+            UserDataModel.currentUser = UserDataModel.lastLoginUser
             self.actionContinue(signUpParams: self.signUpParams!)
         }
     }
@@ -119,6 +120,7 @@ class SignUpVCPresenter: SignUpVCPresentationProtocol {
     
     func getNormalSignupResponse(response : UserAuthResponse) {
         UserDataModel.currentUser = response.responseData
+        UserDataModel.currentUser = UserDataModel.lastLoginUser
         Authentication.setSignUpFlowStatus(response.responseData!.tiStep!)
         
         UserDataModel.setAuthKey(key: (response.responseData?.vAuthKey)!)

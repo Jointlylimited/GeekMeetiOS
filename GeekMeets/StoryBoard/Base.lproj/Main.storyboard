@@ -1031,8 +1031,11 @@
                         <outlet property="btnFacebook" destination="Q6c-rE-nt2" id="cSB-qg-Vrv"/>
                         <outlet property="btnInstagram" destination="HY7-WO-GHv" id="sr1-1r-5Sy"/>
                         <outlet property="btnLogin" destination="NGz-XM-qNv" id="Khn-7r-fad"/>
+                        <outlet property="btnSTackTrailingConstraint" destination="NLv-JR-Kkd" id="13J-3z-pMH"/>
                         <outlet property="btnSignUpWithGoogle" destination="gsa-m9-hAQ" id="kId-7S-tGz"/>
                         <outlet property="btnSnapchat" destination="LjS-2u-mTL" id="QuK-u1-Ad3"/>
+                        <outlet property="btnStackLeadingConstraint" destination="mZo-NM-765" id="ADv-Ea-Hee"/>
+                        <outlet property="buttonStackView" destination="eaV-Xh-Akv" id="iww-mo-8Ep"/>
                         <outlet property="lblPrivacyTerm" destination="yHC-qn-ZSq" id="Gus-IL-4Ii"/>
                     </connections>
                 </viewController>

@@ -97,16 +97,17 @@ class EditProfileInteractor: EditProfileInteractorProtocol, EditProfileDataStore
                 LoaderView.sharedInstance.hideLoader()
             }
             if response?.responseCode == 200 {
-                          self.presenter?.getEditProfileResponse(response: response!)
-                      } else if response?.responseCode == 203 {
-                          AppSingleton.sharedInstance().logout()
-                      }  else {
-                          if error != nil {
-                              AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
-                          } else {
-                              AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
-                          }
-                      }
+                self.presenter?.getEditProfileResponse(response: response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+                }
+            }
         }
     }
 }

@@ -39,6 +39,7 @@ class AddPhotosPresenter: AddPhotosPresentationProtocol {
     func getSignUpResponse(response : UserAuthResponse) {
         
         UserDataModel.currentUser = response.responseData
+        UserDataModel.currentUser = UserDataModel.lastLoginUser
         UserDataModel.setAuthKey(key: (response.responseData?.vAuthKey)!)
         Authentication.setSignUpFlowStatus(response.responseData!.tiStep!)
         Authentication.setSwipeStatus(10)

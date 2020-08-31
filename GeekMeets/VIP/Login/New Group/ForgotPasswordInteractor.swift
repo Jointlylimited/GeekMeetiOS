@@ -29,11 +29,15 @@ class ForgotPasswordInteractor: ForgotPasswordInteractorProtocol, ForgotPassword
         LoaderView.sharedInstance.showLoader()
         UserAPI.forgotPassword(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, vEmail: email) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
+            
             if response?.responseCode == 200 {
                 self.presenter?.getForgotPasswordResponse(response: response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
             }  else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")

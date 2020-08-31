@@ -38,6 +38,7 @@ class EditPreferenceInteractor: EditPreferenceInteractorProtocol, EditPreference
                     self.presenter?.getPostPreferenceResponse(response : response!)
                 } else if response?.responseCode == 203 {
                     AppSingleton.sharedInstance().logout()
+                    AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
                 } else {
                     if error != nil {
                         AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
@@ -57,6 +58,7 @@ class EditPreferenceInteractor: EditPreferenceInteractorProtocol, EditPreference
                     self.presenter?.getPostPreferenceResponse(response : response!)
                 } else if response?.responseCode == 203 {
                     AppSingleton.sharedInstance().logout()
+                    AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
                 } else {
                     if error != nil {
                         AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
@@ -79,6 +81,7 @@ class EditPreferenceInteractor: EditPreferenceInteractorProtocol, EditPreference
                 self.presenter?.getQuestionaryResponse(response : response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
             } else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")

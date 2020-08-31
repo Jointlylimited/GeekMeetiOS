@@ -36,6 +36,7 @@ class Interest_PreferenceInteractor: Interest_PreferenceInteractorProtocol, Inte
                 self.presenter?.getQuestionaryResponse(response : response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
             } else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")

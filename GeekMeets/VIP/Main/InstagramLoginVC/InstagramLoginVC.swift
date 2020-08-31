@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import Alamofire
 
 protocol InstagramAuthDelegate {
     func instagramAuthControllerDidFinish(accessToken: String?,id: String?, error: Error?)
@@ -58,6 +59,11 @@ class InstagramLoginVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if !NetworkReachabilityManager.init()!.isReachable{
+            AppSingleton.sharedInstance().showAlert(NoInternetConnection, okTitle: "OK")
+            return
+        }
         
         //webView = UIWebView(frame: view.frame)
         /*let source: String = "var meta = document.createElement('meta');" +

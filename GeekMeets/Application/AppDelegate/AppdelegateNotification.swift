@@ -179,6 +179,7 @@ extension AppDelegate {
                 //                UserDataModel.currentUser = response?.responseData
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
             } else {
                 if error != nil {
 //                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
@@ -197,6 +198,7 @@ extension AppDelegate {
                 self.callBadgeCountAPI()
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
             }  else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
@@ -216,6 +218,7 @@ extension AppDelegate {
                 UserDataModel.setNotificationCount(count: UserDataModel.getNotificationCount() + 1)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
             }  else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")

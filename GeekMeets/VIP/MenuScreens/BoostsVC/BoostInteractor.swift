@@ -36,6 +36,9 @@ class BoostInteractor: BoostInteractorProtocol, BoostDataStore {
             }
             if response?.responseCode == 200 {
                 self.presenter?.getBoostPlansResponse(response: response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.presenter?.getBoostPlansResponse(response: response!)
             }  else {
@@ -58,6 +61,9 @@ class BoostInteractor: BoostInteractorProtocol, BoostDataStore {
 //            }
             if response?.responseCode == 200 {
                 self.presenter?.getBoostResponse(response: response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.presenter?.getBoostResponse(response: response!)
             }  else {
@@ -79,6 +85,9 @@ class BoostInteractor: BoostInteractorProtocol, BoostDataStore {
             }
             if response?.responseCode == 200 {
                 self.presenter?.getBoostResponse(response: response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.presenter?.getBoostResponse(response: response!)
             }  else {

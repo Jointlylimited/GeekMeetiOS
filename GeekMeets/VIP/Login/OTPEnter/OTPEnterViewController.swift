@@ -37,6 +37,9 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     @IBOutlet weak var lblMobileNumber: UILabel!
     @IBOutlet weak var tfMobileNumber: UITextField!
     @IBOutlet weak var btnCountrycode: UIButton!
+    @IBOutlet weak var txtCountryCode: UITextField!
+    @IBOutlet weak var txtMobNo: UITextField!
+    @IBOutlet weak var btnEditMobNo: UIButton!
     
     
     let otpStackView = OTPStackView()
@@ -128,11 +131,14 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
             self.presenter?.callResendOTPAPI(vCountryCode : strCountryCode ,vPhone : strPhonenumber ?? "7567173373")
             startTimer()
         }
+        
         btnCountrycode.setTitle(strCountryCode, for: .normal)
         tfMobileNumber.text = "\(strCountryCode) \(strPhonenumber ?? "")"
+        
+        self.txtCountryCode.text = strCountryCode
+        self.txtMobNo.text = strPhonenumber
         btnCountrycode.isUserInteractionEnabled = false
         tfMobileNumber.isUserInteractionEnabled = false
-        
     }
     
     func enableResendButton(){
@@ -182,8 +188,23 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     }
     
     
-    @IBAction func actionEditMobileNumber(_ sender: Any) {
-        self.popVC()
+    @IBAction func actionEditMobileNumber(_ sender: UIButton) {
+        if sender.isSelected == false {
+            sender.isSelected = true
+            txtMobNo.isUserInteractionEnabled = true
+            txtMobNo.becomeFirstResponder()
+        } else {
+            sender.isSelected = false
+            txtMobNo.isUserInteractionEnabled = false
+            txtMobNo.resignFirstResponder()
+            strCountryCode = txtCountryCode.text ?? strCountryCode
+            strPhonenumber = txtMobNo.text ?? strCountryCode
+            
+            if self.timer != nil {
+                timer!.invalidate()
+            }
+            self.presenter?.callResendOTPAPI(vCountryCode : strCountryCode ,vPhone : strPhonenumber ?? "7567173373")
+        }
     }
     
     @IBAction func actionSelectCountryCode(_ sender: Any) {
@@ -196,6 +217,7 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     {
         strCountryCode = country.dialingCode!
         btnCountrycode.setTitle(country.dialingCode, for: .normal)
+        self.txtCountryCode.text = country.dialingCode
     }
     
     @IBAction func actionVerifyOTP(_ sender: Any) {
@@ -205,7 +227,6 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
             print("Final OTP : ",otpStackView.getOTP())
             otpStackView.setAllFieldColor(isWarningColor: true, color: .yellow)
             self.presenter?.callVerifyOTPAPI(iOTP : otpStackView.getOTP(),vCountryCode : strCountryCode,vPhone : strPhonenumber ?? "7567173373", signUpParams : signUpParams)
-            
         } else {
             otpStackView.setAllFieldColor(isWarningColor: true, color: .yellow)
             self.presenter?.callNewVerifyOTPAPI(iOTP : otpStackView.getOTP(),vCountryCode : strCountryCode,vPhone : strPhonenumber ?? "7567173373")
@@ -256,6 +277,7 @@ extension OTPEnterViewController {
     func getNewVerifyOTPResponse(response : UserAuthResponse) {
         if response.responseCode == 200 {
             UserDataModel.currentUser = response.responseData
+            UserDataModel.currentUser = UserDataModel.lastLoginUser
             self.navigationController?.isNavigationBarHidden = true
             self.showAlertView()
         } else {
@@ -269,5 +291,18 @@ extension OTPEnterViewController : AlertViewCentreButtonDelegate {
     func centerButtonAction(){
         let accVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.AccountSettingScreen)
         self.pop(toLast: accVC.classForCoder)
+    }
+}
+
+extension OTPEnterViewController : UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        self.btnEditMobNo.setImage(#imageLiteral(resourceName: "tick"), for: .selected)
+        self.btnEditMobNo.isSelected = true
+        return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        txtMobNo.isUserInteractionEnabled = false
+        return true
     }
 }

@@ -16,6 +16,7 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import AuthenticationServices
 import ActiveLabel
+import Alamofire
 
 protocol InstagramAuthenticationDelegate {
     func fetchAuthToken(token : String)
@@ -36,6 +37,9 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
     
     @IBOutlet weak var lblPrivacyTerm: ActiveLabel!
     @IBOutlet weak var btnLogin: UIButton!
+    @IBOutlet weak var buttonStackView: UIStackView!
+    @IBOutlet weak var btnStackLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var btnSTackTrailingConstraint: NSLayoutConstraint!
     
     let clientId = ""
     let clientSecret = ""
@@ -92,6 +96,20 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
         self.btnSnapchat.titleEdgeInsets = DeviceType.iPhoneXRMax || DeviceType.iPhoneX ? UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
         self.btnInstagram.titleEdgeInsets = DeviceType.iPhoneXRMax || DeviceType.iPhoneX ? UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
         self.btnApple.titleEdgeInsets = DeviceType.iPhoneXRMax || DeviceType.iPhoneX ? UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        
+         if #available(iOS 13.0, *) {
+//            self.buttonStackView.insertArrangedSubview(btnAppleView, at: 1)
+            self.btnApple.alpha = 1.0
+            self.btnStackLeadingConstraint.constant = 20
+            self.btnSTackTrailingConstraint.constant = 20
+         } else {
+            self.btnApple.alpha = 0.0
+            self.btnStackLeadingConstraint.constant = 100
+            self.btnSTackTrailingConstraint.constant = 100
+//            self.buttonStackView.removeArrangedSubview(btnApple)
+//            self.buttonStackView.setNeedsLayout()
+//            self.buttonStackView.layoutIfNeeded()
+        }
     }
     
     func setTheme() {
@@ -184,19 +202,35 @@ extension  InitialSignUpViewController{
       
     }
     @IBAction func actionFacebookSignUp(_ sender: Any) {
+        if !NetworkReachabilityManager.init()!.isReachable{
+            AppSingleton.sharedInstance().showAlert(NoInternetConnection, okTitle: "OK")
+            return
+        }
         self.presenter?.callFBLogin()
     }
     
     @IBAction func actionInstagramSignUp(_ sender: Any) {
+        if !NetworkReachabilityManager.init()!.isReachable{
+            AppSingleton.sharedInstance().showAlert(NoInternetConnection, okTitle: "OK")
+            return
+        }
         let instaVC = GeekMeets_StoryBoard.Main.instantiateViewController(withIdentifier: GeekMeets_ViewController.InstagramLoginScreen) as! InstagramLoginVC
         instaVC.delegate = self
         self.presentVC(instaVC)
     }
     
     @IBAction func actionSnapchatSignUp(_ sender: Any) {
+        if !NetworkReachabilityManager.init()!.isReachable{
+            AppSingleton.sharedInstance().showAlert(NoInternetConnection, okTitle: "OK")
+            return
+        }
         self.presenter?.callSnapchatLoginRequest(objLoginVC : self)
     }
     @IBAction func actionAppleSignUp(_ sender: Any) {
+        if !NetworkReachabilityManager.init()!.isReachable{
+            AppSingleton.sharedInstance().showAlert(NoInternetConnection, okTitle: "OK")
+            return
+        }
         self.handleAppleIdRequest()
     }
     

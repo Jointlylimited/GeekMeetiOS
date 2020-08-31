@@ -38,6 +38,7 @@ class NotificationListInteractor: NotificationListInteractorProtocol, Notificati
                 self.presenter?.getNotificationListResponse(response : response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
             } else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
@@ -60,6 +61,7 @@ class NotificationListInteractor: NotificationListInteractorProtocol, Notificati
                     self.presenter?.getReadNotificationResponse(response: response!)
                 } else if response?.responseCode == 203 {
                     AppSingleton.sharedInstance().logout()
+                    AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
                 }  else {
                     if error != nil {
                         AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
@@ -79,6 +81,7 @@ class NotificationListInteractor: NotificationListInteractorProtocol, Notificati
                     self.presenter?.getClearAllNotificationResponse(response: response!)
                 } else if response?.responseCode == 203 {
                     AppSingleton.sharedInstance().logout()
+                    AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
                 }  else {
                     if error != nil {
                         AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
@@ -101,6 +104,7 @@ class NotificationListInteractor: NotificationListInteractorProtocol, Notificati
                 self.presenter?.getBadgeCountResponse(response: response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
             }  else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")

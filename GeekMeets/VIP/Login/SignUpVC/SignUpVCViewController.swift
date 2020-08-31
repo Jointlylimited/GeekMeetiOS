@@ -236,6 +236,9 @@ extension SignUpVCViewController : UITextFieldDelegate {
     @objc func textFieldDidChange(textField : UITextField){
         
         if textField == self.tfPassword {
+            if (textField.text?.count)! ==  0 {
+                textField.resignFirstResponder()
+            }
             if (textField.text?.count)! <= 20 {
                 textField.isUserInteractionEnabled = true
             } else {
@@ -243,6 +246,9 @@ extension SignUpVCViewController : UITextFieldDelegate {
             }
         }
         if textField == self.tfConfirmPassword {
+            if (textField.text?.count)! ==  0 {
+                textField.resignFirstResponder()
+            }
             if (textField.text?.count)! <= 20 {
                 textField.isUserInteractionEnabled = true
             } else {

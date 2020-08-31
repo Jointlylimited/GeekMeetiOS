@@ -41,6 +41,7 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
                 self.presenter?.getSignoutResponse(response : response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
             } else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
@@ -62,6 +63,7 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
                 self.presenter?.getLocationUpdateResponse(response : response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
             } else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
@@ -83,6 +85,7 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
                 self.presenter?.getPushStatusResponse(response : response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
             } else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
@@ -100,6 +103,9 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
 //            LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.presenter?.getMatchResponse(response: response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.presenter?.getMatchResponse(response: response!)
             }  else {
@@ -119,6 +125,9 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
     //            LoaderView.sharedInstance.hideLoader()
                 if response?.responseCode == 200 {
                     self.presenter?.getGeeksPlansResponse(response: response!)
+                } else if response?.responseCode == 203 {
+                    AppSingleton.sharedInstance().logout()
+                    AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
                 } else if response?.responseCode == 400 {
                     self.presenter?.getGeeksPlansResponse(response: response!)
                 }  else {
@@ -138,6 +147,9 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
             LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.presenter?.getBoostPlansResponse(response: response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.presenter?.getBoostPlansResponse(response: response!)
             }  else {

@@ -105,6 +105,9 @@ extension ProfileSubscriptionViewController {
             //            LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.getGeeksPlansResponse(response: response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.getGeeksPlansResponse(response: response!)
             }  else {
@@ -124,6 +127,9 @@ extension ProfileSubscriptionViewController {
             //            LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.getBoostPlansResponse(response: response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.getBoostPlansResponse(response: response!)
             }  else {

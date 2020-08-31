@@ -38,9 +38,11 @@ class ChangePasswordInteractor: ChangePasswordInteractorProtocol, ChangePassword
         }
             if response?.responseCode == 200 {
                 self.presenter?.getChangePasswordResponse(response: response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.presenter?.getChangePasswordResponse(response: response!)
-              
             }  else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
