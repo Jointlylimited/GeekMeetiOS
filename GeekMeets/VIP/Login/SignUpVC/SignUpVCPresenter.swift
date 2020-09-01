@@ -66,10 +66,11 @@ class SignUpVCPresenter: SignUpVCPresentationProtocol {
             if String(describing: param["vConfirmPassword"]!).isEmpty {
                 self.viewController?.displayAlert(strTitle: "", strMessage: kEnterConfirmPassword)
                 return false
-            } else if !ConfirmPassword.isPassword {
-                self.viewController?.displayAlert(strTitle: "", strMessage: kConfirmPasswordWeak)
-                return false
             }
+            /*else if !ConfirmPassword.isPassword {
+             self.viewController?.displayAlert(strTitle: "", strMessage: kConfirmPasswordWeak)
+             return false
+             }*/
             
             if param["vPassword"] as! String != param["vConfirmPassword"] as! String {
                 self.viewController?.displayAlert(strTitle: "", strMessage: kPasswordNotMatch)

@@ -72,6 +72,7 @@ class SearchProfileViewController: UIViewController, SearchProfileProtocol {
     }
     
     func setFilterData(){
+        txtSearchField.returnKeyType = .search
         if !self.isFromDiscover {
             self.objFilterMsgData = self.objMsgData
             self.objAllMsgData = self.objMsgData
@@ -187,7 +188,7 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
         headerView.backgroundColor = .white
         
         let headerTitle = UILabel()
-        headerTitle.frame = CGRect(x: 20, y: headerView.frame.origin.y + 5, w: ScreenSize.width - 60, h: 30)
+        headerTitle.frame = CGRect(x: 18, y: headerView.frame.origin.y + 5, w: ScreenSize.width - 60, h: 30)
         headerTitle.text = "Recents"
         headerTitle.textColor = .black
         headerTitle.font = UIFont(name: "Poppins-SemiBold", size: 14)

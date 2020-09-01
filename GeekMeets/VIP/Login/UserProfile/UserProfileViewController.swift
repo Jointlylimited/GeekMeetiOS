@@ -101,7 +101,7 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
         let minData = Calendar.current.date(byAdding: components, to: Date())
         self.datePicker.maximumDate = minData
         scrollView.delegate = self
-        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.isNavigationBarHidden = true
         self.navigationItem.leftBarButtonItem = leftSideBackBarButton
         imgprofile.setCornerRadius(radius: imgprofile.frame.size.width/2)
         

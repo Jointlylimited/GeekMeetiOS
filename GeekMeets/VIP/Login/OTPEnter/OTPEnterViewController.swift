@@ -54,6 +54,8 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     var strNewCountryCode : String = ""
     var strNewPhoneNumber : String = ""
     
+    var isStepCompleted : Bool = true
+    
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -123,13 +125,17 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
         if !isFromNewMobile {
             strCountryCode = signUpParams != nil ? signUpParams!["vCountryCode"]! : UserDataModel.currentUser!.vCountryCode!
             strPhonenumber = signUpParams != nil ? signUpParams!["vPhone"]! : UserDataModel.currentUser!.vPhone!
+            
+            if !isStepCompleted {
+                self.presenter?.callResendOTPAPI(vCountryCode : strCountryCode ,vPhone : strPhonenumber ?? "7567173373")
+            }
             startTimer()
         } else {
             strCountryCode = strNewCountryCode
             strPhonenumber = strNewPhoneNumber
             
             self.presenter?.callResendOTPAPI(vCountryCode : strCountryCode ,vPhone : strPhonenumber ?? "7567173373")
-            startTimer()
+//            startTimer()
         }
         
         btnCountrycode.setTitle(strCountryCode, for: .normal)

@@ -324,6 +324,7 @@ class AppSingleton: NSObject {
             AppDelObj.window?.rootViewController = navController
         } else if Authentication.getSignUpFlowStatus() == 1 {
             let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter) as! OTPEnterViewController
+            controller.isStepCompleted = false
             let navController = UINavigationController.init(rootViewController: controller)
             AppDelObj.window?.rootViewController = navController
         } else if Authentication.getSignUpFlowStatus() == 2 {

@@ -220,7 +220,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     
     func registerCollectionViewCell(){
         self.MatchProfileCollView.register(UINib.init(nibName: Cells.ReactEmojiCollectionCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.ReactEmojiCollectionCell)
-        self.MatchProfileCollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        self.MatchProfileCollView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
 
         let layout = CustomImageLayout()
         layout.scrollDirection = .vertical
@@ -489,46 +489,74 @@ extension MatchProfileViewController : UICollectionViewDataSource, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return (self.objMatchUserProfile != nil && self.objMatchUserProfile.photos!.count != 0) ? self.objMatchUserProfile.photos!.count : 0
+        return (self.objMatchUserProfile != nil && self.objMatchUserProfile.photos!.count != 0) ? self.objMatchUserProfile.photos!.count : (self.objMatchUserProfile != nil ? 1 : 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell : ReactEmojiCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.ReactEmojiCollectionCell, for: indexPath) as! ReactEmojiCollectionCell
-        
-        let photoString = self.objMatchUserProfile.photos![indexPath.row]
-        cell.ReactEmojiView.alpha = cell.btnLike.isSelected ? 1.0 : 0.0
         cell.emojiStackView.alpha = 0.0
         
-        if (self.objMatchUserProfile != nil && photoString.reaction != nil) {
-            print(photoString.reaction!)
-            if photoString.reaction?.count != 0 {
-                if photoString.reaction!.count == 3 {
-                    cell.btnKissValue.setTitle((photoString.reaction?.count != 0 && photoString.reaction![2].vCount != "0") ? photoString.reaction![2].vCount : "0", for: .normal)
-                    cell.btnLoveSmileValue.setTitle((photoString.reaction?.count != 0 && photoString.reaction![1].vCount != "0") ? photoString.reaction![1].vCount : "0", for: .normal)
-                    cell.btnLoveValue.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].vCount != "0") ? photoString.reaction![0].vCount : "0", for: .normal)
+        if (self.objMatchUserProfile != nil && self.objMatchUserProfile.photos!.count != 0) {
+            let photoString = self.objMatchUserProfile.photos![indexPath.row]
+            cell.ReactEmojiView.alpha = cell.btnLike.isSelected ? 1.0 : 0.0
+//            cell.emojiStackView.alpha = 0.0
+            
+            if (self.objMatchUserProfile != nil && photoString.reaction != nil) {
+                print(photoString.reaction!)
+                if photoString.reaction?.count != 0 {
+                    if photoString.reaction!.count == 3 {
+                        cell.btnKissValue.setTitle((photoString.reaction?.count != 0 && photoString.reaction![2].vCount != "0") ? photoString.reaction![2].vCount : "0", for: .normal)
+                        cell.btnLoveSmileValue.setTitle((photoString.reaction?.count != 0 && photoString.reaction![1].vCount != "0") ? photoString.reaction![1].vCount : "0", for: .normal)
+                        cell.btnLoveValue.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].vCount != "0") ? photoString.reaction![0].vCount : "0", for: .normal)
+                    }
+                    if photoString.reaction!.count == 2 {
+                        cell.btnLoveSmileValue.setTitle((photoString.reaction?.count != 0 && photoString.reaction![1].vCount != "0") ? photoString.reaction![1].vCount : "0", for: .normal)
+                        cell.btnLoveValue.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].vCount != "0") ? photoString.reaction![0].vCount : "0", for: .normal)
+                    }
+                    if photoString.reaction!.count == 1  {
+                        cell.btnLoveValue.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].vCount != "0") ? photoString.reaction![0].vCount : "0", for: .normal)
+                    }
+                } else {
+                    cell.btnKissValue.setTitle("0", for: .normal)
+                    cell.btnLoveValue.setTitle("0", for: .normal)
+                    cell.btnLoveSmileValue.setTitle("0", for: .normal)
                 }
-                if photoString.reaction!.count == 2 {
-                    cell.btnLoveSmileValue.setTitle((photoString.reaction?.count != 0 && photoString.reaction![1].vCount != "0") ? photoString.reaction![1].vCount : "0", for: .normal)
-                    cell.btnLoveValue.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].vCount != "0") ? photoString.reaction![0].vCount : "0", for: .normal)
-                }
-                if photoString.reaction!.count == 1  {
-                    cell.btnLoveValue.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].vCount != "0") ? photoString.reaction![0].vCount : "0", for: .normal)
+                if photoString.vMedia != "" {
+                    let url = URL(string:"\(photoString.vMedia!)")
+                    print(url!)
+                    cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
                 }
             } else {
-                cell.btnKissValue.setTitle("0", for: .normal)
-                cell.btnLoveValue.setTitle("0", for: .normal)
-                cell.btnLoveSmileValue.setTitle("0", for: .normal)
+                cell.userImgView.image = imageArray[indexPath.row]
             }
-            if photoString.vMedia != "" {
-                let url = URL(string:"\(photoString.vMedia!)")
-                print(url!)
-                cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
+            
+            cell.clickOnbtnKiss = {
+                self.callReactEmojiAPI(iUserId: "\(self.objMatchUserProfile!.iUserId!)", iMediaId: "\(photoString.iMediaId!)", tiRactionType: "2")
+                cell.btnLike.isSelected = false
+                cell.ReactEmojiView.alpha = 0.0
+            }
+            
+            cell.clickOnbtnLove = {
+                self.callReactEmojiAPI(iUserId: "\(self.objMatchUserProfile!.iUserId!)", iMediaId: "\(photoString.iMediaId!)", tiRactionType: "0")
+                cell.btnLike.isSelected = false
+                cell.ReactEmojiView.alpha = 0.0
+            }
+            
+            cell.clickOnbtnLoveSmile = {
+                self.callReactEmojiAPI(iUserId: "\(self.objMatchUserProfile!.iUserId!)", iMediaId: "\(photoString.iMediaId!)", tiRactionType: "1")
+                cell.btnLike.isSelected = false
+                cell.ReactEmojiView.alpha = 0.0
             }
         } else {
-            cell.userImgView.image = imageArray[indexPath.row]
+            if self.objMatchUserProfile != nil {
+                if self.objMatchUserProfile.vProfileImage != "" {
+                    let url = URL(string:"\(self.objMatchUserProfile.vProfileImage!)")
+                    print(url!)
+                    cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
+                }
+            }
         }
-        
         cell.clickOnLikeBtn = {
             if cell.btnLike.isSelected {
                 cell.btnLike.isSelected = false
@@ -538,25 +566,7 @@ extension MatchProfileViewController : UICollectionViewDataSource, UICollectionV
                 cell.ReactEmojiView.alpha = 1.0
             }
         }
-        
-        cell.clickOnbtnKiss = {
-            self.callReactEmojiAPI(iUserId: "\(self.objMatchUserProfile!.iUserId!)", iMediaId: "\(photoString.iMediaId!)", tiRactionType: "2")
-            cell.btnLike.isSelected = false
-            cell.ReactEmojiView.alpha = 0.0
-        }
-        
-        cell.clickOnbtnLove = {
-            self.callReactEmojiAPI(iUserId: "\(self.objMatchUserProfile!.iUserId!)", iMediaId: "\(photoString.iMediaId!)", tiRactionType: "0")
-            cell.btnLike.isSelected = false
-            cell.ReactEmojiView.alpha = 0.0
-        }
-        
-        cell.clickOnbtnLoveSmile = {
-            self.callReactEmojiAPI(iUserId: "\(self.objMatchUserProfile!.iUserId!)", iMediaId: "\(photoString.iMediaId!)", tiRactionType: "1")
-            cell.btnLike.isSelected = false
-            cell.ReactEmojiView.alpha = 0.0
-        }
-        
+
         return cell
     }
     

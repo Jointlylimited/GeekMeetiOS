@@ -70,7 +70,7 @@ class SignInPresenter: SignInPresentationProtocol {
             Authentication.setSignUpFlowStatus(response.responseData!.tiStep!)
             self.setScreenAsPerLoginStatus(status: response.responseData!.tiStep!)
         }  else if response.responseCode == 401 {
-            self.viewController?.showAlertView()
+            self.viewController?.getLoginResponse(res: response)
         } else {
             self.viewController?.displayAlert(strTitle: "", strMessage: response.responseMessage!)
         }
@@ -142,6 +142,7 @@ class SignInPresenter: SignInPresentationProtocol {
         } else if status == 1 {
             Authentication.setLoggedInStatus(true)
             let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter) as? OTPEnterViewController
+            controller?.isStepCompleted = false
             if let view = self.viewController as? UIViewController
             {
                 view.pushVC(controller!)

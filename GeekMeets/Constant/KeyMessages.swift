@@ -27,7 +27,7 @@ let kEnterPassword = "Password cannot be blank"
 let kEnterOldPassword = "Please enter Old Password"
 let kEnterNewPassword = "Please enter new Password"
 let kEnterConfirmPassword = "Confirm password cannot be blank"
-let kPasswordNotMatch = "Password doesn’t match"
+let kPasswordNotMatch = "Password & confirm password must be same" // "Password doesn’t match"
 let kPasswordWeak = "Password should contain min. 8 characters, One digit, Special characters, Upper case & Lower case letter"
 let kOldPasswordWeak = "Old Password should contain min. 8 characters, One digit, Special characters, Upper case & Lower case letter"
 let kNewPasswordWeak = "New Password should contain min. 8 characters, One digit, Special characters, Upper case & Lower case letter"
@@ -110,7 +110,9 @@ let kLoggedInStatus = "isUserLoggedIn"
 let kSignUpFlowStatus = "SignUpFlowStatus"
 let kSwipeStatus = "SwipeStatus"
 let kSwipeLimit = "You have exceeded your swipe limit, Subscribe to check other further profiles..."
-
+let kSuccessPurBoostPlan = "You have successfully purchased Boost plan"
+let kSuccessPurStoryPlan = "You have successfully purchased Story plan"
+let kSuccessPurSubscriptionPlan = "You have successfully purchased Subscription plan"
 class KeyMessages: NSObject {
 
 }

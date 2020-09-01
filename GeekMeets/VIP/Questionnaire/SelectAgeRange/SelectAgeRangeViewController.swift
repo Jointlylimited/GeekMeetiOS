@@ -109,7 +109,7 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
         
         if index == 5 {
             heightSeekSlider.disableRange = true
-            self.lblHeight.text = "0.0"
+            self.lblHeight.text = "10.0"
             
         } else {
             heightSeekSlider.disableRange = false

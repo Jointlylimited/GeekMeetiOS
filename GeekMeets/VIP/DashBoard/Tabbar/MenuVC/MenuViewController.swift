@@ -33,6 +33,7 @@ protocol MenuProtocol: class {
     func getMatchResponse(response : MatchUser)
     func getGeeksPlansResponse(response : BoostGeekResponse)
     func getBoostPlansResponse(response : BoostGeekResponse)
+    func getBadgeCountResponse(response : ViewNotification)
 }
 
 class MenuViewController: UIViewController, MenuProtocol {
@@ -279,6 +280,15 @@ extension MenuViewController {
         } else {
             updateView()
         }
+        self.presenter?.callBadgeCountAPI()
+    }
+    
+    func getBadgeCountResponse(response : ViewNotification){
+        if response.responseData?.budgeCount != 0 {
+            UserDataModel.setNotificationCount(count: response.responseData?.budgeCount ?? 0)
+        } else {
+            UserDataModel.setNotificationCount(count: 0)
+        }
         setTheme()
     }
 }
@@ -334,6 +344,9 @@ extension MenuViewController : UITableViewDataSource, UITableViewDelegate {
                     self.getUserCurrentLocation(tiIsLocationOn: "1")
 //                    cell.btnRight.isSelected = true
                 }
+            }
+            if indexPath.row != 6 || indexPath.row != 7 {
+                self.tblMenuList.delegate?.tableView?(self.tblMenuList, didSelectRowAt: indexPath)
             }
         }
         cell.selectionStyle = .none

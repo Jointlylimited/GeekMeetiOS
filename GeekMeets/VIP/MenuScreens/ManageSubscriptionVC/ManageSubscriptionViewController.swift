@@ -110,20 +110,20 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
                 if planDict.count != 0 {
                     if planDict["tiType"] as! String == "2" {
                         let endDate = Calendar.current.date(byAdding: .month, value: 1, to: Date())
-                        endDateStr = "\(endDate!.currentTimeMillis())"
+                        endDateStr = "\(endDate!.currentTimeMillis()/1000)"
                     } else {
                         let endDate = Calendar.current.date(byAdding: .year, value: 1, to: Date())
-                        endDateStr = "\(endDate!.currentTimeMillis())"
+                        endDateStr = "\(endDate!.currentTimeMillis()/1000)"
                     }
                 } else {
                     let endDate = Calendar.current.date(byAdding: .day, value: 1, to: Date())
-                    endDateStr = "\(endDate!.currentTimeMillis())"
+                    endDateStr = "\(endDate!.currentTimeMillis()/1000)"
                 }
-                let param = RequestParameter.sharedInstance().createSubscriptionParams(vTransactionId: "1214665932543", tiType: "1", fPrice: "1.99", vReceiptData: "13ncksncocwbwibck", iStartDate: "\(Date().currentTimeMillis())", iEndDate: endDateStr)
+                let param = RequestParameter.sharedInstance().createSubscriptionParams(vTransactionId: "1214665932543", tiType: planDict["tiType"] as! String, fPrice: planDict["fPrice"] as! String, vReceiptData: "13ncksncocwbwibck", iStartDate: "\(Date().currentTimeMillis()/1000)", iEndDate: endDateStr)
                 self.presenter?.callCreateSubscriptionAPI(param: param)
             } else {
                 if UserDataModel.currentUser?.tiIsSubscribed == 0 {
-                    let param = RequestParameter.sharedInstance().updateSubscriptionParams(iSubscriptionId: "\(self.subscriptionDetails?.iSubscriptionId!)", iEndDate: "\(self.subscriptionDetails?.iEndDate!)", isExpire: "1")
+                    let param = RequestParameter.sharedInstance().updateSubscriptionParams(iSubscriptionId: "\(self.subscriptionDetails!.iSubscriptionId!)", iEndDate: "\(self.subscriptionDetails!.iEndDate!)", isExpire: "1")
                     self.presenter?.callUpdateSubscriptionAPI(param: param)
                 } else {
                     AppSingleton.sharedInstance().showAlert("You have already subscribed!", okTitle: "OK")
@@ -134,16 +134,16 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
             if planDict.count != 0 {
                 if planDict["tiType"] as! String == "2" {
                     let endDate = Calendar.current.date(byAdding: .month, value: 1, to: Date())
-                    endDateStr = "\(endDate!.currentTimeMillis())"
+                    endDateStr = "\(endDate!.currentTimeMillis()/1000)"
                 } else {
                     let endDate = Calendar.current.date(byAdding: .year, value: 1, to: Date())
-                    endDateStr = "\(endDate!.currentTimeMillis())"
+                    endDateStr = "\(endDate!.currentTimeMillis()/1000)"
                 }
             } else {
                 let endDate = Calendar.current.date(byAdding: .day, value: 1, to: Date())
-                endDateStr = "\(endDate!.currentTimeMillis())"
+                endDateStr = "\(endDate!.currentTimeMillis()/1000)"
             }
-            let param = RequestParameter.sharedInstance().createSubscriptionParams(vTransactionId: "1214665932543", tiType: planDict["tiType"] as! String, fPrice: planDict["fPrice"] as! String, vReceiptData: "13ncksncocwbwibck", iStartDate: "\(Date().currentTimeMillis())", iEndDate: endDateStr)
+            let param = RequestParameter.sharedInstance().createSubscriptionParams(vTransactionId: "1214665932543", tiType: planDict["tiType"] as! String, fPrice: planDict["fPrice"] as! String, vReceiptData: "13ncksncocwbwibck", iStartDate: "\(Date().currentTimeMillis()/1000)", iEndDate: endDateStr)
             if planDict != [:] {
                 self.presenter?.callCreateSubscriptionAPI(param: param)
             } else {
@@ -214,6 +214,7 @@ extension ManageSubscriptionViewController {
         print(response)
         if response.responseCode == 200 {
             resetButtonView()
+            AppSingleton.sharedInstance().showAlert(kSuccessPurSubscriptionPlan, okTitle: "OK")
             self.subscriptionDetails = response.responseData
             UserDataModel.currentUser?.tiIsSubscribed = 1
             if response.responseData?.iEndDate != nil {

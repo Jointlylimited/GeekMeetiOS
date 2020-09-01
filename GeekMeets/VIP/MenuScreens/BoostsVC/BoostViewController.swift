@@ -211,6 +211,7 @@ extension BoostViewController {
     func getBoostResponse(response : BoostGeekResponse){
         if response.responseCode == 200 {
             resetButtonView()
+            AppSingleton.sharedInstance().showAlert(kSuccessPurBoostPlan, okTitle: "OK")
             self.presenter?.callBoostPlansAPI()
         } else {
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")

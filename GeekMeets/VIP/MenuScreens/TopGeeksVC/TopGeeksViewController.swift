@@ -210,6 +210,7 @@ extension TopGeeksViewController {
     func getGeeksResponse(response : BoostGeekResponse){
         if response.responseCode == 200 {
             resetButtonView()
+            AppSingleton.sharedInstance().showAlert(kSuccessPurStoryPlan, okTitle: "OK")
             self.presenter?.callGeeksPlansAPI()
         } else {
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")

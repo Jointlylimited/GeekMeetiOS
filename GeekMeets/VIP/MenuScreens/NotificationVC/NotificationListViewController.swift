@@ -157,6 +157,7 @@ extension NotificationListViewController {
         }
     }
     func getClearAllNotificationResponse(response: ViewNotification) {
+        UserDataModel.setNotificationCount(count: 0)
         self.objNotificationModel.removeAll()
         self.tblNotificationList.reloadData()
         self.popVC()

@@ -30,6 +30,9 @@ protocol MenuPresentationProtocol {
     
     func callBoostPlansAPI()
     func getBoostPlansResponse(response : BoostGeekResponse)
+    
+    func callBadgeCountAPI()
+    func getBadgeCountResponse(response : ViewNotification)
 }
 
 class MenuPresenter: MenuPresentationProtocol {
@@ -80,5 +83,13 @@ class MenuPresenter: MenuPresentationProtocol {
     }
     func getBoostPlansResponse(response : BoostGeekResponse){
         self.viewController?.getBoostPlansResponse(response : response)
+    }
+    
+    func callBadgeCountAPI(){
+        self.interactor?.callBadgeCountAPI()
+    }
+    
+    func getBadgeCountResponse(response : ViewNotification){
+        self.viewController?.getBadgeCountResponse(response: response)
     }
 }

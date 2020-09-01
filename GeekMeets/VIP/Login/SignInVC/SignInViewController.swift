@@ -16,7 +16,7 @@ import Crashlytics
 //MARK:- Protocol and Method
 protocol SignInProtocol: class{
     func displayAlert(strTitle : String, strMessage : String)
-    func showAlertView()
+    func getLoginResponse(res : UserAuthResponse)
 }
 
 //MARK:-
@@ -114,6 +114,12 @@ class SignInViewController: UIViewController,SignInProtocol
         alertView.delegate = self
         alertView.frame = self.view.frame
         AppDelObj.window?.addSubview(alertView)
+    }
+    
+    func getLoginResponse(res : UserAuthResponse) {
+        if res.responseCode == 401 {
+            self.showAlertView()
+        }
     }
 }
 

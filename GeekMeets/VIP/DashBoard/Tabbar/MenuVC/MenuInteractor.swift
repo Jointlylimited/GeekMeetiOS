@@ -19,6 +19,7 @@ protocol MenuInteractorProtocol {
     func callMatchListAPI()
     func callGeeksPlansAPI()
     func callBoostPlansAPI()
+    func callBadgeCountAPI()
 }
 
 protocol MenuDataStore {
@@ -157,6 +158,28 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
                 } else {
                     self.presenter?.getBoostPlansResponse(response: response!)
+                }
+            }
+        }
+    }
+    
+    func callBadgeCountAPI(){
+//        LoaderView.sharedInstance.showLoader()
+        NotificationAPI.budgeCount(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
+            
+//            delay(0.2) {
+//                LoaderView.sharedInstance.hideLoader()
+//            }
+            if response?.responseCode == 200 {
+                self.presenter?.getBadgeCountResponse(response: response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getBadgeCountResponse(response: response!)
                 }
             }
         }

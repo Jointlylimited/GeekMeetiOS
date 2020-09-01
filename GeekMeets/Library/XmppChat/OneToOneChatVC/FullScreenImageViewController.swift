@@ -20,16 +20,16 @@ class FullScreenImageViewController: UIViewController {
     }
     
     func setImageViewData(){
-        
+        LoaderView.sharedInstance.hideLoader()
         if chatMsg!.msgType! == "image" {
             if let _url = chatMsg!.getLocalPath() {
                 imgView.sd_setImage(with: _url, placeholderImage: #imageLiteral(resourceName: "placeholder_rect"), options: [.scaleDownLargeImages], context: nil)
-                LoaderView.sharedInstance.hideLoader()
+//                LoaderView.sharedInstance.hideLoader()
             }
         } else {
             if let _url = URL(string: "\(fileUploadURL)\(chatMsg!.url)") {
                 imgView.sd_setImage(with: _url, placeholderImage: #imageLiteral(resourceName: "placeholder_rect"), options: [.scaleDownLargeImages], context: nil)
-                LoaderView.sharedInstance.hideLoader()
+//                LoaderView.sharedInstance.hideLoader()
             }
         }
     }

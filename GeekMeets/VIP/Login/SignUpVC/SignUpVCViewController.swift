@@ -208,6 +208,10 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
                     }
                     if pm.country != nil {
                         addressString = addressString + pm.country!
+                        
+                        let countryCode = callingCodes.filter({$0.key == pm.isoCountryCode})
+                        let code = ((countryCode as! NSDictionary).allValues[0])
+                        self.btnCountrycode.setTitle("+\(code)", for: .normal)
                     }
                     
                     self.vLiveIn = addressString
@@ -257,8 +261,21 @@ extension SignUpVCViewController : UITextFieldDelegate {
         }
     }
     
+    /*func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.next?.becomeFirstResponder()
+        return true
+    }*/
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        if textField == self.tfEmailAddress {
+            self.tfPassword.becomeFirstResponder()
+        } else if textField == self.tfPassword {
+            self.tfConfirmPassword.becomeFirstResponder()
+        } else if textField == self.tfConfirmPassword {
+            self.tfMobileNumber.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
         return true
     }
 }

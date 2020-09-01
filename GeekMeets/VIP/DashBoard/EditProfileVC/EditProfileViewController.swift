@@ -482,7 +482,7 @@ extension EditProfileViewController : UICollectionViewDataSource, UICollectionVi
             cell.btnClose.alpha = 1.0
             if userPhotosModel[indexPath.row].tiImage == nil {
                 let url = URL(string:"\(userPhotosModel[indexPath.row].vMedia!)")
-                print(url!)
+                print(url)
                 cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
             } else {
                 cell.userImgView.image = userPhotosModel[indexPath.row].tiImage
