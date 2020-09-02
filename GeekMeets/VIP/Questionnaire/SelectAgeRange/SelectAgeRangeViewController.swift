@@ -104,16 +104,22 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
         heightSeekSlider.tintColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         heightSeekSlider.colorBetweenHandles = #colorLiteral(red: 0.606272161, green: 0.2928337753, blue: 0.8085166812, alpha: 1)
         heightSeekSlider.handleImage = #imageLiteral(resourceName: "icn_rect_1")
-        heightSeekSlider.minValue = 0.0
-        heightSeekSlider.maxValue = 10.0
+    //    heightSeekSlider.minValue = 0.0
+     //   heightSeekSlider.maxValue = 10.0
         
         if index == 5 {
             heightSeekSlider.disableRange = true
+            heightSeekSlider.minValue = 0.0
+            heightSeekSlider.maxValue = 10.0
             self.lblHeight.text = "10.0"
             
         } else {
             heightSeekSlider.disableRange = false
-//            self.lblMinHeight.text = "0.0"
+            heightSeekSlider.selectedMinValue = 0.0
+            heightSeekSlider.selectedMaxValue = 10.0
+            heightSeekSlider.minValue = 0.0
+            heightSeekSlider.maxValue = 10.0
+            self.lblMinHeight.text = "0.0"
             self.lblMaxHeight.text = "10.0"
         }
     }

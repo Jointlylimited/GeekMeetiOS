@@ -229,7 +229,7 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
         }
         
         for photo in UserDataModel.currentUser!.photos! {
-            let photoModel = UserPhotosModel(iMediaId: photo.iMediaId, vMedia: photo.vMedia, tiMediaType: photo.tiMediaType, tiImage: nil, tiIsDefault: photo.tiIsDefault, reaction: photo.reaction)
+            let photoModel = UserPhotosModel(iMediaId: photo.iMediaId, vMedia: photo.vMedia, vMediaPath: photo.vMedia, tiMediaType: photo.tiMediaType, tiImage: nil, tiIsDefault: photo.tiIsDefault, reaction: photo.reaction)
             userPhotosModel.append(photoModel)
         }
         self.tblEditProfileView.reloadData()
@@ -247,7 +247,7 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
         
         for photo in userPhotosModel {
             if  photo.tiImage != nil {
-                self.imageArray.append(["tiImage": photo.tiImage!, "vMedia": photo.vMedia!, "tiIsDefault": photo.tiIsDefault!, "msgType" : photo.tiMediaType!])
+                self.imageArray.append(["tiImage": photo.tiImage!, "vMedia": photo.vMedia!, "vMediaPath" : photo.vMediaPath!, "tiIsDefault": photo.tiIsDefault!, "msgType" : photo.tiMediaType!])
             }
         }
         
@@ -656,7 +656,7 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                 
                 let IsDefault = self.userPhotosModel.count == 0 ? 1 : 0
-                self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.path, tiMediaType: 1, tiImage: image, tiIsDefault: IsDefault, reaction: []))
+                self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, vMediaPath: self.thumbURlUpload.path, tiMediaType: 1, tiImage: image, tiIsDefault: IsDefault, reaction: []))
                 if IsDefault == 1 {
                     self.imgProfile.image = self.userPhotosModel[0].tiImage
                 }
@@ -666,7 +666,7 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                 
                 let IsDefault = self.userPhotosModel.count == 0 ? 1 : 0
-                self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.path, tiMediaType: 1, tiImage: image, tiIsDefault: IsDefault, reaction: []))
+                self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, vMediaPath: self.thumbURlUpload.path, tiMediaType: 1, tiImage: image, tiIsDefault: IsDefault, reaction: []))
                 if IsDefault == 1 {
                     self.imgProfile.image = self.userPhotosModel[0].tiImage
                 }

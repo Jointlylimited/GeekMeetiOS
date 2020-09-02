@@ -30,9 +30,9 @@ class SignInInteractor: SignInInteractorProtocol {
         LoaderView.sharedInstance.showLoader()
         UserAPI.signIn(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, vEmail: userName, vPassword: password, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signIn(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId!, vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress) { (response, error) in
 
-//            delay(0.2) {
+            delay(0.2) {
                 LoaderView.sharedInstance.hideLoader()
-//            }
+            }
             
             if response?.responseCode == 200 {
                 self.presenter?.getSignInResponse(response : response!)
@@ -51,10 +51,10 @@ class SignInInteractor: SignInInteractorProtocol {
     }
     
     func callQuestionaryAPI() {
-        LoaderView.sharedInstance.showLoader()
+//        LoaderView.sharedInstance.showLoader()
         PreferencesAPI.list(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+//            LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.presenter?.getPrefernceResponse(response : response!)
             } else if response?.responseCode == 203 {

@@ -50,10 +50,12 @@ class AddPhotosInteractor: AddPhotosInteractorProtocol, AddPhotosDataStore {
         for indexValue in 0..<images.count {
             let image = images[indexValue].value(forKey: "tiImage") as! UIImage
             let tiDefault = images[indexValue].value(forKey: "tiIsDefault") as! Int
+            let imgName = images[indexValue].value(forKey: "vMedia") as! String
+            let imgPath = images[indexValue].value(forKey: "vMediaPath") as! String
             
             AWSHelper.setup()
             
-            self.uploadSingleImg(image: image) { (success, path) in
+            self.uploadSingleImg(image: image, path: imgPath, name: imgName) { (success, path) in
                 if tiDefault == 1 {
                     self.paramDetails["vProfileImage"] = path.split("/").last!
                 }
@@ -67,16 +69,16 @@ class AddPhotosInteractor: AddPhotosInteractorProtocol, AddPhotosDataStore {
                     DispatchQueue.main.async {
                         LoaderView.sharedInstance.hideLoader()
                     }
-                    if finalStr.contains("[") {
+//                    if finalStr.contains("[") {
                         self.callSignUpInfoAPI(signParams: self.paramDetails as! Dictionary<String, String>)
-                    }
+//                    }
                 }
             }
         }
     }
         
-        func uploadSingleImg(image : UIImage, complete: @escaping (Bool, String) -> ()){
-            AWSHelper.shared.upload(img: image, imgPath: self.thumbURlUpload.path, imgName: self.thumbURlUpload.name) { [weak self] (isUploaded, path, error) in
+        func uploadSingleImg(image : UIImage, path: String, name: String, complete: @escaping (Bool, String) -> ()){
+            AWSHelper.shared.upload(img: image, imgPath: path, imgName: name) { [weak self] (isUploaded, path, error) in
 
                 guard let `self` = self else {return}
                 if let err = error {

@@ -24,7 +24,7 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
     @IBOutlet weak var tfName: BottomBorderTF!
     @IBOutlet weak var tfDoB: BottomBorderTF!
     @IBOutlet weak var tfCompanyDetail: BottomBorderTF!
-    @IBOutlet weak var tfAbout: BottomBorderTF!
+//    @IBOutlet weak var tfAbout: BottomBorderTF!
     @IBOutlet weak var imgprofile: UIImageView!
     @IBOutlet weak var btnContinue: GradientButton!
     @IBOutlet weak var btnWork: UIButton!
@@ -33,6 +33,7 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
     @IBOutlet weak var btnFemale: UIButton!
     @IBOutlet weak var btnOther: UIButton!
     @IBOutlet weak var btnPreferNottoSay: UIButton!
+    @IBOutlet weak var tfAbout: UITextView!
     
     @IBOutlet weak var lblCompanynsdSchoolDetail: UILabel!
     var signUpParams : Dictionary<String, String>?
@@ -160,7 +161,7 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
         if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0 {
             navigationController?.setNavigationBarHidden(true, animated: true)
         } else {
-            navigationController?.setNavigationBarHidden(false, animated: true)
+            navigationController?.setNavigationBarHidden(true, animated: true)
         }
     }
     
@@ -312,6 +313,32 @@ extension UserProfileViewController : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+extension UserProfileViewController : UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == "Describe about yourself" {
+            textView.text = ""
+            textView.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        } else {
+            if textView.text == "" {
+                textView.text = "Describe about yourself"
+                textView.textColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+            }
+        }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+       if textView.text == "" {
+           textView.text = "Describe about yourself"
+           textView.textColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+            textView.resignFirstResponder()
+       }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        self.tfAbout.text = textView.text
     }
 }
 extension Date {

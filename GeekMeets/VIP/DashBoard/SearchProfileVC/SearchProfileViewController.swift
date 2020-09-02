@@ -71,6 +71,11 @@ class SearchProfileViewController: UIViewController, SearchProfileProtocol {
         setFilterData()
     }
     
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        self.btnClearAllAction()
+//    }
+    
     func setFilterData(){
         txtSearchField.returnKeyType = .search
         if !self.isFromDiscover {
@@ -219,6 +224,8 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
             }
         }
         matchVC!.isFromHome = false
+        self.btnClearAllAction()
+        self.txtSearchField.resignFirstResponder()
         self.pushVC(matchVC!)
     }
 }

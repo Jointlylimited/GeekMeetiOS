@@ -171,7 +171,7 @@ class BoostViewController: UIViewController, BoostProtocol {
         if dateStr1 != "" {
             (totalHour, totalMin, totalSecond) = timeGapBetweenDates(previousDate: dateStr1, currentDate: dateStr2)
         }
-        if dateStr1.compare(dateStr2) == .orderedDescending  {
+        if dateStr1.compare(dateStr2) == .orderedDescending {
             startTimer()
         } else {
 

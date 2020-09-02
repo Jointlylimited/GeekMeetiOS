@@ -924,6 +924,7 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
     }
     
         func showOptionAlertView() {
+            self.inputTextView.resignFirstResponder()
             alertView = CustomOptionView.initAlertView(isblock : self.isBlock!)
             alertView.delegate = self
             alertView.frame = self.view.frame
@@ -998,6 +999,7 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
 
 extension OneToOneChatVC : CustomOptionViewDelegate {
     func OptionButtonAction(index : Int){
+        
         print(index)
         self.alertView.removeFromSuperview()
         if index == 0 {

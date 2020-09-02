@@ -80,7 +80,7 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
         self.navigationItem.leftBarButtonItem = leftSideBackBarButton
         self.navigationController?.navigationBar.barTintColor = UIColor.white
         // Profile image set
-        userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, tiMediaType: 1, tiImage: imgProfile, tiIsDefault: 1, reaction: []))
+        userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, vMediaPath: self.thumbURlUpload.path, tiMediaType: 1, tiImage: imgProfile, tiIsDefault: 1, reaction: []))
     }
     
     //MARK: IBAction Method
@@ -88,7 +88,7 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
         
         for photo in userPhotosModel {
             if  photo.tiImage != nil {
-                self.imgsUserPhotosDict.append(["tiImage": photo.tiImage!, "vMedia": photo.vMedia!, "tiIsDefault": photo.tiIsDefault!])
+                self.imgsUserPhotosDict.append(["tiImage": photo.tiImage!, "vMedia": photo.vMedia!, "vMediaPath" : photo.vMediaPath!, "tiIsDefault": photo.tiIsDefault!])
             }
         }
         
@@ -213,10 +213,10 @@ extension AddPhotosViewController:  UINavigationControllerDelegate, UIImagePicke
             let imgDataa = NSData(data: (imgTemp).jpegData(compressionQuality: 0.5)!)
             let image = UIImage(data: imgDataa as Data)
             let IsDefault = self.userPhotosModel.count == 0 ? 1 : 0
-            self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, tiMediaType: 1, tiImage: image, tiIsDefault: IsDefault, reaction: []))
+            self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, vMediaPath: self.thumbURlUpload.path, tiMediaType: 1, tiImage: image, tiIsDefault: IsDefault, reaction: []))
         }else{
             let IsDefault = self.userPhotosModel.count == 0 ? 1 : 0
-            self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, tiMediaType: 1, tiImage: imgTemp, tiIsDefault: IsDefault, reaction: []))
+            self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, vMediaPath: self.thumbURlUpload.path, tiMediaType: 1, tiImage: imgTemp, tiIsDefault: IsDefault, reaction: []))
         }
         clnAddPhoto.reloadData()
     }
