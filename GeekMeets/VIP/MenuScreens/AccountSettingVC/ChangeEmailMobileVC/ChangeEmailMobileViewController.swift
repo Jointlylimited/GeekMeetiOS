@@ -101,6 +101,8 @@ extension ChangeEmailMobileViewController {
         if response.responseCode == 200 {
             AppSingleton.sharedInstance().logout()
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        } else {
+            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }
     }
     

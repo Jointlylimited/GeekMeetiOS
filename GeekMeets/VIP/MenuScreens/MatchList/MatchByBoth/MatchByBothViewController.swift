@@ -79,6 +79,7 @@ extension MatchByBothViewController {
     func getMatchResponse(response : MatchUser) {
         UserDataModel.setMatchesCount(count: response.responseData!.count)
         self.objMatchData = response.responseData!
+        self.objMatchData = self.objMatchData.reversed()
         if self.objMatchData.count != 0 {
             self.tblMatchList.alpha = 1.0
             self.lblNoUser.alpha = 0.0

@@ -13,6 +13,7 @@
 import UIKit
 
 protocol AccountSettingProtocol: class {
+    func getUserProfileResponse(response : UserAuthResponseField)
 }
 
 class AccountSettingViewController: UIViewController, AccountSettingProtocol {
@@ -62,19 +63,24 @@ class AccountSettingViewController: UIViewController, AccountSettingProtocol {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setAccountDetails()
+        self.presenter?.callUserProfileAPI(id : "\(UserDataModel.currentUser?.iUserId ?? 0)", code : "")
     }
     func registerTableViewCell(){
         self.tblAccountList.register(UINib.init(nibName: Cells.CommonTblListCell, bundle: Bundle.main), forCellReuseIdentifier: Cells.CommonTblListCell)
-        setAccountDetails()
     }
     
     func setAccountDetails(){
         self.objAccountData = [CommonCellModel(title: "Mobile Number", description: "\(UserDataModel.currentUser?.vCountryCode ?? "")  \(UserDataModel.currentUser?.vPhone ?? "")", isDescAvailable: true), CommonCellModel(title: "Email Address", description: "\(UserDataModel.currentUser?.vEmail ?? "")", isDescAvailable: true), CommonCellModel(title: "Change Password", description: "", isDescAvailable: false)]
+        self.tblAccountList.reloadData()
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.popVC()
+    }
+    
+    func getUserProfileResponse(response : UserAuthResponseField){
+        UserDataModel.currentUser = response
+        setAccountDetails()
     }
 }
 

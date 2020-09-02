@@ -134,8 +134,8 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
             strCountryCode = strNewCountryCode
             strPhonenumber = strNewPhoneNumber
             
-            self.presenter?.callResendOTPAPI(vCountryCode : strCountryCode ,vPhone : strPhonenumber ?? "7567173373")
-//            startTimer()
+//            self.presenter?.callResendOTPAPI(vCountryCode : strCountryCode ,vPhone : strPhonenumber ?? "7567173373")
+            startTimer()
         }
         
         btnCountrycode.setTitle(strCountryCode, for: .normal)

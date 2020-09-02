@@ -31,7 +31,7 @@ class HomeViewController: UIViewController, HomeProtocol {
     @IBOutlet weak var cards: SwipeableCards!
     
     var cardsData = [Int]()
-    var objStoryData : [UIImage] = [#imageLiteral(resourceName: "image_1"),#imageLiteral(resourceName: "Image 65"),#imageLiteral(resourceName: "Image 63")]
+    var objStoryData : [UIImage] = [#imageLiteral(resourceName: "image_1"),#imageLiteral(resourceName: "image_1"),#imageLiteral(resourceName: "image_1")]
     var cardView = CardView()
     var objCardArray = CardDetailsModel()
     var location:CLLocation?

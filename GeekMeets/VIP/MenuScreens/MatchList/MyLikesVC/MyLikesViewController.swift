@@ -88,18 +88,19 @@ class MyLikesViewController: UIViewController, MyLikesProtocol {
 
 extension MyLikesViewController {
     func getMatchResponse(response : MatchUser) {
-            UserDataModel.setMatchesCount(count: response.responseData!.count)
-            self.objMatchData = response.responseData!
-            if self.objMatchData.count != 0 {
-                self.tblMatchList.alpha = 1.0
-                self.lblNoUser.alpha = 0.0
-//                self.btnSearch.alpha = 1.0
-            } else {
-                self.tblMatchList.alpha = 0.0
-                self.lblNoUser.alpha = 1.0
-//                self.btnSearch.alpha = 0.0
-            }
-            self.tblMatchList.reloadData()
+        UserDataModel.setMatchesCount(count: response.responseData!.count)
+        self.objMatchData = response.responseData!
+        self.objMatchData = self.objMatchData.reversed()
+        if self.objMatchData.count != 0 {
+            self.tblMatchList.alpha = 1.0
+            self.lblNoUser.alpha = 0.0
+            //                self.btnSearch.alpha = 1.0
+        } else {
+            self.tblMatchList.alpha = 0.0
+            self.lblNoUser.alpha = 1.0
+            //                self.btnSearch.alpha = 0.0
+        }
+        self.tblMatchList.reloadData()
     }
 }
 

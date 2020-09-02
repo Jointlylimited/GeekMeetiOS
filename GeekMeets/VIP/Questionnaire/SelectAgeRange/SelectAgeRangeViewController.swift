@@ -113,7 +113,7 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
             
         } else {
             heightSeekSlider.disableRange = false
-            self.lblMinHeight.text = "0.0"
+//            self.lblMinHeight.text = "0.0"
             self.lblMaxHeight.text = "10.0"
         }
     }

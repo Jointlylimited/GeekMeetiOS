@@ -13,6 +13,7 @@
 import UIKit
 
 protocol NewMobileNumberProtocol: class {
+    func getResendOTPResponse(response: CommonResponse)
 }
 
 class NewMobileNumberViewController: UIViewController, NewMobileNumberProtocol {
@@ -88,12 +89,19 @@ class NewMobileNumberViewController: UIViewController, NewMobileNumberProtocol {
             AppSingleton.sharedInstance().showAlert(KEnterValidMobileNo, okTitle: "OK")
             return
         }
-        
-        let otpVC = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter) as! OTPEnterViewController
-        otpVC.isFromNewMobile = true
-        otpVC.strNewCountryCode = self.txtCountryCode.text ?? ""
-        otpVC.strNewPhoneNumber = self.txtMobNo.text ?? ""
-        self.pushVC(otpVC)
+        self.presenter?.callResendOTPAPI(vCountryCode : self.txtCountryCode.text ?? "" ,vPhone : self.txtMobNo.text ?? "")
+    }
+    
+    func getResendOTPResponse(response: CommonResponse){
+        if response.responseCode == 200 {
+            let otpVC = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter) as! OTPEnterViewController
+            otpVC.isFromNewMobile = true
+            otpVC.strNewCountryCode = self.txtCountryCode.text ?? ""
+            otpVC.strNewPhoneNumber = self.txtMobNo.text ?? ""
+            self.pushVC(otpVC)
+        } else {
+            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        }
     }
 }
 

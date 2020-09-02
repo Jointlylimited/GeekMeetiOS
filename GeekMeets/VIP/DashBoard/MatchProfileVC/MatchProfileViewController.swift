@@ -148,7 +148,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     var customPickImageView: CustomOptionView!
     
     var objProfileData = MatchProfileData()
-    var imageArray = [#imageLiteral(resourceName: "img_intro_2"), #imageLiteral(resourceName: "image_1"), #imageLiteral(resourceName: "Image 63"), #imageLiteral(resourceName: "Image 62")]
+    var imageArray = [#imageLiteral(resourceName: "img_intro_2"), #imageLiteral(resourceName: "image_1"), #imageLiteral(resourceName: "image_1"), #imageLiteral(resourceName: "image_1")]
     var isFromHome : Bool = true
     var isFromLink : Bool = false
     var arrayDetails :  [UserDetail] = []
@@ -388,6 +388,7 @@ extension MatchProfileViewController {
     
     func getSwipeCardResponse(response : SwipeUser){
         if response.responseCode == 200 {
+            self.btnFavourite.alpha = 0.0
             if response.responseData?.tiSwipeType == 2 {
                 let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchScreen) as! MatchViewController
                 controller.isFromProfile = true

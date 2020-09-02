@@ -42,6 +42,7 @@ class AddPhotosPresenter: AddPhotosPresentationProtocol {
         UserDataModel.currentUser = UserDataModel.lastLoginUser
         UserDataModel.setAuthKey(key: (response.responseData?.vAuthKey)!)
         Authentication.setSignUpFlowStatus(response.responseData!.tiStep!)
+        Authentication.setLoggedInStatus(true)
         Authentication.setSwipeStatus(10)
         
         let controller = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange)

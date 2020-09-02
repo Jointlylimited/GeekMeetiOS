@@ -54,9 +54,9 @@ class MatchByBothInteractor: MatchByBothInteractorProtocol, MatchByBothDataStore
         LoaderView.sharedInstance.showLoader()
         UserAPI.unMatch(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vXmppUser: iProfileId) { (response, error) in
             
-            delay(0.2) {
+//            delay(0.2) {
                 LoaderView.sharedInstance.hideLoader()
-            }
+//            }
             if response?.responseCode == 200 {
                 self.presenter?.getUnMatchResponse(response: response!)
             } else if response?.responseCode == 203 {

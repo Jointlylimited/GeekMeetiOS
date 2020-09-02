@@ -134,7 +134,7 @@ class ProfileViewController: UIViewController, ProfileProtocol {
     // MARK: Object lifecycle
     
     var objProfileData = ProfileData()
-    var imageArray : [UIImage] = [] // [#imageLiteral(resourceName: "img_intro_2"), #imageLiteral(resourceName: "image_1"), #imageLiteral(resourceName: "Image 63"), #imageLiteral(resourceName: "Image 62")]
+    var imageArray : [UIImage] = []
     var genderArray : [String] = ["Male", "Female", "Others", "Prefer not to say"]
     
     var userProfileModel : UserAuthResponseField?// : UserProfileModel?

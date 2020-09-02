@@ -31,7 +31,7 @@ public class CardView: UIView {
     @IBOutlet weak var lblNameAge: UILabel!
     @IBOutlet weak var lblLiveIn: UILabel!
     
-    var objStoryData : [UIImage] = [#imageLiteral(resourceName: "image_1"),#imageLiteral(resourceName: "Image 65"),#imageLiteral(resourceName: "Image 63")]
+    var objStoryData : [UIImage] = [#imageLiteral(resourceName: "image_1"),#imageLiteral(resourceName: "image_1"),#imageLiteral(resourceName: "image_1")]
     override public func awakeFromNib() {
         super.awakeFromNib()
 //        setData()

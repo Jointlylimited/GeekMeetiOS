@@ -13,7 +13,7 @@
 import UIKit
 
 protocol AccountSettingInteractorProtocol {
-    func doSomething()
+    func callUserProfileAPI(id : String, code : String)
 }
 
 protocol AccountSettingDataStore {
@@ -25,7 +25,28 @@ class AccountSettingInteractor: AccountSettingInteractorProtocol, AccountSetting
     //var name: String = ""
     
     // MARK: Do something
-    func doSomething() {
-        
-    }
+    func callUserProfileAPI(id : String, code : String){
+            LoaderView.sharedInstance.showLoader()
+            UserAPI.userProfile(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iUserId: id, vReferralCode: code) { (response, error) in
+                
+                delay(0.2) {
+                    LoaderView.sharedInstance.hideLoader()
+                }
+                if response?.responseCode == 200 {
+                    print((response?.responseData!)!)
+                    self.presenter?.getUserProfileResponse(response: (response?.responseData!)!)
+                } else if response?.responseCode == 203 {
+                    AppSingleton.sharedInstance().logout()
+                    AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                } else if response?.responseCode == 400 {
+                    self.presenter?.getUserProfileResponse(response: (response?.responseData!)!)
+                }  else {
+                    if error != nil {
+                        AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                    } else {
+                        self.presenter?.getUserProfileResponse(response: (response?.responseData!)!)
+                    }
+                }
+            }
+        }
 }

@@ -120,9 +120,9 @@ class MessagesViewController: UIViewController, MessagesProtocol {
     }
     
     func setStoryMsgViewData(){
-        self.objMsgData = [MessageViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Linda Parker", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"),MessageViewModel(userImage: #imageLiteral(resourceName: "img_intro_1"), userName: "Sophia", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "Image 64"), userName: "Sonia Mehta", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "Image 62"), userName: "Andrew Jackson", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Vina Parker", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"),MessageViewModel(userImage: #imageLiteral(resourceName: "img_intro_1"), userName: "Lily Ray", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm")]
+        self.objMsgData = [MessageViewModel(userImage: #imageLiteral(resourceName: "image_1"), userName: "Linda Parker", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"),MessageViewModel(userImage: #imageLiteral(resourceName: "img_intro_1"), userName: "Sophia", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "image_1"), userName: "Sonia Mehta", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "Image 62"), userName: "Andrew Jackson", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "image_1"), userName: "Vina Parker", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"),MessageViewModel(userImage: #imageLiteral(resourceName: "img_intro_1"), userName: "Lily Ray", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm")]
         
-        self.objStoryData = [StoryViewModel(userImage: #imageLiteral(resourceName: "Image 62"), userName: "Linda Parker"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Sophia"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 64"), userName: "Sonia Mehta"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 61"), userName: "Andrew Jackson"),StoryViewModel(userImage: #imageLiteral(resourceName: "Image 62"), userName: "Lily Ray"), StoryViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Vina Parker")]
+        self.objStoryData = [StoryViewModel(userImage: #imageLiteral(resourceName: "image_1"), userName: "Linda Parker"), StoryViewModel(userImage: #imageLiteral(resourceName: "image_1"), userName: "Sophia"), StoryViewModel(userImage: #imageLiteral(resourceName: "image_1"), userName: "Sonia Mehta"), StoryViewModel(userImage: #imageLiteral(resourceName: "image_1"), userName: "Andrew Jackson"),StoryViewModel(userImage: #imageLiteral(resourceName: "image_1"), userName: "Lily Ray"), StoryViewModel(userImage: #imageLiteral(resourceName: "image_1"), userName: "Vina Parker")]
         
         //1
         self.setupTableView()
@@ -347,7 +347,7 @@ extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
         
         let headerTitle = UILabel()
         headerTitle.frame = CGRect(x: 20, y: headerView.frame.origin.y + headerView.frame.height/2, w: ScreenSize.width - 60, h: 30)
-        headerTitle.text = "Chats"
+        headerTitle.text = self.arrFriends.count != 0 ? "Chats" : ""
         headerTitle.textColor = .black
         headerTitle.font = UIFont(name: "Poppins-SemiBold", size: 14)
         headerView.addSubview(headerTitle)
