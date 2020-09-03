@@ -229,6 +229,15 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
         }
     }
     
+    @IBAction func btnShowProfileAction(_ sender: UIButton) {
+        let matchVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchProfileScreen) as? MatchProfileViewController
+        let userID = self.objFriend != nil ? self.objFriend?.jID.split("_").first!.replacingOccurrences(of: "\(self.objFriend!.name.replacingOccurrences(of: " ", with: "", options: [.caseInsensitive, .regularExpression]).lowercased())", with: "", options: [.caseInsensitive, .regularExpression]) : _userIDForRequestSend?.split("_").first!.replacingOccurrences(of: "\(self.objFriend!.name.replacingOccurrences(of: " ", with: "", options: [.caseInsensitive, .regularExpression]).lowercased())", with: "", options: [.caseInsensitive, .regularExpression])
+        print(userID)
+        matchVC!.UserID = Int(userID!)
+        matchVC!.isFromHome = false
+        self.pushVC(matchVC!)
+    }
+    
     @objc func refreshChat() {
         self.loadMessages(msgObj: nil)
     }
@@ -974,8 +983,9 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
     @IBAction func btnReportUserPressed(_ sender: Any) {
         self.viewPopUp!.alpha = 0.0
          let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.ReportScreen) as! ReportViewController
-            let techID = self.objFriend != nil ? self.objFriend?.jID.split("_").first!.components(separatedBy: CharacterSet.decimalDigits.inverted).last : _userIDForRequestSend?.split("_").first!.components(separatedBy: CharacterSet.decimalDigits.inverted).last
-        controller.ReportFor = techID!
+            let userID = self.objFriend != nil ? self.objFriend?.jID.split("_").first!.replacingOccurrences(of: "\(self.objFriend!.name.replacingOccurrences(of: " ", with: "", options: [.caseInsensitive, .regularExpression]).lowercased())", with: "", options: [.caseInsensitive, .regularExpression]) : _userIDForRequestSend?.split("_").first!.replacingOccurrences(of: "\(self.objFriend!.name.replacingOccurrences(of: " ", with: "", options: [.caseInsensitive, .regularExpression]).lowercased())", with: "", options: [.caseInsensitive, .regularExpression])
+        controller.ReportFor = userID!
+        controller.ReportUser = self.objFriend != nil ? self.objFriend?.name : self.userName
         self.pushVC(controller)
     }
     
@@ -1012,8 +1022,9 @@ extension OneToOneChatVC : CustomOptionViewDelegate {
             customAlertView = CustomAlertView.initAlertView(title: isBlock == 1 ? kUnblockStr : kBlockStr, message: isBlock == 1 ? kUnblockDesStr : kBlockDesStr, btnRightStr: isBlock == 1 ? kTitleUnBlock : kTitleBlock, btnCancelStr: kTitleCancel, btnCenter: "", isSingleButton: false)
         } else if index == 4 {
             let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.ReportScreen) as! ReportViewController
-            let techID = self.objFriend != nil ? self.objFriend?.jID.split("_").first!.components(separatedBy: CharacterSet.decimalDigits.inverted).last : _userIDForRequestSend?.split("_").first!.components(separatedBy: CharacterSet.decimalDigits.inverted).last
-            controller.ReportFor = techID!
+            let userID = self.objFriend != nil ? self.objFriend?.jID.split("_").first!.replacingOccurrences(of: "\(self.objFriend!.name.replacingOccurrences(of: " ", with: "", options: [.caseInsensitive, .regularExpression]).lowercased())", with: "", options: [.caseInsensitive, .regularExpression]) : _userIDForRequestSend?.split("_").first!.replacingOccurrences(of: "\(self.objFriend!.name.replacingOccurrences(of: " ", with: "", options: [.caseInsensitive, .regularExpression]).lowercased())", with: "", options: [.caseInsensitive, .regularExpression])
+            controller.ReportFor = userID!
+            controller.ReportUser = self.objFriend != nil ? self.objFriend?.name : self.userName
             controller.tiReportType = 1
             controller.modalTransitionStyle = .crossDissolve
             controller.modalPresentationStyle = .overCurrentContext

@@ -59,6 +59,7 @@ class ReportViewController: UIViewController, ReportProtocol {
     var arrReportData : [CellData] = []
     var arrReport = ReasonModel()
     var ReportFor : String = ""
+    var ReportUser : String? = ""
     var iStoryId : String = ""
     var tiReportType : Int = 1
     
@@ -104,6 +105,8 @@ class ReportViewController: UIViewController, ReportProtocol {
     func registerTableViewCell(){
         self.tblReasonList.register(UINib.init(nibName: Cells.CommonTblListCell, bundle: Bundle.main), forCellReuseIdentifier: Cells.CommonTblListCell)
         self.arrReportData = [CellData(opened: false, title: reasonTitle, sectionData: ["Reason 1" , "Reason 2", "Reason 3"])]
+        self.lblScreenTitle.text = "Report \(self.ReportUser ?? "")"
+        self.btnReportTitle.setTitle("Report \(self.ReportUser ?? "")", for: .normal)
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
@@ -142,6 +145,8 @@ extension ReportViewController {
     func getPostReportResponse(response : CommonResponse) {
         if response.responseCode == 200 {
             self.dismissVC(completion: nil)
+            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        } else {
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }
     }

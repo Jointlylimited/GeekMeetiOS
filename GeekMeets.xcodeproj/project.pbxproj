@@ -92,6 +92,7 @@
 		0B4CA0362457EA5200A3460B /* ChangePasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4CA0332457EA5200A3460B /* ChangePasswordPresenter.swift */; };
 		0B4CA0372457EA5200A3460B /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4CA0342457EA5200A3460B /* ChangePasswordViewController.swift */; };
 		0B4CA0382457EA5200A3460B /* ChangePasswordInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4CA0352457EA5200A3460B /* ChangePasswordInteractor.swift */; };
+		0B4DB0D42501211E00FEF9EB /* BadgeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4DB0D32501211D00FEF9EB /* BadgeButton.swift */; };
 		0B51D28F245FE0A0005C7B88 /* HSFacebookLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B51D28E245FE0A0005C7B88 /* HSFacebookLoginManager.swift */; };
 		0B51D293245FE2B6005C7B88 /* ReadMeGoogleSignin.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 0B51D291245FE2B6005C7B88 /* ReadMeGoogleSignin.rtf */; };
 		0B51D294245FE2B6005C7B88 /* SOGoogleConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B51D292245FE2B6005C7B88 /* SOGoogleConfig.swift */; };
@@ -520,6 +521,7 @@
 		0B4CA0332457EA5200A3460B /* ChangePasswordPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordPresenter.swift; sourceTree = "<group>"; };
 		0B4CA0342457EA5200A3460B /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		0B4CA0352457EA5200A3460B /* ChangePasswordInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordInteractor.swift; sourceTree = "<group>"; };
+		0B4DB0D32501211D00FEF9EB /* BadgeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeButton.swift; sourceTree = "<group>"; };
 		0B51D28E245FE0A0005C7B88 /* HSFacebookLoginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSFacebookLoginManager.swift; sourceTree = "<group>"; };
 		0B51D291245FE2B6005C7B88 /* ReadMeGoogleSignin.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = ReadMeGoogleSignin.rtf; sourceTree = "<group>"; };
 		0B51D292245FE2B6005C7B88 /* SOGoogleConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOGoogleConfig.swift; sourceTree = "<group>"; };
@@ -2219,6 +2221,7 @@
 		F90B4CC82032A7C1006ADAF6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0B4DB0D32501211D00FEF9EB /* BadgeButton.swift */,
 				F7780DF6245ABDBC003CA4BD /* SignUpUserModel.swift */,
 				F952382A2047BA3400BC0D49 /* RequestParameter.swift */,
 				F9EDD42C203BFF33008FA83F /* BaseModel.swift */,
@@ -3063,6 +3066,7 @@
 				0B51D294245FE2B6005C7B88 /* SOGoogleConfig.swift in Sources */,
 				0B31965B244DE80500B38350 /* ProfilePresenter.swift in Sources */,
 				0B535689245088DC005571AF /* EditProfileInteractor.swift in Sources */,
+				0B4DB0D42501211E00FEF9EB /* BadgeButton.swift in Sources */,
 				0B9499D62451DBC4001AD1C8 /* DiscoverySettingPresenter.swift in Sources */,
 				0B3C75B3245327DF00CEDBBA /* Share_EarnPresenter.swift in Sources */,
 				F7CD7A4E24442F3A00E02A9E /* TutorialPageViewController.swift in Sources */,

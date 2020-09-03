@@ -26,6 +26,10 @@ class MenuViewModel {
     }
 }
 
+protocol EditProfileResponseDelegate {
+    func profileEdited(success : Bool)
+}
+
 protocol MenuProtocol: class {
     func getSignOutResponse(response : UserAuthResponse)
     func getLocationUpdateResponse(response : UserAuthResponse)
@@ -50,7 +54,7 @@ class MenuViewController: UIViewController, MenuProtocol {
     @IBOutlet weak var lblUserNameAge: UILabel!
     @IBOutlet weak var imgProfile: UIImageView!
     @IBOutlet weak var lblVersion: UILabel!
-    @IBOutlet weak var btnNotification: UIButton!
+    @IBOutlet weak var btnNotification: SSBadgeButton!
     
     var alertView: CustomAlertView!
     var arrMenuModel : [MenuViewModel] = []
@@ -65,6 +69,7 @@ class MenuViewController: UIViewController, MenuProtocol {
     
     var GeekPlans : Int = 0
     var Boosts : Int = 0
+    var profileEdited : Bool = false
     
     // MARK: Object lifecycle
     
@@ -110,7 +115,9 @@ class MenuViewController: UIViewController, MenuProtocol {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.presenter?.callMatchListAPI()
+        if !profileEdited {
+            self.presenter?.callMatchListAPI()
+        }
     }
     
     func setTheme() {
@@ -125,11 +132,14 @@ class MenuViewController: UIViewController, MenuProtocol {
             self.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_round"))
         }
         
-        if UserDataModel.getNotificationCount() != 0 {
-            self.btnNotification.setImage(#imageLiteral(resourceName: "icn_notification"), for: .normal)
-        } else {
+        self.btnNotification.contentHorizontalAlignment = .right
+        btnNotification.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
+        
+//        if UserDataModel.getNotificationCount() != 0 {
             self.btnNotification.setImage(#imageLiteral(resourceName: "bell"), for: .normal)
-        }
+//        } else {
+//            self.btnNotification.setImage(#imageLiteral(resourceName: "bell"), for: .normal)
+//        }
         
         self.btnEditProfile.underlineButton(text: "Edit Profile", font: UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 12)!, color: #colorLiteral(red: 0.5294117647, green: 0.1803921569, blue: 0.7647058824, alpha: 1))
         let matchCount = UserDataModel.getMatchesCount()
@@ -215,6 +225,7 @@ class MenuViewController: UIViewController, MenuProtocol {
     
     @IBAction func btnEditProfileAction(_ sender: UIButton) {
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.EditProfileScreen) as! EditProfileViewController
+        controller.del = self
         self.pushVC(controller)
     }
     
@@ -247,6 +258,13 @@ class MenuViewController: UIViewController, MenuProtocol {
     }
 }
 
+extension MenuViewController : EditProfileResponseDelegate {
+    func profileEdited(success: Bool) {
+        if success {
+            self.profileEdited = false
+        }
+    }
+}
 extension MenuViewController {
     func getMatchResponse(response : MatchUser) {
         UserDataModel.setMatchesCount(count: response.responseData!.count)
@@ -286,9 +304,13 @@ extension MenuViewController {
     func getBadgeCountResponse(response : ViewNotification){
         if response.responseData?.budgeCount != 0 {
             UserDataModel.setNotificationCount(count: response.responseData?.budgeCount ?? 0)
+            self.btnNotification.badge = UserDataModel.getNotificationCount() > 999 ? "99+" : "\(UserDataModel.getNotificationCount())"
+            self.btnNotification.badgeLabel.frame = CGRect(x: self.btnNotification.width-20, y: 0, w: 20, h: 20)
         } else {
             UserDataModel.setNotificationCount(count: 0)
+//            self.btnNotification.badge = "0"
         }
+        
         setTheme()
     }
 }
@@ -330,19 +352,15 @@ extension MenuViewController : UITableViewDataSource, UITableViewDelegate {
             if indexPath.row == 6 {
                 if UserDataModel.currentUser?.tiIsAcceptPush == 1 {
                     self.presenter?.callPushStatusAPI(tiIsAcceptPush : "0")
-//                    cell.btnRight.isSelected = false
                 } else {
                     self.presenter?.callPushStatusAPI(tiIsAcceptPush : "1")
-//                    cell.btnRight.isSelected = true
                 }
             }
             if indexPath.row == 7 {
                 if UserDataModel.currentUser?.tiIsLocationOn == 1 {
                     self.getUserCurrentLocation(tiIsLocationOn: "0")
-//                    cell.btnRight.isSelected = false
                 } else {
                     self.getUserCurrentLocation(tiIsLocationOn: "1")
-//                    cell.btnRight.isSelected = true
                 }
             }
             if indexPath.row != 6 || indexPath.row != 7 {
@@ -425,7 +443,6 @@ extension MenuViewController {
         if response.responseCode == 200 {
             UserDataModel.currentUser?.tiIsLocationOn = response.responseData?.tiIsLocationOn
             self.tblMenuList.reloadData()
-//            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }
     }
     
@@ -433,7 +450,6 @@ extension MenuViewController {
         if response.responseCode == 200 {
             UserDataModel.currentUser?.tiIsAcceptPush = response.responseData?.tiIsAcceptPush
             self.tblMenuList.reloadData()
-//            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }
     }
     

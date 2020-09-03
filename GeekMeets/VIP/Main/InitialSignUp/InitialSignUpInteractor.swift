@@ -106,7 +106,10 @@ class InitialSignUpInteractor: InitialSignUpInteractorProtocol, InitialSignUpDat
         UserDataModel.setSocialType(socialType: params["tiSocialType"]!)
         UserAPI.socialSignin(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language:APPLANGUAGE.english , tiSocialType: UserAPI.TiSocialType_socialSignin(rawValue: params["tiSocialType"]!)!, vAccessToken: params["accessKey"]!, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_socialSignin(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId ?? "", vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
+            
             if response?.responseCode == 200 {
                 self.presenter?.getLoginResponse(userData : response)
             } else if response?.responseCode == 203 {

@@ -37,7 +37,10 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
         LoaderView.sharedInstance.showLoader()
         UserAPI.userProfile(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iUserId: id, vReferralCode: code) { (response, error) in
             
-//            LoaderView.sharedInstance.hideLoader()
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
+            
             if response?.responseCode == 200 {
                 print((response?.responseData!)!)
                 self.presenter?.getUserProfileResponse(response: (response?.responseData!)!)
@@ -60,7 +63,7 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
 //        LoaderView.sharedInstance.showLoader()
         MediaAPI.listStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, _id: id) { (response, error) in
             
-//            LoaderView.sharedInstance.hideLoader()
+            LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.presenter?.getStoryListResponse(response: response!)
             } else if response?.responseCode == 203 {
@@ -79,7 +82,7 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
     }
     
     func callBlockUserAPI(vXmppUser: String, tiIsBlocked: String) {
-        LoaderView.sharedInstance.showLoader()
+//        LoaderView.sharedInstance.showLoader()
         UserAPI.blockUsers(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vXmppUser: vXmppUser, tiIsBlocked: tiIsBlocked) { (response, error) in
             
             LoaderView.sharedInstance.hideLoader()

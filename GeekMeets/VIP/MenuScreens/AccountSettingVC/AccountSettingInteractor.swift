@@ -40,6 +40,7 @@ class AccountSettingInteractor: AccountSettingInteractorProtocol, AccountSetting
                     AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
                 } else if response?.responseCode == 400 {
                     self.presenter?.getUserProfileResponse(response: (response?.responseData!)!)
+                    AppSingleton.sharedInstance().showAlert((response?.responseMessage)!, okTitle: "OK")
                 }  else {
                     if error != nil {
                         AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")

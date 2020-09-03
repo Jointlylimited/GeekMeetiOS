@@ -268,6 +268,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.ReportScreen) as! ReportViewController
         controller.ReportFor = "\(self.objMatchUserProfile.iUserId!)"
         controller.tiReportType = 1
+        controller.ReportUser = self.objMatchUserProfile.vName
         controller.modalTransitionStyle = .crossDissolve
         controller.modalPresentationStyle = .overCurrentContext
         self.presentVC(controller)

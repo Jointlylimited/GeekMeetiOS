@@ -153,7 +153,7 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
     var genderArray : [String] = ["Male", "Female", "Others", "Prefer not to say"]
     var delegate : ProfileDataDelegate!
     var removePhotoStr = ""
-    
+    var del : EditProfileResponseDelegate?
     
     var thumbURlUpload: (path: String, name: String) {
         let folderName = user_Profile
@@ -310,6 +310,7 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
             if self.delegate != nil {
             }
             self.popVC()
+            self.del?.profileEdited(success: true)
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }
     }

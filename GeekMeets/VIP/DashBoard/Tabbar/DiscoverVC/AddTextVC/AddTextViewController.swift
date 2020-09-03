@@ -63,8 +63,8 @@ class AddTextViewController: UIViewController {
         self.textView.setPlaceholder(view : self.textView)
         
         textSizeSlider = RangeSlider(frame: CGRect(x: 20, y: ScreenSize.frame.y + 125, w: 30, h: 250))
-        textSizeSlider.delegate = self
-
+        textSizeSlider.isUserInteractionEnabled = false
+        
         self.view.addSubview(textSizeSlider)
         dictAttribute = NSMutableDictionary(object: UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 16.0)!, forKey: NSAttributedString.Key.font as NSCopying)
     }
@@ -105,15 +105,20 @@ class AddTextViewController: UIViewController {
 }
 extension AddTextViewController : TextSizeSelectDelegate {
     func selectTextSize(size : CGFloat) {
-        print("value is" ,size)
-        fontSize = size
-        adjustTextViewHeight()
-        if self.textViewHeightConstant.constant < ScreenSize.height {
-            self.textView.font = UIFont(name: cusTextView.font.fontName, size: size)
-            cusTextView.font = self.textView.font
-            cusTextView.attributedString = NSAttributedString.init(string: textView.text, attributes: dictAttribute as? [NSAttributedString.Key : Any])
-            cusTextView.text = textView.text
-            cusTextView.fontSize = size
+        print(textView.toolbarPlaceholder)
+        if textView.text == "Tap to write" {
+            AppSingleton.sharedInstance().showAlert("Write your text first...", okTitle: "OK")
+        } else {
+            print("value is" ,size)
+            fontSize = size
+            adjustTextViewHeight()
+            if self.textViewHeightConstant.constant < ScreenSize.height {
+                self.textView.font = UIFont(name: cusTextView.font.fontName, size: size)
+                cusTextView.font = self.textView.font
+                cusTextView.attributedString = NSAttributedString.init(string: textView.text, attributes: dictAttribute as? [NSAttributedString.Key : Any])
+                cusTextView.text = textView.text
+                cusTextView.fontSize = size
+            }
         }
     }
 }
@@ -206,6 +211,9 @@ extension AddTextViewController : UICollectionViewDataSource, UICollectionViewDe
 
 extension AddTextViewController : UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
+        if textView.text == "Tap to write" {
+            self.textSizeSlider.isUserInteractionEnabled = false
+        }
         textView.checkPlaceholder()
         adjustTextViewHeight()
         textView.centerVertically()
@@ -235,6 +243,8 @@ extension AddTextViewController : UITextViewDelegate {
     }
     
     func adjustTextViewHeight() {
+        textSizeSlider.delegate = self
+        self.textSizeSlider.isUserInteractionEnabled = true
         let fixedWidth = textView.frame.size.width
         let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
         if newSize.height < ScreenSize.height {
@@ -259,7 +269,7 @@ extension UITextView{
         placeholderLabel.textAlignment = .center
         placeholderLabel.textColor = UIColor.white.withAlphaComponent(0.5)
         placeholderLabel.isHidden = !self.text.isEmpty
-       
+        
         self.addSubview(placeholderLabel)
     }
     
@@ -271,6 +281,7 @@ extension UITextView{
         else{
 //            self.text.removeLast()
         }
+        
         let placeholderLabel = self.viewWithTag(222) as! UILabel
         placeholderLabel.isHidden = !self.text.isEmpty
     }

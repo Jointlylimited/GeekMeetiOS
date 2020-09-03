@@ -79,13 +79,14 @@ class DiscoverViewController: UIViewController, DiscoverProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.registerCollectionViewCell()
-        setStoryData()
-
+        
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.presenter?.callStoryListAPI()
+        self.registerCollectionViewCell()
+        setStoryData()
     }
     
     func registerCollectionViewCell(){

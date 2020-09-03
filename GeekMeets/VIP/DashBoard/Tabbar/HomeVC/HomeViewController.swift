@@ -29,6 +29,7 @@ class HomeViewController: UIViewController, HomeProtocol {
     var presenter : HomePresentationProtocol?
     
     @IBOutlet weak var cards: SwipeableCards!
+    @IBOutlet weak var imgPlaceHolder: UIImageView!
     
     var cardsData = [Int]()
     var objStoryData : [UIImage] = [#imageLiteral(resourceName: "image_1"),#imageLiteral(resourceName: "image_1"),#imageLiteral(resourceName: "image_1")]
@@ -155,11 +156,19 @@ extension HomeViewController {
     func getUserCardResponse(response : SearchUsers) {
         if response.responseCode == 200 {
             self.objCardArray.arrUserCardList = response.responseData
+            if self.objCardArray.arrUserCardList.count != 0 {
+                self.imgPlaceHolder.alpha = 0.0
+            } else {
+                self.imgPlaceHolder.alpha = 1.0
+            }
+            cards.alpha = 1.0
             setCards()
         } else {
             self.cardsData = []
             cards.reloadData()
+            cards.alpha = 0.0
             AppSingleton.sharedInstance().showAlert(kNoProfile, okTitle: "OK")
+            self.imgPlaceHolder.alpha = 1.0
         }
     }
     
