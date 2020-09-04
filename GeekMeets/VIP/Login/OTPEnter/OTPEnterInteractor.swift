@@ -48,7 +48,7 @@ class OTPEnterInteractor: OTPEnterInteractorProtocol, OTPEnterDataStore {
                 self.presenter?.getVerifyOTPResponse(response: response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
-                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.presenter?.getVerifyOTPResponse(response: response!)
                 
@@ -75,7 +75,7 @@ class OTPEnterInteractor: OTPEnterInteractorProtocol, OTPEnterDataStore {
                 self.presenter?.getResendOTPResponse(response: response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
-                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.presenter?.getResendOTPResponse(response: response!)
             }  else {
@@ -101,7 +101,7 @@ class OTPEnterInteractor: OTPEnterInteractorProtocol, OTPEnterDataStore {
                 self.presenter?.getNewVerifyOTPResponse(response: response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
-                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.presenter?.getNewVerifyOTPResponse(response: response!)
                 

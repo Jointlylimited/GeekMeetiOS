@@ -36,7 +36,7 @@ class FirstCallInteractor: FirstCallInteractorProtocol, FirstCallDataStore {
                 self.presenter?.getContentPageResponse(response:response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
-                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")

@@ -33,7 +33,7 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
     
     var thumbURlUpload: (path: String, name: String) {
         let folderName = user_Profile
-        let timeStamp = authToken.timeStamp
+        let timeStamp = Authentication.sharedInstance().GetCurrentTimeStamp()
         let imgExtension = ".jpeg"
         let path = "\(folderName)\(timeStamp)\(imgExtension)"
         return (path: path, name: "\(timeStamp)\(imgExtension)")

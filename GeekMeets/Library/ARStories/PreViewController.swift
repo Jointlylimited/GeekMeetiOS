@@ -9,6 +9,7 @@ import UIKit
 import AVFoundation
 import AVKit
 import CoreMedia
+import Alamofire
 
 class PreViewController: UIViewController, SegmentedProgressBarDelegate {
 
@@ -177,6 +178,10 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
             self.SPB.duration = 5
             self.imagePreview.isHidden = false
             self.videoView.isHidden = true
+            if !NetworkReachabilityManager.init()!.isReachable{
+                self.imagePreview.image = #imageLiteral(resourceName: "Rotate")
+                return
+            }
             print("\(items[pageIndex].txStory!)")
             let url = URL(string:"\(items[index].txStory!)")
             self.imagePreview.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
@@ -187,6 +192,11 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
             resetPlayer()
             guard let url = NSURL(string: items[index].txStory!) as URL? else {return}
             self.player = AVPlayer(url: url)
+            
+            if !NetworkReachabilityManager.init()!.isReachable{
+                self.imagePreview.image = #imageLiteral(resourceName: "Rotate")
+                return
+            }
             
             let videoLayer = AVPlayerLayer(player: self.player)
             videoLayer.frame = view.bounds

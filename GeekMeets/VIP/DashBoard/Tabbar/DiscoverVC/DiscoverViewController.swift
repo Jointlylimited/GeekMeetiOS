@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import Alamofire
 
 protocol DeleteStoryDelegate {
     func getDeleteStoryResponse(deleted : Bool)
@@ -286,6 +287,10 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath.item)
+        if !NetworkReachabilityManager.init()!.isReachable{
+            AppSingleton.sharedInstance().showAlert(NoInternetConnection, okTitle: "OK")
+            return
+        }
         if collectionView == self.StoryCollView {
 //            if self.objOwnStoryArray != nil && self.objOwnStoryArray!.count != 0 {
 //                if indexPath.row != 0 {

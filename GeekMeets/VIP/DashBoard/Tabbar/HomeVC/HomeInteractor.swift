@@ -38,7 +38,7 @@ class HomeInteractor: HomeInteractorProtocol, HomeDataStore {
                 self.presenter?.getUserCardResponse(response : response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
-                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
@@ -60,7 +60,7 @@ class HomeInteractor: HomeInteractorProtocol, HomeDataStore {
                 self.presenter?.getSwipeCardResponse(response : response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
-                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
@@ -82,7 +82,7 @@ class HomeInteractor: HomeInteractorProtocol, HomeDataStore {
                 self.presenter?.getLocationUpdateResponse(response : response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
-                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")

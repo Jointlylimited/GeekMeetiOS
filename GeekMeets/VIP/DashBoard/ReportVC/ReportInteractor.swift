@@ -37,7 +37,7 @@ class ReportInteractor: ReportInteractorProtocol, ReportDataStore {
                 self.presenter?.getReportListResponse(response : response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
-                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
@@ -59,7 +59,7 @@ class ReportInteractor: ReportInteractorProtocol, ReportDataStore {
                 self.presenter?.getPostReportResponse(response : response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
-                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")

@@ -36,7 +36,7 @@ class ContactUS_LegalInteractor: ContactUS_LegalInteractorProtocol, ContactUS_Le
                 self.presenter?.getContactUsResponse(response : response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
-                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")

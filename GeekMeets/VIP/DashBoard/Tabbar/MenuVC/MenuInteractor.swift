@@ -42,7 +42,7 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
                 self.presenter?.getSignoutResponse(response : response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
-                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
@@ -64,7 +64,7 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
                 self.presenter?.getLocationUpdateResponse(response : response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
-                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
@@ -86,7 +86,7 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
                 self.presenter?.getPushStatusResponse(response : response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
-                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
@@ -108,7 +108,7 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
                 self.presenter?.getMatchResponse(response: response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
-                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.presenter?.getMatchResponse(response: response!)
             }  else {
@@ -130,7 +130,7 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
                     self.presenter?.getGeeksPlansResponse(response: response!)
                 } else if response?.responseCode == 203 {
                     AppSingleton.sharedInstance().logout()
-                    AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                    AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
                 } else if response?.responseCode == 400 {
                     self.presenter?.getGeeksPlansResponse(response: response!)
                 }  else {
@@ -152,7 +152,7 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
                 self.presenter?.getBoostPlansResponse(response: response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
-                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.presenter?.getBoostPlansResponse(response: response!)
             }  else {
@@ -176,7 +176,7 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
                 self.presenter?.getBadgeCountResponse(response: response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
-                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             }  else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")

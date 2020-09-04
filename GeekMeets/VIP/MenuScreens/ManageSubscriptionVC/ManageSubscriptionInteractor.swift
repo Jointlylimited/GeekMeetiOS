@@ -39,7 +39,7 @@ class ManageSubscriptionInteractor: ManageSubscriptionInteractorProtocol, Manage
                 self.presenter?.getSubscriptionDetailsResponse(response: response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
-                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.presenter?.getSubscriptionDetailsResponse(response: response!)
             }  else {
@@ -63,7 +63,7 @@ class ManageSubscriptionInteractor: ManageSubscriptionInteractorProtocol, Manage
                 self.presenter?.getSubscriptionResponse(response: response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
-                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.presenter?.getSubscriptionResponse(response: response!)
             }  else {
@@ -87,7 +87,7 @@ class ManageSubscriptionInteractor: ManageSubscriptionInteractorProtocol, Manage
                 self.presenter?.getUpdateSubscriptionResponse(response: response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
-                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.presenter?.getUpdateSubscriptionResponse(response: response!)
             }  else {
@@ -112,7 +112,7 @@ class ManageSubscriptionInteractor: ManageSubscriptionInteractorProtocol, Manage
                 self.presenter?.getUserProfileResponse(response: (response?.responseData!)!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
-                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.presenter?.getUserProfileResponse(response: (response?.responseData!)!)
             }  else {

@@ -1153,7 +1153,7 @@ extension OneToOneChatVC {
                 self.getUnMatchResponse(response: response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
-                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.getUnMatchResponse(response: response!)
             }  else {
@@ -1217,6 +1217,7 @@ extension OneToOneChatVC {
             AppSingleton.sharedInstance().showAlert(objSuccessResponse.responseMessage!, okTitle: "OK")
         }else if(objSuccessResponse.responseCode == 203){
             AppSingleton.sharedInstance().logout()
+            AppSingleton.sharedInstance().showAlert(objSuccessResponse.responseMessage!, okTitle: "OK")
         }else{
             AppSingleton.sharedInstance().showAlert(objSuccessResponse.responseMessage!, okTitle: "OK")
         }
@@ -1231,7 +1232,7 @@ extension OneToOneChatVC {
                 self.getBlockUserListResponse(response : response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
-                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else {
                 if error != nil {
 //                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")

@@ -37,6 +37,7 @@ class SelectAgeRangeInteractor: SelectAgeRangeInteractorProtocol, SelectAgeRange
                 self.presenter?.getQuestionaryResponse(response : response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
@@ -56,16 +57,17 @@ class SelectAgeRangeInteractor: SelectAgeRangeInteractorProtocol, SelectAgeRange
                 LoaderView.sharedInstance.hideLoader()
             }
             if response?.responseCode == 200 {
-                         self.presenter?.getPostPreferenceResponse(response : response!)
-                     } else if response?.responseCode == 203 {
-                         AppSingleton.sharedInstance().logout()
-                     } else {
-                         if error != nil {
-                             AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
-                         } else {
-                             AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
-                         }
-                     }
+                self.presenter?.getPostPreferenceResponse(response : response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+            } else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+                }
+            }
         }
     }
 }

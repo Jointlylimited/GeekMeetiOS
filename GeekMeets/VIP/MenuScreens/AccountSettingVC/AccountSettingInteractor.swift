@@ -37,7 +37,7 @@ class AccountSettingInteractor: AccountSettingInteractorProtocol, AccountSetting
                     self.presenter?.getUserProfileResponse(response: (response?.responseData!)!)
                 } else if response?.responseCode == 203 {
                     AppSingleton.sharedInstance().logout()
-                    AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                    AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
                 } else if response?.responseCode == 400 {
                     self.presenter?.getUserProfileResponse(response: (response?.responseData!)!)
                     AppSingleton.sharedInstance().showAlert((response?.responseMessage)!, okTitle: "OK")

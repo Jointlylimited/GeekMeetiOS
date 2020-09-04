@@ -46,7 +46,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 AppSingleton.sharedInstance().showHomeVC(fromMatch : false, userDict: [:])
             }
         }
-        
         return true
     }
     

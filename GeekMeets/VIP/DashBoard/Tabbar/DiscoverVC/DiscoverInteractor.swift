@@ -37,7 +37,7 @@ class DiscoverInteractor: DiscoverInteractorProtocol, DiscoverDataStore {
                 self.presenter?.getStoryListResponse(response: response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
-                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.presenter?.getStoryListResponse(response: response!)
             }  else {
@@ -61,7 +61,7 @@ class DiscoverInteractor: DiscoverInteractorProtocol, DiscoverDataStore {
                 self.presenter?.getViewStoryResponse(response: response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
-                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.presenter?.getViewStoryResponse(response: response!)
             }  else {

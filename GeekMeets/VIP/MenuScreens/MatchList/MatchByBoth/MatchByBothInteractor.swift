@@ -37,7 +37,7 @@ class MatchByBothInteractor: MatchByBothInteractorProtocol, MatchByBothDataStore
                 self.presenter?.getMatchResponse(response: response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
-                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.presenter?.getMatchResponse(response: response!)
             }  else {
@@ -61,7 +61,7 @@ class MatchByBothInteractor: MatchByBothInteractorProtocol, MatchByBothDataStore
                 self.presenter?.getUnMatchResponse(response: response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
-                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.presenter?.getUnMatchResponse(response: response!)
             }  else {

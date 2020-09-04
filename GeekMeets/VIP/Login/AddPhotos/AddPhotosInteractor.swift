@@ -34,47 +34,87 @@ class AddPhotosInteractor: AddPhotosInteractorProtocol, AddPhotosDataStore {
         let path = "\(folderName)\(timeStamp)\(imgExtension)"
         return (path: path, name: "\(timeStamp)\(imgExtension)")
     }
+    var index = 0
+    var images : [NSDictionary]?
+    var finalStr = ""
+    
+    func sequenceUpload(){
+        guard index < images!.count else {
+            index = 0
+            //            images.removeAll()
+            return
+        }
+        
+        let image = images![index].value(forKey: "tiImage") as! UIImage
+        let tiDefault = images![index].value(forKey: "tiIsDefault") as! Int
+        let imgName = images![index].value(forKey: "vMedia") as! String
+        let imgPath = images![index].value(forKey: "vMediaPath") as! String
+        
+        index += 1
+        
+        AWSHelper.setup()
+        
+        self.uploadSingleImg(image: image, path: imgPath, name: imgName) { (success, path) in
+            if tiDefault == 1 {
+                self.paramDetails["vProfileImage"] = path.split("/").last!
+            }
+            
+            let ustr = "{\"vMedia\":\"\(path.split("/").last!)\",\"tiMediaType\":\"1\",\"fHeight\":\"\(image.size.height)\",\"fWidth\":\"\(image.size.height)\",\"tiIsDefault\":\"\(tiDefault)\"}"
+            self.finalStr = self.finalStr != "" ? "\(self.finalStr),\(ustr)" : ustr
+            
+            print(self.finalStr)
+            
+            if self.index == self.images!.count {
+                DispatchQueue.main.async {
+                    LoaderView.sharedInstance.hideLoader()
+                }
+                self.paramDetails["photos"] = "[\(self.finalStr)]"
+                self.callSignUpInfoAPI(signParams: self.paramDetails as! Dictionary<String, String>)
+            }
+        }
+    }
     
     func uploadImgToS3(with obj: Dictionary<String, Any>, images : [NSDictionary]) {
         if images.count == 0 {
             _ = AppSingleton.sharedInstance().showAlert(kSelectUserProfile, okTitle: "OK")
             return
         }
-        
+        self.images = images
+        self.sequenceUpload()
         DispatchQueue.main.async {
             LoaderView.sharedInstance.showLoader()
         }
         var finalStr = ""
         self.paramDetails = obj
         
-        for indexValue in 0..<images.count {
-            let image = images[indexValue].value(forKey: "tiImage") as! UIImage
-            let tiDefault = images[indexValue].value(forKey: "tiIsDefault") as! Int
-            let imgName = images[indexValue].value(forKey: "vMedia") as! String
-            let imgPath = images[indexValue].value(forKey: "vMediaPath") as! String
+//        for indexValue in 0..<images.count {
+//            let image = images[indexValue].value(forKey: "tiImage") as! UIImage
+//            let tiDefault = images[indexValue].value(forKey: "tiIsDefault") as! Int
+//            let imgName = images[indexValue].value(forKey: "vMedia") as! String
+//            let imgPath = images[indexValue].value(forKey: "vMediaPath") as! String
+//
+//            AWSHelper.setup()
             
-            AWSHelper.setup()
-            
-            self.uploadSingleImg(image: image, path: imgPath, name: imgName) { (success, path) in
-                if tiDefault == 1 {
-                    self.paramDetails["vProfileImage"] = path.split("/").last!
-                }
-                
-                let ustr = "{\"vMedia\":\"\(path.split("/").last!)\",\"tiMediaType\":\"1\",\"fHeight\":\"\(image.size.height)\",\"fWidth\":\"\(image.size.height)\",\"tiIsDefault\":\"\(tiDefault)\"}"
-                finalStr = finalStr != "" ? "[\(finalStr),\(ustr)]" : images.count == 1 ? "[\(ustr)]" : ustr
-                self.paramDetails["photos"] = finalStr
-                print(finalStr)
-                
-                if finalStr.contains("[") {
-                    DispatchQueue.main.async {
-                        LoaderView.sharedInstance.hideLoader()
-                    }
+//            self.uploadSingleImg(image: image, path: imgPath, name: imgName) { (success, path) in
+//                if tiDefault == 1 {
+//                    self.paramDetails["vProfileImage"] = path.split("/").last!
+//                }
+//
+//                let ustr = "{\"vMedia\":\"\(path.split("/").last!)\",\"tiMediaType\":\"1\",\"fHeight\":\"\(image.size.height)\",\"fWidth\":\"\(image.size.height)\",\"tiIsDefault\":\"\(tiDefault)\"}"
+//                finalStr = finalStr != "" ? "[\(finalStr),\(ustr)]" : images.count == 1 ? "[\(ustr)]" : ustr
+//                self.paramDetails["photos"] = finalStr
+//                print(finalStr)
+//
+//                DispatchQueue.main.async {
 //                    if finalStr.contains("[") {
-                        self.callSignUpInfoAPI(signParams: self.paramDetails as! Dictionary<String, String>)
+//                        LoaderView.sharedInstance.hideLoader()
 //                    }
-                }
-            }
-        }
+//                    //                    if finalStr.contains("[") {
+//                    self.callSignUpInfoAPI(signParams: self.paramDetails as! Dictionary<String, String>)
+//                    //                    }
+//                }
+//            }
+//        }
     }
         
         func uploadSingleImg(image : UIImage, path: String, name: String, complete: @escaping (Bool, String) -> ()){
@@ -89,6 +129,7 @@ class AddPhotosInteractor: AddPhotosInteractorProtocol, AddPhotosDataStore {
                 } else {
                     _ = AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
                 }
+                self.sequenceUpload()
             }
         }
     
@@ -105,7 +146,7 @@ class AddPhotosInteractor: AddPhotosInteractorProtocol, AddPhotosDataStore {
                 self.presenter?.getSignUpResponse(response : response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
-                AppSingleton.sharedInstance().showAlert(kLoogedIntoOtherDevice, okTitle: "OK")
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
