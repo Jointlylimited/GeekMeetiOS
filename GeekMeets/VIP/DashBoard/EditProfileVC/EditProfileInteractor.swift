@@ -41,7 +41,6 @@ class EditProfileInteractor: EditProfileInteractorProtocol, EditProfileDataStore
     func sequenceUpload(){
         guard index < images!.count else {
             index = 0
-            //            images.removeAll()
             return
         }
         
@@ -59,7 +58,6 @@ class EditProfileInteractor: EditProfileInteractorProtocol, EditProfileDataStore
             }
             
             let ustr = "{\"vMedia\":\"\(path.split("/").last!)\",\"tiMediaType\":\"1\",\"fHeight\":\"\(image.size.height)\",\"fWidth\":\"\(image.size.height)\",\"tiIsDefault\":\"\(tiDefault)\"}"
-//            self.finalStr = self.finalStr != "" ? "[\(self.finalStr),\(ustr)]" : self.images!.count == 1 ? "[\(ustr)]" : ustr
             self.finalStr = self.finalStr != "" ? "\(self.finalStr),\(ustr)" : ustr
             
             print(self.finalStr)
@@ -84,35 +82,7 @@ class EditProfileInteractor: EditProfileInteractorProtocol, EditProfileDataStore
         DispatchQueue.main.async {
             LoaderView.sharedInstance.showLoader()
         }
-        var finalStr = ""
         self.paramDetails = obj
-        
-//        for indexValue in 0..<images.count {
-//            let image = images[indexValue].value(forKey: "tiImage") as! UIImage
-//            let tiDefault = images[indexValue].value(forKey: "tiIsDefault") as! Int
-//            let imgName = images[indexValue].value(forKey: "vMedia") as! String
-//            let imgPath = images[indexValue].value(forKey: "vMediaPath") as! String
-//
-//            AWSHelper.setup()
-//
-//            self.uploadSingleImg(image: image, path: imgPath, name: imgName) { (success, path) in
-//                if tiDefault == 1 {
-//                    self.paramDetails["vProfileImage"] = path.split("/").last!
-//                }
-//
-//                let ustr = "{\"vMedia\":\"\(path.split("/").last!)\",\"tiMediaType\":\"1\",\"fHeight\":\"\(image.size.height)\",\"fWidth\":\"\(image.size.height)\",\"tiIsDefault\":\"\(tiDefault)\"}"
-//                finalStr = finalStr != "" ? "[\(finalStr),\(ustr)]" : images.count == 1 ? "[\(ustr)]" : ustr
-//                self.paramDetails["photos"] = finalStr
-//                print(finalStr)
-//
-//                if finalStr.contains("[") {
-//                    DispatchQueue.main.async {
-//                        LoaderView.sharedInstance.hideLoader()
-//                    }
-//                    self.callEdirProfileAPI(params: self.paramDetails as! Dictionary<String, String>)
-//                }
-//            }
-//        }
     }
     
     func uploadSingleImg(image : UIImage, path: String, name: String, complete: @escaping (Bool, String) -> ()){

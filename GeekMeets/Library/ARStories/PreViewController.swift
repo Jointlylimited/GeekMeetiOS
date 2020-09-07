@@ -179,7 +179,7 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
             self.imagePreview.isHidden = false
             self.videoView.isHidden = true
             if !NetworkReachabilityManager.init()!.isReachable{
-                self.imagePreview.image = #imageLiteral(resourceName: "Rotate")
+                self.imagePreview.image = #imageLiteral(resourceName: "reconnect")
                 return
             }
             print("\(items[pageIndex].txStory!)")
@@ -194,7 +194,7 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
             self.player = AVPlayer(url: url)
             
             if !NetworkReachabilityManager.init()!.isReachable{
-                self.imagePreview.image = #imageLiteral(resourceName: "Rotate")
+                self.imagePreview.image = #imageLiteral(resourceName: "reconnect")
                 return
             }
             

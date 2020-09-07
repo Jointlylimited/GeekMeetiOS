@@ -139,13 +139,9 @@ extension DiscoverViewController{
                 self.tblDiscoverList.alpha = 1
                 self.btnSearch.alpha = 1
                 self.lblNoData.alpha = 0
-                self.objAllStoryArray = response.responseData?.bottomStory
                 
-//                if response.responseData!.topStory?.count != 1  {
-                    self.objStoryArray = response.responseData?.topStory
-//                } else {
-//
-//                }
+                self.objAllStoryArray = response.responseData?.bottomStory
+                self.objStoryArray = response.responseData?.topStory
                 
                 self.objStoryArray = self.objStoryArray!.sorted(by: { (res1, res2) -> Bool in
                     res1[0].tiIsView! < res2[0].tiIsView!
@@ -154,7 +150,7 @@ extension DiscoverViewController{
                 self.objStoryArray = self.objStoryArray!.sorted(by: { (res1, res2) -> Bool in
                     res1[0].iUserId == UserDataModel.currentUser?.iUserId
                 })
-                    
+                
                 if self.objStoryArray == nil || self.objStoryArray?[0].count == 0 {
                     self.TopStoryView.height = 0
                     self.tblDiscoverList.willRemoveSubview(TopStoryView)
@@ -172,20 +168,6 @@ extension DiscoverViewController{
                     self.btnSearch.alpha = 1
                     self.lblNoData.alpha = 0
                 }
-                
-                
-//                self.objOwnStoryArray = self.objStoryArray!.filter({ (res1) -> Bool in
-//                    res1.filter({$0.iUserId == UserDataModel.currentUser?.iUserId})
-//                })
-//
-//                self.objStoryArray = self.objStoryArray!.sorted(by: { $0.tiIsView! < $1.tiIsView!})
-//                self.objOwnStoryArray = self.objStoryArray![0].filter({($0.iUserId) == UserDataModel.currentUser?.iUserId})
-//
-//                if self.objOwnStoryArray!.count != 0 {
-//                    for obj in self.objOwnStoryArray! {
-//                        self.objStoryArray!.removeAll(where: {$0.iUserId == obj.iUserId})
-//                    }
-//                }
                 
                 self.AllStoryCollView.reloadData()
                 self.StoryCollView.reloadData()

@@ -22,10 +22,11 @@ class MatchByBothViewController: UIViewController, MatchByBothProtocol {
     var presenter : MatchByBothPresentationProtocol?
     
     @IBOutlet weak var tblMatchList: UITableView!
-       @IBOutlet weak var lblNoUser: UILabel!
+    @IBOutlet weak var lblNoUser: UILabel!
        
-       var objMatchData : [SwipeUserFields] = []
-       var parentNavigationController : UINavigationController?
+    var objMatchData : [SwipeUserFields] = []
+    var parentNavigationController : UINavigationController?
+    var arrFriends:[Model_ChatFriendList] = [Model_ChatFriendList]()
     
     // MARK: Object lifecycle
     
@@ -73,6 +74,15 @@ class MatchByBothViewController: UIViewController, MatchByBothProtocol {
     func setStoryMsgViewData(){
         self.presenter?.callMatchListAPI()
     }
+    
+    func getMessageListDetails(){
+//       SOXmpp.manager._bFriendListUpdateCallback = { [weak self] in
+//            DispatchQueue.main.async {
+        self.arrFriends = SOXmpp.manager.arrFriendsList
+//            }
+//        }
+         self.tblMatchList.reloadData()
+    }
 }
 
 extension MatchByBothViewController {
@@ -87,7 +97,7 @@ extension MatchByBothViewController {
             self.tblMatchList.alpha = 0.0
             self.lblNoUser.alpha = 1.0
         }
-        self.tblMatchList.reloadData()
+        self.getMessageListDetails()
     }
     
     func getUnMatchResponse(response : CommonResponse){
@@ -126,10 +136,23 @@ extension MatchByBothViewController : UITableViewDataSource, UITableViewDelegate
                 
                 cell.clickOnChatBtn = {
                     let obj = GeekMeets_StoryBoard.Chat.instantiateViewController(withIdentifier: GeekMeets_ViewController.OneToOneChatScreen) as! OneToOneChatVC
-                    obj.objFriend?.jID = UserDataModel.currentUser?.vXmppUser ?? ""
-                    obj._userIDForRequestSend = data.vOtherUserXmpp
-                    obj.userName = data.vProfileName
-                    obj.imageString = data.vProfileImage
+                    
+                    if self.arrFriends.count == 0 {
+                        obj.objFriend?.jID = UserDataModel.currentUser?.vXmppUser ?? ""
+                        obj._userIDForRequestSend = data.vOtherUserXmpp
+                        obj.userName = data.vProfileName
+                        obj.imageString = data.vProfileImage
+                    } else {
+                        let arr = self.arrFriends.filter({$0.jID.split("@").first! == data.vOtherUserXmpp})
+                        if arr.count != 0 {
+                            obj.objFriend = arr[0]
+                        } else {
+                            obj.objFriend?.jID = UserDataModel.currentUser?.vXmppUser ?? ""
+                            obj._userIDForRequestSend = data.vOtherUserXmpp
+                            obj.userName = data.vProfileName
+                            obj.imageString = data.vProfileImage
+                        }
+                    }
                     obj.modalPresentationStyle = .fullScreen
                     self.parentNavigationController?.pushViewController(obj, animated: true)
                 }

@@ -203,11 +203,17 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     }
     @IBAction func btnAddtoStoryAction(_ sender: UIButton){
         if self.objPostData.tiStoryType == "0" {
-            stickerView.image = self.photo.image
-            let image1 = stickerView.resizeImage(transform : userResizableView1.transform, frame : userResizableView1.frame)
-            let image = stickerView.renderContentOnView()
-            stickerView.image = nil
-            self.objPostData.arrMedia[0].img = image
+//            stickerView.image = self.photo.image
+//            let image1 = stickerView.resizeImage(transform : userResizableView1.transform, frame : userResizableView1.frame)
+//            let image = stickerView.renderContentOnView()
+//            stickerView.image = nil
+//            self.objPostData.arrMedia[0].img = image1
+            
+            if cusText != nil {
+                let image = textToImage(drawText: cusText!.text as NSString, inImage: photo.image!, atPoint: CGPoint(x: stickerView.subviews[0].x, y: stickerView.subviews[0].y), frame :stickerView.subviews[0].frame,  transform : stickerView.subviews[0].transform)
+                self.objPostData.arrMedia[0].img = image
+                print(image)
+            }
             self.callPostStoryAPI(obj: self.objPostData)
         } else {
             if cusText != nil {
@@ -318,7 +324,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         self.view.layoutIfNeeded()
     }
     
-    func textToImage(drawText text: NSString, inImage image: UIImage, atPoint point: CGPoint) -> UIImage {
+    func textToImage(drawText text: NSString, inImage image: UIImage, atPoint point: CGPoint, frame : CGRect, transform : CGAffineTransform) -> UIImage {
         
         let scale = UIScreen.main.scale
         UIGraphicsBeginImageContextWithOptions(image.size, false, scale)
@@ -330,6 +336,21 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         paragraphStyle.alignment = .center
         
         let attrs = [NSAttributedString.Key.font: self.cusText.font,NSAttributedString.Key.foregroundColor : cusText.color, NSAttributedString.Key.paragraphStyle: paragraphStyle]
+        
+        let context = UIGraphicsGetCurrentContext()!
+        context.saveGState()
+        // Move orgin.
+        context.translateBy(x: transform.tx, y: transform.ty)
+        // Rotate the coordinate system.
+        let degrees : CGFloat = CGFloat(atan2f(Float(transform.b), Float(transform.a)))
+        context.rotate(by: degrees)
+        // Create a string.
+        let str = text
+        // Draw string.
+//        str.draw(at: CGPoint(x: 0, y: 0), withAttributes: attrs as [NSAttributedString.Key : Any])
+        // Restore to saved context.
+        context.restoreGState()
+       
         text.draw(with: rect, options: .usesLineFragmentOrigin, attributes: attrs as [NSAttributedString.Key : Any], context: nil)
         
         let newImage = UIGraphicsGetImageFromCurrentImageContext()

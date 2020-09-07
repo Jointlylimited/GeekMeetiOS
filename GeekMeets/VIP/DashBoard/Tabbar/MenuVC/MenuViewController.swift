@@ -305,10 +305,12 @@ extension MenuViewController {
         if response.responseData?.budgeCount != 0 {
             UserDataModel.setNotificationCount(count: response.responseData?.budgeCount ?? 0)
             self.btnNotification.badge = UserDataModel.getNotificationCount() > 999 ? "99+" : "\(UserDataModel.getNotificationCount())"
+            self.btnNotification.badgeLabel.alpha = 1.0
             self.btnNotification.badgeLabel.frame = CGRect(x: self.btnNotification.width-20, y: 0, w: 20, h: 20)
         } else {
             UserDataModel.setNotificationCount(count: 0)
 //            self.btnNotification.badge = "0"
+            self.btnNotification.badgeLabel.alpha = 0.0
         }
         
         setTheme()
