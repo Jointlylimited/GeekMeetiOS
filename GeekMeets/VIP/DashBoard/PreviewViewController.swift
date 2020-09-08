@@ -203,17 +203,17 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     }
     @IBAction func btnAddtoStoryAction(_ sender: UIButton){
         if self.objPostData.tiStoryType == "0" {
-//            stickerView.image = self.photo.image
-//            let image1 = stickerView.resizeImage(transform : userResizableView1.transform, frame : userResizableView1.frame)
-//            let image = stickerView.renderContentOnView()
-//            stickerView.image = nil
-//            self.objPostData.arrMedia[0].img = image1
+            stickerView.image = self.photo.image
+            let image1 = stickerView.resizeImage(transform : userResizableView1.transform, frame : userResizableView1.frame)
+            let image = stickerView.renderContentOnView()
+            stickerView.image = nil
+            self.objPostData.arrMedia[0].img = image
             
-            if cusText != nil {
-                let image = textToImage(drawText: cusText!.text as NSString, inImage: photo.image!, atPoint: CGPoint(x: stickerView.subviews[0].x, y: stickerView.subviews[0].y), frame :stickerView.subviews[0].frame,  transform : stickerView.subviews[0].transform)
-                self.objPostData.arrMedia[0].img = image
-                print(image)
-            }
+//            if cusText != nil {
+//                let image = textToImage(drawText: cusText!.text as NSString, inImage: photo.image!, atPoint: CGPoint(x: stickerView.subviews[0].x, y: stickerView.subviews[0].y), frame :stickerView.subviews[0].frame,  transform : stickerView.subviews[0].transform)
+//                self.objPostData.arrMedia[0].img = image
+//                print(image)
+//            }
             self.callPostStoryAPI(obj: self.objPostData)
         } else {
             if cusText != nil {

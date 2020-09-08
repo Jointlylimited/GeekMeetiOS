@@ -99,7 +99,7 @@ extension JLStickerImageView {
         }
         
         // calculate the size of the rotated view's containing box for our drawing space
-        let rotatedViewBox = UIView(frame: CGRect(origin: CGPoint.zero, size: ScreenSize.size))
+        let rotatedViewBox = UIView(frame: CGRect(origin: CGPoint.zero, size: self.bounds.size))
         let t = CGAffineTransform(rotationAngle: degrees);
         rotatedViewBox.transform = t
         let rotatedSize = rotatedViewBox.frame.size
