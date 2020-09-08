@@ -204,6 +204,31 @@ struct INSTAGRAM_IDS {
     static let INSTAGRAM_USER_INFO = "https://api.instagram.com/v1/users/self/?access_token="
 }
 
+struct InstagramTestUser: Codable {
+  var access_token: String
+  var user_id: Int
+}
+
+struct Feed: Codable {
+  var data: [MediaData1]
+  var paging: PagingData
+}
+
+struct MediaData1: Codable {
+  var id: String
+  var caption: String?
+}
+
+struct PagingData: Codable {
+  var cursors: CursorData
+  var next: String
+}
+
+struct CursorData: Codable {
+  var before: String
+  var after: String
+}
+
 struct LoadMore{
     var index: Int = 0
     var isLoading: Bool = false

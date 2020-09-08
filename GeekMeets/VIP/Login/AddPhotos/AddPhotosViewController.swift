@@ -12,6 +12,7 @@
 
 import UIKit
 import Photos
+import OpalImagePicker
 
 protocol AddPhotosProtocol: class {
     func displayAlert(strTitle : String, strMessage : String)
@@ -30,6 +31,7 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
     var signUpParams : Dictionary<String, String>?
     var imgProfile : UIImage?
     var userPhotosModel : [UserPhotosModel] = []
+     var opimagePicker = OpalImagePickerController()
     
     var thumbURlUpload: (path: String, name: String) {
         let folderName = user_Profile
@@ -255,11 +257,13 @@ extension AddPhotosViewController:  UINavigationControllerDelegate, UIImagePicke
     func openGallery()
     {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary){
-            let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-            imagePicker.allowsEditing = true
-            imagePicker.sourceType = UIImagePickerController.SourceType.savedPhotosAlbum
-            self.present(imagePicker, animated: true, completion: nil)
+//            let imagePicker = UIImagePickerController()
+//            imagePicker.delegate = self
+//            imagePicker.allowsEditing = true
+//            imagePicker.sourceType = UIImagePickerController.SourceType.savedPhotosAlbum
+            self.opimagePicker.imagePickerDelegate = self
+            self.opimagePicker.maximumSelectionsAllowed = 10
+            self.present(self.opimagePicker, animated: true, completion: nil)
         }
         else
         {
@@ -269,4 +273,62 @@ extension AddPhotosViewController:  UINavigationControllerDelegate, UIImagePicke
         }
     }
     
+}
+
+extension AddPhotosViewController : OpalImagePickerControllerDelegate {
+    func imagePicker(_ picker: OpalImagePickerController, didFinishPickingAssets assets: [PHAsset]) {
+        picker.dismiss(animated: true, completion: nil)
+        for asset in assets {
+            if #available(iOS 11.0, *) {
+//                if let asset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset{
+                    if let fileName = asset.value(forKey: "filename") as? String{
+                        print(fileName)
+                    }
+//                }
+//                if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                    
+//                    let IsDefault = self.userPhotosModel.count == 0 ? 1 : 0
+////                self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, vMediaPath: self.thumbURlUpload.path, tiMediaType: 1, tiImage: asset.getUIImage(asset: asset), tiIsDefault: IsDefault, reaction: []))
+//                    if IsDefault == 1 {
+//                        self.imgProfile.image = self.userPhotosModel[0].tiImage
+//                    }
+//                }
+                
+                let imgData = NSData(data: (asset.getUIImage(asset: asset))!.jpegData(compressionQuality: 1)!)
+                var imageSize: Int = imgData.count
+                print("actual size of image in KB: %f ", Double(imageSize) / 1000.0)
+                
+                if (Double(imageSize) / 1000.0) > 5000{
+                    let imgDataa = NSData(data: (asset.getUIImage(asset: asset))!.jpegData(compressionQuality: 0.5)!)
+                    let image = UIImage(data: imgDataa as Data)
+                    let IsDefault = self.userPhotosModel.count == 0 ? 1 : 0
+                    self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, vMediaPath: self.thumbURlUpload.path, tiMediaType: 1, tiImage: image, tiIsDefault: IsDefault, reaction: []))
+                }else{
+                    let IsDefault = self.userPhotosModel.count == 0 ? 1 : 0
+                    self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, vMediaPath: self.thumbURlUpload.path, tiMediaType: 1, tiImage: asset.getUIImage(asset: asset), tiIsDefault: IsDefault, reaction: []))
+                }
+                
+                self.clnAddPhoto.reloadData()
+            } else {
+//                if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                    
+//                    let IsDefault = self.userPhotosModel.count == 0 ? 1 : 0
+//                    self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, vMediaPath: self.thumbURlUpload.path, tiMediaType: 1, tiImage: image, tiIsDefault: IsDefault, reaction: []))
+//                    if IsDefault == 1 {
+//                        self.imgProfile.image = self.userPhotosModel[0].tiImage
+//                    }
+////                    if let imageURL = info[UIImagePickerController.InfoKey.referenceURL] as? URL {
+//                        let result = PHAsset.fetchAssets(withALAssetURLs: [imageURL], options: nil)
+//                        let assetResources = PHAssetResource.assetResources(for: result.firstObject!)
+//
+//                        print(assetResources.first!.originalFilename)
+//                    }
+//                }
+            }
+        }
+    }
+    
+    func imagePickerDidCancel(_ picker: OpalImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
 }

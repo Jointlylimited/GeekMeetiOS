@@ -17,10 +17,12 @@ protocol InstagramAuthDelegate {
 class InstagramLoginVC: UIViewController {
     
     private let baseURL = "https://api.instagram.com"
-    
+    private let graphApi = "https://graph.instagram.com/"
+
     var clientId: String! = "274396683687750"
     var clientSecret: String! = "4eeac737c36ea3bdf3e5df4725bba574"
     var redirectUri: String! = "https://www.google.com/"
+    var testUserData = InstagramTestUser(access_token: "", user_id: 0)
     
     private enum InstagramEndpoints: String {
         case Authorize = "/oauth/authorize/"
@@ -159,8 +161,11 @@ class InstagramLoginVC: UIViewController {
             {
                 accessToken1 = (accessToken as? String)!
                 let strid = result["user_id"]
-                self.dismiss()
-                delegate.instagramAuthControllerDidFinish(accessToken: accessToken1,id: "\(strid!)", error: nil)
+                getMediaData(testUserData: InstagramTestUser(access_token: "", user_id: strid as! Int)) { (feedData) in
+                    print(feedData)
+                }
+//                self.dismiss()
+//                delegate.instagramAuthControllerDidFinish(accessToken: accessToken1,id: "\(strid!)", error: nil)
             }
         } catch let error {
             print("Error parsing for access token: \(error.localizedDescription)")
@@ -171,6 +176,27 @@ class InstagramLoginVC: UIViewController {
             delegate.instagramAuthControllerDidFinish(accessToken: nil, id: nil, error: error)
         }
     }
+    
+    private func getMediaData(testUserData: InstagramTestUser, completion: @escaping (Feed) -> Void) {
+        
+        //"https://graph.instagram.com//me/media?fields={fields}&access_token={access-token}"
+    let urlString = "\(graphApi)me/media?fields=\(testUserData.user_id)&access_token=\(testUserData.access_token)"
+        let request = URLRequest(url: URL(string: urlString)!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10)
+      let session = URLSession.shared
+      let task = session.dataTask(with: request, completionHandler: { data, response, error in
+        if let response = response {
+          print(response)
+        }
+        do { let jsonData = try JSONDecoder().decode(Feed.self, from: data!)
+          print(jsonData)
+          completion(jsonData)
+        } catch let error as NSError {
+          print(error)
+        }
+      })
+      task.resume()
+    }
+    
     private func dismiss() {
         OperationQueue.main.addOperation {
             self.dismiss(animated: true, completion: nil)

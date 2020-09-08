@@ -52,7 +52,7 @@ class EditProfileInteractor: EditProfileInteractorProtocol, EditProfileDataStore
         index += 1
         AWSHelper.setup()
         
-        self.uploadSingleImg(image: image, path: imgPath, name: imgName) { (success, path) in
+        self.uploadSingleImg(image: image, path: self.thumbURlUpload.path, name: self.thumbURlUpload.name) { (success, path) in
             if tiDefault == 1 {
                 self.paramDetails["vProfileImage"] = path.split("/").last!
             }

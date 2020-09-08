@@ -93,13 +93,13 @@ extension JLStickerImageView {
     public func resizeImage(transform : CGAffineTransform, frame : CGRect)  -> UIImage? {
         let degrees : CGFloat = CGFloat(atan2f(Float(transform.b), Float(transform.a)))
         
-        UIGraphicsBeginImageContextWithOptions(self.bounds.size, true, 0)
+        UIGraphicsBeginImageContextWithOptions(frame.size, true, 0)
         let degreesToRadians: (CGFloat) -> CGFloat = {
             return $0 / 180.0 * CGFloat(M_PI)
         }
         
         // calculate the size of the rotated view's containing box for our drawing space
-        let rotatedViewBox = UIView(frame: CGRect(origin: CGPoint.zero, size: self.bounds.size))
+        let rotatedViewBox = UIView(frame: CGRect(origin: CGPoint.zero, size: frame.size))
         let t = CGAffineTransform(rotationAngle: degrees);
         rotatedViewBox.transform = t
         let rotatedSize = rotatedViewBox.frame.size

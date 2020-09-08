@@ -13,6 +13,7 @@
 import UIKit
 import Photos
 import SDWebImage
+import OpalImagePicker
 
 protocol SocialMediaLinkDelegate {
     func updatedSocailLinkModel(model : UserAuthResponseField)
@@ -145,6 +146,7 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
     var imageArray : [NSDictionary] = [] // [UIImage]  = []
     var userPhotosModel : [UserPhotosModel] = []
     var imagePicker: UIImagePickerController!
+    var opimagePicker = OpalImagePickerController()
     var image : UIImage?
     
     var userProfileModel : UserAuthResponseField? //  UserProfileModel?
@@ -632,11 +634,13 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
             guard let `self` = self else {return}
             if isGrant {
                 if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
-                    self.imagePicker = UIImagePickerController()
-                    self.imagePicker.delegate = self
-                    self.imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary;
-                    self.imagePicker.allowsEditing = false
-                    self.present(self.imagePicker, animated: true, completion: nil)
+//                    let opimagePicker = OpalImagePickerController()
+                    self.opimagePicker.imagePickerDelegate = self
+                    self.opimagePicker.maximumSelectionsAllowed = 10
+                    
+//                    self.imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary;
+//                    self.imagePicker.allowsEditing = false
+                    self.present(self.opimagePicker, animated: true, completion: nil)
                 }
             }
         }
@@ -682,6 +686,48 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
     }
 }
 
+extension EditProfileViewController : OpalImagePickerControllerDelegate {
+    func imagePicker(_ picker: OpalImagePickerController, didFinishPickingAssets assets: [PHAsset]) {
+        picker.dismiss(animated: true, completion: nil)
+        for asset in assets {
+            if #available(iOS 11.0, *) {
+//                if let asset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset{
+                    if let fileName = asset.value(forKey: "filename") as? String{
+                        print(fileName)
+                    }
+//                }
+//                if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                    
+                    let IsDefault = self.userPhotosModel.count == 0 ? 1 : 0
+                self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, vMediaPath: self.thumbURlUpload.path, tiMediaType: 1, tiImage: asset.getUIImage(asset: asset), tiIsDefault: IsDefault, reaction: []))
+                    if IsDefault == 1 {
+                        self.imgProfile.image = self.userPhotosModel[0].tiImage
+                    }
+//                }
+                self.tblEditProfileView.reloadData()
+            } else {
+//                if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                    
+//                    let IsDefault = self.userPhotosModel.count == 0 ? 1 : 0
+//                    self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, vMediaPath: self.thumbURlUpload.path, tiMediaType: 1, tiImage: image, tiIsDefault: IsDefault, reaction: []))
+//                    if IsDefault == 1 {
+//                        self.imgProfile.image = self.userPhotosModel[0].tiImage
+//                    }
+////                    if let imageURL = info[UIImagePickerController.InfoKey.referenceURL] as? URL {
+//                        let result = PHAsset.fetchAssets(withALAssetURLs: [imageURL], options: nil)
+//                        let assetResources = PHAssetResource.assetResources(for: result.firstObject!)
+//
+//                        print(assetResources.first!.originalFilename)
+//                    }
+//                }
+            }
+        }
+    }
+    
+    func imagePickerDidCancel(_ picker: OpalImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
 extension EditProfileViewController : UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1

@@ -74,14 +74,17 @@ public class SwipeableCards: CardView {
         }
     }
     
+   
     // Mark - init
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setUp()
+        setupButtons()
     }
     public override init(frame: CGRect) {
         super.init(frame: frame)
         setUp()
+        setupButtons()
     }
     /**
      Refresh to show data source
@@ -110,6 +113,9 @@ public class SwipeableCards: CardView {
     fileprivate var xFromCenter: CGFloat = 0
     fileprivate var yFromCenter: CGFloat = 0
     fileprivate var originalPoint = CGPoint.zero
+    fileprivate var actionMargin: CGFloat = 0
+    var unlikeButton = UIButton()
+    var likeButton = UIButton()
 }
 
 // MARK: - Private
@@ -117,6 +123,21 @@ private extension SwipeableCards {
     func setUp() {
         self.addGestureRecognizer(panGestureRecognizer)
     }
+    
+    func setupButtons(){
+        unlikeButton  = UIButton(type: .custom) as UIButton
+        unlikeButton.frame = CGRect(x: 0, y: 100, w: 200, h: 200)
+        unlikeButton.backgroundColor = UIColor.clear
+        unlikeButton.setImage(#imageLiteral(resourceName: "unlike_1"), for: .normal)
+        self.addSubview(unlikeButton)
+        
+        likeButton  = UIButton(type: .custom) as UIButton
+        likeButton.frame = CGRect(x: ScreenSize.width - 210, y: 100, w: 200, h: 200)
+        likeButton.backgroundColor = UIColor.clear
+        likeButton.setImage(#imageLiteral(resourceName: "like_mark"), for: .normal)
+        self.addSubview(likeButton)
+    }
+    
     func layoutCards() {
         let count = visibleCards.count
         guard count > 0 else {
@@ -165,7 +186,22 @@ private extension SwipeableCards {
         }
         if swipeEnded {
             swipeEnded = false
-            delegate?.cards(self, beforeSwipingItemAt: currentIndex)
+            if let firstCard = visibleCards.first {
+                xFromCenter = gestureRecognizer.translation(in: firstCard).x  // positive for right swipe, negative for left
+                yFromCenter = gestureRecognizer.translation(in: firstCard).y
+                
+                print("Centre : \(Const.actionMargin) \n X : \(xFromCenter) \n Y : \(yFromCenter)")
+                if xFromCenter > actionMargin {
+                    self.addSubview(self.unlikeButton)
+                } else if xFromCenter < -actionMargin {
+                    self.addSubview(self.likeButton)
+                } else {
+//                    self.xFromCenter = 0.0
+//                    self.yFromCenter = 0.0
+                }
+                
+                delegate?.cards(self, beforeSwipingItemAt: currentIndex)
+            }
         }
         if let firstCard = visibleCards.first {
             xFromCenter = gestureRecognizer.translation(in: firstCard).x  // positive for right swipe, negative for left
@@ -183,6 +219,8 @@ private extension SwipeableCards {
                 firstCard.transform = scaleTransform
             case .ended:
                 aflerSwipedAction(firstCard)
+                self.unlikeButton.removeFromSuperview()
+                self.likeButton.removeFromSuperview()
             default:
                 break
             }
