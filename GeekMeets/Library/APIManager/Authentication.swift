@@ -78,12 +78,32 @@ class Authentication : NSObject
        {
            let vAuthKey = UserDefaults.standard.object(forKey: kLoggedInStatus)
            if vAuthKey != nil{
-               return vAuthKey as! Bool     //(userData as AnyObject).object(forKey: "vAuthKey") as! String
+            return vAuthKey as? Bool     //(userData as AnyObject).object(forKey: "vAuthKey") as! String
            }
            else{
                return false
            }
        }
+    
+    class func setInstagramIntegrationStatus(_ status:Bool?)
+    {
+        if status == nil{
+            print("You should use the remove status key method.")
+            return
+        }
+        UserDefaults.standard.set(status, forKey: kInstagramMediaIntegrated)
+        UserDefaults.standard.synchronize()
+    }
+    class func getInstagramIntegrationStatus()-> Bool?
+    {
+        let vAuthKey = UserDefaults.standard.object(forKey: kInstagramMediaIntegrated)
+        if vAuthKey != nil{
+            return vAuthKey as? Bool     //(userData as AnyObject).object(forKey: "vAuthKey") as! String
+        }
+        else{
+            return false
+        }
+    }
     
     class func setSignUpFlowStatus(_ status:Int?)
     {

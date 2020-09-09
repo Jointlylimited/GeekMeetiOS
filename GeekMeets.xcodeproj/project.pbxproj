@@ -230,6 +230,7 @@
 		0BCE8CC924C011C50060AC01 /* CAPSPageMenu+UIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCE8CC224C011C50060AC01 /* CAPSPageMenu+UIConfiguration.swift */; };
 		0BCE8CCA24C011C50060AC01 /* CAPSPageMenuConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCE8CC324C011C50060AC01 /* CAPSPageMenuConfiguration.swift */; };
 		0BCE8CCB24C011C50060AC01 /* CAPSPageMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCE8CC424C011C50060AC01 /* CAPSPageMenu.swift */; };
+		0BD13822250900110059074D /* EditInstagramPhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD13821250900100059074D /* EditInstagramPhotosCell.swift */; };
 		0BD7EDEC24E659C40047EEDB /* JLStickerImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD7EDE724E659C30047EEDB /* JLStickerImageView.swift */; };
 		0BD7EDED24E659C40047EEDB /* JLStickerLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD7EDE824E659C30047EEDB /* JLStickerLabelView.swift */; };
 		0BD7EDEE24E659C40047EEDB /* JLAttributedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD7EDE924E659C30047EEDB /* JLAttributedTextView.swift */; };
@@ -662,6 +663,7 @@
 		0BCE8CC224C011C50060AC01 /* CAPSPageMenu+UIConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CAPSPageMenu+UIConfiguration.swift"; sourceTree = "<group>"; };
 		0BCE8CC324C011C50060AC01 /* CAPSPageMenuConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAPSPageMenuConfiguration.swift; sourceTree = "<group>"; };
 		0BCE8CC424C011C50060AC01 /* CAPSPageMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAPSPageMenu.swift; sourceTree = "<group>"; };
+		0BD13821250900100059074D /* EditInstagramPhotosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInstagramPhotosCell.swift; sourceTree = "<group>"; };
 		0BD7EDE724E659C30047EEDB /* JLStickerImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JLStickerImageView.swift; sourceTree = "<group>"; };
 		0BD7EDE824E659C30047EEDB /* JLStickerLabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JLStickerLabelView.swift; sourceTree = "<group>"; };
 		0BD7EDE924E659C30047EEDB /* JLAttributedTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JLAttributedTextView.swift; sourceTree = "<group>"; };
@@ -1243,6 +1245,7 @@
 				0B535681245088DB005571AF /* EditProfileInteractor.swift */,
 				0B535682245088DB005571AF /* EditInformationCell.swift */,
 				0B535683245088DB005571AF /* EditPhotosCell.swift */,
+				0BD13821250900100059074D /* EditInstagramPhotosCell.swift */,
 			);
 			path = EditProfileVC;
 			sourceTree = "<group>";
@@ -3085,6 +3088,7 @@
 				0BEED98024A5BEB600F08122 /* TouchView.swift in Sources */,
 				0B6B4300247FCC52005240B8 /* CustomPickImageView.swift in Sources */,
 				0BABEB3824BD912F0084A3E1 /* BoostGeekFields.swift in Sources */,
+				0BD13822250900110059074D /* EditInstagramPhotosCell.swift in Sources */,
 				F7F8F5BC2452BD3200CA82E7 /* SelectAgeCell.swift in Sources */,
 				F7780E3F245AD667003CA4BD /* Configuration.swift in Sources */,
 				0B0B4B0D247504F80047EB11 /* RangeSeekSlider.swift in Sources */,

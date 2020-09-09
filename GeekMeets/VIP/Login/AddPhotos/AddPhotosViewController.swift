@@ -31,7 +31,7 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
     var signUpParams : Dictionary<String, String>?
     var imgProfile : UIImage?
     var userPhotosModel : [UserPhotosModel] = []
-     var opimagePicker = OpalImagePickerController()
+    var opimagePicker = OpalImagePickerController()
     
     var thumbURlUpload: (path: String, name: String) {
         let folderName = user_Profile

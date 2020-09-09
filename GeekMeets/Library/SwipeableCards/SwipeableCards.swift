@@ -126,16 +126,16 @@ private extension SwipeableCards {
     
     func setupButtons(){
         unlikeButton  = UIButton(type: .custom) as UIButton
-        unlikeButton.frame = CGRect(x: 0, y: 100, w: 200, h: 200)
+        unlikeButton.frame = CGRect(x: 0, y: 100, w: 100, h: 100)
         unlikeButton.backgroundColor = UIColor.clear
-        unlikeButton.setImage(#imageLiteral(resourceName: "unlike_1"), for: .normal)
-        self.addSubview(unlikeButton)
+        unlikeButton.setImage(#imageLiteral(resourceName: "wrong-1"), for: .normal)
+//        self.addSubview(unlikeButton)
         
         likeButton  = UIButton(type: .custom) as UIButton
-        likeButton.frame = CGRect(x: ScreenSize.width - 210, y: 100, w: 200, h: 200)
+        likeButton.frame = CGRect(x: ScreenSize.width - 120, y: 100, w: 100, h: 100)
         likeButton.backgroundColor = UIColor.clear
-        likeButton.setImage(#imageLiteral(resourceName: "like_mark"), for: .normal)
-        self.addSubview(likeButton)
+        likeButton.setImage(#imageLiteral(resourceName: "right"), for: .normal)
+//        self.addSubview(likeButton)
     }
     
     func layoutCards() {
@@ -192,9 +192,9 @@ private extension SwipeableCards {
                 
                 print("Centre : \(Const.actionMargin) \n X : \(xFromCenter) \n Y : \(yFromCenter)")
                 if xFromCenter > actionMargin {
-                    self.addSubview(self.unlikeButton)
-                } else if xFromCenter < -actionMargin {
                     self.addSubview(self.likeButton)
+                } else if xFromCenter < -actionMargin {
+                    self.addSubview(self.unlikeButton)
                 } else {
 //                    self.xFromCenter = 0.0
 //                    self.yFromCenter = 0.0

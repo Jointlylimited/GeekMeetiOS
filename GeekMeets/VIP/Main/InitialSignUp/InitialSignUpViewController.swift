@@ -215,6 +215,7 @@ extension  InitialSignUpViewController{
             return
         }
         let instaVC = GeekMeets_StoryBoard.Main.instantiateViewController(withIdentifier: GeekMeets_ViewController.InstagramLoginScreen) as! InstagramLoginVC
+        instaVC.isFromEditProfile = false
         instaVC.delegate = self
         self.presentVC(instaVC)
     }
@@ -302,7 +303,7 @@ extension  InitialSignUpViewController{
 }
 
 extension InitialSignUpViewController: InstagramAuthDelegate {
-    func instagramAuthControllerDidFinish(accessToken: String?,id: String?, error: Error?) {
+    func instagramAuthControllerDidFinish(accessToken: String?,id: String?, error: Error?, mediaData: NSArray){
         if let error = error {
             print("Error logging in to Instagram: \(error.localizedDescription)")
             

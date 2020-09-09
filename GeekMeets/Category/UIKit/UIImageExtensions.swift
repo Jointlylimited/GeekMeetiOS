@@ -201,4 +201,19 @@ extension PHAsset {
         }
         return img
     }
+    
+    func getUrlFromPHAsset(asset: PHAsset/*, callBack: @escaping (_ url: URL?) -> Void*/) -> URL
+    {
+        var url : URL?
+        asset.requestContentEditingInput(with: PHContentEditingInputRequestOptions(), completionHandler: { (contentEditingInput, dictInfo) in
+
+            if let strURL = (contentEditingInput!.audiovisualAsset as? AVURLAsset)?.url.absoluteString
+            {
+                print("VIDEO URL: \(strURL)")
+                url = URL.init(string: strURL)
+//                callBack(URL.init(string: strURL))
+            }
+        })
+        return url!
+    }
 }

@@ -11,7 +11,7 @@ import WebKit
 import Alamofire
 
 protocol InstagramAuthDelegate {
-    func instagramAuthControllerDidFinish(accessToken: String?,id: String?, error: Error?)
+    func instagramAuthControllerDidFinish(accessToken: String?,id: String?, error: Error?, mediaData: NSArray)
 }
 
 class InstagramLoginVC: UIViewController {
@@ -36,7 +36,7 @@ class InstagramLoginVC: UIViewController {
     private var activityIndicatorView: UIActivityIndicatorView!
     var accessToken : String?
     var userID : String?
-    
+    var isFromEditProfile : Bool = false
     
     var delegate: InstagramAuthDelegate?
     
@@ -142,7 +142,7 @@ class InstagramLoginVC: UIViewController {
                 }
                
                 self.dismiss()
-                delegate.instagramAuthControllerDidFinish(accessToken: nil,id: nil, error: error)
+                delegate.instagramAuthControllerDidFinish(accessToken: nil,id: nil, error: error, mediaData: [])
             } else {
                 self.getAccessToken(data: data!)
             }
@@ -161,11 +161,14 @@ class InstagramLoginVC: UIViewController {
             {
                 accessToken1 = (accessToken as? String)!
                 let strid = result["user_id"]
-                getMediaData(testUserData: InstagramTestUser(access_token: "", user_id: strid as! Int)) { (feedData) in
-                    print(feedData)
+                if isFromEditProfile {
+                    getMediaData(testUserData: InstagramTestUser(access_token: accessToken1, user_id: strid as! Int)) { (feedData) in
+                        print(feedData)
+                    }
+                } else {
+                    self.dismiss()
+                    delegate.instagramAuthControllerDidFinish(accessToken: accessToken1,id: "\(strid!)", error: nil, mediaData: [])
                 }
-//                self.dismiss()
-//                delegate.instagramAuthControllerDidFinish(accessToken: accessToken1,id: "\(strid!)", error: nil)
             }
         } catch let error {
             print("Error parsing for access token: \(error.localizedDescription)")
@@ -173,26 +176,42 @@ class InstagramLoginVC: UIViewController {
                 fatalError("InstagramAuthDelegate method needs to be implemented")
             }
             self.dismiss()
-            delegate.instagramAuthControllerDidFinish(accessToken: nil, id: nil, error: error)
+            delegate.instagramAuthControllerDidFinish(accessToken: nil, id: nil, error: error, mediaData: [])
         }
     }
     
     private func getMediaData(testUserData: InstagramTestUser, completion: @escaping (Feed) -> Void) {
         
         //"https://graph.instagram.com//me/media?fields={fields}&access_token={access-token}"
-    let urlString = "\(graphApi)me/media?fields=\(testUserData.user_id)&access_token=\(testUserData.access_token)"
+    let urlString = "\(graphApi)me/media?fields=id,media_type,media_url,username,timestamp&access_token=\(testUserData.access_token)"
         let request = URLRequest(url: URL(string: urlString)!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10)
       let session = URLSession.shared
       let task = session.dataTask(with: request, completionHandler: { data, response, error in
         if let response = response {
-          print(response)
+            print(response)
+            do {
+                let result = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String: Any]
+                print(result)
+                let mediaArray = result["data"]! as! NSArray
+                print(mediaArray)
+                
+                guard let delegate = self.delegate else {
+                    fatalError("InstagramAuthDelegate method needs to be implemented")
+                }
+                self.dismiss()
+                delegate.instagramAuthControllerDidFinish(accessToken: nil, id: nil, error: error, mediaData: mediaArray)
+//                completion(Feed(media: mediaArray))
+            } catch let error as NSError {
+                print(error)
+            }
         }
-        do { let jsonData = try JSONDecoder().decode(Feed.self, from: data!)
-          print(jsonData)
-          completion(jsonData)
-        } catch let error as NSError {
-          print(error)
-        }
+        
+//        do { let jsonData = try JSONDecoder().decode(InstagramMedia.self, from: data!)
+//          print(jsonData)
+////          completion(jsonData)
+//        } catch let error as NSError {
+//          print(error)
+//        }
       })
       task.resume()
     }
@@ -231,6 +250,6 @@ extension InstagramLoginVC : WKNavigationDelegate {
             fatalError("InstagramAuthDelegate method needs to be implemented")
         }
         self.dismiss()
-        delegate.instagramAuthControllerDidFinish(accessToken: nil, id: nil, error: error)
+        delegate.instagramAuthControllerDidFinish(accessToken: nil, id: nil, error: error, mediaData: [])
     }
 }

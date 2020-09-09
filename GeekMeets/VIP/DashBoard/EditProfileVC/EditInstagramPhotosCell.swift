@@ -1,16 +1,17 @@
 //
-//  EditPhotosCell.swift
+//  EditInstagramPhotosCell.swift
 //  GeekMeets
 //
-//  Created by SOTSYS124 on 22/04/20.
+//  Created by SOTSYS124 on 09/09/20.
 //  Copyright © 2020 SOTSYS203. All rights reserved.
 //
 
 import UIKit
 
-class EditPhotosCell: UITableViewCell {
+class EditInstagramPhotosCell: UITableViewCell {
 
-    @IBOutlet weak var AddPhotosCollView: UICollectionView!
+    @IBOutlet weak var InstagramPhotosCell: UICollectionView!
+
     
     override func awakeFromNib() {
         super.awakeFromNib()

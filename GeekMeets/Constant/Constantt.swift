@@ -221,12 +221,26 @@ struct MediaData1: Codable {
 
 struct PagingData: Codable {
   var cursors: CursorData
-  var next: String
+  var data: String
 }
 
 struct CursorData: Codable {
   var before: String
   var after: String
+}
+
+struct InstagramMedia: Codable {
+  var id: String
+  var media_type: MediaType1
+  var media_url: String
+  var timestamp: String
+  var username: String
+}
+
+enum MediaType1: String, Codable {
+  case IMAGE
+  case VIDEO
+  case CAROUSEL_ALBUM
 }
 
 struct LoadMore{

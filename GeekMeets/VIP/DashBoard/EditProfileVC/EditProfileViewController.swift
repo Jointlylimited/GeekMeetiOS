@@ -14,6 +14,7 @@ import UIKit
 import Photos
 import SDWebImage
 import OpalImagePicker
+import Alamofire
 
 protocol SocialMediaLinkDelegate {
     func updatedSocailLinkModel(model : UserAuthResponseField)
@@ -30,12 +31,13 @@ enum EditProfileListCells {
     case PhotosCell
     case SocialCell
     case PrivacyCell
+    case InstagramPhotosCell
     
     var cellHeight  : CGFloat {
         switch self {
         case .InformationCell(let desc):
            return 45  //return */ desc.heightWithConstrainedWidth(width: 374 * _widthRatio,font: fontPoppins(fontType: .Poppins_Medium, fontSize: .sizeNormalTextField)) + 16
-        case .InterestCell, .PhotosCell, .SocialCell, .PrivacyCell:
+        case .InterestCell, .PhotosCell, .SocialCell, .PrivacyCell, .InstagramPhotosCell:
             return 45
             
         }
@@ -54,6 +56,8 @@ enum EditProfileListCells {
             return 225
         case .PrivacyCell:
             return 225
+        case .InstagramPhotosCell:
+            return DeviceType.iPhone5orSE ? 170 : 200
         }
     }
     
@@ -61,7 +65,7 @@ enum EditProfileListCells {
         switch self {
 //        case .PrivacyCell:
 //            return 90
-        case .InformationCell, .InterestCell, .PhotosCell, .SocialCell, .PrivacyCell:
+        case .InformationCell, .InterestCell, .PhotosCell, .SocialCell, .PrivacyCell, .InstagramPhotosCell:
         return 45
         }
     }
@@ -79,7 +83,8 @@ enum EditProfileListCells {
             return "EditSocialLinkCell"
         case .PrivacyCell:
             return "EditProfilePrivacyCell"
-            
+        case .InstagramPhotosCell:
+            return "EditInstagramPhotosCell"
         }
     }
     
@@ -95,12 +100,14 @@ enum EditProfileListCells {
             return "Social Media Links"
         case .PrivacyCell:
             return "Profile Privacy Settings (only for subscribers)"
+        case .InstagramPhotosCell:
+            return "Instagram Photos"
         }
     }
     
     var isHeaderAvailable : Bool {
         switch self {
-        case .InterestCell, .SocialCell:
+        case .InterestCell, .SocialCell, .InstagramPhotosCell:
             return true
         case .InformationCell, .PhotosCell, .PrivacyCell:
             return false
@@ -121,7 +128,7 @@ struct EditProfileData {
     if UserDataModel.currentUser?.tiIsSubscribed == 1 {
         cell.append(.PrivacyCell)
     }
-    
+    cell.append(.InstagramPhotosCell)
     return cell
   }
 }
@@ -156,6 +163,8 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
     var delegate : ProfileDataDelegate!
     var removePhotoStr = ""
     var del : EditProfileResponseDelegate?
+    var instagramPhotosModel : NSArray = []
+    var instagramIntegrated : Bool = false
     
     var thumbURlUpload: (path: String, name: String) {
         let folderName = user_Profile
@@ -234,6 +243,10 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
             let photoModel = UserPhotosModel(iMediaId: photo.iMediaId, vMedia: photo.vMedia, vMediaPath: photo.vMedia, tiMediaType: photo.tiMediaType, tiImage: nil, tiIsDefault: photo.tiIsDefault, reaction: photo.reaction)
             userPhotosModel.append(photoModel)
         }
+        
+        if UserDefaults.standard.value(forKey: "InstagramPhotosModel") != nil {
+            self.instagramPhotosModel = UserDefaults.standard.value(forKey: "InstagramPhotosModel") as! NSArray
+        }
         self.tblEditProfileView.reloadData()
     }
     
@@ -282,12 +295,29 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
             let discVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.DiscoverySettingScreen) as! DiscoverySettingViewController
             discVC.isFromMenu = false
             self.pushVC(discVC)
-        } else {
+        } else if sender.tag == 3 {
             let socialVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.SocialMediaLink) as! SocialMediaLinkVC
             socialVC.delegate = self
             socialVC.userProfileModel = self.userProfileModel
             
             self.pushVC(socialVC)
+        } else if sender.tag == 5 {
+            if !NetworkReachabilityManager.init()!.isReachable{
+                AppSingleton.sharedInstance().showAlert(NoInternetConnection, okTitle: "OK")
+                return
+            }
+            if Authentication.getInstagramIntegrationStatus() == false {
+                let instaVC = GeekMeets_StoryBoard.Main.instantiateViewController(withIdentifier: GeekMeets_ViewController.InstagramLoginScreen) as! InstagramLoginVC
+                instaVC.isFromEditProfile = true
+                instaVC.delegate = self
+                self.presentVC(instaVC)
+            } else {
+                Authentication.setInstagramIntegrationStatus(false)
+                UserDefaults.standard.set([], forKey: "InstagramPhotosModel")
+                self.instagramIntegrated = false
+                self.instagramPhotosModel = []
+                self.tblEditProfileView.reloadData()
+            }
         }
     }
     
@@ -314,6 +344,25 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
             self.popVC()
             self.del?.profileEdited(success: true)
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        }
+    }
+}
+
+extension EditProfileViewController: InstagramAuthDelegate {
+    func instagramAuthControllerDidFinish(accessToken: String?,id: String?, error: Error?, mediaData: NSArray) {
+        if let error = error {
+            print("Error logging in to Instagram: \(error.localizedDescription)")
+            
+        } else {
+            if mediaData != [] {
+                self.instagramIntegrated = true
+                Authentication.setInstagramIntegrationStatus(true)
+                self.instagramPhotosModel = mediaData
+                UserDefaults.standard.set(mediaData, forKey: "InstagramPhotosModel")
+                DispatchQueue.main.async {
+                    self.tblEditProfileView.reloadData()
+                }
+            }
         }
     }
 }
@@ -395,7 +444,7 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
             if let cell = cell as? EditPhotosCell  {
                 
                 cell.AddPhotosCollView.register(UINib.init(nibName: Cells.PhotoEmojiCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.PhotoEmojiCell)
-                
+                cell.AddPhotosCollView.tag = 1
                 let layout = CustomImageLayout()
                 layout.scrollDirection = .horizontal
                 cell.AddPhotosCollView.collectionViewLayout = layout
@@ -409,7 +458,7 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
                 cell.txtSnapchatLink.text = userProfileModel?.vSnapLink
                 cell.txtInstagramLink.text = userProfileModel?.vInstaLink
             }
-        } else {
+        } else if objEditProfileData.cells[indexPath.section].cellID == "EditProfilePrivacyCell" {
              if let cell = cell as? EditProfilePrivacyCell  {
                 
                 cell.btnSwichMode[0].isSelected = userProfileModel?.tiIsShowDistance == 1 ? true : false
@@ -429,6 +478,18 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
                         self.userProfileModel?.tiIsShowProfileToLikedUser = cell.btnSwichMode[2].isSelected == true ? 1 : 0
                     }
                 }
+            }
+        } else {
+            if let cell = cell as? EditInstagramPhotosCell  {
+                
+                cell.InstagramPhotosCell.register(UINib.init(nibName: Cells.PhotoEmojiCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.PhotoEmojiCell)
+                cell.InstagramPhotosCell.tag = 2
+                let layout = CustomImageLayout()
+                layout.scrollDirection = .horizontal
+                cell.InstagramPhotosCell.collectionViewLayout = layout
+                
+                cell.InstagramPhotosCell.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                cell.InstagramPhotosCell.reloadData()
             }
         }
     }
@@ -454,9 +515,18 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
         headerView.addSubview(headerTitle)
         
         if objEditProfileData.cells[section].isHeaderAvailable {
+            
             let buttonClr = UIButton(frame: CGRect(x: ScreenSize.width - 100, y: headerView.frame.origin.y + headerView.frame.height/2, w: 100, h: 45))
             buttonClr.backgroundColor = .clear
-            buttonClr.underlineButton(text: "Change", font: UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 12)!, color: #colorLiteral(red: 0.5294117647, green: 0.1803921569, blue: 0.7647058824, alpha: 1))
+            if objEditProfileData.cells[section].cellID != "EditInstagramPhotosCell" {
+                buttonClr.underlineButton(text: "Change", font: UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 12)!, color: #colorLiteral(red: 0.5294117647, green: 0.1803921569, blue: 0.7647058824, alpha: 1))
+            } else {
+                if Authentication.getInstagramIntegrationStatus()! {
+                    buttonClr.setImage(#imageLiteral(resourceName: "icn_on"), for: .normal)
+                } else {
+                    buttonClr.setImage(#imageLiteral(resourceName: "icn_off"), for: .normal)
+                }
+            }
             buttonClr.tag = section
             buttonClr.addTarget(self, action: #selector(btnChangeAction(sender:)), for: .touchUpInside)
             headerView.addSubview(buttonClr)
@@ -473,63 +543,88 @@ extension EditProfileViewController : UICollectionViewDataSource, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.userPhotosModel.count != 0 ? self.userPhotosModel.count + 1 : 1
+        if collectionView.tag == 1 {
+            return self.userPhotosModel.count != 0 ? self.userPhotosModel.count + 1 : 1
+        } else {
+            return self.instagramPhotosModel != [] ? self.instagramPhotosModel.count : 1
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell : PhotoEmojiCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PhotoEmojiCell, for: indexPath) as! PhotoEmojiCell
-        cell.emojiStackView.alpha = 0.0
-        cell.emojiStackView.spacing = DeviceType.iPhone5orSE ? 2 : 10
         
-        if indexPath.row < self.userPhotosModel.count {
-            cell.btnClose.alpha = 1.0
-            if userPhotosModel[indexPath.row].tiImage == nil {
-                let url = URL(string:"\(userPhotosModel[indexPath.row].vMedia!)")
+        if collectionView.tag == 1 {
+            let cell : PhotoEmojiCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PhotoEmojiCell, for: indexPath) as! PhotoEmojiCell
+            cell.emojiStackView.alpha = 0.0
+            cell.emojiStackView.spacing = DeviceType.iPhone5orSE ? 2 : 10
+            
+            if indexPath.row < self.userPhotosModel.count {
+                cell.btnClose.alpha = 1.0
+                if userPhotosModel[indexPath.row].tiImage == nil {
+                    let url = URL(string:"\(userPhotosModel[indexPath.row].vMedia!)")
+                    print(url)
+                    cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
+                } else {
+                    cell.userImgView.image = userPhotosModel[indexPath.row].tiImage
+                }
+                let photoString = userPhotosModel[indexPath.row]
+                if photoString.reaction?.count != 0 {
+                    cell.emojiStackView.alpha = 0.0
+                    if photoString.reaction!.count == 3 {
+                        cell.btnKiss.setTitle((photoString.reaction?.count != 0 && photoString.reaction![2].vCount != "0") ? photoString.reaction![2].vCount : "0", for: .normal)
+                        cell.btnLove.setTitle((photoString.reaction?.count != 0 && photoString.reaction![1].vCount != "0") ? photoString.reaction![1].vCount : "0", for: .normal)
+                        cell.btnLoveSmile.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].vCount != "0") ? photoString.reaction![0].vCount : "0", for: .normal)
+                    }
+                    if photoString.reaction!.count == 2 {
+                        cell.btnKiss.setTitle("0", for: .normal)
+                        cell.btnLoveSmile.setTitle((photoString.reaction?.count != 0 && photoString.reaction![1].vCount != "0") ? photoString.reaction![1].vCount : "0", for: .normal)
+                        cell.btnLove.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].vCount != "0") ? photoString.reaction![0].vCount : "0", for: .normal)
+                    }
+                    if photoString.reaction!.count == 1  {
+                        cell.btnKiss.setTitle("0", for: .normal)
+                        cell.btnLoveSmile.setTitle("0", for: .normal)
+                        cell.btnLove.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].vCount != "0") ? photoString.reaction![0].vCount : "0", for: .normal)
+                    }
+                } else {
+                    cell.emojiStackView.alpha = 0
+                }
+                
+                cell.clickOnRemovePhoto = {
+                    if self.userPhotosModel.count != 0 {
+                        let mediaID = self.userPhotosModel[indexPath.row].iMediaId
+                        self.userPhotosModel.remove(at: indexPath.row)
+                        self.removePhotoStr = self.removePhotoStr != "" ? "\(self.removePhotoStr),\(mediaID!)" : "\(mediaID!)"
+                    }
+                    self.tblEditProfileView.reloadData()
+                }
+                
+            } else {
+                cell.userImgView.image = #imageLiteral(resourceName: "icn_add_photo")
+                cell.emojiStackView.alpha = 0
+                cell.btnClose.alpha  = 0
+            }
+            cell.emojiStackView.spacing = DeviceType.iPhone5orSE ? 2 : 10
+            cell.clickOnImageButton = {
+                self.openImagePickerActionSheet()
+            }
+             return cell
+        } else {
+            let cell : PhotoEmojiCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PhotoEmojiCell, for: indexPath) as! PhotoEmojiCell
+            
+            cell.emojiStackView.alpha = 0.0
+            cell.emojiStackView.spacing = DeviceType.iPhone5orSE ? 2 : 10
+            cell.btnClose.alpha = 0.0
+            
+            if self.instagramPhotosModel != [] {
+                let data = self.instagramPhotosModel[indexPath.row] as! NSDictionary
+                print(data)
+                let url = URL(string: data["media_url"] as! String)
                 print(url)
                 cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
             } else {
-                cell.userImgView.image = userPhotosModel[indexPath.row].tiImage
+                cell.userImgView.image = #imageLiteral(resourceName: "icn_add_photo")
             }
-            let photoString = userPhotosModel[indexPath.row]
-            if photoString.reaction?.count != 0 {
-                cell.emojiStackView.alpha = 0.0
-                if photoString.reaction!.count == 3 {
-                    cell.btnKiss.setTitle((photoString.reaction?.count != 0 && photoString.reaction![2].vCount != "0") ? photoString.reaction![2].vCount : "0", for: .normal)
-                    cell.btnLove.setTitle((photoString.reaction?.count != 0 && photoString.reaction![1].vCount != "0") ? photoString.reaction![1].vCount : "0", for: .normal)
-                    cell.btnLoveSmile.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].vCount != "0") ? photoString.reaction![0].vCount : "0", for: .normal)
-                }
-                if photoString.reaction!.count == 2 {
-                    cell.btnKiss.setTitle("0", for: .normal)
-                    cell.btnLoveSmile.setTitle((photoString.reaction?.count != 0 && photoString.reaction![1].vCount != "0") ? photoString.reaction![1].vCount : "0", for: .normal)
-                    cell.btnLove.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].vCount != "0") ? photoString.reaction![0].vCount : "0", for: .normal)
-                }
-                if photoString.reaction!.count == 1  {
-                    cell.btnKiss.setTitle("0", for: .normal)
-                    cell.btnLoveSmile.setTitle("0", for: .normal)
-                    cell.btnLove.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].vCount != "0") ? photoString.reaction![0].vCount : "0", for: .normal)
-                }
-            } else {
-                cell.emojiStackView.alpha = 0
-            }
-        } else {
-            cell.userImgView.image = #imageLiteral(resourceName: "icn_add_photo")
-            cell.emojiStackView.alpha = 0
-            cell.btnClose.alpha  = 0
+             return cell
         }
-        cell.emojiStackView.spacing = DeviceType.iPhone5orSE ? 2 : 10
-        cell.clickOnImageButton = {
-            self.openImagePickerActionSheet()
-        }
-        
-        cell.clickOnRemovePhoto = {
-            if self.userPhotosModel.count != 0 {
-                let mediaID = self.userPhotosModel[indexPath.row].iMediaId
-                self.userPhotosModel.remove(at: indexPath.row)
-                self.removePhotoStr = self.removePhotoStr != "" ? "\(self.removePhotoStr),\(mediaID!)" : "\(mediaID!)"
-            }
-            self.tblEditProfileView.reloadData()
-        }
-        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

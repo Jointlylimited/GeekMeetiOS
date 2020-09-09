@@ -24,6 +24,7 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
     @IBOutlet weak var btnView: UIButton!
     @IBOutlet weak var btnDelete: UIButton!
     
+    @IBOutlet weak var imgReconnect: UIImageView!
     var pageIndex : Int = 0
 //    var items: [UserDetail] = []
     var items: [StoryResponseFields] = []
@@ -176,28 +177,35 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
         
         if item[index].tiStoryType! == "0" {
             self.SPB.duration = 5
-            self.imagePreview.isHidden = false
-            self.videoView.isHidden = true
+            
             if !NetworkReachabilityManager.init()!.isReachable{
-                self.imagePreview.image = #imageLiteral(resourceName: "reconnect")
+                self.imgReconnect.alpha = 1.0
+                self.imagePreview.isHidden = true
+                self.videoView.isHidden = true
                 return
             }
+            self.imgReconnect.alpha = 0.0
+            self.imagePreview.isHidden = false
+            self.videoView.isHidden = true
             print("\(items[pageIndex].txStory!)")
             let url = URL(string:"\(items[index].txStory!)")
             self.imagePreview.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
         } else {
-            self.imagePreview.isHidden = true
-            self.videoView.isHidden = false
+            
             print("\(items[index].txStory!)")
             resetPlayer()
             guard let url = NSURL(string: items[index].txStory!) as URL? else {return}
             self.player = AVPlayer(url: url)
             
             if !NetworkReachabilityManager.init()!.isReachable{
-                self.imagePreview.image = #imageLiteral(resourceName: "reconnect")
+                self.imgReconnect.alpha = 1.0
+                self.imagePreview.isHidden = true
+                self.videoView.isHidden = true
                 return
             }
-            
+            self.imagePreview.isHidden = true
+            self.videoView.isHidden = false
+            self.imgReconnect.alpha = 0.0
             let videoLayer = AVPlayerLayer(player: self.player)
             videoLayer.frame = view.bounds
             videoLayer.videoGravity = .resizeAspect

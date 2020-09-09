@@ -113,6 +113,7 @@ let kSwipeLimit = "You have exceeded your swipe limit, Subscribe to check other 
 let kSuccessPurBoostPlan = "You have successfully purchased Boost plan"
 let kSuccessPurStoryPlan = "You have successfully purchased Story plan"
 let kSuccessPurSubscriptionPlan = "You have successfully purchased Subscription plan"
+let kInstagramMediaIntegrated = "isInstagramMediaIntegrated"
 class KeyMessages: NSObject {
 
 }

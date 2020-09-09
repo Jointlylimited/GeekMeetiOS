@@ -30,7 +30,7 @@ class AWSS3Manager {
     //Divya added
     var thumbURlUpload: (path: String, name: String) {
         let folderName = "Chat/" //"user_critique/"
-        let timeStamp = Date().dateToTimeStamp()
+        let timeStamp = Authentication.sharedInstance().GetCurrentTimeStamp()
         let imgExtension = ".jpeg"
         let path = "\(folderName)\(timeStamp)\(imgExtension)" //"\(folderName)\(prefix)\(timeStamp)\(imgExtension)"
         return (path: path, name: "\(timeStamp)\(imgExtension)" /*"\(prefix)\(timeStamp)\(imgExtension)"*/)
@@ -39,7 +39,7 @@ class AWSS3Manager {
     // video data Path/Name
     var videoURlUpload: (path: String, name: String) {
         let folderName = "Chat/"
-        let timeStamp = Date().currentTimeMillis()
+        let timeStamp = Authentication.sharedInstance().GetCurrentTimeStamp()
         let videoExtension = ".mp4"
         let path = "\(folderName)\(timeStamp)\(videoExtension)"
         return (path: path, name: "\(timeStamp)\(videoExtension)")
@@ -48,7 +48,7 @@ class AWSS3Manager {
     // video data Path/Name
     var gifURlUpload: (path: String, name: String) {
         let folderName = "Chat/"
-        let timeStamp = Date().currentTimeMillis()
+        let timeStamp = Authentication.sharedInstance().GetCurrentTimeStamp()
         let gifExtension = ".gif"
         let path = "\(folderName)\(timeStamp)\(gifExtension)"
         return (path: path, name: "\(timeStamp)\(gifExtension)")
