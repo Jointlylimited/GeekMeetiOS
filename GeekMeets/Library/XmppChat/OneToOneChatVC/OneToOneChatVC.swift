@@ -42,6 +42,7 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
         headerTitle.backgroundColor = AppCommonColor.firstGradient.withAlphaComponent(0.5)
         headerTitle.textAlignment = .center
         headerTitle.cornerRadius = 5
+        headerTitle.text = "Today"
         headerTitle.lineBreakMode = .byWordWrapping
         headerTitle.textColor = .white
         headerTitle.font = UIFont(name: FontTypePoppins.Poppins_Medium.rawValue, size: 14)
@@ -1464,7 +1465,7 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 
-        let chatMsg = self.arrChatMsg[section]
+//        let chatMsg = self.arrChatMsg[section]
         lblHeaderTitle.frame = CGRect(x: ScreenSize.width/2 - 75, y: 0, w: 150, h: 30)
 //        lblHeaderTitle.text =  ST_DateFormater.GetMediumDate(from: chatMsg.timestamp)
         

@@ -50,12 +50,12 @@ class HomeInteractor: HomeInteractorProtocol, HomeDataStore {
     }
     
     func callSwipeCardAPI(iProfileId : String, tiSwipeType : String){
-        LoaderView.sharedInstance.showLoader()
+//        LoaderView.sharedInstance.showLoader()
         UserAPI.swipeUser(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iProfileId: iProfileId, tiSwipeType: tiSwipeType) { (response, error) in
             
-            delay(0.2) {
-                LoaderView.sharedInstance.hideLoader()
-            }
+//            delay(0.2) {
+//                LoaderView.sharedInstance.hideLoader()
+//            }
             if response?.responseCode == 200 {
                 self.presenter?.getSwipeCardResponse(response : response!)
             } else if response?.responseCode == 203 {
