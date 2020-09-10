@@ -620,6 +620,7 @@ extension EditProfileViewController : UICollectionViewDataSource, UICollectionVi
                 let url = URL(string: data["media_url"] as! String)
                 print(url)
                 cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
+                cell.btnChooseImage.isUserInteractionEnabled = false
             } else {
                 cell.userImgView.image = #imageLiteral(resourceName: "icn_add_photo")
             }

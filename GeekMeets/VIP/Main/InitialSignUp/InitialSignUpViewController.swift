@@ -315,6 +315,9 @@ extension InitialSignUpViewController: InstagramAuthDelegate {
             let signupModel = SignUpUserModel(email: "", password: "", confirmpassword: "", mobile: "", countryCode: "", firstName: "", lastName: "", phone: "", birthday: "")
             UserDataModel.SignUpUserResponse = signupModel
             
+            Authentication.setInstagramIntegrationStatus(true)
+            UserDefaults.standard.set(mediaData, forKey: "InstagramPhotosModel")
+            
             let param = RequestParameter.sharedInstance().socialSigninParams(tiSocialType: "3", accessKey: accessToken!, service: "Instagram")
             self.presenter?.callSignInForAppleAPI(params: param)
         }

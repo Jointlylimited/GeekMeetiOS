@@ -251,6 +251,17 @@ struct ST_DateFormater {
         ST_DateFormater.DateFormaterForChat.dateFormat = format
         return ST_DateFormater.DateFormaterForChat.string(from: _date)
     }
+    
+    static func GetMediumDate(from _date: Date , format: String = "dd MMM,yyyy"/* "h:mm a"*/) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.doesRelativeDateFormatting = true
+        let time = "\(dateFormatter.string(from: _date))"
+        
+//        ST_DateFormater.DateFormaterForChat.dateFormat = format
+        return time //ST_DateFormater.DateFormaterForChat.string(from: _date)
+    }
+    
     static func GetFormatedDate(from _date: Date , format: String = "dd/MM/yy") -> String {
         ST_DateFormater.DateFormaterForChat.dateFormat = format
         return ST_DateFormater.DateFormaterForChat.string(from: _date)

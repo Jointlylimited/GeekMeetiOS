@@ -36,6 +36,25 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
         return label
     }()
     
+    lazy var lblHeaderTitle: UILabel = {
+        let headerTitle = UILabel()
+//        headerTitle.frame = CGRect(x: 100, y: headerView.frame.origin.y + headerView.frame.height/2, w: ScreenSize.width - 200, h: 30)
+        headerTitle.backgroundColor = AppCommonColor.firstGradient.withAlphaComponent(0.5)
+        headerTitle.textAlignment = .center
+        headerTitle.cornerRadius = 5
+        headerTitle.lineBreakMode = .byWordWrapping
+        headerTitle.textColor = .white
+        headerTitle.font = UIFont(name: FontTypePoppins.Poppins_Medium.rawValue, size: 14)
+        
+        return headerTitle
+    }()
+    
+    lazy var lblDateHeaderview: UIView = {
+        let headerView = UIView()
+        headerView.addSubview(self.lblHeaderTitle)
+        return headerView
+    }()
+    
     @IBOutlet weak var tblChat: UITableView!
     @IBOutlet weak var inputTextView: RSKGrowingTextView!
     @IBOutlet weak var viewInputBar: UIView!
@@ -1272,6 +1291,7 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let chatMsg = self.arrChatMsg[indexPath.row]
+        lblHeaderTitle.text =  ST_DateFormater.GetMediumDate(from: chatMsg.timestamp)
         
         if chatMsg.isOutgoing {
             
@@ -1443,10 +1463,15 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
         return 1
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return nil
+
+        let chatMsg = self.arrChatMsg[section]
+        lblHeaderTitle.frame = CGRect(x: ScreenSize.width/2 - 75, y: 0, w: 150, h: 30)
+//        lblHeaderTitle.text =  ST_DateFormater.GetMediumDate(from: chatMsg.timestamp)
+        
+        return self.lblDateHeaderview
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.0
+        return 30.0
     }
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         //self.inputTextView.resignFirstResponder()
@@ -1454,6 +1479,23 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
     }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         //print(scrollView.contentOffset.y)
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+
+        if(velocity.y>0) {
+            //Code will work without the animation block.I am using animation block incase if you want to set any delay to it.
+            lblDateHeaderview.animate(duration: 2.5, animations: {
+                print("Hide")
+                self.lblDateHeaderview.alpha = 0.0
+            }, completion: nil)
+        } else {
+            
+            lblDateHeaderview.animate(duration: 2.5, animations: {
+                print("Unhide")
+                self.lblDateHeaderview.alpha = 1.0
+            }, completion: nil)
+        }
     }
     
     @objc private func dismissController(_ sender: UIBarButtonItem) {

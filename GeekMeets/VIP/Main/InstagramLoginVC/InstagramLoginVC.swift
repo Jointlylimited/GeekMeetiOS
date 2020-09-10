@@ -166,8 +166,11 @@ class InstagramLoginVC: UIViewController {
                         print(feedData)
                     }
                 } else {
-                    self.dismiss()
-                    delegate.instagramAuthControllerDidFinish(accessToken: accessToken1,id: "\(strid!)", error: nil, mediaData: [])
+                    getMediaData(testUserData: InstagramTestUser(access_token: accessToken1, user_id: strid as! Int)) { (feedData) in
+                        print(feedData)
+                    }
+//                    self.dismiss()
+//                    delegate.instagramAuthControllerDidFinish(accessToken: accessToken1,id: "\(strid!)", error: nil, mediaData: [])
                 }
             }
         } catch let error {
@@ -199,7 +202,7 @@ class InstagramLoginVC: UIViewController {
                     fatalError("InstagramAuthDelegate method needs to be implemented")
                 }
                 self.dismiss()
-                delegate.instagramAuthControllerDidFinish(accessToken: nil, id: nil, error: error, mediaData: mediaArray)
+                delegate.instagramAuthControllerDidFinish(accessToken: testUserData.access_token, id: "\(testUserData.user_id)", error: error, mediaData: mediaArray)
 //                completion(Feed(media: mediaArray))
             } catch let error as NSError {
                 print(error)

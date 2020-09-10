@@ -112,7 +112,7 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     
     func doSomething() {
         print(signUpParams)
-        self.navigationController?.isNavigationBarHidden = false
+        //self.navigationController?.isNavigationBarHidden = false
         self.navigationItem.leftBarButtonItem = leftSideBackBarButton
         
         btnVerifyOTP.isHidden = true

@@ -236,15 +236,15 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
         cardView.clickOnClose = {
             print("Close Action clicked!")
             if UserDataModel.currentUser?.tiIsSubscribed == 0 {
-                if self.SwipeValue != 0 {
+//                if self.SwipeValue != 0 {
                     self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "0")
-                    Authentication.setSwipeStatus(self.SwipeValue - 1)
-                    self.SwipeValue = Authentication.getSwipeStatus()!
-                } else {
-                    Authentication.setSwipeStatus(10)
-                    self.SwipeValue = Authentication.getSwipeStatus()!
-                    self.presentSubVC()
-                }
+//                    Authentication.setSwipeStatus(self.SwipeValue - 1)
+//                    self.SwipeValue = Authentication.getSwipeStatus()!
+//                } else {
+//                    Authentication.setSwipeStatus(10)
+//                    self.SwipeValue = Authentication.getSwipeStatus()!
+//                    self.presentSubVC()
+//                }
             } else {
                 self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "0")
             }
@@ -252,15 +252,15 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
         cardView.clickOnFavourite = {
             print("Favourite Action clicked!")
             if UserDataModel.currentUser?.tiIsSubscribed == 0 {
-                if self.SwipeValue != 0 {
+//                if self.SwipeValue != 0 {
                     self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "1")
-                    Authentication.setSwipeStatus(self.SwipeValue - 1)
-                    self.SwipeValue = Authentication.getSwipeStatus()!
-                } else {
-                    Authentication.setSwipeStatus(10)
-                    self.SwipeValue = Authentication.getSwipeStatus()!
-                    self.presentSubVC()
-                }
+//                    Authentication.setSwipeStatus(self.SwipeValue - 1)
+//                    self.SwipeValue = Authentication.getSwipeStatus()!
+//                } else {
+//                    Authentication.setSwipeStatus(10)
+//                    self.SwipeValue = Authentication.getSwipeStatus()!
+//                    self.presentSubVC()
+//                }
             } else {
                 self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "1")
             }
@@ -287,15 +287,15 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
         print("<--\(index)")
 
         if UserDataModel.currentUser?.tiIsSubscribed == 0 {
-            if SwipeValue != 0 {
+//            if SwipeValue != 0 {
                 self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "0")
-                Authentication.setSwipeStatus(SwipeValue - 1)
-                SwipeValue = Authentication.getSwipeStatus()!
-            } else {
-                Authentication.setSwipeStatus(10)
-                self.SwipeValue = Authentication.getSwipeStatus()!
-                self.presentSubVC()
-            }
+//                Authentication.setSwipeStatus(SwipeValue - 1)
+//                SwipeValue = Authentication.getSwipeStatus()!
+//            } else {
+//                Authentication.setSwipeStatus(10)
+//                self.SwipeValue = Authentication.getSwipeStatus()!
+//                self.presentSubVC()
+//            }
         } else {
             self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "0")
         }
@@ -304,15 +304,15 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
     func cards(_ cards: SwipeableCards, didRightRemovedItemAt index: Int) {
         print("\(index)-->")
         if UserDataModel.currentUser?.tiIsSubscribed == 0 {
-            if SwipeValue != 0 {
+//            if SwipeValue != 0 {
                 self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "1")
-                Authentication.setSwipeStatus(SwipeValue - 1)
-                SwipeValue = Authentication.getSwipeStatus()!
-            } else {
-                Authentication.setSwipeStatus(10)
-                self.SwipeValue = Authentication.getSwipeStatus()!
-                self.presentSubVC()
-            }
+//                Authentication.setSwipeStatus(SwipeValue - 1)
+//                SwipeValue = Authentication.getSwipeStatus()!
+//            } else {
+//                Authentication.setSwipeStatus(10)
+//                self.SwipeValue = Authentication.getSwipeStatus()!
+//                self.presentSubVC()
+//            }
         } else {
             self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "1")
         }
