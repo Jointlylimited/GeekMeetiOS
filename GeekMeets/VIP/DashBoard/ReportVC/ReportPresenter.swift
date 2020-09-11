@@ -38,6 +38,10 @@ class ReportPresenter: ReportPresentationProtocol {
     }
     
     func getPostReportResponse(response : CommonResponse){
-        self.viewController?.getPostReportResponse(response : response)
+        if response.responseCode == 200 {
+            self.viewController?.getPostReportResponse(response : response)
+        } else {
+            self.viewController?.displayAlert(strTitle: appName, strMessage: response.responseMessage!)
+        }
     }
 }

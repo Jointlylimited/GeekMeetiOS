@@ -285,6 +285,10 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
 //                    self.presenter?.callViewStoryAPI(iStoryId: "\(self.objStoryArray![indexPath.row][0].iStoryId!)")
 //                }
 //            }
+        } else {
+            if self.objAllStoryArray![indexPath.row][0].tiIsView == 0 {
+                self.presenter?.callViewStoryAPI(iStoryId: "\(self.objAllStoryArray![indexPath.row][0].iStoryId!)")
+            }
         }
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.StoryContentScreen) as? ContentViewController
         controller!.modalTransitionStyle = .crossDissolve

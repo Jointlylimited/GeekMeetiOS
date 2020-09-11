@@ -39,7 +39,7 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
     lazy var lblHeaderTitle: UILabel = {
         let headerTitle = UILabel()
 //        headerTitle.frame = CGRect(x: 100, y: headerView.frame.origin.y + headerView.frame.height/2, w: ScreenSize.width - 200, h: 30)
-        headerTitle.backgroundColor = AppCommonColor.firstGradient.withAlphaComponent(0.5)
+        headerTitle.backgroundColor = AppCommonColor.ChatViewBGColor
         headerTitle.textAlignment = .center
         headerTitle.cornerRadius = 5
         headerTitle.text = "Today"
@@ -85,7 +85,7 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
     
     var isBlock : Int? = 0
     var imagePicker: UIImagePickerController!
-    var userName : String?
+    var userName : String? = ""
     var imageString : String?
     var arrBlockUserList = BlockUserListModel()
     var mediaType: MediaType = .image
@@ -1042,9 +1042,10 @@ extension OneToOneChatVC : CustomOptionViewDelegate {
             customAlertView = CustomAlertView.initAlertView(title: isBlock == 1 ? kUnblockStr : kBlockStr, message: isBlock == 1 ? kUnblockDesStr : kBlockDesStr, btnRightStr: isBlock == 1 ? kTitleUnBlock : kTitleBlock, btnCancelStr: kTitleCancel, btnCenter: "", isSingleButton: false)
         } else if index == 4 {
             let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.ReportScreen) as! ReportViewController
-            let userID = self.objFriend != nil ? self.objFriend?.jID.split("_").first!.replacingOccurrences(of: "\(self.objFriend!.name.replacingOccurrences(of: " ", with: "", options: [.caseInsensitive, .regularExpression]).lowercased())", with: "", options: [.caseInsensitive, .regularExpression]) : _userIDForRequestSend?.split("_").first!.replacingOccurrences(of: "\(self.objFriend!.name.replacingOccurrences(of: " ", with: "", options: [.caseInsensitive, .regularExpression]).lowercased())", with: "", options: [.caseInsensitive, .regularExpression])
+            let name =  self.objFriend != nil ? (self.objFriend!.name != "" ? self.objFriend!.name : self.objFriend?.vCard?.nickname) : ""
+            let userID = self.objFriend != nil ? self.objFriend?.jID.split("_").first!.replacingOccurrences(of: "\(name!.replacingOccurrences(of: " ", with: "", options: [.caseInsensitive, .regularExpression]).lowercased())", with: "", options: [.caseInsensitive, .regularExpression]) : _userIDForRequestSend?.split("_").first!.replacingOccurrences(of: "\(self.userName!.replacingOccurrences(of: " ", with: "", options: [.caseInsensitive, .regularExpression]).lowercased())", with: "", options: [.caseInsensitive, .regularExpression])
             controller.ReportFor = userID!
-            controller.ReportUser = self.objFriend != nil ? self.objFriend?.name : self.userName
+            controller.ReportUser = self.objFriend != nil ? name : self.userName
             controller.tiReportType = 1
             controller.modalTransitionStyle = .crossDissolve
             controller.modalPresentationStyle = .overCurrentContext

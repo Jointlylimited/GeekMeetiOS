@@ -105,43 +105,44 @@ extension NotificationListViewController {
         loadMore.isLoading = false
         if response.responseCode == 200 {
             self.arrNotification.objResNotificationList = response.responseData?.arrayList
-                if self.arrNotification.objResNotificationList.count == 0 {
-                    self.lblNoNotification.alpha = 1.0
-                    self.btnClearAll.alpha = 0.0
-                } else {
-                    self.lblNoNotification.alpha = 0.0
-                    self.btnClearAll.alpha = 1.0
-                }
-            } else {
+            if self.arrNotification.objResNotificationList.count == 0 {
                 self.lblNoNotification.alpha = 1.0
                 self.btnClearAll.alpha = 0.0
-            }
-            
-            guard let arrData = self.arrNotification.objResNotificationList else {
-                return
-            }
-            if loadMore.index == 0 || self.arrNotification.objResNotificationList == nil {
-                self.arrNotification.objNotificationList = []
-            }
-            
-            arrData.forEach { (obj) in
-                self.arrNotification.objNotificationList.append(obj)
-            }
-            
-            loadMore.isAllLoaded = self.arrNotification.objNotificationList.count == response.responseData!.count// ?? 0
-            if !loadMore.isAllLoaded {
-                loadMore.index += 1
             } else {
-                loadMore.index = 0
-                LoaderView.sharedInstance.hideLoader()
+                self.lblNoNotification.alpha = 0.0
+                self.btnClearAll.alpha = 1.0
             }
-            let value = self.arrNotification.objNotificationList!.filter({($0.tiIsRead) != 1})
-            if value.count != 0 {
-                UserDataModel.setNotificationCount(count: value.count)
-            } else {
-                UserDataModel.setNotificationCount(count: 0)
+        } else {
+            self.lblNoNotification.alpha = 1.0
+            self.btnClearAll.alpha = 0.0
+            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }
-            self.tblNotificationList.reloadData()
+        
+        guard let arrData = self.arrNotification.objResNotificationList else {
+            return
+        }
+        if loadMore.index == 0 || self.arrNotification.objResNotificationList == nil {
+            self.arrNotification.objNotificationList = []
+        }
+        
+        arrData.forEach { (obj) in
+            self.arrNotification.objNotificationList.append(obj)
+        }
+        
+        loadMore.isAllLoaded = self.arrNotification.objNotificationList.count == response.responseData!.count// ?? 0
+        if !loadMore.isAllLoaded {
+            loadMore.index += 1
+        } else {
+            loadMore.index = 0
+            LoaderView.sharedInstance.hideLoader()
+        }
+        let value = self.arrNotification.objNotificationList!.filter({($0.tiIsRead) != 1})
+        if value.count != 0 {
+            UserDataModel.setNotificationCount(count: value.count)
+        } else {
+            UserDataModel.setNotificationCount(count: 0)
+        }
+        self.tblNotificationList.reloadData()
     }
     
     func callReadNotiAPI(iNotificationId: String, tiType : String){

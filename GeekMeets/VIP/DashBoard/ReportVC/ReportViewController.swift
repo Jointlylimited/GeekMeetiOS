@@ -41,6 +41,7 @@ struct ReasonModel {
 protocol ReportProtocol: class {
     func getReportListResponse(response : ReasonListData)
     func getPostReportResponse(response : CommonResponse)
+    func displayAlert(strTitle : String, strMessage : String)
 }
 
 class ReportViewController: UIViewController, ReportProtocol {
@@ -112,6 +113,7 @@ class ReportViewController: UIViewController, ReportProtocol {
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.dismissVC(completion: nil)
     }
+    
     @IBAction func btnReportAction(_ sender: GradientButton) {
         let params = RequestParameter.sharedInstance().sendReason(iReportedFor: ReportFor, iStoryId: iStoryId, tiReportType: "1", iReasonId: arrReport.objReason != nil ? "\(arrReport.objReason.iReasonId!)" : "", vReportText: txtReportView.text)
         
@@ -149,6 +151,10 @@ extension ReportViewController {
         } else {
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }
+    }
+    
+    func displayAlert(strTitle : String, strMessage : String) {
+        self.showAlert(title: strTitle, message: strMessage)
     }
 }
 

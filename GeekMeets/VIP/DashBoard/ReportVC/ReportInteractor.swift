@@ -64,7 +64,7 @@ class ReportInteractor: ReportInteractorProtocol, ReportDataStore {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
                 } else {
-                    AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+                    self.presenter?.getPostReportResponse(response : response!)
                 }
             }
         }
