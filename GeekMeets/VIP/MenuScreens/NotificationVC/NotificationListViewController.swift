@@ -129,7 +129,7 @@ extension NotificationListViewController {
             self.arrNotification.objNotificationList.append(obj)
         }
         
-        loadMore.isAllLoaded = self.arrNotification.objNotificationList.count == response.responseData!.count// ?? 0
+        loadMore.isAllLoaded = self.arrNotification.objNotificationList.count == response.responseData!.count
         if !loadMore.isAllLoaded {
             loadMore.index += 1
         } else {
@@ -199,7 +199,6 @@ extension NotificationListViewController : UITableViewDataSource, UITableViewDel
             if type.count != 0 {
                 cell.imageView?.image = type[0]["image"]! as? UIImage
             }
-//            cell.imageView?.image = data.image
             cell.lblTitle.text = data.vTitle
             cell.lblDesc.text = data.txmessage
             cell.lblTime.text = Date(timeIntervalSince1970: Double(data.iCreatedAt!)!).agoStringFromTime()

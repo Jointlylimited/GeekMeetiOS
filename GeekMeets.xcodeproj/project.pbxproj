@@ -372,16 +372,7 @@
 		F7E6DB532459B3DA0031A035 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E6DB512459B3DA0031A035 /* PreviewViewController.swift */; };
 		F7E6DB542459B3DA0031A035 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E6DB522459B3DA0031A035 /* ViewController.swift */; };
 		F7F8F5BC2452BD3200CA82E7 /* SelectAgeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F8F5BB2452BD3200CA82E7 /* SelectAgeCell.swift */; };
-		F7F8F5C12452EAE400CA82E7 /* SelectGenderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F8F5BE2452EAE400CA82E7 /* SelectGenderPresenter.swift */; };
-		F7F8F5C22452EAE400CA82E7 /* SelectGenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F8F5BF2452EAE400CA82E7 /* SelectGenderViewController.swift */; };
-		F7F8F5C32452EAE400CA82E7 /* SelectGenderInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F8F5C02452EAE400CA82E7 /* SelectGenderInteractor.swift */; };
 		F7F8F5C52452EDDC00CA82E7 /* SelectGenderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F8F5C42452EDDC00CA82E7 /* SelectGenderCell.swift */; };
-		F7F8F5CA2452F87A00CA82E7 /* SelectSocialMediaPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F8F5C72452F87A00CA82E7 /* SelectSocialMediaPresenter.swift */; };
-		F7F8F5CB2452F87A00CA82E7 /* SelectSocialMediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F8F5C82452F87A00CA82E7 /* SelectSocialMediaViewController.swift */; };
-		F7F8F5CC2452F87A00CA82E7 /* SelectSocialMediaInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F8F5C92452F87A00CA82E7 /* SelectSocialMediaInteractor.swift */; };
-		F7F8F5D12452F8CF00CA82E7 /* SelectCategoriesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F8F5CE2452F8CF00CA82E7 /* SelectCategoriesPresenter.swift */; };
-		F7F8F5D22452F8CF00CA82E7 /* SelectCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F8F5CF2452F8CF00CA82E7 /* SelectCategoriesViewController.swift */; };
-		F7F8F5D32452F8CF00CA82E7 /* SelectCategoriesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F8F5D02452F8CF00CA82E7 /* SelectCategoriesInteractor.swift */; };
 		F7F8F5D52452FB8000CA82E7 /* SelectSocialMediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F8F5D42452FB8000CA82E7 /* SelectSocialMediaCell.swift */; };
 		F7F8F5D72452FC0E00CA82E7 /* SelectCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F8F5D62452FC0E00CA82E7 /* SelectCategories.swift */; };
 		F7F9678F2451AAF200BD7275 /* Questionnaire.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7F9678E2451AAF100BD7275 /* Questionnaire.storyboard */; };
@@ -808,16 +799,7 @@
 		F7E6DB512459B3DA0031A035 /* PreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		F7E6DB522459B3DA0031A035 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F7F8F5BB2452BD3200CA82E7 /* SelectAgeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAgeCell.swift; sourceTree = "<group>"; };
-		F7F8F5BE2452EAE400CA82E7 /* SelectGenderPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenderPresenter.swift; sourceTree = "<group>"; };
-		F7F8F5BF2452EAE400CA82E7 /* SelectGenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenderViewController.swift; sourceTree = "<group>"; };
-		F7F8F5C02452EAE400CA82E7 /* SelectGenderInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenderInteractor.swift; sourceTree = "<group>"; };
 		F7F8F5C42452EDDC00CA82E7 /* SelectGenderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenderCell.swift; sourceTree = "<group>"; };
-		F7F8F5C72452F87A00CA82E7 /* SelectSocialMediaPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSocialMediaPresenter.swift; sourceTree = "<group>"; };
-		F7F8F5C82452F87A00CA82E7 /* SelectSocialMediaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSocialMediaViewController.swift; sourceTree = "<group>"; };
-		F7F8F5C92452F87A00CA82E7 /* SelectSocialMediaInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSocialMediaInteractor.swift; sourceTree = "<group>"; };
-		F7F8F5CE2452F8CF00CA82E7 /* SelectCategoriesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoriesPresenter.swift; sourceTree = "<group>"; };
-		F7F8F5CF2452F8CF00CA82E7 /* SelectCategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoriesViewController.swift; sourceTree = "<group>"; };
-		F7F8F5D02452F8CF00CA82E7 /* SelectCategoriesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoriesInteractor.swift; sourceTree = "<group>"; };
 		F7F8F5D42452FB8000CA82E7 /* SelectSocialMediaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSocialMediaCell.swift; sourceTree = "<group>"; };
 		F7F8F5D62452FC0E00CA82E7 /* SelectCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategories.swift; sourceTree = "<group>"; };
 		F7F9678E2451AAF100BD7275 /* Questionnaire.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Questionnaire.storyboard; sourceTree = "<group>"; };
@@ -2101,42 +2083,9 @@
 			name = CameraVC;
 			sourceTree = "<group>";
 		};
-		F7F8F5BD2452EAA400CA82E7 /* SelectGender */ = {
-			isa = PBXGroup;
-			children = (
-				F7F8F5BE2452EAE400CA82E7 /* SelectGenderPresenter.swift */,
-				F7F8F5BF2452EAE400CA82E7 /* SelectGenderViewController.swift */,
-				F7F8F5C02452EAE400CA82E7 /* SelectGenderInteractor.swift */,
-			);
-			path = SelectGender;
-			sourceTree = "<group>";
-		};
-		F7F8F5C62452F85500CA82E7 /* SelectSocialMedia */ = {
-			isa = PBXGroup;
-			children = (
-				F7F8F5C72452F87A00CA82E7 /* SelectSocialMediaPresenter.swift */,
-				F7F8F5C82452F87A00CA82E7 /* SelectSocialMediaViewController.swift */,
-				F7F8F5C92452F87A00CA82E7 /* SelectSocialMediaInteractor.swift */,
-			);
-			path = SelectSocialMedia;
-			sourceTree = "<group>";
-		};
-		F7F8F5CD2452F88C00CA82E7 /* SelectCategories */ = {
-			isa = PBXGroup;
-			children = (
-				F7F8F5CE2452F8CF00CA82E7 /* SelectCategoriesPresenter.swift */,
-				F7F8F5CF2452F8CF00CA82E7 /* SelectCategoriesViewController.swift */,
-				F7F8F5D02452F8CF00CA82E7 /* SelectCategoriesInteractor.swift */,
-			);
-			path = SelectCategories;
-			sourceTree = "<group>";
-		};
 		F7F967902451AB0900BD7275 /* Questionnaire */ = {
 			isa = PBXGroup;
 			children = (
-				F7F8F5CD2452F88C00CA82E7 /* SelectCategories */,
-				F7F8F5C62452F85500CA82E7 /* SelectSocialMedia */,
-				F7F8F5BD2452EAA400CA82E7 /* SelectGender */,
 				F7F967982451B22C00BD7275 /* Models */,
 				F7F967912451ABDB00BD7275 /* SelectAgeRange */,
 			);
@@ -2947,7 +2896,6 @@
 				0BF7080C244F1D3C003D6AB7 /* MatchProfileInteractor.swift in Sources */,
 				0B31965F244DE80500B38350 /* ProfileAboutCell.swift in Sources */,
 				0B319657244DE80500B38350 /* MenuViewController.swift in Sources */,
-				F7F8F5CB2452F87A00CA82E7 /* SelectSocialMediaViewController.swift in Sources */,
 				0B0AC39F24583EF600B91DF5 /* UIAlertControllerExtension.swift in Sources */,
 				0B31965D244DE80500B38350 /* ProfileSocialCell.swift in Sources */,
 				0B7F33CB246ED80D007ADF8D /* SocialLinkCell.swift in Sources */,
@@ -3027,7 +2975,6 @@
 				0B595871245C642B006D500A /* StickerView.swift in Sources */,
 				0BCE8CC924C011C50060AC01 /* CAPSPageMenu+UIConfiguration.swift in Sources */,
 				0BF7080B244F1D3C003D6AB7 /* MatchProfilePresenter.swift in Sources */,
-				F7F8F5D32452F8CF00CA82E7 /* SelectCategoriesInteractor.swift in Sources */,
 				0B535686245088DC005571AF /* EditProfileViewController.swift in Sources */,
 				0B9499E32451DBC4001AD1C8 /* ContactUS_LegalViewController.swift in Sources */,
 				0BF7080A244F1D3C003D6AB7 /* MatchProfileViewController.swift in Sources */,
@@ -3055,16 +3002,13 @@
 				0B0013DA24ACA4B700D2EE83 /* Chat_Utility.swift in Sources */,
 				0BF5ACBF24926A49000B54E6 /* SearchUsers.swift in Sources */,
 				0B5356712450870F005571AF /* BoostViewController.swift in Sources */,
-				F7F8F5C22452EAE400CA82E7 /* SelectGenderViewController.swift in Sources */,
 				F7CD7A4F24442F3A00E02A9E /* TutorialPageInteractor.swift in Sources */,
 				0B00E39424EA48C3007FAFF8 /* ZDStickerView.m in Sources */,
 				F90B4CE52032F4A6006ADAF6 /* SOService.swift in Sources */,
 				0BBD66072449C8FC00CA178A /* SwipeableCards.swift in Sources */,
-				F7F8F5CC2452F87A00CA82E7 /* SelectSocialMediaInteractor.swift in Sources */,
 				F7DFAE3924501192008863F3 /* Country.swift in Sources */,
 				0B9499E12451DBC4001AD1C8 /* ContactUS_LegalInteractor.swift in Sources */,
 				F7D5259024481DB5002D3A42 /* InitialLoginPresenter.swift in Sources */,
-				F7F8F5C12452EAE400CA82E7 /* SelectGenderPresenter.swift in Sources */,
 				F90B4CE22032F4A6006ADAF6 /* SOAPI.swift in Sources */,
 				0B51D294245FE2B6005C7B88 /* SOGoogleConfig.swift in Sources */,
 				0B31965B244DE80500B38350 /* ProfilePresenter.swift in Sources */,
@@ -3082,7 +3026,6 @@
 				0B9499DC2451DBC4001AD1C8 /* AccountSettingInteractor.swift in Sources */,
 				0B3C75B8245327F000CEDBBA /* ReportInteractor.swift in Sources */,
 				F96C2D232037E92B00F8CBC7 /* L102Language.swift in Sources */,
-				F7F8F5CA2452F87A00CA82E7 /* SelectSocialMediaPresenter.swift in Sources */,
 				0B3C75B1245327DF00CEDBBA /* Share_EarnViewController.swift in Sources */,
 				0BCD4B2A245B0C210054A805 /* AddTextViewController.swift in Sources */,
 				0BEED98024A5BEB600F08122 /* TouchView.swift in Sources */,
@@ -3111,7 +3054,6 @@
 				F7D5259124481DB5002D3A42 /* InitialLoginViewController.swift in Sources */,
 				F7E6DB542459B3DA0031A035 /* ViewController.swift in Sources */,
 				0B3C75B9245327F000CEDBBA /* ReportViewController.swift in Sources */,
-				F7F8F5D22452F8CF00CA82E7 /* SelectCategoriesViewController.swift in Sources */,
 				F953B8D520467AFB00BE4F67 /* SettingsPresenter.swift in Sources */,
 				0B921C3424571C510010AE04 /* SearchListCell.swift in Sources */,
 				F76A8D862440396800ED9947 /* CustomerEnumaration.swift in Sources */,
@@ -3137,7 +3079,6 @@
 				0B3492B924E2B87500198EE7 /* MatchLikesViewController.swift in Sources */,
 				0BCE8CC624C011C50060AC01 /* CAPSPageMenu+Options.swift in Sources */,
 				0B4CA0372457EA5200A3460B /* ChangePasswordViewController.swift in Sources */,
-				F7F8F5D12452F8CF00CA82E7 /* SelectCategoriesPresenter.swift in Sources */,
 				0B4CA0382457EA5200A3460B /* ChangePasswordInteractor.swift in Sources */,
 				F7F8F5C52452EDDC00CA82E7 /* SelectGenderCell.swift in Sources */,
 				0B6B4305247FDCD4005240B8 /* CustomOptionView.swift in Sources */,
@@ -3179,7 +3120,6 @@
 				0B94820D247B8E4B00189630 /* UserPhotosModel.swift in Sources */,
 				0BF5ACBD24923B34000B54E6 /* SearchUserFields.swift in Sources */,
 				0B53567624508775005571AF /* GradientLabel.swift in Sources */,
-				F7F8F5C32452EAE400CA82E7 /* SelectGenderInteractor.swift in Sources */,
 				0BFB9AD024934D58004B0EC3 /* SwipeUser.swift in Sources */,
 				F7164AC9244EBD4F00853BFC /* AddPhotoCollectionViewCell.swift in Sources */,
 				F96C2D202037E92B00F8CBC7 /* L012Localizer.swift in Sources */,

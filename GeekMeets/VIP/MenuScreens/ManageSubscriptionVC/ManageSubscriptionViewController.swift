@@ -72,7 +72,6 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,9 +82,6 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
         self.bg_Image.image = !self.isFromStory ? #imageLiteral(resourceName: "Manage Subscription_bg1") : #imageLiteral(resourceName: "Subscription_bg")
         self.btnSkip.alpha = self.isFromStory ? 1.0 : 0.0
         self.bgViewHeightConstant.constant = DeviceType.hasNotch || DeviceType.iPhone11 || DeviceType.iPhone11or11Pro ? 230 : 180
-       /* for btn in btnStackList {
-            btn.titleLabel?.font = DeviceType.iPhone5orSE ? UIFont(name: FontTypePoppins.Poppins_Medium.rawValue, size: 12.0) : UIFont(name: FontTypePoppins.Poppins_Medium.rawValue, size: 16.0)
-        }*/
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {

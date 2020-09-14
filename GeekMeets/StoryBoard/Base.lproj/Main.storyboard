@@ -244,7 +244,6 @@
                                     <constraint firstAttribute="height" constant="100" id="HpY-Bu-fQ1"/>
                                     <constraint firstAttribute="width" constant="100" id="qVT-ae-eaA"/>
                                 </constraints>
-                                <state key="normal" image="user_profile"/>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KD9-ha-OGd">
                                 <rect key="frame" x="16" y="214" width="343" height="30"/>
@@ -1385,6 +1384,5 @@
         <image name="img_logo_Medium" width="16" height="16"/>
         <image name="logo" width="101.66666412353516" height="91.666664123535156"/>
         <image name="noun_Mail" width="20" height="15.333333015441895"/>
-        <image name="user_profile" width="100" height="100"/>
     </resources>
 </document>

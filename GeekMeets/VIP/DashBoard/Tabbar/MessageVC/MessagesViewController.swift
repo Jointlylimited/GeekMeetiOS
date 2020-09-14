@@ -120,7 +120,7 @@ class MessagesViewController: UIViewController, MessagesProtocol {
     }
     
     func setStoryMsgViewData(){
-        self.objMsgData = [MessageViewModel(userImage: #imageLiteral(resourceName: "image_1"), userName: "Linda Parker", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"),MessageViewModel(userImage: #imageLiteral(resourceName: "img_intro_1"), userName: "Sophia", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "image_1"), userName: "Sonia Mehta", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "Image 62"), userName: "Andrew Jackson", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "image_1"), userName: "Vina Parker", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"),MessageViewModel(userImage: #imageLiteral(resourceName: "img_intro_1"), userName: "Lily Ray", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm")]
+        self.objMsgData = [MessageViewModel(userImage: #imageLiteral(resourceName: "image_1"), userName: "Linda Parker", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"),MessageViewModel(userImage: #imageLiteral(resourceName: "img_intro_1"), userName: "Sophia", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "image_1"), userName: "Sonia Mehta", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "image_1"), userName: "Andrew Jackson", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "image_1"), userName: "Vina Parker", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm"),MessageViewModel(userImage: #imageLiteral(resourceName: "img_intro_1"), userName: "Lily Ray", msgTxt: "Hi ! there whats up?", msgCount: "2", msgTime: "11:23 pm")]
         
         self.objStoryData = [StoryViewModel(userImage: #imageLiteral(resourceName: "image_1"), userName: "Linda Parker"), StoryViewModel(userImage: #imageLiteral(resourceName: "image_1"), userName: "Sophia"), StoryViewModel(userImage: #imageLiteral(resourceName: "image_1"), userName: "Sonia Mehta"), StoryViewModel(userImage: #imageLiteral(resourceName: "image_1"), userName: "Andrew Jackson"),StoryViewModel(userImage: #imageLiteral(resourceName: "image_1"), userName: "Lily Ray"), StoryViewModel(userImage: #imageLiteral(resourceName: "image_1"), userName: "Vina Parker")]
         
@@ -208,11 +208,12 @@ class MessagesViewController: UIViewController, MessagesProtocol {
             self.tblMessageView.alpha = 1.0
             self.btnSearch.alpha = 1.0
             self.lblNoUser.alpha = 0.0
-            //                self.StoryCollectionView.reloadData()
         } else {
             self.tblMessageView.alpha = 0.0
             self.btnSearch.alpha = 0.0
             self.lblNoUser.alpha = 1.0
+            self.lblNoUser.text = "No matches found"
+            return
         }
         
         if self.arrFriends.count != 0  {
@@ -220,6 +221,7 @@ class MessagesViewController: UIViewController, MessagesProtocol {
             self.tblMessageView.reloadData()
         } else {
             self.lblNoUser.alpha = 1.0
+            self.lblNoUser.text = "No messages found"
             self.tblMessageView.reloadData()
         }
         

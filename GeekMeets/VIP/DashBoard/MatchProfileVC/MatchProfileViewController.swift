@@ -191,7 +191,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         setTheme()
-        self.presenter?.callUserProfileAPI(id: self.UserID != nil ? "\(self.UserID!)" : "78", code : self.UserCode)
+        self.presenter?.callUserProfileAPI(id: self.UserID != nil ? "\(self.UserID!)" : "1", code : self.UserCode)
     }
     
     func setTheme(){
@@ -305,7 +305,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
             }
             if error == nil {
                 self.location = currLocation
-                self.presenter?.callUserProfileAPI(id: self.UserID != nil ? "\(self.UserID!)" : "78", code : self.UserCode)
+                self.presenter?.callUserProfileAPI(id: self.UserID != nil ? "\(self.UserID!)" : "1", code : self.UserCode)
             }
         }
     }
@@ -328,7 +328,7 @@ extension MatchProfileViewController {
         self.objMatchUserProfile = response
         self.objProfileData.data = response.preference!
         setProfileData()
-        self.presenter?.callStoryListAPI(id : self.UserID != nil ? self.UserID! : 78)
+        self.presenter?.callStoryListAPI(id : self.UserID != nil ? self.UserID! : 1)
         
     }
     
@@ -379,7 +379,7 @@ extension MatchProfileViewController {
     
     func getReactEmojiResponse(response : MediaReaction){
         if response.responseCode == 200 {
-            self.presenter?.callUserProfileAPI(id: self.UserID == nil ? "78" : "\(self.UserID!)", code : UserCode)
+            self.presenter?.callUserProfileAPI(id: self.UserID == nil ? "1" : "\(self.UserID!)", code : UserCode)
         }
     }
     
