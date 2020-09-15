@@ -1456,9 +1456,6 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let msgType = XMPP_Message_Type.init(rawValue: self.arrChatMsg[indexPath.row].msgType!)!
-//        if msgType == .image || msgType == .video {
-//            return 150
-//        }
         return UITableView.automaticDimension
     }
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -1466,10 +1463,7 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 
-//        let chatMsg = self.arrChatMsg[section]
         lblHeaderTitle.frame = CGRect(x: ScreenSize.width/2 - 75, y: 0, w: 150, h: 30)
-//        lblHeaderTitle.text =  ST_DateFormater.GetMediumDate(from: chatMsg.timestamp)
-        
         return self.lblDateHeaderview
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

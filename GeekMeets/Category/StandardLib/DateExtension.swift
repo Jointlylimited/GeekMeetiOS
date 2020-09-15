@@ -121,7 +121,6 @@ extension Date {
          
     let dateFormatter = DateFormatter()
     dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-//    dateFormatter.timeZone = TimeZone(abbreviation: "Australia/Sydney")
     dateFormatter.amSymbol = "AM"
     dateFormatter.pmSymbol = "PM"
     dateFormatter.calendar = Calendar(identifier: .gregorian)
