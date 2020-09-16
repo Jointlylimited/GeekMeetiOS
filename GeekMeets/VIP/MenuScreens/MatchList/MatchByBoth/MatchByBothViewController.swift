@@ -29,7 +29,6 @@ class MatchByBothViewController: UIViewController, MatchByBothProtocol {
     var arrFriends:[Model_ChatFriendList] = [Model_ChatFriendList]()
     
     // MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -41,7 +40,6 @@ class MatchByBothViewController: UIViewController, MatchByBothProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = MatchByBothInteractor()
@@ -59,7 +57,6 @@ class MatchByBothViewController: UIViewController, MatchByBothProtocol {
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,12 +73,8 @@ class MatchByBothViewController: UIViewController, MatchByBothProtocol {
     }
     
     func getMessageListDetails(){
-//       SOXmpp.manager._bFriendListUpdateCallback = { [weak self] in
-//            DispatchQueue.main.async {
         self.arrFriends = SOXmpp.manager.arrFriendsList
-//            }
-//        }
-         self.tblMatchList.reloadData()
+        self.tblMatchList.reloadData()
     }
 }
 
@@ -101,10 +94,10 @@ extension MatchByBothViewController {
     }
     
     func getUnMatchResponse(response : CommonResponse){
-           if response.responseCode == 200 {
-              self.presenter?.callMatchListAPI()
-           }
-       }
+        if response.responseCode == 200 {
+            self.presenter?.callMatchListAPI()
+        }
+    }
 }
 
 //MARK: UITableView Delegate & Datasource Methods

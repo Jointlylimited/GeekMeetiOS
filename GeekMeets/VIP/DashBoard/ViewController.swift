@@ -18,11 +18,9 @@ struct MediaData {
     var videoURL: URL?
     var isUploaded: Bool = false
     var fileSize: Double = 0.0 //in MB
-    
-    
     var maximumVideoSize: Double = 10//inMB
     
-    /// video data Path/Name
+    // video data Path/Name
     var videoURlUpload: (path: String, name: String) {
         let folderName = story
         let timeStamp = Date().currentTimeMillis()
@@ -31,7 +29,7 @@ struct MediaData {
         return (path: path, name: "\(timeStamp)\(videoExtension)")
     }
     
-    /// video-thumb image data Path/Name
+    // video-thumb image data Path/Name
     var thumbURlUpload: (path: String, name: String) {
         let folderName = story
         let timeStamp = Date().currentTimeMillis()
@@ -40,7 +38,7 @@ struct MediaData {
         return (path: path, name: "\(timeStamp)\(imgExtension)")
     }
     
-    /// image data Path/Name
+    // image data Path/Name
     var mediaImgName: (path: String, name: String) {
         let folderName = story
         let timeStamp = Date().currentTimeMillis()
@@ -49,7 +47,7 @@ struct MediaData {
         return (path: path, name: "\(timeStamp)\(imgExtension)")
     }
     
-    /// dictionary with media data
+    // dictionary with media data
     var dictForAPI: [String:Any] {
         if mediaType == .image {
             return ["type": mediaType.rawValue, "image": mediaImgName.path]
@@ -222,7 +220,6 @@ class ViewController: UIViewController {
         }
 
         let newScaleFactor = minMaxZoom(pinch.scale * lastZoomFactor)
-
         switch pinch.state {
         case .began: fallthrough
         case .changed: update(scale: newScaleFactor)
@@ -236,7 +233,6 @@ class ViewController: UIViewController {
     @IBAction func cameraButtonTouch(_ sender: Any) {
         let settings = AVCapturePhotoSettings()
         photoOutput?.capturePhoto(with: settings, delegate: self)
-        //performSegue(withIdentifier: "showPhotos", sender: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -294,9 +290,6 @@ class ViewController: UIViewController {
             if session.inputs.isEmpty {
                 session.addInput(newVideoInput)
             }
-//            if session.inputs.isEmpty {
-//                session.addInput(newVideoInput)
-//            }
           }
           //Commit all the configuration changes at once
           session.commitConfiguration()
@@ -352,7 +345,7 @@ extension ViewController: AVCapturePhotoCaptureDelegate {
         if let imageData = photo.fileDataRepresentation(){
             image = UIImage(data: imageData)
         
-          let searchVC:PreviewViewController = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: "PreviewViewController") as! PreviewViewController
+            let searchVC:PreviewViewController = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.PreviewViewScreen) as! PreviewViewController
             var objMedia = MediaData()
             objMedia.img = image
             if self.objPostData.arrMedia == nil {

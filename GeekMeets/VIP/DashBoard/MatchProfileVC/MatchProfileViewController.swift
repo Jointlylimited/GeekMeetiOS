@@ -329,7 +329,6 @@ extension MatchProfileViewController {
         self.objProfileData.data = response.preference!
         setProfileData()
         self.presenter?.callStoryListAPI(id : self.UserID != nil ? self.UserID! : 1)
-        
     }
     
     func getStoryListResponse(response: StoryResponse){
@@ -502,7 +501,6 @@ extension MatchProfileViewController : UICollectionViewDataSource, UICollectionV
         if (self.objMatchUserProfile != nil && self.objMatchUserProfile.photos!.count != 0) {
             let photoString = self.objMatchUserProfile.photos![indexPath.row]
             cell.ReactEmojiView.alpha = cell.btnLike.isSelected ? 1.0 : 0.0
-//            cell.emojiStackView.alpha = 0.0
             
             if (self.objMatchUserProfile != nil && photoString.reaction != nil) {
                 print(photoString.reaction!)
@@ -568,7 +566,6 @@ extension MatchProfileViewController : UICollectionViewDataSource, UICollectionV
                 cell.ReactEmojiView.alpha = 1.0
             }
         }
-
         return cell
     }
     
@@ -593,7 +590,6 @@ extension MatchProfileViewController {
       alertView.frame = self.view.frame
       self.view.addSubview(alertView)
     }
-    
 }
 
 extension MatchProfileViewController : AlertViewDelegate {

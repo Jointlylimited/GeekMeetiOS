@@ -48,10 +48,9 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
     var InstaUserID : String?
     var isSuccssess : Bool = false
     
-    // MARK: Object lifecycle
-    
     let objConfig = SOGoogleConfig()
     
+    // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -63,7 +62,6 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = InitialSignUpInteractor()
@@ -83,7 +81,6 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
@@ -98,7 +95,6 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
         self.btnApple.titleEdgeInsets = DeviceType.iPhoneXRMax || DeviceType.iPhoneX ? UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
         
          if #available(iOS 13.0, *) {
-//            self.buttonStackView.insertArrangedSubview(btnAppleView, at: 1)
             self.btnApple.alpha = 1.0
             self.btnStackLeadingConstraint.constant = 20
             self.btnSTackTrailingConstraint.constant = 20
@@ -106,9 +102,6 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
             self.btnApple.alpha = 0.0
             self.btnStackLeadingConstraint.constant = 100
             self.btnSTackTrailingConstraint.constant = 100
-//            self.buttonStackView.removeArrangedSubview(btnApple)
-//            self.buttonStackView.setNeedsLayout()
-//            self.buttonStackView.layoutIfNeeded()
         }
     }
     

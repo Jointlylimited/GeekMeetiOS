@@ -38,7 +38,6 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     var totalSecond : Int!
     
     // MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -50,7 +49,6 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = TopGeeksInteractor()
@@ -67,7 +65,6 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
         //Interactor will communucate with only presenter.
         interactor.presenter = presenter
     }
-    
     
     // MARK: View lifecycle
     override func viewDidLoad() {

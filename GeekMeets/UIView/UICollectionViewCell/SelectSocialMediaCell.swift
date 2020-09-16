@@ -14,15 +14,13 @@ protocol SelectSocialMediaDelegate{
 }
 
 class SelectSocialMediaCell: UICollectionViewCell {
-
-      var delegate:SelectSocialMediaDelegate!
-      var indexPath:IndexPath!
-  
-      @IBOutlet weak var btnSelectSocialMedia: UIButton!
-      @IBAction func actionSelectSocialMedia(_ sender: UIButton) {
-          
-          self.delegate?.actionSelectSocialMedia(at: indexPath)
-          
-      }
     
+    var delegate:SelectSocialMediaDelegate!
+    var indexPath:IndexPath!
+    
+    @IBOutlet weak var btnSelectSocialMedia: UIButton!
+    
+    @IBAction func actionSelectSocialMedia(_ sender: UIButton) {
+        self.delegate?.actionSelectSocialMedia(at: indexPath)
+    }
 }

@@ -25,11 +25,9 @@ class ChangePasswordViewController: UIViewController, ChangePasswordProtocol {
     @IBOutlet weak var txtOldPassword : UITextField?
     @IBOutlet weak var txtNewPassword : UITextField?
     @IBOutlet weak var txtConfirmPassword : UITextField?
-    
     var alertView: CustomAlertView!
     
     // MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -41,7 +39,6 @@ class ChangePasswordViewController: UIViewController, ChangePasswordProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = ChangePasswordInteractor()
@@ -59,9 +56,7 @@ class ChangePasswordViewController: UIViewController, ChangePasswordProtocol {
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -93,8 +88,8 @@ class ChangePasswordViewController: UIViewController, ChangePasswordProtocol {
             }
         }
     }
+    
     @IBAction func btnChangePasswordAction(_ sender: GradientButton) {
-        
         self.presenter?.callChangePasswordAPI(vCurrentPassword: txtOldPassword!.text!, vNewPassword:  txtNewPassword!.text!, vConfirmPassword:  txtConfirmPassword!.text!)
     }
     
@@ -106,12 +101,14 @@ class ChangePasswordViewController: UIViewController, ChangePasswordProtocol {
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }
     }
+    
     func displayAlert(_ success: Bool, message: String) {
         alertView = CustomAlertView.initAlertView(title: "", message: message, btnRightStr: "", btnCancelStr: "", btnCenter: "OK", isSingleButton: true)
         alertView.delegate1 = self
         alertView.frame = self.view.frame
         self.view.addSubview(alertView)
     }
+    
     func displayAlert(strTitle : String, strMessage : String) {
         self.showAlert(title: strTitle, message: strMessage)
     }

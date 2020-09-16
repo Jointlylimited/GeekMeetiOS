@@ -29,7 +29,6 @@ struct PrefrenceModel {
 }
 class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
     
-    
     //var interactor : SelectAgeRangeInteractorProtocol?
     var presenter : SelectAgeRangePresentationProtocol?
     
@@ -67,7 +66,6 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = SelectAgeRangeInteractor()
@@ -104,8 +102,6 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
         heightSeekSlider.tintColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         heightSeekSlider.colorBetweenHandles = #colorLiteral(red: 0.606272161, green: 0.2928337753, blue: 0.8085166812, alpha: 1)
         heightSeekSlider.handleImage = #imageLiteral(resourceName: "icn_rect_1")
-    //    heightSeekSlider.minValue = 0.0
-     //   heightSeekSlider.maxValue = 10.0
         
         if index == 5 {
             heightSeekSlider.disableRange = true
@@ -199,7 +195,6 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
 }
 
 extension SelectAgeRangeViewController {
-    
     func displayPreferenceData(response : PreferencesResponse) {
         self.objPreModel.arrPrefrenceData = response.responseData
         if isFromSignUp {
@@ -250,7 +245,7 @@ extension SelectAgeRangeViewController {
     }
 }
 
-//MARK:UICollectionview
+//MARK:UICollectionview Delegate Methods
 extension SelectAgeRangeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,SelectAgeDelegate
 {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -335,6 +330,7 @@ extension SelectAgeRangeViewController: UICollectionViewDelegate, UICollectionVi
             return CGSize(width: yourWidth, height: yourHeight)
         }
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets.zero
     }
@@ -354,7 +350,6 @@ extension SelectAgeRangeViewController: UICollectionViewDelegate, UICollectionVi
 }
 
 extension SelectAgeRangeViewController: RangeSeekSliderDelegate {
-
     func rangeSeekSlider(_ slider: RangeSeekSlider, didChange minValue: CGFloat, maxValue: CGFloat) {
         if slider === heightSeekSlider {
             print("Standard slider updated. Min Value: \(minValue) Max Value: \(maxValue)")

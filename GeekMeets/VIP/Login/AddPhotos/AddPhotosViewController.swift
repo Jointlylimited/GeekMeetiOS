@@ -70,14 +70,13 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        doSomething()
+        setTheme()
     }
     
-    func doSomething() {
+    func setTheme() {
         self.navigationController?.isNavigationBarHidden = false
         self.navigationItem.leftBarButtonItem = leftSideBackBarButton
         self.navigationController?.navigationBar.barTintColor = UIColor.white
@@ -87,7 +86,6 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
     
     //MARK: IBAction Method
     @IBAction func actionDone(_ sender: Any) {
-        
         for photo in userPhotosModel {
             if  photo.tiImage != nil {
                 self.imgsUserPhotosDict.append(["tiImage": photo.tiImage!, "vMedia": photo.vMedia!, "vMediaPath" : photo.vMediaPath!, "tiIsDefault": photo.tiIsDefault!])
@@ -126,7 +124,6 @@ extension AddPhotosViewController: UICollectionViewDelegate, UICollectionViewDat
             cell.btnRemoveImg.isHidden = false
             cell.btnAddImg.isHidden = true
         }
-        
         cell.delegate = self
         cell.indexPath = indexPath
         return cell
@@ -138,6 +135,7 @@ extension AddPhotosViewController: UICollectionViewDelegate, UICollectionViewDat
         
         return CGSize(width: yourWidth, height: yourHeight)
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets.zero
     }
@@ -150,21 +148,18 @@ extension AddPhotosViewController: UICollectionViewDelegate, UICollectionViewDat
         return 0
     }
     
-    
     //DelegateMethod
     func closeFriendsTapped(at index: IndexPath) {
         Getimage()
     }
     
     func actionRemoveIMG(at index: IndexPath) {
-//        imgsUserPhotos.remove(at: index.row)
         userPhotosModel.remove(at: index.row)
         clnAddPhoto.reloadData()
     }
 }
 
 extension AddPhotosViewController:  UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[UIImagePickerController.InfoKey.originalImage]
         picker.dismiss(animated: true, completion: nil)

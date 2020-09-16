@@ -45,7 +45,6 @@ class CustomOptionView: UIView {
     
     func commonInit(){
       self.frame = self.bounds
-        
     }
     
     override func awakeFromNib() {
@@ -61,30 +60,10 @@ class CustomOptionView: UIView {
     
     class func initAlertView(isblock : Int) -> CustomOptionView {
         let view = Bundle.main.loadNibNamed("CustomOptionView", owner: nil, options: nil)?.first as! CustomOptionView
-//        view.viewCancel.dropShadow()
-//        view.viewRight.dropShadow()
-//        view.prepareUI()
         view.btnBlock.setTitle(isblock == 1 ? kTitleUnBlock : kTitleBlock, for: .normal)
         view.layoutIfNeeded()
         return view
     }
-    
-//    func prepareUI(title: String, message: String, btnRightStr : String, btnCancelStr: String, btnCenter : String, isSingleButton : Bool) {
-//
-//        if isSingleButton {
-//            self.BtnStackView.alpha = 0
-////            self.viewCentre.alpha = 1
-//        } else {
-////            self.viewCentre.alpha = 0
-//            self.BtnStackView.alpha = 1
-//        }
-////        lblTitle.text = title
-////        lblDesc.text = message
-//
-////        self.btnRight.setTitle(btnRightStr, for: .normal)
-//        self.btnCancel.setTitle(btnCancelStr, for: .normal)
-//
-//    }
 }
 
 extension CustomOptionView {

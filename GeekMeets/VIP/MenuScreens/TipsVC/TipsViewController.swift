@@ -14,7 +14,6 @@ class TipsViewController: UIViewController {
     @IBOutlet weak var lblScreenTitle: UILabel!
     
     var pageMenu : CAPSPageMenu?
-    
     var firstCallVC: FirstCallViewController!
     var firstDateVC: FirstDateViewController!
     

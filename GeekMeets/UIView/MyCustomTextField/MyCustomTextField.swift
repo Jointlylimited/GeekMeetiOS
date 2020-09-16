@@ -13,31 +13,25 @@ class MyCustomTextField: UITextField
 {
   override init(frame: CGRect) {
        super.init(frame: frame)
-
    }
+    
    required init?(coder aDecoder: NSCoder)
    {
-       super.init(coder: aDecoder)
+    super.init(coder: aDecoder)
     
-           self.Initialize()
-
-       
-  }
+    self.Initialize()
+    
+    }
   
   
   func Initialize()
   {
-    
-      var bottomLine = CALayer()
-      bottomLine.frame = CGRect(x: 0.0, y: self.frame.height - 1, width: self.frame.width, height: 1.0)
-      bottomLine.backgroundColor = UIColor.white.cgColor
-      self.borderStyle = UITextField.BorderStyle.none
-      self.layer.addSublayer(bottomLine)
-    
-  }
-  
-  
-  
+    var bottomLine = CALayer()
+    bottomLine.frame = CGRect(x: 0.0, y: self.frame.height - 1, width: self.frame.width, height: 1.0)
+    bottomLine.backgroundColor = UIColor.white.cgColor
+    self.borderStyle = UITextField.BorderStyle.none
+    self.layer.addSublayer(bottomLine)
+    }
 }
 
 

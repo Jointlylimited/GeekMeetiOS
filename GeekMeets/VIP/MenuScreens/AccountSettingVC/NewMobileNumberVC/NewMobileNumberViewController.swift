@@ -22,8 +22,8 @@ class NewMobileNumberViewController: UIViewController, NewMobileNumberProtocol {
     
     @IBOutlet weak var txtCountryCode: UITextField!
     @IBOutlet weak var txtMobNo: UITextField!
-    // MARK: Object lifecycle
     
+    // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -35,7 +35,6 @@ class NewMobileNumberViewController: UIViewController, NewMobileNumberProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = NewMobileNumberInteractor()
@@ -53,9 +52,7 @@ class NewMobileNumberViewController: UIViewController, NewMobileNumberProtocol {
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setData()

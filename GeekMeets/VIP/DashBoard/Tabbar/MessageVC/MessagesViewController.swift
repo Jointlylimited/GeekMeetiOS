@@ -170,13 +170,10 @@ class MessagesViewController: UIViewController, MessagesProtocol {
         }
         
         private func setupTableView() {
-//            TblList.delegate = self
-//            TblList.dataSource = self
             self.tblMessageView.tableFooterView = UIView.init(frame: .zero)
             self.tblMessageView.estimatedRowHeight = 44.0
             self.tblMessageView.rowHeight = UITableView.automaticDimension
         }
-        
         
         private func updateAndSortFriendList() {
                 
@@ -198,7 +195,6 @@ class MessagesViewController: UIViewController, MessagesProtocol {
                     return obj1.objMessage!.timestamp.compare(obj2.objMessage!.timestamp) == .orderedDescending
                 }
             })
-            
             self.arrAllFriends = self.arrFriends
             self.updateNoDataLabel()
         }
@@ -224,7 +220,6 @@ class MessagesViewController: UIViewController, MessagesProtocol {
             self.lblNoUser.text = "No messages found"
             self.tblMessageView.reloadData()
         }
-        
         print(self.arrFriends)
     }
     
@@ -330,7 +325,6 @@ extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
             obj.modalPresentationStyle = .fullScreen
             self.pushVC(obj)
         }
-        
         return cell
     }
     
@@ -351,7 +345,7 @@ extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
         headerTitle.frame = CGRect(x: 20, y: headerView.frame.origin.y + headerView.frame.height/2, w: ScreenSize.width - 60, h: 30)
         headerTitle.text = self.arrFriends.count != 0 ? "Chats" : ""
         headerTitle.textColor = .black
-        headerTitle.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        headerTitle.font = UIFont(name: FontTypePoppins.Poppins_SemiBold.rawValue, size: 14)
         headerView.addSubview(headerTitle)
         
         return headerView

@@ -22,7 +22,6 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
                 if granted {
                     UserDataModel.setPushStatus(status: "1")
                 } else {
-//                    self.callPushStatusAPI(tiIsAcceptPush: "1")
                     UserDataModel.setPushStatus(status: "0")
                 }
                 
@@ -68,14 +67,12 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         alert.addAction(settingsAction)
         alert.addAction(cancelAction)
         
-        //self.window?.rootViewController?.show(alert, sender: nil)
         delay(0.2) {
             self.window?.rootViewController?.present(alert, animated: false, completion: nil)
         }
     }
     
     private func gotoAppSettings() {
-        
         guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
             return
         }
@@ -113,7 +110,6 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         print("Device Token:", strDeviceToken)
         UserDefaults.standard.set(strDeviceToken, forKey: kDeviceToken)
     }
-    
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         UserDefaults.standard.set(15.randomString, forKey: kDeviceToken)

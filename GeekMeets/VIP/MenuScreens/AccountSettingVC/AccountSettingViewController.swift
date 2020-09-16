@@ -24,7 +24,6 @@ class AccountSettingViewController: UIViewController, AccountSettingProtocol {
     var objAccountData : [CommonCellModel] = []
     
     // MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -36,7 +35,6 @@ class AccountSettingViewController: UIViewController, AccountSettingProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = AccountSettingInteractor()
@@ -54,7 +52,6 @@ class AccountSettingViewController: UIViewController, AccountSettingProtocol {
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +62,7 @@ class AccountSettingViewController: UIViewController, AccountSettingProtocol {
         super.viewWillAppear(animated)
         self.presenter?.callUserProfileAPI(id : "\(UserDataModel.currentUser?.iUserId ?? 0)", code : "")
     }
+    
     func registerTableViewCell(){
         self.tblAccountList.register(UINib.init(nibName: Cells.CommonTblListCell, bundle: Bundle.main), forCellReuseIdentifier: Cells.CommonTblListCell)
     }

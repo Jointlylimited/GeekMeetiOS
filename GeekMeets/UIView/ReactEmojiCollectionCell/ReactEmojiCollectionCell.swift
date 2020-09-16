@@ -27,7 +27,6 @@ class ReactEmojiCollectionCell: UICollectionViewCell {
     @IBOutlet weak var ReactEmojiView: UIView!
     
     @IBOutlet weak var btnLike: UIButton!
-    
     @IBOutlet weak var btnKissValue: UIButton!
     @IBOutlet weak var btnLoveValue: UIButton!
     @IBOutlet weak var btnLoveSmileValue: UIButton!
@@ -39,12 +38,15 @@ class ReactEmojiCollectionCell: UICollectionViewCell {
     @IBAction func btnLikeAction(_ sender: UIButton) {
         self.clickOnLikeBtn!()
     }
+    
     @IBAction func btnKissAction(_ sender: UIButton) {
         self.clickOnbtnKiss!()
     }
+    
     @IBAction func btnLoveAction(_ sender: UIButton) {
         self.clickOnbtnLove!()
     }
+    
     @IBAction func btnLoveSmileAction(_ sender: UIButton) {
         self.clickOnbtnLoveSmile!()
     }

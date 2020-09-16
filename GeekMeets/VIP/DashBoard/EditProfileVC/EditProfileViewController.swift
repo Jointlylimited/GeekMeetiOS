@@ -299,7 +299,6 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
             let socialVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.SocialMediaLink) as! SocialMediaLinkVC
             socialVC.delegate = self
             socialVC.userProfileModel = self.userProfileModel
-            
             self.pushVC(socialVC)
         } else if sender.tag == 5 {
             if !NetworkReachabilityManager.init()!.isReachable{
@@ -322,7 +321,6 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
     }
     
     func showSetProfileView() {
-       
         let imgString = userProfileModel!.vProfileImage != "" ? userProfileModel!.vProfileImage! : ""
         customProfileView = RecommandedProfileView.initAlertView(imgString : imgString)
         customProfileView.delegate = self

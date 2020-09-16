@@ -36,7 +36,6 @@ class RangeSlider : UIControl {
         self.addSubview(sliderView)
         
         sliderView.setThumbImage(#imageLiteral(resourceName: "icn_circle"), for: .normal)
-        
     }
     
     required init(coder aDecoder: NSCoder) {

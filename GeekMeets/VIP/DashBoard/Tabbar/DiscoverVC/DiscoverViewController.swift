@@ -77,10 +77,8 @@ class DiscoverViewController: UIViewController, DiscoverProtocol {
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {

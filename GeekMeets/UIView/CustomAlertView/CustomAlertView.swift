@@ -52,7 +52,6 @@ class CustomAlertView: UIView {
     
     func commonInit(){
       self.frame = self.bounds
-        
     }
     
     override func awakeFromNib() {
@@ -67,11 +66,9 @@ class CustomAlertView: UIView {
     }
     
     class func initAlertView(title: String, message: String, btnRightStr: String, btnCancelStr: String, btnCenter : String, isSingleButton : Bool) -> CustomAlertView {
-        let view = Bundle.main.loadNibNamed("CustomAlertView", owner: nil, options: nil)?.first as! CustomAlertView
-//        view.viewCancel.dropShadow()
-//        view.viewRight.dropShadow()
-        view.prepareUI(title: title, message: message, btnRightStr : btnRightStr, btnCancelStr: btnCancelStr, btnCenter : btnCenter, isSingleButton : isSingleButton)
         
+        let view = Bundle.main.loadNibNamed("CustomAlertView", owner: nil, options: nil)?.first as! CustomAlertView
+        view.prepareUI(title: title, message: message, btnRightStr : btnRightStr, btnCancelStr: btnCancelStr, btnCenter : btnCenter, isSingleButton : isSingleButton)
         view.layoutIfNeeded()
         return view
     }
@@ -95,12 +92,10 @@ class CustomAlertView: UIView {
         
         self.btnRight.setTitle(btnRightStr, for: .normal)
         self.btnCancel.setTitle(btnCancelStr, for: .normal)
-        
     }
 }
 
 extension CustomAlertView {
-    
     @IBAction func btnCloseAction(_ sender: UIButton) {
         self.removeFromSuperview()
     }

@@ -34,7 +34,6 @@ class InitialLoginViewController: UIViewController, InitialLoginProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = InitialLoginInteractor()
@@ -54,22 +53,20 @@ class InitialLoginViewController: UIViewController, InitialLoginProtocol {
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        doSomething()
+        setTheme()
     }
     
-    func doSomething() {
+    func setTheme() {
         
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().clientID = "1058883482858-feo3v537akjippp47hcq8cs80ed3q8ti.apps.googleusercontent.com"
         GIDSignIn.sharedInstance()?.presentingViewController = self
         
+        setupMultipleTapLabel()
         //        // Automatically sign in the user.
         //        GIDSignIn.sharedInstance()?.restorePreviousSignIn()
-        
-        setupMultipleTapLabel()
     }
     
     func setupMultipleTapLabel() {

@@ -72,7 +72,6 @@ class MenuViewController: UIViewController, MenuProtocol {
     var profileEdited : Bool = false
     
     // MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -84,7 +83,6 @@ class MenuViewController: UIViewController, MenuProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = MenuInteractor()
@@ -102,11 +100,9 @@ class MenuViewController: UIViewController, MenuProtocol {
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.presenter?.callMatchListAPI()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -135,11 +131,7 @@ class MenuViewController: UIViewController, MenuProtocol {
         self.btnNotification.contentHorizontalAlignment = .right
         btnNotification.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
         
-//        if UserDataModel.getNotificationCount() != 0 {
-            self.btnNotification.setImage(#imageLiteral(resourceName: "bell"), for: .normal)
-//        } else {
-//            self.btnNotification.setImage(#imageLiteral(resourceName: "bell"), for: .normal)
-//        }
+        self.btnNotification.setImage(#imageLiteral(resourceName: "bell"), for: .normal)
         
         self.btnEditProfile.underlineButton(text: "Edit Profile", font: UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 12)!, color: #colorLiteral(red: 0.5294117647, green: 0.1803921569, blue: 0.7647058824, alpha: 1))
         let matchCount = UserDataModel.getMatchesCount()
@@ -309,10 +301,8 @@ extension MenuViewController {
             self.btnNotification.badgeLabel.frame = CGRect(x: self.btnNotification.width-20, y: 0, w: 20, h: 20)
         } else {
             UserDataModel.setNotificationCount(count: 0)
-//            self.btnNotification.badge = "0"
             self.btnNotification.badgeLabel.alpha = 0.0
         }
-        
         setTheme()
     }
 }
@@ -424,7 +414,6 @@ extension MenuViewController : UITableViewDataSource, UITableViewDelegate {
 
 //MARK: API Methods
 extension MenuViewController {
-    
     func callSignoutAPI(){
         self.presenter?.callSignoutAPI()
     }

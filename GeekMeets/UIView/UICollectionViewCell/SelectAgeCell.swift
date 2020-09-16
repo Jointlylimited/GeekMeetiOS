@@ -25,13 +25,9 @@ class SelectAgeCell: UICollectionViewCell {
     
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var btnSelectAge: UIButton!
-    @IBAction func actionSelectAge(_ sender: UIButton) {
-        
-        self.clickOnCell!()
-        
-        //          self.delegate?.actionSelectAge(at: indexPath)
-        
-    }
     
+    @IBAction func actionSelectAge(_ sender: UIButton) {
+        self.clickOnCell!()
+    }
 }
 

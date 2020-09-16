@@ -21,7 +21,6 @@ class FirstCallViewController: UIViewController, FirstCallProtocol {
     var presenter : FirstCallPresentationProtocol?
     
     @IBOutlet weak var descView: UITextView!
-    
     var parentNavigationController : UINavigationController?
     
     // MARK: Object lifecycle
@@ -36,7 +35,6 @@ class FirstCallViewController: UIViewController, FirstCallProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = FirstCallInteractor()
@@ -54,9 +52,7 @@ class FirstCallViewController: UIViewController, FirstCallProtocol {
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         callStaticPageAPI()
@@ -64,7 +60,6 @@ class FirstCallViewController: UIViewController, FirstCallProtocol {
 }
 
 extension FirstCallViewController {
-    
     func callStaticPageAPI() {
         self.presenter?.callStaticPageAPI()
     }

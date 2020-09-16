@@ -54,6 +54,7 @@ class PhotoEmojiCell: UICollectionViewCell {
     @IBAction func btnChooseImageAction(_ sender: UIButton) {
         self.clickOnImageButton!()
     }
+    
     @IBAction func btnCloseAction(_ sender: UIButton) {
         self.clickOnRemovePhoto!()
     }

@@ -76,15 +76,13 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        doSomething()
+        setTheme()
     }
 
-    func doSomething() {
-        
+    func setTheme() {
         if UserDataModel.SignUpUserResponse != nil {
             let user = UserDataModel.SignUpUserResponse
             self.tfName.text = "\(user?.firstName ?? "") \(user?.lastName ?? "")"
@@ -127,7 +125,6 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
             
             $0?.isSelected = false
         }
-        
         sender.isSelected = true
         selectedGender = "\(sender.tag)"
     }
@@ -151,7 +148,6 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
     }
     
     @IBAction func actionContinue(_ sender: Any) {
-        
        let params = RequestParameter.sharedInstance().signUpInfoParam(vProfileImage: self.imgString, vName: tfName.text ?? "", dDob: tfDoB.text?.inputDateStrToAPIDateStr(dateStr: tfDoB.text!) ?? "", tiAge: "\(tiAge)", tiGender: selectedGender, iCurrentStatus: currentStatus, txCompanyDetail: tfCompanyDetail.text ?? "", txAbout: tfAbout.text ?? "", photos: "")
         
         self.presenter?.callSignUpRequest(signUpParams: params,profileimg: imgprofile.image!)
@@ -240,10 +236,11 @@ extension UserProfileViewController:  UINavigationControllerDelegate, UIImagePic
             let imgDataa = NSData(data: (imgTemp).jpegData(compressionQuality: 0.5)!)
             let image = UIImage(data: imgDataa as Data)
             self.imgprofile.image = image
-        }else{
+        } else{
             self.imgprofile.image = imgTemp
         }
     }
+    
     func Getimage(){
         
         let camera = "Camera"
@@ -257,8 +254,6 @@ extension UserProfileViewController:  UINavigationControllerDelegate, UIImagePic
             }
         }
     }
-    
-    
     
     func openCamera()
     {
@@ -279,6 +274,7 @@ extension UserProfileViewController:  UINavigationControllerDelegate, UIImagePic
             }
         }
     }
+    
     func openGallery()
     {
         photoLibraryAccess { [weak self] (status, isGrant) in
@@ -341,6 +337,7 @@ extension UserProfileViewController : UITextViewDelegate {
         self.tfAbout.text = textView.text
     }
 }
+
 extension Date {
     var age: Int { Calendar.current.dateComponents([.year], from: self, to: Date()).year! }
     

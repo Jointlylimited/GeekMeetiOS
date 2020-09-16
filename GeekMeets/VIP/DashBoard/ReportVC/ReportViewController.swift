@@ -76,7 +76,6 @@ class ReportViewController: UIViewController, ReportProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = ReportInteractor()
@@ -94,9 +93,7 @@ class ReportViewController: UIViewController, ReportProtocol {
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.presenter?.callReportAPI()
@@ -183,15 +180,13 @@ extension ReportViewController : UITableViewDataSource, UITableViewDelegate {
             } else {
                  cell.btnArrow.setImage(#imageLiteral(resourceName: "icn_down"), for: .normal)
             }
-            
         } else {
             let reasonData = arrReport.arrReasonList[indexPath.row - 1]
             cell.lblTitle.text = reasonData.vReason
-            cell.lblTitle.font = indexPath.row == 0 ? UIFont(name: "Poppins-SemiBold", size: 14) : UIFont(name: "Poppins-Medium", size: 14)
+            cell.lblTitle.font = indexPath.row == 0 ? UIFont(name: FontTypePoppins.Poppins_SemiBold.rawValue, size: 14) : UIFont(name: FontTypePoppins.Poppins_Medium.rawValue, size: 14)
             cell.btnArrow.isHidden = true
         }
         cell.selectionStyle = .none
-        
         return cell
     }
     
@@ -207,7 +202,7 @@ extension ReportViewController : UITableViewDataSource, UITableViewDelegate {
         headerTitle.frame = CGRect(x: 20, y: headerView.frame.origin.y + 10, w: ScreenSize.width - 60, h: 30)
         headerTitle.text = "Select Reason"
         headerTitle.textColor = .black
-        headerTitle.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        headerTitle.font = UIFont(name: FontTypePoppins.Poppins_SemiBold.rawValue, size: 14)
         headerView.addSubview(headerTitle)
         
         return headerView
@@ -216,9 +211,10 @@ extension ReportViewController : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         if arrReport.isSelectedReason {
-            
             arrReport.isSelectedReason = false
             arrReport.objReason = indexPath.row != 0 ? arrReport.arrReasonList[indexPath.row - 1] : nil
             let sections = IndexSet.init(integer: 0)
@@ -261,7 +257,6 @@ extension ReportViewController : UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        
         if txtReportView.text == "" {
             
             txtReportView.text = placeHolderText

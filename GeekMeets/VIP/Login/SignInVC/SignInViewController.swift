@@ -62,14 +62,13 @@ class SignInViewController: UIViewController,SignInProtocol
         interactor.presenter = presenter
     }
     
-    
     // MARK:- View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        doSomething()
+        setTheme()
     }
     
-    func doSomething(){
+    func setTheme(){
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         self.navigationItem.leftBarButtonItem = leftSideBackBarButton
@@ -128,10 +127,6 @@ extension SignInViewController
 {
     @IBAction func btnSignInClick(_ sender : UIButton)
     {
-        /*let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.UserProfile) as! UserProfileViewController
-         self.pushVC(controller)*/
-//                Crashlytics.sharedInstance().crash()
-//        self.presenter?.gotoHomeScreen()
         self.presenter?.callSignInAPI(tfEmail.text ?? "", password: tfPassword.text ?? "")
     }
     

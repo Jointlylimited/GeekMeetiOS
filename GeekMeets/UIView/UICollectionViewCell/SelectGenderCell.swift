@@ -14,15 +14,13 @@ protocol SelectGenderDelegate{
 }
 
 class SelectGenderCell: UICollectionViewCell {
-
-      var delegate:SelectGenderDelegate!
-      var indexPath:IndexPath!
-  
-      @IBOutlet weak var btnSelectGender: UIButton!
-      @IBAction func actionSelectGender(_ sender: UIButton) {
-          
-          self.delegate?.actionSelectGender(at: indexPath)
-          
-      }
     
+    var delegate:SelectGenderDelegate!
+    var indexPath:IndexPath!
+    
+    @IBOutlet weak var btnSelectGender: UIButton!
+    
+    @IBAction func actionSelectGender(_ sender: UIButton) {
+        self.delegate?.actionSelectGender(at: indexPath)
+    }
 }

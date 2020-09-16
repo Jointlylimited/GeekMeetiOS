@@ -71,7 +71,6 @@ class MatchViewController: UIViewController, MatchProtocol {
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()

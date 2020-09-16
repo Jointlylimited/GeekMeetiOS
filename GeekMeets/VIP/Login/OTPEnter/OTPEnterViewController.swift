@@ -20,7 +20,6 @@ protocol OTPEnterProtocol: class {
 
 class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     
-    
     //var interactor : OTPEnterInteractorProtocol?
     var presenter : OTPEnterPresentationProtocol?
     
@@ -41,7 +40,6 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     @IBOutlet weak var txtMobNo: UITextField!
     @IBOutlet weak var btnEditMobNo: UIButton!
     
-    
     let otpStackView = OTPStackView()
     var isFromNewMobile : Bool = false
     var alertView: CustomAlertView!
@@ -53,7 +51,6 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     var strPhonenumber: String? = UserDataModel.currentUser?.vPhone ?? "756713373"
     var strNewCountryCode : String = ""
     var strNewPhoneNumber : String = ""
-    
     var isStepCompleted : Bool = true
     
     // MARK: Object lifecycle
@@ -85,11 +82,10 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        doSomething()
+        setTheme()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -98,7 +94,6 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
             self.navigationController?.isNavigationBarHidden = true
         } else {
             self.navigationController?.isNavigationBarHidden = false
-
         }
     }
     
@@ -110,7 +105,7 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
         }
     }
     
-    func doSomething() {
+    func setTheme() {
         print(signUpParams)
         //self.navigationController?.isNavigationBarHidden = false
         self.navigationItem.leftBarButtonItem = leftSideBackBarButton
@@ -133,8 +128,6 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
         } else {
             strCountryCode = strNewCountryCode
             strPhonenumber = strNewPhoneNumber
-            
-//            self.presenter?.callResendOTPAPI(vCountryCode : strCountryCode ,vPhone : strPhonenumber ?? "7567173373")
             startTimer()
         }
         
@@ -187,12 +180,12 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
             timer!.invalidate()
         }
     }
+    
     func timeFormatted(_ totalSeconds: Int) -> String {
         let seconds: Int = totalSeconds % 60
         let minutes: Int = (totalSeconds / 60) % 60
         return String(format: "%02d:%02d", minutes, seconds)
     }
-    
     
     @IBAction func actionEditMobileNumber(_ sender: UIButton) {
         if sender.isSelected == false {
@@ -253,11 +246,9 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
 }
 
 extension OTPEnterViewController: OTPDelegate {
-    
     func didChangeValidity(isValid: Bool) {
         btnVerifyOTP.isHidden = !isValid
     }
-    
 }
 
 extension OTPEnterViewController {
@@ -293,7 +284,6 @@ extension OTPEnterViewController {
 }
 
 extension OTPEnterViewController : AlertViewCentreButtonDelegate {
-    
     func centerButtonAction(){
         let accVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.AccountSettingScreen)
         self.pop(toLast: accVC.classForCoder)

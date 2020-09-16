@@ -191,7 +191,6 @@ struct AppResponseCode {
     static let UNAUTHORIZE = 203
     static let MEHOD_NOT_ALLOW = 405
     static let NO_DATA_FOUND = 204
-
 }
 
 struct INSTAGRAM_IDS {
@@ -277,12 +276,9 @@ class AppSingleton: NSObject {
         }
         
         let alertController = UIAlertController(title: appName, message: defaultMsg, preferredStyle: .alert)
-        
         let OKAction = UIAlertAction(title: okTitle, style: .default) { (String) in
-            
         }
         alertController.addAction(OKAction)
-        
         AppDelObj.window!.rootViewController!.present(alertController, animated: true, completion: nil)
     }
     

@@ -63,7 +63,6 @@ class PreviewViewController: UIViewController, PreviewProtocol {
             return _selectedStickerView
         }
         set {
-            
             // if other sticker choosed then resign the handler
             if _selectedStickerView != newValue {
                 if let selectedStickerView = _selectedStickerView {
@@ -91,7 +90,6 @@ class PreviewViewController: UIViewController, PreviewProtocol {
             self.PhotoView.alpha = 0
             self.videoProcess()
         }
-        // Do any additional setup after loading the view.
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -122,7 +120,6 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         interactor.presenter = presenter
     }
     
-    
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -149,7 +146,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         userResizableView1 = ZDStickerView(frame: gripFrame)
         userResizableView1.tag = 0
         userResizableView1.stickerViewDelegate = self
-        userResizableView1.contentView = contentView //contentView;
+        userResizableView1.contentView = contentView
         userResizableView1.preventsPositionOutsideSuperview = false
         userResizableView1.translucencySticker = false
         userResizableView1.showEditingHandles()
@@ -201,19 +198,14 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         controller!.delegate = self
         self.presentVC(controller!)
     }
+    
     @IBAction func btnAddtoStoryAction(_ sender: UIButton){
         if self.objPostData.tiStoryType == "0" {
             stickerView.image = self.photo.image
-            let image1 = stickerView.resizeImage(transform : userResizableView1.transform, frame : userResizableView1.frame)
+            _ = stickerView.resizeImage(transform : userResizableView1.transform, frame : userResizableView1.frame)
             let image = stickerView.renderContentOnView()
             stickerView.image = nil
             self.objPostData.arrMedia[0].img = image
-            
-//            if cusText != nil {
-//                let image = textToImage(drawText: cusText!.text as NSString, inImage: photo.image!, atPoint: CGPoint(x: stickerView.subviews[0].x, y: stickerView.subviews[0].y), frame :stickerView.subviews[0].frame,  transform : stickerView.subviews[0].transform)
-//                self.objPostData.arrMedia[0].img = image
-//                print(image)
-//            }
             self.callPostStoryAPI(obj: self.objPostData)
         } else {
             if cusText != nil {
@@ -344,10 +336,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         // Rotate the coordinate system.
         let degrees : CGFloat = CGFloat(atan2f(Float(transform.b), Float(transform.a)))
         context.rotate(by: degrees)
-        // Create a string.
-        let str = text
-        // Draw string.
-//        str.draw(at: CGPoint(x: 0, y: 0), withAttributes: attrs as [NSAttributedString.Key : Any])
+
         // Restore to saved context.
         context.restoreGState()
        
@@ -388,7 +377,6 @@ class PreviewViewController: UIViewController, PreviewProtocol {
             print("unable to add video track")
             return
         }
-        //      if audioTrack != nil{
         if let compositionaudioTrack: AVMutableCompositionTrack = composition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: trackID) {
             do {
                 try compositionaudioTrack.insertTimeRange(vid_timerange, of: audioTrack!, at: CMTime.zero)
@@ -397,13 +385,11 @@ class PreviewViewController: UIViewController, PreviewProtocol {
                 print("error")
             }
             compositionaudioTrack.preferredTransform = audioTrack!.preferredTransform
-            
         } else {
             print("unable to add audio track")
             return
         }
-        
-        //      }
+
         let size = videoTrack.naturalSize
         
         // create text Layer
@@ -471,7 +457,6 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     }
     
     func ManageSubscriptionScreen(){
-        
         if UserDataModel.currentUser?.tiIsSubscribed == 0 {
             let subVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.ManageSubscriptionScreen) as! ManageSubscriptionViewController
             subVC.modalTransitionStyle = .crossDissolve
@@ -493,7 +478,6 @@ extension PreviewViewController : PostStoryDelegate {
 
 //MARK: API Methods
 extension PreviewViewController {
-    
     func callPostStoryAPI(obj : PostData){
         self.presenter?.callPostStoryAPI(obj: obj)
     }
@@ -519,13 +503,9 @@ extension PreviewViewController : ZDStickerViewDelegate {
         print(sticker)
     }
     func stickerViewDidEndEditing(_ sticker: ZDStickerView!) {
-//        self.imgview?.frame = sticker.frame
         print(sticker)
     }
 }
-
-// MARK: StickerViewDelegate
-//extension PreviewViewController: StickerViewDelegate
 
 // MARK: CropPickerViewDelegate
 extension PreviewViewController: CropPickerViewDelegate {

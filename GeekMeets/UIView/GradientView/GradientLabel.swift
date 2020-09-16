@@ -12,7 +12,6 @@ import UIKit
 @IBDesignable
 
 class GradientLabel: UILabel {
-    
     @IBInspectable var firstColor: UIColor = AppCommonColor.firstGradient {
         didSet {
             updateView()
@@ -45,12 +44,10 @@ class GradientLabel: UILabel {
     
     func updateView()
     {
-//        secondColor = firstColor.withAlphaComponent(0.7)
         let layer = self.layer as! CAGradientLayer
         layer.cornerRadius = 3
         layer.colors = [firstColor, thirdColor].map {$0.cgColor}
         layer.startPoint = isHorizontal ? CGPoint(x: 0, y: 0.5) : CGPoint(x: 0.5, y: 0)
         layer.endPoint = isHorizontal ? CGPoint (x: 1, y: 0.5) : CGPoint (x: 0.5, y: 0.85)
     }
-    
 }

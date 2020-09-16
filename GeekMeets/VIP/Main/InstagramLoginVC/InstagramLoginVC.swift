@@ -29,7 +29,6 @@ class InstagramLoginVC: UIViewController {
         case AccessToken = "/oauth/access_token/"
         case Scope = "user_profile,user_media"
         case response_type = "code"
-        
     }
     
     private var webView: WKWebView!
@@ -37,7 +36,6 @@ class InstagramLoginVC: UIViewController {
     var accessToken : String?
     var userID : String?
     var isFromEditProfile : Bool = false
-    
     var delegate: InstagramAuthDelegate?
     
     required init?(coder aDecoder: NSCoder) {
@@ -54,7 +52,6 @@ class InstagramLoginVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         //        URLCache.shared.removeAllCachedResponses()
         //        HTTPCookieStorage.shared.deleteAllCookies()
     }
@@ -186,37 +183,30 @@ class InstagramLoginVC: UIViewController {
     private func getMediaData(testUserData: InstagramTestUser, completion: @escaping (Feed) -> Void) {
         
         //"https://graph.instagram.com//me/media?fields={fields}&access_token={access-token}"
-    let urlString = "\(graphApi)me/media?fields=id,media_type,media_url,username,timestamp&access_token=\(testUserData.access_token)"
+        let urlString = "\(graphApi)me/media?fields=id,media_type,media_url,username,timestamp&access_token=\(testUserData.access_token)"
         let request = URLRequest(url: URL(string: urlString)!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10)
-      let session = URLSession.shared
-      let task = session.dataTask(with: request, completionHandler: { data, response, error in
-        if let response = response {
-            print(response)
-            do {
-                let result = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String: Any]
-                print(result)
-                let mediaArray = result["data"]! as! NSArray
-                print(mediaArray)
-                
-                guard let delegate = self.delegate else {
-                    fatalError("InstagramAuthDelegate method needs to be implemented")
+        let session = URLSession.shared
+        let task = session.dataTask(with: request, completionHandler: { data, response, error in
+            if let response = response {
+                print(response)
+                do {
+                    let result = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String: Any]
+                    print(result)
+                    let mediaArray = result["data"]! as! NSArray
+                    print(mediaArray)
+                    
+                    guard let delegate = self.delegate else {
+                        fatalError("InstagramAuthDelegate method needs to be implemented")
+                    }
+                    self.dismiss()
+                    delegate.instagramAuthControllerDidFinish(accessToken: testUserData.access_token, id: "\(testUserData.user_id)", error: error, mediaData: mediaArray)
+                    //                completion(Feed(media: mediaArray))
+                } catch let error as NSError {
+                    print(error)
                 }
-                self.dismiss()
-                delegate.instagramAuthControllerDidFinish(accessToken: testUserData.access_token, id: "\(testUserData.user_id)", error: error, mediaData: mediaArray)
-//                completion(Feed(media: mediaArray))
-            } catch let error as NSError {
-                print(error)
             }
-        }
-        
-//        do { let jsonData = try JSONDecoder().decode(InstagramMedia.self, from: data!)
-//          print(jsonData)
-////          completion(jsonData)
-//        } catch let error as NSError {
-//          print(error)
-//        }
-      })
-      task.resume()
+        })
+        task.resume()
     }
     
     private func dismiss() {

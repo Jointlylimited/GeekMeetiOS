@@ -1769,14 +1769,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		F7164ABA244EB78500853BFC /* New Group */ = {
+		F7164ABA244EB78500853BFC /* ForgotPassword */ = {
 			isa = PBXGroup;
 			children = (
 				F7164ABB244EB78500853BFC /* ForgotPasswordInteractor.swift */,
 				F7164ABC244EB78500853BFC /* ForgotPasswordViewController.swift */,
 				F7164ABD244EB78500853BFC /* ForgotPasswordPresenter.swift */,
 			);
-			path = "New Group";
+			path = ForgotPassword;
 			sourceTree = "<group>";
 		};
 		F7164AC1244EB84600853BFC /* AddPhotos */ = {
@@ -2400,7 +2400,7 @@
 			children = (
 				F7164ACA244EE8E800853BFC /* OTPEnter */,
 				F7164AC1244EB84600853BFC /* AddPhotos */,
-				F7164ABA244EB78500853BFC /* New Group */,
+				F7164ABA244EB78500853BFC /* ForgotPassword */,
 				F79CA6EC244D9C0B00C9A7EB /* UserProfile */,
 				F7D52596244869FB002D3A42 /* SignInVC */,
 				F7D525952448608E002D3A42 /* SignUpVC */,

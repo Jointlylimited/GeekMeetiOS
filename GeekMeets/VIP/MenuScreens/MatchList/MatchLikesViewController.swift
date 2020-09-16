@@ -9,12 +9,11 @@
 import UIKit
 
 class MatchLikesViewController: UIViewController {
-
+    
     @IBOutlet weak var viewNavigation: UIView!
     @IBOutlet weak var lblScreenTitle: UILabel!
     
     var pageMenu : CAPSPageMenu?
-    
     var MatchesVC: MatchByBothViewController!
     var MyLikesVC: MyLikesViewController!
     var LikesVC: LikesViewController!
@@ -76,8 +75,8 @@ class MatchLikesViewController: UIViewController {
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
-           self.popVC()
-       }
+        self.popVC()
+    }
 }
 
 extension MatchLikesViewController : CAPSPageMenuDelegate {

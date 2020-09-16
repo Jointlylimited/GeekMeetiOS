@@ -14,7 +14,6 @@ protocol OTPDelegate: class {
     func didChangeValidity(isValid: Bool)
 }
 
-
 class OTPStackView: UIStackView {
     
     //Customise the OTPField here
@@ -117,7 +116,6 @@ class OTPStackView: UIStackView {
     }
     // textfieldClear
     func clearTextField()  {
-       
         for textField in textFieldsCollection{
              textField.text  = ""
         }
@@ -145,7 +143,6 @@ extension OTPStackView: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range:NSRange, replacementString string: String) -> Bool {
         
         guard let textField = textField as? OTPTextField else { return true }
-        
         if (range.length == 0){
             
             if textField.nextTextField == nil {
@@ -156,7 +153,6 @@ extension OTPStackView: UITextFieldDelegate {
             textField.text? = string
             checkForValidity()
             return false
-            
         }
         else if (range.length == 1) {
             
@@ -164,9 +160,7 @@ extension OTPStackView: UITextFieldDelegate {
             textField.text? = ""
             checkForValidity()
             return false
-            
         }
         return true
     }
-    
 }

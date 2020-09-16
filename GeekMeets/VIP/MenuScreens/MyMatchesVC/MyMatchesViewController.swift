@@ -27,8 +27,8 @@ class MyMatchesViewController: UIViewController, MyMatchesProtocol {
     
     var objMatchData : [SwipeUserFields] = []
     var parentNavigationController : UINavigationController?
-    // MARK: Object lifecycle
     
+    // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -40,7 +40,6 @@ class MyMatchesViewController: UIViewController, MyMatchesProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = MyMatchesInteractor()
@@ -108,6 +107,7 @@ extension MyMatchesViewController {
         } 
     }
 }
+
 //MARK: UITableView Delegate & Datasource Methods
 extension MyMatchesViewController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -142,7 +142,6 @@ extension MyMatchesViewController : UITableViewDataSource, UITableViewDelegate {
                     obj.userName = data.vProfileName
                     obj.imageString = data.vProfileImage
                     obj.modalPresentationStyle = .fullScreen
-                    
                     self.pushVC(obj)
                 }
             }

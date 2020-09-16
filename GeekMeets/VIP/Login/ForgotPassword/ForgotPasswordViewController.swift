@@ -53,11 +53,10 @@ class ForgotPasswordViewController: UIViewController, ForgotPasswordProtocol {
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        doSomething()
+        setTheme()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,7 +64,7 @@ class ForgotPasswordViewController: UIViewController, ForgotPasswordProtocol {
         self.navigationController?.isNavigationBarHidden = false
     }
     
-    func doSomething() {
+    func setTheme() {
         self.navigationItem.leftBarButtonItem = leftSideBackBarButton
         self.navigationController?.navigationBar.barTintColor = UIColor.white
     }
@@ -78,7 +77,7 @@ extension ForgotPasswordViewController{
     }
 }
 
-extension ForgotPasswordViewController{
+extension ForgotPasswordViewController {
     func displayAlert(strTitle : String, strMessage : String) {
         self.showAlert(title: strTitle, message: strMessage)
     }

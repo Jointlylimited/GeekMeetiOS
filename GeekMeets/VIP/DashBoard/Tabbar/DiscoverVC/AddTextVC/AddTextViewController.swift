@@ -29,13 +29,11 @@ class AddTextViewController: UIViewController {
         super.viewDidLoad()
         setTheme()
         setTextTheme()
-//        setLabel()
         // Do any additional setup after loading the view.
     }
     
     
     func setTheme(){
-        
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(keyboardWillShow(_:)),
@@ -226,7 +224,6 @@ extension AddTextViewController : UITextViewDelegate {
             let uppercaseStr = text //.uppercased()
             if textView.text.isEmpty {
                 textView.text = (textView.text as NSString).replacingCharacters(in: range, with: uppercaseStr)
-                
             }
             else{
                 let beginning = textView.beginningOfDocument

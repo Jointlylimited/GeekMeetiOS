@@ -22,11 +22,11 @@ class CommonPagesViewController: UIViewController, CommonPagesProtocol {
     
     @IBOutlet weak var lblScreenTitle: UILabel!
     @IBOutlet weak var descView: UITextView!
-    
+
     var objCommonData : CommonModelData?
     var slug : String = ""
-    // MARK: Object lifecycle
     
+    // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -38,7 +38,6 @@ class CommonPagesViewController: UIViewController, CommonPagesProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = CommonPagesInteractor()
@@ -55,7 +54,6 @@ class CommonPagesViewController: UIViewController, CommonPagesProtocol {
         //Interactor will communucate with only presenter.
         interactor.presenter = presenter
     }
-    
     
     // MARK: View lifecycle
     override func viewDidLoad() {

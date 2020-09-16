@@ -28,7 +28,6 @@ class MyLikesViewController: UIViewController, MyLikesProtocol {
     var parentNavigationController : UINavigationController?
     
     // MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -40,7 +39,6 @@ class MyLikesViewController: UIViewController, MyLikesProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = MyLikesInteractor()
@@ -57,7 +55,6 @@ class MyLikesViewController: UIViewController, MyLikesProtocol {
         //Interactor will communucate with only presenter.
         interactor.presenter = presenter
     }
-    
     
     // MARK: View lifecycle
     override func viewDidLoad() {
@@ -80,7 +77,6 @@ class MyLikesViewController: UIViewController, MyLikesProtocol {
     
     @IBAction func btnSearchAction(_ sender: UIButton) {
         let searchVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.SearchScreen) as? SearchProfileViewController
-//        searchVC?.objMsgData = self.objMatchData
         searchVC?.isFromDiscover = false
         self.pushVC(searchVC!)
     }
@@ -94,11 +90,9 @@ extension MyLikesViewController {
         if self.objMatchData.count != 0 {
             self.tblMatchList.alpha = 1.0
             self.lblNoUser.alpha = 0.0
-            //                self.btnSearch.alpha = 1.0
         } else {
             self.tblMatchList.alpha = 0.0
             self.lblNoUser.alpha = 1.0
-            //                self.btnSearch.alpha = 0.0
         }
         self.tblMatchList.reloadData()
     }

@@ -137,7 +137,7 @@ class ProfileViewController: UIViewController, ProfileProtocol {
     var imageArray : [UIImage] = []
     var genderArray : [String] = ["Male", "Female", "Others", "Prefer not to say"]
     
-    var userProfileModel : UserAuthResponseField?// : UserProfileModel?
+    var userProfileModel : UserAuthResponseField?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -150,7 +150,6 @@ class ProfileViewController: UIViewController, ProfileProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = ProfileInteractor()
@@ -168,9 +167,7 @@ class ProfileViewController: UIViewController, ProfileProtocol {
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setProfileData()
@@ -180,8 +177,8 @@ class ProfileViewController: UIViewController, ProfileProtocol {
         super.viewWillAppear(animated)
         setProfileData()
     }
+    
     func setProfileData(){
-        
         SDImageCache.shared.clearMemory()
         SDImageCache.shared.clearDisk()
         
@@ -328,7 +325,7 @@ extension ProfileViewController : UITableViewDataSource, UITableViewDelegate {
         headerTitle.frame = CGRect(x: headerView.frame.origin.x + 60, y: headerView.frame.origin.y + 10, w: ScreenSize.width - 60, h: 30)
         headerTitle.text = objProfileData.cells[section].sectionTitle
         headerTitle.textColor = .black
-        headerTitle.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        headerTitle.font = UIFont(name: FontTypePoppins.Poppins_SemiBold.rawValue, size: 14)
         headerView.addSubview(headerTitle)
         
         if section == 2 {
@@ -357,7 +354,6 @@ extension ProfileViewController : UITableViewDataSource, UITableViewDelegate {
 
 //MARK: UICollectionview Delegate & Datasource Methods
 extension ProfileViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -369,9 +365,9 @@ extension ProfileViewController : UICollectionViewDataSource, UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell : PhotoEmojiCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PhotoEmojiCell, for: indexPath) as! PhotoEmojiCell
         cell.emojiStackView.alpha = 0.0
-         if UserDataModel.currentUser?.photos == nil || UserDataModel.currentUser?.photos?.count == 0 {
+        if UserDataModel.currentUser?.photos == nil || UserDataModel.currentUser?.photos?.count == 0 {
             cell.userImgView.image = imageArray[indexPath.row]
-         } else {
+        } else {
             let photos = UserDataModel.currentUser!.photos!
             let url = URL(string:"\(photos[indexPath.row].vMedia!)")
             cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
@@ -405,9 +401,9 @@ extension ProfileViewController : UICollectionViewDataSource, UICollectionViewDe
         cell.btnChooseImage.alpha = 0.0
         return cell
     }
-
-       func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-             let width = ScreenSize.width/3 + 10
-             return CGSize(width: width, height: width)
-     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = ScreenSize.width/3 + 10
+        return CGSize(width: width, height: width)
+    }
 }

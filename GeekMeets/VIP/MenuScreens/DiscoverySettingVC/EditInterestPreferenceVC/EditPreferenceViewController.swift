@@ -39,8 +39,8 @@ class EditPreferenceViewController: UIViewController, EditPreferenceProtocol {
     var index : Int = 0
     var isFromMenu : Bool = true
     var heightOptionIDs = [Int]()
-    // MARK: Object lifecycle
     
+    // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -52,7 +52,6 @@ class EditPreferenceViewController: UIViewController, EditPreferenceProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = EditPreferenceInteractor()
@@ -70,11 +69,9 @@ class EditPreferenceViewController: UIViewController, EditPreferenceProtocol {
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         if isFromMenu {
             self.collectopnViewBottomConstraint.constant = 0
             self.btnDone.alpha = 0.0
@@ -116,7 +113,7 @@ class EditPreferenceViewController: UIViewController, EditPreferenceProtocol {
             
             self.lblMinHeight.text = heightData.count == 0 ? "0.0" : "\((self.heightData[0] == "" ? "0.0" : self.heightData[0]))"
             self.lblMaxHeight.text = heightData.count == 0 ? "10.0" : "\((self.heightData[1] == "" ? "0.0" : self.heightData[1]))"
-        }else {
+        } else {
             self.HeightSliderView.alpha = 0
             self.preferenceCollView.alpha = 1
         }
@@ -157,11 +154,10 @@ class EditPreferenceViewController: UIViewController, EditPreferenceProtocol {
 //MARK: API Methods
 extension EditPreferenceViewController {
     func callCreatePreferenceAPI(){
-        
         let data = self.selectedCells.map { String($0) }
             .joined(separator: ",")
         var answerID = self.objPreModel.objPrefrence!.preferenceAnswer!.map { String($0.iAnswerId!) }
-        .joined(separator: ",")
+            .joined(separator: ",")
         
         var value = ""
         if self.index == 5 {
@@ -189,10 +185,10 @@ extension EditPreferenceViewController {
     
     func getPostPreferenceResponse(response : CommonResponse){
         if response.responseCode == 200 {
-                self.presenter?.callQuestionaryAPI()
-            } else {
-                AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
-            }
+            self.presenter?.callQuestionaryAPI()
+        } else {
+            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        }
     }
     
     func getPreferenceData(response : PreferencesResponse) {
@@ -208,7 +204,6 @@ extension EditPreferenceViewController {
 //MARK: UICollectionview Delegate Methods
 extension EditPreferenceViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,SelectAgeDelegate
 {
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.objPreModel.objPrefrence != nil ? self.objPreModel.objPrefrence.preferenceOption!.count : 0
     }
@@ -270,6 +265,7 @@ extension EditPreferenceViewController: UICollectionViewDelegate, UICollectionVi
             }
         }
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let name = self.objPreModel.objPrefrence.preferenceOption![indexPath.row].vOption
         let yourWidth = collectionView.bounds.width/3.0
@@ -284,6 +280,7 @@ extension EditPreferenceViewController: UICollectionViewDelegate, UICollectionVi
             return CGSize(width: yourWidth, height: yourHeight)
         }
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets.zero
     }
@@ -306,7 +303,6 @@ extension EditPreferenceViewController: UICollectionViewDelegate, UICollectionVi
 
 //MARK:- Range Seek Slider delegate
 extension EditPreferenceViewController: RangeSeekSliderDelegate {
-
     func rangeSeekSlider(_ slider: RangeSeekSlider, didChange minValue: CGFloat, maxValue: CGFloat) {
         if slider === heightSeekSlider {
             print("Standard slider updated. Min Value: \(minValue) Max Value: \(maxValue)")

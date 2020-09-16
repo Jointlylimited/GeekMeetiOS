@@ -45,7 +45,6 @@ class GradientButton: UIButton {
     
     func updateView()
     {
-//        secondColor = firstColor.withAlphaComponent(0.7)
         let layer = self.layer as! CAGradientLayer
         // set the corner radius
         layer.cornerRadius = 10
@@ -61,6 +60,5 @@ class GradientButton: UIButton {
         layer.shadowOpacity = 1
         layer.shadowRadius = 4.0
     }
-    
 }
 

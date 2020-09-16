@@ -19,7 +19,6 @@ protocol SignUpVCProtocol: class {
 
 class SignUpVCViewController: UIViewController, SignUpVCProtocol {
     
-    
     //var interactor : SignUpVCInteractorProtocol?
     var presenter : SignUpVCPresentationProtocol?
     
@@ -37,7 +36,6 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
     var vLiveIn : String = ""
     
     // MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -66,11 +64,10 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        doSomething()
+        setTheme()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,7 +78,7 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
-    func doSomething() {
+    func setTheme() {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         self.navigationItem.leftBarButtonItem = leftSideBackBarButton
@@ -260,11 +257,6 @@ extension SignUpVCViewController : UITextFieldDelegate {
             }
         }
     }
-    
-    /*func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.next?.becomeFirstResponder()
-        return true
-    }*/
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == self.tfEmailAddress {

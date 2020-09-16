@@ -25,7 +25,6 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     var presenter : ManageSubscriptionPresentationProtocol?
     
     // MARK: Object lifecycle
-    
     @IBOutlet var btnSubColl: [UIButton]!
     @IBOutlet var btnStackList: [UIButton]!
     @IBOutlet weak var btnValidDate: UIButton!
@@ -54,7 +53,6 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = ManageSubscriptionInteractor()
@@ -220,7 +218,6 @@ extension ManageSubscriptionViewController {
                 let dateString = timeStamp.formattedDateString(format: "dd MMM, yyyy")
                 self.btnValidDate.setTitle("Valid till \(dateString)", for: .normal)
             }
-            
             if self.isFromStory {
                 dismissVC {
                     self.postStoryDelegate.getSubscriptionResponse(status: true)

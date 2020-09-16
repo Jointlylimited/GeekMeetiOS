@@ -14,15 +14,13 @@ protocol SelectCategoriesDelegate{
 }
 
 class SelectCategoriesCell: UICollectionViewCell {
-
-      var delegate:SelectCategoriesDelegate!
-      var indexPath:IndexPath!
-  
-      @IBOutlet weak var btnSelectCategories: UIButton!
-      @IBAction func actionSelectCategories(_ sender: UIButton) {
-          
-          self.delegate?.actionSelectCategories(at: indexPath)
-          
-      }
     
+    var delegate:SelectCategoriesDelegate!
+    var indexPath:IndexPath!
+    
+    @IBOutlet weak var btnSelectCategories: UIButton!
+    
+    @IBAction func actionSelectCategories(_ sender: UIButton) {
+        self.delegate?.actionSelectCategories(at: indexPath)
+    }
 }

@@ -38,7 +38,6 @@ public class CardView: UIView {
     }
     
     func setData(index : Int){
-        
         self.imgCollView.register(UINib.init(nibName: Cells.DiscoverCollectionCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.DiscoverCollectionCell)
         self.imgCollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
@@ -76,6 +75,7 @@ public class CardView: UIView {
         view.layoutIfNeeded()
         return view
     }
+    
     class func distanceinMeter(obj : SearchUserFields, location : CLLocation) -> String {
         if obj.fLatitude != nil && obj.fLongitude != nil && obj.fLatitude != "" && obj.fLongitude != "" {
             let userLocation = CLLocation(latitude: CLLocationDegrees(exactly: Float(obj.fLatitude!)!)!, longitude: CLLocationDegrees(exactly: Float(obj.fLongitude!)!)!)
@@ -96,12 +96,15 @@ public class CardView: UIView {
             return " 2 mi "
         }
     }
+    
     @IBAction func btnCloseAction(_ sender: UIButton) {
         self.clickOnClose!()
     }
+    
     @IBAction func btnFavouriteAction(_ sender: UIButton) {
         self.clickOnFavourite!()
     }
+    
     @IBAction func btnViewAction(_ sender: UIButton) {
         self.clickOnView!()
     }

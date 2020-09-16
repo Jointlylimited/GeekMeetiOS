@@ -33,7 +33,6 @@ class SearchProfileViewController: UIViewController, SearchProfileProtocol {
     var isFromDiscover : Bool = true
     
     // MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -45,7 +44,6 @@ class SearchProfileViewController: UIViewController, SearchProfileProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = SearchProfileInteractor()
@@ -65,16 +63,10 @@ class SearchProfileViewController: UIViewController, SearchProfileProtocol {
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setFilterData()
     }
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        self.btnClearAllAction()
-//    }
     
     func setFilterData(){
         txtSearchField.returnKeyType = .search
@@ -176,7 +168,6 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
                 }
             }
         }
-        
         return cell!
     }
     
@@ -196,13 +187,13 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
         headerTitle.frame = CGRect(x: 18, y: headerView.frame.origin.y + 5, w: ScreenSize.width - 60, h: 30)
         headerTitle.text = "Recents"
         headerTitle.textColor = .black
-        headerTitle.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        headerTitle.font = UIFont(name: FontTypePoppins.Poppins_SemiBold.rawValue, size: 14)
         headerView.addSubview(headerTitle)
         
         if self.txtSearchField.text != "" {
             let buttonClr = UIButton(frame: CGRect(x: ScreenSize.width - 110, y: headerView.frame.origin.y + 5, w: 100, h: 30))
             buttonClr.backgroundColor = .clear
-            buttonClr.titleLabel?.font = UIFont(name: "Poppins-SemiBold", size: 14)
+            buttonClr.titleLabel?.font = UIFont(name: FontTypePoppins.Poppins_SemiBold.rawValue, size: 14)
             buttonClr.setTitleColor(#colorLiteral(red: 0.5294117647, green: 0.1803921569, blue: 0.7647058824, alpha: 1), for: .normal)
             buttonClr.setTitle("Clear All", for: .normal)
             buttonClr.addTarget(self, action: #selector(btnClearAllAction), for: .touchUpInside)

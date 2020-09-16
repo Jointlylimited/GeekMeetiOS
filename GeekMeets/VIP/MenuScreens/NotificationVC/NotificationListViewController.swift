@@ -49,7 +49,6 @@ class NotificationListViewController: UIViewController, NotificationListProtocol
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = NotificationListInteractor()
@@ -66,7 +65,6 @@ class NotificationListViewController: UIViewController, NotificationListProtocol
         //Interactor will communucate with only presenter.
         interactor.presenter = presenter
     }
-    
     
     // MARK: View lifecycle
     override func viewDidLoad() {

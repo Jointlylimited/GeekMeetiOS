@@ -34,7 +34,6 @@ class ContactUS_LegalViewController: UIViewController, ContactUS_LegalProtocol {
     var presenter : ContactUS_LegalPresentationProtocol?
     
     // MARK: Object lifecycle
-    
     @IBOutlet weak var tblContactList: UITableView!
     @IBOutlet weak var tblLegalList: UITableView!
     @IBOutlet weak var lblViewTitle: UILabel!
@@ -42,7 +41,6 @@ class ContactUS_LegalViewController: UIViewController, ContactUS_LegalProtocol {
     
     var LegalTitleArray = ["Terms & Conditions", "Privacy Policy", "About Us", "Licenses"]
     var objContactData : [ContactUSModel] = []
-    
     var isForLegal : Bool = false
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -56,7 +54,6 @@ class ContactUS_LegalViewController: UIViewController, ContactUS_LegalProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = ContactUS_LegalInteractor()
@@ -73,7 +70,6 @@ class ContactUS_LegalViewController: UIViewController, ContactUS_LegalProtocol {
         //Interactor will communucate with only presenter.
         interactor.presenter = presenter
     }
-    
     
     // MARK: View lifecycle
     override func viewDidLoad() {
@@ -107,7 +103,6 @@ class ContactUS_LegalViewController: UIViewController, ContactUS_LegalProtocol {
     }
     
     func configureMailComposer() -> MFMailComposeViewController{
-        
         let mail = MFMailComposeViewController()
         mail.mailComposeDelegate = self
         mail.setToRecipients([self.objContactData[0].text!])
@@ -161,7 +156,6 @@ extension ContactUS_LegalViewController : UITableViewDataSource, UITableViewDele
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if !isForLegal {
             if let cell = cell as? ContactUSCell {
-                
                 let data = self.objContactData[indexPath.row]
                 cell.btnTitle.setImage(data.image, for: .normal)
                 cell.btnTitle.setTitle(data.title, for: .normal)

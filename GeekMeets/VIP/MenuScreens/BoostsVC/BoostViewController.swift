@@ -22,8 +22,6 @@ class BoostViewController: UIViewController, BoostProtocol {
     //var interactor : BoostInteractorProtocol?
     var presenter : BoostPresentationProtocol?
     
-    // MARK: Object lifecycle
-    
     @IBOutlet var btnBoostColl: [UIButton]!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var btnActiveBoostPlans: UIButton!
@@ -39,6 +37,7 @@ class BoostViewController: UIViewController, BoostProtocol {
     var totalMin : Int!
     var totalSecond : Int!
     
+     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -50,7 +49,6 @@ class BoostViewController: UIViewController, BoostProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = BoostInteractor()
@@ -67,7 +65,6 @@ class BoostViewController: UIViewController, BoostProtocol {
         //Interactor will communucate with only presenter.
         interactor.presenter = presenter
     }
-    
     
     // MARK: View lifecycle
     override func viewDidLoad() {
@@ -112,7 +109,6 @@ class BoostViewController: UIViewController, BoostProtocol {
         }
     }
     
-    
     func startTimer() {
       timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
     }
@@ -141,7 +137,6 @@ class BoostViewController: UIViewController, BoostProtocol {
           endTimer()
           self.lblRemainingTime.text = "\(00):\(00) Remaining"
         }
-        
       } else {
         endTimer()
         self.lblRemainingTime.text = "\(00):\(00) Remaining"
@@ -174,7 +169,6 @@ class BoostViewController: UIViewController, BoostProtocol {
         if dateStr1.compare(dateStr2) == .orderedDescending {
             startTimer()
         } else {
-
         }
     }
     

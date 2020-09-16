@@ -20,11 +20,10 @@ class TabbarViewController: UITabBarController, TabbarProtocol {
     //var interactor : TabbarInteractorProtocol?
     var presenter : TabbarPresentationProtocol?
     
-     
     var isFromMatch : Bool = false
     var userDict : NSDictionary = [:]
-    // MARK: Object lifecycle
     
+    // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -36,7 +35,6 @@ class TabbarViewController: UITabBarController, TabbarProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = TabbarInteractor()
@@ -54,9 +52,7 @@ class TabbarViewController: UITabBarController, TabbarProtocol {
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         SetTabbarItem()
@@ -64,7 +60,6 @@ class TabbarViewController: UITabBarController, TabbarProtocol {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        SetTabbarItem()
     }
     
     func SetTabbarItem(){

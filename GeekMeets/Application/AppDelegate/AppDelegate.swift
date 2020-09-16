@@ -82,18 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //MARK: FACEBOOK CALLBACK URL METHOD
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool
     {
-     
-      
-//        if (url.host == "jointly") {
-//                let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchScreen) as! MatchProfileViewController
-//                controller.UserCode = url.lastPathComponent
-//                if let navctrl = self.window?.rootViewController as? UINavigationController{
-//                    navctrl.pushViewController(controller, animated: true)
-//                }
-//            return true
-//        } else {
-            return ApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
-//        }
+        return ApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
@@ -118,8 +107,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("Terminate!")
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    
-    
 }
 
 

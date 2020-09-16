@@ -62,8 +62,6 @@ class ProfileSubscriptionViewController: UIViewController {
     }
     
     func MoveToProfileVC(){
-//         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.ProfileScreen) as! ProfileViewController
-//        self.pushVC(controller)
         let matchVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchProfileScreen) as? MatchProfileViewController
         matchVC!.UserID = UserDataModel.currentUser?.iUserId
         matchVC!.isFromHome = false

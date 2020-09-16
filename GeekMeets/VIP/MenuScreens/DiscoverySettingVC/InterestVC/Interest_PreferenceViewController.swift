@@ -32,7 +32,6 @@ class Interest_PreferenceViewController: UIViewController, Interest_PreferencePr
     var isFromMenu : Bool = true
     
     // MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -44,7 +43,6 @@ class Interest_PreferenceViewController: UIViewController, Interest_PreferencePr
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = Interest_PreferenceInteractor()
@@ -62,7 +60,6 @@ class Interest_PreferenceViewController: UIViewController, Interest_PreferencePr
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,7 +74,6 @@ class Interest_PreferenceViewController: UIViewController, Interest_PreferencePr
     }
     
     func registerTableViewCell(){
-        
         self.lblTitle.text = header_title
         if self.lblTitle.text!.count >= (DeviceType.iPhone5orSE ? 40 : 45) {
             self.viewHeightConstant.constant = 185

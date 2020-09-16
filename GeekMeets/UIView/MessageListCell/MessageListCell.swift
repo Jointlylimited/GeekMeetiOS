@@ -31,6 +31,7 @@ class MessageListCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
     @IBAction func btnChatAction(_ sender: Any) {
         self.clickOnChatBtn!()
     }

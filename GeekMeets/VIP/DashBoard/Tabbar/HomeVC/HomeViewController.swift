@@ -37,8 +37,8 @@ class HomeViewController: UIViewController, HomeProtocol {
     var objCardArray = CardDetailsModel()
     var location:CLLocation?
     var SwipeValue : Int = 0
-    // MARK: Object lifecycle
     
+    // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -50,7 +50,6 @@ class HomeViewController: UIViewController, HomeProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = HomeInteractor()
@@ -67,7 +66,6 @@ class HomeViewController: UIViewController, HomeProtocol {
         //Interactor will communucate with only presenter.
         interactor.presenter = presenter
     }
-    
     
     // MARK: View lifecycle
     override func viewDidLoad() {
@@ -120,7 +118,6 @@ class HomeViewController: UIViewController, HomeProtocol {
                 if UserDataModel.currentUser != nil {
                     if UserDataModel.currentUser?.tiIsLocationOn == 0 {
                         self.callUpdateLocationAPI(fLatitude: String(Float((currLocation?.coordinate.latitude)!)), fLongitude: String(Float((currLocation?.coordinate.longitude)!)), tiIsLocationOn : "1")
-                        
                     }
                 } else {
                     self.callUpdateLocationAPI(fLatitude: String(Float((currLocation?.coordinate.latitude)!)), fLongitude: String(Float((currLocation?.coordinate.longitude)!)), tiIsLocationOn : "1")
@@ -252,15 +249,7 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
         cardView.clickOnFavourite = {
             print("Favourite Action clicked!")
             if UserDataModel.currentUser?.tiIsSubscribed == 0 {
-//                if self.SwipeValue != 0 {
-                    self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "1")
-//                    Authentication.setSwipeStatus(self.SwipeValue - 1)
-//                    self.SwipeValue = Authentication.getSwipeStatus()!
-//                } else {
-//                    Authentication.setSwipeStatus(10)
-//                    self.SwipeValue = Authentication.getSwipeStatus()!
-//                    self.presentSubVC()
-//                }
+                self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "1")
             } else {
                 self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "1")
             }
@@ -287,15 +276,8 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
         print("<--\(index)")
 
         if UserDataModel.currentUser?.tiIsSubscribed == 0 {
-//            if SwipeValue != 0 {
-                self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "0")
-//                Authentication.setSwipeStatus(SwipeValue - 1)
-//                SwipeValue = Authentication.getSwipeStatus()!
-//            } else {
-//                Authentication.setSwipeStatus(10)
-//                self.SwipeValue = Authentication.getSwipeStatus()!
-//                self.presentSubVC()
-//            }
+            self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "0")
+            
         } else {
             self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "0")
         }
@@ -304,15 +286,7 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
     func cards(_ cards: SwipeableCards, didRightRemovedItemAt index: Int) {
         print("\(index)-->")
         if UserDataModel.currentUser?.tiIsSubscribed == 0 {
-//            if SwipeValue != 0 {
-                self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "1")
-//                Authentication.setSwipeStatus(SwipeValue - 1)
-//                SwipeValue = Authentication.getSwipeStatus()!
-//            } else {
-//                Authentication.setSwipeStatus(10)
-//                self.SwipeValue = Authentication.getSwipeStatus()!
-//                self.presentSubVC()
-//            }
+            self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "1")
         } else {
             self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "1")
         }

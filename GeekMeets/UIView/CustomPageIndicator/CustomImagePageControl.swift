@@ -28,9 +28,6 @@ class CustomImagePageControl: UIPageControl {
   override func awakeFromNib() {
         super.awakeFromNib()
 
-//        let angle = CGFloat.pi/2
-//        self.transform = CGAffineTransform(rotationAngle: angle)
-    
         self.pageIndicatorTintColor = UIColor.clear
         self.currentPageIndicatorTintColor = UIColor.clear
         self.clipsToBounds = false
@@ -61,9 +58,6 @@ class CustomImagePageControl: UIPageControl {
     fileprivate func imageForSubview(_ view:UIView) -> UIImageView? {
         var dot:UIImageView?
         
-//        let angle = CGFloat.pi/2
-//        dot?.transform = CGAffineTransform(rotationAngle: angle)
-        
         if let dotImageView = view as? UIImageView {
             dot = dotImageView
         } else {
@@ -74,7 +68,6 @@ class CustomImagePageControl: UIPageControl {
                 }
             }
         }
-
         return dot
     }
 }

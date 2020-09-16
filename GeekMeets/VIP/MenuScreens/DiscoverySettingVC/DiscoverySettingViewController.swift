@@ -52,7 +52,6 @@ class DiscoverySettingViewController: UIViewController, DiscoverySettingProtocol
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = DiscoverySettingInteractor()
@@ -69,7 +68,6 @@ class DiscoverySettingViewController: UIViewController, DiscoverySettingProtocol
         //Interactor will communucate with only presenter.
         interactor.presenter = presenter
     }
-    
     
     // MARK: View lifecycle
     override func viewDidLoad() {

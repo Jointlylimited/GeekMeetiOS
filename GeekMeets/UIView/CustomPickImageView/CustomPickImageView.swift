@@ -48,7 +48,6 @@ class CustomPickImageView: UIView {
     
     func commonInit(){
       self.frame = self.bounds
-        
     }
     
     override func awakeFromNib() {
@@ -64,30 +63,10 @@ class CustomPickImageView: UIView {
     
     class func initAlertView() -> CustomPickImageView {
         let view = Bundle.main.loadNibNamed("CustomPickImageView", owner: nil, options: nil)?.first as! CustomPickImageView
-//        view.viewCancel.dropShadow()
-//        view.viewRight.dropShadow()
-//        view.prepareUI()
-        
+
         view.layoutIfNeeded()
         return view
     }
-    
-//    func prepareUI(title: String, message: String, btnRightStr : String, btnCancelStr: String, btnCenter : String, isSingleButton : Bool) {
-//
-//        if isSingleButton {
-//            self.BtnStackView.alpha = 0
-////            self.viewCentre.alpha = 1
-//        } else {
-////            self.viewCentre.alpha = 0
-//            self.BtnStackView.alpha = 1
-//        }
-////        lblTitle.text = title
-////        lblDesc.text = message
-//
-////        self.btnRight.setTitle(btnRightStr, for: .normal)
-//        self.btnCancel.setTitle(btnCancelStr, for: .normal)
-//
-//    }
 }
 
 extension CustomPickImageView {

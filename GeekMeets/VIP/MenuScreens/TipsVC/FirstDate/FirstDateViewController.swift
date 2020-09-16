@@ -21,7 +21,6 @@ class FirstDateViewController: UIViewController, FirstDateProtocol {
     var presenter : FirstDatePresentationProtocol?
     
     @IBOutlet weak var descView: UITextView!
-    
     var parentNavigationController : UINavigationController?
     
     // MARK: Object lifecycle
@@ -36,7 +35,6 @@ class FirstDateViewController: UIViewController, FirstDateProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = FirstDateInteractor()
@@ -54,9 +52,7 @@ class FirstDateViewController: UIViewController, FirstDateProtocol {
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         callStaticPageAPI()
@@ -64,7 +60,6 @@ class FirstDateViewController: UIViewController, FirstDateProtocol {
 }
 
 extension FirstDateViewController {
-    
     func callStaticPageAPI() {
         self.presenter?.callStaticPageAPI()
     }
