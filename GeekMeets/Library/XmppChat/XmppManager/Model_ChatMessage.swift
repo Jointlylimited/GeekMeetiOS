@@ -165,8 +165,6 @@ class Model_ChatMessage {
         thumbLocalUrl  = xmppMessageObj.thumbLocalUrl
         msgStatus = xmppMessageObj.msgStatus
         imgProfileURL = xmppMessageObj.thumbUrl ?? ""
-//        location = xmppMessageObj.location
-        
     }
     
     func getLocalPath() -> URL? {
@@ -177,6 +175,7 @@ class Model_ChatMessage {
         }
         return nil
     }
+    
     func getThumbLocalPath() -> URL? {
         if let localPath = self.thumbLocalUrl , localPath.count > 0 {
             let lastPath = URL(fileURLWithPath: localPath).lastPathComponent
@@ -185,7 +184,6 @@ class Model_ChatMessage {
         }
         return nil
     }
-    
 }
 
 class Model_ChatMedia {
@@ -202,12 +200,9 @@ class Model_ChatMedia {
     }
 }
 
-
-
 struct ST_DateFormater {
     
     private init() {}
-    
     static var UTC_DateFormater: DateFormatter = {
         let formatter = DateFormatter.init()
         formatter.dateFormat =  "dd MMM YYYY, hh:mm a"
@@ -232,15 +227,13 @@ struct ST_DateFormater {
         dateFormate.pmSymbol = "PM"
         return dateFormate
     }()
-    
-    
-    
-    static func UTCToLocal(_ dateStr:String) -> Date {
 
+    static func UTCToLocal(_ dateStr:String) -> Date {
         let date = ST_DateFormater.UTC_DateFormater.date(from: dateStr)
         //let strDate = localToUTC_DateFormater.string(from: date!)
         return date!
     }
+    
     static func Get_Date(_ date: Date) -> Date {
         ST_DateFormater.DateFormaterForChat.dateFormat = "dd MMMM,yyyy hh:mm a"
         let strDate = ST_DateFormater.DateFormaterForChat.string(from: date)
@@ -266,6 +259,4 @@ struct ST_DateFormater {
         ST_DateFormater.DateFormaterForChat.dateFormat = format
         return ST_DateFormater.DateFormaterForChat.string(from: _date)
     }
-    
-    
 }

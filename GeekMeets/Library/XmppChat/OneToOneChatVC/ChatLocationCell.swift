@@ -9,7 +9,7 @@ import UIKit
 import MapKit
 
 class ChatLocationCell: UITableViewCell {
-
+    
     static let reuserID_Outgoing: String = "OutgoingLocation"
     static let reuserID_Incoming: String = "IncomingLocation"
     
@@ -35,7 +35,7 @@ class ChatLocationCell: UITableViewCell {
         // Initialization code
         self.selectionStyle = .none
     }
-
+    
     @IBAction func retryBtnAction(_ sender: UIButton) {
         self.BtnView.alpha = 0.0
         guard let chatMsg = self.chatMsgObj else { return }
@@ -60,7 +60,6 @@ class ChatLocationCell: UITableViewCell {
         self.chatMsgObj = chatMsg
         
         if chatMsg.isOutgoing {
-//            self.btnOption.alpha = 0.0
             self.BtnView.customize(backgroundColor: #colorLiteral(red: 0.7490196078, green: 0.75, blue: 0.75, alpha: 0.3), radiusSize: 7.0, isSend: false)
             self.stackViewHeightConstant.constant = 50
         }
@@ -125,5 +124,4 @@ class ChatLocationCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
     }
-
 }

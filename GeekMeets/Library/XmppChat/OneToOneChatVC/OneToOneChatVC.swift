@@ -38,7 +38,6 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
     
     lazy var lblHeaderTitle: UILabel = {
         let headerTitle = UILabel()
-//        headerTitle.frame = CGRect(x: 100, y: headerView.frame.origin.y + headerView.frame.height/2, w: ScreenSize.width - 200, h: 30)
         headerTitle.backgroundColor = AppCommonColor.ChatViewBGColor
         headerTitle.textAlignment = .center
         headerTitle.cornerRadius = 5
@@ -74,9 +73,7 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
     var alertView: CustomOptionView!
     var customAlertView: CustomAlertView!
     var customImagePickerView: CustomPickImageView!
-    
     var objFriend: Model_ChatFriendList?
-    
     var _userIDForRequestSend: String?
     
     var arrChatMsg:[Model_ChatMessage] = [Model_ChatMessage]()
@@ -209,12 +206,6 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
     //MARK:-=============== XMPP METHODS ====================
     private func SetupXmppCallback() {
         
-//        // user status
-//        SOXmpp.manager._bFriendStatusUpdateCallback = { [weak self] in
-//            DispatchQueue.main.async {
-//                self?.SetTitleAndStatus()
-//            }
-//        }
         // user typing status
         SOXmpp.manager._bChangeTypingStatus = {  [weak self] status in
             DispatchQueue.main.async {
@@ -406,9 +397,7 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
     
     //MARK:-=============== Send Button ====================
     private func GetChatMsgObject() -> Model_ChatMessage {
-        
-        //let filterData = SOXmpp.manager.arrFriendsList.filter { $0 == self.objFriend }
-        
+                
         if self.objFriend == nil {
             let JID = SOXmpp.manager.GetJabberID(of: self._userIDForRequestSend!)
             SOXmpp.manager.xmpp_SendFriendRequest(to: JID)
@@ -441,7 +430,6 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
     }
     
     @IBAction func btnSend() {
-        //self.inputTextView.resignFirstResponder()
         
         if !checkConnection() {
 //            AppSingleton.sharedInstance().showAlert(kInternetDown, okTitle: "OK")
@@ -634,57 +622,10 @@ class OneToOneChatVC: UIViewController ,UIDocumentPickerDelegate , ChatUploadTas
         
         if self.isBlock == 0 {
             self.view.endEditing(true)
-//            self.openImagePickerActionSheet()
             self.openImagePickerView()
         } else {
             self.showAlertView()
         }
-//        let alertController = UIAlertController(title: nil, message: "Choose", preferredStyle: .actionSheet)
-//
-//        let cameraAction = UIAlertAction(title: "Camera", style: .default, handler: { (alert: UIAlertAction!) -> Void in
-//            Chat_Utility.checkCameraAccess(view: self) { [weak self] (_ status) in
-//                guard let `self` = self else { return }
-//                if status {
-//                    DispatchQueue.main.async {
-//                        self.openCamera()
-//                    }
-//                }
-//            }
-//        })
-//
-//        let imageAction = UIAlertAction(title: "Images/Videos", style: .default, handler: { (alert: UIAlertAction!) -> Void in
-//            Chat_Utility.checkGalleryAccess(view: self) { [weak self] (_ status) in
-//                guard let `self` = self else { return }
-//                if status {
-//                    DispatchQueue.main.async {
-//                        self.openImagerPicker()
-//                    }
-//                }
-//            }
-//
-//        })
-//
-//        let documentAction = UIAlertAction(title: "Document", style: .default, handler: { (alert: UIAlertAction!) -> Void in
-//            self.openDocumentPicker()
-//        })
-//
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alert: UIAlertAction!) -> Void in
-//          //  Do something here upon cancellation.
-//        })
-//
-//        alertController.addAction(cameraAction)
-//        alertController.addAction(imageAction)
-//        alertController.addAction(documentAction)
-//        alertController.addAction(cancelAction)
-//
-//        if let popoverController = alertController.popoverPresentationController {
-//            popoverController.sourceView = sender
-//            popoverController.sourceRect = sender.bounds
-//        }
-//
-//        DispatchQueue.main.async {
-//            self.present(alertController, animated: true, completion: nil)
-//        }
     }
     
     func openImagePickerView(){

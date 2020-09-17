@@ -15,7 +15,6 @@ open class TapticEngine {
     public static let selection: Selection = Selection()
     public static let notification: Notification = Notification()
 
-
     /// Wrapper of `UIImpactFeedbackGenerator`
     open class Impact {
 

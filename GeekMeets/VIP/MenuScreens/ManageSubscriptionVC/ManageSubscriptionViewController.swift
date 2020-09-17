@@ -112,8 +112,6 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
                 } else {
                     AppSingleton.sharedInstance().showAlert("Please select plan", okTitle: "OK")
                     return
-//                    let endDate = Calendar.current.date(byAdding: .day, value: 1, to: Date())
-//                    endDateStr = "\(endDate!.currentTimeMillis()/1000)"
                 }
                 let param = RequestParameter.sharedInstance().createSubscriptionParams(vTransactionId: "1214665932543", tiType: planDict["tiType"] as! String, fPrice: planDict["fPrice"] as! String, vReceiptData: "13ncksncocwbwibck", iStartDate: "\(Date().currentTimeMillis()/1000)", iEndDate: endDateStr)
                 self.presenter?.callCreateSubscriptionAPI(param: param)
@@ -161,9 +159,10 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
             planDict = ["productKey" : SubscriptionKeys.Monthly.productKey, "tiType": "2", "fPrice" : "9.99"]
         } else {
             productKey = SubscriptionKeys.Annualy.productKey
-            planDict = ["productKey" : SubscriptionKeys.Monthly.productKey, "tiType": "3", "fPrice" : "89.99"]
+            planDict = ["productKey" : SubscriptionKeys.Annualy.productKey, "tiType": "3", "fPrice" : "89.99"]
         }
     }
+    
     @IBAction func btnSkipAndContinueAction(_ sender: UIButton) {
         dismissVC {
             self.postStoryDelegate.getSubscriptionResponse(status: false)

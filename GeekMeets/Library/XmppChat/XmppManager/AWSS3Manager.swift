@@ -27,13 +27,13 @@ class AWSS3Manager {
     
     var activeUploads: [ChatUploadTask] = [ChatUploadTask]()
     
-    //Divya added
+    //Divya added - Image data Path/Name
     var thumbURlUpload: (path: String, name: String) {
-        let folderName = "Chat/" //"user_critique/"
+        let folderName = "Chat/"
         let timeStamp = Authentication.sharedInstance().GetCurrentTimeStamp()
         let imgExtension = ".jpeg"
-        let path = "\(folderName)\(timeStamp)\(imgExtension)" //"\(folderName)\(prefix)\(timeStamp)\(imgExtension)"
-        return (path: path, name: "\(timeStamp)\(imgExtension)" /*"\(prefix)\(timeStamp)\(imgExtension)"*/)
+        let path = "\(folderName)\(timeStamp)\(imgExtension)"
+        return (path: path, name: "\(timeStamp)\(imgExtension)")
     }
     
     // video data Path/Name
@@ -45,7 +45,7 @@ class AWSS3Manager {
         return (path: path, name: "\(timeStamp)\(videoExtension)")
     }
     
-    // video data Path/Name
+    // Gif data Path/Name
     var gifURlUpload: (path: String, name: String) {
         let folderName = "Chat/"
         let timeStamp = Authentication.sharedInstance().GetCurrentTimeStamp()

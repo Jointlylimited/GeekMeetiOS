@@ -109,7 +109,6 @@ struct GeekMeets_ViewController
     static let Interest_PreferenceScreen = "Interest_PreferenceViewController"
     static let Edit_PreferenceScreen = "EditPreferenceViewController"
     static let OneToOneChatScreen = "OneToOneChatVC"
-    static let ChatListScreen = "ChatListVC"
     static let TipsScreen = "TipsViewController"
     static let FirstCallScreen = "FirstCallViewController"
     static let FirstDateScreen = "FirstDateViewController"

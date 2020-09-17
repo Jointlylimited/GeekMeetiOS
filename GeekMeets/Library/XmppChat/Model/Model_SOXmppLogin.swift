@@ -23,7 +23,6 @@ struct Model_SOXmppLogin: Codable {
         self.userImage = userImage
     }
     
-    
     static func loginToXmpp() {
         
         guard let objLogin =  Model_SOXmppLogin.loadSavedData() else {
@@ -76,5 +75,4 @@ struct Model_SOXmppLogin: Codable {
         }
         return nil
     }
-    
 }

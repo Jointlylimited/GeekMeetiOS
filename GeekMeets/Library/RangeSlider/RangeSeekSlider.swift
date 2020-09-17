@@ -11,16 +11,13 @@ import UIKit
 @IBDesignable open class RangeSeekSlider: UIControl {
 
     // MARK: - initializers
-
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-
         setup()
     }
 
     public required override init(frame: CGRect) {
         super.init(frame: frame)
-
         setup()
     }
 
@@ -29,9 +26,7 @@ import UIKit
         completion?(self)
     }
 
-
     // MARK: - open stored properties
-
     open weak var delegate: RangeSeekSliderDelegate?
 
     /// The minimum possible value to select in the range
@@ -223,7 +218,6 @@ import UIKit
 
 
     // MARK: - private stored properties
-
     private enum HandleTracking { case none, left, right }
     private var handleTracking: HandleTracking = .none
 
@@ -247,9 +241,7 @@ import UIKit
     // see http://stackoverflow.com/questions/13462046/custom-uiview-not-showing-accessibility-on-voice-over
     private var accessibleElements: [UIAccessibilityElement] = []
 
-
     // MARK: - private computed properties
-
     private var leftHandleAccessibilityElement: UIAccessibilityElement {
         let element: RangeSeekSliderLeftElement = RangeSeekSliderLeftElement(accessibilityContainer: self)
         element.isAccessibilityElement = true
@@ -272,9 +264,7 @@ import UIKit
         return element
     }
 
-
     // MARK: - UIView
-
     open override func layoutSubviews() {
         super.layoutSubviews()
 
@@ -291,9 +281,7 @@ import UIKit
         return CGSize(width: UIView.noIntrinsicMetric, height: 65.0)
     }
 
-
     // MARK: - UIControl
-
     open override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         let touchLocation: CGPoint = touch.location(in: self)
         let insetExpansion: CGFloat = -30.0
@@ -301,7 +289,6 @@ import UIKit
         let isTouchingRightHandle: Bool = rightHandle.frame.insetBy(dx: insetExpansion, dy: insetExpansion).contains(touchLocation)
 
         guard isTouchingLeftHandle || isTouchingRightHandle else { return false }
-
 
         // the touch was inside one of the handles so we're definitely going to start movign one of them. But the handles might be quite close to each other, so now we need to find out which handle the touch was closest too, and activate that one.
         let distanceFromLeftHandle: CGFloat = touchLocation.distance(to: leftHandle.frame.center)
@@ -316,7 +303,6 @@ import UIKit
         }
         let handle: CALayer = (handleTracking == .left) ? leftHandle : rightHandle
         animate(handle: handle, selected: true)
-
         delegate?.didStartTouches(in: self)
 
         return true
@@ -361,9 +347,7 @@ import UIKit
         delegate?.didEndTouches(in: self)
     }
 
-
     // MARK: - UIAccessibility
-
     open override func accessibilityElementCount() -> Int {
         return accessibleElements.count
     }
@@ -377,15 +361,11 @@ import UIKit
         return accessibleElements.firstIndex(of: element) ?? 0
     }
 
-
     // MARK: - open methods
-
     /// When subclassing **RangeSeekSlider** and setting each item in **setupStyle()**, the design is reflected in Interface Builder as well.
     open func setupStyle() {}
 
-
     // MARK: - private methods
-
     private func setup() {
         isAccessibilityElement = false
         accessibleElements = [leftHandleAccessibilityElement, rightHandleAccessibilityElement]
@@ -701,9 +681,7 @@ import UIKit
     }
 }
 
-
 // MARK: - RangeSeekSliderLeftElement
-
 private final class RangeSeekSliderLeftElement: UIAccessibilityElement {
 
     override func accessibilityIncrement() {
@@ -719,9 +697,7 @@ private final class RangeSeekSliderLeftElement: UIAccessibilityElement {
     }
 }
 
-
 // MARK: - RangeSeekSliderRightElement
-
 private final class RangeSeekSliderRightElement: UIAccessibilityElement {
 
     override func accessibilityIncrement() {
@@ -739,9 +715,7 @@ private final class RangeSeekSliderRightElement: UIAccessibilityElement {
     }
 }
 
-
 // MARK: - CGRect
-
 private extension CGRect {
 
     var center: CGPoint {
@@ -749,9 +723,7 @@ private extension CGRect {
     }
 }
 
-
 // MARK: - CGPoint
-
 private extension CGPoint {
 
     func distance(to: CGPoint) -> CGFloat {

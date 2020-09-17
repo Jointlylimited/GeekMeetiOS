@@ -59,11 +59,9 @@ public class XMPP_MessageArchiving_Custom: NSManagedObject {
     class func InsertMessage(obj: Model_ChatMessage) {
         
         let context = CoreDataManager.sharedManager.managedContext()
-        
         let managedObj = XMPP_MessageArchiving_Custom(context: context)
         
         let messageJid = obj.isOutgoing ? obj.ToJID : obj.FromJID
-        
         managedObj.body = obj.strMsg
         
         managedObj.bareJid = messageJid?.bareJID
@@ -141,15 +139,10 @@ public class XMPP_MessageArchiving_Custom: NSManagedObject {
                 print("  ============= message not found ")
                 return
             }
-            
-
-            
 
         } catch let error {
             print(error.localizedDescription)
         }
-        
-        
     }
     
     class func RemoveMessage(obj: Model_ChatMessage) {
@@ -216,14 +209,12 @@ public class XMPP_MessageArchiving_Custom: NSManagedObject {
                     return true
                 }
                 return false
-
             }))
             
             return result as NSArray
         } catch {
             print(error.localizedDescription)
         }
-    
         return []
     }
     
@@ -254,6 +245,7 @@ public class XMPP_MessageArchiving_Custom: NSManagedObject {
         }
         return nil
     }
+    
     class func ResetUplodingMessage() {
         
         let context = CoreDataManager.sharedManager.managedContext()
@@ -280,7 +272,5 @@ public class XMPP_MessageArchiving_Custom: NSManagedObject {
         } catch let error {
             print(error.localizedDescription)
         }
-        
-        
     }
 }

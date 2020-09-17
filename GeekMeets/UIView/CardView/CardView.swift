@@ -34,7 +34,6 @@ public class CardView: UIView {
     var objStoryData : [UIImage] = [#imageLiteral(resourceName: "image_1"),#imageLiteral(resourceName: "image_1"),#imageLiteral(resourceName: "image_1")]
     override public func awakeFromNib() {
         super.awakeFromNib()
-//        setData()
     }
     
     func setData(index : Int){

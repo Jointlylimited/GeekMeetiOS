@@ -69,10 +69,9 @@ class SSBadgeButton: UIButton {
             badgeLabel.frame = CGRect(x: x, y: y, width: width, height: height)
         } else {
             let x = self.frame.width - CGFloat((width / 2.0))
-            let y = -CGFloat(height) //CGFloat(-(height / 2.0))
+            let y = -CGFloat(height)
             badgeLabel.frame = CGRect(x: x, y: y, width: CGFloat(width), height: CGFloat(height))
         }
-//        self.backgroundColor = .blue
         badgeLabel.layer.cornerRadius = badgeLabel.frame.height/2
         badgeLabel.layer.masksToBounds = true
         addSubview(badgeLabel)

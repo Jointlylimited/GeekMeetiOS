@@ -74,7 +74,6 @@ public class SwipeableCards: CardView {
         }
     }
     
-   
     // Mark - init
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -129,13 +128,11 @@ private extension SwipeableCards {
         unlikeButton.frame = CGRect(x: 0, y: 100, w: 100, h: 100)
         unlikeButton.backgroundColor = UIColor.clear
         unlikeButton.setImage(#imageLiteral(resourceName: "wrong-1"), for: .normal)
-//        self.addSubview(unlikeButton)
         
         likeButton  = UIButton(type: .custom) as UIButton
         likeButton.frame = CGRect(x: ScreenSize.width - 120, y: 100, w: 100, h: 100)
         likeButton.backgroundColor = UIColor.clear
         likeButton.setImage(#imageLiteral(resourceName: "right"), for: .normal)
-//        self.addSubview(likeButton)
     }
     
     func layoutCards() {
@@ -175,6 +172,7 @@ private extension SwipeableCards {
             }
         }
     }
+    
     @objc func dragAction(_ gestureRecognizer: UIPanGestureRecognizer) {
         guard visibleCards.count > 0 else {
             return
@@ -196,8 +194,6 @@ private extension SwipeableCards {
                 } else if xFromCenter < -actionMargin {
                     self.addSubview(self.unlikeButton)
                 } else {
-//                    self.xFromCenter = 0.0
-//                    self.yFromCenter = 0.0
                 }
                 
                 delegate?.cards(self, beforeSwipingItemAt: currentIndex)
@@ -226,6 +222,7 @@ private extension SwipeableCards {
             }
         }
     }
+    
     func aflerSwipedAction(_ card: CardView) {
         if xFromCenter > Const.actionMargin {
             rightActionFor(card)
@@ -238,8 +235,8 @@ private extension SwipeableCards {
                 card.transform = CGAffineTransform(rotationAngle: 0)
             }
         }
-        
     }
+    
     func rightActionFor(_ card: CardView) {
         let finishPoint = CGPoint(x: 500, y: 2.0 * yFromCenter + originalPoint.y)
         UIView.animate(withDuration: 0.3, animations: {
@@ -249,6 +246,7 @@ private extension SwipeableCards {
             self.cardSwipedAction(card)
         }
     }
+    
     func leftActionFor(_ card: CardView) {
         let finishPoint = CGPoint(x: -500, y: 2.0 * yFromCenter + originalPoint.y)
         UIView.animate(withDuration: 0.3, animations: {
@@ -258,6 +256,7 @@ private extension SwipeableCards {
             self.cardSwipedAction(card)
         }
     }
+    
     func cardSwipedAction(_ card: CardView) {
         swipeEnded = true
         card.transform = CGAffineTransform(rotationAngle: 0)

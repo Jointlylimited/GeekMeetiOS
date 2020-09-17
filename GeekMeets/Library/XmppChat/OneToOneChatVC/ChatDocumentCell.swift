@@ -51,7 +51,6 @@ class ChatDocumentCell: UITableViewCell {
     private func setDeliverAndReadStatus() {
         
         guard let chatMsg = self.chatMsgObj else { return }
-        
         switch chatMsg.msgStatus {
         case 1:
             lblMsgStatus.text = "✓"
@@ -80,12 +79,10 @@ class ChatDocumentCell: UITableViewCell {
             viewUploadContainer.isHidden = true
             btnRetry.isHidden = true
         }
-        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
     }
-
 }

@@ -43,8 +43,8 @@ class RangeSlider : UIControl {
     }
     
     @objc func changeVlaue(_ sender: UISlider) {
-           let textSize = CGFloat(sender.value + 16)
-           print("value is" ,textSize)
-            self.delegate.selectTextSize(size: textSize)
-       }
+        let textSize = CGFloat(sender.value + 16)
+        print("value is" ,textSize)
+        self.delegate.selectTextSize(size: textSize)
+    }
 }

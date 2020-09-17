@@ -16,7 +16,6 @@ open class CountryPickerController: UIViewController {
     var applySearch = false
     
     var callBack: (( _ choosenCountry: Country) -> Void)?
-    
     let bundle = Bundle(for: CountryPickerController.self)
     
     //MARK: View and ViewController
@@ -89,7 +88,6 @@ open class CountryPickerController: UIViewController {
 //        {
 //            uiBarButtonItem.image = uiBarButtonItem.image?.withHorizontallyFlippedOrientation()
 //        }
-        
       
         self.navigationItem.leftBarButtonItem = uiBarButtonItem
         let nib = UINib(nibName: "CountryTableViewCell", bundle: bundle)

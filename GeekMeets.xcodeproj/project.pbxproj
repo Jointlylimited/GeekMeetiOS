@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0B0013C724ACA4B700D2EE83 /* ChatListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0013AF24ACA4B700D2EE83 /* ChatListVC.swift */; };
 		0B0013C824ACA4B700D2EE83 /* Model_ChatFriendList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0013B024ACA4B700D2EE83 /* Model_ChatFriendList.swift */; };
 		0B0013C924ACA4B700D2EE83 /* tblCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0013B124ACA4B700D2EE83 /* tblCell.swift */; };
 		0B0013CA24ACA4B700D2EE83 /* Cell_ChatList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0013B224ACA4B700D2EE83 /* Cell_ChatList.swift */; };
@@ -372,9 +371,6 @@
 		F7E6DB532459B3DA0031A035 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E6DB512459B3DA0031A035 /* PreviewViewController.swift */; };
 		F7E6DB542459B3DA0031A035 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E6DB522459B3DA0031A035 /* ViewController.swift */; };
 		F7F8F5BC2452BD3200CA82E7 /* SelectAgeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F8F5BB2452BD3200CA82E7 /* SelectAgeCell.swift */; };
-		F7F8F5C52452EDDC00CA82E7 /* SelectGenderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F8F5C42452EDDC00CA82E7 /* SelectGenderCell.swift */; };
-		F7F8F5D52452FB8000CA82E7 /* SelectSocialMediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F8F5D42452FB8000CA82E7 /* SelectSocialMediaCell.swift */; };
-		F7F8F5D72452FC0E00CA82E7 /* SelectCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F8F5D62452FC0E00CA82E7 /* SelectCategories.swift */; };
 		F7F9678F2451AAF200BD7275 /* Questionnaire.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7F9678E2451AAF100BD7275 /* Questionnaire.storyboard */; };
 		F7F967952451ABF400BD7275 /* SelectAgeRangePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F967922451ABF400BD7275 /* SelectAgeRangePresenter.swift */; };
 		F7F967962451ABF400BD7275 /* SelectAgeRangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F967932451ABF400BD7275 /* SelectAgeRangeViewController.swift */; };
@@ -425,7 +421,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0B0013AF24ACA4B700D2EE83 /* ChatListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatListVC.swift; sourceTree = "<group>"; };
 		0B0013B024ACA4B700D2EE83 /* Model_ChatFriendList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model_ChatFriendList.swift; sourceTree = "<group>"; };
 		0B0013B124ACA4B700D2EE83 /* tblCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tblCell.swift; sourceTree = "<group>"; };
 		0B0013B224ACA4B700D2EE83 /* Cell_ChatList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cell_ChatList.swift; sourceTree = "<group>"; };
@@ -799,9 +794,6 @@
 		F7E6DB512459B3DA0031A035 /* PreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		F7E6DB522459B3DA0031A035 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F7F8F5BB2452BD3200CA82E7 /* SelectAgeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAgeCell.swift; sourceTree = "<group>"; };
-		F7F8F5C42452EDDC00CA82E7 /* SelectGenderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenderCell.swift; sourceTree = "<group>"; };
-		F7F8F5D42452FB8000CA82E7 /* SelectSocialMediaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSocialMediaCell.swift; sourceTree = "<group>"; };
-		F7F8F5D62452FC0E00CA82E7 /* SelectCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategories.swift; sourceTree = "<group>"; };
 		F7F9678E2451AAF100BD7275 /* Questionnaire.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Questionnaire.storyboard; sourceTree = "<group>"; };
 		F7F967922451ABF400BD7275 /* SelectAgeRangePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAgeRangePresenter.swift; sourceTree = "<group>"; };
 		F7F967932451ABF400BD7275 /* SelectAgeRangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAgeRangeViewController.swift; sourceTree = "<group>"; };
@@ -884,7 +876,6 @@
 		0B0013AE24ACA4B700D2EE83 /* ChatList */ = {
 			isa = PBXGroup;
 			children = (
-				0B0013AF24ACA4B700D2EE83 /* ChatListVC.swift */,
 				0B0013B024ACA4B700D2EE83 /* Model_ChatFriendList.swift */,
 				0B0013B124ACA4B700D2EE83 /* tblCell.swift */,
 				0B0013B224ACA4B700D2EE83 /* Cell_ChatList.swift */,
@@ -1940,9 +1931,6 @@
 				F79604BC244597A2002FFB79 /* TutorialCell.swift */,
 				F7164AC8244EBD4F00853BFC /* AddPhotoCollectionViewCell.swift */,
 				F7F8F5BB2452BD3200CA82E7 /* SelectAgeCell.swift */,
-				F7F8F5C42452EDDC00CA82E7 /* SelectGenderCell.swift */,
-				F7F8F5D42452FB8000CA82E7 /* SelectSocialMediaCell.swift */,
-				F7F8F5D62452FC0E00CA82E7 /* SelectCategories.swift */,
 			);
 			path = UICollectionViewCell;
 			sourceTree = "<group>";
@@ -2978,7 +2966,6 @@
 				0B535686245088DC005571AF /* EditProfileViewController.swift in Sources */,
 				0B9499E32451DBC4001AD1C8 /* ContactUS_LegalViewController.swift in Sources */,
 				0BF7080A244F1D3C003D6AB7 /* MatchProfileViewController.swift in Sources */,
-				F7F8F5D52452FB8000CA82E7 /* SelectSocialMediaCell.swift in Sources */,
 				F97A9A2D21103FAA007C45F5 /* EZSwiftFunctions.swift in Sources */,
 				0BF5ACBC24923B34000B54E6 /* SearchUser.swift in Sources */,
 				F7F967962451ABF400BD7275 /* SelectAgeRangeViewController.swift in Sources */,
@@ -3080,7 +3067,6 @@
 				0BCE8CC624C011C50060AC01 /* CAPSPageMenu+Options.swift in Sources */,
 				0B4CA0372457EA5200A3460B /* ChangePasswordViewController.swift in Sources */,
 				0B4CA0382457EA5200A3460B /* ChangePasswordInteractor.swift in Sources */,
-				F7F8F5C52452EDDC00CA82E7 /* SelectGenderCell.swift in Sources */,
 				0B6B4305247FDCD4005240B8 /* CustomOptionView.swift in Sources */,
 				0B31965E244DE80500B38350 /* ProfileCompanyCell.swift in Sources */,
 				0BABEB3924BD912F0084A3E1 /* BoostGeekResponse.swift in Sources */,
@@ -3116,7 +3102,6 @@
 				0BD88AFF2497AD0200C8C025 /* ViewNotification.swift in Sources */,
 				0B9499D52451DBC4001AD1C8 /* DiscoverySettingInteractor.swift in Sources */,
 				0B0B4B132475245E0047EB11 /* Interest_PreferencePresenter.swift in Sources */,
-				0B0013C724ACA4B700D2EE83 /* ChatListVC.swift in Sources */,
 				0B94820D247B8E4B00189630 /* UserPhotosModel.swift in Sources */,
 				0BF5ACBD24923B34000B54E6 /* SearchUserFields.swift in Sources */,
 				0B53567624508775005571AF /* GradientLabel.swift in Sources */,
@@ -3124,7 +3109,6 @@
 				F7164AC9244EBD4F00853BFC /* AddPhotoCollectionViewCell.swift in Sources */,
 				F96C2D202037E92B00F8CBC7 /* L012Localizer.swift in Sources */,
 				0B74993124E2CD8600628CC9 /* MatchByBothViewController.swift in Sources */,
-				F7F8F5D72452FC0E00CA82E7 /* SelectCategories.swift in Sources */,
 				0B0013C924ACA4B700D2EE83 /* tblCell.swift in Sources */,
 				0B9499D32451DBC4001AD1C8 /* ManageSubscriptionViewController.swift in Sources */,
 			);

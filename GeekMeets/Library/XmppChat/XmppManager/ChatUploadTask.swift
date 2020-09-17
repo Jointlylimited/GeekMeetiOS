@@ -41,9 +41,7 @@ class ChatUploadTask {
     
     weak var delegate: ChatUploadTaskDelegate?
     
-    //
     // MARK: - Initialization
-    //
     init(objChat: Model_ChatMessage , localPath: URL) {
         self.objChat = objChat
         self.localPath = localPath
@@ -78,14 +76,9 @@ class ChatUploadTask {
             print(jsonStr)
             
             XMPP_MessageArchiving_Custom.UpdateMessage(obj: objChat)
-            
             self.delegate?.UploadCompleted(CompletionData: _data, error: error, objChatMsg: self.objChat)
             
             SOXmpp.manager.xmpp_SendMessage(bodyData: jsonStr, objMsg: self.objChat)
-
         }
-        
     }
-    
 }
-

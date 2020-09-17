@@ -84,17 +84,17 @@ class BoostInteractor: BoostInteractorProtocol, BoostDataStore {
                 LoaderView.sharedInstance.hideLoader()
             }
             if response?.responseCode == 200 {
-                self.presenter?.getBoostResponse(response: response!)
+                self.presenter?.getActiveBoostResponse(response: response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
                 AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else if response?.responseCode == 400 {
-                self.presenter?.getBoostResponse(response: response!)
+                self.presenter?.getActiveBoostResponse(response: response!)
             }  else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
                 } else {
-                    self.presenter?.getBoostResponse(response: response!)
+                    self.presenter?.getActiveBoostResponse(response: response!)
                 }
             }
         }

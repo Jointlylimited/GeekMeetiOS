@@ -84,17 +84,17 @@ class TopGeeksInteractor: TopGeeksInteractorProtocol, TopGeeksDataStore {
                 LoaderView.sharedInstance.hideLoader()
             }
             if response?.responseCode == 200 {
-                self.presenter?.getGeeksResponse(response: response!)
+                self.presenter?.getActiveGeeksResponse(response: response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
                 AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else if response?.responseCode == 400 {
-                self.presenter?.getGeeksResponse(response: response!)
+                self.presenter?.getActiveGeeksResponse(response: response!)
             }  else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
                 } else {
-                    self.presenter?.getGeeksResponse(response: response!)
+                    self.presenter?.getActiveGeeksResponse(response: response!)
                 }
             }
         }

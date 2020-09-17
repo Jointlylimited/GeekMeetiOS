@@ -41,7 +41,6 @@ class LocationManager: NSObject,CLLocationManagerDelegate {
         // setup code
         return instance
     }()
-    
 
     //MARK:- Destroy the LocationManager
     deinit {
@@ -57,7 +56,6 @@ class LocationManager: NSObject,CLLocationManagerDelegate {
         locationManager?.desiredAccuracy = locationAccuracy
         locationManager?.delegate = self
         locationManager?.requestWhenInUseAuthorization()
-        
     }
     
     private func destroyLocationManager() {
@@ -89,7 +87,6 @@ class LocationManager: NSObject,CLLocationManagerDelegate {
             lastLocation = nil
             return
         }
-        
         self.reverseGeoCoding(location: lastLocation)
         lastLocation = nil
     }
@@ -275,7 +272,6 @@ class LocationManager: NSObject,CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         
         switch status {
-            
         case .authorizedWhenInUse,.authorizedAlways:
             self.locationManager?.startUpdatingLocation()
             if self.reverseGeocoding {

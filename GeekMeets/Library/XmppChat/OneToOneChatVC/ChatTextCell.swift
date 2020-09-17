@@ -37,7 +37,6 @@ class ChatTextCell: UITableViewCell {
         self.chatMsgObj = chatMsg
         
         if chatMsg.isOutgoing {
-            
             self.BtnView.customize(backgroundColor: #colorLiteral(red: 0.7490196078, green: 0.75, blue: 0.75, alpha: 0.3), radiusSize: 7.0, isSend: false)
             self.stackViewHeightConstant.constant = 50
         }
@@ -91,5 +90,4 @@ class ChatTextCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
     }
-
 }

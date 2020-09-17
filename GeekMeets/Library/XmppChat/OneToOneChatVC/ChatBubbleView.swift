@@ -14,10 +14,9 @@ class ChatBubbleView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-//        layer.cornerRadius = 10.0
         layer.masksToBounds = true
-        
     }
+    
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         self.layoutSubviews()

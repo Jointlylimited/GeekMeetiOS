@@ -94,12 +94,10 @@ struct Chat_Utility {
     
     static func getOneToOneMsgBody(objChat: Model_ChatMessage)-> String {
         
-        
         var dictText = [String: String]()
         dictText[XMPP_Message_Key.message] = objChat.strMsg ?? ""
         
         var dict = [String: Any]()
-        
         dict[XMPP_Message_Key.messageDesc] = dictText
         
         dict[XMPP_Message_Key.messageType] = objChat.msgType!
@@ -213,7 +211,6 @@ struct Chat_Utility {
  */
     }
     
-    
     static func getJsonString(from dictionary: [String: Any]) -> String {
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
@@ -229,10 +226,7 @@ struct Chat_Utility {
         }
     }
     
-    
     static let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-    
-    
     static func SaveImageToDocumentDirectory(image: UIImage) -> (URL?,NSError?) {
         
         guard let imageData = image.jpegData(compressionQuality: 1.0) else {
@@ -251,9 +245,7 @@ struct Chat_Utility {
             let error = NSError(domain:"", code:402, userInfo:[NSLocalizedDescriptionKey: "invalid image"])
             return (nil, error)
         }
-        
     }
-    
     
     static func Save_Media_ToDocumentDirectory(mediaType: XMPP_Message_Type , data: Data) -> (URL?,NSError?) {
         
@@ -280,7 +272,6 @@ struct Chat_Utility {
             let error = NSError(domain:"", code:402, userInfo:[NSLocalizedDescriptionKey: "invalid image"])
             return (nil, error)
         }
-        
     }
     
     static func DeleteItemFromDocumentDirectory(path: URL) {
@@ -290,7 +281,6 @@ struct Chat_Utility {
             print("Error while deleting item from document directory === \(error.localizedDescription)")
         }
     }
-    
     
     static func checkCameraAccess(view: UIViewController, completion: @escaping ((Bool) -> Void)) {
         
@@ -345,7 +335,6 @@ struct Chat_Utility {
             complition(true)
         }
     }
-    
 }
 
 

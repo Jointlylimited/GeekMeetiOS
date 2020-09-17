@@ -220,10 +220,7 @@ extension BoostViewController {
         print(response)
         if response.responseCode == 200 {
             resetButtonView()
-            self.btnActiveBoostPlans.setTitle("\(response.responseData?.pendingBoost ?? 0)", for: .normal)
-            if response.responseData?.tiPlanType == 1 || response.responseData?.tiPlanType == 3 {
-                setBoostNowButton(data : response.responseData!)
-            }
+            self.presenter?.callBoostPlansAPI()
         } else {
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }

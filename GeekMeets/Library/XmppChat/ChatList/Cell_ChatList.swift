@@ -26,5 +26,4 @@ class Cell_ChatList: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
 }

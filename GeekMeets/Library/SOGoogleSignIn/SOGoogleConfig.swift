@@ -46,7 +46,6 @@ extension AppDelegate {
 extension SOGoogleConfig : GIDSignInDelegate {
     
     //var GoogleConfigDelegate: GoogleManagerDelegate?
-    
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         print("didDisconnectWith", user)
         print("didDisconnectWith", error)
@@ -78,7 +77,6 @@ extension SOGoogleConfig : GIDSignInDelegate {
         self.delegate?.receiveResponse(user: user, error: error)
     }
 }
-
 
 //extension SOGoogleConfig : GIDSignInUIDelegate {
 //    //GOOGLE

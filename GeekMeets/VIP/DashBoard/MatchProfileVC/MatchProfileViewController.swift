@@ -476,7 +476,7 @@ extension MatchProfileViewController : UITableViewDataSource, UITableViewDelegat
         headerTitle.frame = CGRect(x: headerView.frame.origin.x + 60, y: headerView.frame.origin.y + 10, w: ScreenSize.width - 60, h: 30)
         headerTitle.text = objProfileData.cells[section].sectionTitle
         headerTitle.textColor = .black
-        headerTitle.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        headerTitle.font = UIFont(name: FontTypePoppins.Poppins_SemiBold.rawValue, size: 14)
         headerView.addSubview(headerTitle)
         
         return headerView
@@ -585,7 +585,7 @@ extension MatchProfileViewController : UICollectionViewDataSource, UICollectionV
 //MARK: AlertView Delegate Methods
 extension MatchProfileViewController {
     func showAlertView() {
-        alertView = CustomAlertView.initAlertView(title: tiIsBlocked == 0 ? kBlockStr : kUnblockStr, message: tiIsBlocked == 0 ? kBlockDesStr : kUnblockDesStr, btnRightStr: tiIsBlocked == 0 ? "Block" : "Unblock", btnCancelStr: "Cancel", btnCenter: "", isSingleButton: false)
+        alertView = CustomAlertView.initAlertView(title: tiIsBlocked == 0 ? kBlockStr : kUnblockStr, message: tiIsBlocked == 0 ? kBlockDesStr : kUnblockDesStr, btnRightStr: tiIsBlocked == 0 ? kTitleBlock : kTitleUnBlock, btnCancelStr: "Cancel", btnCenter: "", isSingleButton: false)
       alertView.delegate = self
       alertView.frame = self.view.frame
       self.view.addSubview(alertView)

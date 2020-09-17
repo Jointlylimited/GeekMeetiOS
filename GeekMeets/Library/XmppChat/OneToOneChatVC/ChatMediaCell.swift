@@ -15,7 +15,7 @@ protocol ProtocolChatMessageRetry: class {
 }
 
 class ChatMediaCell: UITableViewCell {
-
+    
     static let reuseID_Incoming: String = "ChatMedia_Incoming"
     static let reuseID_Outgoing: String = "ChatMedia_Outgoing"
     
@@ -43,13 +43,13 @@ class ChatMediaCell: UITableViewCell {
         // Initialization code
         self.selectionStyle = .none
     }
-
     
     @IBAction func retryBtnAction(_ sender: UIButton) {
         self.BtnView.alpha = 0.0
         guard let chatMsg = self.chatMsgObj else { return }
         self.delegate?.RetryBtnPressed(for: chatMsg)
     }
+    
     @IBAction func btnMenuAction(_ sender: UIButton) {
         if self.BtnView.alpha == 0.0 {
             self.BtnView.alpha = 1.0
@@ -68,16 +68,9 @@ class ChatMediaCell: UITableViewCell {
         self.chatMsgObj = chatMsg
         
         if chatMsg.isOutgoing {
-//            if self.chatMsgObj!.msgStatus != 1 && self.chatMsgObj!.msgStatus != 2 && self.chatMsgObj!.msgStatus != 3 {
-                self.btnOption.alpha = 0.0
-                self.BtnView.customize(backgroundColor: #colorLiteral(red: 0.7490196078, green: 0.75, blue: 0.75, alpha: 0.3), radiusSize: 7.0, isSend: false)
-                self.stackViewHeightConstant.constant = 50
-//            } else {
-//                self.BtnView.removeArrangedSubview(resendView)
-//                self.stackViewHeightConstant.constant = 20
-//                self.resendView.alpha = 0.0
-//                self.BtnView.customize(backgroundColor: #colorLiteral(red: 0.75, green: 0.75, blue: 0.75, alpha: 0.5), radiusSize: 5.0, isSend: true)
-//            }
+            self.btnOption.alpha = 0.0
+            self.BtnView.customize(backgroundColor: #colorLiteral(red: 0.7490196078, green: 0.75, blue: 0.75, alpha: 0.3), radiusSize: 7.0, isSend: false)
+            self.stackViewHeightConstant.constant = 50
         }
         lblDateTime.text = ST_DateFormater.GetTime(from: chatMsg.timestamp)
         imgView.image = nil
@@ -86,7 +79,6 @@ class ChatMediaCell: UITableViewCell {
             viewUploadContainer.isHidden = false
             activityIndicator.stopAnimating()
             btnRetry.isHidden = false
-            
         } else if chatMsg.isUploading {
             viewUploadContainer.isHidden = false
             activityIndicator.startAnimating()
@@ -109,14 +101,11 @@ class ChatMediaCell: UITableViewCell {
             imgVideoPreview.isHidden = true
             self.setMediaImage()
         }
-        
     }
     
-    
     private func setMediaImage() {
-       
-        guard let chatMsg = self.chatMsgObj else { return }
         
+        guard let chatMsg = self.chatMsgObj else { return }
         if let _url = chatMsg.getLocalPath() {
             imgView.sd_setImage(with: _url, placeholderImage: nil, options: [.scaleDownLargeImages], context: nil)
         } else {
@@ -132,8 +121,7 @@ class ChatMediaCell: UITableViewCell {
                 self.viewUploadContainer.isHidden = true
             }
         }
-        
-    }//
+    }
     
     private func setMediaVideoThumnail() {
         
@@ -151,38 +139,35 @@ class ChatMediaCell: UITableViewCell {
             imgView.sd_setImage(with: _url, placeholderImage: #imageLiteral(resourceName: "placeholder_rect"), options: [.scaleDownLargeImages], context: nil)
             
             if chatMsg.url.count > 0 {
-                 self.viewUploadContainer.isHidden = true
+                self.viewUploadContainer.isHidden = true
             }
         }
-        
-        
-    }//
+    }
     
     private func setDeliverAndReadStatus() {
         
         guard let chatMsg = self.chatMsgObj else { return }
         
-       /* switch chatMsg.msgStatus {
-        case 1:
-            lblMsgStatus.text = "✓"
-            lblMsgStatus.textColor = .white; break
-        case 2:
-            lblMsgStatus.text = "✓✓"
-            lblMsgStatus.textColor = .white; break
-        case 3:
-            lblMsgStatus.text = "✓✓"
-            lblMsgStatus.textColor = .green; break
-        default:
-            lblMsgStatus.text = "Sending..."
-            lblMsgStatus.textColor = .white
-        }*/
+        /* switch chatMsg.msgStatus {
+         case 1:
+         lblMsgStatus.text = "✓"
+         lblMsgStatus.textColor = .white; break
+         case 2:
+         lblMsgStatus.text = "✓✓"
+         lblMsgStatus.textColor = .white; break
+         case 3:
+         lblMsgStatus.text = "✓✓"
+         lblMsgStatus.textColor = .green; break
+         default:
+         lblMsgStatus.text = "Sending..."
+         lblMsgStatus.textColor = .white
+         }*/
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
-
 }
 

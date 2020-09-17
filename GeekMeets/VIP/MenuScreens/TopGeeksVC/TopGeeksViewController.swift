@@ -213,6 +213,7 @@ extension TopGeeksViewController {
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }
     }
+    
     func callActiveGeeksAPI(){
         self.presenter?.callActiveGeeksAPI()
     }
@@ -221,9 +222,7 @@ extension TopGeeksViewController {
         print(response)
         if response.responseCode == 200 {
             resetButtonView()
-            if response.responseData?.tiPlanType == 2 || response.responseData?.tiPlanType == 3 {
-                setActiveNowButton(data : response.responseData!)
-            }
+            self.presenter?.callGeeksPlansAPI()
         } else {
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }
