@@ -12,6 +12,12 @@
 
 import UIKit
 
+struct PlanData {
+    var days = String()
+    var duration = String()
+    var price = String()
+}
+
 protocol BoostProtocol: class {
     func getBoostPlansResponse(response : BoostGeekResponse)
     func getBoostResponse(response : BoostGeekResponse)
@@ -29,6 +35,7 @@ class BoostViewController: UIViewController, BoostProtocol {
     @IBOutlet weak var btnBoostNow: UIButton!
     @IBOutlet var btnViews: [UIView]!
     @IBOutlet weak var bgViewHeightConstant: NSLayoutConstraint!
+    @IBOutlet weak var PlanCollectionView: UICollectionView!
     
     var planDict : NSDictionary = [:]
     var timer = Timer()
@@ -36,6 +43,8 @@ class BoostViewController: UIViewController, BoostProtocol {
     var totalHour : Int!
     var totalMin : Int!
     var totalSecond : Int!
+    var PlanDetailsArray : [PlanData] = []
+    var selectedIndex : Int = 0
     
      // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -69,10 +78,24 @@ class BoostViewController: UIViewController, BoostProtocol {
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setCollectionView()
         self.bgViewHeightConstant.constant = DeviceType.hasNotch || DeviceType.iPhone11 || DeviceType.iPhone11or11Pro ? 230 : 180
         self.presenter?.callBoostPlansAPI()
     }
 
+    func setCollectionView(){
+        
+        self.PlanDetailsArray = [PlanData(days: "1", duration: "Boost", price: "$1.99"), PlanData(days: "5", duration: "Boost", price: "$3.99"), PlanData(days: "8", duration: "Boost", price: "$6.99"), PlanData(days: "10 + 10", duration: "Boost", price: "$14.99")]
+        self.PlanCollectionView.register(UINib.init(nibName: Cells.PlanCollectionCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.PlanCollectionCell)
+        self.PlanCollectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        
+        let layout = CustomImageLayout()
+        layout.scrollDirection = .horizontal
+        self.PlanCollectionView.collectionViewLayout = layout
+        
+        self.PlanCollectionView.reloadData()
+    }
+    
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.dismissVC(completion: nil)
     }
@@ -223,6 +246,49 @@ extension BoostViewController {
             self.presenter?.callBoostPlansAPI()
         } else {
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        }
+    }
+}
+
+//MARK: UICollectionview Delegate & Datasource Methods
+extension BoostViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.PlanDetailsArray.count != 0 ? self.PlanDetailsArray.count : 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell : PlanCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PlanCollectionCell, for: indexPath) as! PlanCollectionCell
+        let data = self.PlanDetailsArray[indexPath.row]
+        cell.lblPlanCount.text = data.days
+        cell.lblduration.text = data.duration
+        cell.lblPrice.text = data.price
+        cell.btnPopular.alpha = 0.0
+        cell.cellView.borderColor = .clear
+        if indexPath.row == selectedIndex {
+            cell.cellView.borderColor = #colorLiteral(red: 1, green: 0.5468347001, blue: 0, alpha: 0.7938481675)
+        }
+        
+        if indexPath.row == self.PlanDetailsArray.count - 1 {
+            cell.btnPopular.alpha = 1.0
+        }
+        return cell
+    }
+    
+     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let height = collectionView.frame.height
+        return CGSize(width: 150, height: height - 20)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // Parallax visible cells
+        let center = CGPoint(x: scrollView.contentOffset.x + (scrollView.frame.width / 2), y: (scrollView.frame.height / 2))
+        if let ip = PlanCollectionView.indexPathForItem(at: center) {
+            self.selectedIndex = ip.row
+            self.PlanCollectionView.reloadData()
         }
     }
 }

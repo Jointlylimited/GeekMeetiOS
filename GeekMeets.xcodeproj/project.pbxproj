@@ -241,6 +241,8 @@
 		0BD88AFF2497AD0200C8C025 /* ViewNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD88AFE2497AD0200C8C025 /* ViewNotification.swift */; };
 		0BDB9DA02476405000BA2F39 /* iOSawsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 0BDB9D9F2476405000BA2F39 /* iOSawsconfiguration.json */; };
 		0BDB9DA2247640A800BA2F39 /* AWSHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDB9DA1247640A800BA2F39 /* AWSHelper.swift */; };
+		0BDFBCD72514944B00AFE174 /* PlanCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDFBCD52514944B00AFE174 /* PlanCollectionCell.swift */; };
+		0BDFBCD82514944B00AFE174 /* PlanCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BDFBCD62514944B00AFE174 /* PlanCollectionCell.xib */; };
 		0BE0314524DC459E004323C7 /* StoryResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE0314424DC459D004323C7 /* StoryResponseData.swift */; };
 		0BE21272244976AF004817BC /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BE21260244976AF004817BC /* Poppins-ExtraLight.ttf */; };
 		0BE21273244976AF004817BC /* Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BE21261244976AF004817BC /* Poppins-ThinItalic.ttf */; };
@@ -661,6 +663,8 @@
 		0BD88AFE2497AD0200C8C025 /* ViewNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewNotification.swift; sourceTree = "<group>"; };
 		0BDB9D9F2476405000BA2F39 /* iOSawsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = iOSawsconfiguration.json; sourceTree = "<group>"; };
 		0BDB9DA1247640A800BA2F39 /* AWSHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSHelper.swift; sourceTree = "<group>"; };
+		0BDFBCD52514944B00AFE174 /* PlanCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCollectionCell.swift; sourceTree = "<group>"; };
+		0BDFBCD62514944B00AFE174 /* PlanCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlanCollectionCell.xib; sourceTree = "<group>"; };
 		0BE0314424DC459D004323C7 /* StoryResponseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryResponseData.swift; sourceTree = "<group>"; };
 		0BE21260244976AF004817BC /* Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
 		0BE21261244976AF004817BC /* Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
@@ -1642,6 +1646,15 @@
 			path = AWS;
 			sourceTree = "<group>";
 		};
+		0BDFBCD42514942500AFE174 /* PlanCollectionCell */ = {
+			isa = PBXGroup;
+			children = (
+				0BDFBCD52514944B00AFE174 /* PlanCollectionCell.swift */,
+				0BDFBCD62514944B00AFE174 /* PlanCollectionCell.xib */,
+			);
+			path = PlanCollectionCell;
+			sourceTree = "<group>";
+		};
 		0BE2125F244976AF004817BC /* poppins */ = {
 			isa = PBXGroup;
 			children = (
@@ -1900,6 +1913,7 @@
 		F79604BA24459767002FFB79 /* UIView */ = {
 			isa = PBXGroup;
 			children = (
+				0BDFBCD42514942500AFE174 /* PlanCollectionCell */,
 				0B69E1152487B43200200168 /* PreferenceListCell */,
 				0B56B5FE24861C06004A62D4 /* CustomPageIndicator */,
 				0B6B4302247FDCB0005240B8 /* CustomOptionView */,
@@ -2543,6 +2557,7 @@
 				F7D52594244858F3002D3A42 /* LoginSingUp.storyboard in Resources */,
 				0B31963B244DE7E100B38350 /* PhotoEmojiCell.xib in Resources */,
 				0B7F33CC246ED80D007ADF8D /* SocialLinkCell.xib in Resources */,
+				0BDFBCD82514944B00AFE174 /* PlanCollectionCell.xib in Resources */,
 				F7DFAE3B24501192008863F3 /* CountryPickerController.bundle in Resources */,
 				F7F9678F2451AAF200BD7275 /* Questionnaire.storyboard in Resources */,
 				F953B8DE20467B3300BE4F67 /* Settings.storyboard in Resources */,
@@ -3045,6 +3060,7 @@
 				0B921C3424571C510010AE04 /* SearchListCell.swift in Sources */,
 				F76A8D862440396800ED9947 /* CustomerEnumaration.swift in Sources */,
 				0B319654244DE80500B38350 /* MenuPresenter.swift in Sources */,
+				0BDFBCD72514944B00AFE174 /* PlanCollectionCell.swift in Sources */,
 				0B7F33CF246ED86E007ADF8D /* SocialMediaLinkVC.swift in Sources */,
 				F9A4539F203AA7200065C9FD /* Constantt.swift in Sources */,
 				0BBD65F82449C8A500CA178A /* MatchPresenter.swift in Sources */,

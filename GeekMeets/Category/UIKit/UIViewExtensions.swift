@@ -1219,4 +1219,24 @@ extension UIStackView {
         subView.clipsToBounds = true
     }
 }
+
+extension UIImageView {
+
+    @objc func blurBackground() {
+        if !UIAccessibility.isReduceTransparencyEnabled {
+            self.backgroundColor = .clear
+
+            let blurEffect = UIBlurEffect(style: .light)
+            let blurEffectView = UIVisualEffectView(effect: blurEffect)
+            //always fill the view
+            blurEffectView.frame = self.self.bounds
+            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+            self.insertSubview(blurEffectView, at: 0)
+        } else {
+            self.backgroundColor = .clear
+        }
+    }
+
+}
 #endif

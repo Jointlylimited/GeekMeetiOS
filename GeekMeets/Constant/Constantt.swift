@@ -130,7 +130,8 @@ struct Cells {
     static let SocialLinkCell = "SocialLinkCell"
     static let NotificationListCell = "NotificationListCell"
     static let SelectTextTypeCell = "SelectTextTypeCell"
-    static let PreferenceListCell = "PreferenceListCell" 
+    static let PreferenceListCell = "PreferenceListCell"
+    static let PlanCollectionCell = "PlanCollectionCell"
 }
 
 struct DeviceType {

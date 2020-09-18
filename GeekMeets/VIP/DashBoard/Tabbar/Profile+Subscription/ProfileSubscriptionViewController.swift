@@ -15,6 +15,9 @@ class ProfileSubscriptionViewController: UIViewController {
     @IBOutlet weak var imgProfile: UIImageView!
     @IBOutlet weak var lblActiveGeek: UILabel!
     @IBOutlet weak var lblActiveBoost: UILabel!
+    @IBOutlet weak var lblAbout: UILabel!
+    @IBOutlet weak var btnAddPhotos: UIButton!
+    @IBOutlet weak var btnSettings: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,12 +33,19 @@ class ProfileSubscriptionViewController: UIViewController {
         SDImageCache.shared.clearMemory()
         SDImageCache.shared.clearDisk()
         
+        self.lblUserNameAge.text = "\(UserDataModel.currentUser!.vName ?? ""), \(UserDataModel.currentUser!.tiAge ?? 25)"
+        self.lblAbout.text = "\(UserDataModel.currentUser?.vLiveIn ?? "")\n \(UserDataModel.currentUser?.txCompanyDetail ?? "")"
+        
         //ProfileImage setup
         if UserDataModel.currentUser?.vProfileImage != "" {
             let url = URL(string:"\(UserDataModel.currentUser!.vProfileImage!)")
             print(url!)
             self.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_round"))
         }
+        
+        self.btnAddPhotos.dropShadow(view: self.btnAddPhotos)
+        self.btnSettings.dropShadow(view: self.btnSettings)
+        
         self.callGeeksPlansAPI()
     }
     
