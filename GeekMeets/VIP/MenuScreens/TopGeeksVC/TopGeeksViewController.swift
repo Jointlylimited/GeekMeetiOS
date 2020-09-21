@@ -29,6 +29,8 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     @IBOutlet weak var btnActiveNow: UIButton!
     @IBOutlet var btnViews: [UIView]!
     @IBOutlet weak var bgViewHeightConstant: NSLayoutConstraint!
+    @IBOutlet weak var PlanCollectionView: UICollectionView!
+    @IBOutlet weak var pageControl: UIPageControl!
     
     var planDict : NSDictionary = [:]
     var timer = Timer()
@@ -36,6 +38,9 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     var totalHour : Int!
     var totalMin : Int!
     var totalSecond : Int!
+    
+    var PlanDetailsArray : [PlanData] = []
+    var selectedIndex : Int = 0
     
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -69,8 +74,24 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setCollectionView()
         self.bgViewHeightConstant.constant = DeviceType.hasNotch || DeviceType.iPhone11 || DeviceType.iPhone11or11Pro ? 230 : 180
         self.presenter?.callGeeksPlansAPI()
+    }
+    
+    func setCollectionView(){
+        
+        self.PlanDetailsArray = [PlanData(days: "1", duration: "Top Story", price: "$1.99", planType: "2", BoostGeekCount: "0", GeekCount: "1"), PlanData(days: "4", duration: "Top Stories", price: "$3.99", planType: "2", BoostGeekCount: "0", GeekCount: "4"), PlanData(days: "8", duration: "Top Stories", price: "$6.99", planType: "2", BoostGeekCount: "0", GeekCount: "8"), PlanData(days: "10 + 10", duration: "Top Stories", price: "$14.99", planType: "1", BoostGeekCount: "10", GeekCount: "10")]
+        self.PlanCollectionView.register(UINib.init(nibName: Cells.PlanCollectionCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.PlanCollectionCell)
+        self.PlanCollectionView.contentInset = UIEdgeInsets(top: 10, left: 30, bottom: 10, right: 30)
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = 15
+        self.PlanCollectionView.collectionViewLayout = layout
+        self.PlanCollectionView.reloadData()
+        
+        self.pageControl.numberOfPages = self.PlanDetailsArray.count
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
@@ -229,4 +250,65 @@ extension TopGeeksViewController {
     }
 }
 
+//MARK: UICollectionview Delegate & Datasource Methods
+extension TopGeeksViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.PlanDetailsArray.count != 0 ? self.PlanDetailsArray.count : 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell : PlanCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PlanCollectionCell, for: indexPath) as! PlanCollectionCell
+        let data = self.PlanDetailsArray[indexPath.row]
+        cell.lblPlanCount.text = data.days
+        cell.lblduration.text = data.duration
+        cell.lblPrice.text = data.price
+        cell.btnPopular.alpha = 0.0
+        cell.cellView.borderColor =  #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1) //.clear
+        cell.lblPlanCount.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        cell.lblPrice.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        
+        if indexPath.row == selectedIndex {
+            cell.cellView.borderColor = #colorLiteral(red: 0.5791940689, green: 0.1280144453, blue: 0.5726861358, alpha: 1)
+            cell.lblPlanCount.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            cell.lblPrice.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            planDict = ["fPlanPrice" : data.price, "tiPlanType": data.planType, "iBoostCount" : data.BoostGeekCount, "iGeekCount" : data.GeekCount]
+        }
+        
+        if indexPath.row == self.PlanDetailsArray.count - 1 {
+            cell.btnPopular.alpha = 1.0
+        }
+        return cell
+    }
+    
+    
+     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let height = collectionView.frame.height
+       
+        if indexPath.row == selectedIndex {
+            return CGSize(width: DeviceType.iPhone5orSE ? 125 : 135, height: height - 80)
+        } else {
+            return CGSize(width: DeviceType.iPhone5orSE ? 110 : 120, height: height - 100)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.selectedIndex = indexPath.row
+        self.pageControl.currentPage = indexPath.row
+        self.PlanCollectionView.reloadData()
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // Parallax visible cells
+        let center = CGPoint(x: scrollView.contentOffset.x + (scrollView.frame.width / 2), y: (scrollView.frame.height / 2))
+        if let ip = PlanCollectionView.indexPathForItem(at: center) {
+            self.pageControl.currentPage = ip.row
+            self.selectedIndex = ip.row
+            self.PlanCollectionView.reloadData()
+        }
+    }
+}
 

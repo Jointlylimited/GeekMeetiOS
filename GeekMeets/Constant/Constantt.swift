@@ -69,6 +69,7 @@ struct GeekMeets_ViewController
     static let SelectCategories = "SelectCategoriesViewController"
     static let compeleteProfile = "CompleteProfileViewController"
     static let sideMenu = "SideMenuViewController"
+    static let menuScreen = "MenuViewController"
     static let SelectLanguageScreen = "SelectLanguageViewController"
     static let BusinessInformationVC = "BusinessInformationViewController"
     static let AddressLandMarkVC = "AddressLandMarkViewController"

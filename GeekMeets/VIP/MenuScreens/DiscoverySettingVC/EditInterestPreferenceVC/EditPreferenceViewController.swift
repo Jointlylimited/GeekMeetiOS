@@ -223,13 +223,15 @@ extension EditPreferenceViewController: UICollectionViewDelegate, UICollectionVi
             cell.lblTitle.text = name
             
             if self.selectedCells.contains(optionID!) {
+                cell.btnSelectAge.layer.backgroundColor = #colorLiteral(red: 0.7098039216, green: 0.3254901961, blue: 0.8941176471, alpha: 1)
                 cell.btnSelectAge.layer.borderColor = #colorLiteral(red: 0.7098039216, green: 0.3254901961, blue: 0.8941176471, alpha: 1)
-                cell.btnSelectAge.setTitleColor(#colorLiteral(red: 0.7098039216, green: 0.3254901961, blue: 0.8941176471, alpha: 1), for: .normal)
-                cell.lblTitle.textColor = #colorLiteral(red: 0.7098039216, green: 0.3254901961, blue: 0.8941176471, alpha: 1)
+                cell.btnSelectAge.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+                cell.lblTitle.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             } else {
-                cell.btnSelectAge.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+                cell.btnSelectAge.layer.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.1)
+                cell.btnSelectAge.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.1)
                 cell.btnSelectAge.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5), for: .normal)
-                cell.lblTitle.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+                cell.lblTitle.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             }
             
             cell.clickOnCell = {
@@ -269,7 +271,7 @@ extension EditPreferenceViewController: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let name = self.objPreModel.objPrefrence.preferenceOption![indexPath.row].vOption
         let yourWidth = collectionView.bounds.width/3.0
-        let yourHeight = CGFloat(50)
+        let yourHeight = CGFloat(65)
         let size = (name! as NSString).size(withAttributes: [
             NSAttributedString.Key.font : UIFont(name: FontTypePoppins.Poppins_Medium.rawValue, size: FontSizePoppins.sizePopupMenuTitle.rawValue)!
         ])

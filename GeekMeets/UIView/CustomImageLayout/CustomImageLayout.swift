@@ -33,7 +33,7 @@ class CustomImageLayout: UICollectionViewFlowLayout {
     }
     
     func setupLayout() {
-        minimumInteritemSpacing = 50 //1.0 // Set to zero if you want
+        minimumInteritemSpacing = 1.0 // Set to zero if you want
         minimumLineSpacing = 1
         scrollDirection = scrollViewDirection
     }

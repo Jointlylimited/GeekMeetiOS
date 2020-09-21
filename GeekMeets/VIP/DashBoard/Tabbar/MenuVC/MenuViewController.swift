@@ -55,6 +55,7 @@ class MenuViewController: UIViewController, MenuProtocol {
     @IBOutlet weak var imgProfile: UIImageView!
     @IBOutlet weak var lblVersion: UILabel!
     @IBOutlet weak var btnNotification: SSBadgeButton!
+    @IBOutlet weak var backBtn: UIButton!
     
     var alertView: CustomAlertView!
     var arrMenuModel : [MenuViewModel] = []
@@ -70,6 +71,7 @@ class MenuViewController: UIViewController, MenuProtocol {
     var GeekPlans : Int = 0
     var Boosts : Int = 0
     var profileEdited : Bool = false
+    var isFromHome : Bool = true
     
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -113,6 +115,12 @@ class MenuViewController: UIViewController, MenuProtocol {
         super.viewWillAppear(animated)
         if !profileEdited {
             self.presenter?.callMatchListAPI()
+        }
+        
+        if !isFromHome {
+            self.backBtn.alpha = 1.0
+        } else {
+            self.backBtn.alpha = 0.0
         }
     }
     
@@ -209,6 +217,10 @@ class MenuViewController: UIViewController, MenuProtocol {
         let seconds: Int = totalSeconds % 60
         let minutes: Int = (totalSeconds / 60) % 60
         return String(format: "%02d:%02d", minutes, seconds)
+    }
+    @IBAction func btnBackAction(_ sender: UIButton) {
+        self.popVC()
+//        self.dismissVC(completion: nil)
     }
     
     @IBAction func btnLogOutAction(_ sender: UIButton) {

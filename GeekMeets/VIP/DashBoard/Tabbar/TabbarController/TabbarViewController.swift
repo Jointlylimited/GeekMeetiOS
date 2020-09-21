@@ -63,6 +63,7 @@ class TabbarViewController: UITabBarController, TabbarProtocol {
     }
     
     func SetTabbarItem(){
+         //self.tabBar.items![1].badgeValue = "7"
         if !isFromMatch {
             self.selectedIndex = 2
         } else {

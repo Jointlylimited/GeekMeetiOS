@@ -49,6 +49,14 @@ class ProfileSubscriptionViewController: UIViewController {
         self.callGeeksPlansAPI()
     }
     
+    @IBAction func btnAddPhotosAction(_ sender: UIButton) {
+        self.MoveToEditProfileVC()
+    }
+    
+    @IBAction func btnSettingsAction(_ sender: UIButton) {
+        self.MoveToMenuVC()
+    }
+    
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.popVC()
     }
@@ -56,9 +64,11 @@ class ProfileSubscriptionViewController: UIViewController {
     @IBAction func btnProfileAction(_ sender: UIButton) {
         self.MoveToProfileVC()
     }
+    
     @IBAction func btnEditProfileAction(_ sender: UIButton) {
         self.MoveToEditProfileVC()
     }
+    
     @IBAction func btnTopStoryAction(_ sender: UIButton) {
         self.presentGeeksVC()
     }
@@ -69,6 +79,15 @@ class ProfileSubscriptionViewController: UIViewController {
     
     @IBAction func btnSubscriptionAction(_ sender: UIButton) {
         self.presentSubscriptionVC()
+    }
+    
+    func MoveToMenuVC(){
+        let menuVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.menuScreen) as? MenuViewController
+//        menuVC!.modalTransitionStyle = .crossDissolve
+//        menuVC!.modalPresentationStyle = .overCurrentContext
+        menuVC!.isFromHome = false
+//        self.presentVC(menuVC!)
+        self.pushVC(menuVC!)
     }
     
     func MoveToProfileVC(){

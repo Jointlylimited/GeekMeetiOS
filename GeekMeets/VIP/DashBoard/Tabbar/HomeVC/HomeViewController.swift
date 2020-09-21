@@ -30,6 +30,7 @@ class HomeViewController: UIViewController, HomeProtocol {
     
     @IBOutlet weak var cards: SwipeableCards!
     @IBOutlet weak var imgPlaceHolder: UIImageView!
+    @IBOutlet weak var subView: UIView!
     
     var cardsData = [Int]()
     var objStoryData : [UIImage] = [#imageLiteral(resourceName: "image_1"),#imageLiteral(resourceName: "image_1"),#imageLiteral(resourceName: "image_1")]
@@ -139,12 +140,22 @@ class HomeViewController: UIViewController, HomeProtocol {
         self.pushVC(matchVC)
     }
     
+    func presentSubscriptionView(){
+        cards.alpha = 0.0
+        self.subView.alpha = 1.0
+        self.imgPlaceHolder.alpha = 1.0
+        self.imgPlaceHolder.image = #imageLiteral(resourceName: "sub_view")
+    }
+    
     @IBAction func btnMatchAction(_ sender: UIButton) {
         if UserDataModel.currentUser?.tiIsSubscribed == 1 {
             pushMatchVC()
         } else {
-            presentSubVC()
+            self.presentSubscriptionView()
         }
+    }
+    @IBAction func btnActivateSpotlightAction(_ sender: GradientButton) {
+        presentSubVC()
     }
 }
 
@@ -154,8 +165,10 @@ extension HomeViewController {
         if response.responseCode == 200 {
             self.objCardArray.arrUserCardList = response.responseData
             if self.objCardArray.arrUserCardList.count != 0 {
+                self.subView.alpha = 0.0
                 self.imgPlaceHolder.alpha = 0.0
             } else {
+                self.subView.alpha = 1.0
                 self.imgPlaceHolder.alpha = 1.0
             }
             cards.alpha = 1.0
@@ -166,7 +179,9 @@ extension HomeViewController {
             cards.alpha = 0.0
             AppSingleton.sharedInstance().showAlert(kNoProfile, okTitle: "OK")
             self.imgPlaceHolder.alpha = 1.0
+            self.subView.alpha = 1.0
         }
+        self.presentSubscriptionView()
     }
     
     func callSwipeCardAPI(iProfileId : String, tiSwipeType : String){
@@ -194,7 +209,7 @@ extension HomeViewController {
             }
         } else {
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "Ok")
-            self.presentSubVC()
+            self.presentSubscriptionView()// presentSubVC()
         }
     }
     
