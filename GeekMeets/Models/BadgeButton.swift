@@ -18,7 +18,7 @@ class SSBadgeButton: UIButton {
         }
     }
 
-    public var badgeBackgroundColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1) {
+    public var badgeBackgroundColor = #colorLiteral(red: 0.8357115186, green: 0.1838327694, blue: 0.1565411014, alpha: 1) {
         didSet {
             badgeLabel.backgroundColor = badgeBackgroundColor
         }
@@ -30,7 +30,7 @@ class SSBadgeButton: UIButton {
         }
     }
     
-    public var badgeFont = UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 9.0) {
+    public var badgeFont = UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 12.0) {
         didSet {
             badgeLabel.font = badgeFont
         }

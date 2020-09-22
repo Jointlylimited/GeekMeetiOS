@@ -26,12 +26,14 @@ public protocol SwipeableCardsDelegate {
     func cards(_ cards: SwipeableCards, didRemovedItemAt index: Int)
     func cards(_ cards: SwipeableCards, didLeftRemovedItemAt index: Int)
     func cards(_ cards: SwipeableCards, didRightRemovedItemAt index: Int)
+    func cards(_ cards: SwipeableCards, didBottonSwipeItemAt index: Int)
 }
 extension SwipeableCardsDelegate {// This extesion makes the methods optionnal for use~
     func cards(_ cards: SwipeableCards, beforeSwipingItemAt index: Int) {}
     func cards(_ cards: SwipeableCards, didRemovedItemAt index: Int) {}
     func cards(_ cards: SwipeableCards, didLeftRemovedItemAt index: Int) {}
     func cards(_ cards: SwipeableCards, didRightRemovedItemAt index: Int) {}
+    func cards(_ cards: SwipeableCards, didBottonSwipeItemAt index: Int) {}
 }
 
 public class SwipeableCards: CardView {
@@ -194,6 +196,7 @@ private extension SwipeableCards {
                 } else if xFromCenter < -actionMargin {
                     self.addSubview(self.unlikeButton)
                 } else {
+                    self.delegate?.cards(self, didBottonSwipeItemAt: self.currentIndex)
                 }
                 
                 delegate?.cards(self, beforeSwipingItemAt: currentIndex)

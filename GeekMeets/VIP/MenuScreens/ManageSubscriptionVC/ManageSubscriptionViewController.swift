@@ -32,6 +32,8 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     @IBOutlet weak var btnSkip: UIButton!
     @IBOutlet var btnViews: [UIView]!
     @IBOutlet weak var bgViewHeightConstant: NSLayoutConstraint!
+    @IBOutlet weak var PlanCollectionView: UICollectionView!
+    @IBOutlet weak var pageControl: UIPageControl!
     
     var productKey : String = ""
     var transactionInProgress = false
@@ -41,6 +43,8 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     var planDict : NSDictionary = [:]
     var isFromStory : Bool = false
     var postStoryDelegate : PostStoryDelegate!
+    var PlanDetailsArray : [PlanData] = []
+    var selectedIndex : Int = 0
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -73,6 +77,7 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setCollectionView()
         self.presenter?.callSubscriptionDetailsAPI()
     }
     
@@ -80,6 +85,23 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
         self.bg_Image.image = !self.isFromStory ? #imageLiteral(resourceName: "Manage Subscription_bg1") : #imageLiteral(resourceName: "Subscription_bg")
         self.btnSkip.alpha = self.isFromStory ? 1.0 : 0.0
         self.bgViewHeightConstant.constant = DeviceType.hasNotch || DeviceType.iPhone11 || DeviceType.iPhone11or11Pro ? 230 : 180
+    }
+    
+    func setCollectionView(){
+        
+        self.PlanDetailsArray = [PlanData(days: "Annual", duration: "", price: "$89.99", planType: "3", BoostGeekCount: "0", GeekCount: "0"), PlanData(days: "Monthly", duration: "", price: "$9.99", planType: "2", BoostGeekCount: "0", GeekCount: "0")]
+        
+        self.PlanCollectionView.register(UINib.init(nibName: Cells.PlanCollectionCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.PlanCollectionCell)
+         self.PlanCollectionView.contentInset = UIEdgeInsets(top: 10, left: 30, bottom: 10, right: 30)
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = 15
+        self.PlanCollectionView.collectionViewLayout = layout
+        
+        self.PlanCollectionView.reloadData()
+        
+        self.pageControl.numberOfPages = self.PlanDetailsArray.count
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
@@ -289,6 +311,75 @@ extension ManageSubscriptionViewController : SKProductsRequestDelegate, SKPaymen
             print("There are no products.")
             LoaderView.sharedInstance.hideLoader()
             request.cancel()
+        }
+    }
+}
+
+
+//MARK: UICollectionview Delegate & Datasource Methods
+extension ManageSubscriptionViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.PlanDetailsArray.count != 0 ? self.PlanDetailsArray.count : 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell : PlanCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PlanCollectionCell, for: indexPath) as! PlanCollectionCell
+        let data = self.PlanDetailsArray[indexPath.row]
+        cell.lblPlanCount.text = data.days
+        cell.lblPlanCount.font = UIFont(name: FontTypePoppins.Poppins_Medium.rawValue, size: 20)
+        cell.lblduration.text = data.duration
+        cell.lblPrice.text = data.price
+        cell.btnPopular.alpha = 0.0
+        cell.cellView.borderColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1) //.clear
+        cell.lblPlanCount.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        cell.lblPrice.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        
+        if indexPath.row == selectedIndex {
+            cell.cellView.borderColor = #colorLiteral(red: 0.5791940689, green: 0.1280144453, blue: 0.5726861358, alpha: 1)
+            cell.lblPlanCount.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            cell.lblPrice.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            if indexPath.row == 0 {
+                productKey = SubscriptionKeys.Monthly.productKey
+                planDict = ["productKey" : SubscriptionKeys.Monthly.productKey, "tiType": data.planType, "fPrice" : data.price.split("$").last!]
+            } else {
+                productKey = SubscriptionKeys.Annualy.productKey
+                planDict = ["productKey" : SubscriptionKeys.Annualy.productKey, "tiType": data.planType, "fPrice" : data.price.split("$").last!]
+            }
+        }
+        
+//        if indexPath.row == self.PlanDetailsArray.count - 1 {
+            cell.btnPopular.alpha = 1.0
+//        }
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let height = collectionView.frame.height
+        
+        if indexPath.row == selectedIndex {
+            return CGSize(width: DeviceType.iPhone5orSE ? 135 : 145, height: height - 10)
+        } else {
+            return CGSize(width: DeviceType.iPhone5orSE ? 120 : 130, height: height - 30)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.selectedIndex = indexPath.row
+        self.pageControl.currentPage = indexPath.row
+        self.PlanCollectionView.reloadData()
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // Parallax visible cells
+        let center = CGPoint(x: scrollView.contentOffset.x + (scrollView.frame.width / 2), y: (scrollView.frame.height / 2))
+        if let ip = PlanCollectionView.indexPathForItem(at: center) {
+            self.pageControl.currentPage = ip.row
+            self.selectedIndex = ip.row
+            self.PlanCollectionView.reloadData()
         }
     }
 }

@@ -13,7 +13,7 @@
 import UIKit
 
 protocol TabbarProtocol: class {
-    
+    func getStoryListResponse(response: StoryResponse)
 }
 
 class TabbarViewController: UITabBarController, TabbarProtocol {
@@ -55,6 +55,7 @@ class TabbarViewController: UITabBarController, TabbarProtocol {
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.presenter?.callStoryListAPI()
         SetTabbarItem()
     }
     
@@ -63,7 +64,6 @@ class TabbarViewController: UITabBarController, TabbarProtocol {
     }
     
     func SetTabbarItem(){
-         //self.tabBar.items![1].badgeValue = "7"
         if !isFromMatch {
             self.selectedIndex = 2
         } else {
@@ -74,6 +74,18 @@ class TabbarViewController: UITabBarController, TabbarProtocol {
                 obj.imageString = self.userDict["imageString"] as? String
                 obj.inputMsgText = self.userDict["inputMsgText"] != nil ? (self.userDict["inputMsgText"] as? String)! : ""
                 self.pushVC(obj)
+            }
+        }
+    }
+}
+
+//MARK: API Methods
+extension TabbarViewController{
+    func getStoryListResponse(response: StoryResponse){
+        if response.responseCode == 200 {
+        print(response.responseData!)
+            if response.responseData?.bottomStory == nil || response.responseData?.bottomStory?.count == 0 {
+                self.tabBar.items![3].badgeValue = "\(response.responseData!.bottomStory?.count ?? 0)"
             }
         }
     }

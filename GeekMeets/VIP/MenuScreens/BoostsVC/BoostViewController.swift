@@ -283,7 +283,7 @@ extension BoostViewController : UICollectionViewDataSource, UICollectionViewDele
             cell.cellView.borderColor = #colorLiteral(red: 0.5791940689, green: 0.1280144453, blue: 0.5726861358, alpha: 1)
             cell.lblPlanCount.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             cell.lblPrice.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-            planDict = ["fPlanPrice" : data.price, "tiPlanType": data.planType, "iBoostGeekCount" : data.BoostGeekCount, "iGeekCount" : data.GeekCount]
+            planDict = ["fPlanPrice" : data.price.split("$").last!, "tiPlanType": data.planType, "iBoostGeekCount" : data.BoostGeekCount, "iGeekCount" : data.GeekCount]
         }
         
         if indexPath.row == self.PlanDetailsArray.count - 1 {

@@ -17,6 +17,7 @@ protocol HomeProtocol: class {
     func getUserCardResponse(response : SearchUsers)
     func getSwipeCardResponse(response : SwipeUser)
     func getLocationUpdateResponse(response : UserAuthResponse)
+    func getMatchResponse(response : MatchUser)
 }
 
 struct CardDetailsModel {
@@ -31,6 +32,7 @@ class HomeViewController: UIViewController, HomeProtocol {
     @IBOutlet weak var cards: SwipeableCards!
     @IBOutlet weak var imgPlaceHolder: UIImageView!
     @IBOutlet weak var subView: UIView!
+    @IBOutlet weak var btnMatch: SSBadgeButton!
     
     var cardsData = [Int]()
     var objStoryData : [UIImage] = [#imageLiteral(resourceName: "image_1"),#imageLiteral(resourceName: "image_1"),#imageLiteral(resourceName: "image_1")]
@@ -147,6 +149,15 @@ class HomeViewController: UIViewController, HomeProtocol {
         self.imgPlaceHolder.image = #imageLiteral(resourceName: "sub_view")
     }
     
+    
+    func presentProfileVC(){
+        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchProfileScreen) as! MatchProfileViewController
+        controller.UserID = self.objCardArray.objUserCard.iUserId
+        controller.modalTransitionStyle = .crossDissolve
+        controller.modalPresentationStyle = .overCurrentContext
+        self.presentVC(controller)
+    }
+    
     @IBAction func btnMatchAction(_ sender: UIButton) {
         if UserDataModel.currentUser?.tiIsSubscribed == 1 {
             pushMatchVC()
@@ -181,7 +192,8 @@ extension HomeViewController {
             self.imgPlaceHolder.alpha = 1.0
             self.subView.alpha = 1.0
         }
-        self.presentSubscriptionView()
+//        self.presentSubscriptionView()
+        self.presenter?.callMatchListAPI()
     }
     
     func callSwipeCardAPI(iProfileId : String, tiSwipeType : String){
@@ -225,6 +237,17 @@ extension HomeViewController {
             } else {
                 UserDataModel.setPushStatus(status: "0")
             }
+        }
+    }
+    
+    func getMatchResponse(response : MatchUser) {
+        UserDataModel.setMatchesCount(count: response.responseData!.count)
+        if response.responseData!.count != 0 {
+            self.btnMatch.badge = response.responseData!.count > 999 ? "99+" : "\(response.responseData!.count)"
+            self.btnMatch.badgeLabel.alpha = 1.0
+            self.btnMatch.badgeLabel.frame = CGRect(x: self.btnMatch.width-20, y: 0, w: 20, h: 20)
+        } else {
+            self.btnMatch.badgeLabel.alpha = 0.0
         }
     }
 }
@@ -310,6 +333,12 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
     func cards(_ cards: SwipeableCards, didRemovedItemAt index: Int) {
         print("index of removed card:\(index)")
     }
+    
+    func cards(_ cards: SwipeableCards, didBottonSwipeItemAt index: Int) {
+        if index == 0 {
+            self.presentProfileVC()
+        }
+    }
 }
 
 //MARK: UICollectionview Delegate & Datasource Methods
@@ -343,6 +372,7 @@ extension HomeViewController : UICollectionViewDataSource, UICollectionViewDeleg
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // Parallax visible cells
+        self.presentProfileVC()
         let center = CGPoint(x: (scrollView.frame.width / 2), y: scrollView.contentOffset.y + (scrollView.frame.width / 2))
         if let ip = cardView.imgCollView.indexPathForItem(at: center) {
             cardView.pageControl.currentPage = ip.row

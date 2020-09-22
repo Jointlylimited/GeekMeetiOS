@@ -23,6 +23,9 @@ protocol HomePresentationProtocol {
     
     func callUpdateLocationAPI(fLatitude : String, fLongitude : String, tiIsLocationOn : String)
     func getLocationUpdateResponse(response : UserAuthResponse)
+    
+    func callMatchListAPI()
+    func getMatchResponse(response : MatchUser)
 }
 
 class HomePresenter: HomePresentationProtocol {
@@ -61,5 +64,12 @@ class HomePresenter: HomePresentationProtocol {
     
     func getLocationUpdateResponse(response : UserAuthResponse){
         self.viewController?.getLocationUpdateResponse(response: response)
+    }
+    
+    func callMatchListAPI() {
+        self.interactor?.callMatchListAPI()
+    }
+    func getMatchResponse(response : MatchUser){
+        self.viewController?.getMatchResponse(response : response)
     }
 }

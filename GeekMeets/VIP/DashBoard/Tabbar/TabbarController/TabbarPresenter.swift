@@ -13,13 +13,20 @@
 import UIKit
 
 protocol TabbarPresentationProtocol {
-    
+    func callStoryListAPI()
+    func getStoryListResponse(response: StoryResponse)
 }
 
 class TabbarPresenter: TabbarPresentationProtocol {
     weak var viewController: TabbarProtocol?
     var interactor: TabbarInteractorProtocol?
     
-    // MARK: Present something
+    func callStoryListAPI(){
+        self.interactor?.callStoryListAPI()
+    }
+    
+    func getStoryListResponse(response: StoryResponse) {
+        self.viewController?.getStoryListResponse(response: response)
+    }
     
 }
