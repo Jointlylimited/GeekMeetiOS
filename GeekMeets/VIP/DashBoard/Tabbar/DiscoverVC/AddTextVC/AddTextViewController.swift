@@ -68,6 +68,7 @@ class AddTextViewController: UIViewController {
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
+        self.delegate.textViewDidFinishWithTextView(text: CustomTextView())
         self.dismissVC(completion: nil)
     }
 

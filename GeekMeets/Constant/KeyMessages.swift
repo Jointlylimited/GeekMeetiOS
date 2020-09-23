@@ -77,6 +77,7 @@ let kUnMatchDesStr = "You can not chat after unmatching \nAre you sure you want 
 let kUnMatchBtnStr = "Un-match"
 let kNotificationCount = "notificationCount"
 let kMatchesCount = "MatchesCount"
+let kNewMatchesCount = "NewMatchesCount"
 let kPushStatus = "PushStatus"
 let kVerifyEmail = "Verify Email"
 let kNotVerifyMail = "Your email address is not verified please verify your email address"

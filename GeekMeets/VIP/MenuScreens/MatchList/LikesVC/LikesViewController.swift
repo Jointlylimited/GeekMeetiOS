@@ -84,7 +84,7 @@ class LikesViewController: UIViewController, LikesProtocol {
 
 extension LikesViewController {
     func getMatchResponse(response : MatchUser) {
-        UserDataModel.setMatchesCount(count: response.responseData!.count)
+//        UserDataModel.setMatchesCount(count: response.responseData!.count)
         self.objMatchData = response.responseData!
         self.objMatchData = self.objMatchData.reversed()
         if self.objMatchData.count != 0 {

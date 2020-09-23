@@ -13,7 +13,7 @@ import CoreLocation
 class UserDataModel : Codable {
     
     static var isUserLoggedIn: Bool {
-       return UserDefaults.standard.value(forKey: "userData") != nil
+        return UserDefaults.standard.value(forKey: "userData") != nil
     }
     
     static var currentUser : UserAuthResponseField? {
@@ -26,14 +26,14 @@ class UserDataModel : Codable {
         }
     }
     static var lastLoginUser : UserAuthResponseField? {
-    let defaults = UserDefaults.standard
-
+        let defaults = UserDefaults.standard
+        
         if let userData = defaults.object(forKey: "userData") as? Data {
-        let decoder = JSONDecoder()
-        if let loadedPerson = try? decoder.decode(UserAuthResponseField.self, from: userData) {
-            return loadedPerson
+            let decoder = JSONDecoder()
+            if let loadedPerson = try? decoder.decode(UserAuthResponseField.self, from: userData) {
+                return loadedPerson
+            }
         }
-    }
         return nil
     }
     
@@ -47,14 +47,14 @@ class UserDataModel : Codable {
         }
     }
     static var UserPreferenceData : PreferencesResponse? {
-    let defaults = UserDefaults.standard
-
+        let defaults = UserDefaults.standard
+        
         if let userData = defaults.object(forKey: "UserPreferenceData") as? Data {
-        let decoder = JSONDecoder()
-        if let loadedPerson = try? decoder.decode(PreferencesResponse.self, from: userData) {
-            return loadedPerson
+            let decoder = JSONDecoder()
+            if let loadedPerson = try? decoder.decode(PreferencesResponse.self, from: userData) {
+                return loadedPerson
+            }
         }
-    }
         return nil
     }
     
@@ -68,14 +68,14 @@ class UserDataModel : Codable {
         }
     }
     static var SignUpUserData : SignUpUserModel? {
-    let defaults = UserDefaults.standard
-
+        let defaults = UserDefaults.standard
+        
         if let userData = defaults.object(forKey: "UserPreferenceData") as? Data {
-        let decoder = JSONDecoder()
-        if let loadedPerson = try? decoder.decode(SignUpUserModel.self, from: userData) {
-            return loadedPerson
+            let decoder = JSONDecoder()
+            if let loadedPerson = try? decoder.decode(SignUpUserModel.self, from: userData) {
+                return loadedPerson
+            }
         }
-    }
         return nil
     }
     
@@ -109,15 +109,23 @@ class UserDataModel : Codable {
     @objc static func setMatchesCount(count: Int){
         UserDefaults.standard.set(count, forKey: kMatchesCount)
     }
-
+    
     @objc static func getMatchesCount() -> Int{
         return UserDefaults.standard.integer(forKey: kMatchesCount)
+    }
+    
+    @objc static func setNewMatchesCount(count: Int){
+        UserDefaults.standard.set(count, forKey: kNewMatchesCount)
+    }
+    
+    @objc static func getNewMatchesCount() -> Int{
+        return UserDefaults.standard.integer(forKey: kNewMatchesCount)
     }
     
     @objc static func setNotificationCount(count: Int){
         UserDefaults.standard.set(count, forKey: kNotificationCount)
     }
-
+    
     @objc static func getNotificationCount() -> Int{
         return UserDefaults.standard.integer(forKey: kNotificationCount)
     } 

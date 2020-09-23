@@ -146,7 +146,7 @@ class HomeViewController: UIViewController, HomeProtocol {
         cards.alpha = 0.0
         self.subView.alpha = 1.0
         self.imgPlaceHolder.alpha = 1.0
-        self.imgPlaceHolder.image = #imageLiteral(resourceName: "sub_view")
+        self.imgPlaceHolder.image = #imageLiteral(resourceName: "img_sub_home")
     }
     
     
@@ -241,11 +241,19 @@ extension HomeViewController {
     }
     
     func getMatchResponse(response : MatchUser) {
-        UserDataModel.setMatchesCount(count: response.responseData!.count)
+        
         if response.responseData!.count != 0 {
-            self.btnMatch.badge = response.responseData!.count > 999 ? "99+" : "\(response.responseData!.count)"
-            self.btnMatch.badgeLabel.alpha = 1.0
-            self.btnMatch.badgeLabel.frame = CGRect(x: self.btnMatch.width-20, y: 0, w: 20, h: 20)
+            if UserDataModel.getNewMatchesCount() == nil {
+                UserDataModel.setNewMatchesCount(count: 0)
+            }
+            if response.responseData!.count - UserDataModel.getNewMatchesCount() != 0 {
+                self.btnMatch.badge = response.responseData!.count > 999 ? "99+" : "\(response.responseData!.count - UserDataModel.getNewMatchesCount())"
+                UserDataModel.setNewMatchesCount(count: response.responseData!.count - UserDataModel.getNewMatchesCount())
+                self.btnMatch.badgeLabel.alpha = 1.0
+                self.btnMatch.badgeLabel.frame = CGRect(x: self.btnMatch.width-20, y: 0, w: 20, h: 20)
+            } else {
+                self.btnMatch.badgeLabel.alpha = 0.0
+            }
         } else {
             self.btnMatch.badgeLabel.alpha = 0.0
         }

@@ -32,6 +32,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     @IBOutlet fileprivate weak var scrubber: UISlider!
     @IBOutlet weak var stickerView: JLStickerImageView!
     @IBOutlet weak var cropPickerView: CropPickerView!
+    @IBOutlet weak var headerView: UIView!
     
     var player: AVPlayer?
     var playerLayer:AVPlayerLayer?
@@ -90,6 +91,11 @@ class PreviewViewController: UIViewController, PreviewProtocol {
             self.PhotoView.alpha = 0
             self.videoProcess()
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.headerView.alpha = 1.0
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -188,10 +194,16 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     }
     
     @IBAction func cancelButtonTouch(_ sender: Any) {
-        self.popVC()
+        if cusText != nil {
+            
+        } else {
+            self.popVC()
+        }
+         self.popVC()
     }
     
     @IBAction func saveButtonTouch(_ sender: Any) {
+        self.headerView.alpha = 0.0
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.AddTextScreen) as? AddTextViewController
         controller!.modalTransitionStyle = .crossDissolve
         controller!.modalPresentationStyle = .overCurrentContext
@@ -494,7 +506,10 @@ extension PreviewViewController {
 extension PreviewViewController : TextViewControllerDelegate {
     func textViewDidFinishWithTextView(text:CustomTextView) {
         print(text)
-        setLabel(text : text)
+        self.headerView.alpha = 1.0
+        if text.text != "" {
+          setLabel(text : text)
+        }
     }
 }
                                                                                                            
