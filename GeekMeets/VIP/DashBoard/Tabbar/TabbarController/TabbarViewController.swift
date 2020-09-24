@@ -83,10 +83,30 @@ class TabbarViewController: UITabBarController, TabbarProtocol {
 extension TabbarViewController{
     func getStoryListResponse(response: StoryResponse){
         if response.responseCode == 200 {
-        print(response.responseData!)
-            if response.responseData?.bottomStory == nil || response.responseData?.bottomStory?.count == 0 {
-                self.tabBar.items![3].badgeValue = "\(response.responseData!.bottomStory?.count ?? 0)"
+            if UserDataModel.getStoryCount() == nil {
+                UserDataModel.setStoryCount(count: 0)
             }
+            print(response.responseData!)
+            if response.responseData!.bottomStory!.count - UserDataModel.getStoryCount() != 0 {
+                if response.responseData?.bottomStory == nil || response.responseData?.bottomStory?.count == 0 {
+                    
+                    self.tabBar.items![3].badgeValue = "\(response.responseData!.bottomStory!.count - UserDataModel.getStoryCount())"
+                    UserDataModel.setNewMatchesCount(count: response.responseData!.bottomStory!.count - UserDataModel.getStoryCount())
+                }
+            }
+        }
+    }
+    
+    func getUnreadMsgCount(){
+        let arrFriends = SOXmpp.manager.arrFriendsList
+        var count : Int = 0
+        for friend in arrFriends {
+            if let unreadCount = SOXmpp.manager.GetUnreadCound(of: friend.jID) , unreadCount > 0 {
+                count = unreadCount + count
+            }
+        }
+        if count != 0 {
+            self.tabBar.items![1].badgeValue = "\(count)"
         }
     }
 }

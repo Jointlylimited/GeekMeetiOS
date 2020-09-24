@@ -122,6 +122,14 @@ class UserDataModel : Codable {
         return UserDefaults.standard.integer(forKey: kNewMatchesCount)
     }
     
+    @objc static func setStoryCount(count: Int){
+        UserDefaults.standard.set(count, forKey: kStoryCount)
+    }
+    
+    @objc static func getStoryCount() -> Int{
+        return UserDefaults.standard.integer(forKey: kStoryCount)
+    }
+    
     @objc static func setNotificationCount(count: Int){
         UserDefaults.standard.set(count, forKey: kNotificationCount)
     }

@@ -159,6 +159,10 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
         self.lblMaxHeight.text = "\(sender.maximumValue)"
     }
     
+    @IBAction func btnHiddenAction(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+    }
+    
     //MARK: IBAction Method
     @IBAction func actionContinues(_ sender: Any) {
         if isFromSignUp {
@@ -320,17 +324,17 @@ extension SelectAgeRangeViewController: UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let name = self.objPreModel.objPrefrence.preferenceOption![indexPath.row].vOption
-        let yourWidth = collectionView.bounds.width/3.0
+        let yourWidth = collectionView.bounds.width/2.0
         let yourHeight = CGFloat(65)
         let size = (name! as NSString).size(withAttributes: [
             NSAttributedString.Key.font : UIFont(name: FontTypePoppins.Poppins_Medium.rawValue, size: FontSizePoppins.sizePopupMenuTitle.rawValue)!
         ])
         
-        if size.width > yourWidth {
-            return CGSize(width: size.width, height: yourHeight)
-        } else {
-            return CGSize(width: yourWidth, height: yourHeight)
-        }
+//        if size.width > yourWidth {
+            return CGSize(width: !DeviceType.iPhone5orSE ? collectionView.bounds.width - 50 : collectionView.bounds.width - 20, height: yourHeight)
+//        } else {
+//            return CGSize(width: yourWidth, height: yourHeight)
+//        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

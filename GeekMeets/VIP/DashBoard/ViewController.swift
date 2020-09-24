@@ -184,7 +184,7 @@ class ViewController: UIViewController {
         cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         cameraPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
         cameraPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
-        cameraPreviewLayer?.frame = self.view.frame
+        cameraPreviewLayer?.frame = self.view.layer.bounds
         self.view.layer.insertSublayer(cameraPreviewLayer!, at: 0)
         
         //Zoom in - out

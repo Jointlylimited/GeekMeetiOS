@@ -23,6 +23,8 @@ class LikesViewController: UIViewController, LikesProtocol {
     @IBOutlet weak var tblMatchList: UITableView!
     @IBOutlet weak var lblNoUser: UILabel!
     @IBOutlet weak var btnSearch: UIButton!
+    @IBOutlet weak var LikesCollectionView: UICollectionView!
+    @IBOutlet weak var btnPurchase: GradientButton!
     
     var objMatchData : [SwipeUserFields] = []
     var parentNavigationController : UINavigationController?
@@ -65,6 +67,13 @@ class LikesViewController: UIViewController, LikesProtocol {
     
     func registerTableViewCell(){
         self.tblMatchList.register(UINib.init(nibName: Cells.MessageListCell, bundle: Bundle.main), forCellReuseIdentifier: Cells.MessageListCell)
+        
+        self.LikesCollectionView.register(UINib.init(nibName: Cells.DiscoverCollectionCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.DiscoverCollectionCell)
+        self.LikesCollectionView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        
+        let layout = CustomImageLayout()
+        layout.scrollDirection = .vertical
+        self.LikesCollectionView.collectionViewLayout = layout
     }
     
     func setStoryMsgViewData(){
@@ -80,6 +89,17 @@ class LikesViewController: UIViewController, LikesProtocol {
         searchVC?.isFromDiscover = false
         self.pushVC(searchVC!)
     }
+    
+    @IBAction func btnPurchaseAction(_ sender: GradientButton) {
+        presentSubVC()
+    }
+    
+    func presentSubVC(){
+        let subVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.BoostScreen) as! BoostViewController
+        subVC.modalTransitionStyle = .crossDissolve
+        subVC.modalPresentationStyle = .overFullScreen
+        self.presentVC(subVC)
+    }
 }
 
 extension LikesViewController {
@@ -94,7 +114,15 @@ extension LikesViewController {
             self.tblMatchList.alpha = 0.0
             self.lblNoUser.alpha = 1.0
         }
+        
+        if UserDataModel.currentUser?.tiIsSubscribed == 0 {
+            self.btnPurchase.alpha = 1.0
+        } else {
+            self.btnPurchase.alpha = 0.0
+        }
+        
         self.tblMatchList.reloadData()
+        self.LikesCollectionView.reloadData()
     }
 }
 
@@ -142,5 +170,39 @@ extension LikesViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+}
+
+//MARK: UICollectionview Delegate & Datasource Methods
+extension LikesViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.objMatchData.count != 0 ? self.objMatchData.count : 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell : DiscoverCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.DiscoverCollectionCell, for: indexPath) as! DiscoverCollectionCell
+        let data = self.objMatchData[indexPath.row]
+        cell.lblName.text = data.vProfileName
+        let url = URL(string:"\(data.vProfileImage!)")
+        cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
+        if UserDataModel.currentUser?.tiIsSubscribed == 0 {
+            cell.userImgView.blurBackground()
+        }
+        return cell
+    }
+    
+     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = ScreenSize.width/2 - 12
+        return CGSize(width: width, height: width)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if UserDataModel.currentUser?.tiIsSubscribed == 0 {
+            self.presentSubVC()
+        }
     }
 }

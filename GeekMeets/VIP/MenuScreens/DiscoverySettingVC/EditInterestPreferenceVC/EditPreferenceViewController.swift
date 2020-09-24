@@ -276,11 +276,12 @@ extension EditPreferenceViewController: UICollectionViewDelegate, UICollectionVi
             NSAttributedString.Key.font : UIFont(name: FontTypePoppins.Poppins_Medium.rawValue, size: FontSizePoppins.sizePopupMenuTitle.rawValue)!
         ])
         
-        if size.width > yourWidth {
-            return CGSize(width: size.width, height: yourHeight)
-        } else {
-            return CGSize(width: yourWidth, height: yourHeight)
-        }
+//        if size.width > yourWidth {
+//            return CGSize(width: size.width, height: yourHeight)
+//        } else {
+//            return CGSize(width: yourWidth, height: yourHeight)
+//        }
+        return CGSize(width: !DeviceType.iPhone5orSE ? collectionView.bounds.width - 50 : collectionView.bounds.width - 20, height: yourHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

@@ -23,7 +23,9 @@ class MatchByBothViewController: UIViewController, MatchByBothProtocol {
     
     @IBOutlet weak var tblMatchList: UITableView!
     @IBOutlet weak var lblNoUser: UILabel!
-       
+    @IBOutlet weak var LikesCollectionView: UICollectionView!
+    @IBOutlet weak var btnPurchase: GradientButton!
+    
     var objMatchData : [SwipeUserFields] = []
     var parentNavigationController : UINavigationController?
     var arrFriends:[Model_ChatFriendList] = [Model_ChatFriendList]()
@@ -66,6 +68,13 @@ class MatchByBothViewController: UIViewController, MatchByBothProtocol {
     
     func registerTableViewCell(){
         self.tblMatchList.register(UINib.init(nibName: Cells.MessageListCell, bundle: Bundle.main), forCellReuseIdentifier: Cells.MessageListCell)
+        
+        self.LikesCollectionView.register(UINib.init(nibName: Cells.DiscoverCollectionCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.DiscoverCollectionCell)
+        self.LikesCollectionView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        
+        let layout = CustomImageLayout()
+        layout.scrollDirection = .vertical
+        self.LikesCollectionView.collectionViewLayout = layout
     }
     
     func setStoryMsgViewData(){
@@ -75,6 +84,17 @@ class MatchByBothViewController: UIViewController, MatchByBothProtocol {
     func getMessageListDetails(){
         self.arrFriends = SOXmpp.manager.arrFriendsList
         self.tblMatchList.reloadData()
+    }
+    
+    func presentSubVC(){
+        let subVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.ManageSubscriptionScreen) as! ManageSubscriptionViewController
+        subVC.modalTransitionStyle = .crossDissolve
+        subVC.modalPresentationStyle = .overFullScreen
+        self.presentVC(subVC)
+    }
+    
+    @IBAction func btnPurchaseAction(_ sender: GradientButton) {
+        presentSubVC()
     }
 }
 
@@ -90,7 +110,14 @@ extension MatchByBothViewController {
             self.tblMatchList.alpha = 0.0
             self.lblNoUser.alpha = 1.0
         }
+        
+        if UserDataModel.currentUser?.tiIsSubscribed == 0 {
+            self.btnPurchase.alpha = 1.0
+        } else {
+            self.btnPurchase.alpha = 0.0
+        }
         self.getMessageListDetails()
+        self.LikesCollectionView.reloadData()
     }
     
     func getUnMatchResponse(response : CommonResponse){
@@ -176,5 +203,60 @@ extension MatchByBothViewController : UITableViewDataSource, UITableViewDelegate
         deleteAction.backgroundColor = #colorLiteral(red: 1, green: 0.8941176471, blue: 0.8941176471, alpha: 1)
         deleteAction.image = theImage
         return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+}
+
+//MARK: UICollectionview Delegate & Datasource Methods
+extension MatchByBothViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.objMatchData.count != 0 ? self.objMatchData.count : 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell : DiscoverCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.DiscoverCollectionCell, for: indexPath) as! DiscoverCollectionCell
+        let data = self.objMatchData[indexPath.row]
+        cell.lblName.text = data.vProfileName
+        let url = URL(string:"\(data.vProfileImage!)")
+        cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
+        if UserDataModel.currentUser?.tiIsSubscribed == 0 {
+            cell.userImgView.blurBackground()
+        }
+        return cell
+    }
+    
+     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = ScreenSize.width/2 - 12
+        return CGSize(width: width, height: width)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if UserDataModel.currentUser?.tiIsSubscribed == 0 {
+            self.presentSubVC()
+        } else {
+            let obj = GeekMeets_StoryBoard.Chat.instantiateViewController(withIdentifier: GeekMeets_ViewController.OneToOneChatScreen) as! OneToOneChatVC
+            let data = self.objMatchData[indexPath.row]
+            if self.arrFriends.count == 0 {
+                obj.objFriend?.jID = UserDataModel.currentUser?.vXmppUser ?? ""
+                obj._userIDForRequestSend = data.vOtherUserXmpp
+                obj.userName = data.vProfileName
+                obj.imageString = data.vProfileImage
+            } else {
+                let arr = self.arrFriends.filter({$0.jID.split("@").first! == data.vOtherUserXmpp})
+                if arr.count != 0 {
+                    obj.objFriend = arr[0]
+                } else {
+                    obj.objFriend?.jID = UserDataModel.currentUser?.vXmppUser ?? ""
+                    obj._userIDForRequestSend = data.vOtherUserXmpp
+                    obj.userName = data.vProfileName
+                    obj.imageString = data.vProfileImage
+                }
+            }
+            obj.modalPresentationStyle = .fullScreen
+            self.parentNavigationController?.pushViewController(obj, animated: true)
+        }
     }
 }

@@ -24,6 +24,7 @@ class MyLikesViewController: UIViewController, MyLikesProtocol {
     @IBOutlet weak var lblNoUser: UILabel!
     @IBOutlet weak var btnSearch: UIButton!
     @IBOutlet weak var LikesCollectionView: UICollectionView!
+    @IBOutlet weak var btnPurchase: GradientButton!
     
     var objMatchData : [SwipeUserFields] = []
     var parentNavigationController : UINavigationController?
@@ -88,9 +89,12 @@ class MyLikesViewController: UIViewController, MyLikesProtocol {
         searchVC?.isFromDiscover = false
         self.pushVC(searchVC!)
     }
+    @IBAction func btnPurchaseAction(_ sender: GradientButton) {
+        presentSubVC()
+    }
     
     func presentSubVC(){
-        let subVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.ManageSubscriptionScreen) as! ManageSubscriptionViewController
+        let subVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.TopGeeksScreen) as! TopGeeksViewController
         subVC.modalTransitionStyle = .crossDissolve
         subVC.modalPresentationStyle = .overFullScreen
         self.presentVC(subVC)
@@ -99,7 +103,6 @@ class MyLikesViewController: UIViewController, MyLikesProtocol {
 
 extension MyLikesViewController {
     func getMatchResponse(response : MatchUser) {
-//        UserDataModel.setMatchesCount(count: response.responseData!.count)
         self.objMatchData = response.responseData!
         self.objMatchData = self.objMatchData.reversed()
         if self.objMatchData.count != 0 {
@@ -109,6 +112,12 @@ extension MyLikesViewController {
             self.tblMatchList.alpha = 0.0
             self.lblNoUser.alpha = 1.0
         }
+        if UserDataModel.currentUser?.tiIsSubscribed == 0 {
+            self.btnPurchase.alpha = 1.0
+        } else {
+            self.btnPurchase.alpha = 0.0
+        }
+        
         self.tblMatchList.reloadData()
         self.LikesCollectionView.reloadData()
     }
@@ -173,6 +182,7 @@ extension MyLikesViewController : UICollectionViewDataSource, UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell : DiscoverCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.DiscoverCollectionCell, for: indexPath) as! DiscoverCollectionCell
         let data = self.objMatchData[indexPath.row]
+        cell.lblName.text = data.vProfileName
         let url = URL(string:"\(data.vProfileImage!)")
         cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
         if UserDataModel.currentUser?.tiIsSubscribed == 0 {

@@ -44,6 +44,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 AppSingleton.sharedInstance().moveToLogeedInScreen()
             } else {
                 AppSingleton.sharedInstance().showHomeVC(fromMatch : false, userDict: [:])
+        /*        let controller = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange)
+                let navController = UINavigationController.init(rootViewController: controller)
+                AppDelObj.window?.rootViewController = navController */
             }
         }
         return true
