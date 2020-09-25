@@ -15,13 +15,15 @@ public struct PreferenceAnswer: Codable {
     public var iPreferenceId: Int?
     public var iOptionId: Int?
     public var fAnswer: String?
+    public var tiIsHide: Int?
     public var vOption: String?
 
-    public init(iAnswerId: Int?, iPreferenceId: Int?, iOptionId: Int?, fAnswer: String?, vOption: String?) {
+    public init(iAnswerId: Int?, iPreferenceId: Int?, iOptionId: Int?, fAnswer: String?, tiIsHide: Int?, vOption: String?) {
         self.iAnswerId = iAnswerId
         self.iPreferenceId = iPreferenceId
         self.iOptionId = iOptionId
         self.fAnswer = fAnswer
+        self.tiIsHide = tiIsHide
         self.vOption = vOption
     }
 

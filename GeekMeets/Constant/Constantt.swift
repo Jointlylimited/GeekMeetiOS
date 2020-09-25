@@ -133,6 +133,7 @@ struct Cells {
     static let SelectTextTypeCell = "SelectTextTypeCell"
     static let PreferenceListCell = "PreferenceListCell"
     static let PlanCollectionCell = "PlanCollectionCell"
+    static let MatchCollectionViewCell = "MatchCollectionViewCell"
 }
 
 struct DeviceType {

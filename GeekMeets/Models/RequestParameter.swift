@@ -143,25 +143,25 @@ class RequestParameter: NSObject {
         return requestDictionary
     }
     
-    func createPrefrence(tiPreferenceType : String, iPreferenceId: String, iOptionId : String, vAnswer: String) -> Dictionary<String,String> {
+    func createPrefrence(tiPreferenceType : String, iPreferenceId: String, iOptionId : String, vAnswer: String, tiIsHide: String) -> Dictionary<String,String> {
         
         var requestDictionary : Dictionary<String,String> = Dictionary()
         requestDictionary["tiPreferenceType"] = tiPreferenceType;
         requestDictionary["iPreferenceId"] = iPreferenceId
         requestDictionary["iOptionId"] = iOptionId
         requestDictionary["vAnswer"] = vAnswer
-        
+        requestDictionary["tiIsHide"] = tiIsHide
         return requestDictionary
     }
     
-    func updatePrefrence(tiPreferenceType : String, iPreferenceId: String, iOptionId : String, iAnswerId: String) -> Dictionary<String,String> {
+    func updatePrefrence(tiPreferenceType : String, iPreferenceId: String, iOptionId : String, iAnswerId: String, tiIsHide: String) -> Dictionary<String,String> {
         
         var requestDictionary : Dictionary<String,String> = Dictionary()
         requestDictionary["tiPreferenceType"] = tiPreferenceType;
         requestDictionary["iPreferenceId"] = iPreferenceId
         requestDictionary["iOptionId"] = iOptionId
         requestDictionary["iAnswerId"] = iAnswerId
-        
+        requestDictionary["tiIsHide"] = tiIsHide
         return requestDictionary
     }
     

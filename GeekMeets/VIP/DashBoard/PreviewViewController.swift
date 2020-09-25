@@ -156,12 +156,12 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         userResizableView1.contentView = contentView
         userResizableView1.preventsPositionOutsideSuperview = false
         userResizableView1.translucencySticker = false
-        userResizableView1.hideEditingHandles()
+        userResizableView1.showEditingHandles() // hideEditingHandles()
         view.insertSubview(userResizableView1, at: 2)
         
-        //Zoom in - out
-        let pinchRecognizer = UIPinchGestureRecognizer(target: self, action:#selector(pinch(_:)))
-        self.cropPickerView.addGestureRecognizer(pinchRecognizer)
+//        //Zoom in - out
+//        let pinchRecognizer = UIPinchGestureRecognizer(target: self, action:#selector(pinch(_:)))
+//        self.cropPickerView.addGestureRecognizer(pinchRecognizer)
     }
     
     // MARK: Manual Functions
@@ -199,32 +199,27 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     }
     
     //Zoom in - out - Image
-    @objc func pinch(_ sender: UIPinchGestureRecognizer) {
-        if sender.state == .ended || sender.state == .changed {
-            
-            let currentScale = self.view.frame.size.width / self.view.bounds.size.width
-            var newScale = currentScale*sender.scale
-            
-            if newScale < 1 {
-                newScale = 1
-            }
-            if newScale > 9 {
-                newScale = 9
-            }
-            
-            let transform = CGAffineTransform.init(scaleX: newScale, y: newScale)
-            
-            self.cropPickerView?.transform = transform
-            sender.scale = 1
-        }
-    }
+//    @objc func pinch(_ sender: UIPinchGestureRecognizer) {
+//        if sender.state == .ended || sender.state == .changed {
+//
+//            let currentScale = self.view.frame.size.width / self.view.bounds.size.width
+//            var newScale = currentScale*sender.scale
+//
+//            if newScale < 1 {
+//                newScale = 1
+//            }
+//            if newScale > 9 {
+//                newScale = 9
+//            }
+//
+//            let transform = CGAffineTransform.init(scaleX: newScale, y: newScale)
+//
+//            self.cropPickerView?.transform = transform
+//            sender.scale = 1
+//        }
+//    }
     
     @IBAction func cancelButtonTouch(_ sender: Any) {
-        if cusText != nil {
-            
-        } else {
-            self.popVC()
-        }
          self.popVC()
     }
     

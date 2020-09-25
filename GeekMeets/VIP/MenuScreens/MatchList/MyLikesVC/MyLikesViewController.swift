@@ -107,9 +107,11 @@ extension MyLikesViewController {
         self.objMatchData = self.objMatchData.reversed()
         if self.objMatchData.count != 0 {
             self.tblMatchList.alpha = 1.0
+            self.LikesCollectionView.alpha = 1.0
             self.lblNoUser.alpha = 0.0
         } else {
             self.tblMatchList.alpha = 0.0
+            self.LikesCollectionView.alpha = 0.0
             self.lblNoUser.alpha = 1.0
         }
         if UserDataModel.currentUser?.tiIsSubscribed == 0 {

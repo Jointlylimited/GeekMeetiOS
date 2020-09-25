@@ -152,7 +152,7 @@ extension JLStickerImageView {
         
         // Now, draw the rotated/scaled image into the context
         bitmap?.scaleBy(x: 1.0, y: -1.0)
-        bitmap?.draw((self.image?.cgImage!)!, in: CGRect(x: -frame.width/2, y: -frame.width/2, width: frame.width, height:frame.height))
+        bitmap?.draw((self.image?.cgImage!)!, in: CGRect(x: -frame.width/2, y: -frame.height/2, width: frame.width, height:frame.height))
 //        bitmap?.draw((self.image?.cgImage!)!, in: CGRect(x: frame.x, y: -(frame.width/2 + frame.y), width: frame.width, height:frame.height))
         //
         //        // Get the resized image from the context and a UIImage

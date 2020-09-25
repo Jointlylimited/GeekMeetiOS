@@ -31,6 +31,7 @@ class EditPreferenceViewController: UIViewController, EditPreferenceProtocol {
     @IBOutlet weak var viewHeightConstant: NSLayoutConstraint!
     @IBOutlet weak var btnDone: GradientButton!
     @IBOutlet weak var collectopnViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var btnHide: UIButton!
     
     var objPreModel = PrefrenceModel()
     var selectedCells = [Int]()
@@ -39,6 +40,7 @@ class EditPreferenceViewController: UIViewController, EditPreferenceProtocol {
     var index : Int = 0
     var isFromMenu : Bool = true
     var heightOptionIDs = [Int]()
+    var tiIsHide: String = "0"
     
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -84,6 +86,8 @@ class EditPreferenceViewController: UIViewController, EditPreferenceProtocol {
     
     func setPreferenceData(index : Int){
         self.objPreModel.objPrefrence = self.objPreModel.objPrefrence
+        self.tiIsHide = "\(self.objPreModel.objPrefrence.preferenceAnswer! != nil ? (self.objPreModel.objPrefrence.preferenceAnswer?.count != 0 ? (self.objPreModel.objPrefrence.preferenceAnswer![0].tiIsHide != nil ? self.objPreModel.objPrefrence.preferenceAnswer![0].tiIsHide ?? 0 : 0) : 0) : 0)"
+        self.btnHide.isSelected = self.tiIsHide == 1 ? true : false
         self.lblTitle.text = "\(self.objPreModel.objPrefrence.txPreference!)"
         
         if self.lblTitle.text!.count >= (DeviceType.iPhone5orSE ? 40 : 45) {
@@ -146,6 +150,15 @@ class EditPreferenceViewController: UIViewController, EditPreferenceProtocol {
         self.popVC()
     }
     
+    @IBAction func btnHideAction(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        if sender.isSelected {
+            self.tiIsHide = "1"
+        } else {
+            self.tiIsHide = "0"
+        }
+    }
+    
     @IBAction func btnDoneAction(_ sender: GradientButton) {
         self.callCreatePreferenceAPI()
     }
@@ -179,7 +192,7 @@ extension EditPreferenceViewController {
             value = ""
         }
         
-        let params = RequestParameter.sharedInstance().updatePrefrence(tiPreferenceType: "\(self.objPreModel.objPrefrence.tiPreferenceType!)", iPreferenceId: "\(self.objPreModel.objPrefrence.iPreferenceId!)", iOptionId: (self.index == 5 || self.index == 6) ? value : data, iAnswerId: self.objPreModel.objPrefrence.tiPreferenceType == 1 ? "" : answerID)
+        let params = RequestParameter.sharedInstance().updatePrefrence(tiPreferenceType: "\(self.objPreModel.objPrefrence.tiPreferenceType!)", iPreferenceId: "\(self.objPreModel.objPrefrence.iPreferenceId!)", iOptionId: (self.index == 5 || self.index == 6) ? value : data, iAnswerId: self.objPreModel.objPrefrence.tiPreferenceType == 1 ? "" : answerID, tiIsHide: self.tiIsHide)
         self.presenter?.callCreatePreferenceAPI(params : params)
     }
     

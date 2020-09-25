@@ -69,7 +69,7 @@ class MatchByBothViewController: UIViewController, MatchByBothProtocol {
     func registerTableViewCell(){
         self.tblMatchList.register(UINib.init(nibName: Cells.MessageListCell, bundle: Bundle.main), forCellReuseIdentifier: Cells.MessageListCell)
         
-        self.LikesCollectionView.register(UINib.init(nibName: Cells.DiscoverCollectionCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.DiscoverCollectionCell)
+        self.LikesCollectionView.register(UINib.init(nibName: Cells.MatchCollectionViewCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.MatchCollectionViewCell)
         self.LikesCollectionView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         
         let layout = CustomImageLayout()
@@ -105,9 +105,11 @@ extension MatchByBothViewController {
         self.objMatchData = self.objMatchData.reversed()
         if self.objMatchData.count != 0 {
             self.tblMatchList.alpha = 1.0
+            self.LikesCollectionView.alpha = 1.0
             self.lblNoUser.alpha = 0.0
         } else {
             self.tblMatchList.alpha = 0.0
+            self.LikesCollectionView.alpha = 0.0
             self.lblNoUser.alpha = 1.0
         }
         
@@ -217,13 +219,45 @@ extension MatchByBothViewController : UICollectionViewDataSource, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell : DiscoverCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.DiscoverCollectionCell, for: indexPath) as! DiscoverCollectionCell
+        let cell : MatchCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.MatchCollectionViewCell, for: indexPath) as! MatchCollectionViewCell
         let data = self.objMatchData[indexPath.row]
         cell.lblName.text = data.vProfileName
         let url = URL(string:"\(data.vProfileImage!)")
         cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
         if UserDataModel.currentUser?.tiIsSubscribed == 0 {
             cell.userImgView.blurBackground()
+            cell.btnUnMatch.alpha = 0.0
+            cell.btnChat.alpha = 0.0
+        } else {
+            cell.btnUnMatch.alpha = 1.0
+            cell.btnChat.alpha = 1.0
+        }
+        
+        cell.clickOnChat = {
+            let obj = GeekMeets_StoryBoard.Chat.instantiateViewController(withIdentifier: GeekMeets_ViewController.OneToOneChatScreen) as! OneToOneChatVC
+            
+            if self.arrFriends.count == 0 {
+                obj.objFriend?.jID = UserDataModel.currentUser?.vXmppUser ?? ""
+                obj._userIDForRequestSend = data.vOtherUserXmpp
+                obj.userName = data.vProfileName
+                obj.imageString = data.vProfileImage
+            } else {
+                let arr = self.arrFriends.filter({$0.jID.split("@").first! == data.vOtherUserXmpp})
+                if arr.count != 0 {
+                    obj.objFriend = arr[0]
+                } else {
+                    obj.objFriend?.jID = UserDataModel.currentUser?.vXmppUser ?? ""
+                    obj._userIDForRequestSend = data.vOtherUserXmpp
+                    obj.userName = data.vProfileName
+                    obj.imageString = data.vProfileImage
+                }
+            }
+            obj.modalPresentationStyle = .fullScreen
+            self.parentNavigationController?.pushViewController(obj, animated: true)
+        }
+        
+        cell.clickOnUnMatchButton = {
+            self.presenter?.callUnMatchUserAPI(iProfileId: "\(self.objMatchData[indexPath.row].vOtherUserXmpp!)")
         }
         return cell
     }

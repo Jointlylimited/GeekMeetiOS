@@ -53,6 +53,7 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
     fileprivate let gregorian = Calendar(identifier: .gregorian)
     var feet:Int = 0
     var inch:Int = 0
+    var tiIsHide : String = "0"
     
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -161,6 +162,11 @@ class SelectAgeRangeViewController: UIViewController, SelectAgeRangeProtocol {
     
     @IBAction func btnHiddenAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
+        if sender.isSelected {
+            self.tiIsHide = "1"
+        } else {
+            self.tiIsHide = "0"
+        }
     }
     
     //MARK: IBAction Method
@@ -233,7 +239,7 @@ extension SelectAgeRangeViewController {
             value = ""
         }
         
-        let params = RequestParameter.sharedInstance().createPrefrence(tiPreferenceType: "\(self.objPreModel.objPrefrence.tiPreferenceType!)", iPreferenceId: "\(self.objPreModel.objPrefrence.iPreferenceId!)", iOptionId: data, vAnswer: value)
+        let params = RequestParameter.sharedInstance().createPrefrence(tiPreferenceType: "\(self.objPreModel.objPrefrence.tiPreferenceType!)", iPreferenceId: "\(self.objPreModel.objPrefrence.iPreferenceId!)", iOptionId: data, vAnswer: value, tiIsHide: self.tiIsHide)
         self.presenter?.callCreatePreferenceAPI(params : params)
     }
     

@@ -34,16 +34,16 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ulr-wM-Poq">
-                                <rect key="frame" x="8" y="152" width="0.0" height="0.0"/>
+                                <rect key="frame" x="8" y="140" width="0.0" height="0.0"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="15"/>
-                                <color key="textColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="ulr-wM-Poq" secondAttribute="bottom" constant="8" id="7Ek-tV-6eW"/>
+                            <constraint firstAttribute="bottom" secondItem="ulr-wM-Poq" secondAttribute="bottom" constant="20" id="7Ek-tV-6eW"/>
                             <constraint firstItem="ulr-wM-Poq" firstAttribute="leading" secondItem="j2B-jI-mjx" secondAttribute="leading" constant="8" id="O6c-ys-Jlx"/>
                             <constraint firstItem="SPr-sT-yPJ" firstAttribute="top" secondItem="j2B-jI-mjx" secondAttribute="top" id="hk1-wq-o8E"/>
                             <constraint firstItem="SPr-sT-yPJ" firstAttribute="leading" secondItem="j2B-jI-mjx" secondAttribute="leading" id="jq8-MK-gBP"/>
