@@ -29,6 +29,8 @@ class MatchByBothViewController: UIViewController, MatchByBothProtocol {
     var objMatchData : [SwipeUserFields] = []
     var parentNavigationController : UINavigationController?
     var arrFriends:[Model_ChatFriendList] = [Model_ChatFriendList]()
+    var customAlertView: CustomAlertView!
+    var otherXmppID : String? = ""
     
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -257,7 +259,11 @@ extension MatchByBothViewController : UICollectionViewDataSource, UICollectionVi
         }
         
         cell.clickOnUnMatchButton = {
-            self.presenter?.callUnMatchUserAPI(iProfileId: "\(self.objMatchData[indexPath.row].vOtherUserXmpp!)")
+            self.otherXmppID = self.objMatchData[indexPath.row].vOtherUserXmpp!
+            self.customAlertView = CustomAlertView.initAlertView(title: kUnMatchTitleStr, message: kUnMatchStr, btnRightStr: kUnMatchBtnStr, btnCancelStr: kTitleCancel, btnCenter: "", isSingleButton: false)
+            self.customAlertView.delegate = self
+            self.customAlertView.frame = ScreenSize.frame
+            AppDelObj.window?.addSubview(self.customAlertView)
         }
         return cell
     }
@@ -292,5 +298,17 @@ extension MatchByBothViewController : UICollectionViewDataSource, UICollectionVi
             obj.modalPresentationStyle = .fullScreen
             self.parentNavigationController?.pushViewController(obj, animated: true)
         }
+    }
+}
+
+//MARK: AlertView Delegate Methods
+extension MatchByBothViewController : AlertViewDelegate {
+    func OkButtonAction(title : String) {
+        customAlertView.alpha = 0.0
+         self.presenter?.callUnMatchUserAPI(iProfileId: "\(self.otherXmppID!)")
+    }
+    func cancelButtonAction() {
+        self.otherXmppID = ""
+        customAlertView.alpha = 0.0
     }
 }

@@ -243,9 +243,6 @@ extension HomeViewController {
     func getMatchResponse(response : MatchUser) {
         
         if response.responseData!.count != 0 {
-            if UserDataModel.getNewMatchesCount() == nil {
-                UserDataModel.setNewMatchesCount(count: 0)
-            }
             if response.responseData!.count - UserDataModel.getNewMatchesCount() != 0 {
                 self.btnMatch.badge = response.responseData!.count > 999 ? "99+" : "\(response.responseData!.count - UserDataModel.getNewMatchesCount())"
                 UserDataModel.setNewMatchesCount(count: response.responseData!.count - UserDataModel.getNewMatchesCount())

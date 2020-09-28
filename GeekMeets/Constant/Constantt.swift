@@ -333,6 +333,8 @@ class AppSingleton: NSObject {
         Authentication.setLoggedInStatus(true)
         UserDataModel.currentUser = UserDataModel.lastLoginUser
         UserDataModel.UserPreferenceResponse = UserDataModel.UserPreferenceData
+        UserDataModel.setNewMatchesCount(count: 0)
+        UserDataModel.setStoryCount(count: 0)
         
         if UserDataModel.currentUser == nil {
             logout()

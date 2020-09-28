@@ -83,9 +83,6 @@ class TabbarViewController: UITabBarController, TabbarProtocol {
 extension TabbarViewController{
     func getStoryListResponse(response: StoryResponse){
         if response.responseCode == 200 {
-            if UserDataModel.getStoryCount() == nil {
-                UserDataModel.setStoryCount(count: 0)
-            }
             print(response.responseData!)
             if response.responseData!.bottomStory!.count - UserDataModel.getStoryCount() != 0 {
                 if response.responseData?.bottomStory == nil || response.responseData?.bottomStory?.count == 0 {
