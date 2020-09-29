@@ -12,6 +12,63 @@ import Alamofire
 
 open class UserAPI {
     /**
+     Add User photos
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter photos: (form) Before submit request please replace all single quotes with double quotes in swagger
+     - parameter deletephotos: (form) Deleted photos id (optional, default to 1,2)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func addPhotos(nonce: String, timestamp: String, token: String, authorization: String, photos: String, deletephotos: String? = nil, completion: @escaping ((_ data: UserAuthResponse?,_ error: Error?) -> Void)) {
+        addPhotosWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization, photos: photos, deletephotos: deletephotos).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Add User photos
+     - POST /user/add-photos
+     - examples: [{contentType=application/json, example=""}]
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter photos: (form) Before submit request please replace all single quotes with double quotes in swagger
+     - parameter deletephotos: (form) Deleted photos id (optional, default to 1,2)
+
+     - returns: RequestBuilder<UserAuthResponse>
+     */
+    open class func addPhotosWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String, photos: String, deletephotos: String? = nil) -> RequestBuilder<UserAuthResponse> {
+        let path = "/user/add-photos"
+        let URLString = SwaggerClientAPI.basePath + path
+        let formParams: [String:Any?] = [
+            "deletephotos": deletephotos,
+            "photos": photos
+        ]
+
+        let nonNullParameters = APIHelper.rejectNil(formParams)
+        let parameters = APIHelper.convertBoolToString(nonNullParameters)
+        
+        let url = URLComponents(string: URLString)
+        let nillableHeaders: [String: Any?] = [
+            "nonce": nonce,
+            "timestamp": timestamp,
+            "token": token,
+            "authorization": authorization
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<UserAuthResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
+    }
+    
+    /**
      Block user list
      
      - parameter nonce: (header)

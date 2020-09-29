@@ -207,5 +207,13 @@ class RequestParameter: NSObject {
         requestDictionary["isExpire"] = isExpire
         return requestDictionary
     }
+    
+    func addPhotosParams(deletephotos : String, photos: String) -> Dictionary<String,String> {
+        
+        var requestDictionary : Dictionary<String,String> = Dictionary()
+        requestDictionary["deletephotos"] = deletephotos
+        requestDictionary["photos"] = photos
+        return requestDictionary
+    }
 }
 

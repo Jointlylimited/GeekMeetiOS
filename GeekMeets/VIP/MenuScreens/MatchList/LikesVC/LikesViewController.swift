@@ -62,6 +62,11 @@ class LikesViewController: UIViewController, LikesProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.registerTableViewCell()
+//        self.setStoryMsgViewData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.setStoryMsgViewData()
     }
     

@@ -88,6 +88,9 @@
 		0B46B0C5245865F3006E0D87 /* ChangeEmailMobilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B46B0C2245865F3006E0D87 /* ChangeEmailMobilePresenter.swift */; };
 		0B46B0C6245865F3006E0D87 /* ChangeEmailMobileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B46B0C3245865F3006E0D87 /* ChangeEmailMobileViewController.swift */; };
 		0B46B0C7245865F3006E0D87 /* ChangeEmailMobileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B46B0C4245865F3006E0D87 /* ChangeEmailMobileInteractor.swift */; };
+		0B4A25DF252309D400AC1C5F /* AddEditPhotosPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4A25DC252309D400AC1C5F /* AddEditPhotosPresenter.swift */; };
+		0B4A25E0252309D400AC1C5F /* AddEditPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4A25DD252309D400AC1C5F /* AddEditPhotosViewController.swift */; };
+		0B4A25E1252309D400AC1C5F /* AddEditPhotosInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4A25DE252309D400AC1C5F /* AddEditPhotosInteractor.swift */; };
 		0B4CA0362457EA5200A3460B /* ChangePasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4CA0332457EA5200A3460B /* ChangePasswordPresenter.swift */; };
 		0B4CA0372457EA5200A3460B /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4CA0342457EA5200A3460B /* ChangePasswordViewController.swift */; };
 		0B4CA0382457EA5200A3460B /* ChangePasswordInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4CA0352457EA5200A3460B /* ChangePasswordInteractor.swift */; };
@@ -509,6 +512,9 @@
 		0B46B0C2245865F3006E0D87 /* ChangeEmailMobilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailMobilePresenter.swift; sourceTree = "<group>"; };
 		0B46B0C3245865F3006E0D87 /* ChangeEmailMobileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailMobileViewController.swift; sourceTree = "<group>"; };
 		0B46B0C4245865F3006E0D87 /* ChangeEmailMobileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailMobileInteractor.swift; sourceTree = "<group>"; };
+		0B4A25DC252309D400AC1C5F /* AddEditPhotosPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditPhotosPresenter.swift; sourceTree = "<group>"; };
+		0B4A25DD252309D400AC1C5F /* AddEditPhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditPhotosViewController.swift; sourceTree = "<group>"; };
+		0B4A25DE252309D400AC1C5F /* AddEditPhotosInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditPhotosInteractor.swift; sourceTree = "<group>"; };
 		0B4CA0332457EA5200A3460B /* ChangePasswordPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordPresenter.swift; sourceTree = "<group>"; };
 		0B4CA0342457EA5200A3460B /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		0B4CA0352457EA5200A3460B /* ChangePasswordInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordInteractor.swift; sourceTree = "<group>"; };
@@ -1124,6 +1130,7 @@
 		0B3EA5F424E2786E00D1488E /* Profile+Subscription */ = {
 			isa = PBXGroup;
 			children = (
+				0B4A25DB2523099F00AC1C5F /* AddEditPhotosVC */,
 				0B3EA5F524E278A000D1488E /* ProfileSubscriptionViewController.swift */,
 			);
 			path = "Profile+Subscription";
@@ -1137,6 +1144,16 @@
 				0B46B0C4245865F3006E0D87 /* ChangeEmailMobileInteractor.swift */,
 			);
 			path = ChangeEmailMobileVC;
+			sourceTree = "<group>";
+		};
+		0B4A25DB2523099F00AC1C5F /* AddEditPhotosVC */ = {
+			isa = PBXGroup;
+			children = (
+				0B4A25DC252309D400AC1C5F /* AddEditPhotosPresenter.swift */,
+				0B4A25DD252309D400AC1C5F /* AddEditPhotosViewController.swift */,
+				0B4A25DE252309D400AC1C5F /* AddEditPhotosInteractor.swift */,
+			);
+			path = AddEditPhotosVC;
 			sourceTree = "<group>";
 		};
 		0B4CA0322457EA3300A3460B /* ChangePasswordVC */ = {
@@ -2830,6 +2847,7 @@
 				0B00E39524EA48C3007FAFF8 /* SPGripViewBorderView.m in Sources */,
 				0B7F33D4246ED8AE007ADF8D /* NotificationListViewController.swift in Sources */,
 				0BF707FD244F1D1C003D6AB7 /* DiscoverPresenter.swift in Sources */,
+				0B4A25E1252309D400AC1C5F /* AddEditPhotosInteractor.swift in Sources */,
 				0BBB5CCD2498C11F00069320 /* NotificationResponse.swift in Sources */,
 				F97A9A2E21103FAD007C45F5 /* CGFloatExtensions.swift in Sources */,
 				0B912A412473989B005D5412 /* LoaderView.swift in Sources */,
@@ -2861,6 +2879,7 @@
 				F9EDD431203BFF33008FA83F /* BaseModel.swift in Sources */,
 				F76A8D842440396800ED9947 /* BlockClass.swift in Sources */,
 				0B319663244DE80500B38350 /* TabbarPresenter.swift in Sources */,
+				0B4A25DF252309D400AC1C5F /* AddEditPhotosPresenter.swift in Sources */,
 				F7DFAE3D24501192008863F3 /* CountryPickerWithSectionViewController.swift in Sources */,
 				0B3C75BF2453280200CEDBBA /* CustomAlertView.swift in Sources */,
 				0B53A12024C0133800F8AE1A /* FirstDateInteractor.swift in Sources */,
@@ -3085,6 +3104,7 @@
 				0BABEADC247244F1000BC5E7 /* PreferencesAPI.swift in Sources */,
 				0B53566F2450870F005571AF /* MyMatchesInteractor.swift in Sources */,
 				0B921C2C24571BE40010AE04 /* SegmentedProgressBar.swift in Sources */,
+				0B4A25E0252309D400AC1C5F /* AddEditPhotosViewController.swift in Sources */,
 				0B3EA5F624E278A000D1488E /* ProfileSubscriptionViewController.swift in Sources */,
 				F7780E35245AD667003CA4BD /* JSONEncodableEncoding.swift in Sources */,
 				0BED366A2488F280006A293E /* DateExtension.swift in Sources */,

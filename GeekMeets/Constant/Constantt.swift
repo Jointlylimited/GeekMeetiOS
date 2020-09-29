@@ -117,6 +117,7 @@ struct GeekMeets_ViewController
     static let MatchByBothScreen = "MatchByBothViewController"
     static let MyLikesScreen = "MyLikesViewController"
     static let LikesScreen = "LikesViewController"
+    static let AddEditPhotosScreen = "AddEditPhotosViewController"
 }
 
 struct Cells {

@@ -22,7 +22,7 @@
             <objects>
                 <viewController storyboardIdentifier="SelectAgeRangeViewController" automaticallyAdjustsScrollViewInsets="NO" id="vJ4-jH-QFm" customClass="SelectAgeRangeViewController" customModule="Jointly" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5Lr-FH-cq4">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_logo_Small" translatesAutoresizingMaskIntoConstraints="NO" id="uWV-Mu-aDp">
@@ -222,14 +222,14 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hidden" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fog-cH-OmA">
-                                <rect key="frame" x="314" y="103.5" width="39" height="14"/>
+                                <rect key="frame" x="278" y="103.5" width="39" height="14"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="12"/>
                                 <color key="textColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Uy-zQ-omO">
-                                <rect key="frame" x="358" y="99.5" width="36" height="22"/>
+                                <rect key="frame" x="322" y="88.5" width="72" height="44"/>
                                 <state key="normal" image="icn_off"/>
                                 <state key="selected" image="icn_on"/>
                                 <connections>

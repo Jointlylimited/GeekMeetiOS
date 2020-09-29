@@ -33,6 +33,7 @@ class HomeViewController: UIViewController, HomeProtocol {
     @IBOutlet weak var imgPlaceHolder: UIImageView!
     @IBOutlet weak var subView: UIView!
     @IBOutlet weak var btnMatch: SSBadgeButton!
+    @IBOutlet weak var btnActivateSpotlight: GradientButton!
     
     var cardsData = [Int]()
     var objStoryData : [UIImage] = [#imageLiteral(resourceName: "image_1"),#imageLiteral(resourceName: "image_1"),#imageLiteral(resourceName: "image_1")]
@@ -40,6 +41,7 @@ class HomeViewController: UIViewController, HomeProtocol {
     var objCardArray = CardDetailsModel()
     var location:CLLocation?
     var SwipeValue : Int = 0
+    var i : Int = 0
     
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -83,7 +85,8 @@ class HomeViewController: UIViewController, HomeProtocol {
                 self.getUserCurrentLocation()
             } else {
                 self.location = CLLocation(latitude: CLLocationDegrees(exactly: Double(UserDataModel.currentUser!.fLatitude!)!)!, longitude: CLLocationDegrees(exactly: Double(UserDataModel.currentUser!.fLongitude!)!)!)
-                self.presenter?.callUserCardAPI()
+//                self.presenter?.callUserCardAPI()
+                self.presenter?.callMatchListAPI()
             }
         }else {
             self.getUserCurrentLocation()
@@ -104,6 +107,10 @@ class HomeViewController: UIViewController, HomeProtocol {
             self.objCardArray.objUserCard = self.objCardArray.arrUserCardList[0]
         }
         cards.reloadData()
+        
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(presentProfileVC))
+        doubleTapGesture.numberOfTapsRequired = 2
+        cards.addGestureRecognizer(doubleTapGesture)
     }
     
     func getUserCurrentLocation() {
@@ -131,10 +138,36 @@ class HomeViewController: UIViewController, HomeProtocol {
     }
     
     func presentSubVC(){
-        let subVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.ManageSubscriptionScreen) as! ManageSubscriptionViewController
-        subVC.modalTransitionStyle = .crossDissolve
-        subVC.modalPresentationStyle = .overCurrentContext
-        self.presentVC(subVC)
+        if i == 0 {
+            self.i = 1
+            self.btnActivateSpotlight.setTitle("Activate Boost", for: .normal)
+            let subVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.ManageSubscriptionScreen) as! ManageSubscriptionViewController
+            subVC.modalTransitionStyle = .crossDissolve
+            subVC.modalPresentationStyle = .overCurrentContext
+            self.presentVC(subVC)
+        } else if i == 1 {
+            self.i = 2
+            self.btnActivateSpotlight.setTitle("Activate Top Story", for: .normal)
+            presentBoostVC()
+        } else {
+            self.i = 0
+            self.btnActivateSpotlight.setTitle("Activate Subscription", for: .normal)
+            presentTopStoryVC()
+        }
+    }
+    
+    func presentBoostVC(){
+        let boostVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.BoostScreen) as! BoostViewController
+        boostVC.modalTransitionStyle = .crossDissolve
+        boostVC.modalPresentationStyle = .overCurrentContext
+        self.presentVC(boostVC)
+    }
+    
+    func presentTopStoryVC(){
+        let topGeeksVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.TopGeeksScreen) as! TopGeeksViewController
+        topGeeksVC.modalTransitionStyle = .crossDissolve
+        topGeeksVC.modalPresentationStyle = .overCurrentContext
+        self.presentVC(topGeeksVC)
     }
     
     func pushMatchVC(){
@@ -146,11 +179,11 @@ class HomeViewController: UIViewController, HomeProtocol {
         cards.alpha = 0.0
         self.subView.alpha = 1.0
         self.imgPlaceHolder.alpha = 1.0
-        self.imgPlaceHolder.image = #imageLiteral(resourceName: "img_sub_home")
+        self.imgPlaceHolder.image = #imageLiteral(resourceName: "u_sub")
     }
     
     
-    func presentProfileVC(){
+    @objc func presentProfileVC(){
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchProfileScreen) as! MatchProfileViewController
         controller.UserID = self.objCardArray.objUserCard.iUserId
         controller.modalTransitionStyle = .crossDissolve
@@ -193,7 +226,7 @@ extension HomeViewController {
             self.subView.alpha = 1.0
         }
 //        self.presentSubscriptionView()
-        self.presenter?.callMatchListAPI()
+        
     }
     
     func callSwipeCardAPI(iProfileId : String, tiSwipeType : String){
@@ -254,6 +287,7 @@ extension HomeViewController {
         } else {
             self.btnMatch.badgeLabel.alpha = 0.0
         }
+        self.presenter?.callUserCardAPI()
     }
 }
 

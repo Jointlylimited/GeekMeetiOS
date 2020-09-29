@@ -50,7 +50,7 @@ class ProfileSubscriptionViewController: UIViewController {
     }
     
     @IBAction func btnAddPhotosAction(_ sender: UIButton) {
-        self.MoveToEditProfileVC()
+        self.MoveToAddEditPhotosVC()
     }
     
     @IBAction func btnSettingsAction(_ sender: UIButton) {
@@ -99,6 +99,11 @@ class ProfileSubscriptionViewController: UIViewController {
     
     func MoveToEditProfileVC(){
          let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.EditProfileScreen) as! EditProfileViewController
+        self.pushVC(controller)
+    }
+    
+    func MoveToAddEditPhotosVC(){
+         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.AddEditPhotosScreen) as! AddEditPhotosViewController
         self.pushVC(controller)
     }
     

@@ -77,12 +77,12 @@ class ManageSubscriptionInteractor: ManageSubscriptionInteractorProtocol, Manage
     }
     
     func callUpdateSubscriptionAPI(param : Dictionary<String, String>){
-        LoaderView.sharedInstance.showLoader()
+//        LoaderView.sharedInstance.showLoader()
         SubscriptionAPI.updateSubscription(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iSubscriptionId: param["iSubscriptionId"]!, iEndDate: param["iEndDate"]!) { (response, error) in
             
-            delay(0.2) {
-                LoaderView.sharedInstance.hideLoader()
-            }
+//            delay(0.2) {
+//                LoaderView.sharedInstance.hideLoader()
+//            }
             if response?.responseCode == 200 {
                 self.presenter?.getUpdateSubscriptionResponse(response: response!)
             } else if response?.responseCode == 203 {
@@ -104,9 +104,9 @@ class ManageSubscriptionInteractor: ManageSubscriptionInteractorProtocol, Manage
 //        LoaderView.sharedInstance.showLoader()
         UserAPI.userProfile(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iUserId: "\(UserDataModel.currentUser!.iUserId!)", vReferralCode: "") { (response, error) in
             
-            delay(0.2) {
-                LoaderView.sharedInstance.hideLoader()
-            }
+//            delay(0.2) {
+//                LoaderView.sharedInstance.hideLoader()
+//            }
             if response?.responseCode == 200 {
                 print((response?.responseData!)!)
                 self.presenter?.getUserProfileResponse(response: (response?.responseData!)!)

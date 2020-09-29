@@ -62,9 +62,14 @@ class MyLikesViewController: UIViewController, MyLikesProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.registerTableViewCell()
-        self.setStoryMsgViewData()
+//        self.setStoryMsgViewData()
     }
   
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.setStoryMsgViewData()
+    }
+    
     func registerTableViewCell(){
         self.tblMatchList.register(UINib.init(nibName: Cells.MessageListCell, bundle: Bundle.main), forCellReuseIdentifier: Cells.MessageListCell)
         
