@@ -34,6 +34,8 @@ class HomeViewController: UIViewController, HomeProtocol {
     @IBOutlet weak var subView: UIView!
     @IBOutlet weak var btnMatch: SSBadgeButton!
     @IBOutlet weak var btnActivateSpotlight: GradientButton!
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var btnActivateTopConstraint: NSLayoutConstraint!
     
     var cardsData = [Int]()
     var objStoryData : [UIImage] = [#imageLiteral(resourceName: "image_1"),#imageLiteral(resourceName: "image_1"),#imageLiteral(resourceName: "image_1")]
@@ -76,6 +78,8 @@ class HomeViewController: UIViewController, HomeProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         SwipeValue = Authentication.getSwipeStatus()!
+        self.lblTitle.font = UIFont(name: FontTypePoppins.Poppins_Medium.rawValue, size: DeviceType.iPhone5orSE ? 12.0 : 16.0)
+        self.btnActivateTopConstraint.constant = DeviceType.iPhone5orSE ? 15 : 30
     }
     
     override func viewWillAppear(_ animated: Bool) {

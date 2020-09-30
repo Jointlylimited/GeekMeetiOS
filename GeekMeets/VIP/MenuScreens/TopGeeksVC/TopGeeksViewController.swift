@@ -81,7 +81,9 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     
     func setCollectionView(){
         
-        self.PlanDetailsArray = [PlanData(days: "1", duration: "Top Story", price: "$1.99", planType: "2", BoostGeekCount: "0", GeekCount: "1"), PlanData(days: "4", duration: "Top Stories", price: "$3.99", planType: "2", BoostGeekCount: "0", GeekCount: "4"), PlanData(days: "8", duration: "Top Stories", price: "$6.99", planType: "2", BoostGeekCount: "0", GeekCount: "8"), PlanData(days: "10 + 10", duration: "Top Stories", price: "$14.99", planType: "1", BoostGeekCount: "10", GeekCount: "10")]
+        self.PlanDetailsArray = [PlanData(days: "1", duration: "Top Story", price: "$1.99", planType: "2", BoostGeekCount: "0", GeekCount: "1"), PlanData(days: "4", duration: "Top Stories", price: "$6.99", planType: "2", BoostGeekCount: "0", GeekCount: "4"),  PlanData(days: "10 + 10", duration: "Top Stories", price: "$14.99", planType: "3", BoostGeekCount: "10", GeekCount: "10")]
+        //PlanData(days: "8", duration: "Top Stories", price: "$6.99", planType: "2", BoostGeekCount: "0", GeekCount: "8"),
+        
         self.PlanCollectionView.register(UINib.init(nibName: Cells.PlanCollectionCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.PlanCollectionCell)
         self.PlanCollectionView.contentInset = UIEdgeInsets(top: 10, left: 30, bottom: 10, right: 30)
         

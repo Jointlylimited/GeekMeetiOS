@@ -67,7 +67,7 @@ class LikesViewController: UIViewController, LikesProtocol {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setStoryMsgViewData()
+        self.LikesCollectionView.reloadData()
     }
     
     func registerTableViewCell(){

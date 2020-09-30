@@ -110,8 +110,8 @@
             filePath = "GeekMeets/VIP/DashBoard/Tabbar/HomeVC/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "141"
-            endingLineNumber = "141"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
             landmarkName = "presentSubVC()"
             landmarkType = "7">
          </BreakpointContent>
@@ -183,7 +183,55 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7DF697C4-C038-440D-B9B7-4DD8ECDAF2E3"
+            uuid = "CFCB268B-46A4-4A62-AFC8-5BDB282424B4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GeekMeets/VIP/DashBoard/Tabbar/HomeVC/HomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "251"
+            endingLineNumber = "251"
+            landmarkName = "getSwipeCardResponse(response:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CA46FC8B-B41C-4527-9786-A93478A2EBCF"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GeekMeets/VIP/MenuScreens/TopGeeksVC/TopGeeksViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
+            landmarkName = "callCreateGeeksAPI()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FED659E7-35FB-44EB-90E7-994B00D23452"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GeekMeets/VIP/MenuScreens/ManageSubscriptionVC/ManageSubscriptionViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "361"
+            endingLineNumber = "361"
+            landmarkName = "collectionView(_:cellForItemAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2DAFA0E9-25BE-4532-8317-910FD1899707"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -199,16 +247,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "CFCB268B-46A4-4A62-AFC8-5BDB282424B4"
-            shouldBeEnabled = "No"
+            uuid = "A2E0E9AB-56E1-4671-BDA3-D478F54E8E45"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GeekMeets/VIP/DashBoard/Tabbar/HomeVC/HomeViewController.swift"
+            filePath = "GeekMeets/VIP/MenuScreens/MatchList/MatchByBoth/MatchByBothViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "247"
-            endingLineNumber = "247"
-            landmarkName = "getSwipeCardResponse(response:)"
+            startingLineNumber = "234"
+            endingLineNumber = "234"
+            landmarkName = "collectionView(_:cellForItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

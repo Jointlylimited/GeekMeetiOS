@@ -89,7 +89,7 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     
     func setCollectionView(){
         
-        self.PlanDetailsArray = [PlanData(days: "Annual", duration: "", price: "$89.99", planType: "3", BoostGeekCount: "0", GeekCount: "0"), PlanData(days: "Monthly", duration: "", price: "$9.99", planType: "2", BoostGeekCount: "0", GeekCount: "0")]
+        self.PlanDetailsArray = [PlanData(days: "1", duration: "Month", price: "$9.99", planType: "1", BoostGeekCount: "0", GeekCount: "0"), PlanData(days: "3", duration: "Months", price: "$19.98", planType: "2", BoostGeekCount: "0", GeekCount: "0"), PlanData(days: "6", duration: "Months", price: "$29.97", planType: "3", BoostGeekCount: "0", GeekCount: "0")]
         
         self.PlanCollectionView.register(UINib.init(nibName: Cells.PlanCollectionCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.PlanCollectionCell)
          self.PlanCollectionView.contentInset = UIEdgeInsets(top: 10, left: 30, bottom: 10, right: 30)
@@ -124,11 +124,14 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
             if value == nil || value == 0 {
                 var endDateStr : String = ""
                 if planDict.count != 0 {
-                    if planDict["tiType"] as! String == "2" {
+                    if planDict["tiType"] as! String == "1" {
                         let endDate = Calendar.current.date(byAdding: .month, value: 1, to: Date())
                         endDateStr = "\(endDate!.currentTimeMillis()/1000)"
+                    } else if planDict["tiType"] as! String == "2" {
+                        let endDate = Calendar.current.date(byAdding: .month, value: 3, to: Date())
+                        endDateStr = "\(endDate!.currentTimeMillis()/1000)"
                     } else {
-                        let endDate = Calendar.current.date(byAdding: .year, value: 1, to: Date())
+                        let endDate = Calendar.current.date(byAdding: .month, value: 6, to: Date())
                         endDateStr = "\(endDate!.currentTimeMillis()/1000)"
                     }
                 } else {
@@ -148,11 +151,14 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
         }else {
             var endDateStr : String = ""
             if planDict.count != 0 {
-                if planDict["tiType"] as! String == "2" {
+                if planDict["tiType"] as! String == "1" {
                     let endDate = Calendar.current.date(byAdding: .month, value: 1, to: Date())
                     endDateStr = "\(endDate!.currentTimeMillis()/1000)"
+                } else if planDict["tiType"] as! String == "2" {
+                    let endDate = Calendar.current.date(byAdding: .month, value: 3, to: Date())
+                    endDateStr = "\(endDate!.currentTimeMillis()/1000)"
                 } else {
-                    let endDate = Calendar.current.date(byAdding: .year, value: 1, to: Date())
+                    let endDate = Calendar.current.date(byAdding: .month, value: 6, to: Date())
                     endDateStr = "\(endDate!.currentTimeMillis()/1000)"
                 }
             } else {
@@ -330,7 +336,7 @@ extension ManageSubscriptionViewController : UICollectionViewDataSource, UIColle
         let cell : PlanCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PlanCollectionCell, for: indexPath) as! PlanCollectionCell
         let data = self.PlanDetailsArray[indexPath.row]
         cell.lblPlanCount.text = data.days
-        cell.lblPlanCount.font = UIFont(name: FontTypePoppins.Poppins_Medium.rawValue, size: 20)
+     //   cell.lblPlanCount.font = UIFont(name: FontTypePoppins.Poppins_Medium.rawValue, size: 20)
         cell.lblduration.text = data.duration
         cell.lblPrice.text = data.price
         cell.btnPopular.alpha = 0.0
@@ -345,14 +351,17 @@ extension ManageSubscriptionViewController : UICollectionViewDataSource, UIColle
             if indexPath.row == 0 {
                 productKey = SubscriptionKeys.Monthly.productKey
                 planDict = ["productKey" : SubscriptionKeys.Monthly.productKey, "tiType": data.planType, "fPrice" : data.price.split("$").last!]
+            } else if indexPath.row == 1 {
+                productKey = SubscriptionKeys.Monthly.productKey
+                planDict = ["productKey" : SubscriptionKeys.Monthly.productKey, "tiType": data.planType, "fPrice" : data.price.split("$").last!]
             } else {
                 productKey = SubscriptionKeys.Annualy.productKey
-                planDict = ["productKey" : SubscriptionKeys.Annualy.productKey, "tiType": data.planType, "fPrice" : data.price.split("$").last!]
+                planDict = ["productKey" : SubscriptionKeys.Monthly.productKey, "tiType": data.planType, "fPrice" : data.price.split("$").last!]
             }
         }
         
 //        if indexPath.row == self.PlanDetailsArray.count - 1 {
-            cell.btnPopular.alpha = 1.0
+           // cell.btnPopular.alpha = 1.0
 //        }
         return cell
     }
@@ -361,9 +370,9 @@ extension ManageSubscriptionViewController : UICollectionViewDataSource, UIColle
         let height = collectionView.frame.height
         
         if indexPath.row == selectedIndex {
-            return CGSize(width: DeviceType.iPhone5orSE ? 135 : 145, height: height - 10)
+            return CGSize(width: DeviceType.iPhone5orSE ? 125 : 135, height: height - 10)
         } else {
-            return CGSize(width: DeviceType.iPhone5orSE ? 120 : 130, height: height - 30)
+            return CGSize(width: DeviceType.iPhone5orSE ? 110 : 120, height: height - 30)
         }
     }
     

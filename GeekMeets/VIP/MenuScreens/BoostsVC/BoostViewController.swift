@@ -89,8 +89,8 @@ class BoostViewController: UIViewController, BoostProtocol {
 
     func setCollectionView(){
         
-        self.PlanDetailsArray = [PlanData(days: "1", duration: "Boost", price: "$1.99", planType: "1", BoostGeekCount: "1", GeekCount: "0"), PlanData(days: "5", duration: "Boosts", price: "$3.99", planType: "1", BoostGeekCount: "5", GeekCount: "0"), PlanData(days: "8", duration: "Boosts", price: "$6.99", planType: "1", BoostGeekCount: "8", GeekCount: "0"), PlanData(days: "10 + 10", duration: "Boosts", price: "$14.99", planType: "3", BoostGeekCount: "10", GeekCount: "10")]
-        
+        self.PlanDetailsArray = [PlanData(days: "1", duration: "Boost", price: "$1.99", planType: "1", BoostGeekCount: "1", GeekCount: "0"), PlanData(days: "5", duration: "Boosts", price: "$3.99", planType: "1", BoostGeekCount: "5", GeekCount: "0"),  PlanData(days: "10 + 10", duration: "Boosts", price: "$14.99", planType: "3", BoostGeekCount: "10", GeekCount: "10")]
+        //PlanData(days: "8", duration: "Boosts", price: "$6.99", planType: "1", BoostGeekCount: "8", GeekCount: "0"),
         self.PlanCollectionView.register(UINib.init(nibName: Cells.PlanCollectionCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.PlanCollectionCell)
          self.PlanCollectionView.contentInset = UIEdgeInsets(top: 10, left: 30, bottom: 10, right: 30)
         
