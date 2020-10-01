@@ -89,6 +89,7 @@ class TabbarViewController: UITabBarController, TabbarProtocol {
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         self.presenter?.callStoryListAPI()
+        getUnreadMsgCount()
     }
 }
 
@@ -119,6 +120,8 @@ extension TabbarViewController{
         }
         if count != 0 {
             self.tabBar.items![1].badgeValue = "\(count)"
+        } else {
+            self.tabBar.items![1].badgeValue = nil
         }
     }
 }
