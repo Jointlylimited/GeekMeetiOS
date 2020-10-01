@@ -86,6 +86,12 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
     
     //MARK: IBAction Method
     @IBAction func actionDone(_ sender: Any) {
+        
+        if self.userPhotosModel.count == 0 {
+            AppSingleton.sharedInstance().showAlert("Select at least one image.", okTitle: "OK")
+            return
+        }
+        
         for photo in userPhotosModel {
             if  photo.tiImage != nil {
                 self.imgsUserPhotosDict.append(["tiImage": photo.tiImage!, "vMedia": photo.vMedia!, "vMediaPath" : photo.vMediaPath!, "tiIsDefault": photo.tiIsDefault!])

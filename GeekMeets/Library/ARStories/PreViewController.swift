@@ -190,6 +190,7 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
             print("\(items[pageIndex].txStory!)")
             let url = URL(string:"\(items[index].txStory!)")
             self.imagePreview.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
+            self.player.pause()
         } else {
             
             print("\(items[index].txStory!)")

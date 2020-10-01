@@ -88,7 +88,7 @@ class HomeViewController: UIViewController, HomeProtocol {
             if UserDataModel.currentUser?.tiIsLocationOn == 0 {
                 self.getUserCurrentLocation()
             } else {
-                self.location = CLLocation(latitude: CLLocationDegrees(exactly: Double(UserDataModel.currentUser!.fLatitude!)!)!, longitude: CLLocationDegrees(exactly: Double(UserDataModel.currentUser!.fLongitude!)!)!)
+                self.location = CLLocation(latitude: CLLocationDegrees(exactly: Double(UserDataModel.currentUser!.fLatitude == "" ? "0.0" : UserDataModel.currentUser!.fLatitude!)!)!, longitude: CLLocationDegrees(exactly: Double(UserDataModel.currentUser!.fLongitude == "" ? "0.0" : UserDataModel.currentUser!.fLongitude!)!)!)
 //                self.presenter?.callUserCardAPI()
                 self.presenter?.callMatchListAPI()
             }

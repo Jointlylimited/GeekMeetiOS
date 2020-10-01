@@ -45,6 +45,8 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     var postStoryDelegate : PostStoryDelegate!
     var PlanDetailsArray : [PlanData] = []
     var selectedIndex : Int = 0
+    var purchseDelegate : SubscriptionPurchseDelegate!
+    var isPurchased : Bool = false
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -105,7 +107,12 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
-        self.dismissVC(completion: nil)
+        if self.purchseDelegate != nil {
+            self.purchseDelegate.isPurchased(success: self.isPurchased)
+            self.dismissVC(completion: nil)
+        } else {
+            self.dismissVC(completion: nil)
+        }
     }
     
     public func GetNextDayCurrentTimeStamp() -> String {
@@ -218,7 +225,9 @@ extension ManageSubscriptionViewController {
     
     func getSubscriptionDetailsResponse(response : SubscriptionResponse){
         if response.responseCode == 200 {
+            self.isPurchased = true
             self.subscriptionDetails = response.responseData
+            UserDataModel.currentUser?.tiIsSubscribed = 1
             if response.responseData?.iEndDate != nil {
                 let timeStamp = Date(timeIntervalSince1970: Double(response.responseData!.iEndDate!)!)
                 let dateString = timeStamp.formattedDateString(format: "dd MMM, yyyy")

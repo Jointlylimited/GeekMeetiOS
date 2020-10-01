@@ -26,21 +26,22 @@ class AddEditPhotosViewController: UIViewController, AddEditPhotosProtocol {
     @IBOutlet weak var btnDone: GradientButton!
     
     //USER PHOTOS
-       var imgsUserPhotos:[UIImage] = []
-       var imageArray:[NSDictionary] = []
-       var signUpParams : Dictionary<String, String>?
-       var imgProfile : UIImage?
-       var userPhotosModel : [UserPhotosModel] = []
-       var opimagePicker = OpalImagePickerController()
-       var removePhotoStr = ""
+    var imgsUserPhotos:[UIImage] = []
+    var imageArray:[NSDictionary] = []
+    var signUpParams : Dictionary<String, String>?
+    var imgProfile : UIImage?
+    var userPhotosModel : [UserPhotosModel] = []
+    var opimagePicker = OpalImagePickerController()
+    var removePhotoStr = ""
+    var PhotoStr = ""
     
-       var thumbURlUpload: (path: String, name: String) {
-           let folderName = user_Profile
-           let timeStamp = Authentication.sharedInstance().GetCurrentTimeStamp()
-           let imgExtension = ".jpeg"
-           let path = "\(folderName)\(timeStamp)\(imgExtension)"
-           return (path: path, name: "\(timeStamp)\(imgExtension)")
-       }
+    var thumbURlUpload: (path: String, name: String) {
+        let folderName = user_Profile
+        let timeStamp = Authentication.sharedInstance().GetCurrentTimeStamp()
+        let imgExtension = ".jpeg"
+        let path = "\(folderName)\(timeStamp)\(imgExtension)"
+        return (path: path, name: "\(timeStamp)\(imgExtension)")
+    }
     
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -102,7 +103,7 @@ class AddEditPhotosViewController: UIViewController, AddEditPhotosProtocol {
                 self.imageArray.append(["tiImage": photo.tiImage!, "vMedia": photo.vMedia!, "vMediaPath" : photo.vMediaPath!, "tiIsDefault": photo.tiIsDefault!, "msgType" : photo.tiMediaType!])
             }
         }
-        let params = RequestParameter.sharedInstance().addPhotosParams(deletephotos: self.removePhotoStr, photos: "")
+        let params = RequestParameter.sharedInstance().addPhotosParams(deletephotos: self.removePhotoStr, photos: self.PhotoStr)
         self.presenter?.callAddPhotosAPI(param : params, images : self.imageArray)
     }
     

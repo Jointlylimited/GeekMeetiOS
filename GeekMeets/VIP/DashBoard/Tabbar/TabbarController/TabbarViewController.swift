@@ -22,6 +22,7 @@ class TabbarViewController: UITabBarController, TabbarProtocol {
     
     var isFromMatch : Bool = false
     var userDict : NSDictionary = [:]
+    var arrFriends:[Model_ChatFriendList] = [Model_ChatFriendList]()
     
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -55,12 +56,13 @@ class TabbarViewController: UITabBarController, TabbarProtocol {
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.presenter?.callStoryListAPI()
+        NotificationCenter.default.addObserver(self, selector: #selector(xmppUserOnlineOfflineObserver), name: Notification_User_Online_Offline, object: nil)
         SetTabbarItem()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.presenter?.callStoryListAPI()
     }
     
     func SetTabbarItem(){
@@ -77,6 +79,17 @@ class TabbarViewController: UITabBarController, TabbarProtocol {
             }
         }
     }
+    
+    @objc func xmppUserOnlineOfflineObserver(_ nofificat: Notification) {
+        DispatchQueue.main.async {
+            self.arrFriends = SOXmpp.manager.arrFriendsList
+            self.getUnreadMsgCount()
+        }
+    }
+    
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        self.presenter?.callStoryListAPI()
+    }
 }
 
 //MARK: API Methods
@@ -84,20 +97,22 @@ extension TabbarViewController{
     func getStoryListResponse(response: StoryResponse){
         if response.responseCode == 200 {
             print(response.responseData!)
-            if response.responseData!.bottomStory!.count - UserDataModel.getStoryCount() != 0 {
-                if response.responseData?.bottomStory == nil || response.responseData?.bottomStory?.count == 0 {
-                    
-                    self.tabBar.items![3].badgeValue = "\(response.responseData!.bottomStory!.count - UserDataModel.getStoryCount())"
-                    UserDataModel.setNewMatchesCount(count: response.responseData!.bottomStory!.count - UserDataModel.getStoryCount())
+            if response.responseData!.bottomStory != nil || response.responseData!.bottomStory![0].count != 0 {
+                if response.responseData!.bottomStory![0].count - UserDataModel.getStoryCount() != 0 {
+                    self.tabBar.items![3].badgeValue = "\(response.responseData!.bottomStory![0].count - UserDataModel.getStoryCount())"
+                    UserDataModel.setStoryCount(count: response.responseData!.bottomStory![0].count - UserDataModel.getStoryCount())
+                } else {
+                    self.tabBar.items![3].badgeValue = nil
                 }
+            } else {
+                self.tabBar.items![3].badgeValue = nil
             }
         }
     }
     
     func getUnreadMsgCount(){
-        let arrFriends = SOXmpp.manager.arrFriendsList
         var count : Int = 0
-        for friend in arrFriends {
+        for friend in self.arrFriends {
             if let unreadCount = SOXmpp.manager.GetUnreadCound(of: friend.jID) , unreadCount > 0 {
                 count = unreadCount + count
             }

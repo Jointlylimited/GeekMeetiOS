@@ -12,6 +12,10 @@
 
 import UIKit
 
+protocol SubscriptionPurchseDelegate {
+    func isPurchased(success : Bool)
+}
+
 protocol MatchByBothProtocol: class {
     func getMatchResponse(response : MatchUser)
     func getUnMatchResponse(response : CommonResponse)
@@ -65,12 +69,7 @@ class MatchByBothViewController: UIViewController, MatchByBothProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.registerTableViewCell()
-//        self.setStoryMsgViewData()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.LikesCollectionView.reloadData()
+        self.setStoryMsgViewData()
     }
     
     func registerTableViewCell(){
@@ -95,6 +94,7 @@ class MatchByBothViewController: UIViewController, MatchByBothProtocol {
     
     func presentSubVC(){
         let subVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.ManageSubscriptionScreen) as! ManageSubscriptionViewController
+        subVC.purchseDelegate = self
         subVC.modalTransitionStyle = .crossDissolve
         subVC.modalPresentationStyle = .overFullScreen
         self.presentVC(subVC)
@@ -102,6 +102,12 @@ class MatchByBothViewController: UIViewController, MatchByBothProtocol {
     
     @IBAction func btnPurchaseAction(_ sender: GradientButton) {
         presentSubVC()
+    }
+}
+
+extension MatchByBothViewController : SubscriptionPurchseDelegate {
+    func isPurchased(success : Bool){
+        self.presenter?.callMatchListAPI()
     }
 }
 

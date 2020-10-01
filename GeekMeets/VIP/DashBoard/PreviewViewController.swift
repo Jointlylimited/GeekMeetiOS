@@ -145,7 +145,9 @@ class PreviewViewController: UIViewController, PreviewProtocol {
             imgview?.contentMode = .center
         }
 //        let gripFrame = CGRect(x: 0, y: ((ScreenSize.height - ScreenSize.width)/2), width: ScreenSize.width, height: ScreenSize.width)
-        let gripFrame = CGRect(x: 0, y: 0, width: ScreenSize.width, height: ScreenSize.height)
+        let gripFrame = DeviceType.hasNotch ? CGRect(x: 8, y: 8, width: ScreenSize.width - 16, height: ScreenSize.height - 16) : CGRect(x: 0, y: 0, width: ScreenSize.width, height: ScreenSize.height)
+        
+        
         let contentView = UIView(frame: photo.frame)
         contentView.backgroundColor = UIColor.black
         contentView.addSubview(imgview!)
