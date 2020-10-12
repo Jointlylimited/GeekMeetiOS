@@ -32,6 +32,8 @@ public class CardView: UIView {
     @IBOutlet weak var lblLiveIn: UILabel!
     
     var objStoryData : [UIImage] = [#imageLiteral(resourceName: "image_1"),#imageLiteral(resourceName: "image_1"),#imageLiteral(resourceName: "image_1")]
+    var objCard = CardDetailsModel()
+    
     override public func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -46,9 +48,9 @@ public class CardView: UIView {
         
         let angle = CGFloat.pi/2
         pageControl.transform = CGAffineTransform(rotationAngle: angle)
-        self.pageControl.numberOfPages = self.objStoryData.count
+//        self.pageControl.numberOfPages = self.objStoryData.count
         self.pageControl.currentPage = index
-        self.imgCollView.reloadData()
+//        self.imgCollView.reloadData()
     }
     
     override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -70,8 +72,12 @@ public class CardView: UIView {
         view.lblLiveIn.text = obj.vLiveIn == "" ? "Ahmedabad" : obj.vLiveIn
         let text = distanceinMeter(obj : obj,  location : location)
         view.lblView.text = text
-        
+        let url = URL(string: obj.vProfileImage!)
+        view.imgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
+        view.pageControl.numberOfPages = obj.photos?.count ?? 0
+//        view.objCard.objUserCard = SearchUserFields(iUserId: obj.iUserId, vName: obj.vName, vProfileImage: obj.vProfileImage, tiAge: obj.tiAge, vLiveIn: obj.vLiveIn, fLatitude: obj.fLatitude, fLongitude: obj.fLongitude, storyTime: obj.storyTime, vXmppUser: obj.vXmppUser, vXmppPassword: obj.vXmppPassword, photos: obj.photos)
         view.layoutIfNeeded()
+        view.imgCollView.reloadData()
         return view
     }
     

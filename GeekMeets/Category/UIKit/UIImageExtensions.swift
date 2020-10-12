@@ -185,16 +185,16 @@ extension PHAsset {
     }
 }
 extension PHAsset {
-
+    
     func getUIImage(asset: PHAsset) -> UIImage? {
-
+        
         var img: UIImage?
         let manager = PHImageManager.default()
         let options = PHImageRequestOptions()
         options.version = .original
         options.isSynchronous = true
         manager.requestImageData(for: asset, options: options) { data, _, _, _ in
-
+            
             if let data = data {
                 img = UIImage(data: data)
             }
@@ -206,14 +206,14 @@ extension PHAsset {
     {
         var url : URL?
         asset.requestContentEditingInput(with: PHContentEditingInputRequestOptions(), completionHandler: { (contentEditingInput, dictInfo) in
-
+            
             if let strURL = (contentEditingInput!.audiovisualAsset as? AVURLAsset)?.url.absoluteString
             {
                 print("VIDEO URL: \(strURL)")
                 url = URL.init(string: strURL)
-//                callBack(URL.init(string: strURL))
+                //                callBack(URL.init(string: strURL))
             }
         })
-        return url!
+        return url != nil ? url! : URL(string: "")!
     }
 }

@@ -212,7 +212,7 @@ private extension SwipeableCards {
                 let rotationStrength: CGFloat = min(xFromCenter / Const.rotationStrength, Const.rotationMax)
                 let rotationAngel = Const.rotationAngle * rotationStrength
                 let scale = max(1.0 - fabs(rotationStrength) / Const.scaleStrength, Const.scaleMax)
-                firstCard.center = CGPoint(x: originalPoint.x + xFromCenter, y: originalPoint.y + yFromCenter)
+                firstCard.center = CGPoint(x: originalPoint.x + xFromCenter, y: originalPoint.y/* + yFromCenter*/)
                 let transform = CGAffineTransform(rotationAngle: rotationAngel)
                 let scaleTransform = transform.scaledBy(x: scale, y: scale)
                 firstCard.transform = scaleTransform

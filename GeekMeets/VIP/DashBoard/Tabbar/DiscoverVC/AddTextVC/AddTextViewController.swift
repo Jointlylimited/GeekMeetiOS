@@ -78,6 +78,16 @@ class AddTextViewController: UIViewController {
         self.dismissVC(completion: nil)
     }
     
+    @IBAction func btnChangeTextTypeAction(_ sender: UIButton) {
+        self.ColorCollView.alpha = 0.0
+        self.TextNameCollView.alpha = self.TextNameCollView.alpha == 0.0 ? 1.0 : 0.0
+    }
+    
+    @IBAction func btnChangeTextColorAction(_ sender: UIButton) {
+        self.TextNameCollView.alpha = 0.0
+        self.ColorCollView.alpha = self.ColorCollView.alpha == 0.0 ? 1.0 : 0.0
+    }
+    
     @objc func keyboardWillShow(_ notification: Notification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue

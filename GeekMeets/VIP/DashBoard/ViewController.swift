@@ -9,6 +9,8 @@
 import UIKit
 import AVFoundation
 import MobileCoreServices
+import OpalImagePicker
+import Photos
 
 struct MediaData {
     var mediaType: MediaType = .image
@@ -84,6 +86,7 @@ class ViewController: UIViewController {
     var image:UIImage?
     var objPostData = PostData()
     var imagePicker: UIImagePickerController!
+    var opimagePicker = OpalImagePickerController()
     
     //Zoom in - out
     let minimumZoom: CGFloat = 1.0
@@ -379,7 +382,10 @@ extension ViewController : AVCaptureFileOutputRecordingDelegate {
         self.objPostData.arrMedia.append(objMedia)
         
         previewVC.objPostData = self.objPostData
-        self.pushVC(previewVC)
+        previewVC.modalTransitionStyle = .crossDissolve
+        previewVC.modalPresentationStyle = .overCurrentContext
+        previewVC.delegate = self
+        self.presentVC(previewVC) //pushVC(previewVC)
     }
 }
 extension ViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -409,15 +415,23 @@ extension ViewController : UIImagePickerControllerDelegate, UINavigationControll
             guard let `self` = self else {return}
             if isGrant {
                 if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
-                    self.imagePicker = UIImagePickerController()
-                    self.imagePicker.delegate = self
-                    if self.objPostData.postMediaType == .video {
-                        self.imagePicker.mediaTypes = [kUTTypeMovie as String, kUTTypeVideo as String]
-                        self.imagePicker.videoMaximumDuration = 30
+                    if self.objPostData.postMediaType == .image {
+                        self.opimagePicker.imagePickerDelegate = self
+                        self.opimagePicker.maximumSelectionsAllowed = 1
+                        self.opimagePicker.selectionImage = nil
+                        
+                        self.present(self.opimagePicker, animated: true, completion: nil)
+                    } else
+                        if self.objPostData.postMediaType == .video {
+                            self.imagePicker = UIImagePickerController()
+                            self.imagePicker.delegate = self
+                            self.imagePicker.allowsEditing = false
+                            self.imagePicker.mediaTypes = [kUTTypeMovie as String, kUTTypeVideo as String]
+                            self.imagePicker.videoMaximumDuration = 30
+                            self.imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary;
+                            self.imagePicker.allowsEditing = true
+                            self.present(self.imagePicker, animated: true, completion: nil)
                     }
-                    self.imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary;
-                    self.imagePicker.allowsEditing = true
-                    self.present(self.imagePicker, animated: true, completion: nil)
                 }
             }
         }
@@ -462,10 +476,56 @@ extension ViewController : UIImagePickerControllerDelegate, UINavigationControll
         let previewVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.PreviewViewScreen) as! PreviewViewController
         previewVC.image = self.image
         previewVC.objPostData = self.objPostData
-        self.pushVC(previewVC)
+        previewVC.modalTransitionStyle = .crossDissolve
+        previewVC.modalPresentationStyle = .overCurrentContext
+        previewVC.delegate = self
+        self.presentVC(previewVC) //pushVC(previewVC)
     }
     
     func generateThumb(from videoURL: URL) -> UIImage? {
         return videoURL.getVideoThumbImage()
+    }
+}
+
+
+extension ViewController : OpalImagePickerControllerDelegate {
+    func imagePicker(_ picker: OpalImagePickerController, didFinishPickingAssets assets: [PHAsset]) {
+        picker.dismiss(animated: true, completion: nil)
+        
+        let asset = assets[assets.count - 1]
+        if let fileName = asset.value(forKey: "filename") as? String{
+            print(fileName)
+        }
+        
+        if let image = asset.getUIImage(asset: asset) {
+            var objMedia = MediaData()
+            objMedia.img = image
+            if self.objPostData.arrMedia == nil {
+                self.objPostData.arrMedia = []
+            }
+            objMedia.uID = "\(self.objPostData.arrMedia.count)"
+            self.objPostData.tiStoryType = "0"
+            self.objPostData.arrMedia.append(objMedia)
+        }
+        print(self.objPostData)
+
+        
+        let previewVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.PreviewViewScreen) as! PreviewViewController
+        previewVC.image = self.image
+        previewVC.objPostData = self.objPostData
+        previewVC.modalTransitionStyle = .crossDissolve
+        previewVC.modalPresentationStyle = .overCurrentContext
+        previewVC.delegate = self
+        self.presentVC(previewVC) //pushVC(previewVC)
+    }
+    
+    func imagePickerDidCancel(_ picker: OpalImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension ViewController : ResetStoryObjectDelegate {
+    func resetObject(status: Bool) {
+        self.objPostData.arrMedia = []
     }
 }

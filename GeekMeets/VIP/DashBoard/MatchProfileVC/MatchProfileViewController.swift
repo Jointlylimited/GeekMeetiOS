@@ -325,10 +325,12 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
 extension MatchProfileViewController {
     func getUserProfileResponse(response : UserAuthResponseField){
         print(response)
-        self.objMatchUserProfile = response
-        self.objProfileData.data = response.preference!
-        setProfileData()
-        self.presenter?.callStoryListAPI(id : self.UserID != nil ? self.UserID! : 1)
+        if response.iUserId != nil {
+            self.objMatchUserProfile = response
+            self.objProfileData.data = response.preference!
+            setProfileData()
+            self.presenter?.callStoryListAPI(id : self.UserID != nil ? self.UserID! : 1)
+        }
     }
     
     func getStoryListResponse(response: StoryResponse){

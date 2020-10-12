@@ -15,6 +15,10 @@ protocol PostStoryDelegate {
     func getSubscriptionResponse(status: Bool)
 }
 
+protocol ResetStoryObjectDelegate {
+    func resetObject(status: Bool)
+}
+
 protocol PreviewProtocol: class {
     func getPostStoryResponse(response: CommonResponse)
 }
@@ -22,6 +26,7 @@ protocol PreviewProtocol: class {
 class PreviewViewController: UIViewController, PreviewProtocol {
     
     var presenter : PreviewPresentationProtocol?
+    var delegate : ResetStoryObjectDelegate?
     
     @IBOutlet weak var photo: JLStickerImageView!
     @IBOutlet weak var PhotoView: UIView!
@@ -137,22 +142,21 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         self.cropPickerView.delegate = self
         
         imgview = UIImageView(image: photo.image)
+        let gripFrame : CGRect?
         
-        if photo.image!.size.width > ScreenSize.width ||
-            photo.image!.size.height > ScreenSize.height {
-            imgview?.contentMode = .scaleAspectFit
-        } else {
-            imgview?.contentMode = .center
-        }
-//        let gripFrame = CGRect(x: 0, y: ((ScreenSize.height - ScreenSize.width)/2), width: ScreenSize.width, height: ScreenSize.width)
-        let gripFrame = DeviceType.hasNotch ? CGRect(x: 8, y: 8, width: ScreenSize.width - 16, height: ScreenSize.height - 16) : CGRect(x: 0, y: 0, width: ScreenSize.width, height: ScreenSize.height)
+        let image = resetImageSize(image: photo.image!)
         
+        let width = image.size.width
+        let height = image.size.height
+        imgview?.contentMode = .scaleAspectFit
+        
+        gripFrame = DeviceType.hasNotch ? CGRect(x: 5, y: (ScreenSize.height - height)/2 - 5, width: width - 10, height: height - 10) : CGRect(x: 0, y: (ScreenSize.height - height)/2, width: width, height: height)
         
         let contentView = UIView(frame: photo.frame)
         contentView.backgroundColor = UIColor.black
         contentView.addSubview(imgview!)
-
-        userResizableView1 = ZDStickerView(frame: gripFrame)
+        
+        userResizableView1 = ZDStickerView(frame: gripFrame!)
         userResizableView1.tag = 0
         userResizableView1.stickerViewDelegate = self
         userResizableView1.contentView = contentView
@@ -160,10 +164,34 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         userResizableView1.translucencySticker = false
         userResizableView1.showEditingHandles() // hideEditingHandles()
         view.insertSubview(userResizableView1, at: 2)
-        
-//        //Zoom in - out
-//        let pinchRecognizer = UIPinchGestureRecognizer(target: self, action:#selector(pinch(_:)))
-//        self.cropPickerView.addGestureRecognizer(pinchRecognizer)
+    }
+    
+    func resetImageSize(image : UIImage) -> UIImage {
+        let screenWidth = ScreenSize.width
+        let screenHeight = ScreenSize.height
+        var actualHeight : CGFloat = image.size.height
+        var actualWidth : CGFloat = image.size.width
+        var imgRatio : CGFloat = actualWidth/actualHeight
+        var maxRatio : CGFloat = screenWidth/screenHeight
+
+        if(imgRatio != maxRatio){
+            if(imgRatio < maxRatio){
+                imgRatio = screenHeight / actualHeight
+                actualWidth = imgRatio * actualWidth
+                actualHeight = screenHeight
+            }
+            else{
+                imgRatio = screenWidth / actualWidth;
+                actualHeight = imgRatio * actualHeight
+                actualWidth = screenWidth
+            }
+        }
+        let rect : CGRect = CGRect(x: 0, y: 0, width: actualWidth, height: actualHeight)
+        UIGraphicsBeginImageContext(rect.size);
+        image.draw(in: rect)
+        let img : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return img
     }
     
     // MARK: Manual Functions
@@ -199,30 +227,10 @@ class PreviewViewController: UIViewController, PreviewProtocol {
             }
         }
     }
-    
-    //Zoom in - out - Image
-//    @objc func pinch(_ sender: UIPinchGestureRecognizer) {
-//        if sender.state == .ended || sender.state == .changed {
-//
-//            let currentScale = self.view.frame.size.width / self.view.bounds.size.width
-//            var newScale = currentScale*sender.scale
-//
-//            if newScale < 1 {
-//                newScale = 1
-//            }
-//            if newScale > 9 {
-//                newScale = 9
-//            }
-//
-//            let transform = CGAffineTransform.init(scaleX: newScale, y: newScale)
-//
-//            self.cropPickerView?.transform = transform
-//            sender.scale = 1
-//        }
-//    }
-    
+
     @IBAction func cancelButtonTouch(_ sender: Any) {
-         self.popVC()
+         self.delegate?.resetObject(status: true)
+         self.dismissVC(completion: nil) //popVC()
     }
     
     @IBAction func saveButtonTouch(_ sender: Any) {
@@ -276,8 +284,9 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     
     func moveToTabVC(){
         let tabVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.TabbarScreen) as! TabbarViewController
-        tabVC.isFromMatch = false
-        self.pop(toLast: tabVC.classForCoder)
+        tabVC.isFromStory = true
+//        self.dismissVC(completion: nil) // pop(toLast: tabVC.classForCoder)
+        AppSingleton.sharedInstance().showHomeVC(fromMatch : false, fromStory: true, userDict: [:])
     }
     
     @objc func playerDidFinishPlaying(sender: Notification) {
@@ -314,6 +323,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         stickerView.addLabel(text : text.text, font: text.font.fontName)
         stickerView.textColor = text.color
         stickerView.textAlpha = 1
+        stickerView.textAlignment = .center
         stickerView.currentlyEditingLabel.closeView!.image = UIImage(named: "Close")
         stickerView.currentlyEditingLabel.rotateView?.image = UIImage(named: "Rotate")
         stickerView.currentlyEditingLabel.border?.strokeColor = UIColor.brown.cgColor
@@ -384,7 +394,9 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     }
     
     func addtextToVideo(){
-        
+        DispatchQueue.main.async {
+            LoaderView.sharedInstance.showLoader()
+        }
         let composition = AVMutableComposition()
         let vidAsset = AVURLAsset(url: self.objPostData.arrMedia[0].videoURL!, options: nil)
         
@@ -412,19 +424,20 @@ class PreviewViewController: UIViewController, PreviewProtocol {
             print("unable to add video track")
             return
         }
-        if let compositionaudioTrack: AVMutableCompositionTrack = composition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: trackID) {
-            do {
-                try compositionaudioTrack.insertTimeRange(vid_timerange, of: audioTrack!, at: CMTime.zero)
-                
-            } catch {
-                print("error")
+        if audioTrack != nil {
+            if let compositionaudioTrack: AVMutableCompositionTrack = composition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: trackID) {
+                do {
+                    try compositionaudioTrack.insertTimeRange(vid_timerange, of: audioTrack!, at: CMTime.zero)
+                    
+                } catch {
+                    print("error")
+                }
+                compositionaudioTrack.preferredTransform = audioTrack!.preferredTransform
+            } else {
+                print("unable to add audio track")
+                return
             }
-            compositionaudioTrack.preferredTransform = audioTrack!.preferredTransform
-        } else {
-            print("unable to add audio track")
-            return
         }
-
         let size = videoTrack.naturalSize
         
         // create text Layer
@@ -486,6 +499,9 @@ class PreviewViewController: UIViewController, PreviewProtocol {
             default:
                 print("Movie complete : \(movieDestinationUrl)")
                 self.objPostData.arrMedia[0].videoURL = movieDestinationUrl as URL
+                DispatchQueue.main.async {
+                    LoaderView.sharedInstance.hideLoader()
+                }
                 self.callPostStoryAPI(obj: self.objPostData)
             }
         })
@@ -540,6 +556,7 @@ extension PreviewViewController : ZDStickerViewDelegate {
     func stickerViewDidClose(_ sticker: ZDStickerView!) {
         print(sticker)
     }
+    
     func stickerViewDidEndEditing(_ sticker: ZDStickerView!) {
         print(sticker)
     }

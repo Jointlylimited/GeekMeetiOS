@@ -23,6 +23,7 @@ class TabbarViewController: UITabBarController, TabbarProtocol {
     var isFromMatch : Bool = false
     var userDict : NSDictionary = [:]
     var arrFriends:[Model_ChatFriendList] = [Model_ChatFriendList]()
+    var isFromStory : Bool = false
     
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -67,7 +68,11 @@ class TabbarViewController: UITabBarController, TabbarProtocol {
     
     func SetTabbarItem(){
         if !isFromMatch {
-            self.selectedIndex = 2
+            if !isFromStory {
+                self.selectedIndex = 2
+            } else {
+                self.selectedIndex = 3
+            }
         } else {
             delay(0.2) {
                 let obj = GeekMeets_StoryBoard.Chat.instantiateViewController(withIdentifier: GeekMeets_ViewController.OneToOneChatScreen) as! OneToOneChatVC
