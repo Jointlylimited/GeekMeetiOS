@@ -82,6 +82,7 @@ class AddTextViewController: UIViewController {
 
     @IBAction func btnDoneAction(_ sender: UIButton) {
         cusTextView.text = textView.text
+        cusTextView.viewSize = CGSize(width: self.textView.width, height: self.textViewHeightConstant.constant)
         cusTextView.frame = CGRect(x: self.textView.x, y: self.textView.y, w: self.textView.width, h: self.textViewHeightConstant.constant)
         self.delegate.textViewDidFinishWithTextView(text: cusTextView)
         self.dismissVC(completion: nil)
@@ -268,6 +269,7 @@ extension AddTextViewController : UITextViewDelegate {
             print(newSize.height)
             self.textViewHeightConstant.constant = newSize.height
             textView.centerVertically()
+            textView.sizeToFit()
         }
         self.view.layoutIfNeeded()
     }

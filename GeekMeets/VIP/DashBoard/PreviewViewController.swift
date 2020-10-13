@@ -309,18 +309,18 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     
     func setLabel(text : CustomTextView){
         self.cusText = text
-        self.textView = UITextView.init(frame: CGRect.init(x: 0, y: 0, width: self.cusText.width, height: self.cusText.height))
+        self.textView = UITextView.init(frame: CGRect.init(x: 0, y: 0, width: text.viewSize.width, height: text.viewSize.height))
         textView.text = text.text
         textView.textColor = text.color
         textView.font = text.font
         textView.textAlignment = .center
         textView.backgroundColor = .clear
-        let newSize = textView.sizeThatFits(CGSize(width: textView.width, height: CGFloat.greatestFiniteMagnitude))
-        textView.frame.size = CGSize(width: max(newSize.width, textView.width), height: newSize.height)
+//        let newSize = textView.sizeThatFits(CGSize(width: textView.width, height: CGFloat.greatestFiniteMagnitude))
+//        textView.frame.size = CGSize(width: max(newSize.width, textView.width), height: newSize.height)
         textView.delegate = self
         adjustTextViewHeight(textView : textView)
         
-        stickerView.frame = self.textView.frame
+//        stickerView.frame = self.textView.bounds
         stickerView.addLabel(text : text.text, font: text.font.fontName)
         stickerView.textColor = text.color
         stickerView.textAlpha = 1
