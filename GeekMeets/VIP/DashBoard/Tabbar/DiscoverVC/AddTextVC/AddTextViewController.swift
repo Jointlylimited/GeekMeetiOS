@@ -24,7 +24,7 @@ class AddTextViewController: UIViewController {
     var dictAttribute : NSMutableDictionary!
     var delegate : TextViewControllerDelegate!
     var SelectedIndexArray : [Int] = []
-    
+    var custText : CustomTextView!
     override func viewDidLoad() {
         super.viewDidLoad()
         setTheme()
@@ -58,16 +58,20 @@ class AddTextViewController: UIViewController {
     }
     
     func setTextTheme(){
+        textSizeSlider = RangeSlider(frame: CGRect(x: 20, y: ScreenSize.frame.y + 125, w: 30, h: 250))
         
-        if cusTextView == nil {
+        if custText == nil {
             self.textView.setPlaceholder(view : self.textView)
             dictAttribute = NSMutableDictionary(object: UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 16.0)!, forKey: NSAttributedString.Key.font as NSCopying)
+            textSizeSlider.isUserInteractionEnabled = false
         } else {
-            self.textView.text = self.cusTextView.text
+            self.cusTextView = self.custText
+            self.textView.text = self.custText.text
+            self.textView.font = self.custText.font
+            self.textView.textColor = self.custText.color
+            textSizeSlider.isUserInteractionEnabled = true
+            self.adjustTextViewHeight()
         }
-        
-        textSizeSlider = RangeSlider(frame: CGRect(x: 20, y: ScreenSize.frame.y + 125, w: 30, h: 250))
-        textSizeSlider.isUserInteractionEnabled = false
         self.view.addSubview(textSizeSlider)
     }
     
@@ -227,8 +231,8 @@ extension AddTextViewController : UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         if textView.text == "Tap to write" {
             self.textSizeSlider.isUserInteractionEnabled = false
+            textView.checkPlaceholder()
         }
-        textView.checkPlaceholder()
         adjustTextViewHeight()
         textView.centerVertically()
     }

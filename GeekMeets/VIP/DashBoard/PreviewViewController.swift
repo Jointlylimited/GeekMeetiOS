@@ -320,6 +320,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         textView.delegate = self
         adjustTextViewHeight(textView : textView)
         
+        stickerView.frame = self.textView.frame
         stickerView.addLabel(text : text.text, font: text.font.fontName)
         stickerView.textColor = text.color
         stickerView.textAlpha = 1
@@ -545,12 +546,17 @@ extension PreviewViewController {
 //MARK : Textfield Delegate method
 extension PreviewViewController : UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        self.cusText = nil
+        self.textView.resignFirstResponder()
+        stickerView.currentlyEditingLabel.removeFromSuperview()
         self.headerView.alpha = 0.0
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.AddTextScreen) as? AddTextViewController
         controller!.modalTransitionStyle = .crossDissolve
         controller!.modalPresentationStyle = .overCurrentContext
-        controller!.cusTextView = self.cusText
+        let cusTextView = CustomTextView(frame: CGRect.init(x: 0, y: 0, width: self.textView.width, height: self.textView.height))
+        cusTextView.text = textView.text
+        cusTextView.color = textView.textColor!
+        cusTextView.font = textView.font
+        controller!.custText = cusTextView
         controller!.delegate = self
         self.presentVC(controller!)
     }
