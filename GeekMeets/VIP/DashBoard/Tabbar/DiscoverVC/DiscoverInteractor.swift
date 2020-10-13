@@ -30,9 +30,9 @@ class DiscoverInteractor: DiscoverInteractorProtocol, DiscoverDataStore {
         //        LoaderView.sharedInstance.showLoader()
         MediaAPI.listStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, _id: 0) { (response, error) in
             
-            //            delay(0.2) {
-            //                LoaderView.sharedInstance.hideLoader()
-            //            }
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
             if response?.responseCode == 200 {
                 self.presenter?.getStoryListResponse(response: response!)
             } else if response?.responseCode == 203 {
@@ -73,5 +73,4 @@ class DiscoverInteractor: DiscoverInteractorProtocol, DiscoverDataStore {
             }
         }
     }
-    
 }

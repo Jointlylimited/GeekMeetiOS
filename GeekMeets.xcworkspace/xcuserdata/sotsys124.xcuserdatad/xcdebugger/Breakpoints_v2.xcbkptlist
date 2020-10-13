@@ -7,48 +7,80 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "DC36F104-F3EA-49E4-AEF9-7E1C08267DBA"
+            uuid = "ECA0E861-674C-4C16-8A94-56CE3087E197"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GeekMeets/UIView/CardView/CardView.swift"
+            filePath = "GeekMeets/VIP/DashBoard/PreviewViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
-            landmarkName = "initCoachingAlertView(obj:location:)"
+            startingLineNumber = "549"
+            endingLineNumber = "549"
+            landmarkName = "textViewDidBeginEditing(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2B803406-8A26-437F-9F5D-D0D668A50619"
+            uuid = "C812E690-EF19-46FC-9C74-7B5E29677201"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GeekMeets/Library/APIManager/Swaggers/APIs/UserAPI.swift"
+            filePath = "GeekMeets/VIP/DashBoard/PreviewViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1680"
-            endingLineNumber = "1680"
-            landmarkName = "userProfileWithRequestBuilder(nonce:timestamp:token:authorization:iUserId:vReferralCode:)"
+            startingLineNumber = "561"
+            endingLineNumber = "561"
+            landmarkName = "textviewDidBeginEditing()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "ACADE060-B543-4111-9830-BB11D6ADB2F9"
+            uuid = "1CEE0F52-09F2-4101-9B48-A582D8DA7AB9"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GeekMeets/Category/UIKit/UIImageExtensions.swift"
+            filePath = "GeekMeets/VIP/DashBoard/Tabbar/DiscoverVC/AddTextVC/AddTextViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "210"
-            endingLineNumber = "210"
-            landmarkName = "getUrlFromPHAsset(asset:)"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "setTextTheme()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "41C10258-C67A-4698-AE74-A33BEB0FDEDC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GeekMeets/VIP/DashBoard/PreviewViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "554"
+            endingLineNumber = "554"
+            landmarkName = "textViewDidBeginEditing(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D529C40E-E3CA-44E6-B7B6-85F55CBB86A5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GeekMeets/VIP/DashBoard/PreviewViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "313"
+            endingLineNumber = "313"
+            landmarkName = "setLabel(text:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

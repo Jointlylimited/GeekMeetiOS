@@ -317,7 +317,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         textView.backgroundColor = .clear
         let newSize = textView.sizeThatFits(CGSize(width: textView.width, height: CGFloat.greatestFiniteMagnitude))
         textView.frame.size = CGSize(width: max(newSize.width, textView.width), height: newSize.height)
-        
+        textView.delegate = self
         adjustTextViewHeight(textView : textView)
         
         stickerView.addLabel(text : text.text, font: text.font.fontName)
@@ -328,6 +328,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         stickerView.currentlyEditingLabel.rotateView?.image = UIImage(named: "Rotate")
         stickerView.currentlyEditingLabel.border?.strokeColor = UIColor.brown.cgColor
         stickerView.currentlyEditingLabel.labelTextView?.font = text.font
+        stickerView.currentlyEditingLabel.labelTextView?.delegate = self
         self.view.addSubview(stickerView)
     }
     
@@ -541,8 +542,31 @@ extension PreviewViewController {
     }
 }
 
+//MARK : Textfield Delegate method
+extension PreviewViewController : UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        self.cusText = nil
+        self.headerView.alpha = 0.0
+        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.AddTextScreen) as? AddTextViewController
+        controller!.modalTransitionStyle = .crossDissolve
+        controller!.modalPresentationStyle = .overCurrentContext
+        controller!.cusTextView = self.cusText
+        controller!.delegate = self
+        self.presentVC(controller!)
+    }
+}
 //MARK: TextView Delegate Methods
 extension PreviewViewController : TextViewControllerDelegate {
+    func textviewDidBeginEditing(){
+        self.headerView.alpha = 0.0
+        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.AddTextScreen) as? AddTextViewController
+        controller!.modalTransitionStyle = .crossDissolve
+        controller!.modalPresentationStyle = .overCurrentContext
+        controller!.cusTextView = self.cusText
+        controller!.delegate = self
+        self.presentVC(controller!)
+    }
+    
     func textViewDidFinishWithTextView(text:CustomTextView) {
         print(text)
         self.headerView.alpha = 1.0

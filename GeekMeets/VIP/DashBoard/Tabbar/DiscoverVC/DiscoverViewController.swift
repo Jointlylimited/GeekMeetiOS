@@ -18,7 +18,8 @@ protocol DeleteStoryDelegate {
 }
 
 protocol TextViewControllerDelegate {
-  func textViewDidFinishWithTextView(text:CustomTextView)
+    func textviewDidBeginEditing()
+    func textViewDidFinishWithTextView(text:CustomTextView)
 }
 
 protocol DiscoverProtocol: class {

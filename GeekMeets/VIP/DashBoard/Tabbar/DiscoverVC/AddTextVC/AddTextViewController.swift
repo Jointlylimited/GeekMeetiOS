@@ -58,13 +58,17 @@ class AddTextViewController: UIViewController {
     }
     
     func setTextTheme(){
-        self.textView.setPlaceholder(view : self.textView)
+        
+        if cusTextView == nil {
+            self.textView.setPlaceholder(view : self.textView)
+            dictAttribute = NSMutableDictionary(object: UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 16.0)!, forKey: NSAttributedString.Key.font as NSCopying)
+        } else {
+            self.textView.text = self.cusTextView.text
+        }
         
         textSizeSlider = RangeSlider(frame: CGRect(x: 20, y: ScreenSize.frame.y + 125, w: 30, h: 250))
         textSizeSlider.isUserInteractionEnabled = false
-        
         self.view.addSubview(textSizeSlider)
-        dictAttribute = NSMutableDictionary(object: UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 16.0)!, forKey: NSAttributedString.Key.font as NSCopying)
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
@@ -73,6 +77,7 @@ class AddTextViewController: UIViewController {
     }
 
     @IBAction func btnDoneAction(_ sender: UIButton) {
+        cusTextView.text = textView.text
         cusTextView.frame = CGRect(x: self.textView.x, y: self.textView.y, w: self.textView.width, h: self.textViewHeightConstant.constant)
         self.delegate.textViewDidFinishWithTextView(text: cusTextView)
         self.dismissVC(completion: nil)

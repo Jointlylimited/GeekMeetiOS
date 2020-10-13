@@ -419,6 +419,7 @@ extension ViewController : UIImagePickerControllerDelegate, UINavigationControll
                         self.opimagePicker.imagePickerDelegate = self
                         self.opimagePicker.maximumSelectionsAllowed = 1
                         self.opimagePicker.selectionImage = nil
+                        self.opimagePicker.allowedMediaTypes = Set([PHAssetMediaType.image])
                         
                         self.present(self.opimagePicker, animated: true, completion: nil)
                     } else
