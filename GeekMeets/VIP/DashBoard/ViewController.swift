@@ -191,7 +191,7 @@ class ViewController: UIViewController {
         self.view.layer.insertSublayer(cameraPreviewLayer!, at: 0)
         
         //Zoom in - out
-        let pinchRecognizer = UIPinchGestureRecognizer(target: self, action:#selector(pinch(_:)))
+        let pinchRecognizer = UIPanGestureRecognizer(target: self, action:#selector(pinch(_:)))
         self.view.addGestureRecognizer(pinchRecognizer)
     }
     
@@ -204,7 +204,7 @@ class ViewController: UIViewController {
     }
     
     //Zoom in - out
-    @objc func pinch(_ pinch: UIPinchGestureRecognizer) {
+    @objc func pinch(_ pinch: UIPanGestureRecognizer) {
         guard let device = currentCamera else { return }
 
         // Return zoom value between the minimum and maximum zoom values
@@ -221,8 +221,8 @@ class ViewController: UIViewController {
                 print("\(error.localizedDescription)")
             }
         }
-
-        let newScaleFactor = minMaxZoom(pinch.scale * lastZoomFactor)
+        let yFromCenter = pinch.translation(in: self.view).y
+        let newScaleFactor = minMaxZoom(yFromCenter * lastZoomFactor)
         switch pinch.state {
         case .began: fallthrough
         case .changed: update(scale: newScaleFactor)

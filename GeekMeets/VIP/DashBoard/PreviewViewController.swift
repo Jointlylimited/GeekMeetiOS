@@ -148,9 +148,9 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         
         let width = image.size.width
         let height = image.size.height
-        imgview?.contentMode = .scaleAspectFit
+        imgview?.contentMode = .scaleAspectFill
         
-        gripFrame = DeviceType.hasNotch ? CGRect(x: 5, y: (ScreenSize.height - height)/2 - 5, width: width - 10, height: height - 10) : CGRect(x: 0, y: (ScreenSize.height - height)/2, width: width, height: height)
+        gripFrame = DeviceType.hasNotch ? CGRect(x: 0, y: (ScreenSize.height - height)/2, width: width, height: height) : CGRect(x: 0, y: (ScreenSize.height - height)/2, width: width, height: height)
         
         let contentView = UIView(frame: photo.frame)
         contentView.backgroundColor = UIColor.black
@@ -162,7 +162,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         userResizableView1.contentView = contentView
         userResizableView1.preventsPositionOutsideSuperview = false
         userResizableView1.translucencySticker = false
-        userResizableView1.showEditingHandles() // hideEditingHandles()
+        userResizableView1.hideEditingHandles() //showEditingHandles() //
         view.insertSubview(userResizableView1, at: 2)
     }
     
@@ -249,7 +249,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
             let image = stickerView.renderContentOnView()
             stickerView.image = nil
             self.objPostData.arrMedia[0].img = image
-            self.callPostStoryAPI(obj: self.objPostData)
+//            self.callPostStoryAPI(obj: self.objPostData)
         } else {
             if cusText != nil {
                 self.addtextToVideo()
@@ -325,9 +325,9 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         stickerView.textColor = text.color
         stickerView.textAlpha = 1
         stickerView.textAlignment = .center
-        stickerView.currentlyEditingLabel.closeView!.image = UIImage(named: "Close")
-        stickerView.currentlyEditingLabel.rotateView?.image = UIImage(named: "Rotate")
-        stickerView.currentlyEditingLabel.border?.strokeColor = UIColor.brown.cgColor
+//        stickerView.currentlyEditingLabel.closeView!.image = UIImage(named: "Close")
+//        stickerView.currentlyEditingLabel.rotateView?.image = UIImage(named: "Rotate")
+//        stickerView.currentlyEditingLabel.border?.strokeColor = UIColor.brown.cgColor
         stickerView.currentlyEditingLabel.labelTextView?.font = text.font
         stickerView.currentlyEditingLabel.labelTextView?.delegate = self
         self.view.addSubview(stickerView)

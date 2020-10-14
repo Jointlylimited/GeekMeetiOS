@@ -159,6 +159,12 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     var objStoryArray : [StoryResponseArray]?
     var UserCode : String = ""
     
+    lazy var lblHeaderview: UIImageView = {
+        var imageView = UIImageView()
+        imageView = UIImageView(image: #imageLiteral(resourceName: "icn_down"))
+        return imageView
+    }()
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -230,6 +236,8 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
         pageControl.transform = CGAffineTransform(rotationAngle: angle)
         self.pageControl.numberOfPages = imageArray.count
         self.pageControl.currentPage = 0
+        self.lblHeaderview.frame = CGRect(x: ScreenSize.width/2 - 20, y: ScreenSize.height - 40, w: 40, h: 20)
+        self.view.addSubview(self.lblHeaderview)
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
@@ -482,6 +490,23 @@ extension MatchProfileViewController : UITableViewDataSource, UITableViewDelegat
         headerView.addSubview(headerTitle)
         
         return headerView
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+
+        if(velocity.y>0) {
+            //Code will work without the animation block.I am using animation block incase if you want to set any delay to it.
+            lblHeaderview.animate(duration: 2.5, animations: {
+                print("Hide")
+                self.lblHeaderview.alpha = 0.0
+            }, completion: nil)
+        } else {
+            
+            lblHeaderview.animate(duration: 2.5, animations: {
+                print("Unhide")
+                self.lblHeaderview.alpha = 1.0
+            }, completion: nil)
+        }
     }
 }
 
