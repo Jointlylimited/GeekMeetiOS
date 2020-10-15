@@ -161,7 +161,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     
     lazy var lblHeaderview: UIImageView = {
         var imageView = UIImageView()
-        imageView = UIImageView(image: #imageLiteral(resourceName: "icn_down"))
+        imageView = UIImageView(image: #imageLiteral(resourceName: "icn_down_arrow"))
         return imageView
     }()
     

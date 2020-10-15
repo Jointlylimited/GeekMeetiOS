@@ -21,6 +21,7 @@ struct MediaData {
     var isUploaded: Bool = false
     var fileSize: Double = 0.0 //in MB
     var maximumVideoSize: Double = 10//inMB
+    var captutedFromCamera : Bool = false
     
     // video data Path/Name
     var videoURlUpload: (path: String, name: String) {
@@ -354,6 +355,7 @@ extension ViewController: AVCapturePhotoCaptureDelegate {
             if self.objPostData.arrMedia == nil {
                 self.objPostData.arrMedia = []
             }
+            objMedia.captutedFromCamera = true
             objMedia.uID = "\(self.objPostData.arrMedia.count)"
             self.objPostData.tiStoryType = "0"
             self.objPostData.arrMedia.append(objMedia)
@@ -372,6 +374,7 @@ extension ViewController : AVCaptureFileOutputRecordingDelegate {
         var objMedia = MediaData()
         objMedia.fileSize = Double(videoDataSize.count / 1048576)//in MB
         objMedia.mediaType = .video
+        objMedia.captutedFromCamera = true
         objMedia.thumbImg = generateThumb(from: videoURL)
         objMedia.videoURL = videoURL
         if self.objPostData.arrMedia == nil {
@@ -453,6 +456,7 @@ extension ViewController : UIImagePickerControllerDelegate, UINavigationControll
                 }
                 objMedia.uID = "\(self.objPostData.arrMedia.count)"
                 self.objPostData.tiStoryType = "0"
+                objMedia.captutedFromCamera = false
                 self.objPostData.arrMedia.append(objMedia)
             }
         } else {
@@ -466,6 +470,7 @@ extension ViewController : UIImagePickerControllerDelegate, UINavigationControll
             objMedia.mediaType = objPostData.postMediaType
             objMedia.thumbImg = generateThumb(from: videoURL)
             objMedia.videoURL = videoURL
+            objMedia.captutedFromCamera = false
             if self.objPostData.arrMedia == nil {
                 self.objPostData.arrMedia = []
             }

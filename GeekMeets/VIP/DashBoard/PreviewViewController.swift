@@ -144,13 +144,22 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         imgview = UIImageView(image: photo.image)
         let gripFrame : CGRect?
         
-        let image = resetImageSize(image: photo.image!)
         
-        let width = image.size.width
-        let height = image.size.height
-        imgview?.contentMode = .scaleAspectFill
         
-        gripFrame = DeviceType.hasNotch ? CGRect(x: 0, y: (ScreenSize.height - height)/2, width: width, height: height) : CGRect(x: 0, y: (ScreenSize.height - height)/2, width: width, height: height)
+        if !self.objPostData.arrMedia[0].captutedFromCamera {
+            let image = resetImageSize(image: photo.image!)
+            let width = image.size.width
+            let height = image.size.height
+            imgview?.contentMode = .scaleAspectFill
+            
+            gripFrame = DeviceType.hasNotch ? CGRect(x: 0, y: (ScreenSize.height - height)/2, width: width, height: height) : CGRect(x: 0, y: (ScreenSize.height - height)/2, width: width, height: height)
+        } else {
+            let width = photo.image!.size.width
+            let height = photo.image!.size.height
+            imgview?.contentMode = .scaleAspectFill
+            
+            gripFrame = DeviceType.hasNotch ? CGRect(x: 0, y: 0, width: width, height: height) : CGRect(x: 0, y: 0, width: width, height: height)
+        }
         
         let contentView = UIView(frame: photo.frame)
         contentView.backgroundColor = UIColor.black
@@ -249,7 +258,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
             let image = stickerView.renderContentOnView()
             stickerView.image = nil
             self.objPostData.arrMedia[0].img = image
-//            self.callPostStoryAPI(obj: self.objPostData)
+            self.callPostStoryAPI(obj: self.objPostData)
         } else {
             if cusText != nil {
                 self.addtextToVideo()
