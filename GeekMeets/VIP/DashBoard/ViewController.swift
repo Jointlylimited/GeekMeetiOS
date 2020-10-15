@@ -192,7 +192,7 @@ class ViewController: UIViewController {
         self.view.layer.insertSublayer(cameraPreviewLayer!, at: 0)
         
         //Zoom in - out
-        let pinchRecognizer = UIPanGestureRecognizer(target: self, action:#selector(pinch(_:)))
+        let pinchRecognizer = UIPinchGestureRecognizer(target: self, action:#selector(pinch(_:)))
         self.view.addGestureRecognizer(pinchRecognizer)
     }
     
