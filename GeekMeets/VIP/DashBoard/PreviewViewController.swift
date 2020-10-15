@@ -212,7 +212,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         self.player = AVPlayer(playerItem: avPlayerItem)
         self.playerLayer = AVPlayerLayer(player: self.player)
         
-        self.playerLayer?.frame =  CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: ScreenSize.width, height: ScreenSize.height))
+        self.playerLayer?.frame = self.view.layer.bounds
         self.playerLayer?.videoGravity = AVLayerVideoGravity.resizeAspect
         self.playerLayer?.zPosition = -1
         self.playView.layer.addSublayer(playerLayer!)
@@ -334,9 +334,9 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         stickerView.textColor = text.color
         stickerView.textAlpha = 1
         stickerView.textAlignment = .center
-//        stickerView.currentlyEditingLabel.closeView!.image = UIImage(named: "Close")
-//        stickerView.currentlyEditingLabel.rotateView?.image = UIImage(named: "Rotate")
-//        stickerView.currentlyEditingLabel.border?.strokeColor = UIColor.brown.cgColor
+        stickerView.currentlyEditingLabel.closeView!.image = UIImage(named: "Close")
+        stickerView.currentlyEditingLabel.rotateView?.image = UIImage(named: "Rotate")
+        stickerView.currentlyEditingLabel.border?.strokeColor = UIColor.brown.cgColor
         stickerView.currentlyEditingLabel.labelTextView?.font = text.font
         stickerView.currentlyEditingLabel.labelTextView?.delegate = self
         self.view.addSubview(stickerView)

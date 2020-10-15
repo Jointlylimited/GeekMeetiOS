@@ -205,103 +205,103 @@ class ViewController: UIViewController {
     }
     
     //Zoom in - out
-//    @objc func pinch(_ pinch: UIPanGestureRecognizer) {
-//        guard let device = currentCamera else { return }
-//
-//        // Return zoom value between the minimum and maximum zoom values
-//        func minMaxZoom(_ factor: CGFloat) -> CGFloat {
-//            return min(min(max(factor, minimumZoom), maximumZoom), device.activeFormat.videoMaxZoomFactor)
-//        }
-//
-//        func update(scale factor: CGFloat) {
-//            do {
-//                try device.lockForConfiguration()
-//                defer { device.unlockForConfiguration() }
-//                device.videoZoomFactor = factor
-//            } catch {
-//                print("\(error.localizedDescription)")
-//            }
-//        }
-//        let yFromCenter = pinch.translation(in: self.view).y
-//        let newScaleFactor = minMaxZoom(yFromCenter * lastZoomFactor)
-//        switch pinch.state {
-//        case .began: fallthrough
-//        case .changed: update(scale: newScaleFactor)
-//        case .ended:
-//            lastZoomFactor = minMaxZoom(newScaleFactor)
-//            update(scale: lastZoomFactor)
-//        default: break
-//        }
-//    }
-    
-    
-     @objc func pinch(_ pinch: UIPanGestureRecognizer) {
+    @objc func pinch(_ pinch: UIPinchGestureRecognizer) {
+        guard let device = currentCamera else { return }
 
-        // note that 'view' here is the overall video preview
-        let velocity = pinch.velocity(in: view)
+        // Return zoom value between the minimum and maximum zoom values
+        func minMaxZoom(_ factor: CGFloat) -> CGFloat {
+            return min(min(max(factor, minimumZoom), maximumZoom), device.activeFormat.videoMaxZoomFactor)
+        }
 
-        if velocity.y > 0 || velocity.y < 0 {
-
-           let originalCapSession = captureSession
-           var devitce : AVCaptureDevice!
-
-           let videoDeviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera, .builtInDuoCamera], mediaType: AVMediaType.video, position: .unspecified)
-           let devices = videoDeviceDiscoverySession.devices
-           devitce = devices.first!
-
-           guard let device = devitce else { return }
-
-            let minimumZoomFactor: CGFloat = 1.0
-            let maximumZoomFactor: CGFloat = min(device.activeFormat.videoMaxZoomFactor, 10.0) // artificially set a max useable zoom of 10x
-
-            // clamp a zoom factor between minimumZoom and maximumZoom
-            func clampZoomFactor(_ factor: CGFloat) -> CGFloat {
-                return min(max(factor, minimumZoomFactor), maximumZoomFactor)
-            }
-
-            func update(scale factor: CGFloat) {
-                do {
-
-                    try device.lockForConfiguration()
-                    defer { device.unlockForConfiguration() }
-                    device.videoZoomFactor = factor
-                } catch {
-                    print("\(error.localizedDescription)")
-                }
-            }
-
-            switch pinch.state {
-
-            case .began:
-                lastZoomFactor = device.videoZoomFactor
-                //startRecording() /// call to start recording your video
-
-            case .changed:
-
-                // distance in points for the full zoom range (e.g. min to max), could be view.frame.height
-                let fullRangeDistancePoints: CGFloat = 300.0
-
-                // extract current distance travelled, from gesture start
-                let currentYTranslation: CGFloat = pinch.translation(in: view).y
-
-                // calculate a normalized zoom factor between [-1,1], where up is positive (ie zooming in)
-                let normalizedZoomFactor = -1 * max(-1,min(1,currentYTranslation / fullRangeDistancePoints))
-
-                // calculate effective zoom scale to use
-                let newZoomFactor = clampZoomFactor(lastZoomFactor + normalizedZoomFactor * (maximumZoomFactor - minimumZoomFactor))
-
-                // update device's zoom factor'
-                update(scale: newZoomFactor)
-
-            case .ended, .cancelled:
-//                stopRecording() /// call to start recording your video
-                break
-
-            default:
-                break
+        func update(scale factor: CGFloat) {
+            do {
+                try device.lockForConfiguration()
+                defer { device.unlockForConfiguration() }
+                device.videoZoomFactor = factor
+            } catch {
+                print("\(error.localizedDescription)")
             }
         }
+//        let yFromCenter = pinch.translation(in: self.view).y
+        let newScaleFactor = minMaxZoom(pinch.scale * lastZoomFactor)
+        switch pinch.state {
+        case .began: fallthrough
+        case .changed: update(scale: newScaleFactor)
+        case .ended:
+            lastZoomFactor = minMaxZoom(newScaleFactor)
+            update(scale: lastZoomFactor)
+        default: break
+        }
     }
+    
+    
+//     @objc func pinch(_ pinch: UIPinchGestureRecognizer) {
+//
+//        // note that 'view' here is the overall video preview
+//        let velocity = pinch.velocity(in: view)
+//
+//        if velocity.y > 0 || velocity.y < 0 {
+//
+//           let originalCapSession = captureSession
+//           var devitce : AVCaptureDevice!
+//
+//           let videoDeviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera, .builtInDuoCamera], mediaType: AVMediaType.video, position: .unspecified)
+//           let devices = videoDeviceDiscoverySession.devices
+//           devitce = devices.first!
+//
+//           guard let device = devitce else { return }
+//
+//            let minimumZoomFactor: CGFloat = 1.0
+//            let maximumZoomFactor: CGFloat = min(device.activeFormat.videoMaxZoomFactor, 10.0) // artificially set a max useable zoom of 10x
+//
+//            // clamp a zoom factor between minimumZoom and maximumZoom
+//            func clampZoomFactor(_ factor: CGFloat) -> CGFloat {
+//                return min(max(factor, minimumZoomFactor), maximumZoomFactor)
+//            }
+//
+//            func update(scale factor: CGFloat) {
+//                do {
+//
+//                    try device.lockForConfiguration()
+//                    defer { device.unlockForConfiguration() }
+//                    device.videoZoomFactor = factor
+//                } catch {
+//                    print("\(error.localizedDescription)")
+//                }
+//            }
+//
+//            switch pinch.state {
+//
+//            case .began:
+//                lastZoomFactor = device.videoZoomFactor
+//                //startRecording() /// call to start recording your video
+//
+//            case .changed:
+//
+//                // distance in points for the full zoom range (e.g. min to max), could be view.frame.height
+//                let fullRangeDistancePoints: CGFloat = 300.0
+//
+//                // extract current distance travelled, from gesture start
+//                let currentYTranslation: CGFloat = pinch.translation(in: view).y
+//
+//                // calculate a normalized zoom factor between [-1,1], where up is positive (ie zooming in)
+//                let normalizedZoomFactor = -1 * max(-1,min(1,currentYTranslation / fullRangeDistancePoints))
+//
+//                // calculate effective zoom scale to use
+//                let newZoomFactor = clampZoomFactor(lastZoomFactor + normalizedZoomFactor * (maximumZoomFactor - minimumZoomFactor))
+//
+//                // update device's zoom factor'
+//                update(scale: newZoomFactor)
+//
+//            case .ended, .cancelled:
+////                stopRecording() /// call to start recording your video
+//                break
+//
+//            default:
+//                break
+//            }
+//        }
+//    }
     
     @IBAction func cameraButtonTouch(_ sender: Any) {
         let settings = AVCapturePhotoSettings()
