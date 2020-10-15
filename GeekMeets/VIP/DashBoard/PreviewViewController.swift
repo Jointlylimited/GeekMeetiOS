@@ -213,7 +213,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         self.playerLayer = AVPlayerLayer(player: self.player)
         
         self.playerLayer?.frame = self.playView.bounds
-        self.playerLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        self.playerLayer?.videoGravity = AVLayerVideoGravity.resizeAspect
         self.playerLayer?.zPosition = -1
         self.playView.layer.addSublayer(playerLayer!)
         self.scrubber.minimumValue = 0

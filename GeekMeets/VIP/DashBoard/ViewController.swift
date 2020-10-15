@@ -192,8 +192,9 @@ class ViewController: UIViewController {
         self.view.layer.insertSublayer(cameraPreviewLayer!, at: 0)
         
         //Zoom in - out
-        let pinchRecognizer = UIPinchGestureRecognizer(target: self, action:#selector(pinch(_:)))
-        self.view.addGestureRecognizer(pinchRecognizer)
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(dragImg(_:)))
+//        let pinchRecognizer = UIPinchGestureRecognizer(target: self, action:#selector(pinch(_:)))
+        self.view.addGestureRecognizer(panGesture)
     }
     
     func startRunningCaptureSession() {
@@ -202,6 +203,29 @@ class ViewController: UIViewController {
     
     override var prefersStatusBarHidden: Bool {
         return true
+    }
+    
+    @objc func dragImg(_ sender:UIPanGestureRecognizer){
+        let translation = sender.translation(in: self.view)
+        
+        guard let device = currentCamera else { return }
+
+        // Return zoom value between the minimum and maximum zoom values
+        func minMaxZoom(_ factor: CGFloat) -> CGFloat {
+            return min(min(max(factor, minimumZoom), maximumZoom), device.activeFormat.videoMaxZoomFactor)
+        }
+
+        func update(scale factor: CGFloat) {
+            do {
+                try device.lockForConfiguration()
+                defer { device.unlockForConfiguration() }
+                device.videoZoomFactor = factor
+            } catch {
+                print("\(error.localizedDescription)")
+            }
+        }
+        
+        update(scale: translation.y)
     }
     
     //Zoom in - out
