@@ -56,6 +56,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     var imgview : UIImageView?
     var userResizableView1 = ZDStickerView()
     var transform : CGAffineTransform = CGAffineTransform(rotationAngle: 0.0)
+    var editedlabel : JLStickerLabelView = JLStickerLabelView()
     
     private var beginningPoint = CGPoint.zero
     private var beginningCenter = CGPoint.zero
@@ -258,11 +259,21 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         if self.objPostData.tiStoryType == "0" {
             stickerView.image = self.photo.image
             let img = stickerView.resizeImage(transform : userResizableView1.transform, frame : userResizableView1.frame)
-            let image = textToImage(drawText: cusText.text as NSString, inImage: img!, atPoint: cusText.frame.origin, frame: cusText.frame, transform: self.transform) //addTextToImage(text: cusText.text as NSString, inImage: img!, atPoint: cusText.frame.origin) //stickerView.renderContentOnView()
-            stickerView.image = nil
-            self.objPostData.arrMedia[0].img = image
-//            self.callPostStoryAPI(obj: self.objPostData)
-        } else {
+            if cusText != nil {
+                let image = textToImage(drawText: cusText.text as NSString, inImage: img!, atPoint: self.editedlabel.frame.origin, frame: self.editedlabel.frame, transform: self.transform)
+                    
+                    //stickerView.renderContentOnView(layer : imageView.layer)
+                    
+                   // textToImage(drawText: cusText.text as NSString, inImage: img!, atPoint: self.editedlabel.frame.origin, frame: self.editedlabel.frame, transform: self.transform) //addTextToImage(text: cusText.text as NSString, inImage: img!, atPoint: cusText.frame.origin) //stickerView.renderContentOnView()
+                stickerView.image = nil
+                self.objPostData.arrMedia[0].img = image
+                self.callPostStoryAPI(obj: self.objPostData)
+            } else {
+                stickerView.image = nil
+                self.objPostData.arrMedia[0].img = img
+                self.callPostStoryAPI(obj: self.objPostData)
+            }
+        }else {
             if cusText != nil {
                 self.addtextToVideo()
             } else {
@@ -342,6 +353,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         stickerView.currentlyEditingLabel.border?.strokeColor = UIColor.brown.cgColor
         stickerView.currentlyEditingLabel.labelTextView?.font = text.font
         stickerView.currentlyEditingLabel.labelTextView?.delegate = self
+        stickerView.currentlyEditingLabel.delegate = self
         self.view.addSubview(stickerView)
     }
     
@@ -434,15 +446,22 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         let context = UIGraphicsGetCurrentContext()!
         context.saveGState()
         // Move orgin.
-        context.translateBy(x: transform.tx, y: transform.ty)
+//        context.translateBy(x: transform.tx, y: transform.ty)
         // Rotate the coordinate system.
         let degrees : CGFloat = CGFloat(atan2f(Float(transform.b), Float(transform.a)))
         context.rotate(by: degrees)
+        
+        
+        let xTranslation = point.x+frame.size.width/2;
+        let yTranslation = point.y+frame.size.height/2;
 
+        context.translateBy(x: xTranslation, y: yTranslation);
+        context.concatenate(transform);
+        context.translateBy(x: -xTranslation, y: -yTranslation);
         // Restore to saved context.
         context.restoreGState()
        
-        text.draw(with: rect, options: .usesLineFragmentOrigin, attributes: attrs as [NSAttributedString.Key : Any], context: nil)
+        text.draw(with: frame, options: .usesLineFragmentOrigin, attributes: attrs as [NSAttributedString.Key : Any], context: nil)
         
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -638,7 +657,17 @@ extension PreviewViewController : TextViewControllerDelegate {
 }
    
 extension PreviewViewController : JLStickerLabelViewDelegate {
-    func labelViewDidStartEditing(_ label: JLStickerLabelView) {
+    
+    func labelViewDidBeginEditing(_ label: JLStickerLabelView) {}
+    func labelViewDidStartEditing(_ label: JLStickerLabelView) {}
+    func labelViewDidClose(_ label: JLStickerLabelView) {}
+    func labelViewDidSelected(_ label: JLStickerLabelView) {}
+    func labelViewDidChangeEditing(_ label: JLStickerLabelView) {}
+    func labelViewDidHideEditingHandles(_ label: JLStickerLabelView) {}
+    func labelViewDidShowEditingHandles(_ label: JLStickerLabelView) {}
+    
+    func labelViewDidEndEditing(_ label: JLStickerLabelView) {
+        self.editedlabel = label
         self.transform = label.transform
     }
 }

@@ -386,6 +386,7 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
             if let delegate: JLStickerLabelViewDelegate = delegate {
                 if delegate.responds(to: #selector(JLStickerLabelViewDelegate.labelViewDidEndEditing(_:))) {
                     delegate.labelViewDidEndEditing!(self)
+//                    del.endEditing(label : self)
                 }
             }
             

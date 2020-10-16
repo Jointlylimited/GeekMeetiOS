@@ -161,9 +161,9 @@ extension JLStickerImageView {
         return newImage
     }
     
-    public func renderContentOnView() -> UIImage? {
+    public func renderContentOnView(layer : CALayer) -> UIImage? {
         
-        self.cleanup()
+//        self.cleanup()
         print(" Image 1 : \(self.image)")
         
         UIGraphicsBeginImageContextWithOptions(self.image!.size, true, 0)
