@@ -115,38 +115,19 @@ class ViewController: UIViewController {
         self.innerView.cornerRadius = self.innerView.w/2
         self.innerView.backgroundColor = .white
         self.objPostData.arrMedia = []
-//        self.setupCaptureSession()
     }
     
     func addAudioInput() {
-//        self.sessionQueue.async { [unowned self] in
             self.captureSession.beginConfiguration()
         let microphone = AVCaptureDevice.default(for: AVMediaType.audio)
         if let audioInput = try? AVCaptureDeviceInput(device: microphone!), self.captureSession.canAddInput(audioInput) {
                 self.captureSession.addInput(audioInput)
             }
             self.captureSession.commitConfiguration()
-//        }
     }
     
     func setupCaptureSession() {
         captureSession.sessionPreset = AVCaptureSession.Preset.photo
-//        self.innerView.cornerRadius = self.innerView.w/2
-//        self.innerView.backgroundColor = .white
-        
-//        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera], mediaType: AVMediaType.audio, position: AVCaptureDevice.Position.unspecified)
-//        let devices = deviceDiscoverySession.devices
-//
-//        for device in devices{
-//            do {
-//                let micInput = try AVCaptureDeviceInput(device: device)
-//                if captureSession.canAddInput(micInput) {
-//                    captureSession.addInput(micInput)
-//                }
-//            } catch {
-//                print("Error setting device audio input: \(error)")
-//            }
-//        }
         addAudioInput()
         captureSession.addOutput(movieFileOutput)
         movieFileOutput.maxRecordedDuration = CMTime(seconds: 30, preferredTimescale: 600)
@@ -224,8 +205,8 @@ class ViewController: UIViewController {
                 print("\(error.localizedDescription)")
             }
         }
-        
-        update(scale: translation.y)
+        let newScaleFactor = minMaxZoom(translation.y * lastZoomFactor)
+        update(scale: newScaleFactor)
     }
     
     //Zoom in - out

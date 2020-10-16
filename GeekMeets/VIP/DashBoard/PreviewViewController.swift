@@ -212,7 +212,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         self.player = AVPlayer(playerItem: avPlayerItem)
         self.playerLayer = AVPlayerLayer(player: self.player)
         
-        self.playerLayer?.frame = self.playView.bounds
+        self.playerLayer?.frame = self.playView.frame
         self.playerLayer?.videoGravity = AVLayerVideoGravity.resizeAspect
         self.playerLayer?.zPosition = -1
         self.playView.layer.addSublayer(playerLayer!)
