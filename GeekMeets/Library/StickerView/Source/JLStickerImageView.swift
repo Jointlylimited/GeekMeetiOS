@@ -166,7 +166,7 @@ extension JLStickerImageView {
         self.cleanup()
         print(" Image 1 : \(self.image)")
         
-        UIGraphicsBeginImageContextWithOptions(self.bounds.size, true, 0)
+        UIGraphicsBeginImageContextWithOptions(self.image!.size, true, 0)
         self.layer.render(in: UIGraphicsGetCurrentContext()!)
         print("Image 2 : \(self.image)")
         let img = UIGraphicsGetImageFromCurrentImageContext()
@@ -250,7 +250,7 @@ extension JLStickerImageView: JLStickerLabelViewDelegate {
     }
     
     public func labelViewDidEndEditing(_ label: JLStickerLabelView) {
-        
+        currentlyEditingLabel = label
         
     }
     

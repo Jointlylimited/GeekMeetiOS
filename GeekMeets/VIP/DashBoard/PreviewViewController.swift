@@ -55,6 +55,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     var fontSize : CGFloat = 0.0
     var imgview : UIImageView?
     var userResizableView1 = ZDStickerView()
+    var transform : CGAffineTransform = CGAffineTransform(rotationAngle: 0.0)
     
     private var beginningPoint = CGPoint.zero
     private var beginningCenter = CGPoint.zero
@@ -141,7 +142,8 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         self.navigationController?.isNavigationBarHidden = true
         self.cropPickerView.delegate = self
         
-        imgview = UIImageView(image: photo.image)
+        imgview = UIImageView(frame: self.view.bounds)
+        imgview?.image = photo.image
         let gripFrame : CGRect?
         
         
@@ -156,20 +158,21 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         } else {
             let width = photo.image!.size.width
             let height = photo.image!.size.height
-            imgview?.contentMode = .scaleAspectFill
+            imgview?.contentMode = .scaleToFill
             
             gripFrame = DeviceType.hasNotch ? CGRect(x: 0, y: 0, width: width, height: height) : CGRect(x: 0, y: 0, width: width, height: height)
         }
         
-        let contentView = UIView(frame: photo.frame)
+        let contentView = UIView(frame: self.view.bounds)
         contentView.backgroundColor = UIColor.black
         contentView.addSubview(imgview!)
         
-        userResizableView1 = ZDStickerView(frame: gripFrame!)
+        userResizableView1 = ZDStickerView(frame: self.view.bounds)
         userResizableView1.tag = 0
         userResizableView1.stickerViewDelegate = self
         userResizableView1.contentView = contentView
         userResizableView1.preventsPositionOutsideSuperview = false
+        userResizableView1.hideCustomHandle()
         userResizableView1.translucencySticker = false
         userResizableView1.hideEditingHandles() //showEditingHandles() //
         view.insertSubview(userResizableView1, at: 2)
@@ -213,7 +216,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         self.playerLayer = AVPlayerLayer(player: self.player)
         
         self.playerLayer?.frame = self.playView.frame
-        self.playerLayer?.videoGravity = AVLayerVideoGravity.resizeAspect
+        self.playerLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
         self.playerLayer?.zPosition = -1
         self.playView.layer.addSublayer(playerLayer!)
         self.scrubber.minimumValue = 0
@@ -254,11 +257,11 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     @IBAction func btnAddtoStoryAction(_ sender: UIButton){
         if self.objPostData.tiStoryType == "0" {
             stickerView.image = self.photo.image
-            _ = stickerView.resizeImage(transform : userResizableView1.transform, frame : userResizableView1.frame)
-            let image = stickerView.renderContentOnView()
+            let img = stickerView.resizeImage(transform : userResizableView1.transform, frame : userResizableView1.frame)
+            let image = textToImage(drawText: cusText.text as NSString, inImage: img!, atPoint: cusText.frame.origin, frame: cusText.frame, transform: self.transform) //addTextToImage(text: cusText.text as NSString, inImage: img!, atPoint: cusText.frame.origin) //stickerView.renderContentOnView()
             stickerView.image = nil
             self.objPostData.arrMedia[0].img = image
-            self.callPostStoryAPI(obj: self.objPostData)
+//            self.callPostStoryAPI(obj: self.objPostData)
         } else {
             if cusText != nil {
                 self.addtextToVideo()
@@ -370,6 +373,49 @@ class PreviewViewController: UIViewController, PreviewProtocol {
             print(newSize.height)
         }
         self.view.layoutIfNeeded()
+    }
+   
+    func addTextToImage(text: NSString, inImage: UIImage, atPoint:CGPoint) -> UIImage{
+        stickerView.currentlyEditingLabel = stickerView.currentlyEditingLabel
+        // Setup the font specific variables
+        let textColor = cusText.color
+        let textFont = cusText.font
+        
+        //Setups up the font attributes that will be later used to dictate how the text should be drawn
+        let textFontAttributes = [
+            NSAttributedString.Key.font: textFont,
+            NSAttributedString.Key.foregroundColor: textColor,
+        ]
+        
+        
+        
+        // Create bitmap based graphics context
+        UIGraphicsBeginImageContextWithOptions(inImage.size, false, 0.0)
+
+        
+        //Put the image into a rectangle as large as the original image.
+        inImage.draw(in: CGRect(x: 0, y: 0, w: inImage.size.width, h: inImage.size.height))
+        
+        // Our drawing bounds
+        let drawingBounds = CGRect(x: 0, y: 0, w: inImage.size.width, h: inImage.size.height)
+        
+        let textSize = text.size(withAttributes: [NSAttributedString.Key.font:textFont])
+        let textRect = CGRect(x: drawingBounds.size.width/2 - textSize.width/2, y:  drawingBounds.size.height/2 - textSize.height/2, w: textSize.width, h: textSize.height)
+        
+        if stickerView.currentlyEditingLabel != nil {
+            let degrees : CGFloat = CGFloat(atan2f(Float(stickerView.currentlyEditingLabel.transform.b), Float(stickerView.currentlyEditingLabel.transform.a)))
+            text.drawWithBasePoint(basePoint: cusText.frame.origin, andAngle: 0, font : textFont!, color : textColor)
+            text.draw(in: stickerView.currentlyEditingLabel.frame, withAttributes: textFontAttributes)
+        } else {
+            text.draw(in: textRect, withAttributes: textFontAttributes)
+        }
+         
+        // Get the image from the graphics context
+        let newImag = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        return newImag
+
     }
     
     func textToImage(drawText text: NSString, inImage image: UIImage, atPoint point: CGPoint, frame : CGRect, transform : CGAffineTransform) -> UIImage {
@@ -590,7 +636,12 @@ extension PreviewViewController : TextViewControllerDelegate {
         }
     }
 }
-                                                                                                           
+   
+extension PreviewViewController : JLStickerLabelViewDelegate {
+    func labelViewDidStartEditing(_ label: JLStickerLabelView) {
+        self.transform = label.transform
+    }
+}
 extension PreviewViewController : ZDStickerViewDelegate {
     func stickerViewDidClose(_ sticker: ZDStickerView!) {
         print(sticker)
@@ -626,3 +677,22 @@ extension FileManager {
 }
 
 
+extension NSString {
+    
+    func drawWithBasePoint(basePoint: CGPoint, andAngle angle: CGFloat, font : UIFont, color : UIColor) {
+        let radius: CGFloat = 100
+        let textFontAttributes = [
+            NSAttributedString.Key.font: font,
+            NSAttributedString.Key.foregroundColor: color,
+        ]
+        let textSize: CGSize = self.size(withAttributes: textFontAttributes)
+        let context: CGContext = UIGraphicsGetCurrentContext()!
+        let t: CGAffineTransform = CGAffineTransform(translationX: basePoint.x, y: basePoint.y)
+        let r: CGAffineTransform = CGAffineTransform(rotationAngle: angle)
+        context.concatenate(t)
+        context.concatenate(r)
+        self.draw(at: CGPoint(x: radius-textSize.width/2, y: -textSize.height/2) , withAttributes: textFontAttributes)
+        context.concatenate(r.inverted())
+        context.concatenate(t.inverted())
+    }
+}
