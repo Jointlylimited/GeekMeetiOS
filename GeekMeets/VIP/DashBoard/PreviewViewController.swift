@@ -142,8 +142,8 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         photo.image = self.objPostData.arrMedia[0].img
         self.navigationController?.isNavigationBarHidden = true
         self.cropPickerView.delegate = self
-        
-        imgview = UIImageView(frame: self.view.bounds)
+        let bounds = CGRect(x: 0, y: -10, w: self.view.bounds.width, h: self.view.bounds.height + 20)
+        imgview = UIImageView(frame: bounds)
         imgview?.image = photo.image
         let gripFrame : CGRect?
         
@@ -164,11 +164,11 @@ class PreviewViewController: UIViewController, PreviewProtocol {
             gripFrame = DeviceType.hasNotch ? CGRect(x: 0, y: 0, width: width, height: height) : CGRect(x: 0, y: 0, width: width, height: height)
         }
         
-        let contentView = UIView(frame: self.view.bounds)
+        let contentView = UIView(frame: bounds)
         contentView.backgroundColor = UIColor.black
         contentView.addSubview(imgview!)
         
-        userResizableView1 = ZDStickerView(frame: self.view.bounds)
+        userResizableView1 = ZDStickerView(frame: bounds)
         userResizableView1.tag = 0
         userResizableView1.stickerViewDelegate = self
         userResizableView1.contentView = contentView
@@ -258,9 +258,12 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     @IBAction func btnAddtoStoryAction(_ sender: UIButton){
         if self.objPostData.tiStoryType == "0" {
             stickerView.image = self.photo.image
-            let img = stickerView.resizeImage(transform : userResizableView1.transform, frame : userResizableView1.frame)
+            let img = stickerView.resizeImage(transform : userResizableView1.transform, frame : self.view.bounds)
             if cusText != nil {
-                let image = textToImage(drawText: cusText.text as NSString, inImage: img!, atPoint: self.editedlabel.frame.origin, frame: self.editedlabel.frame, transform: self.transform)
+                stickerView.frame = userResizableView1.bounds
+                let image = addTextToImage(text: cusText.text as NSString, inImage: img!, atPoint: cusText.frame.origin)
+                    
+                   // textToImage(drawText: cusText.text as NSString, inImage: img!, atPoint: self.editedlabel.frame.origin, frame: self.editedlabel.frame, transform: self.transform)
                     
                     //stickerView.renderContentOnView(layer : imageView.layer)
                     
@@ -275,6 +278,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
             }
         }else {
             if cusText != nil {
+                LoaderView.sharedInstance.showLoader()
                 self.addtextToVideo()
             } else {
                 self.callPostStoryAPI(obj: self.objPostData)
@@ -414,13 +418,13 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         let textSize = text.size(withAttributes: [NSAttributedString.Key.font:textFont])
         let textRect = CGRect(x: drawingBounds.size.width/2 - textSize.width/2, y:  drawingBounds.size.height/2 - textSize.height/2, w: textSize.width, h: textSize.height)
         
-        if stickerView.currentlyEditingLabel != nil {
-            let degrees : CGFloat = CGFloat(atan2f(Float(stickerView.currentlyEditingLabel.transform.b), Float(stickerView.currentlyEditingLabel.transform.a)))
-            text.drawWithBasePoint(basePoint: cusText.frame.origin, andAngle: 0, font : textFont!, color : textColor)
-            text.draw(in: stickerView.currentlyEditingLabel.frame, withAttributes: textFontAttributes)
-        } else {
-            text.draw(in: textRect, withAttributes: textFontAttributes)
-        }
+//        if stickerView.currentlyEditingLabel != nil {
+//            let degrees : CGFloat = CGFloat(atan2f(Float(stickerView.currentlyEditingLabel.transform.b), Float(stickerView.currentlyEditingLabel.transform.a)))
+//            text.drawWithBasePoint(basePoint: cusText.frame.origin, andAngle: 0, font : textFont!, color : textColor)
+//            text.draw(in: stickerView.currentlyEditingLabel.frame, withAttributes: textFontAttributes)
+//        } else {
+        text.draw(in: cusText.frame, withAttributes: textFontAttributes as [NSAttributedString.Key : Any])
+//        }
          
         // Get the image from the graphics context
         let newImag = UIGraphicsGetImageFromCurrentImageContext()!
@@ -470,9 +474,9 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     }
     
     func addtextToVideo(){
-        DispatchQueue.main.async {
-            LoaderView.sharedInstance.showLoader()
-        }
+//        DispatchQueue.main.async {
+//            LoaderView.sharedInstance.showLoader()
+//        }
         let composition = AVMutableComposition()
         let vidAsset = AVURLAsset(url: self.objPostData.arrMedia[0].videoURL!, options: nil)
         
@@ -575,9 +579,9 @@ class PreviewViewController: UIViewController, PreviewProtocol {
             default:
                 print("Movie complete : \(movieDestinationUrl)")
                 self.objPostData.arrMedia[0].videoURL = movieDestinationUrl as URL
-                DispatchQueue.main.async {
+//                DispatchQueue.main.async {
                     LoaderView.sharedInstance.hideLoader()
-                }
+//                }
                 self.callPostStoryAPI(obj: self.objPostData)
             }
         })

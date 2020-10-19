@@ -4194,7 +4194,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 mi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vGq-5s-n1a" customClass="GradientLabel" customModule="Jointly" customModuleProvider="target">
-                                                    <rect key="frame" x="340" y="359" width="44" height="17"/>
+                                                    <rect key="frame" x="340" y="360.66666666666669" width="44" height="14"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="44" id="uT5-C5-GQz"/>
                                                     </constraints>
@@ -4215,7 +4215,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oaQ-iL-oeQ">
-                                                    <rect key="frame" x="311" y="456" width="73" height="29"/>
+                                                    <rect key="frame" x="311" y="459" width="73" height="26"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="73" id="DFX-7e-Y6r"/>
                                                     </constraints>
