@@ -91,7 +91,7 @@ class ViewController: UIViewController {
     
     //Zoom in - out
     let minimumZoom: CGFloat = 1.0
-    let maximumZoom: CGFloat = 3.0
+    let maximumZoom: CGFloat = 5.0
     var lastZoomFactor: CGFloat = 1.0
     
     override func viewDidLoad() {
@@ -186,6 +186,33 @@ class ViewController: UIViewController {
         return true
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            
+            guard let device = currentCamera else { return }
+
+            // Return zoom value between the minimum and maximum zoom values
+            func minMaxZoom(_ factor: CGFloat) -> CGFloat {
+                return min(min(max(factor, minimumZoom), maximumZoom), device.activeFormat.videoMaxZoomFactor)
+            }
+
+            func update(scale factor: CGFloat) {
+                do {
+                    try device.lockForConfiguration()
+                    defer { device.unlockForConfiguration() }
+                    device.videoZoomFactor = factor
+                } catch {
+                    print("\(error.localizedDescription)")
+                }
+            }
+            
+            let position :CGPoint = touch.location(in: view)
+            let startX = Int(position.x)
+            let startY = Int(position.y)
+            update(scale: CGFloat(startY))
+        }
+    }
+    
     @objc func dragImg(_ sender:UIPanGestureRecognizer) {
 
         // note that 'view' here is the overall video preview
@@ -265,38 +292,6 @@ class ViewController: UIViewController {
         }
     }
     
-//    @objc func dragImg(_ sender:UIPanGestureRecognizer){
-//
-//        let translation = sender.translation(in: self.view)
-//
-//        guard let device = currentCamera else { return }
-//
-//        // Return zoom value between the minimum and maximum zoom values
-//        func minMaxZoom(_ factor: CGFloat) -> CGFloat {
-//            return min(min(max(factor, minimumZoom), maximumZoom), device.activeFormat.videoMaxZoomFactor)
-//        }
-//
-//        func update(scale factor: CGFloat) {
-//            do {
-//                try device.lockForConfiguration()
-//                defer { device.unlockForConfiguration() }
-//                device.videoZoomFactor = factor
-//            } catch {
-//                print("\(error.localizedDescription)")
-//            }
-//        }
-//        let newScaleFactor = minMaxZoom(translation.y * lastZoomFactor)
-//
-//        switch sender.state {
-//        case .began:
-//            lastZoomFactor = device.videoZoomFactor
-//        case .changed: update(scale: newScaleFactor)
-//        case .ended:
-//            lastZoomFactor = minMaxZoom(newScaleFactor)
-//            update(scale: lastZoomFactor)
-//        default: break
-//        }
-//    }
     
     //Zoom in - out
     @objc func pinch(_ pinch: UIPinchGestureRecognizer) {
@@ -631,5 +626,6 @@ extension ViewController : OpalImagePickerControllerDelegate {
 extension ViewController : ResetStoryObjectDelegate {
     func resetObject(status: Bool) {
         self.objPostData.arrMedia = []
+        self.innerView.backgroundColor = .white
     }
 }

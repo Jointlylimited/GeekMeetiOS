@@ -228,7 +228,6 @@ class PreviewViewController: UIViewController, PreviewProtocol {
             self.view.layoutIfNeeded()
         }
         
-        playerLayer?.videoGravity = AVLayerVideoGravity.resizeAspect
         let duration : CMTime = self.videoAsset!.duration
         let seconds : Float64 = CMTimeGetSeconds(duration)
         self.scrubber.maximumValue = Float(seconds)
