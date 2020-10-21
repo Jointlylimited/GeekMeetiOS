@@ -200,7 +200,7 @@ class ViewController: UIViewController {
                 do {
                     try device.lockForConfiguration()
                     defer { device.unlockForConfiguration() }
-                    device.videoZoomFactor = factor/1000
+                    device.videoZoomFactor = factor/100
                 } catch {
                     print("\(error.localizedDescription)")
                 }
