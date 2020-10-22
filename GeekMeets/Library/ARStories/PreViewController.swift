@@ -211,7 +211,7 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
             self.imgReconnect.alpha = 0.0
             let videoLayer = AVPlayerLayer(player: self.player)
             videoLayer.frame = view.bounds
-            videoLayer.videoGravity = .resizeAspect
+            videoLayer.videoGravity = .resizeAspectFill
             self.videoView.layer.addSublayer(videoLayer)
             
             let asset = AVAsset(url: url)

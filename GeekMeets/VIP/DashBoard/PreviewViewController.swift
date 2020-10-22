@@ -142,7 +142,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         photo.image = self.objPostData.arrMedia[0].img
         self.navigationController?.isNavigationBarHidden = true
         self.cropPickerView.delegate = self
-        let bounds = CGRect(x: 0, y: -10, w: self.view.bounds.width, h: self.view.bounds.height + 20)
+        let bounds = CGRect(x: 0, y: -5, w: self.view.bounds.width, h: self.view.bounds.height + 10)
         imgview = UIImageView(frame: bounds)
         imgview?.image = photo.image
         let gripFrame : CGRect?

@@ -55,8 +55,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "212"
             endingLineNumber = "212"
-            landmarkName = "touchesBegan(_:with:)"
-            landmarkType = "7">
+            landmarkName = "ViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -71,7 +71,39 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "219"
             endingLineNumber = "219"
-            landmarkName = "dragImg(_:)"
+            landmarkName = "ViewController"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EB7604E7-9735-4130-B26F-087C834039A1"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GeekMeets/VIP/DashBoard/ViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "411"
+            endingLineNumber = "411"
+            landmarkName = "handleLongPress(gestureRecognizer:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C564AD42-0A0B-417C-AE98-C1B48A270DE9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GeekMeets/VIP/DashBoard/ViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "593"
+            endingLineNumber = "593"
+            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

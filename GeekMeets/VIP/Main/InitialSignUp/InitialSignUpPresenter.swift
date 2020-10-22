@@ -77,14 +77,10 @@ class InitialSignUpPresenter: InitialSignUpPresentationProtocol {
     func getLoginResponse(userData : UserAuthResponse?) {
         if userData?.responseCode == 200 {
             Authentication.setLoggedInStatus(true)
+            Authentication.setSignUpFlowStatus((userData?.responseData?.tiStep)!)
             UserDataModel.currentUser = userData?.responseData
             UserDataModel.setAuthKey(key: (userData?.responseData?.vAuthKey)!)
             self.callPreferenceAPI()
-//            let controller = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange)
-//            if let view = self.viewController as? UIViewController
-//            {
-//                view.pushVC(controller)
-//            }
         }
     }
     

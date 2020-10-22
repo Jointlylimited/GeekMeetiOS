@@ -91,7 +91,7 @@ class ViewController: UIViewController {
     
     //Zoom in - out
     let minimumZoom: CGFloat = 1.0
-    let maximumZoom: CGFloat = 5.0
+    let maximumZoom: CGFloat = 8.0
     var lastZoomFactor: CGFloat = 1.0
     
     override func viewDidLoad() {
@@ -173,9 +173,9 @@ class ViewController: UIViewController {
         self.view.layer.insertSublayer(cameraPreviewLayer!, at: 0)
         
         //Zoom in - out
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(dragImg(_:)))
+//        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(dragImg(_:)))
 //        let pinchRecognizer = UIPinchGestureRecognizer(target: self, action:#selector(pinch(_:)))
-        self.view.addGestureRecognizer(panGesture)
+//        self.view.addGestureRecognizer(panGesture)
     }
     
     func startRunningCaptureSession() {
@@ -186,143 +186,154 @@ class ViewController: UIViewController {
         return true
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            
-            guard let device = currentCamera else { return }
-
-            // Return zoom value between the minimum and maximum zoom values
-            func minMaxZoom(_ factor: CGFloat) -> CGFloat {
-                return min(min(max(factor, minimumZoom), maximumZoom), device.activeFormat.videoMaxZoomFactor)
-            }
-
-            func update(scale factor: CGFloat) {
-                do {
-                    try device.lockForConfiguration()
-                    defer { device.unlockForConfiguration() }
-                    device.videoZoomFactor = factor/100
-                } catch {
-                    print("\(error.localizedDescription)")
-                }
-            }
-            
-            let position :CGPoint = touch.location(in: view)
-            let startX = Int(position.x)
-            let startY = Int(position.y)
-            update(scale: CGFloat(startY))
-        }
-    }
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        if let touch = touches.first {
+//
+//            guard let device = currentCamera else { return }
+//
+//            // Return zoom value between the minimum and maximum zoom values
+//            func minMaxZoom(_ factor: CGFloat) -> CGFloat {
+//                return min(min(max(factor, minimumZoom), maximumZoom), device.activeFormat.videoMaxZoomFactor)
+//            }
+//
+//            func update(scale factor: CGFloat) {
+//                do {
+//                    try device.lockForConfiguration()
+//                    defer { device.unlockForConfiguration() }
+//                    device.videoZoomFactor = factor/100
+//                } catch {
+//                    print("\(error.localizedDescription)")
+//                }
+//            }
+//
+//            let position :CGPoint = touch.location(in: view)
+//            let startX = Int(position.x)
+//            let startY = Int(position.y)
+//            update(scale: CGFloat(startY))
+//        }
+//    }
     
-    @objc func dragImg(_ sender:UIPanGestureRecognizer) {
-
-        // note that 'view' here is the overall video preview
-        let velocity = sender.velocity(in: view)
-
-        if velocity.y > 0 || velocity.y < 0 {
-
-           let originalCapSession = captureSession
-           var devitce : AVCaptureDevice!
-
-           let videoDeviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera, .builtInDuoCamera], mediaType: AVMediaType.video, position: .unspecified)
-           let devices = videoDeviceDiscoverySession.devices
-           devitce = devices.first!
-
-           guard let device = devitce else { return }
-
-            let minimumZoomFactor: CGFloat = 1.0
-            let maximumZoomFactor: CGFloat = min(device.activeFormat.videoMaxZoomFactor, 10.0) // artificially set a max useable zoom of 10x
-
-            // clamp a zoom factor between minimumZoom and maximumZoom
-            func clampZoomFactor(_ factor: CGFloat) -> CGFloat {
-                return min(max(factor, minimumZoomFactor), maximumZoomFactor)
-            }
-
-            func update(scale factor: CGFloat) {
-                do {
-
-                    try device.lockForConfiguration()
-                    defer { device.unlockForConfiguration() }
-                    device.videoZoomFactor = factor
-                } catch {
-                    print("\(error.localizedDescription)")
-                }
-            }
-
-            switch sender.state {
-
-            case .began:
-                lastZoomFactor = device.videoZoomFactor
-//                let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0] as URL
-//                let filePath = documentsURL.appendingPathComponent("tempMovie.mp4")
-//                if FileManager.default.fileExists(atPath: filePath.absoluteString) {
-//                    do {
-//                        try FileManager.default.removeItem(at: filePath)
-//                    }
-//                    catch {
-//                    }
+//    @objc func dragImg(_ sender:UIPanGestureRecognizer) {
+//
+//        // note that 'view' here is the overall video preview
+//        let velocity = sender.velocity(in: view)
+//
+//        if velocity.y > 0 || velocity.y < 0 {
+//
+//           let originalCapSession = captureSession
+//           var devitce : AVCaptureDevice!
+//
+//           let videoDeviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera, .builtInDuoCamera], mediaType: AVMediaType.video, position: .unspecified)
+//           let devices = videoDeviceDiscoverySession.devices
+//           devitce = devices.first!
+//
+//           guard let device = devitce else { return }
+//
+//            let minimumZoomFactor: CGFloat = 1.0
+//            let maximumZoomFactor: CGFloat = min(device.activeFormat.videoMaxZoomFactor, 10.0) // artificially set a max useable zoom of 10x
+//
+//            // clamp a zoom factor between minimumZoom and maximumZoom
+//            func clampZoomFactor(_ factor: CGFloat) -> CGFloat {
+//                return min(max(factor, minimumZoomFactor), maximumZoomFactor)
+//            }
+//
+//            func update(scale factor: CGFloat) {
+//                do {
+//
+//                    try device.lockForConfiguration()
+//                    defer { device.unlockForConfiguration() }
+//                    device.videoZoomFactor = factor
+//                } catch {
+//                    print("\(error.localizedDescription)")
 //                }
-//                movieFileOutput.startRecording(to: filePath, recordingDelegate: self)
-
-            case .changed:
-
-                // distance in points for the full zoom range (e.g. min to max), could be view.frame.height
-                let fullRangeDistancePoints: CGFloat = 300.0
-
-                // extract current distance travelled, from gesture start
-                let currentYTranslation: CGFloat = sender.translation(in: view).y
-
-                // calculate a normalized zoom factor between [-1,1], where up is positive (ie zooming in)
-                let normalizedZoomFactor = -1 * max(-1,min(1,currentYTranslation / fullRangeDistancePoints))
-
-                // calculate effective zoom scale to use
-                let newZoomFactor = clampZoomFactor(lastZoomFactor + normalizedZoomFactor * (maximumZoomFactor - minimumZoomFactor))
-
-                // update device's zoom factor'
-                update(scale: newZoomFactor)
-
-            case .ended, .cancelled:
-//                if movieFileOutput.recordedDuration <= movieFileOutput.maxRecordedDuration {
-//                    movieFileOutput.stopRecording()
-//                }
-                break
-
-            default:
-                break
-            }
-        }
-    }
+//            }
+//
+//            switch sender.state {
+//
+//            case .began:
+//                lastZoomFactor = device.videoZoomFactor
+////                let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0] as URL
+////                let filePath = documentsURL.appendingPathComponent("tempMovie.mp4")
+////                if FileManager.default.fileExists(atPath: filePath.absoluteString) {
+////                    do {
+////                        try FileManager.default.removeItem(at: filePath)
+////                    }
+////                    catch {
+////                    }
+////                }
+////                movieFileOutput.startRecording(to: filePath, recordingDelegate: self)
+//
+//            case .changed:
+//
+//                // distance in points for the full zoom range (e.g. min to max), could be view.frame.height
+//                let fullRangeDistancePoints: CGFloat = 300.0
+//
+//                // extract current distance travelled, from gesture start
+//                let currentYTranslation: CGFloat = sender.translation(in: view).y
+//
+//                // calculate a normalized zoom factor between [-1,1], where up is positive (ie zooming in)
+//                let normalizedZoomFactor = -1 * max(-1,min(1,currentYTranslation / fullRangeDistancePoints))
+//
+//                // calculate effective zoom scale to use
+//                let newZoomFactor = clampZoomFactor(lastZoomFactor + normalizedZoomFactor * (maximumZoomFactor - minimumZoomFactor))
+//
+//                // update device's zoom factor'
+//                update(scale: newZoomFactor)
+//
+//            case .ended, .cancelled:
+////                if movieFileOutput.recordedDuration <= movieFileOutput.maxRecordedDuration {
+////                    movieFileOutput.stopRecording()
+////                }
+//                break
+//
+//            default:
+//                break
+//            }
+//        }
+//    }
     
     
     //Zoom in - out
-    @objc func pinch(_ pinch: UIPinchGestureRecognizer) {
+//    @objc func pinch(_ pinch: UIPinchGestureRecognizer) {
+//        guard let device = currentCamera else { return }
+//
+//        // Return zoom value between the minimum and maximum zoom values
+//        func minMaxZoom(_ factor: CGFloat) -> CGFloat {
+//            return min(min(max(factor, minimumZoom), maximumZoom), device.activeFormat.videoMaxZoomFactor)
+//        }
+//
+//        func update(scale factor: CGFloat) {
+//            do {
+//                try device.lockForConfiguration()
+//                defer { device.unlockForConfiguration() }
+//                device.videoZoomFactor = factor
+//            } catch {
+//                print("\(error.localizedDescription)")
+//            }
+//        }
+////        let yFromCenter = pinch.translation(in: self.view).y
+//        let newScaleFactor = minMaxZoom(pinch.scale * lastZoomFactor)
+//        switch pinch.state {
+//        case .began: fallthrough
+//        case .changed: update(scale: newScaleFactor)
+//        case .ended:
+//            lastZoomFactor = minMaxZoom(newScaleFactor)
+//            update(scale: lastZoomFactor)
+//        default: break
+//        }
+//    }
+    
+    func setDefaultZoom(){
         guard let device = currentCamera else { return }
-
-        // Return zoom value between the minimum and maximum zoom values
-        func minMaxZoom(_ factor: CGFloat) -> CGFloat {
-            return min(min(max(factor, minimumZoom), maximumZoom), device.activeFormat.videoMaxZoomFactor)
-        }
-
-        func update(scale factor: CGFloat) {
-            do {
-                try device.lockForConfiguration()
-                defer { device.unlockForConfiguration() }
-                device.videoZoomFactor = factor
-            } catch {
-                print("\(error.localizedDescription)")
-            }
-        }
-//        let yFromCenter = pinch.translation(in: self.view).y
-        let newScaleFactor = minMaxZoom(pinch.scale * lastZoomFactor)
-        switch pinch.state {
-        case .began: fallthrough
-        case .changed: update(scale: newScaleFactor)
-        case .ended:
-            lastZoomFactor = minMaxZoom(newScaleFactor)
-            update(scale: lastZoomFactor)
-        default: break
+        
+        do {
+            try device.lockForConfiguration()
+            defer { device.unlockForConfiguration() }
+            device.videoZoomFactor = minimumZoom
+        } catch {
+            print("\(error.localizedDescription)")
         }
     }
-    
     
     @IBAction func cameraButtonTouch(_ sender: Any) {
         let settings = AVCapturePhotoSettings()
@@ -395,13 +406,34 @@ class ViewController: UIViewController {
     }
     
     @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
-
+        
+        let yposition = (ScreenSize.height - gestureRecognizer.location(in: view).y)/100 // gestureRecognizer.location(in: view).y/200 // sender.velocity(in: view)
+        debugPrint(yposition)
+        guard let device = currentCamera else { return }
+        
+        // Return zoom value between the minimum and maximum zoom values
+        func minMaxZoom(_ factor: CGFloat) -> CGFloat {
+                return min(min(max(factor, minimumZoom), maximumZoom), device.activeFormat.videoMaxZoomFactor)
+        }
+        
+        func update(scale factor: CGFloat) {
+            do {
+                try device.lockForConfiguration()
+                defer { device.unlockForConfiguration() }
+                device.videoZoomFactor = factor
+            } catch {
+                print("\(error.localizedDescription)")
+            }
+        }
+        
         let maxDuration = CMTime(seconds: 30, preferredTimescale: 600)
         movieFileOutput.maxRecordedDuration = maxDuration
         movieFileOutput.movieFragmentInterval = CMTime.invalid
         self.innerView.backgroundColor = .red
-        if gestureRecognizer.state == UIGestureRecognizer.State.began {
+        switch gestureRecognizer.state {
+        case .began:
             debugPrint("long press started")
+            update(scale: minimumZoom)
             let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0] as URL
             let filePath = documentsURL.appendingPathComponent("tempMovie.mp4")
             if FileManager.default.fileExists(atPath: filePath.absoluteString) {
@@ -412,12 +444,20 @@ class ViewController: UIViewController {
                 }
             }
             movieFileOutput.startRecording(to: filePath, recordingDelegate: self)
-        }
-        else if gestureRecognizer.state == UIGestureRecognizer.State.ended {
+        case .changed:
+            if yposition > minimumZoom && yposition < maximumZoom {
+                update(scale: yposition)
+            }
+        case .ended:
             debugPrint("longpress ended")
+            if yposition > minimumZoom && yposition < maximumZoom {
+                lastZoomFactor = minMaxZoom(yposition)
+                update(scale: lastZoomFactor)
+            }
             if movieFileOutput.recordedDuration <= movieFileOutput.maxRecordedDuration {
                 movieFileOutput.stopRecording()
             }
+        default: break
         }
     }
     
@@ -493,11 +533,13 @@ extension ViewController : UIImagePickerControllerDelegate, UINavigationControll
             let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
             alert.addAction(UIAlertAction(title: photo, style: .default, handler: { _ in
                self.objPostData.postMediaType = .image
+                self.objPostData.tiStoryType = "0"
                 self.openLibrary()
             }))
             
             alert.addAction(UIAlertAction(title: video, style: .default, handler: { _ in
                 self.objPostData.postMediaType = .video
+                self.objPostData.tiStoryType = "0"
                 self.openLibrary()
             }))
             
@@ -512,12 +554,18 @@ extension ViewController : UIImagePickerControllerDelegate, UINavigationControll
             if isGrant {
                 if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
                     if self.objPostData.postMediaType == .image {
-                        self.opimagePicker.imagePickerDelegate = self
-                        self.opimagePicker.maximumSelectionsAllowed = 1
-                        self.opimagePicker.selectionImage = nil
-                        self.opimagePicker.allowedMediaTypes = Set([PHAssetMediaType.image])
+//                        self.opimagePicker.imagePickerDelegate = self
+//                        self.opimagePicker.maximumSelectionsAllowed = 1
+//                        self.opimagePicker.selectionImage = nil
+                        self.imagePicker = UIImagePickerController()
+                        self.imagePicker.delegate = self
+                        self.imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary;
+                        self.imagePicker.allowsEditing = false
+                        self.present(self.imagePicker, animated: true, completion: nil)
+                        self.objPostData.tiStoryType = "0"
+//                        self.opimagePicker.allowedMediaTypes = Set([PHAssetMediaType.image])
                         
-                        self.present(self.opimagePicker, animated: true, completion: nil)
+                        self.present(self.imagePicker, animated: true, completion: nil)
                     } else
                         if self.objPostData.postMediaType == .video {
                             self.imagePicker = UIImagePickerController()
@@ -539,9 +587,22 @@ extension ViewController : UIImagePickerControllerDelegate, UINavigationControll
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        self.objPostData.arrMedia = []
         picker.dismiss(animated: true, completion: nil)
         if objPostData.postMediaType == .image {
             if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+                var objMedia = MediaData()
+                objMedia.img = image
+                if self.objPostData.arrMedia == nil {
+                    self.objPostData.arrMedia = []
+                }
+                objMedia.uID = "\(self.objPostData.arrMedia.count)"
+                self.objPostData.tiStoryType = "0"
+                objMedia.captutedFromCamera = false
+                self.objPostData.arrMedia.append(objMedia)
+            }
+            
+            if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                 var objMedia = MediaData()
                 objMedia.img = image
                 if self.objPostData.arrMedia == nil {
@@ -589,6 +650,7 @@ extension ViewController : UIImagePickerControllerDelegate, UINavigationControll
 
 extension ViewController : OpalImagePickerControllerDelegate {
     func imagePicker(_ picker: OpalImagePickerController, didFinishPickingAssets assets: [PHAsset]) {
+        self.objPostData.arrMedia = []
         picker.dismiss(animated: true, completion: nil)
         
         let asset = assets[assets.count - 1]
@@ -626,6 +688,7 @@ extension ViewController : OpalImagePickerControllerDelegate {
 extension ViewController : ResetStoryObjectDelegate {
     func resetObject(status: Bool) {
         self.objPostData.arrMedia = []
+        setDefaultZoom()
         self.innerView.backgroundColor = .white
     }
 }
