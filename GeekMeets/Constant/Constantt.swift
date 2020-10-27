@@ -169,7 +169,7 @@ struct AppCommonColor {
     static let orangeColor = #colorLiteral(red: 0.9883782268, green: 0.305493474, blue: 0.3512662053, alpha: 1)
     static let placeHolderColor = #colorLiteral(red: 0.6990235448, green: 0.7155820727, blue: 0.719522655, alpha: 1)
     static let firstGradient = #colorLiteral(red: 0.606272161, green: 0.2928337753, blue: 0.8085166812, alpha: 1)
-    static let secondGradient = #colorLiteral(red: 0.8740701079, green: 0.5383403897, blue: 0.9913718104, alpha: 1)
+    static let secondGradient = #colorLiteral(red: 0.8745098039, green: 0.537254902, blue: 0.9921568627, alpha: 0.5)
     static let ChatViewBGColor = #colorLiteral(red: 0.606272161, green: 0.2928337753, blue: 0.8085166812, alpha: 1)
     static let headerColor = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1.0)
 }

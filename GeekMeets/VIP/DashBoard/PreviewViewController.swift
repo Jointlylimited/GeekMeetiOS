@@ -142,27 +142,26 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         photo.image = self.objPostData.arrMedia[0].img
         self.navigationController?.isNavigationBarHidden = true
         self.cropPickerView.delegate = self
-        let bounds = CGRect(x: 0, y: -5, w: self.view.bounds.width, h: self.view.bounds.height + 10)
+        let bounds = self.view.bounds //  CGRect(x: 0, y: -5, w: self.view.bounds.width, h: self.view.bounds.height + 10)
         imgview = UIImageView(frame: bounds)
         imgview?.image = photo.image
-        let gripFrame : CGRect?
+        imgview?.contentMode = .scaleAspectFill
         
         
-        
-        if !self.objPostData.arrMedia[0].captutedFromCamera {
-            let image = resetImageSize(image: photo.image!)
-            let width = image.size.width
-            let height = image.size.height
-            imgview?.contentMode = .scaleAspectFill
-            
-            gripFrame = DeviceType.hasNotch ? CGRect(x: 0, y: (ScreenSize.height - height)/2, width: width, height: height) : CGRect(x: 0, y: (ScreenSize.height - height)/2, width: width, height: height)
-        } else {
-            let width = photo.image!.size.width
-            let height = photo.image!.size.height
-            imgview?.contentMode = .scaleToFill
-            
-            gripFrame = DeviceType.hasNotch ? CGRect(x: 0, y: 0, width: width, height: height) : CGRect(x: 0, y: 0, width: width, height: height)
-        }
+//        if !self.objPostData.arrMedia[0].captutedFromCamera {
+//            let image = resetImageSize(image: photo.image!)
+//            let width = image.size.width
+//            let height = image.size.height
+//            imgview?.contentMode = .scaleToFill
+//
+//            gripFrame = DeviceType.hasNotch ? CGRect(x: 0, y: (ScreenSize.height - height)/2, width: width, height: height) : CGRect(x: 0, y: (ScreenSize.height - height)/2, width: width, height: height)
+//        } else {
+//            let width = photo.image!.size.width
+//            let height = photo.image!.size.height
+//            imgview?.contentMode = .scaleToFill
+//
+//            gripFrame = DeviceType.hasNotch ? CGRect(x: 0, y: 0, width: width, height: height) : CGRect(x: 0, y: 0, width: width, height: height)
+//        }
         
         let contentView = UIView(frame: bounds)
         contentView.backgroundColor = UIColor.black
@@ -257,18 +256,12 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     @IBAction func btnAddtoStoryAction(_ sender: UIButton){
         if self.objPostData.tiStoryType == "0" {
             stickerView.image = self.photo.image
-            let img = stickerView.resizeImage(transform : userResizableView1.transform, frame : self.view.bounds)
+            let img = stickerView.image!.resizeImage(targetSize: self.view.bounds.size)
+            stickerView.image = img
             if cusText != nil {
-                stickerView.frame = userResizableView1.bounds
-                let image = addTextToImage(text: cusText.text as NSString, inImage: img!, atPoint: cusText.frame.origin)
-                    
-                   // textToImage(drawText: cusText.text as NSString, inImage: img!, atPoint: self.editedlabel.frame.origin, frame: self.editedlabel.frame, transform: self.transform)
-                    
-                    //stickerView.renderContentOnView(layer : imageView.layer)
-                    
-                   // textToImage(drawText: cusText.text as NSString, inImage: img!, atPoint: self.editedlabel.frame.origin, frame: self.editedlabel.frame, transform: self.transform) //addTextToImage(text: cusText.text as NSString, inImage: img!, atPoint: cusText.frame.origin) //stickerView.renderContentOnView()
+                 let img1 = stickerView.renderContentOnView()
                 stickerView.image = nil
-                self.objPostData.arrMedia[0].img = image
+                self.objPostData.arrMedia[0].img = img1
                 self.callPostStoryAPI(obj: self.objPostData)
             } else {
                 stickerView.image = nil
@@ -341,12 +334,10 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         textView.font = text.font
         textView.textAlignment = .center
         textView.backgroundColor = .clear
-//        let newSize = textView.sizeThatFits(CGSize(width: textView.width, height: CGFloat.greatestFiniteMagnitude))
-//        textView.frame.size = CGSize(width: max(newSize.width, textView.width), height: newSize.height)
+
         textView.delegate = self
         adjustTextViewHeight(textView : textView)
         
-//        stickerView.frame = self.textView.bounds
         stickerView.addLabel(text : text.text, font: text.font.fontName)
         stickerView.textColor = text.color
         stickerView.textAlpha = 1
@@ -357,7 +348,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         stickerView.currentlyEditingLabel.labelTextView?.font = text.font
         stickerView.currentlyEditingLabel.labelTextView?.delegate = self
         stickerView.currentlyEditingLabel.delegate = self
-        self.view.addSubview(stickerView)
+        self.view.insertSubview(stickerView, at: 2)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -630,9 +621,9 @@ extension PreviewViewController : UITextViewDelegate {
         controller!.modalTransitionStyle = .crossDissolve
         controller!.modalPresentationStyle = .overCurrentContext
         let cusTextView = CustomTextView(frame: CGRect.init(x: 0, y: 0, width: self.textView.width, height: self.textView.height))
-        cusTextView.text = textView.text
-        cusTextView.color = textView.textColor!
-        cusTextView.font = textView.font
+        cusTextView.text = self.textView.text
+        cusTextView.color = self.textView.textColor!
+        cusTextView.font = self.textView.font
         controller!.custText = cusTextView
         controller!.delegate = self
         self.presentVC(controller!)

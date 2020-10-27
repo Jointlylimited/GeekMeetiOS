@@ -163,26 +163,14 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
 
 extension AppDelegate {
     func callPushStatusAPI(tiIsAcceptPush : String) {
-        DispatchQueue.main.async {
-//            LoaderView.sharedInstance.showLoader()
-        }
         
         UserAPI.setPushStatus(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vDeviceToken: AppDelObj.deviceToken, tiIsAcceptPush: tiIsAcceptPush) { (response, error) in
-            DispatchQueue.main.async {
-//                LoaderView.sharedInstance.hideLoader()
-            }
+
             if response?.responseCode == 200 {
-                //                UserDataModel.currentUser = response?.responseData
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
                 AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
-            } else {
-                if error != nil {
-//                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
-                } else {
-                    //                     self.presenter?.getPushStatusResponse(response : response!)
-                }
-            }
+            } else {}
         }
     }
     func callReadAPI(iNotificationId : String, tiType : String) {
