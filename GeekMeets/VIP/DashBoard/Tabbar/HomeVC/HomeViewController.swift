@@ -432,7 +432,7 @@ extension HomeViewController : UICollectionViewDataSource, UICollectionViewDeleg
             }
             
             return cell
-        }else {
+        }else if collectionView == cardView.preferenceCollView {
             let cell : PreferenceListCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PreferenceListCell, for: indexPath) as! PreferenceListCell
             let data = cardView.preferenceDetailsArray[indexPath.row]
             cell.btnTitle.setTitle(data.iPreferenceId == 5 ? data.fAnswer : data.vOption, for: .normal)
@@ -442,6 +442,8 @@ extension HomeViewController : UICollectionViewDataSource, UICollectionViewDeleg
                 cell.btnTitle.setImage(type[0]["icon"]! as? UIImage, for: .normal)
             }
             return cell
+        } else {
+            return UICollectionViewCell()
         }
     }
     

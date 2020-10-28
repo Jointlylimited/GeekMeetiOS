@@ -197,12 +197,12 @@ extension JLStickerImageView {
 //        return newImage
 //    }
     
-    public func renderContentOnView() -> UIImage? {
+    public func renderContentOnView(size : CGSize) -> UIImage? {
         
         self.cleanup()
         print(" Image 1 : \(self.image)")
-        
-        UIGraphicsBeginImageContextWithOptions(self.image!.size, true, 0)
+        self.contentMode = .scaleAspectFill
+        UIGraphicsBeginImageContextWithOptions(size, true, 0)
         self.layer.render(in: UIGraphicsGetCurrentContext()!)
         print("Image 2 : \(self.image)")
         let img = UIGraphicsGetImageFromCurrentImageContext()

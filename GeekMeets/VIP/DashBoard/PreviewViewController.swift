@@ -146,7 +146,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         imgview = UIImageView(frame: bounds)
         imgview?.image = photo.image
         imgview?.contentMode = .scaleAspectFill
-        
+        stickerView.contentMode = .scaleAspectFill
         
 //        if !self.objPostData.arrMedia[0].captutedFromCamera {
 //            let image = resetImageSize(image: photo.image!)
@@ -241,7 +241,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
 
     @IBAction func cancelButtonTouch(_ sender: Any) {
          self.delegate?.resetObject(status: true)
-         self.dismissVC(completion: nil) //popVC()
+         self.dismissVC(completion: nil)
     }
     
     @IBAction func saveButtonTouch(_ sender: Any) {
@@ -256,16 +256,17 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     @IBAction func btnAddtoStoryAction(_ sender: UIButton){
         if self.objPostData.tiStoryType == "0" {
             stickerView.image = self.photo.image
-            let img = stickerView.image!.resizeImage(targetSize: self.view.bounds.size)
-            stickerView.image = img
+            
+//            let img = stickerView.image!.resizeImage(targetSize: self.view.bounds.size)
+//            stickerView.image = img
+            let img1 = stickerView.renderContentOnView(size : self.view.bounds.size)
             if cusText != nil {
-                 let img1 = stickerView.renderContentOnView()
                 stickerView.image = nil
                 self.objPostData.arrMedia[0].img = img1
                 self.callPostStoryAPI(obj: self.objPostData)
             } else {
                 stickerView.image = nil
-                self.objPostData.arrMedia[0].img = img
+                self.objPostData.arrMedia[0].img = img1
                 self.callPostStoryAPI(obj: self.objPostData)
             }
         }else {
@@ -512,7 +513,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         
         // create text Layer
         let titleLayer = CATextLayer()
-        titleLayer.frame = CGRect(x: self.stickerView.x, y: self.stickerView.y, width: size.width, height: size.height)
+        titleLayer.frame = CGRect(x: cusText.x, y: cusText.y, width: size.width, height: size.height)
         titleLayer.string = self.cusText.text
         titleLayer.font = self.cusText.font
         titleLayer.foregroundColor = self.cusText.color.cgColor
@@ -575,6 +576,21 @@ class PreviewViewController: UIViewController, PreviewProtocol {
                 self.callPostStoryAPI(obj: self.objPostData)
             }
         })
+    }
+    
+    private func getVideoTransform() -> CGAffineTransform {
+    switch UIDevice.current.orientation {
+        case .portrait:
+            return .identity
+        case .portraitUpsideDown:
+            return CGAffineTransform(rotationAngle: .pi)
+        case .landscapeLeft:
+            return CGAffineTransform(rotationAngle: .pi/2)
+        case .landscapeRight:
+            return CGAffineTransform(rotationAngle: -.pi/2)
+        default:
+            return .identity
+        }
     }
     
     func ManageSubscriptionScreen(){
