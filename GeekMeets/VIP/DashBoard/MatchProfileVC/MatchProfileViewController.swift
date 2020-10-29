@@ -403,7 +403,10 @@ extension MatchProfileViewController {
                 let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchScreen) as! MatchViewController
                 controller.isFromProfile = true
                 let data = self.objMatchUserProfile
-                controller.CardUserDetails = SearchUserFields(iUserId: data?.iUserId, vName: data?.vName, vProfileImage: data?.vProfileImage, tiAge: 0, vLiveIn: "", fLatitude: "", fLongitude: "", storyTime: "",vXmppUser: data?.vXmppUser,vXmppPassword: data?.vXmppPassword, photos: [])
+                controller.CardUserDetails = SearchUserFields(iUserId: data?.iUserId, vName: data?.vName, vProfileImage: data?.vProfileImage, tiAge: data?.tiAge, vEmail: data?.vEmail, tiGender: data?.tiGender, dDob: data?.dDob, txAbout: data?.txAbout, vCountryCode: data?.vCountryCode, vPhone: data?.vPhone, txCompanyDetail: data?.txCompanyDetail, vReferralCode: data?.vReferralCode, vLiveIn: data?.vLiveIn, fLatitude: data?.fLatitude, fLongitude: data?.fLongitude, tiIsLocationOn: data?.tiIsLocationOn, storyTime: "", vXmppUser: data?.vXmppUser, vXmppPassword: data?.vXmppPassword, tiIsSubscribed: data?.tiIsSubscribed, photos: data?.photos, preference: data?.preference)
+                
+                
+                //(iUserId: data?.iUserId, vName: data?.vName, vProfileImage: data?.vProfileImage, tiAge: 0, vLiveIn: "", fLatitude: "", fLongitude: "", storyTime: "",vXmppUser: data?.vXmppUser,vXmppPassword: data?.vXmppPassword, photos: [])
                 controller.modalTransitionStyle = .crossDissolve
                 controller.modalPresentationStyle = .overCurrentContext
                 self.presentVC(controller)

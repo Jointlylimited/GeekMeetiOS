@@ -113,9 +113,9 @@ class HomeViewController: UIViewController, HomeProtocol {
         }
         cards.reloadData()
         
-        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(presentProfileVC))
-        doubleTapGesture.numberOfTapsRequired = 2
-        cards.addGestureRecognizer(doubleTapGesture)
+//        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(presentProfileVC))
+//        doubleTapGesture.numberOfTapsRequired = 2
+//        cards.addGestureRecognizer(doubleTapGesture)
     }
     
     func getUserCurrentLocation() {
@@ -243,7 +243,9 @@ extension HomeViewController {
                 let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchScreen) as! MatchViewController
                 controller.isFromProfile = false
                 let data = self.objCardArray.objUserCard
-                controller.CardUserDetails = SearchUserFields(iUserId: data?.iUserId, vName: data?.vName, vProfileImage: data?.vProfileImage, tiAge: 0, vLiveIn: "", fLatitude: "", fLongitude: "", storyTime: "", vXmppUser: data?.vXmppUser, vXmppPassword: data?.vXmppPassword,  photos: [])
+                controller.CardUserDetails = SearchUserFields(iUserId: data?.iUserId, vName: data?.vName, vProfileImage: data?.vProfileImage, tiAge: data?.tiAge, vEmail: data?.vEmail, tiGender: data?.tiGender, dDob: data?.dDob, txAbout: data?.txAbout, vCountryCode: data?.vCountryCode, vPhone: data?.vPhone, txCompanyDetail: data?.txCompanyDetail, vReferralCode: data?.vReferralCode, vLiveIn: data?.vLiveIn, fLatitude: data?.fLatitude, fLongitude: data?.fLongitude, tiIsLocationOn: data?.tiIsLocationOn, storyTime: data?.storyTime, vXmppUser: data?.vXmppUser, vXmppPassword: data?.vXmppPassword, tiIsSubscribed: data?.tiIsSubscribed, photos: data?.photos, preference: data?.preference)
+                
+               // (iUserId: data?.iUserId, vName: data?.vName, vProfileImage: data?.vProfileImage, tiAge: 0, vLiveIn: "", fLatitude: "", fLongitude: "", storyTime: "", vXmppUser: data?.vXmppUser, vXmppPassword: data?.vXmppPassword,  photos: [])
                 controller.modalTransitionStyle = .crossDissolve
                 controller.modalPresentationStyle = .overCurrentContext
                 self.presentVC(controller)
@@ -308,16 +310,36 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
         cardView.frame = CGRect(x: 20, y: DeviceType.hasNotch ? 120 : 50, w: ScreenSize.width - 40, h: ScreenSize.height - (DeviceType.hasNotch ? 220 : 150))
         cardView.setData(index: 0)
         cardView.imgCollView.frame = cardView.frame
-        cardView.pageControl.numberOfPages = (obj.photos == nil && obj.photos?.count == 0) ? 1 : obj.photos!.count
+        cardView.pageControl.numberOfPages = (obj.photos == nil && obj.photos?.count == 0) ? 0 : obj.photos!.count
+        
         cardView.collViewHeightCons.constant = cardView.frame.height
+        if obj.photos?.count != 0 {
+            cardView.subcollViewHeightCons.constant = cardView.frame.height*CGFloat(((obj.photos == nil && obj.photos?.count == 0) ? 1 : obj.photos!.count))
+        } else {
+            cardView.subcollViewHeightCons.constant = 0
+        }
+        
+        if (obj.txAbout != "" && obj.txCompanyDetail != "") && (obj.txAbout != nil && obj.txCompanyDetail != nil){
+            cardView.AboutViewHeightCons.constant = 150
+        } else if obj.txAbout == "" && obj.txCompanyDetail != "" {
+            cardView.AboutViewHeightCons.constant = 100
+        } else if obj.txAbout != "" && obj.txCompanyDetail == "" {
+             cardView.AboutViewHeightCons.constant = 130
+        } else {
+            cardView.AboutViewHeightCons.constant = 70
+        }
         
         cardView.preferenceCollView.dataSource = self
         cardView.preferenceCollView.delegate = self
         
-//        cardView.imgCollView.dataSource = self
-//        cardView.imgCollView.delegate = self
-        cardView.preferenceCollView.reloadData()
-        cardView.subImgCollView.frame = cardView.frame
+        if obj.preference?.count != 0 {
+            cardView.preferenceDetailsArray = obj.preference!
+            cardView.preferenceViewHeightCons.constant = 180
+            cardView.preferenceCollView.reloadData()
+        } else {
+            cardView.preferenceViewHeightCons.constant = 0
+        }
+        
         cardView.subImgCollView.dataSource = self
         cardView.subImgCollView.delegate = self
         cardView.subImgCollView.reloadData()
@@ -399,24 +421,28 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
 //MARK: UICollectionview Delegate & Datasource Methods
 extension HomeViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
+        if collectionView == cardView.imgCollView || collectionView == cardView.subImgCollView ||  collectionView == cardView.preferenceCollView {
         return 1
+        } else {
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == cardView.imgCollView {
             return (self.objCardArray.objUserCard.photos == nil && self.objCardArray.objUserCard.photos?.count == 0) ? 1 : self.objCardArray.objUserCard.photos!.count
         } else if collectionView == cardView.subImgCollView {
-            return (self.objCardArray.objUserCard.photos != nil && self.objCardArray.objUserCard.photos!.count > 1) ? self.objCardArray.objUserCard.photos!.count - 1 : 0
-        }
-        else {
+            return (self.objCardArray.objUserCard.photos != nil && self.objCardArray.objUserCard.photos!.count != 0) ? self.objCardArray.objUserCard.photos!.count : 0
+        } else if collectionView == cardView.preferenceCollView {
             return cardView.preferenceDetailsArray.count != 0 ? cardView.preferenceDetailsArray.count : 0
+        } else {
+            return 0
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == cardView.imgCollView {
             let cell : DiscoverCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.DiscoverCollectionCell, for: indexPath) as! DiscoverCollectionCell
-            let photo = self.objCardArray.objUserCard.photos![indexPath.row]
             let url = URL(string: self.objCardArray.objUserCard.vProfileImage!)
             cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
             cell.userImgView.clipsToBounds = true
@@ -424,33 +450,35 @@ extension HomeViewController : UICollectionViewDataSource, UICollectionViewDeleg
         }
         else if collectionView == cardView.subImgCollView {
             let cell : DiscoverCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.DiscoverCollectionCell, for: indexPath) as! DiscoverCollectionCell
-            if indexPath.row < self.objCardArray.objUserCard.photos!.count - 1 {
-                let photo = self.objCardArray.objUserCard.photos![indexPath.row + 1]
+                let photo = self.objCardArray.objUserCard.photos![indexPath.row]
                 let url = URL(string: photo.vMedia!)
                 cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
                 cell.userImgView.clipsToBounds = true
-            }
             
             return cell
-        }else if collectionView == cardView.preferenceCollView {
-            let cell : PreferenceListCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PreferenceListCell, for: indexPath) as! PreferenceListCell
-            let data = cardView.preferenceDetailsArray[indexPath.row]
-            cell.btnTitle.setTitle(data.iPreferenceId == 5 ? data.fAnswer : data.vOption, for: .normal)
-            let type = PreferenceIconsDict.filter({($0["type"]!) as! String == "\(data.iPreferenceId!)"})  //map{($0["type"]!)}.first! as! String
-            print(type)
-            if type.count != 0 {
-                cell.btnTitle.setImage(type[0]["icon"]! as? UIImage, for: .normal)
+        } else /*if collectionView == cardView.preferenceCollView*/ {
+            let cell : PreferenceListCell = cardView.preferenceCollView.dequeueReusableCell(withReuseIdentifier: Cells.PreferenceListCell, for: indexPath) as! PreferenceListCell
+            if indexPath.row < cardView.preferenceDetailsArray.count {
+                let data = cardView.preferenceDetailsArray[indexPath.row]
+                cell.btnTitle.setTitle(data.iPreferenceId == 5 ? data.fAnswer : data.vOption, for: .normal)
+                let type = PreferenceIconsDict.filter({($0["type"]!) as! String == "\(data.iPreferenceId!)"})
+                print(type)
+                if type.count != 0 {
+                    cell.btnTitle.setImage(type[0]["icon"]! as? UIImage, for: .normal)
+                }
             }
             return cell
-        } else {
-            return UICollectionViewCell()
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-         if collectionView == cardView.imgCollView ||  collectionView == cardView.subImgCollView {
+         if collectionView == cardView.imgCollView  {
             return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
-         } else {
+         } else if collectionView == cardView.subImgCollView {
+             let photos = self.objCardArray.objUserCard.photos!
+            return CGSize(width: collectionView.frame.width, height: collectionView.frame.height/CGFloat(photos.count))
+         }
+         else {
             let name = cardView.preferenceDetailsArray[indexPath.row].iPreferenceId == 5 ? cardView.preferenceDetailsArray[indexPath.row].fAnswer : cardView.preferenceDetailsArray[indexPath.row].vOption
             let yourHeight = CGFloat(40)
             let size = (name! as NSString).size(withAttributes: [
@@ -461,12 +489,12 @@ extension HomeViewController : UICollectionViewDataSource, UICollectionViewDeleg
         }
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        // Parallax visible cells
-        self.presentProfileVC()
-        let center = CGPoint(x: (scrollView.frame.width / 2), y: scrollView.contentOffset.y + (scrollView.frame.width / 2))
-        if let ip = cardView.imgCollView.indexPathForItem(at: center) {
-            cardView.pageControl.currentPage = ip.row
-        }
-    }
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        // Parallax visible cells
+////        self.presentProfileVC()
+//        let center = CGPoint(x: (scrollView.frame.width / 2), y: scrollView.contentOffset.y + (scrollView.frame.width / 2))
+//        if let ip = cardView.imgCollView.indexPathForItem(at: center) {
+//            cardView.pageControl.currentPage = ip.row
+//        }
+//    }
 }

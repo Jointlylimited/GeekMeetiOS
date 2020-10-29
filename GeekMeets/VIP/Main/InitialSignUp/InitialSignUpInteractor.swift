@@ -133,10 +133,11 @@ class InitialSignUpInteractor: InitialSignUpInteractorProtocol, InitialSignUpDat
     }
     
     func callQuestionaryAPI() {
-        LoaderView.sharedInstance.showLoader()
+//        LoaderView.sharedInstance.showLoader()
         PreferencesAPI.list(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization) { (response, error) in
-            
-            LoaderView.sharedInstance.hideLoader()
+            delay(0.2) {
+                LoaderView.sharedInstance.hideLoader()
+            }
             if response?.responseCode == 200 {
                 self.presenter?.getPrefernceResponse(response : response!)
             } else if response?.responseCode == 203 {

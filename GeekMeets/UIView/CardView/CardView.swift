@@ -37,6 +37,13 @@ public class CardView: UIView {
     @IBOutlet weak var lblNameAge: UILabel!
     @IBOutlet weak var lblLiveIn: UILabel!
     @IBOutlet weak var collViewHeightCons: NSLayoutConstraint!
+    @IBOutlet weak var subcollViewHeightCons: NSLayoutConstraint!
+    @IBOutlet weak var preferenceViewHeightCons: NSLayoutConstraint!
+    @IBOutlet weak var AboutViewHeightCons: NSLayoutConstraint!
+    @IBOutlet weak var lblAbout: UILabel!
+    @IBOutlet weak var lblCompany: UILabel!
+    @IBOutlet weak var lblLive: UILabel!
+    @IBOutlet weak var lblGender: UILabel!
     
     var objStoryData : [UIImage] = [#imageLiteral(resourceName: "image_1"),#imageLiteral(resourceName: "image_1"),#imageLiteral(resourceName: "image_1")]
     var objCard = CardDetailsModel()
@@ -99,12 +106,16 @@ public class CardView: UIView {
         view.layer.masksToBounds = true
         
 //        view.imgView.layer.cornerRadius = 5
-//        view.imgView.layer.masksToBounds = true
+        view.imgView.layer.masksToBounds = true
         
         view.imgView.roundCorners([.topLeft, .topRight], radius: 5)
 //        view.imgView2.image = #imageLiteral(resourceName: "img_loginbg")
         view.lblNameAge.text = "\(obj.vName != nil ? obj.vName! : ""), \(obj.tiAge != nil ? obj.tiAge! : 0)"
         view.lblLiveIn.text = obj.vLiveIn == "" ? "Ahmedabad" : obj.vLiveIn
+        view.lblAbout.text = obj.txAbout
+        view.lblCompany.text = obj.txCompanyDetail
+        view.lblLive.text = obj.vLiveIn == "" ? "Ahmedabad" : obj.vLiveIn
+        view.lblGender.text = genderArray[(obj.tiGender ?? 0)]
         let text = distanceinMeter(obj : obj,  location : location)
         view.lblView.text = text
         let url = URL(string: obj.vProfileImage!)

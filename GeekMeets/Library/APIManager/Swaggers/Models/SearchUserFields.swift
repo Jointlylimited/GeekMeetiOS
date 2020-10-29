@@ -15,26 +15,48 @@ public struct SearchUserFields: Codable {
     public var vName: String?
     public var vProfileImage: String?
     public var tiAge: Int?
+    public var vEmail: String?
+    public var tiGender: Int?
+    public var dDob: String?
+    public var txAbout: String?
+    public var vCountryCode: String?
+    public var vPhone: String?
+    public var txCompanyDetail: String?
+    public var vReferralCode: String?
     public var vLiveIn: String?
     public var fLatitude: String?
     public var fLongitude: String?
+    public var tiIsLocationOn: Int?
     public var storyTime: String?
     public var vXmppUser: String?
     public var vXmppPassword: String?
+    public var tiIsSubscribed: Int?
     public var photos: [UserProfileMediaList]?
+    public var preference: [PreferenceAnswer]?
 
-    public init(iUserId: Int?, vName: String?, vProfileImage: String?, tiAge: Int?, vLiveIn: String?, fLatitude: String?, fLongitude: String?, storyTime: String?, vXmppUser: String?, vXmppPassword: String?, photos: [UserProfileMediaList]?) {
+    public init(iUserId: Int?, vName: String?, vProfileImage: String?, tiAge: Int?, vEmail: String?, tiGender: Int?, dDob: String?, txAbout: String?, vCountryCode: String?, vPhone: String?, txCompanyDetail: String?, vReferralCode: String?, vLiveIn: String?, fLatitude: String?, fLongitude: String?, tiIsLocationOn: Int?, storyTime: String?, vXmppUser: String?, vXmppPassword: String?, tiIsSubscribed: Int?, photos: [UserProfileMediaList]?, preference: [PreferenceAnswer]?) {
         self.iUserId = iUserId
         self.vName = vName
         self.vProfileImage = vProfileImage
         self.tiAge = tiAge
+        self.vEmail = vEmail
+        self.tiGender = tiGender
+        self.dDob = dDob
+        self.txAbout = txAbout
+        self.vCountryCode = vCountryCode
+        self.vPhone = vPhone
+        self.txCompanyDetail = txCompanyDetail
+        self.vReferralCode = vReferralCode
         self.vLiveIn = vLiveIn
         self.fLatitude = fLatitude
         self.fLongitude = fLongitude
+        self.tiIsLocationOn = tiIsLocationOn
         self.storyTime = storyTime
         self.vXmppUser = vXmppUser
         self.vXmppPassword = vXmppPassword
+        self.tiIsSubscribed = tiIsSubscribed
         self.photos = photos
+        self.preference = preference
     }
 
     public enum CodingKeys: String, CodingKey {
@@ -42,13 +64,24 @@ public struct SearchUserFields: Codable {
         case vName
         case vProfileImage
         case tiAge
+        case vEmail
+        case tiGender
+        case dDob
+        case txAbout
+        case vCountryCode
+        case vPhone
+        case txCompanyDetail
+        case vReferralCode
         case vLiveIn
         case fLatitude
         case fLongitude
+        case tiIsLocationOn
         case storyTime = "StoryTime"
         case vXmppUser
         case vXmppPassword
+        case tiIsSubscribed
         case photos
+        case preference
     }
 
 
