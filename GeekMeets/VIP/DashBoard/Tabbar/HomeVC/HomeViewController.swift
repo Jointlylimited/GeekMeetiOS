@@ -326,13 +326,13 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
         } else if obj.txAbout != "" && obj.txCompanyDetail == "" {
              cardView.AboutViewHeightCons.constant = 130
         } else {
-            cardView.AboutViewHeightCons.constant = 70
+            cardView.AboutViewHeightCons.constant = 65
         }
         
         cardView.preferenceCollView.dataSource = self
         cardView.preferenceCollView.delegate = self
         
-        if obj.preference?.count != 0 {
+        if obj.preference != nil && obj.preference?.count != 0 {
             cardView.preferenceDetailsArray = obj.preference!
             cardView.preferenceViewHeightCons.constant = 180
             cardView.preferenceCollView.reloadData()
