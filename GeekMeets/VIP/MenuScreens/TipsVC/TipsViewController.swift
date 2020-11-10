@@ -60,7 +60,7 @@ class TipsViewController: UIViewController {
         self.navBar?.barTintColor = UIColor(red: 186/255, green: 0/255, blue: 0/255, alpha: 1)
         
         // Initialize scroll menu
-        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRect(x: 0.0, y: DeviceType.hasNotch ? (viewNavigation?.frame.height)! + 44 : ((viewNavigation?.frame.height)! + 24), width: self.view.frame.width, height: DeviceType.hasNotch ? ((self.view.frame.height - 44)  - 50) : ((self.view.frame.height - 44)  - 50)), pageMenuOptions: parameters)
+        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRect(x: 0.0, y: DeviceType.hasNotch ? (viewNavigation?.frame.height)! + 44 : ((viewNavigation?.frame.height)! + 24), width: self.view.frame.width, height: ((self.view.frame.height - 44)  - 50)), pageMenuOptions: parameters)
         
         // Optional delegate
         pageMenu!.delegate = self

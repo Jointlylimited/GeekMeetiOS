@@ -148,21 +148,6 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         imgview?.contentMode = .scaleAspectFill
         stickerView.contentMode = .scaleAspectFill
         
-//        if !self.objPostData.arrMedia[0].captutedFromCamera {
-//            let image = resetImageSize(image: photo.image!)
-//            let width = image.size.width
-//            let height = image.size.height
-//            imgview?.contentMode = .scaleToFill
-//
-//            gripFrame = DeviceType.hasNotch ? CGRect(x: 0, y: (ScreenSize.height - height)/2, width: width, height: height) : CGRect(x: 0, y: (ScreenSize.height - height)/2, width: width, height: height)
-//        } else {
-//            let width = photo.image!.size.width
-//            let height = photo.image!.size.height
-//            imgview?.contentMode = .scaleToFill
-//
-//            gripFrame = DeviceType.hasNotch ? CGRect(x: 0, y: 0, width: width, height: height) : CGRect(x: 0, y: 0, width: width, height: height)
-//        }
-        
         let contentView = UIView(frame: bounds)
         contentView.backgroundColor = UIColor.black
         contentView.addSubview(imgview!)
@@ -176,34 +161,6 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         userResizableView1.translucencySticker = false
         userResizableView1.hideEditingHandles() //showEditingHandles() //
         view.insertSubview(userResizableView1, at: 2)
-    }
-    
-    func resetImageSize(image : UIImage) -> UIImage {
-        let screenWidth = ScreenSize.width
-        let screenHeight = ScreenSize.height
-        var actualHeight : CGFloat = image.size.height
-        var actualWidth : CGFloat = image.size.width
-        var imgRatio : CGFloat = actualWidth/actualHeight
-        var maxRatio : CGFloat = screenWidth/screenHeight
-
-        if(imgRatio != maxRatio){
-            if(imgRatio < maxRatio){
-                imgRatio = screenHeight / actualHeight
-                actualWidth = imgRatio * actualWidth
-                actualHeight = screenHeight
-            }
-            else{
-                imgRatio = screenWidth / actualWidth;
-                actualHeight = imgRatio * actualHeight
-                actualWidth = screenWidth
-            }
-        }
-        let rect : CGRect = CGRect(x: 0, y: 0, width: actualWidth, height: actualHeight)
-        UIGraphicsBeginImageContext(rect.size);
-        image.draw(in: rect)
-        let img : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        return img
     }
     
     // MARK: Manual Functions
@@ -256,19 +213,13 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     @IBAction func btnAddtoStoryAction(_ sender: UIButton){
         if self.objPostData.tiStoryType == "0" {
             stickerView.image = self.photo.image
-            
-//            let img = stickerView.image!.resizeImage(targetSize: self.view.bounds.size)
-//            stickerView.image = img
+           
             let img1 = stickerView.renderContentOnView(size : self.view.bounds.size)
-            if cusText != nil {
-                stickerView.image = nil
-                self.objPostData.arrMedia[0].img = img1
-                self.callPostStoryAPI(obj: self.objPostData)
-            } else {
-                stickerView.image = nil
-                self.objPostData.arrMedia[0].img = img1
-                self.callPostStoryAPI(obj: self.objPostData)
-            }
+            
+            stickerView.image = nil
+            self.objPostData.arrMedia[0].img = img1
+            self.callPostStoryAPI(obj: self.objPostData)
+            
         }else {
             if cusText != nil {
                 LoaderView.sharedInstance.showLoader()
@@ -383,7 +334,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     }
    
     func addTextToImage(text: NSString, inImage: UIImage, atPoint:CGPoint) -> UIImage{
-        stickerView.currentlyEditingLabel = stickerView.currentlyEditingLabel
+//        stickerView.currentlyEditingLabel = stickerView.currentlyEditingLabel
         // Setup the font specific variables
         let textColor = cusText.color
         let textFont = cusText.font

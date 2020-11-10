@@ -346,19 +346,13 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
         
         cardView.clickOnClose = {
             print("Close Action clicked!")
-            if UserDataModel.currentUser?.tiIsSubscribed == 0 {
-                self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "0")
-            } else {
-                self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "0")
-            }
+            self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "0")
+            
         }
         cardView.clickOnFavourite = {
             print("Favourite Action clicked!")
-            if UserDataModel.currentUser?.tiIsSubscribed == 0 {
-                self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "1")
-            } else {
-                self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "1")
-            }
+            self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "1")
+            
         }
         
         cardView.clickOnView = {
@@ -380,22 +374,12 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
     
     func cards(_ cards: SwipeableCards, didLeftRemovedItemAt index: Int) {
         print("<--\(index)")
-
-        if UserDataModel.currentUser?.tiIsSubscribed == 0 {
-            self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "0")
-            
-        } else {
-            self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "0")
-        }
+        self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "0")
     }
     
     func cards(_ cards: SwipeableCards, didRightRemovedItemAt index: Int) {
         print("\(index)-->")
-        if UserDataModel.currentUser?.tiIsSubscribed == 0 {
-            self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "1")
-        } else {
-            self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "1")
-        }
+        self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "1")
     }
     
     func cards(_ cards: SwipeableCards, didRemovedItemAt index: Int) {
