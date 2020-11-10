@@ -105,28 +105,7 @@ class AWSS3Manager {
             //tasks.filter{$0.state == .running}.filter { $0.originalRequest?.url == url }.first?.cancel()
         }
     }
-//    // Upload image using UIImage object
-//    func uploadImage(image: UIImage, progress: progressBlock?, completion: completionBlock?) {
-//
-//        guard let imageData = image.jpegData(compressionQuality: 1.0) else {
-//            let error = NSError(domain:"", code:402, userInfo:[NSLocalizedDescriptionKey: "invalid image"])
-//            completion?(nil, error)
-//            return
-//        }
-//
-//        let fileName: String = ProcessInfo.processInfo.globallyUniqueString + (".jpeg")
-//
-//        let fileUrl = Chat_Utility.documentsPath.appendingPathComponent(fileName)
-//
-//        do {
-//            try imageData.write(to: fileUrl)
-//            self.uploadfile(fileUrl: fileUrl, fileName: fileName, contenType: "image", progress: progress, completion: completion)
-//        } catch {
-//            let error = NSError(domain:"", code:402, userInfo:[NSLocalizedDescriptionKey: "invalid image"])
-//            completion?(nil, error)
-//        }
-//    }
-    
+
     // Upload video from local path url
     func uploadVideo(videoUrl: URL, progress: progressBlock?, completion: completionBlock?) {
         let fileName = self.getUniqueFileName(fileUrl: videoUrl)
@@ -233,78 +212,6 @@ class AWSS3Manager {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
                 }
             }
-        }
-//        Backendless.shared.file.uploadFile(fileName: fileName, filePath: fileUrl.absoluteString, content: fileData!, responseHandler: { (file) in
-//            print("File has been uploaded: \(file.fileUrl ?? "")")
-//            DispatchQueue.main.async {
-//                if let completionBlock = completion {
-//                    completionBlock(file.fileUrl, nil)
-//                }
-////                AWSS3Manager.shared.sequenceUpload()
-//            }
-//        }) { (fault) in
-//            print("Uploaded Error: \(fault.message ?? "")")
-//            DispatchQueue.main.async {
-//                if let completionBlock = completion {
-//                    completionBlock(nil, fault)
-//                }
-//                AWSS3Manager.shared.sequenceUpload()
-//            }
-//        }
-        
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
-//            if let completionBlock = completion {
-//                completionBlock(" completed === upload ", nil)
-//            }
-//            AWSS3Manager.shared.sequenceUpload()
-//        }
-//        guard let uploadProgress = progress else { return }
-//        DispatchQueue.main.async {
-//            uploadProgress(0.0)
-//        }
-        
-        return
-        
-        
-        
-        // Upload progress block
-        let expression = AWSS3TransferUtilityUploadExpression()
-        expression.progressBlock = {(task, awsProgress) in
-            guard let uploadProgress = progress else { return }
-            DispatchQueue.main.async {
-                uploadProgress(awsProgress.fractionCompleted)
-            }
-        }
-        // Completion block
-        var completionHandler: AWSS3TransferUtilityUploadCompletionHandlerBlock?
-        completionHandler = { (task, error) -> Void in
-            DispatchQueue.main.async(execute: {
-                if error == nil {
-                    let url = AWSS3.default().configuration.endpoint.url
-                    let publicURL = url?.appendingPathComponent(self.bucketName).appendingPathComponent(fileName)
-                    print("Uploaded to:\(String(describing: publicURL))")
-                    if let completionBlock = completion {
-                        completionBlock(publicURL?.absoluteString, nil, nil)
-                    }
-                } else {
-                    if let completionBlock = completion {
-                        completionBlock(nil, nil, error)
-                    }
-                }
-                AWSS3Manager.shared.sequenceUpload()
-            })
-        }
-        // Start uploading using AWSS3TransferUtility
-        let awsTransferUtility = AWSS3TransferUtility.default()
-        awsTransferUtility.uploadFile(fileUrl, bucket: bucketName, key: fileName, contentType: contenType, expression: expression, completionHandler: completionHandler).continueWith { (task) -> Any? in
-            if let error = task.error {
-                print("error is: \(error.localizedDescription)")
-            }
-            if let _ = task.result {
-                // your uploadTask
-            }
-            return nil
         }
     }
     

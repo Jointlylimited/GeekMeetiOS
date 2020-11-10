@@ -245,7 +245,6 @@ extension HomeViewController {
                 let data = self.objCardArray.objUserCard
                 controller.CardUserDetails = SearchUserFields(iUserId: data?.iUserId, vName: data?.vName, vProfileImage: data?.vProfileImage, tiAge: data?.tiAge, vEmail: data?.vEmail, tiGender: data?.tiGender, dDob: data?.dDob, txAbout: data?.txAbout, vCountryCode: data?.vCountryCode, vPhone: data?.vPhone, txCompanyDetail: data?.txCompanyDetail, vReferralCode: data?.vReferralCode, vLiveIn: data?.vLiveIn, fLatitude: data?.fLatitude, fLongitude: data?.fLongitude, tiIsLocationOn: data?.tiIsLocationOn, storyTime: data?.storyTime, vXmppUser: data?.vXmppUser, vXmppPassword: data?.vXmppPassword, tiIsSubscribed: data?.tiIsSubscribed, photos: data?.photos, preference: data?.preference)
                 
-               // (iUserId: data?.iUserId, vName: data?.vName, vProfileImage: data?.vProfileImage, tiAge: 0, vLiveIn: "", fLatitude: "", fLongitude: "", storyTime: "", vXmppUser: data?.vXmppUser, vXmppPassword: data?.vXmppPassword,  photos: [])
                 controller.modalTransitionStyle = .crossDissolve
                 controller.modalPresentationStyle = .overCurrentContext
                 self.presentVC(controller)
@@ -348,15 +347,7 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
         cardView.clickOnClose = {
             print("Close Action clicked!")
             if UserDataModel.currentUser?.tiIsSubscribed == 0 {
-//                if self.SwipeValue != 0 {
-                    self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "0")
-//                    Authentication.setSwipeStatus(self.SwipeValue - 1)
-//                    self.SwipeValue = Authentication.getSwipeStatus()!
-//                } else {
-//                    Authentication.setSwipeStatus(10)
-//                    self.SwipeValue = Authentication.getSwipeStatus()!
-//                    self.presentSubVC()
-//                }
+                self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "0")
             } else {
                 self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "0")
             }
@@ -488,13 +479,4 @@ extension HomeViewController : UICollectionViewDataSource, UICollectionViewDeleg
             return CGSize(width: size.width + 35, height: yourHeight)
         }
     }
-    
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        // Parallax visible cells
-////        self.presentProfileVC()
-//        let center = CGPoint(x: (scrollView.frame.width / 2), y: scrollView.contentOffset.y + (scrollView.frame.width / 2))
-//        if let ip = cardView.imgCollView.indexPathForItem(at: center) {
-//            cardView.pageControl.currentPage = ip.row
-//        }
-//    }
 }

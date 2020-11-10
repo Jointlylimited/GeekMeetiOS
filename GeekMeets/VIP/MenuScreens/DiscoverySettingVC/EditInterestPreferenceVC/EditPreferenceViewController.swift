@@ -85,7 +85,6 @@ class EditPreferenceViewController: UIViewController, EditPreferenceProtocol {
     }
     
     func setPreferenceData(index : Int){
-        self.objPreModel.objPrefrence = self.objPreModel.objPrefrence
         self.tiIsHide = "\(self.objPreModel.objPrefrence.preferenceAnswer! != nil ? (self.objPreModel.objPrefrence.preferenceAnswer?.count != 0 ? (self.objPreModel.objPrefrence.preferenceAnswer![0].tiIsHide != nil ? self.objPreModel.objPrefrence.preferenceAnswer![0].tiIsHide ?? 0 : 0) : 0) : 0)"
         self.btnHide.isSelected = self.tiIsHide == 1 ? true : false
         self.lblTitle.text = "\(self.objPreModel.objPrefrence.txPreference!)"

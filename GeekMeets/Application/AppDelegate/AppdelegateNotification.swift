@@ -216,10 +216,7 @@ extension AppDelegate {
 extension AppDelegate: MessagingDelegate{
     
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-//        AppDelObj.deviceToken = fcmToken
-//        UserDefaults.standard.set(fcmToken, forKey: kDeviceToken)
-//        UserDefaults.standard.synchronize()
-//        print(kDeviceToken)
+        print(kDeviceToken)
     }
     
     func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {

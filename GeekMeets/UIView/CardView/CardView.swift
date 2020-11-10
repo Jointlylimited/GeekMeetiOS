@@ -105,11 +105,9 @@ public class CardView: UIView {
         view.layer.cornerRadius = 10
         view.layer.masksToBounds = true
         
-//        view.imgView.layer.cornerRadius = 5
         view.imgView.layer.masksToBounds = true
         
         view.imgView.roundCorners([.topLeft, .topRight], radius: 5)
-//        view.imgView2.image = #imageLiteral(resourceName: "img_loginbg")
         view.lblNameAge.text = "\(obj.vName != nil ? obj.vName! : ""), \(obj.tiAge != nil ? obj.tiAge! : 0)"
         view.lblLiveIn.text = obj.vLiveIn == "" ? "Ahmedabad" : obj.vLiveIn
         view.lblAbout.text = obj.txAbout
@@ -131,16 +129,10 @@ public class CardView: UIView {
             let userLocation = CLLocation(latitude: CLLocationDegrees(exactly: Float(obj.fLatitude!)!)!, longitude: CLLocationDegrees(exactly: Float(obj.fLongitude!)!)!)
             let distanceInMeters = location.distance(from: userLocation)
             var dis : String = ""
-            if(distanceInMeters <= 1609)
-            {
-                let s =   String(format: "%.2f", distanceInMeters)
-                dis = s + " mi "
-            }
-            else
-            {
-                let s =   String(format: "%.2f", distanceInMeters)
-                dis = s + " mi "
-            }
+            
+            let s =   String(format: "%.2f", distanceInMeters)
+            dis = s + " mi "
+            
             return " \(dis) "
         } else {
             return " 2 mi "

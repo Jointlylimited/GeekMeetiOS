@@ -294,13 +294,6 @@ extension UITextView{
     
     func checkPlaceholder() {
         
-        if self.text.count  <= 100 {
-            
-        }
-        else{
-//            self.text.removeLast()
-        }
-        
         let placeholderLabel = self.viewWithTag(222) as! UILabel
         placeholderLabel.isHidden = !self.text.isEmpty
     }

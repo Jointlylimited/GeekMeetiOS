@@ -154,11 +154,7 @@ class UserProfileViewController: UIViewController, UserProfileProtocol,UIScrollV
     }
     
     func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
-        if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0 {
-            navigationController?.setNavigationBarHidden(true, animated: true)
-        } else {
-            navigationController?.setNavigationBarHidden(true, animated: true)
-        }
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     @IBAction func btnDonePickerAction(_ sender: UIBarButtonItem) {

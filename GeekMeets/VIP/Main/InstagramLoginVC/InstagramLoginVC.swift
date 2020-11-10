@@ -63,24 +63,7 @@ class InstagramLoginVC: UIViewController {
             AppSingleton.sharedInstance().showAlert(NoInternetConnection, okTitle: "OK")
             return
         }
-        
-        //webView = UIWebView(frame: view.frame)
-        /*let source: String = "var meta = document.createElement('meta');" +
-            "meta.name = 'viewport';" +
-            "meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';" +
-            "var head = document.getElementsByTagName('head')[0];" +
-            "head.appendChild(meta);"
-
-        let script: WKUserScript = WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
-        let userContentController: WKUserContentController = WKUserContentController()
-        let conf = WKWebViewConfiguration()
-        conf.userContentController = userContentController
-        userContentController.addUserScript(script)*/
         webView = WKWebView(frame: view.frame)
-    //webView.configuration.userContentController.addUserScript(self.getZoomDisableScript())
-
-        
-        //webView.delegate = self
         webView.navigationDelegate = self
         
         view.addSubview(webView)
@@ -158,17 +141,11 @@ class InstagramLoginVC: UIViewController {
             {
                 accessToken1 = (accessToken as? String)!
                 let strid = result["user_id"]
-                if isFromEditProfile {
-                    getMediaData(testUserData: InstagramTestUser(access_token: accessToken1, user_id: strid as! Int)) { (feedData) in
-                        print(feedData)
-                    }
-                } else {
-                    getMediaData(testUserData: InstagramTestUser(access_token: accessToken1, user_id: strid as! Int)) { (feedData) in
-                        print(feedData)
-                    }
-//                    self.dismiss()
-//                    delegate.instagramAuthControllerDidFinish(accessToken: accessToken1,id: "\(strid!)", error: nil, mediaData: [])
+                
+                getMediaData(testUserData: InstagramTestUser(access_token: accessToken1, user_id: strid as! Int)) { (feedData) in
+                    print(feedData)
                 }
+                
             }
         } catch let error {
             print("Error parsing for access token: \(error.localizedDescription)")

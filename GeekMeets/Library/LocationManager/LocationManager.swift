@@ -296,17 +296,12 @@ class LocationManager: NSObject,CLLocationManagerDelegate {
             }
             
         case .restricted:
-            if reverseGeocoding {
-                didComplete(location: nil,error: NSError(
-                    domain: self.classForCoder.description(),
-                    code:Int(CLAuthorizationStatus.restricted.rawValue),
-                    userInfo: nil))
-            } else {
-                didComplete(location: nil,error: NSError(
-                    domain: self.classForCoder.description(),
-                    code:Int(CLAuthorizationStatus.restricted.rawValue),
-                    userInfo: nil))
-            }
+            
+            didComplete(location: nil,error: NSError(
+                domain: self.classForCoder.description(),
+                code:Int(CLAuthorizationStatus.restricted.rawValue),
+                userInfo: nil))
+            
             break
             
         case .notDetermined:
