@@ -31,6 +31,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     @IBOutlet weak var photo: JLStickerImageView!
     @IBOutlet weak var PhotoView: UIView!
     @IBOutlet weak var btnPlayPause: UIButton!
+    @IBOutlet weak var btnAddText: UIButton!
     @IBOutlet weak var previewView: UIView!
     @IBOutlet weak var thumbImageView: UIImageView!
     @IBOutlet weak var playView: UIView!
@@ -194,14 +195,17 @@ class PreviewViewController: UIViewController, PreviewProtocol {
                 self.scrubber.setValue(Float(time), animated: false)
             }
         }
+        self.playerPauseState(isPause: false)
     }
 
     @IBAction func cancelButtonTouch(_ sender: Any) {
+        self.playerPauseState(isPause: true)
          self.delegate?.resetObject(status: true)
          self.dismissVC(completion: nil)
     }
     
     @IBAction func saveButtonTouch(_ sender: Any) {
+        self.playerPauseState(isPause: true)
         self.headerView.alpha = 0.0
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.AddTextScreen) as? AddTextViewController
         controller!.modalTransitionStyle = .crossDissolve
@@ -211,6 +215,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     }
     
     @IBAction func btnAddtoStoryAction(_ sender: UIButton){
+        self.playerPauseState(isPause: true)
         if self.objPostData.tiStoryType == "0" {
             stickerView.image = self.photo.image
            
@@ -279,6 +284,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     }
     
     func setLabel(text : CustomTextView){
+        self.btnAddText.alpha = 0.0
         self.cusText = text
         self.textView = UITextView.init(frame: CGRect.init(x: 0, y: 0, width: text.viewSize.width, height: text.viewSize.height))
         textView.text = text.text
@@ -581,31 +587,31 @@ extension PreviewViewController {
 //MARK : Textfield Delegate method
 extension PreviewViewController : UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        self.textView.resignFirstResponder()
-        stickerView.currentlyEditingLabel.removeFromSuperview()
-        self.headerView.alpha = 0.0
-        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.AddTextScreen) as? AddTextViewController
-        controller!.modalTransitionStyle = .crossDissolve
-        controller!.modalPresentationStyle = .overCurrentContext
-        let cusTextView = CustomTextView(frame: CGRect.init(x: 0, y: 0, width: self.textView.width, height: self.textView.height))
-        cusTextView.text = self.textView.text
-        cusTextView.color = self.textView.textColor!
-        cusTextView.font = self.textView.font
-        controller!.custText = cusTextView
-        controller!.delegate = self
-        self.presentVC(controller!)
+//        self.textView.resignFirstResponder()
+//        stickerView.currentlyEditingLabel.removeFromSuperview()
+//        self.headerView.alpha = 0.0
+//        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.AddTextScreen) as? AddTextViewController
+//        controller!.modalTransitionStyle = .crossDissolve
+//        controller!.modalPresentationStyle = .overCurrentContext
+//        let cusTextView = CustomTextView(frame: CGRect.init(x: 0, y: 0, width: self.textView.width, height: self.textView.height))
+//        cusTextView.text = self.textView.text
+//        cusTextView.color = self.textView.textColor!
+//        cusTextView.font = self.textView.font
+//        controller!.custText = cusTextView
+//        controller!.delegate = self
+//        self.presentVC(controller!)
     }
 }
 //MARK: TextView Delegate Methods
 extension PreviewViewController : TextViewControllerDelegate {
     func textviewDidBeginEditing(){
-        self.headerView.alpha = 0.0
-        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.AddTextScreen) as? AddTextViewController
-        controller!.modalTransitionStyle = .crossDissolve
-        controller!.modalPresentationStyle = .overCurrentContext
-        controller!.cusTextView = self.cusText
-        controller!.delegate = self
-        self.presentVC(controller!)
+//        self.headerView.alpha = 0.0
+//        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.AddTextScreen) as? AddTextViewController
+//        controller!.modalTransitionStyle = .crossDissolve
+//        controller!.modalPresentationStyle = .overCurrentContext
+//        controller!.cusTextView = self.cusText
+//        controller!.delegate = self
+//        self.presentVC(controller!)
     }
     
     func textViewDidFinishWithTextView(text:CustomTextView) {
@@ -621,7 +627,9 @@ extension PreviewViewController : JLStickerLabelViewDelegate {
     
     func labelViewDidBeginEditing(_ label: JLStickerLabelView) {}
     func labelViewDidStartEditing(_ label: JLStickerLabelView) {}
-    func labelViewDidClose(_ label: JLStickerLabelView) {}
+    func labelViewDidClose(_ label: JLStickerLabelView) {
+        self.btnAddText.alpha = 1.0
+    }
     func labelViewDidSelected(_ label: JLStickerLabelView) {}
     func labelViewDidChangeEditing(_ label: JLStickerLabelView) {}
     func labelViewDidHideEditingHandles(_ label: JLStickerLabelView) {}

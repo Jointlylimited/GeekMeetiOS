@@ -44,7 +44,7 @@ enum MatchProfileListCells {
         case .CompanyCell, .SocialCell:
             return UITableView.automaticDimension
         case .PreferenceCell(let data):
-            return data.count != 0 ? 150 : 0
+            return data.count != 0 ? CGFloat(data.count*15) : 0
         }
     }
     

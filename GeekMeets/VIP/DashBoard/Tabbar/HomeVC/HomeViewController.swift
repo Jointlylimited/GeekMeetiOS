@@ -308,7 +308,9 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
         
         cardView.frame = CGRect(x: 20, y: DeviceType.hasNotch ? 120 : 50, w: ScreenSize.width - 40, h: ScreenSize.height - (DeviceType.hasNotch ? 220 : 150))
         cardView.setData(index: 0)
-        cardView.imgCollView.frame = cardView.frame
+        self.subView.frame = self.cardView.bounds
+        cardView.imgCollView.frame = cardView.bounds
+        cardView.imgView.frame = cardView.bounds
         cardView.pageControl.numberOfPages = (obj.photos == nil && obj.photos?.count == 0) ? 0 : obj.photos!.count
         
         cardView.collViewHeightCons.constant = cardView.frame.height
@@ -341,6 +343,10 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
         
         cardView.subImgCollView.dataSource = self
         cardView.subImgCollView.delegate = self
+        
+//        cardView.imgCollView.dataSource = self
+//        cardView.imgCollView.delegate = self
+//        cardView.imgCollView.reloadData()
         cardView.subImgCollView.reloadData()
         cardView.reloadView()
         

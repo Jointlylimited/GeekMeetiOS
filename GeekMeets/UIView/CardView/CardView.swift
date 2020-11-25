@@ -104,10 +104,10 @@ public class CardView: UIView {
         
         view.layer.cornerRadius = 10
         view.layer.masksToBounds = true
+    
+//        view.imgView.roundCorners([.topLeft, .topRight], radius: 5)
+//        view.imgView.layer.masksToBounds = true
         
-        view.imgView.layer.masksToBounds = true
-        
-        view.imgView.roundCorners([.topLeft, .topRight], radius: 5)
         view.lblNameAge.text = "\(obj.vName != nil ? obj.vName! : ""), \(obj.tiAge != nil ? obj.tiAge! : 0)"
         view.lblLiveIn.text = obj.vLiveIn == "" ? "Ahmedabad" : obj.vLiveIn
         view.lblAbout.text = obj.txAbout

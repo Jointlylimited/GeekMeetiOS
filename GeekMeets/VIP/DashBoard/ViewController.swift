@@ -335,7 +335,22 @@ class ViewController: UIViewController {
         }
     }
     
+    func animateButton(){
+        UIView.animate(withDuration: 0.3 / 1.5, animations: {
+            self.btnCamera.transform = CGAffineTransform.identity.scaledBy(x: 1.5, y: 1.5)
+        }) { finished in
+            UIView.animate(withDuration: 0.3 / 2, animations: {
+                self.btnCamera.transform = CGAffineTransform.identity.scaledBy(x: 1.5, y: 1.5)
+            }) { finished in
+                UIView.animate(withDuration: 0.3 / 2, animations: {
+                    self.btnCamera.transform = CGAffineTransform.identity
+                })
+            }
+        }
+    }
+    
     @IBAction func cameraButtonTouch(_ sender: Any) {
+        animateButton()
         let settings = AVCapturePhotoSettings()
         photoOutput?.capturePhoto(with: settings, delegate: self)
     }

@@ -37,6 +37,14 @@ class PreferenceCell: UITableViewCell {
         layout.scrollDirection = .vertical
         self.preferenceCollView.collectionViewLayout = layout
         
+        if let layout1 = self.preferenceCollView.collectionViewLayout as? UICollectionViewFlowLayout{
+            let width = UIScreen.main.bounds.width
+            layout1.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+//            layout1.itemSize = CGSize(width: width / 2, height: width / 2)
+            layout1.minimumInteritemSpacing = 0
+            layout1.minimumLineSpacing = 0
+        }
+        
         self.preferenceCollView.reloadData()
     }
 }
@@ -62,7 +70,12 @@ extension PreferenceCell : UICollectionViewDataSource, UICollectionViewDelegate,
         return cell
     }
     
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//    }
+//
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let collectionViewWidth = collectionView.bounds.width
         let name = self.preferenceDetailsArray[indexPath.row].iPreferenceId == 5 ? self.preferenceDetailsArray[indexPath.row].fAnswer : self.preferenceDetailsArray[indexPath.row].vOption
         let yourHeight = CGFloat(40)
         let size = (name! as NSString).size(withAttributes: [
@@ -70,6 +83,13 @@ extension PreferenceCell : UICollectionViewDataSource, UICollectionViewDelegate,
         ])
 
         return CGSize(width: size.width + 35, height: yourHeight)
-
     }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+//        return 0
+//    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+//        return 10
+//    }
+    
 }

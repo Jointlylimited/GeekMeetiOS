@@ -81,8 +81,7 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     
     func setCollectionView(){
         
-        self.PlanDetailsArray = [PlanData(days: "1", duration: "Top Story", price: "$1.99", planType: "2", BoostGeekCount: "0", GeekCount: "1"), PlanData(days: "4", duration: "Top Stories", price: "$6.99", planType: "2", BoostGeekCount: "0", GeekCount: "4"),  PlanData(days: "10 + 10", duration: "Top Stories", price: "$14.99", planType: "3", BoostGeekCount: "10", GeekCount: "10")]
-        //PlanData(days: "8", duration: "Top Stories", price: "$6.99", planType: "2", BoostGeekCount: "0", GeekCount: "8"),
+        self.PlanDetailsArray = [PlanData(days: "", duration: "", price: "", planType: "", BoostGeekCount: "", GeekCount: ""), PlanData(days: "1", duration: "Top Story", price: "$1.99", planType: "2", BoostGeekCount: "0", GeekCount: "1"), PlanData(days: "4", duration: "Top Stories", price: "$6.99", planType: "2", BoostGeekCount: "0", GeekCount: "4"),  PlanData(days: "10 + 10", duration: "Top Stories", price: "$14.99", planType: "3", BoostGeekCount: "10", GeekCount: "10"), PlanData(days: "", duration: "", price: "", planType: "", BoostGeekCount: "", GeekCount: "")]
         
         self.PlanCollectionView.register(UINib.init(nibName: Cells.PlanCollectionCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.PlanCollectionCell)
         self.PlanCollectionView.contentInset = UIEdgeInsets(top: 10, left: 30, bottom: 10, right: 30)
@@ -93,7 +92,7 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
         self.PlanCollectionView.collectionViewLayout = layout
         self.PlanCollectionView.reloadData()
         
-        self.pageControl.numberOfPages = self.PlanDetailsArray.count
+        self.pageControl.numberOfPages = self.PlanDetailsArray.count - 2
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
@@ -265,22 +264,24 @@ extension TopGeeksViewController : UICollectionViewDataSource, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell : PlanCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PlanCollectionCell, for: indexPath) as! PlanCollectionCell
         let data = self.PlanDetailsArray[indexPath.row]
+        let dataIndex = indexPath.row == 1 || indexPath.row == 2 || indexPath.row == 3
         cell.lblPlanCount.text = data.days
         cell.lblduration.text = data.duration
         cell.lblPrice.text = data.price
         cell.btnPopular.alpha = 0.0
-        cell.cellView.borderColor =  #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1) //.clear
+        cell.cellView.borderColor = dataIndex ? #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1) : .clear
         cell.lblPlanCount.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         cell.lblPrice.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         
         if indexPath.row == selectedIndex {
-            cell.cellView.borderColor = #colorLiteral(red: 0.5791940689, green: 0.1280144453, blue: 0.5726861358, alpha: 1)
+            
+            cell.cellView.borderColor = dataIndex ? #colorLiteral(red: 0.5791940689, green: 0.1280144453, blue: 0.5726861358, alpha: 1) : .clear
             cell.lblPlanCount.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             cell.lblPrice.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             planDict = ["fPlanPrice" : data.price.split("$").last!, "tiPlanType": data.planType, "iBoostCount" : data.BoostGeekCount, "iGeekCount" : data.GeekCount]
         }
         
-        if indexPath.row == self.PlanDetailsArray.count - 1 {
+        if indexPath.row == 3 {
             cell.btnPopular.alpha = 1.0
         }
         return cell
@@ -298,8 +299,10 @@ extension TopGeeksViewController : UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.selectedIndex = indexPath.row
-        self.pageControl.currentPage = indexPath.row
+        let dataIndex = indexPath.row == 1 || indexPath.row == 2 || indexPath.row == 3
+        self.selectedIndex = dataIndex ? indexPath.row : 1
+        self.pageControl.currentPage = self.selectedIndex - 1
+        PlanCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         self.PlanCollectionView.reloadData()
     }
     
@@ -307,8 +310,10 @@ extension TopGeeksViewController : UICollectionViewDataSource, UICollectionViewD
         // Parallax visible cells
         let center = CGPoint(x: scrollView.contentOffset.x + (scrollView.frame.width / 2), y: (scrollView.frame.height / 2))
         if let ip = PlanCollectionView.indexPathForItem(at: center) {
-            self.pageControl.currentPage = ip.row
-            self.selectedIndex = ip.row
+            
+            let dataIndex = ip.row == 1 || ip.row == 2 || ip.row == 3
+            self.selectedIndex = dataIndex ? ip.row : 1
+            self.pageControl.currentPage = self.selectedIndex - 1
             self.PlanCollectionView.reloadData()
         }
     }

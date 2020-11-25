@@ -91,7 +91,7 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     
     func setCollectionView(){
         
-        self.PlanDetailsArray = [PlanData(days: "1", duration: "Month", price: "$9.99", planType: "1", BoostGeekCount: "0", GeekCount: "0"), PlanData(days: "3", duration: "Months", price: "$19.98", planType: "2", BoostGeekCount: "0", GeekCount: "0"), PlanData(days: "6", duration: "Months", price: "$29.97", planType: "3", BoostGeekCount: "0", GeekCount: "0")]
+        self.PlanDetailsArray = [PlanData(days: "", duration: "", price: "", planType: "", BoostGeekCount: "", GeekCount: ""), PlanData(days: "1", duration: "Month", price: "$9.99", planType: "1", BoostGeekCount: "0", GeekCount: "0"), PlanData(days: "3", duration: "Months", price: "$19.98", planType: "2", BoostGeekCount: "0", GeekCount: "0"), PlanData(days: "6", duration: "Months", price: "$29.97", planType: "3", BoostGeekCount: "0", GeekCount: "0"), PlanData(days: "", duration: "", price: "", planType: "", BoostGeekCount: "", GeekCount: "")]
         
         self.PlanCollectionView.register(UINib.init(nibName: Cells.PlanCollectionCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.PlanCollectionCell)
          self.PlanCollectionView.contentInset = UIEdgeInsets(top: 10, left: 30, bottom: 10, right: 30)
@@ -100,10 +100,9 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = 15
         self.PlanCollectionView.collectionViewLayout = layout
-        
         self.PlanCollectionView.reloadData()
         
-        self.pageControl.numberOfPages = self.PlanDetailsArray.count
+        self.pageControl.numberOfPages = self.PlanDetailsArray.count - 2
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
@@ -349,29 +348,24 @@ extension ManageSubscriptionViewController : UICollectionViewDataSource, UIColle
         cell.lblduration.text = data.duration
         cell.lblPrice.text = data.price
         cell.btnPopular.alpha = 0.0
-        cell.cellView.borderColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1) //.clear
+        cell.cellView.borderColor = indexPath.row == 1 || indexPath.row == 2 || indexPath.row == 3 ? #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1) : .clear
         cell.lblPlanCount.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         cell.lblPrice.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-        
         if indexPath.row == selectedIndex {
             cell.cellView.borderColor = #colorLiteral(red: 1, green: 0.1882352941, blue: 0.4392156863, alpha: 1)
             cell.lblPlanCount.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             cell.lblPrice.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-            if indexPath.row == 0 {
+            if indexPath.row == 1 {
                 productKey = SubscriptionKeys.Monthly.productKey
                 planDict = ["productKey" : SubscriptionKeys.Monthly.productKey, "tiType": data.planType, "fPrice" : data.price.split("$").last!]
-            } else if indexPath.row == 1 {
+            } else if indexPath.row == 2 {
                 productKey = SubscriptionKeys.Monthly.productKey
                 planDict = ["productKey" : SubscriptionKeys.Monthly.productKey, "tiType": data.planType, "fPrice" : data.price.split("$").last!]
-            } else {
+            } else if indexPath.row == 3 {
                 productKey = SubscriptionKeys.Annualy.productKey
                 planDict = ["productKey" : SubscriptionKeys.Monthly.productKey, "tiType": data.planType, "fPrice" : data.price.split("$").last!]
             }
         }
-        
-//        if indexPath.row == self.PlanDetailsArray.count - 1 {
-           // cell.btnPopular.alpha = 1.0
-//        }
         return cell
     }
     
@@ -386,8 +380,9 @@ extension ManageSubscriptionViewController : UICollectionViewDataSource, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.selectedIndex = indexPath.row
-        self.pageControl.currentPage = indexPath.row
+        self.selectedIndex = indexPath.row == 1 || indexPath.row == 2 || indexPath.row == 3 ?  indexPath.row : 1
+        self.pageControl.currentPage = self.selectedIndex - 1 
+        PlanCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         self.PlanCollectionView.reloadData()
     }
     
@@ -395,8 +390,8 @@ extension ManageSubscriptionViewController : UICollectionViewDataSource, UIColle
         // Parallax visible cells
         let center = CGPoint(x: scrollView.contentOffset.x + (scrollView.frame.width / 2), y: (scrollView.frame.height / 2))
         if let ip = PlanCollectionView.indexPathForItem(at: center) {
-            self.pageControl.currentPage = ip.row
-            self.selectedIndex = ip.row
+            self.selectedIndex = ip.row == 1 || ip.row == 2 || ip.row == 3 ?  ip.row : 1
+            self.pageControl.currentPage = self.selectedIndex - 1
             self.PlanCollectionView.reloadData()
         }
     }
