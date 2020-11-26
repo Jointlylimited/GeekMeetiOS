@@ -84,3 +84,41 @@ class SSBadgeButton: UIButton {
 //        fatalError("init(coder:) has not been implemented")
     }
 }
+
+class CircleView: UIView {
+
+    let progressCircle = CAShapeLayer()
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+
+    override func draw(_ rect: CGRect) {
+      
+        let circlePath = UIBezierPath(ovalIn: self.bounds)
+        progressCircle.path = circlePath.cgPath
+        progressCircle.strokeColor = UIColor.red.cgColor
+        progressCircle.fillColor = UIColor.clear.cgColor
+        progressCircle.lineWidth = 5.0
+        // Add the circle to the view.
+        self.layer.addSublayer(progressCircle)
+    }
+
+
+    func animateCircle(circleToValue: CGFloat) {
+        let fifths:CGFloat = circleToValue / 30
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        animation.duration = 0.25
+//        animation.fromValue = 0
+//        animation.byValue = fifths
+        animation.fillMode = CAMediaTimingFillMode.both
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        progressCircle.strokeEnd = fifths
+
+        // Create the animation.
+        progressCircle.add(animation, forKey: "strokeEnd")
+    }
+}

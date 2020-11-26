@@ -421,6 +421,8 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         return newImage!
     }
     
+    
+    
     func addtextToVideo(){
 //        DispatchQueue.main.async {
 //            LoaderView.sharedInstance.showLoader()
@@ -470,7 +472,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         
         // create text Layer
         let titleLayer = CATextLayer()
-        titleLayer.frame = CGRect(x: cusText.x, y: cusText.y, width: size.width, height: size.height)
+        titleLayer.frame = CGRect(x: cusText.x, y: cusText.y, width: cusText.width, height: cusText.height)
         titleLayer.string = self.cusText.text
         titleLayer.font = self.cusText.font
         titleLayer.foregroundColor = self.cusText.color.cgColor
@@ -530,7 +532,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
 //                DispatchQueue.main.async {
                     LoaderView.sharedInstance.hideLoader()
 //                }
-                self.callPostStoryAPI(obj: self.objPostData)
+//                self.callPostStoryAPI(obj: self.objPostData)
             }
         })
     }

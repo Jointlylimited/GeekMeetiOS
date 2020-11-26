@@ -515,6 +515,7 @@
 		0B4A25DC252309D400AC1C5F /* AddEditPhotosPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditPhotosPresenter.swift; sourceTree = "<group>"; };
 		0B4A25DD252309D400AC1C5F /* AddEditPhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditPhotosViewController.swift; sourceTree = "<group>"; };
 		0B4A25DE252309D400AC1C5F /* AddEditPhotosInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditPhotosInteractor.swift; sourceTree = "<group>"; };
+		0B4A280F256E80D300F535E4 /* PhotoVideoEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoVideoEditor.swift; sourceTree = "<group>"; };
 		0B4CA0332457EA5200A3460B /* ChangePasswordPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordPresenter.swift; sourceTree = "<group>"; };
 		0B4CA0342457EA5200A3460B /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		0B4CA0352457EA5200A3460B /* ChangePasswordInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordInteractor.swift; sourceTree = "<group>"; };
@@ -1154,6 +1155,14 @@
 				0B4A25DE252309D400AC1C5F /* AddEditPhotosInteractor.swift */,
 			);
 			path = AddEditPhotosVC;
+			sourceTree = "<group>";
+		};
+		0B4A280E256E80B200F535E4 /* EditStory */ = {
+			isa = PBXGroup;
+			children = (
+				0B4A280F256E80D300F535E4 /* PhotoVideoEditor.swift */,
+			);
+			path = EditStory;
 			sourceTree = "<group>";
 		};
 		0B4CA0322457EA3300A3460B /* ChangePasswordVC */ = {
@@ -2224,6 +2233,7 @@
 		F90B4CC92032A7C1006ADAF6 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				0B4A280E256E80B200F535E4 /* EditStory */,
 				0BCE8CBD24C011C50060AC01 /* PageMenu */,
 				0B0013AD24ACA4B700D2EE83 /* XmppChat */,
 				0BEED97724A5BEB600F08122 /* TouchVisualizer */,
