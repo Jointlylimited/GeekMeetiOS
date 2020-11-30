@@ -539,6 +539,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         videoComposition.animationTool = AVVideoCompositionCoreAnimationTool(postProcessingAsVideoLayers: [videoLayer], in: parentlayer)
         
         let instruction = AVMutableVideoCompositionInstruction()
+        instruction.timeRange = CMTimeRangeMake(start: CMTime.zero, duration: CMTime(seconds: 10.0, preferredTimescale: 600))
         
         instruction.layerInstructions = [transformer]
         videoComposition.instructions = [instruction]
