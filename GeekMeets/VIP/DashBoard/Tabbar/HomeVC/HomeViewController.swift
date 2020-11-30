@@ -187,6 +187,12 @@ class HomeViewController: UIViewController, HomeProtocol {
         self.imgPlaceHolder.image = #imageLiteral(resourceName: "u_sub")
     }
     
+    func hideSubscriptionView(){
+        cards.alpha = 1.0
+        self.subView.alpha = 0.0
+        self.imgPlaceHolder.alpha = 0.0
+    }
+    
     @objc func presentProfileVC(){
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchProfileScreen) as! MatchProfileViewController
         controller.UserID = self.objCardArray.objUserCard.iUserId
@@ -196,10 +202,15 @@ class HomeViewController: UIViewController, HomeProtocol {
     }
     
     @IBAction func btnMatchAction(_ sender: UIButton) {
-        if UserDataModel.currentUser?.tiIsSubscribed == 1 {
-            pushMatchVC()
+        sender.isSelected = !sender.isSelected
+        if sender.isSelected {
+            if UserDataModel.currentUser?.tiIsSubscribed == 1 {
+                pushMatchVC()
+            } else {
+                self.presentSubscriptionView()
+            }
         } else {
-            self.presentSubscriptionView()
+            hideSubscriptionView()
         }
     }
     @IBAction func btnActivateSpotlightAction(_ sender: GradientButton) {

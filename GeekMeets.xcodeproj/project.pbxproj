@@ -40,6 +40,7 @@
 		0B0B4B132475245E0047EB11 /* Interest_PreferencePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0B4B102475245E0047EB11 /* Interest_PreferencePresenter.swift */; };
 		0B0B4B142475245E0047EB11 /* Interest_PreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0B4B112475245E0047EB11 /* Interest_PreferenceViewController.swift */; };
 		0B0B4B152475245E0047EB11 /* Interest_PreferenceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0B4B122475245E0047EB11 /* Interest_PreferenceInteractor.swift */; };
+		0B0E79032574BFA4003CC59B /* PhotoVideoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4A280F256E80D300F535E4 /* PhotoVideoEditor.swift */; };
 		0B170D8A246BC7EF00CCDB53 /* UserEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B170D89246BC7EF00CCDB53 /* UserEntity.swift */; };
 		0B1CB98F2459429200DA9264 /* NewMobileNumberPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1CB98C2459429200DA9264 /* NewMobileNumberPresenter.swift */; };
 		0B1CB9902459429200DA9264 /* NewMobileNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1CB98D2459429200DA9264 /* NewMobileNumberViewController.swift */; };
@@ -2821,6 +2822,7 @@
 				F76A8D832440396800ED9947 /* CustomerWindowExtension.swift in Sources */,
 				0B9499D22451DBC4001AD1C8 /* ManageSubscriptionInteractor.swift in Sources */,
 				F7F967952451ABF400BD7275 /* SelectAgeRangePresenter.swift in Sources */,
+				0B0E79032574BFA4003CC59B /* PhotoVideoEditor.swift in Sources */,
 				0BEED97E24A5BEB600F08122 /* UIWindow+Swizzle.swift in Sources */,
 				F7A3114F246D261100497935 /* UIImageExtensions.swift in Sources */,
 				0B56B60624865040004A62D4 /* MediaReactionFields.swift in Sources */,

@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 import AVKit
 import CropPickerView
+import Photos
 
 protocol PostStoryDelegate {
     func getSubscriptionResponse(status: Bool)
@@ -228,7 +229,16 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         }else {
             if cusText != nil {
                 LoaderView.sharedInstance.showLoader()
-                self.addtextToVideo()
+//                PhotoVideoEditor().AddTextToVideo(strText: self.cusText.text, videoURL: self.objPostData.arrMedia[0].videoURL!, at: 0, FontStyle: self.cusText.font, Color: self.cusText.color) { (url) in
+//                    print(url)
+//                    PhotoVideoEditor().saveVideoToAlbum(url) { (error) in
+//                        print(error)
+//                    }
+//                } failure: { (error) in
+//                    print(error)
+//                }
+                self.convertVideoAndSaveTophotoLibrary(videoURL: self.objPostData.arrMedia[0].videoURL!)
+//                self.addtextToVideo()
             } else {
                 self.callPostStoryAPI(obj: self.objPostData)
             }
@@ -421,7 +431,158 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         return newImage!
     }
     
-    
+    // Mark :- save a video photoLibrary
+    func convertVideoAndSaveTophotoLibrary(videoURL: URL) {
+        let documentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        let myDocumentPath = URL(fileURLWithPath: documentsDirectory).appendingPathComponent("temp.mp4").absoluteString
+        _ = NSURL(fileURLWithPath: myDocumentPath)
+        let documentsDirectory2 = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0] as URL
+        let filePath = documentsDirectory2.appendingPathComponent("video.mp4")
+        FileManager.default.removeItemIfExisted(filePath as URL)
+        
+        //Check if the file already exists then remove the previous file
+        if FileManager.default.fileExists(atPath: myDocumentPath) {
+            do { try FileManager.default.removeItem(atPath: myDocumentPath)
+            } catch let error { print(error) }
+        }
+        
+        // File to composit
+        let asset = AVURLAsset(url: videoURL as URL)
+        let composition = AVMutableComposition.init()
+        composition.addMutableTrack(withMediaType: AVMediaType.video, preferredTrackID: kCMPersistentTrackID_Invalid)
+        
+        let clipVideoTrack = asset.tracks(withMediaType: AVMediaType.video)[0]
+        
+        
+        // Rotate to potrait
+        let transformer = AVMutableVideoCompositionLayerInstruction(assetTrack: clipVideoTrack)
+        
+        
+        let videoTransform:CGAffineTransform = clipVideoTrack.preferredTransform
+        
+        //fix orientation
+        var videoAssetOrientation_  = UIImage.Orientation.up
+        
+        var isVideoAssetPortrait_  = false
+        
+        if videoTransform.a == 0 && videoTransform.b == 1.0 && videoTransform.c == -1.0 && videoTransform.d == 0 {
+            videoAssetOrientation_ = UIImage.Orientation.right
+            isVideoAssetPortrait_ = true
+        }
+        if videoTransform.a == 0 && videoTransform.b == -1.0 && videoTransform.c == 1.0 && videoTransform.d == 0 {
+            videoAssetOrientation_ =  UIImage.Orientation.left
+            isVideoAssetPortrait_ = true
+        }
+        if videoTransform.a == 1.0 && videoTransform.b == 0 && videoTransform.c == 0 && videoTransform.d == 1.0 {
+            videoAssetOrientation_ =  UIImage.Orientation.up
+        }
+        if videoTransform.a == -1.0 && videoTransform.b == 0 && videoTransform.c == 0 && videoTransform.d == -1.0 {
+            videoAssetOrientation_ = UIImage.Orientation.down;
+        }
+        
+        transformer.setTransform(clipVideoTrack.preferredTransform, at: CMTime.zero)
+        transformer.setOpacity(0.0, at: asset.duration)
+
+        //adjust the render size if neccessary
+        var naturalSize: CGSize
+        if(isVideoAssetPortrait_){
+            naturalSize = CGSize(width: clipVideoTrack.naturalSize.height, height: clipVideoTrack.naturalSize.width)
+        } else {
+            naturalSize = clipVideoTrack.naturalSize;
+        }
+        
+        var renderWidth: CGFloat!
+        var renderHeight: CGFloat!
+        
+        renderWidth = naturalSize.width
+        renderHeight = naturalSize.height
+        
+        let parentlayer = CALayer()
+        let videoLayer = CALayer()
+        let watermarkLayer = CALayer()
+        
+        let videoComposition = AVMutableVideoComposition()
+        videoComposition.renderSize = CGSize(width: renderWidth, height: renderHeight)
+        videoComposition.frameDuration = CMTimeMake(value: 1, timescale: 30)
+        videoComposition.renderScale = 1.0
+        
+        watermarkLayer.contents = self.cusText.text // tempImageView.asImage().cgImage
+        
+        parentlayer.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: naturalSize)
+        videoLayer.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: naturalSize)
+        watermarkLayer.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: naturalSize)
+        
+        let titleLayer = CATextLayer()
+        titleLayer.frame = CGRect(x: cusText.x, y: cusText.y, width: cusText.width, height: cusText.height)
+        titleLayer.string = self.cusText.text
+        titleLayer.font = stickerView.currentlyEditingLabel.labelTextView?.font
+        titleLayer.foregroundColor = self.cusText.color.cgColor
+        titleLayer.shadowOpacity = 0.5
+        titleLayer.alignmentMode = CATextLayerAlignmentMode.center
+        titleLayer.isWrapped = true
+        titleLayer.displayIfNeeded()
+        
+        let angle:Double = atan2(Double(stickerView.currentlyEditingLabel.transform.b), Double(stickerView.currentlyEditingLabel.transform.a))
+        let radians = CGFloat(angle * .pi / 180)
+        if #available(iOS 13.0, *) {
+            print(stickerView.currentlyEditingLabel.transform3D)
+            titleLayer.transform = stickerView.currentlyEditingLabel.transform3D
+        } else {
+            // Fallback on earlier versions
+            titleLayer.transform = CATransform3DMakeRotation(radians, 0.0, 0.0, 1.0)
+        }
+        
+        parentlayer.addSublayer(videoLayer)
+        parentlayer.addSublayer(titleLayer)
+        
+        // Add watermark to video
+        videoComposition.animationTool = AVVideoCompositionCoreAnimationTool(postProcessingAsVideoLayers: [videoLayer], in: parentlayer)
+        
+        let instruction = AVMutableVideoCompositionInstruction()
+        
+        instruction.layerInstructions = [transformer]
+        videoComposition.instructions = [instruction]
+        
+        let exporter = AVAssetExportSession.init(asset: asset, presetName: AVAssetExportPresetHighestQuality)
+        exporter?.outputFileType = AVFileType.mov
+        exporter?.outputURL = filePath
+        exporter?.videoComposition = videoComposition
+        
+        exporter!.exportAsynchronously(completionHandler: {() -> Void in
+            if exporter?.status == .completed {
+                DispatchQueue.main.async {
+                    LoaderView.sharedInstance.hideLoader()
+                }
+                
+                let outputURL: URL? = exporter?.outputURL
+                self.objPostData.arrMedia[0].videoURL = outputURL
+                self.objPostData.arrMedia[0].thumbImg = self.generateThumb(from: outputURL!)
+                self.callPostStoryAPI(obj: self.objPostData)
+                PhotoVideoEditor().saveVideoToAlbum(outputURL!) { (error) in
+                    print(error)
+                }
+//                PHPhotoLibrary.shared().performChanges({
+//                    PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: outputURL!)
+//                }) { saved, error in
+//                    if saved {
+//                        let fetchOptions = PHFetchOptions()
+//                        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+//                        let fetchResult = PHAsset.fetchAssets(with: .video, options: fetchOptions).lastObject
+//                        PHImageManager().requestAVAsset(forVideo: fetchResult!, options: nil, resultHandler: { (avurlAsset, audioMix, dict) in
+//                            let newObj = avurlAsset as! AVURLAsset
+//                            print(newObj.url)
+//                            DispatchQueue.main.async(execute: {
+//                                print(newObj.url.absoluteString)
+//                            })
+//                        })
+//                        print (fetchResult!)
+//                    }
+//                }
+            }
+        })
+        
+        
+    }
     
     func addtextToVideo(){
 //        DispatchQueue.main.async {
@@ -431,8 +592,8 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         let vidAsset = AVURLAsset(url: self.objPostData.arrMedia[0].videoURL!, options: nil)
         
         // get video track
-        let vtrack =  vidAsset.tracks(withMediaType: AVMediaType.video)
-        let videoTrack: AVAssetTrack = vtrack[0]
+        let videoTrack =  vidAsset.tracks(withMediaType: AVMediaType.video).first
+//        let videoTrack: AVAssetTrack = vtrack[0]
         let audioTrack = vidAsset.tracks(withMediaType: AVMediaType.audio).first
         let vid_timerange = CMTimeRangeMake(start: CMTime.zero, duration: vidAsset.duration)
         
@@ -443,12 +604,12 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         
         if let compositionvideoTrack: AVMutableCompositionTrack = composition.addMutableTrack(withMediaType: AVMediaType.video, preferredTrackID: trackID) {
             do {
-                try compositionvideoTrack.insertTimeRange(vid_timerange, of: videoTrack, at: CMTime.zero)
+                try compositionvideoTrack.insertTimeRange(vid_timerange, of: videoTrack!, at: CMTime.zero)
                 
             } catch {
                 print("error")
             }
-            compositionvideoTrack.preferredTransform = videoTrack.preferredTransform
+            compositionvideoTrack.preferredTransform = getVideoTransform() //videoTrack!.preferredTransform
             
         } else {
             print("unable to add video track")
@@ -468,18 +629,23 @@ class PreviewViewController: UIViewController, PreviewProtocol {
                 return
             }
         }
-        let size = videoTrack.naturalSize
+        let size = videoTrack!.naturalSize
         
         // create text Layer
         let titleLayer = CATextLayer()
         titleLayer.frame = CGRect(x: cusText.x, y: cusText.y, width: cusText.width, height: cusText.height)
         titleLayer.string = self.cusText.text
-        titleLayer.font = self.cusText.font
+        titleLayer.font = stickerView.currentlyEditingLabel.labelTextView?.font
         titleLayer.foregroundColor = self.cusText.color.cgColor
         titleLayer.shadowOpacity = 0.5
         titleLayer.alignmentMode = CATextLayerAlignmentMode.center
         titleLayer.isWrapped = true
         titleLayer.displayIfNeeded()
+        
+        let angle = -90.0
+        let radians = CGFloat(angle * .pi / 180)
+        titleLayer.anchorPoint = titleLayer.anchorPoint
+        titleLayer.transform = CATransform3DMakeRotation(radians, 0.0, 0.0, 1.0)
         
         let videolayer = CALayer()
         videolayer.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
@@ -529,9 +695,12 @@ class PreviewViewController: UIViewController, PreviewProtocol {
             default:
                 print("Movie complete : \(movieDestinationUrl)")
                 self.objPostData.arrMedia[0].videoURL = movieDestinationUrl as URL
-//                DispatchQueue.main.async {
+                DispatchQueue.main.async {
                     LoaderView.sharedInstance.hideLoader()
-//                }
+                }
+                PhotoVideoEditor().saveVideoToAlbum(self.objPostData.arrMedia[0].videoURL!) { (error) in
+                    print(error)
+                }
 //                self.callPostStoryAPI(obj: self.objPostData)
             }
         })
@@ -563,6 +732,9 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         } else {
             self.callPostStoryAPI(obj: self.objPostData)
         }
+    }
+    func generateThumb(from videoURL: URL) -> UIImage? {
+        return videoURL.getVideoThumbImage()
     }
 }
 

@@ -143,6 +143,7 @@ class ViewController: UIViewController {
         movieFileOutput.maxRecordedDuration = CMTime(seconds: 30, preferredTimescale: 600)
         let longPressGesture = UILongPressGestureRecognizer.init(target: self, action: #selector(handleLongPress))
         self.btnCamera.addGestureRecognizer(longPressGesture);
+        self.view.insertSubview(myDrawnCircle, at: 0)
     }
     
     func setupDevice() {
@@ -225,7 +226,7 @@ class ViewController: UIViewController {
     
     func updateRoundView(time: CGFloat){
         if time < 30 {
-            startingPointForCircle += 1
+            startingPointForCircle += 0.5
             myDrawnCircle.animateCircle(circleToValue: startingPointForCircle)
         }
     }
@@ -328,7 +329,7 @@ class ViewController: UIViewController {
         self.innerView.backgroundColor = .red
         switch gestureRecognizer.state {
         case .began:
-            self.view.insertSubview(myDrawnCircle, at: 0)
+            updateRoundView(time: 0)
 //            self.btnCamera.transform = CGAffineTransform.identity.scaledBy(x: 1.5, y: 1.5)
             debugPrint("long press started")
             update(scale: minimumZoom)
