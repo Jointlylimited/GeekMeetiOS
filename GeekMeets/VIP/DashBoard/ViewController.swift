@@ -183,10 +183,6 @@ class ViewController: UIViewController {
         cameraPreviewLayer?.frame = self.view.layer.bounds
         self.view.layer.insertSublayer(cameraPreviewLayer!, at: 0)
         
-        //Zoom in - out
-//        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(dragImg(_:)))
-//        let pinchRecognizer = UIPinchGestureRecognizer(target: self, action:#selector(pinch(_:)))
-//        self.view.addGestureRecognizer(panGesture)
     }
     
     func startRunningCaptureSession() {
@@ -225,8 +221,8 @@ class ViewController: UIViewController {
     
     
     func updateRoundView(time: CGFloat){
-        if time < 30 {
-            startingPointForCircle += 0.5
+        if time < 120 {
+            startingPointForCircle += 0.1
             myDrawnCircle.animateCircle(circleToValue: startingPointForCircle)
         }
     }

@@ -229,16 +229,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         }else {
             if cusText != nil {
                 LoaderView.sharedInstance.showLoader()
-//                PhotoVideoEditor().AddTextToVideo(strText: self.cusText.text, videoURL: self.objPostData.arrMedia[0].videoURL!, at: 0, FontStyle: self.cusText.font, Color: self.cusText.color) { (url) in
-//                    print(url)
-//                    PhotoVideoEditor().saveVideoToAlbum(url) { (error) in
-//                        print(error)
-//                    }
-//                } failure: { (error) in
-//                    print(error)
-//                }
                 self.convertVideoAndSaveTophotoLibrary(videoURL: self.objPostData.arrMedia[0].videoURL!)
-//                self.addtextToVideo()
             } else {
                 self.callPostStoryAPI(obj: self.objPostData)
             }
@@ -431,6 +422,15 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         return newImage!
     }
     
+    func getRotateAngle() -> CGFloat {
+        let radians = atan2(self.transform.b, self.transform.a)
+        var degrees = radians * 180 / .pi
+        degrees.round()
+        let realDegrees = degrees // >= 0 ? abs(degrees) : 360 + degrees
+        print("Degrees:: \(realDegrees)")
+        return realDegrees
+    }
+    
     // Mark :- save a video photoLibrary
     func convertVideoAndSaveTophotoLibrary(videoURL: URL) {
         let documentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
@@ -522,16 +522,9 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         titleLayer.isWrapped = true
         titleLayer.displayIfNeeded()
         
-        let angle:Double = atan2(Double(stickerView.currentlyEditingLabel.transform.b), Double(stickerView.currentlyEditingLabel.transform.a))
-        let radians = CGFloat(angle * .pi / 180)
-        if #available(iOS 13.0, *) {
-            print(stickerView.currentlyEditingLabel.transform3D)
-            titleLayer.transform = stickerView.currentlyEditingLabel.transform3D
-        } else {
-            // Fallback on earlier versions
-            titleLayer.transform = CATransform3DMakeRotation(radians, 0.0, 0.0, 1.0)
-        }
-        
+        let radians = getRotateAngle()
+        titleLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(rotationAngle: radians))
+
         parentlayer.addSublayer(videoLayer)
         parentlayer.addSublayer(titleLayer)
         
@@ -562,164 +555,8 @@ class PreviewViewController: UIViewController, PreviewProtocol {
                 PhotoVideoEditor().saveVideoToAlbum(outputURL!) { (error) in
                     print(error)
                 }
-//                PHPhotoLibrary.shared().performChanges({
-//                    PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: outputURL!)
-//                }) { saved, error in
-//                    if saved {
-//                        let fetchOptions = PHFetchOptions()
-//                        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-//                        let fetchResult = PHAsset.fetchAssets(with: .video, options: fetchOptions).lastObject
-//                        PHImageManager().requestAVAsset(forVideo: fetchResult!, options: nil, resultHandler: { (avurlAsset, audioMix, dict) in
-//                            let newObj = avurlAsset as! AVURLAsset
-//                            print(newObj.url)
-//                            DispatchQueue.main.async(execute: {
-//                                print(newObj.url.absoluteString)
-//                            })
-//                        })
-//                        print (fetchResult!)
-//                    }
-//                }
             }
         })
-        
-        
-    }
-    
-    func addtextToVideo(){
-//        DispatchQueue.main.async {
-//            LoaderView.sharedInstance.showLoader()
-//        }
-        let composition = AVMutableComposition()
-        let vidAsset = AVURLAsset(url: self.objPostData.arrMedia[0].videoURL!, options: nil)
-        
-        // get video track
-        let videoTrack =  vidAsset.tracks(withMediaType: AVMediaType.video).first
-//        let videoTrack: AVAssetTrack = vtrack[0]
-        let audioTrack = vidAsset.tracks(withMediaType: AVMediaType.audio).first
-        let vid_timerange = CMTimeRangeMake(start: CMTime.zero, duration: vidAsset.duration)
-        
-        let tr: CMTimeRange = CMTimeRange(start: CMTime.zero, duration: CMTime(seconds: 10.0, preferredTimescale: 600))
-        composition.insertEmptyTimeRange(tr)
-        
-        let trackID:CMPersistentTrackID = CMPersistentTrackID(kCMPersistentTrackID_Invalid)
-        
-        if let compositionvideoTrack: AVMutableCompositionTrack = composition.addMutableTrack(withMediaType: AVMediaType.video, preferredTrackID: trackID) {
-            do {
-                try compositionvideoTrack.insertTimeRange(vid_timerange, of: videoTrack!, at: CMTime.zero)
-                
-            } catch {
-                print("error")
-            }
-            compositionvideoTrack.preferredTransform = getVideoTransform() //videoTrack!.preferredTransform
-            
-        } else {
-            print("unable to add video track")
-            return
-        }
-        if audioTrack != nil {
-            if let compositionaudioTrack: AVMutableCompositionTrack = composition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: trackID) {
-                do {
-                    try compositionaudioTrack.insertTimeRange(vid_timerange, of: audioTrack!, at: CMTime.zero)
-                    
-                } catch {
-                    print("error")
-                }
-                compositionaudioTrack.preferredTransform = audioTrack!.preferredTransform
-            } else {
-                print("unable to add audio track")
-                return
-            }
-        }
-        let size = videoTrack!.naturalSize
-        
-        // create text Layer
-        let titleLayer = CATextLayer()
-        titleLayer.frame = CGRect(x: cusText.x, y: cusText.y, width: cusText.width, height: cusText.height)
-        titleLayer.string = self.cusText.text
-        titleLayer.font = stickerView.currentlyEditingLabel.labelTextView?.font
-        titleLayer.foregroundColor = self.cusText.color.cgColor
-        titleLayer.shadowOpacity = 0.5
-        titleLayer.alignmentMode = CATextLayerAlignmentMode.center
-        titleLayer.isWrapped = true
-        titleLayer.displayIfNeeded()
-        
-        let angle = -90.0
-        let radians = CGFloat(angle * .pi / 180)
-        titleLayer.anchorPoint = titleLayer.anchorPoint
-        titleLayer.transform = CATransform3DMakeRotation(radians, 0.0, 0.0, 1.0)
-        
-        let videolayer = CALayer()
-        videolayer.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-        
-        let parentlayer = CALayer()
-        parentlayer.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-        parentlayer.addSublayer(videolayer)
-        parentlayer.addSublayer(titleLayer)
-        parentlayer.isGeometryFlipped = true
-        
-        let layercomposition = AVMutableVideoComposition()
-        layercomposition.frameDuration = CMTimeMake(value: 1, timescale: 30)
-        layercomposition.renderSize = size
-        layercomposition.animationTool = AVVideoCompositionCoreAnimationTool(postProcessingAsVideoLayer: videolayer, in: parentlayer)
-        
-        // instruction for watermark
-        let instruction = AVMutableVideoCompositionInstruction()
-        instruction.timeRange = CMTimeRangeMake(start: CMTime.zero, duration: composition.duration)
-        let videotrack = composition.tracks(withMediaType: AVMediaType.video)[0] as AVAssetTrack
-        let layerinstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: videotrack)
-        instruction.layerInstructions = NSArray(object: layerinstruction) as [AnyObject] as! [AVVideoCompositionLayerInstruction]
-        layercomposition.instructions = NSArray(object: instruction) as [AnyObject] as! [AVVideoCompositionInstructionProtocol]
-        
-        //  create new file to receive data
-        let dirPaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        let docsDir = dirPaths[0] as NSString
-        let movieFilePath = docsDir.appendingPathComponent("result.mov")
-        let movieDestinationUrl = NSURL(fileURLWithPath: movieFilePath)
-        
-        // use AVAssetExportSession to export video
-        let assetExport = AVAssetExportSession(asset: composition, presetName:AVAssetExportPresetHighestQuality)
-        assetExport?.outputFileType = AVFileType.mov
-        assetExport?.videoComposition = layercomposition
-        
-        // Check exist and remove old file
-        FileManager.default.removeItemIfExisted(movieDestinationUrl as URL)
-        
-        assetExport?.outputURL = movieDestinationUrl as URL
-        assetExport?.exportAsynchronously(completionHandler: {
-            switch assetExport!.status {
-            case AVAssetExportSession.Status.failed:
-                print("failed")
-                print(assetExport?.error ?? "unknown error")
-            case AVAssetExportSession.Status.cancelled:
-                print("cancelled")
-                print(assetExport?.error ?? "unknown error")
-            default:
-                print("Movie complete : \(movieDestinationUrl)")
-                self.objPostData.arrMedia[0].videoURL = movieDestinationUrl as URL
-                DispatchQueue.main.async {
-                    LoaderView.sharedInstance.hideLoader()
-                }
-                PhotoVideoEditor().saveVideoToAlbum(self.objPostData.arrMedia[0].videoURL!) { (error) in
-                    print(error)
-                }
-//                self.callPostStoryAPI(obj: self.objPostData)
-            }
-        })
-    }
-    
-    private func getVideoTransform() -> CGAffineTransform {
-    switch UIDevice.current.orientation {
-        case .portrait:
-            return .identity
-        case .portraitUpsideDown:
-            return CGAffineTransform(rotationAngle: .pi)
-        case .landscapeLeft:
-            return CGAffineTransform(rotationAngle: .pi/2)
-        case .landscapeRight:
-            return CGAffineTransform(rotationAngle: -.pi/2)
-        default:
-            return .identity
-        }
     }
     
     func ManageSubscriptionScreen(){

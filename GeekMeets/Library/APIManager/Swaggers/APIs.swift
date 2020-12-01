@@ -7,7 +7,7 @@
 import Foundation
 
 open class SwaggerClientAPI {
-  public static var basePath =  "http://dev6.spaceo.in/project/geekmeets/code/api/v1"  //
+  public static var basePath =  "http://3.129.31.9/api/v1"  //"http://dev6.spaceo.in/project/geekmeets/code/api/v1"  //
   public static var credential: URLCredential?
   public static var customHeaders: [String:String] = [:]
   public static var requestBuilderFactory: RequestBuilderFactory = AlamofireRequestBuilderFactory()
