@@ -426,7 +426,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         let radians = atan2(self.transform.b, self.transform.a)
         var degrees = radians * 180 / .pi
         degrees.round()
-        let realDegrees = degrees // >= 0 ? abs(degrees) : 360 + degrees
+        let realDegrees = degrees >= 0 ? abs(degrees) : 360 + degrees
         print("Degrees:: \(realDegrees)")
         return realDegrees
     }
@@ -513,7 +513,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         watermarkLayer.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: naturalSize)
         
         let titleLayer = CATextLayer()
-        titleLayer.frame = CGRect(x: cusText.x, y: cusText.y, width: cusText.width, height: cusText.height)
+        titleLayer.frame = stickerView.currentlyEditingLabel.frame // CGRect(x: cusText.x, y: cusText.y, width: cusText.width, height: cusText.height)
         titleLayer.string = self.cusText.text
         titleLayer.font = stickerView.currentlyEditingLabel.labelTextView?.font
         titleLayer.foregroundColor = self.cusText.color.cgColor
@@ -522,7 +522,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         titleLayer.isWrapped = true
         titleLayer.displayIfNeeded()
         
-        let radians = getRotateAngle()
+        let radians = getRotateAngle() // CGFloat(45.0)
         titleLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(rotationAngle: radians))
 
         parentlayer.addSublayer(videoLayer)
@@ -650,6 +650,8 @@ extension PreviewViewController : JLStickerLabelViewDelegate {
     func labelViewDidEndEditing(_ label: JLStickerLabelView) {
         self.editedlabel = label
         self.transform = label.transform
+        let angle = getRotateAngle()
+        print(angle)
     }
 }
 extension PreviewViewController : ZDStickerViewDelegate {
