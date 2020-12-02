@@ -323,9 +323,10 @@ class ViewController: UIViewController {
         movieFileOutput.maxRecordedDuration = maxDuration
         movieFileOutput.movieFragmentInterval = CMTime.invalid
         self.innerView.backgroundColor = .red
+        updateRoundView(time: 0)
         switch gestureRecognizer.state {
         case .began:
-            updateRoundView(time: 0)
+//            updateRoundView(time: 0)
 //            self.btnCamera.transform = CGAffineTransform.identity.scaledBy(x: 1.5, y: 1.5)
             debugPrint("long press started")
             update(scale: minimumZoom)
@@ -340,7 +341,7 @@ class ViewController: UIViewController {
             }
             movieFileOutput.startRecording(to: filePath, recordingDelegate: self)
         case .changed:
-            updateRoundView(time: 0)
+            
             if yposition > minimumZoom && yposition < maximumZoom {
                 update(scale: yposition)
             }
@@ -588,5 +589,8 @@ extension ViewController : ResetStoryObjectDelegate {
         self.objPostData.arrMedia = []
         setDefaultZoom()
         self.innerView.backgroundColor = .white
+        self.startingPointForCircle = 0
+        myDrawnCircle.animateCircle(circleToValue: startingPointForCircle)
+        self.view.insertSubview(myDrawnCircle, at: 1)
     }
 }
