@@ -107,13 +107,19 @@ class CircleView: UIView {
         self.layer.addSublayer(progressCircle)
     }
 
+    func resetStroke(){
+        let circlePath = UIBezierPath(ovalIn: self.bounds)
+        progressCircle.path = circlePath.cgPath
+        progressCircle.strokeColor = UIColor.red.cgColor
+        progressCircle.fillColor = UIColor.clear.cgColor
+        progressCircle.lineWidth = 5.0
+        self.layer.addSublayer(progressCircle)
+    }
 
     func animateCircle(circleToValue: CGFloat) {
         let fifths:CGFloat = circleToValue / 30
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.duration = 0.25
-//        animation.fromValue = 0
-//        animation.byValue = fifths
         animation.fillMode = CAMediaTimingFillMode.both
         animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         progressCircle.strokeEnd = fifths

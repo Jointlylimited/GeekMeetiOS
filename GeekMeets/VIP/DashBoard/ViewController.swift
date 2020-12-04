@@ -96,6 +96,8 @@ class ViewController: UIViewController {
     
     let myDrawnCircle = CircleView()
     var startingPointForCircle = CGFloat()
+    var timer: Timer?
+    var totalTime = 300
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,7 +121,7 @@ class ViewController: UIViewController {
         self.innerView.backgroundColor = .white
         self.objPostData.arrMedia = []
         startingPointForCircle = 0.0
-        myDrawnCircle.frame = CGRect(origin: self.btnCamera.origin, size: self.btnCamera.size)
+        myDrawnCircle.frame = CGRect(x: self.btnCamera.x - 10, y: self.btnCamera.y - 10, width: self.btnCamera.width + 20, height: self.btnCamera.height + 20)
         myDrawnCircle.backgroundColor = UIColor.clear
         let degrees = -90.0
         let radians = CGFloat(degrees * .pi / 180)
@@ -213,22 +215,42 @@ class ViewController: UIViewController {
                 self.btnCamera.transform = CGAffineTransform.identity.scaledBy(x: 1.5, y: 1.5)
             }) { finished in
                 UIView.animate(withDuration: 0.3 / 2, animations: {
-                    self.btnCamera.transform = CGAffineTransform.identity
+                    self.btnCamera.transform = CGAffineTransform.identity.scaledBy(x: 1.5, y: 1.5) //CGAffineTransform.identity
                 })
             }
         }
     }
     
+    private func startTimer() {
+        self.totalTime = 60
+        self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+    }
+    
+    @objc func updateTimer() {
+        updateRoundView(time: 0)
+    }
+    
+    func stopTimer(){
+        if self.timer != nil {
+            timer!.invalidate()
+        }
+    }
     
     func updateRoundView(time: CGFloat){
-        if time < 120 {
-            startingPointForCircle += 0.1
+        print(startingPointForCircle)
+        if startingPointForCircle < 30 {
+            startingPointForCircle += 0.5
             myDrawnCircle.animateCircle(circleToValue: startingPointForCircle)
+        } else {
+            self.stopTimer()
+            startingPointForCircle = 0.0
+            myDrawnCircle.resetStroke()
+            updateRoundView(time: 0)
+            startTimer()
         }
     }
     
     @IBAction func cameraButtonTouch(_ sender: Any) {
-//        animateButton()
         let settings = AVCapturePhotoSettings()
         photoOutput?.capturePhoto(with: settings, delegate: self)
     }
@@ -310,6 +332,7 @@ class ViewController: UIViewController {
         }
         
         func update(scale factor: CGFloat) {
+            
             do {
                 try device.lockForConfiguration()
                 defer { device.unlockForConfiguration() }
@@ -323,10 +346,12 @@ class ViewController: UIViewController {
         movieFileOutput.maxRecordedDuration = maxDuration
         movieFileOutput.movieFragmentInterval = CMTime.invalid
         self.innerView.backgroundColor = .red
-        updateRoundView(time: 0)
+        
         switch gestureRecognizer.state {
         case .began:
-//            updateRoundView(time: 0)
+            animateButton()
+            updateRoundView(time: 0)
+            startTimer()
 //            self.btnCamera.transform = CGAffineTransform.identity.scaledBy(x: 1.5, y: 1.5)
             debugPrint("long press started")
             update(scale: minimumZoom)
@@ -346,6 +371,8 @@ class ViewController: UIViewController {
                 update(scale: yposition)
             }
         case .ended:
+            self.stopTimer()
+            self.btnCamera.transform = CGAffineTransform.identity
             self.myDrawnCircle.removeFromSuperview()
 //            self.btnCamera.transform = CGAffineTransform.identity
             debugPrint("longpress ended")

@@ -3473,11 +3473,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ejk-3f-2Fn">
-                                <rect key="frame" x="177" y="782" width="60" height="60"/>
+                                <rect key="frame" x="167" y="762" width="80" height="80"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="M98-Em-gNG"/>
-                                    <constraint firstAttribute="height" constant="60" id="RF9-8U-eue"/>
+                                    <constraint firstAttribute="width" constant="80" id="M98-Em-gNG"/>
+                                    <constraint firstAttribute="height" constant="80" id="RF9-8U-eue"/>
                                 </constraints>
                                 <state key="normal" image="icn_capture"/>
                                 <userDefinedRuntimeAttributes>
@@ -3490,11 +3490,11 @@
                                 </connections>
                             </button>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mZT-mO-AXp">
-                                <rect key="frame" x="187" y="792" width="40" height="40"/>
+                                <rect key="frame" x="177" y="772" width="60" height="60"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aBp-zg-W5O">
-                                <rect key="frame" x="334" y="787" width="50" height="50"/>
+                                <rect key="frame" x="334" y="777" width="50" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="1Hp-R4-UhG"/>
@@ -3506,7 +3506,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="alp-Sr-VkD">
-                                <rect key="frame" x="30" y="787" width="50" height="50"/>
+                                <rect key="frame" x="30" y="777" width="50" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="ZaO-S5-G0r"/>
@@ -3778,6 +3778,7 @@
                     <connections>
                         <outlet property="PhotoView" destination="NR2-A1-fml" id="ljR-He-T6s"/>
                         <outlet property="btnAddText" destination="bWX-Wh-8EN" id="wYa-NY-O6a"/>
+                        <outlet property="btnAddTo" destination="v2u-4O-a0M" id="9Yp-S8-5Cm"/>
                         <outlet property="btnPlayPause" destination="m3b-Dz-Tzi" id="qeW-IX-Eod"/>
                         <outlet property="cropPickerView" destination="mi4-8p-3VI" id="bDU-Qb-gtQ"/>
                         <outlet property="headerView" destination="sQI-05-ebo" id="4xC-al-yiR"/>
@@ -3803,16 +3804,16 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vCl-wl-p5I" customClass="GradientView" customModule="Jointly" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
-                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
-                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="thirdColor">
-                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isHorizontal" value="YES"/>
                                 </userDefinedRuntimeAttributes>
@@ -4001,7 +4002,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="EjJ-LS-96m"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="vCl-wl-p5I" firstAttribute="leading" secondItem="EjJ-LS-96m" secondAttribute="leading" id="5kN-0L-oez"/>
                             <constraint firstItem="0Hv-Th-DUI" firstAttribute="top" secondItem="EjJ-LS-96m" secondAttribute="top" id="6ai-rw-XsQ"/>
@@ -5940,7 +5941,7 @@
         <image name="icn_arrowblack" width="8" height="14.333333015441895"/>
         <image name="icn_back" width="16" height="17"/>
         <image name="icn_boosts" width="34" height="34"/>
-        <image name="icn_camera" width="34.666667938232422" height="26.333333969116211"/>
+        <image name="icn_camera" width="73" height="75"/>
         <image name="icn_capture" width="66" height="66"/>
         <image name="icn_close1" width="45" height="45"/>
         <image name="icn_close_grey" width="10.333333015441895" height="10.333333015441895"/>

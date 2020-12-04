@@ -40,6 +40,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     @IBOutlet weak var stickerView: JLStickerImageView!
     @IBOutlet weak var cropPickerView: CropPickerView!
     @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var btnAddTo: UIButton!
     
     var player: AVPlayer?
     var playerLayer:AVPlayerLayer?
@@ -200,13 +201,14 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     }
 
     @IBAction func cancelButtonTouch(_ sender: Any) {
-        self.playerPauseState(isPause: true)
-         self.delegate?.resetObject(status: true)
-         self.dismissVC(completion: nil)
+        self.player?.pause()
+        self.delegate?.resetObject(status: true)
+        self.dismissVC(completion: nil)
     }
     
     @IBAction func saveButtonTouch(_ sender: Any) {
-        self.playerPauseState(isPause: true)
+        self.hideControls()
+//        self.playerPauseState(isPause: true)
         self.headerView.alpha = 0.0
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.AddTextScreen) as? AddTextViewController
         controller!.modalTransitionStyle = .crossDissolve
@@ -216,7 +218,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     }
     
     @IBAction func btnAddtoStoryAction(_ sender: UIButton){
-        self.playerPauseState(isPause: true)
+        self.player?.pause()
         if self.objPostData.tiStoryType == "0" {
             stickerView.image = self.photo.image
            
@@ -228,8 +230,12 @@ class PreviewViewController: UIViewController, PreviewProtocol {
             
         }else {
             if cusText != nil {
+                stickerView.image = #imageLiteral(resourceName: "transparent").imageWithColor(color: .clear)
+                let img1 = stickerView.renderContentOnView(size : self.view.bounds.size)
+                print(img1)
+                
                 LoaderView.sharedInstance.showLoader()
-                self.convertVideoAndSaveTophotoLibrary(videoURL: self.objPostData.arrMedia[0].videoURL!)
+                self.convertVideoAndSaveTophotoLibrary(videoURL: self.objPostData.arrMedia[0].videoURL!, imgLayer : img1!)
             } else {
                 self.callPostStoryAPI(obj: self.objPostData)
             }
@@ -259,21 +265,32 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         }
     }
     
+    func showControls(){
+        self.btnAddTo.alpha = 1.0
+        self.headerView.alpha = 1.0
+    }
+    
+    func hideControls(){
+        self.btnAddTo.alpha = 0.0
+        self.headerView.alpha = 0.0
+    }
     func moveToTabVC(){
+        
         let tabVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.TabbarScreen) as! TabbarViewController
         tabVC.isFromStory = true
-//        self.dismissVC(completion: nil) // pop(toLast: tabVC.classForCoder)
         AppSingleton.sharedInstance().showHomeVC(fromMatch : false, fromStory: true, userDict: [:])
     }
     
     @objc func playerDidFinishPlaying(sender: Notification) {
         self.player?.seek(to: CMTime.zero)
-        self.playerPauseState(isPause: true)
+        self.player?.play()
+//        self.playerPauseState(isPause: true)
     }
     
     func playerPauseState(isPause:Bool) {
         self.btnPlayPause.isSelected = !isPause
-        isPause ? self.player?.pause() : self.player?.play()
+//        isPause ? self.player?.pause() : self.player?.play()
+        self.player?.play()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -285,6 +302,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     }
     
     func setLabel(text : CustomTextView){
+        self.showControls()
         self.btnAddText.alpha = 0.0
         self.cusText = text
         self.textView = UITextView.init(frame: CGRect.init(x: 0, y: 0, width: text.viewSize.width, height: text.viewSize.height))
@@ -301,6 +319,8 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         stickerView.textColor = text.color
         stickerView.textAlpha = 1
         stickerView.textAlignment = .center
+        stickerView.currentlyEditingLabel.frame = CGRect(origin: CGPoint(x: (ScreenSize.width - text.viewSize.width)/2, y: (ScreenSize.height - text.viewSize.height)/2), size: CGSize(width: text.viewSize.width, height: text.viewSize.height + 20))
+        
         stickerView.currentlyEditingLabel.closeView!.image = UIImage(named: "Close")
         stickerView.currentlyEditingLabel.rotateView?.image = UIImage(named: "Rotate")
         stickerView.currentlyEditingLabel.border?.strokeColor = UIColor.brown.cgColor
@@ -426,13 +446,13 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         let radians = atan2(self.transform.b, self.transform.a)
         var degrees = radians * 180 / .pi
         degrees.round()
-        let realDegrees = degrees >= 0 ? abs(degrees) : 360 + degrees
+        let realDegrees = degrees //>= 0 ? abs(degrees) : 360 + degrees
         print("Degrees:: \(realDegrees)")
         return realDegrees
     }
     
     // Mark :- save a video photoLibrary
-    func convertVideoAndSaveTophotoLibrary(videoURL: URL) {
+    func convertVideoAndSaveTophotoLibrary(videoURL: URL, imgLayer : UIImage) {
         let documentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         let myDocumentPath = URL(fileURLWithPath: documentsDirectory).appendingPathComponent("temp.mp4").absoluteString
         _ = NSURL(fileURLWithPath: myDocumentPath)
@@ -506,11 +526,12 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         videoComposition.frameDuration = CMTimeMake(value: 1, timescale: 30)
         videoComposition.renderScale = 1.0
         
-        watermarkLayer.contents = self.cusText.text // tempImageView.asImage().cgImage
+        let myImage = imgLayer
+        watermarkLayer.contents = myImage.cgImage
         
         parentlayer.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: naturalSize)
         videoLayer.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: naturalSize)
-        watermarkLayer.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: naturalSize)
+        watermarkLayer.frame = CGRect(origin: CGPoint(x: (naturalSize.width - imgLayer.size.width)/2, y: (naturalSize.height - imgLayer.size.height)/2), size: imgLayer.size)
         
         let titleLayer = CATextLayer()
         titleLayer.frame = stickerView.currentlyEditingLabel.frame // CGRect(x: cusText.x, y: cusText.y, width: cusText.width, height: cusText.height)
@@ -522,11 +543,12 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         titleLayer.isWrapped = true
         titleLayer.displayIfNeeded()
         
-        let radians = getRotateAngle() // CGFloat(45.0)
+        let radians = CGFloat(45.0)
         titleLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(rotationAngle: radians))
-
+        
         parentlayer.addSublayer(videoLayer)
-        parentlayer.addSublayer(titleLayer)
+        parentlayer.addSublayer(watermarkLayer)
+//        parentlayer.addSublayer(titleLayer)
         
         // Add watermark to video
         videoComposition.animationTool = AVVideoCompositionCoreAnimationTool(postProcessingAsVideoLayers: [videoLayer], in: parentlayer)
@@ -590,6 +612,8 @@ extension PreviewViewController {
     
     func getPostStoryResponse(response: CommonResponse){
         if response.responseCode == 200 {
+            self.player?.pause()
+            self.player?.seek(to: CMTime.zero)
             self.moveToTabVC()
             AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
         }
@@ -706,5 +730,26 @@ extension NSString {
         self.draw(at: CGPoint(x: radius-textSize.width/2, y: -textSize.height/2) , withAttributes: textFontAttributes)
         context.concatenate(r.inverted())
         context.concatenate(t.inverted())
+    }
+}
+
+extension UIImage {
+    func imageWithColor(color: UIColor) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
+        color.setFill()
+
+        let context = UIGraphicsGetCurrentContext()
+        context?.translateBy(x: 0, y: self.size.height)
+        context?.scaleBy(x: 1.0, y: -1.0)
+        context?.setBlendMode(CGBlendMode.normal)
+
+        let rect = CGRect(origin: .zero, size: CGSize(width: self.size.width, height: self.size.height))
+        context?.clip(to: rect, mask: self.cgImage!)
+        context?.fill(rect)
+
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return newImage!
     }
 }
