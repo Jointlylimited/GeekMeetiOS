@@ -26,10 +26,10 @@ class SignUpVCInteractor: SignUpVCInteractorProtocol, SignUpVCDataStore {
     
     // MARK: Do something
     func callEmailAvailabilityAPI(email : String) {
-        LoaderView.sharedInstance.showLoader()
+        DefaultLoaderView.sharedInstance.showLoader()
         UserAPI.checkEmailAvailability(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, vEmail: email) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            DefaultLoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.presenter?.getEmailAvailResponse(response : response!)
             } else if response?.responseCode == 203 {
@@ -50,10 +50,10 @@ class SignUpVCInteractor: SignUpVCInteractorProtocol, SignUpVCDataStore {
         let tiIsAcceptPush = UserDataModel.getPushStatus()
         
         if UserDataModel.currentUser!.tiIsAdmin == 1 {
-            LoaderView.sharedInstance.showLoader()
+            DefaultLoaderView.sharedInstance.showLoader()
             UserAPI.signUp(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, tiIsSocialLogin: UserAPI.TiIsSocialLogin_signUp(rawValue: params["tiIsSocialLogin"]!)!, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signUp(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId!, vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress, iUserId: "\(UserDataModel.currentUser!.iUserId!)", vSocialId: params["vSocialId"]!, vEmail: params["vEmail"]!, vPassword: params["vPassword"]!, vCountryCode: params["vCountryCode"]!, vPhone: params["vPhone"]!, vLiveIn: params["vLiveIn"]!, fLatitude: Float(params["fLatitude"]!), fLongitude: Float(params["fLongitude"]!), tiIsLocationOn : tiIsLocationOn, tiIsAcceptPush : tiIsAcceptPush) { (response, error) in
                 
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
                 if response?.responseCode == 200 {
                     self.presenter?.getNormalSignupResponse(response : response!)
                 } else if response?.responseCode == 203 {
@@ -69,10 +69,10 @@ class SignUpVCInteractor: SignUpVCInteractorProtocol, SignUpVCDataStore {
             }
         } else {
             if socialType != "" {
-                LoaderView.sharedInstance.showLoader()
+                DefaultLoaderView.sharedInstance.showLoader()
                 UserAPI.signUp(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, tiIsSocialLogin: UserAPI.TiIsSocialLogin_signUp(rawValue: params["tiIsSocialLogin"]!)!, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signUp(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId!, vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress, vSocialId: params["vSocialId"]!, tiSocialType: UserAPI.TiSocialType_signUp(rawValue: socialType)!, vEmail: params["vEmail"]!, vPassword: params["vPassword"]!, vCountryCode: params["vCountryCode"]!, vPhone: params["vPhone"]!, vLiveIn: params["vLiveIn"]!, fLatitude: Float(params["fLatitude"]!), fLongitude: Float(params["fLongitude"]!), tiIsLocationOn : tiIsLocationOn, tiIsAcceptPush : tiIsAcceptPush) { (response, error) in
                     
-                    LoaderView.sharedInstance.hideLoader()
+                    DefaultLoaderView.sharedInstance.hideLoader()
                     if response?.responseCode == 200 {
                         self.presenter?.getNormalSignupResponse(response : response!)
                     } else if response?.responseCode == 203 {
@@ -87,10 +87,10 @@ class SignUpVCInteractor: SignUpVCInteractorProtocol, SignUpVCDataStore {
                     }
                 }
             } else {
-                LoaderView.sharedInstance.showLoader()
+                DefaultLoaderView.sharedInstance.showLoader()
                 UserAPI.signUp(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, tiIsSocialLogin: UserAPI.TiIsSocialLogin_signUp(rawValue: params["tiIsSocialLogin"]!)!, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signUp(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId!, vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress, vSocialId: params["vSocialId"]!, vEmail: params["vEmail"]!, vPassword: params["vPassword"]!, vCountryCode: params["vCountryCode"]!, vPhone: params["vPhone"]!, vLiveIn: params["vLiveIn"]!, fLatitude: Float(params["fLatitude"]!), fLongitude: Float(params["fLongitude"]!), tiIsLocationOn : tiIsLocationOn, tiIsAcceptPush : tiIsAcceptPush) { (response, error) in
                     
-                    LoaderView.sharedInstance.hideLoader()
+                    DefaultLoaderView.sharedInstance.hideLoader()
                     if response?.responseCode == 200 {
                         self.presenter?.getNormalSignupResponse(response : response!)
                     } else if response?.responseCode == 203 {

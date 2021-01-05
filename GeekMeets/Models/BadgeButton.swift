@@ -117,7 +117,7 @@ class CircleView: UIView {
     }
 
     func animateCircle(circleToValue: CGFloat) {
-        let fifths:CGFloat = circleToValue / 30
+        let fifths:CGFloat = circleToValue / 15
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.duration = 0.25
         animation.fillMode = CAMediaTimingFillMode.both

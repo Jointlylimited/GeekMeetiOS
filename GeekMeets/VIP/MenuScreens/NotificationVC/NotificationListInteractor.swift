@@ -28,11 +28,11 @@ class NotificationListInteractor: NotificationListInteractorProtocol, Notificati
     
     // MARK: Do something
     func callNotificationListAPI(offset: Int, limit: Int) {
-        LoaderView.sharedInstance.showLoader()
+        DefaultLoaderView.sharedInstance.showLoader()
         NotificationAPI.listNotification(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, limit: limit, offset: offset) { (response, error) in
             
             delay(0.2) {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
             }
             if response?.responseCode == 200 {
                 self.presenter?.getNotificationListResponse(response : response!)
@@ -94,11 +94,11 @@ class NotificationListInteractor: NotificationListInteractorProtocol, Notificati
     }
     
     func callBadgeCountAPI(){
-        LoaderView.sharedInstance.showLoader()
+        DefaultLoaderView.sharedInstance.showLoader()
         NotificationAPI.budgeCount(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
             delay(0.2) {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
             }
             if response?.responseCode == 200 {
                 self.presenter?.getBadgeCountResponse(response: response!)

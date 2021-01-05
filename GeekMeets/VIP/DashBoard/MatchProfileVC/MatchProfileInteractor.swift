@@ -34,11 +34,11 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
     // MARK: Do something
     
     func callUserProfileAPI(id : String, code : String){
-        LoaderView.sharedInstance.showLoader()
+        DefaultLoaderView.sharedInstance.showLoader()
         UserAPI.userProfile(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iUserId: id, vReferralCode: code) { (response, error) in
             
             delay(0.2) {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
             }
             
             if response?.responseCode == 200 {
@@ -63,7 +63,7 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
 //        LoaderView.sharedInstance.showLoader()
         MediaAPI.listStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, _id: id) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            DefaultLoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.presenter?.getStoryListResponse(response: response!)
             } else if response?.responseCode == 203 {
@@ -85,7 +85,7 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
 //        LoaderView.sharedInstance.showLoader()
         UserAPI.blockUsers(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vXmppUser: vXmppUser, tiIsBlocked: tiIsBlocked) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            DefaultLoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.presenter?.getBlockUserResponse(response: response!)
             } else if response?.responseCode == 203 {
@@ -108,7 +108,7 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
 //        LoaderView.sharedInstance.showLoader()
         UserAPI.blockList(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            DefaultLoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.presenter?.getBlockUserListResponse(response: response!)
             } else if response?.responseCode == 203 {
@@ -128,10 +128,10 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
     }
     
     func callReactEmojiAPI( iUserId: String, iMediaId: String, tiRactionType: String){
-        LoaderView.sharedInstance.showLoader()
+        DefaultLoaderView.sharedInstance.showLoader()
         MediaAPI.applyReaction(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iUserId: iUserId, iMediaId: iMediaId, tiRactionType: tiRactionType) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            DefaultLoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.presenter?.getReactEmojiResponse(response: response!)
             } else if response?.responseCode == 203 {
@@ -151,11 +151,11 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
     }
     
     func callSwipeCardAPI(iProfileId : String, tiSwipeType : String){
-        LoaderView.sharedInstance.showLoader()
+        DefaultLoaderView.sharedInstance.showLoader()
         UserAPI.swipeUser(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iProfileId: iProfileId, tiSwipeType: tiSwipeType) { (response, error) in
             
             delay(0.2) {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
             }
             if response?.responseCode == 200 {
                 self.presenter?.getSwipeCardResponse(response : response!)

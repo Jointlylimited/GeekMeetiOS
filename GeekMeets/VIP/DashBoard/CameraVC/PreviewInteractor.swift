@@ -119,11 +119,11 @@ class PreviewInteractor: PreviewInteractorProtocol, PreviewDataStore {
       func uploadVideoToAWS(with compresedVideoURL: URL, objMedia: MediaData, uploaded: @escaping uploadCompletion) {
           AWSHelper.setup()
           DispatchQueue.main.async {
-              LoaderView.sharedInstance.showLoader()
+            DefaultLoaderView.sharedInstance.showLoader()
           }
           AWSHelper.shared.uploadVideo(video: compresedVideoURL, videoPath: objMedia.videoURlUpload.path, videoName:  objMedia.videoURlUpload.name) { [weak self] (isUploaded, path, error) in
               DispatchQueue.main.async {
-                  LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
               }
               guard let `self` = self else {return}
               if let err = error {
@@ -146,14 +146,14 @@ class PreviewInteractor: PreviewInteractorProtocol, PreviewDataStore {
           }
           let compressedImage = img.scaleAndManageAspectRatio(_maxImageSize.width)
           DispatchQueue.main.async {
-            LoaderView.sharedInstance.showLoader()
+            DefaultLoaderView.sharedInstance.showLoader()
           }
           AWSHelper.setup()
           let imgPath = obj.mediaType == .image ? obj.mediaImgName.path : obj.thumbURlUpload.path
           let imgName = obj.mediaType == .image ? obj.mediaImgName.name : obj.thumbURlUpload.name
           AWSHelper.shared.upload(img: compressedImage, imgPath: imgPath, imgName: imgName) { (isUploaded, path, error) in
               DispatchQueue.main.async {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
               }
               if let err = error {
                   print("ERROR : \(err.localizedDescription)")
@@ -181,13 +181,13 @@ class PreviewInteractor: PreviewInteractorProtocol, PreviewDataStore {
     // MARK: Do something
     func callPostStoryAPI(obj : PostData){
         DispatchQueue.main.async {
-            LoaderView.sharedInstance.showLoader()
+            DefaultLoaderView.sharedInstance.showLoader()
         }
         if obj.tiStoryType == "1" {
             MediaAPI.createStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, txStory: self.objPost.txStory, tiStoryType: obj.tiStoryType, vThumbnail: self.objPost.vThumbnail) { (response, error) in
                 
                 delay(0.2) {
-                    LoaderView.sharedInstance.hideLoader()
+                    DefaultLoaderView.sharedInstance.hideLoader()
                 }
                 if response?.responseCode == 200 {
                     self.presenter?.getPostStoryResponse(response: response!)
@@ -208,7 +208,7 @@ class PreviewInteractor: PreviewInteractorProtocol, PreviewDataStore {
             MediaAPI.createStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, txStory: self.objPost.txStory, tiStoryType: obj.tiStoryType) { (response, error) in
                 
                 delay(0.2) {
-                    LoaderView.sharedInstance.hideLoader()
+                    DefaultLoaderView.sharedInstance.hideLoader()
                 }
                 if response?.responseCode == 200 {
                     self.presenter?.getPostStoryResponse(response: response!)
@@ -250,11 +250,11 @@ extension PreviewInteractor {
         let videoCompressedURL = URL(fileURLWithPath: NSTemporaryDirectory() + "compressedSocialPost.mp4")
         videoCompressedURL.checkAndDeleteVideoFile()
         DispatchQueue.main.async {
-            LoaderView.sharedInstance.showLoader()
+            DefaultLoaderView.sharedInstance.showLoader()
         }
         videoURL.compressVideo(videoCompressedURL) { (exportSession, compressedURL) in
             DispatchQueue.main.async {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
             }
             guard let session = exportSession else {
                 return

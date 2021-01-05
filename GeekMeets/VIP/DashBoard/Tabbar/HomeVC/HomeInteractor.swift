@@ -29,11 +29,11 @@ class HomeInteractor: HomeInteractorProtocol, HomeDataStore {
     
     // MARK: Do something
      func callUserCardAPI() {
-        LoaderView.sharedInstance.showLoader()
+        DefaultLoaderView.sharedInstance.showLoader()
         UserAPI.cardList(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
             delay(0.2) {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
             }
             if response?.responseCode == 200 {
                 self.presenter?.getUserCardResponse(response : response!)
@@ -73,11 +73,11 @@ class HomeInteractor: HomeInteractorProtocol, HomeDataStore {
     }
     
     func callUpdateLocationAPI(fLatitude : String, fLongitude : String, tiIsLocationOn : String){
-        LoaderView.sharedInstance.showLoader()
+        DefaultLoaderView.sharedInstance.showLoader()
         UserAPI.locationUpdate(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vDeviceToken: vDeviceToken, fLatitude: fLatitude, fLongitude: fLongitude, tiIsLocationOn : tiIsLocationOn) { (response, error) in
             
             delay(0.2) {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
             }
             if response?.responseCode == 200 {
                 self.presenter?.getLocationUpdateResponse(response : response!)

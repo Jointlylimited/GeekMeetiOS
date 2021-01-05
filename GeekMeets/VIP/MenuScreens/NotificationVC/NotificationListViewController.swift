@@ -90,7 +90,7 @@ class NotificationListViewController: UIViewController, NotificationListProtocol
 extension NotificationListViewController {
     func callAPI(isPullToRefresh: Bool = false){
         if isPullToRefresh {
-            LoaderView.sharedInstance.showLoader()
+            DefaultLoaderView.sharedInstance.showLoader()
             loadMore.index = 0
         }
         loadMore.isLoading = true
@@ -132,7 +132,7 @@ extension NotificationListViewController {
             loadMore.index += 1
         } else {
             loadMore.index = 0
-            LoaderView.sharedInstance.hideLoader()
+            DefaultLoaderView.sharedInstance.hideLoader()
         }
         let value = self.arrNotification.objNotificationList!.filter({($0.tiIsRead) != 1})
         if value.count != 0 {

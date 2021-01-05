@@ -26,11 +26,11 @@ class ContactUS_LegalInteractor: ContactUS_LegalInteractorProtocol, ContactUS_Le
     
     // MARK: Do something
     func callContactUsAPI() {
-        LoaderView.sharedInstance.showLoader()
+        DefaultLoaderView.sharedInstance.showLoader()
         ContentPageAPI.contactUs(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
             delay(0.2) {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
             }
             if response?.responseCode == 200 {
                 self.presenter?.getContactUsResponse(response : response!)

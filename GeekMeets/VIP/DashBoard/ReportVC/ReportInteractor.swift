@@ -27,11 +27,11 @@ class ReportInteractor: ReportInteractorProtocol, ReportDataStore {
     
     // MARK: Do something
     func callReportAPI() {
-        LoaderView.sharedInstance.showLoader()
+        DefaultLoaderView.sharedInstance.showLoader()
         ReportAPI.listReason(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
             delay(0.2) {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
             }
             if response?.responseCode == 200 {
                 self.presenter?.getReportListResponse(response : response!)
@@ -49,11 +49,11 @@ class ReportInteractor: ReportInteractorProtocol, ReportDataStore {
     }
     
     func callSendReportAPI(params : Dictionary<String, String>){
-        LoaderView.sharedInstance.showLoader()
+        DefaultLoaderView.sharedInstance.showLoader()
         ReportAPI.createReport(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiReportType: params["tiReportType"]!, iReasonId: params["iReasonId"]!, vReportText: params["vReportText"]!, iReportedFor: params["iReportedFor"]!, iStoryId : params["iStoryId"]!) { (response, error) in
             
             delay(0.2) {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
             }
             if response?.responseCode == 200 {
                 self.presenter?.getPostReportResponse(response : response!)

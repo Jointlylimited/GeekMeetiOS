@@ -201,6 +201,8 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     }
 
     @IBAction func cancelButtonTouch(_ sender: Any) {
+        NotificationCenter.default.removeObserver(self)
+        self.playerPauseState(isPause: true)
         self.player?.pause()
         self.delegate?.resetObject(status: true)
         self.dismissVC(completion: nil)
@@ -218,7 +220,8 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     }
     
     @IBAction func btnAddtoStoryAction(_ sender: UIButton){
-        self.player?.pause()
+//        self.player?.pause()
+        self.playerPauseState(isPause: true)
         if self.objPostData.tiStoryType == "0" {
             stickerView.image = self.photo.image
            
@@ -226,6 +229,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
             
             stickerView.image = nil
             self.objPostData.arrMedia[0].img = img1
+//            UIImageWriteToSavedPhotosAlbum(img1!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
             self.callPostStoryAPI(obj: self.objPostData)
             
         }else {
@@ -234,11 +238,23 @@ class PreviewViewController: UIViewController, PreviewProtocol {
                 let img1 = stickerView.renderContentOnView(size : self.view.bounds.size)
                 print(img1)
                 
-                LoaderView.sharedInstance.showLoader()
+                DefaultLoaderView.sharedInstance.showLoader()
                 self.convertVideoAndSaveTophotoLibrary(videoURL: self.objPostData.arrMedia[0].videoURL!, imgLayer : img1!)
             } else {
                 self.callPostStoryAPI(obj: self.objPostData)
             }
+        }
+    }
+
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        } else {
+            let ac = UIAlertController(title: "Saved!", message: "Your altered image has been saved to your photos.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
         }
     }
     
@@ -283,14 +299,14 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     
     @objc func playerDidFinishPlaying(sender: Notification) {
         self.player?.seek(to: CMTime.zero)
-        self.player?.play()
-//        self.playerPauseState(isPause: true)
+//        self.player?.play()
+        self.playerPauseState(isPause: false)
     }
     
     func playerPauseState(isPause:Bool) {
-        self.btnPlayPause.isSelected = !isPause
-//        isPause ? self.player?.pause() : self.player?.play()
-        self.player?.play()
+//        self.btnPlayPause.isSelected = !isPause
+        isPause ? self.player?.pause() : self.player?.play()
+//        self.player?.play()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -567,7 +583,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         exporter!.exportAsynchronously(completionHandler: {() -> Void in
             if exporter?.status == .completed {
                 DispatchQueue.main.async {
-                    LoaderView.sharedInstance.hideLoader()
+                    DefaultLoaderView.sharedInstance.hideLoader()
                 }
                 
                 let outputURL: URL? = exporter?.outputURL

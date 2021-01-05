@@ -26,11 +26,11 @@ class CommonPagesInteractor: CommonPagesInteractorProtocol, CommonPagesDataStore
     
     // MARK: Do something
     func CallContentPageAPI(slug:String) {
-        LoaderView.sharedInstance.showLoader()
+        DefaultLoaderView.sharedInstance.showLoader()
         ContentPageAPI.contentPage(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, slug: ContentPageAPI.Slug_contentPage(rawValue: slug)!) { (response, error) in
             
             delay(0.2) {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
             }
             if response?.responseCode == 200 {
                 self.presenter?.getContentResponse(response : response!)

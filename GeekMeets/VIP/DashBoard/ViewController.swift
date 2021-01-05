@@ -70,10 +70,15 @@ struct PostData {
     var maximumVideoSize: Double = 10//inMB
 }
 
+class MyLongPressGesture : UILongPressGestureRecognizer {
+    var startTime : NSDate?
+}
+
 class ViewController: UIViewController {
 
     @IBOutlet weak var btnCamera: UIButton!
     @IBOutlet weak var innerView: UIView!
+    @IBOutlet weak var collView: UICollectionView!
     
     var captureSession = AVCaptureSession()
     var backCamera: AVCaptureDevice?
@@ -98,6 +103,8 @@ class ViewController: UIViewController {
     var startingPointForCircle = CGFloat()
     var timer: Timer?
     var totalTime = 300
+    var videoThumbnailArray : [UIImage] = []
+    var xValue : Double = 1.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,6 +134,12 @@ class ViewController: UIViewController {
         let radians = CGFloat(degrees * .pi / 180)
         myDrawnCircle.transform = CGAffineTransform(rotationAngle: radians)
         myDrawnCircle.animateCircle(circleToValue: startingPointForCircle)
+        self.setupCollectionView()
+        if videoThumbnailArray != [] {
+            self.collView.isHidden = false
+        } else {
+            self.collView.isHidden = true
+        }
     }
     
     func addAudioInput() {
@@ -138,12 +151,25 @@ class ViewController: UIViewController {
             self.captureSession.commitConfiguration()
     }
     
+    func setupCollectionView(){
+        self.collView.backgroundColor = .clear
+        self.collView.register(UINib.init(nibName: Cells.DiscoverCollectionCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.DiscoverCollectionCell)
+        self.collView.dataSource = self
+        self.collView.delegate = self
+        
+        self.collView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        
+        let layout1 = CustomImageLayout()
+        layout1.scrollDirection = .horizontal
+        self.collView.collectionViewLayout = layout1
+    }
+    
     func setupCaptureSession() {
         captureSession.sessionPreset = AVCaptureSession.Preset.photo
         addAudioInput()
         captureSession.addOutput(movieFileOutput)
-        movieFileOutput.maxRecordedDuration = CMTime(seconds: 30, preferredTimescale: 600)
-        let longPressGesture = UILongPressGestureRecognizer.init(target: self, action: #selector(handleLongPress))
+        movieFileOutput.maxRecordedDuration = CMTime(seconds: 60, preferredTimescale: 600)
+        let longPressGesture = MyLongPressGesture.init(target: self, action: #selector(handleLongPress))
         self.btnCamera.addGestureRecognizer(longPressGesture);
         self.view.insertSubview(myDrawnCircle, at: 0)
     }
@@ -237,9 +263,8 @@ class ViewController: UIViewController {
     }
     
     func updateRoundView(time: CGFloat){
-        print(startingPointForCircle)
-        if startingPointForCircle < 30 {
-            startingPointForCircle += 0.5
+        if startingPointForCircle < 15 {
+            startingPointForCircle += 0.1
             myDrawnCircle.animateCircle(circleToValue: startingPointForCircle)
         } else {
             self.stopTimer()
@@ -247,6 +272,21 @@ class ViewController: UIViewController {
             myDrawnCircle.resetStroke()
             updateRoundView(time: 0)
             startTimer()
+            xValue = xValue + 1
+            if movieFileOutput.outputFileURL != nil {
+                let asset = AVAsset(url: movieFileOutput.outputFileURL!)
+                let startTime = CMTime(seconds: Double(xValue - 1), preferredTimescale: 1000)
+                let endTime = CMTime(seconds: Double(xValue*15), preferredTimescale: 1000)
+                do {
+                    let croppedAsset = try asset.assetByTrimming(startTime: startTime, endTime: endTime)
+                    let thumb = croppedAsset.getVideoThumbImage()
+                    self.videoThumbnailArray.append(thumb!)
+                    self.collView.isHidden = false
+                    self.collView.reloadData()
+                } catch let error {
+                    print(error.localizedDescription)
+                }
+            }
         }
     }
     
@@ -320,10 +360,11 @@ class ViewController: UIViewController {
         self.openMediaTypeActionSheet()
     }
     
-    @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+    @objc func handleLongPress(gestureRecognizer: MyLongPressGesture) {
+        
         
         let yposition = (ScreenSize.height - gestureRecognizer.location(in: view).y)/100 // gestureRecognizer.location(in: view).y/200 // sender.velocity(in: view)
-        debugPrint(yposition)
+//        debugPrint(yposition)
         guard let device = currentCamera else { return }
         
         // Return zoom value between the minimum and maximum zoom values
@@ -342,17 +383,14 @@ class ViewController: UIViewController {
             }
         }
         
-        let maxDuration = CMTime(seconds: 30, preferredTimescale: 600)
-        movieFileOutput.maxRecordedDuration = maxDuration
-        movieFileOutput.movieFragmentInterval = CMTime.invalid
         self.innerView.backgroundColor = .red
         
         switch gestureRecognizer.state {
         case .began:
+            xValue = 1.0
             animateButton()
             updateRoundView(time: 0)
             startTimer()
-//            self.btnCamera.transform = CGAffineTransform.identity.scaledBy(x: 1.5, y: 1.5)
             debugPrint("long press started")
             update(scale: minimumZoom)
             let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0] as URL
@@ -365,17 +403,24 @@ class ViewController: UIViewController {
                 }
             }
             movieFileOutput.startRecording(to: filePath, recordingDelegate: self)
+            gestureRecognizer.startTime = NSDate()
         case .changed:
             
             if yposition > minimumZoom && yposition < maximumZoom {
                 update(scale: yposition)
             }
+            print("Seconds Count ===> \(xValue)")
+            print("RecordedDuration : \(movieFileOutput.recordedDuration.seconds)\nMaxRecordedDuration \(movieFileOutput.maxRecordedDuration.seconds)\nCount : \(15*xValue)")
+            
+            if movieFileOutput.recordedDuration.seconds >= movieFileOutput.maxRecordedDuration.seconds {
+                movieFileOutput.stopRecording()
+            }
         case .ended:
             self.stopTimer()
             self.btnCamera.transform = CGAffineTransform.identity
             self.myDrawnCircle.removeFromSuperview()
-//            self.btnCamera.transform = CGAffineTransform.identity
             debugPrint("longpress ended")
+            
             if yposition > minimumZoom && yposition < maximumZoom {
                 lastZoomFactor = minMaxZoom(yposition)
                 update(scale: lastZoomFactor)
@@ -426,15 +471,20 @@ extension ViewController: AVCapturePhotoCaptureDelegate {
 }
 extension ViewController : AVCaptureFileOutputRecordingDelegate {
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-        guard let videoURL = outputFileURL as? URL, let videoDataSize = videoURL.getVideoData(), Double(videoDataSize.count / 1048576) <= objPostData.maximumVideoSize else {
+//        guard
+        let videoURL = outputFileURL as? URL
+        let videoDataSize = videoURL!.getVideoData()
+                /*, Double(videoDataSize.count / 1048576) >= objPostData.maximumVideoSize else {
+            let status = Double((outputFileURL as? URL)!.getVideoData()!.count / 1048576) >= objPostData.maximumVideoSize
+            print(status)
             return
-        }
+        }*/
         let previewVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.PreviewViewScreen) as! PreviewViewController
         var objMedia = MediaData()
-        objMedia.fileSize = Double(videoDataSize.count / 1048576)//in MB
+        objMedia.fileSize = Double(videoDataSize!.count / 1048576)//in MB
         objMedia.mediaType = .video
         objMedia.captutedFromCamera = true
-        objMedia.thumbImg = generateThumb(from: videoURL)
+        objMedia.thumbImg = generateThumb(from: videoURL!)
         objMedia.videoURL = videoURL
         if self.objPostData.arrMedia == nil {
             self.objPostData.arrMedia = []
@@ -603,7 +653,7 @@ extension ViewController : OpalImagePickerControllerDelegate {
         previewVC.modalTransitionStyle = .crossDissolve
         previewVC.modalPresentationStyle = .overCurrentContext
         previewVC.delegate = self
-        self.presentVC(previewVC) //pushVC(previewVC)
+        self.presentVC(previewVC)
     }
     
     func imagePickerDidCancel(_ picker: OpalImagePickerController) {
@@ -614,10 +664,45 @@ extension ViewController : OpalImagePickerControllerDelegate {
 extension ViewController : ResetStoryObjectDelegate {
     func resetObject(status: Bool) {
         self.objPostData.arrMedia = []
+        self.videoThumbnailArray.removeAll()
+        self.collView.isHidden = true
         setDefaultZoom()
         self.innerView.backgroundColor = .white
         self.startingPointForCircle = 0
+        self.xValue = 1.0
+        myDrawnCircle.resetStroke()
         myDrawnCircle.animateCircle(circleToValue: startingPointForCircle)
         self.view.insertSubview(myDrawnCircle, at: 1)
+    }
+}
+
+
+//MARK: UICollectionview Delegate & Datasource Methods
+extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        return (self.videoThumbnailArray != [] ? self.videoThumbnailArray.count : 0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell : DiscoverCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.DiscoverCollectionCell, for: indexPath) as! DiscoverCollectionCell
+        
+        let data = self.videoThumbnailArray[indexPath.row]
+        cell.layer.cornerRadius = 5
+//        cell.userImgView.borderWidth = 0.2
+//        cell.userImgView.borderColor = .white
+        cell.userImgView.image = data
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let width = CGFloat(45)
+        let height = ScreenSize.height
+        return CGSize(width: width, height: height)
     }
 }

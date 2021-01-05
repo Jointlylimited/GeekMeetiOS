@@ -65,7 +65,7 @@ class AddEditPhotosInteractor: AddEditPhotosInteractorProtocol, AddEditPhotosDat
             
             if self.index == self.images!.count {
                 DispatchQueue.main.async {
-                    LoaderView.sharedInstance.hideLoader()
+                    DefaultLoaderView.sharedInstance.hideLoader()
                 }
                 self.paramDetails["photos"] = "[\(self.finalStr)]"
                 self.callAddPhotosAPI(param: self.paramDetails as! Dictionary<String, String>)
@@ -81,7 +81,7 @@ class AddEditPhotosInteractor: AddEditPhotosInteractorProtocol, AddEditPhotosDat
         self.images = images
         self.sequenceUpload()
         DispatchQueue.main.async {
-            LoaderView.sharedInstance.showLoader()
+            DefaultLoaderView.sharedInstance.showLoader()
         }
         self.paramDetails = obj
     }
@@ -104,12 +104,12 @@ class AddEditPhotosInteractor: AddEditPhotosInteractorProtocol, AddEditPhotosDat
     
     func callAddPhotosAPI(param : Dictionary<String, String>) {
         DispatchQueue.main.async {
-            LoaderView.sharedInstance.showLoader()
+            DefaultLoaderView.sharedInstance.showLoader()
         }
         UserAPI.addPhotos(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, photos: param["photos"]!, deletephotos: param["deletephotos"]!) { (response, error) in
             
             DispatchQueue.main.async {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
             }
             if response?.responseCode == 200 {
                 self.presenter?.getProfileResponse(response: response!)

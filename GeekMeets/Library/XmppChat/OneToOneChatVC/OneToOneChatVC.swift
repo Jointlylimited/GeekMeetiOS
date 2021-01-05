@@ -1107,10 +1107,10 @@ extension OneToOneChatVC {
     }
     
     func callUnMatchUserAPI(iProfileId : String){
-//        LoaderView.sharedInstance.showLoader()
+//        DefaultLoaderView.sharedInstance.showLoader()
         UserAPI.unMatch(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vXmppUser: iProfileId) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            DefaultLoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.getUnMatchResponse(response: response!)
             } else if response?.responseCode == 203 {
@@ -1136,12 +1136,12 @@ extension OneToOneChatVC {
     }
     func callBlock(userId:String,tiStatus:Int){
         DispatchQueue.main.async {
-//            LoaderView.sharedInstance.showLoader()
+//            DefaultLoaderView.sharedInstance.showLoader()
         }
         
         UserAPI.blockUsers(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vXmppUser: userId, tiIsBlocked: "\(tiStatus)") { (response, error) in
             DispatchQueue.main.async {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
             }
             if(error == nil){
                 self.getBlockUserResponse(objSuccessResponse: response!)
@@ -1186,10 +1186,10 @@ extension OneToOneChatVC {
     }
     
     func callBlockUserListAPI() {
-//        LoaderView.sharedInstance.showLoader()
+//        DefaultLoaderView.sharedInstance.showLoader()
         UserAPI.blockList(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            DefaultLoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.getBlockUserListResponse(response : response!)
             } else if response?.responseCode == 203 {
@@ -1345,7 +1345,7 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
             break
             
         case .image:
-//            LoaderView.sharedInstance.showLoader()
+//            DefaultLoaderView.sharedInstance.showLoader()
             let objVC = self.storyboard?.instantiateViewController(withIdentifier: "FullScreenImageViewController") as! FullScreenImageViewController
             objVC.chatMsg = arrChatMsg[indexPath.row]
             objVC.modalTransitionStyle = .crossDissolve
@@ -1356,7 +1356,7 @@ extension OneToOneChatVC: UITableViewDelegate,UITableViewDataSource ,UIScrollVie
             break
             
         case .gif:
-//            LoaderView.sharedInstance.showLoader()
+//            DefaultLoaderView.sharedInstance.showLoader()
             let objVC = self.storyboard?.instantiateViewController(withIdentifier: "FullScreenImageViewController") as! FullScreenImageViewController
             objVC.chatMsg = arrChatMsg[indexPath.row]
             objVC.modalTransitionStyle = .crossDissolve

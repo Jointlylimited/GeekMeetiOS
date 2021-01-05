@@ -29,11 +29,11 @@ class ManageSubscriptionInteractor: ManageSubscriptionInteractorProtocol, Manage
     
     // MARK: Do something
     func callSubscriptionDetailsAPI(){
-        LoaderView.sharedInstance.showLoader()
+        DefaultLoaderView.sharedInstance.showLoader()
         SubscriptionAPI.subscriptionDetails(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
             delay(0.2) {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
             }
             if response?.responseCode == 200 {
                 self.presenter?.getSubscriptionDetailsResponse(response: response!)

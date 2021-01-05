@@ -26,11 +26,11 @@ class LikesInteractor: LikesInteractorProtocol, LikesDataStore {
     
      // MARK: Do something
        func callMatchListAPI() {
-           LoaderView.sharedInstance.showLoader()
+        DefaultLoaderView.sharedInstance.showLoader()
            UserAPI.matches(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiType: 2) { (response, error) in
                
                delay(0.2) {
-                   LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
                }
                if response?.responseCode == 200 {
                    self.presenter?.getMatchResponse(response: response!)

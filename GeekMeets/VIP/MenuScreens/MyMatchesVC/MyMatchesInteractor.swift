@@ -27,11 +27,11 @@ class MyMatchesInteractor: MyMatchesInteractorProtocol, MyMatchesDataStore {
     
     // MARK: Do something
     func callMatchListAPI() {
-        LoaderView.sharedInstance.showLoader()
+        DefaultLoaderView.sharedInstance.showLoader()
         UserAPI.matches(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiType: 0) { (response, error) in
             
             delay(0.2) {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
             }
             if response?.responseCode == 200 {
                 self.presenter?.getMatchResponse(response: response!)
@@ -51,11 +51,11 @@ class MyMatchesInteractor: MyMatchesInteractorProtocol, MyMatchesDataStore {
     }
     
     func callUnMatchUserAPI(iProfileId : String){
-        LoaderView.sharedInstance.showLoader()
+        DefaultLoaderView.sharedInstance.showLoader()
         UserAPI.unMatch(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vXmppUser: iProfileId) { (response, error) in
             
             delay(0.2) {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
             }
             if response?.responseCode == 200 {
                 self.presenter?.getUnMatchResponse(response: response!)

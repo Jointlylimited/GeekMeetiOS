@@ -56,7 +56,7 @@ extension URL {
     
     func compressVideo(_ outputURL: URL, handler:@escaping (_ exportSession: AVAssetExportSession?, _ compressVideoURL: URL?)-> Void) {
         let urlAsset = AVURLAsset(url: self, options: nil)
-        guard let exportSession = AVAssetExportSession(asset: urlAsset, presetName: AVAssetExportPresetMediumQuality) else {
+        guard let exportSession = AVAssetExportSession(asset: urlAsset, presetName: AVAssetExportPresetHighestQuality) else {
             DispatchQueue.main.async {
                 handler(nil, nil)
             }

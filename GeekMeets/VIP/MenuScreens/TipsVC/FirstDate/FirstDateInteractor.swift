@@ -27,11 +27,11 @@ class FirstDateInteractor: FirstDateInteractorProtocol, FirstDateDataStore {
     // MARK: Do something
     func callStaticPageAPI() {
         
-        LoaderView.sharedInstance.showLoader()
+        DefaultLoaderView.sharedInstance.showLoader()
         ContentPageAPI.contentPage(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, slug: ContentPageAPI.Slug_contentPage(rawValue: "tips")!) { (response, error) in
             
             delay(0.2) {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
             }
             if response?.responseCode == 200 {
                 self.presenter?.getContentPageResponse(response:response!)

@@ -231,3 +231,48 @@ extension PHAsset {
         return url != nil ? url! : URL(string: "")!
     }
 }
+extension AVAsset {
+    func assetByTrimming(startTime: CMTime, endTime: CMTime) throws -> AVAsset {
+        let duration = CMTimeSubtract(endTime, startTime)
+        let timeRange = CMTimeRange(start: startTime, duration: duration)
+        
+        let composition = AVMutableComposition()
+        
+        do {
+            for track in tracks {
+                let compositionTrack = composition.addMutableTrack(withMediaType: track.mediaType, preferredTrackID: track.trackID)
+                compositionTrack?.preferredTransform = track.preferredTransform
+                try compositionTrack?.insertTimeRange(timeRange, of: track, at: CMTime.zero)
+            }
+        } catch let error {
+            throw TrimError("error during composition", underlyingError: error)
+        }
+        
+        return composition
+    }
+    
+    struct TrimError: Error {
+        let description: String
+        let underlyingError: Error?
+        
+        init(_ description: String, underlyingError: Error? = nil) {
+            self.description = "TrimVideo: " + description
+            self.underlyingError = underlyingError
+        }
+    }
+    
+    func getVideoThumbImage() -> UIImage? {
+        let asset = self
+        let imageGenerator = AVAssetImageGenerator(asset: asset)
+        imageGenerator.appliesPreferredTrackTransform = true
+        let time = CMTimeMake(value: 1, timescale: 1)
+        do {
+            let imageRef = try imageGenerator.copyCGImage(at: time, actualTime: nil)
+            return  UIImage(cgImage:imageRef)
+        } catch let error {
+            imageGenerator.cancelAllCGImageGeneration()
+            print( "getVideoThumbImage  error : \(error.localizedDescription)")
+        }
+        return nil
+    }
+}

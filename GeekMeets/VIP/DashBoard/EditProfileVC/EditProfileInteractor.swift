@@ -64,7 +64,7 @@ class EditProfileInteractor: EditProfileInteractorProtocol, EditProfileDataStore
             
             if self.index == self.images!.count {
                 DispatchQueue.main.async {
-                    LoaderView.sharedInstance.hideLoader()
+                    DefaultLoaderView.sharedInstance.hideLoader()
                 }
                 self.paramDetails["photos"] = "[\(self.finalStr)]"
                 self.callEdirProfileAPI(params: self.paramDetails as! Dictionary<String, String>)
@@ -80,7 +80,7 @@ class EditProfileInteractor: EditProfileInteractorProtocol, EditProfileDataStore
         self.images = images
         self.sequenceUpload()
         DispatchQueue.main.async {
-            LoaderView.sharedInstance.showLoader()
+            DefaultLoaderView.sharedInstance.showLoader()
         }
         self.paramDetails = obj
     }
@@ -104,11 +104,11 @@ class EditProfileInteractor: EditProfileInteractorProtocol, EditProfileDataStore
     // MARK: Do something
     func callEdirProfileAPI(params : Dictionary<String, String>) {
         DispatchQueue.main.async {
-            LoaderView.sharedInstance.showLoader()
+            DefaultLoaderView.sharedInstance.showLoader()
         }
         UserAPI.editProfile(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vName: params["vName"]!, dDob: params["dDob"]!, tiAge: params["tiAge"]!, tiGender: UserAPI.TiGender_editProfile(rawValue: params["tiGender"]!)!, txCompanyDetail: params["txCompanyDetail"]!, txAbout: params["txAbout"]!, vEmail: params["vEmail"]!, vProfileImage: params["vProfileImage"]!, vLiveIn: params["vLiveIn"]!, deletephotos : params["deletephotos"]!, photos: params["photos"]!, vInstaLink: params["vInstaLink"]!, vSnapLink: params["vSnapLink"]!, vFbLink: params["vFbLink"]!, tiIsShowAge: UserAPI.TiIsShowAge_editProfile(rawValue: params["tiIsShowAge"]!)!, tiIsShowDistance: UserAPI.TiIsShowDistance_editProfile(rawValue: params["tiIsShowDistance"]!), tiIsShowContactNumber: UserAPI.TiIsShowContactNumber_editProfile(rawValue: params["tiIsShowContactNumber"]!)!, tiIsShowProfileToLikedUser: UserAPI.TiIsShowProfileToLikedUser_editProfile(rawValue: params["tiIsShowProfileToLikedUser"]!)!) { (response, error) in
             DispatchQueue.main.async {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
             }
             if response?.responseCode == 200 {
                 self.presenter?.getEditProfileResponse(response: response!)

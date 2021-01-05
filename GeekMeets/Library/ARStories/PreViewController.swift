@@ -276,10 +276,10 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
 
 extension PreViewController {
     func callDeleteStoryAPI(id : String){
-        LoaderView.sharedInstance.showLoader()
+        DefaultLoaderView.sharedInstance.showLoader()
         MediaAPI.deleteStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, _id: id) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            DefaultLoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.dismissVC {
                     self.delegate.getDeleteStoryResponse(deleted: true)

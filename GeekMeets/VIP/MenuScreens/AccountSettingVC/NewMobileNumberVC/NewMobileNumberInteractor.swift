@@ -27,12 +27,12 @@ class NewMobileNumberInteractor: NewMobileNumberInteractorProtocol, NewMobileNum
     // MARK: Do something
     func callResendOTPAPI(vCountryCode : String,vPhone : String) {
         
-        LoaderView.sharedInstance.showLoader()
+        DefaultLoaderView.sharedInstance.showLoader()
         let intiUserId: Int = UserDataModel.currentUser!.iUserId!
         UserAPI.requestForOtp(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, iUserId: String(intiUserId), vCountryCode: vCountryCode, vPhone:vPhone){ (response, error) in
             
             delay(0.2) {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
             }
             if response?.responseCode == 200 {
                 self.presenter?.getResendOTPResponse(response: response!)

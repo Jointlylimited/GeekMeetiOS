@@ -3530,6 +3530,29 @@
                                     <action selector="cancelButtonTouch:" destination="HeF-Bt-K2p" eventType="touchUpInside" id="fAc-Mh-Wgg"/>
                                 </connections>
                             </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wUs-Yc-DzC">
+                                <rect key="frame" x="30" y="642" width="354" height="60"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="gCZ-Wh-hf6"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="BSc-He-nxd">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="3Du-lR-R5l">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="P0H-tB-AH5">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="zhV-pX-C5I"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -3541,15 +3564,19 @@
                             <constraint firstItem="alp-Sr-VkD" firstAttribute="leading" secondItem="zhV-pX-C5I" secondAttribute="leading" constant="30" id="HsG-6A-hGF"/>
                             <constraint firstItem="alp-Sr-VkD" firstAttribute="centerY" secondItem="ejk-3f-2Fn" secondAttribute="centerY" id="QbH-AW-2pX"/>
                             <constraint firstItem="zhV-pX-C5I" firstAttribute="bottom" secondItem="ejk-3f-2Fn" secondAttribute="bottom" constant="20" id="Sb3-Ku-AiD"/>
+                            <constraint firstItem="zhV-pX-C5I" firstAttribute="trailing" secondItem="wUs-Yc-DzC" secondAttribute="trailing" constant="30" id="XQQ-Zr-NhC"/>
                             <constraint firstItem="aBp-zg-W5O" firstAttribute="centerY" secondItem="ejk-3f-2Fn" secondAttribute="centerY" id="Yrw-5j-QNU"/>
                             <constraint firstItem="Hha-RM-Fa4" firstAttribute="top" secondItem="Crn-cO-pyO" secondAttribute="top" constant="35" id="ZO5-KY-hLZ"/>
                             <constraint firstItem="ejk-3f-2Fn" firstAttribute="centerX" secondItem="Crn-cO-pyO" secondAttribute="centerX" id="bGb-8v-dWX"/>
+                            <constraint firstItem="ejk-3f-2Fn" firstAttribute="top" secondItem="wUs-Yc-DzC" secondAttribute="bottom" constant="60" id="g9D-xO-OLI"/>
                             <constraint firstItem="zhV-pX-C5I" firstAttribute="trailing" secondItem="aBp-zg-W5O" secondAttribute="trailing" constant="30" id="jbf-0F-aej"/>
+                            <constraint firstItem="wUs-Yc-DzC" firstAttribute="leading" secondItem="zhV-pX-C5I" secondAttribute="leading" constant="30" id="mae-R3-zWi"/>
                             <constraint firstItem="mZT-mO-AXp" firstAttribute="leading" secondItem="ejk-3f-2Fn" secondAttribute="leading" constant="10" id="zPC-ox-dfF"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="btnCamera" destination="ejk-3f-2Fn" id="b3C-ZZ-DqK"/>
+                        <outlet property="collView" destination="wUs-Yc-DzC" id="6tA-pJ-bLG"/>
                         <outlet property="innerView" destination="mZT-mO-AXp" id="ymr-9F-3sG"/>
                     </connections>
                 </viewController>

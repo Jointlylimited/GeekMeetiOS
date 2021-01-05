@@ -102,12 +102,12 @@ class InitialSignUpInteractor: InitialSignUpInteractorProtocol, InitialSignUpDat
       }
     
     func callSocialSignInAPI(params: Dictionary<String, String>) {
-        LoaderView.sharedInstance.showLoader()
+        DefaultLoaderView.sharedInstance.showLoader()
         UserDataModel.setSocialType(socialType: params["tiSocialType"]!)
         UserAPI.socialSignin(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language:APPLANGUAGE.english , tiSocialType: UserAPI.TiSocialType_socialSignin(rawValue: params["tiSocialType"]!)!, vAccessToken: params["accessKey"]!, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_socialSignin(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId ?? "", vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress) { (response, error) in
             
             delay(0.2) {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
             }
             
             if response?.responseCode == 200 {
@@ -136,7 +136,7 @@ class InitialSignUpInteractor: InitialSignUpInteractorProtocol, InitialSignUpDat
 //        LoaderView.sharedInstance.showLoader()
         PreferencesAPI.list(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization) { (response, error) in
             delay(0.2) {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
             }
             if response?.responseCode == 200 {
                 self.presenter?.getPrefernceResponse(response : response!)

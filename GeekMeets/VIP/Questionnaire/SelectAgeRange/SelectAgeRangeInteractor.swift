@@ -50,11 +50,11 @@ class SelectAgeRangeInteractor: SelectAgeRangeInteractorProtocol, SelectAgeRange
     }
     
     func callCreatePreferenceAPI(params : Dictionary<String, String>){
-        LoaderView.sharedInstance.showLoader()
+        DefaultLoaderView.sharedInstance.showLoader()
         PreferencesAPI.create(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization, tiPreferenceType: params["tiPreferenceType"]!, iPreferenceId: params["iPreferenceId"]!, iOptionId: params["iOptionId"]!, vAnswer: params["vAnswer"]!, tiIsHide: params["tiIsHide"]!) { (response, error) in
             
             delay(0.2) {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
             }
             if response?.responseCode == 200 {
                 self.presenter?.getPostPreferenceResponse(response : response!)

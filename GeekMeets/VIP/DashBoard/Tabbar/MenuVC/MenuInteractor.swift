@@ -32,11 +32,11 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
     
     // MARK: Do something
     func callSignoutAPI() {
-        LoaderView.sharedInstance.showLoader()
+        DefaultLoaderView.sharedInstance.showLoader()
         UserAPI.signout(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
             delay(0.2) {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
             }
             if response?.responseCode == 200 {
                 self.presenter?.getSignoutResponse(response : response!)
@@ -54,11 +54,11 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
     }
     
     func callUpdateLocationAPI(fLatitude : String, fLongitude : String, tiIsLocationOn : String){
-        LoaderView.sharedInstance.showLoader()
+        DefaultLoaderView.sharedInstance.showLoader()
         UserAPI.locationUpdate(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vDeviceToken: vDeviceToken, fLatitude: fLatitude, fLongitude: fLongitude, tiIsLocationOn : tiIsLocationOn) { (response, error) in
             
             delay(0.2) {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
             }
             if response?.responseCode == 200 {
                 self.presenter?.getLocationUpdateResponse(response : response!)
@@ -76,11 +76,11 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
     }
     
     func callPushStatusAPI(tiIsAcceptPush : String) {
-        LoaderView.sharedInstance.showLoader()
+        DefaultLoaderView.sharedInstance.showLoader()
         UserAPI.setPushStatus(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vDeviceToken: AppDelObj.deviceToken, tiIsAcceptPush: tiIsAcceptPush) { (response, error) in
             
             delay(0.2) {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
             }
             if response?.responseCode == 200 {
                 self.presenter?.getPushStatusResponse(response : response!)
@@ -147,7 +147,7 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
 //        LoaderView.sharedInstance.showLoader()
         BoostGeekAPI.boostGeekPlans(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiType: 1) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            DefaultLoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.presenter?.getBoostPlansResponse(response: response!)
             } else if response?.responseCode == 203 {
@@ -166,11 +166,11 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
     }
     
     func callBadgeCountAPI(){
-        LoaderView.sharedInstance.showLoader()
+        DefaultLoaderView.sharedInstance.showLoader()
         NotificationAPI.budgeCount(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
             delay(0.2) {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
             }
             if response?.responseCode == 200 {
                 self.presenter?.getBadgeCountResponse(response: response!)

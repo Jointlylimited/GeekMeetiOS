@@ -174,10 +174,10 @@ extension AppDelegate {
         }
     }
     func callReadAPI(iNotificationId : String, tiType : String) {
-        LoaderView.sharedInstance.showLoader()
+        DefaultLoaderView.sharedInstance.showLoader()
         NotificationAPI.viewNotification(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization, iNotificationId: iNotificationId, tiType: tiType) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            DefaultLoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 self.callBadgeCountAPI()
             } else if response?.responseCode == 203 {
@@ -194,10 +194,10 @@ extension AppDelegate {
     }
     
     func callBadgeCountAPI(){
-        LoaderView.sharedInstance.showLoader()
+        DefaultLoaderView.sharedInstance.showLoader()
         NotificationAPI.budgeCount(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
-            LoaderView.sharedInstance.hideLoader()
+            DefaultLoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
                 UserDataModel.setNotificationCount(count: UserDataModel.getNotificationCount() + 1)
             } else if response?.responseCode == 203 {

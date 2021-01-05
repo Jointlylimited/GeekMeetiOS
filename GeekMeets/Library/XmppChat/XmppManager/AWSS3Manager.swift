@@ -219,7 +219,7 @@ class AWSS3Manager {
         let url = activeUploads.count == 0 ? activeUploads[0].localPath : activeUploads[activeUploads.count - 1].localPath
         AWSHelper.shared.uploadVideo(video: url, videoPath: videoURlUpload.path, videoName: videoURlUpload.name) { [weak self] (isUploaded, path, error) in
             DispatchQueue.main.async {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
             }
             guard let `self` = self else {return}
             if let err = error {
@@ -243,7 +243,7 @@ class AWSS3Manager {
         let url = activeUploads.count == 0 ? activeUploads[0].localPath : activeUploads[activeUploads.count - 1].localPath
         AWSHelper.shared.uploadVideo(video: url, videoPath: gifURlUpload.path, videoName: gifURlUpload.name) { [weak self] (isUploaded, path, error) in
             DispatchQueue.main.async {
-                LoaderView.sharedInstance.hideLoader()
+                DefaultLoaderView.sharedInstance.hideLoader()
             }
             guard let `self` = self else {return}
             if let err = error {
