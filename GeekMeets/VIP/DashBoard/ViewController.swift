@@ -314,7 +314,7 @@ class ViewController: UIViewController {
     
   @IBAction func actionchangeCamrePosition(_ sender: Any) {
       //Change camera source
-    if let session:AVCaptureSession = captureSession {
+     let session:AVCaptureSession = captureSession
           //Remove existing input6
           guard let currentCameraInput: AVCaptureInput = session.inputs.first else {
               return
@@ -353,7 +353,7 @@ class ViewController: UIViewController {
           }
           //Commit all the configuration changes at once
           session.commitConfiguration()
-      }
+      
   }
 
      @IBAction func actionOpenGallary(_ sender: Any) {
@@ -442,14 +442,106 @@ class ViewController: UIViewController {
       }
       return nil
   }
+    
+//    func getImage() -> UIImage? {
+//        if currentCamera?.position == AVCaptureDevice.Position.back {
+//            if let image = context.createCGImage(ciImage, from: imageRect) {
+//                return UIImage(cgImage: image, scale: UIScreen.main.scale, orientation: .right)
+//            }
+//        }
+//
+//        if currentCamera?.position == AVCaptureDevice.Position.front {
+//            if let image = context.createCGImage(ciImage, from: imageRect) {
+//                return UIImage(cgImage: image, scale: UIScreen.main.scale, orientation: .leftMirrored)
+//
+//            }
+//        }
+//
+//        return nil
+//    }
+    
+
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        } else {
+            let ac = UIAlertController(title: "Saved!", message: "Your altered image has been saved to your photos.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
+    }
+    
+    func rotateImage(image:UIImage) -> UIImage
+        {
+            var rotatedImage = UIImage()
+            switch image.imageOrientation
+            {
+            case .right:
+                rotatedImage = UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .down)
+
+            case .down:
+                rotatedImage = UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .left)
+
+            case .left:
+                rotatedImage = UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .up)
+
+            default:
+                rotatedImage = UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .right)
+            }
+
+            return rotatedImage
+        }
+    
+//    func setTransformToOrigional(image : UIImage) {
+//        let clipVideoTrack = asset.tracks(withMediaType: AVMediaType.video)[0]
+//
+//        // Rotate to potrait
+//        let transformer = AVMutableVideoCompositionLayerInstruction(assetTrack: clipVideoTrack)
+//
+//
+//        let videoTransform:CGAffineTransform =  clipVideoTrack.preferredTransform
+//
+//        //fix orientation
+//        var videoAssetOrientation_  = UIImage.Orientation.up
+//
+//        var isVideoAssetPortrait_  = false
+//
+//        if videoTransform.a == 0 && videoTransform.b == 1.0 && videoTransform.c == -1.0 && videoTransform.d == 0 {
+//            videoAssetOrientation_ = UIImage.Orientation.right
+//            isVideoAssetPortrait_ = true
+//        }
+//        if videoTransform.a == 0 && videoTransform.b == -1.0 && videoTransform.c == 1.0 && videoTransform.d == 0 {
+//            videoAssetOrientation_ =  UIImage.Orientation.left
+//            isVideoAssetPortrait_ = true
+//        }
+//        if videoTransform.a == 1.0 && videoTransform.b == 0 && videoTransform.c == 0 && videoTransform.d == 1.0 {
+//            videoAssetOrientation_ =  UIImage.Orientation.up
+//        }
+//        if videoTransform.a == -1.0 && videoTransform.b == 0 && videoTransform.c == 0 && videoTransform.d == -1.0 {
+//            videoAssetOrientation_ = UIImage.Orientation.down;
+//        }
+//
+//        transformer.setTransform(clipVideoTrack.preferredTransform, at: CMTime.zero)
+//        transformer.setOpacity(0.0, at: asset.duration)
+//    }
 }
+
 @available(iOS 11.0, *)
 extension ViewController: AVCapturePhotoCaptureDelegate {
    
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let imageData = photo.fileDataRepresentation(){
             image = UIImage(data: imageData)
-        
+//            let img1 = image?.rotate(radians: 180)
+//            let img = self.rotateImage(image: image!)
+//            image = img
+//            UIImageWriteToSavedPhotosAlbum(image!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+            
+            if currentCamera?.position == AVCaptureDevice.Position.front {
+                image = image?.withHorizontallyFlippedOrientation()
+            }
             let searchVC:PreviewViewController = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.PreviewViewScreen) as! PreviewViewController
             var objMedia = MediaData()
             objMedia.img = image
@@ -484,7 +576,7 @@ extension ViewController : AVCaptureFileOutputRecordingDelegate {
         objMedia.fileSize = Double(videoDataSize!.count / 1048576)//in MB
         objMedia.mediaType = .video
         objMedia.captutedFromCamera = true
-        objMedia.thumbImg = generateThumb(from: videoURL!)
+        objMedia.thumbImg = generateThumb(from: videoURL!)?.withHorizontallyFlippedOrientation() //?.fixedOrientation()
         objMedia.videoURL = videoURL
         if self.objPostData.arrMedia == nil {
             self.objPostData.arrMedia = []

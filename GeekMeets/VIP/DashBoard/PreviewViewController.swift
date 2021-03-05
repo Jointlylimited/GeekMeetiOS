@@ -33,6 +33,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     @IBOutlet weak var PhotoView: UIView!
     @IBOutlet weak var btnPlayPause: UIButton!
     @IBOutlet weak var btnAddText: UIButton!
+    @IBOutlet weak var btnClose: UIButton!
     @IBOutlet weak var previewView: UIView!
     @IBOutlet weak var thumbImageView: UIImageView!
     @IBOutlet weak var playView: UIView!
@@ -339,7 +340,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         
         stickerView.currentlyEditingLabel.closeView!.image = UIImage(named: "Close")
         stickerView.currentlyEditingLabel.rotateView?.image = UIImage(named: "Rotate")
-        stickerView.currentlyEditingLabel.border?.strokeColor = UIColor.brown.cgColor
+        stickerView.currentlyEditingLabel.border?.strokeColor = UIColor.clear.cgColor
         stickerView.currentlyEditingLabel.labelTextView?.font = text.font
         stickerView.currentlyEditingLabel.labelTextView?.delegate = self
         stickerView.currentlyEditingLabel.delegate = self

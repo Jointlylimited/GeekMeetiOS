@@ -19,7 +19,7 @@ platform :ios do
   desc "Description of what the lane does"
   lane :development_archive do
     gym(
-        output_directory: '/Volumes/LaCie/Jenkins/workspace/KS-PH-GeekMeets-iOS',
+        output_directory: '/Volumes/LaCie/Jenkins/workspace/NS-PH-GeekMeets-iOS',
         output_name: 'GeekMeets.ipa',
         scheme: 'GeekMeets',
         include_bitcode: false,
@@ -29,7 +29,7 @@ platform :ios do
   end
   lane :release_archive do
     gym(
-        output_directory: '/Volumes/LaCie/Jenkins/workspace/KS-PH-GeekMeets-iOS',
+        output_directory: '/Volumes/LaCie/Jenkins/workspace/NS-PH-GeekMeets-iOS',
         output_name: 'GeekMeets.ipa',
         scheme: 'GeekMeets',
 	clean: true,

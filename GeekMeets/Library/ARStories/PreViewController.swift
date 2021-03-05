@@ -226,7 +226,7 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
     // MARK: Private func
     private func getDuration(at index: Int) -> TimeInterval {
         var retVal: TimeInterval = 10.0
-        if item[index].tiStoryType! == "0" /*"image"*/ {
+        if item[index].tiStoryType! == "0" {
             retVal = 10.0
         } else {
             guard let url = NSURL(string: items[index].txStory!) as URL? else { return retVal }

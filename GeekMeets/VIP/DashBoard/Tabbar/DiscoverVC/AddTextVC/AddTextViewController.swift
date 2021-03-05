@@ -17,7 +17,7 @@ class AddTextViewController: UIViewController {
     
     @IBOutlet weak var TextNameCollView: UICollectionView!
     @IBOutlet weak var colorCollBottomConstraint: NSLayoutConstraint!
-    var fontSize : CGFloat = 18
+    var fontSize : CGFloat = 20
     var textSizeSlider: RangeSlider!
     var colors : [UIColor] = [#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), #colorLiteral(red: 0.7098039216, green: 0.3254901961, blue: 0.8941176471, alpha: 0.5), #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1), #colorLiteral(red: 0.06274510175, green: 0, blue: 0.1921568662, alpha: 1), #colorLiteral(red: 0.1921568662, green: 0.007843137719, blue: 0.09019608051, alpha: 1), #colorLiteral(red: 0.3098039329, green: 0.2039215714, blue: 0.03921568766, alpha: 1), #colorLiteral(red: 0.1294117719, green: 0.2156862766, blue: 0.06666667014, alpha: 1), #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1), #colorLiteral(red: 0.09019608051, green: 0, blue: 0.3019607961, alpha: 1), #colorLiteral(red: 0.3098039329, green: 0.01568627544, blue: 0.1294117719, alpha: 1), #colorLiteral(red: 0.521568656, green: 0.1098039225, blue: 0.05098039284, alpha: 1), #colorLiteral(red: 0.5058823824, green: 0.3372549117, blue: 0.06666667014, alpha: 1), #colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1), #colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1), #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1), #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1), #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1), #colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 1), #colorLiteral(red: 1, green: 0.2527923882, blue: 1, alpha: 1), #colorLiteral(red: 0.9994240403, green: 0.9855536819, blue: 0, alpha: 1), #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1), #colorLiteral(red: 0.4500938654, green: 0.9813225865, blue: 0.4743030667, alpha: 1), #colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1), #colorLiteral(red: 1, green: 0.5409764051, blue: 0.8473142982, alpha: 1), #colorLiteral(red: 0.004859850742, green: 0.09608627111, blue: 0.5749928951, alpha: 1), #colorLiteral(red: 0.476841867, green: 0.5048075914, blue: 1, alpha: 1),#colorLiteral(red: 0.5269387364, green: 0.201957494, blue: 0.08749309927, alpha: 1), #colorLiteral(red: 0.120503135, green: 0.7448164821, blue: 0.9430143237, alpha: 1), #colorLiteral(red: 0.4770843983, green: 0.08635065705, blue: 0.1774665415, alpha: 1)]
     var textTypeArray : [String] = ["ExtraLight", "ThinItalic", "ExtraLightItalic", "BoldItalic", "Light", "Medium", "SemiBoldItalic", "ExtraBoldItalic", "ExtraBold", "BlackItalic", "Regular", "LightItalic", "Bold", "Black", "Thin", "SemiBold", "Italic", "MediumItalic"]
@@ -53,8 +53,9 @@ class AddTextViewController: UIViewController {
         layout.scrollDirection = .horizontal
         self.TextNameCollView.collectionViewLayout = layout
         self.TextNameCollView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-        self.cusTextView.fontSize = 18.0
+        self.cusTextView.fontSize = 20.0
         self.cusTextView.font = UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: self.cusTextView.fontSize)!
+        self.cusTextView.color = .white
     }
     
     func setTextTheme(){
@@ -62,7 +63,7 @@ class AddTextViewController: UIViewController {
         
         if custText == nil {
             self.textView.setPlaceholder(view : self.textView)
-            dictAttribute = NSMutableDictionary(object: UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 18.0)!, forKey: NSAttributedString.Key.font as NSCopying)
+            dictAttribute = NSMutableDictionary(object: UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 20.0)!, forKey: NSAttributedString.Key.font as NSCopying)
             textSizeSlider.isUserInteractionEnabled = false
         } else {
             self.cusTextView = self.custText
@@ -281,12 +282,12 @@ extension UITextView{
         
         let placeholderLabel = UILabel()
         placeholderLabel.text = "Tap to write"
-        placeholderLabel.font = UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 16.0)
+        placeholderLabel.font = UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 20.0)
         
         placeholderLabel.tag = 222
         placeholderLabel.frame = CGRect(origin: CGPoint(x: 0, y: (view.frame.height) / 2) , size: CGSize(width: UIScreen.main.bounds.w, height: 25))
         placeholderLabel.textAlignment = .center
-        placeholderLabel.textColor = UIColor.white.withAlphaComponent(0.5)
+        placeholderLabel.textColor = UIColor.white
         placeholderLabel.isHidden = !self.text.isEmpty
         
         self.addSubview(placeholderLabel)

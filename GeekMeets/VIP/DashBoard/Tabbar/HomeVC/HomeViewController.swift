@@ -364,12 +364,11 @@ extension HomeViewController : SwipeableCardsDataSource, SwipeableCardsDelegate 
         cardView.clickOnClose = {
             print("Close Action clicked!")
             self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "0")
-            
         }
+        
         cardView.clickOnFavourite = {
             print("Favourite Action clicked!")
             self.callSwipeCardAPI(iProfileId: "\(self.objCardArray.objUserCard.iUserId!)", tiSwipeType: "1")
-            
         }
         
         cardView.clickOnView = {

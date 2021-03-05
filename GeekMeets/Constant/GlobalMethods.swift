@@ -107,7 +107,6 @@ enum CommonModelData {
             return "licenses"
         }
     }
-    
 }
 
 enum Interest_PreferenceData {
@@ -342,11 +341,16 @@ func json(from object:[NSDictionary]) -> String? {
         var yourString : String = ""
         do
         {
-            if let postData : NSData = try JSONSerialization.data(withJSONObject: object, options: JSONSerialization.WritingOptions.prettyPrinted) as NSData
-            {
+//            if let postData : NSData = try JSONSerialization.data(withJSONObject: object, options: JSONSerialization.WritingOptions.prettyPrinted) as NSData
+//            {
+//                yourString = NSString(data: postData as Data, encoding: String.Encoding.utf8.rawValue)! as String
+//                return yourString
+//            }
+             let postData : NSData = try JSONSerialization.data(withJSONObject: object, options: JSONSerialization.WritingOptions.prettyPrinted) as NSData
+            
                 yourString = NSString(data: postData as Data, encoding: String.Encoding.utf8.rawValue)! as String
                 return yourString
-            }
+            
         }
         catch
         {
