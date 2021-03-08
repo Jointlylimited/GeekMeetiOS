@@ -12,6 +12,7 @@
 
 import UIKit
 import CoreLocation
+import ActiveLabel
 
 protocol SignUpVCProtocol: class {
     func displayAlert(strTitle : String, strMessage : String)
@@ -28,6 +29,7 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
     @IBOutlet weak var tfMobileNumber: BottomBorderTF!
     @IBOutlet weak var btnContinue: GradientButton!
     @IBOutlet weak var btnCountrycode: UIButton!
+    @IBOutlet weak var lblPrivacyTerm: ActiveLabel!
     
     var termsChecked : String = "0"
     var authResponse : UserAuthResponseField!
@@ -108,6 +110,54 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
             
             self.tfPassword.placeholder = "Password needed"
             self.tfConfirmPassword.placeholder = "Confirm Password not needed"
+        }
+        setLink()
+    }
+    
+    func setLink(){
+        
+        let customType1 = ActiveType.custom(pattern: "\\sTerms & Conditions\\b")
+        let customType2 = ActiveType.custom(pattern: "\\sPrivacy Policy\\b")
+        
+        lblPrivacyTerm.enabledTypes.append(customType1)
+        lblPrivacyTerm.enabledTypes.append(customType2)
+        
+        lblPrivacyTerm.customize { label in
+          
+            label.text = "By continuing you choose to agree to our Terms & Conditions and Privacy Policy"
+            
+            label.numberOfLines = 3
+            label.lineSpacing = 0
+            
+            label.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+            
+            label.customColor[customType1] =  #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+            label.customColor[customType2] =  #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+            
+            label.highlightFontName = FontTypePoppins.Poppins_Medium.rawValue
+            label.highlightFontSize = 12
+            
+            label.font = UIFont.init(name: FontTypePoppins.Poppins_Medium.rawValue, size: 12)
+            
+//            label.configureLinkAttribute = { (type, attributes, isSelected) in
+//                var atts = attributes
+//                atts[NSAttributedString.Key.underlineStyle] = NSUnderlineStyle.thick.rawValue
+//                return atts
+//            }
+            
+            label.handleCustomTap(for: customType1) {_ in
+                let commonVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.CommonPagesScreen) as! CommonPagesViewController
+                commonVC.objCommonData = CommonModelData.Terms
+                commonVC.slug = CommonModelData.Terms.slugTitle
+                self.pushVC(commonVC)
+            }
+            
+            label.handleCustomTap(for: customType2) {_ in
+                let commonVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.CommonPagesScreen) as! CommonPagesViewController
+                commonVC.objCommonData = CommonModelData.Privacy
+                commonVC.slug = CommonModelData.Privacy.slugTitle
+                self.pushVC(commonVC)
+            }
         }
     }
     

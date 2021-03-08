@@ -177,11 +177,12 @@ class ViewController: UIViewController {
     func setupDevice() {
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera], mediaType: AVMediaType.video, position: AVCaptureDevice.Position.unspecified)
         let devices = deviceDiscoverySession.devices
-        
+        let movieFileOutputConnection = movieFileOutput.connection(with: .video)
         for device in devices{
             if device.position == AVCaptureDevice.Position.back {
                 backCamera = device
             }else if device.position == AVCaptureDevice.Position.front{
+                movieFileOutputConnection?.isVideoMirrored = false
                 frontCamera = device
             }
         }
@@ -312,49 +313,52 @@ class ViewController: UIViewController {
         self.popVC()
     }
     
-  @IBAction func actionchangeCamrePosition(_ sender: Any) {
-      //Change camera source
-     let session:AVCaptureSession = captureSession
-          //Remove existing input6
-          guard let currentCameraInput: AVCaptureInput = session.inputs.first else {
-              return
-          }
-
-          //Indicate that some changes will be made to the session
-          session.beginConfiguration()
-          session.removeInput(currentCameraInput)
-
-          //Get new input
-          var newCamera: AVCaptureDevice! = nil
-          if let input = currentCameraInput as? AVCaptureDeviceInput {
-              if (input.device.position == .back) {
-                  newCamera = cameraWithPosition(position: .front)
-              } else {
-                  newCamera = cameraWithPosition(position: .back)
-              }
-          }
-
-          //Add input to session
-          var err: NSError?
-          var newVideoInput: AVCaptureDeviceInput!
-          do {
-              newVideoInput = try AVCaptureDeviceInput(device: newCamera)
-          } catch let err1 as NSError {
-              err = err1
-              newVideoInput = nil
-          }
-
-          if newVideoInput == nil || err != nil {
-              print("Error creating capture device input: \(err?.localizedDescription)")
-          } else {
+    @IBAction func actionchangeCamrePosition(_ sender: Any) {
+        //Change camera source
+        let session:AVCaptureSession = captureSession
+        //Remove existing input6
+        guard let currentCameraInput: AVCaptureInput = session.inputs.first else {
+            return
+        }
+        
+        //Indicate that some changes will be made to the session
+        session.beginConfiguration()
+        session.removeInput(currentCameraInput)
+        
+        let movieFileOutputConnection = movieFileOutput.connection(with: .video)
+        
+        //Get new input
+        var newCamera: AVCaptureDevice! = nil
+        if let input = currentCameraInput as? AVCaptureDeviceInput {
+            if (input.device.position == .back) {
+                movieFileOutputConnection?.isVideoMirrored = false
+                newCamera = cameraWithPosition(position: .front)
+            } else {
+                newCamera = cameraWithPosition(position: .back)
+            }
+        }
+        
+        //Add input to session
+        var err: NSError?
+        var newVideoInput: AVCaptureDeviceInput!
+        do {
+            newVideoInput = try AVCaptureDeviceInput(device: newCamera)
+        } catch let err1 as NSError {
+            err = err1
+            newVideoInput = nil
+        }
+        
+        if newVideoInput == nil || err != nil {
+            print("Error creating capture device input: \(err?.localizedDescription)")
+        } else {
             if session.inputs.isEmpty {
                 session.addInput(newVideoInput)
             }
-          }
-          //Commit all the configuration changes at once
-          session.commitConfiguration()
-      
-  }
+        }
+        //Commit all the configuration changes at once
+        session.commitConfiguration()
+        
+    }
 
      @IBAction func actionOpenGallary(_ sender: Any) {
         self.openMediaTypeActionSheet()
@@ -539,9 +543,9 @@ extension ViewController: AVCapturePhotoCaptureDelegate {
 //            image = img
 //            UIImageWriteToSavedPhotosAlbum(image!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
             
-            if currentCamera?.position == AVCaptureDevice.Position.front {
-                image = image?.withHorizontallyFlippedOrientation()
-            }
+//            if currentCamera?.position == AVCaptureDevice.Position.front {
+//                image = image?.withHorizontallyFlippedOrientation()
+//            }
             let searchVC:PreviewViewController = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.PreviewViewScreen) as! PreviewViewController
             var objMedia = MediaData()
             objMedia.img = image
