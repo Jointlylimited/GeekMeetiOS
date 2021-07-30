@@ -129,10 +129,10 @@ class SignUpVCViewController: UIViewController, SignUpVCProtocol {
             label.numberOfLines = 3
             label.lineSpacing = 0
             
-            label.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+            label.textColor = AppCommonColor.customColor
             
-            label.customColor[customType1] =  #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
-            label.customColor[customType2] =  #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+            label.customColor[customType1] =  AppCommonColor.customColor
+            label.customColor[customType2] =  AppCommonColor.customColor
             
             label.highlightFontName = FontTypePoppins.Poppins_Medium.rawValue
             label.highlightFontSize = 12
