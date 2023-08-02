@@ -3,8 +3,6 @@
 
 # GreekMeets
 
-A brief description of your Swift iOS base code and its purpose.
-
 
 ## Requirement
 
