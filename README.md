@@ -9,10 +9,10 @@ A brief description of your Swift iOS base code and its purpose.
 ## Requirement
 
 |              | |
-| ----------------- | ------------------------------------------------------------------ | |
-| XCODE | 14.3 |
-| Swift | 5.0 | 
-| Deployment Target | 14.0 | 
+| ----------------- | ------------------------------------------------------------------ | 
+| XCODE | 14.3 | |
+| Swift | 5.0 | |
+| Deployment Target | 14.0 | |
 
 
 ## Third Party SDKs
@@ -42,14 +42,11 @@ A brief description of your Swift iOS base code and its purpose.
 | FacebookLogin | For Facebook Login |
 | FacebookShare | Enable sharing content from your app to Facebook |
 | GoogleSignIn | For Google SignIn |
-| Firebase/Crashlytics | Receive Crash Reports of your Apps Instantly.
- |
+| Firebase/Crashlytics | Receive Crash Reports of your Apps Instantly.|
 | Firebase/Analytics | Google Analytics is an app measurement solution, available at no charge, that provides insight on app usage and user engagement. |
-| SnapSDK | For SnapChat SignIn|
+| SnapSDK | For SnapChat SignIn |
 | ActiveLabel | UILabel drop-in replacement supporting Hashtags (#), Mentions (@), URLs (http://), Emails and custom regex patterns, written in Swift |
-| NVActivityIndicatorView | NVActivityIndicatorView is a collection of awesome loading animations.
-
- |
+| NVActivityIndicatorView | NVActivityIndicatorView is a collection of awesome loading animations. |
 | AWSS3 | Use cases like Authentication, Storage |
 | Kingfisher | Use for downloading and caching images from the web |
 | SDWebImage | Use for downloading and caching images from the web |
