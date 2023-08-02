@@ -1,7 +1,7 @@
 
 
 
-# GreekMeets
+# GeekMeets
 
 
 ## Requirement
