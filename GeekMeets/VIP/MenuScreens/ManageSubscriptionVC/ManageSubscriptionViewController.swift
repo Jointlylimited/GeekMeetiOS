@@ -12,6 +12,7 @@
 
 import UIKit
 import StoreKit
+import SwiftyStoreKit
 
 protocol ManageSubscriptionProtocol: class {
     func getSubscriptionDetailsResponse(response : SubscriptionResponse)
@@ -79,8 +80,15 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+
+
+        SubscriptionManager.shared.catchProduct()
+
+//        getMonthlyPrice(withKey: "com.jointly.monthlysubscription")
+//        getYearlyPrice(withKey: "com.jointly.yearlysubscription")
+
         setCollectionView()
-        self.presenter?.callSubscriptionDetailsAPI()
+//        self.presenter?.callSubscriptionDetailsAPI()
     }
     
     func setTheme(){
@@ -90,8 +98,11 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
     }
     
     func setCollectionView(){
+
+        // get price for In app Purchase
+
         
-        self.PlanDetailsArray = [PlanData(days: "", duration: "", price: "", planType: "", BoostGeekCount: "", GeekCount: ""), PlanData(days: "1", duration: "Month", price: "$9.99", planType: "1", BoostGeekCount: "0", GeekCount: "0"), PlanData(days: "3", duration: "Months", price: "$19.98", planType: "2", BoostGeekCount: "0", GeekCount: "0"), PlanData(days: "6", duration: "Months", price: "$29.97", planType: "3", BoostGeekCount: "0", GeekCount: "0"), PlanData(days: "", duration: "", price: "", planType: "", BoostGeekCount: "", GeekCount: "")]
+//        self.PlanDetailsArray = [PlanData(days: "", duration: "", price: "", planType: "", BoostGeekCount: "", GeekCount: ""), PlanData(days: "1", duration: "Month", price: "$9.99", planType: "1", BoostGeekCount: "0", GeekCount: "0"), PlanData(days: "3", duration: "Year", price: "$89.99", planType: "2", BoostGeekCount: "0", GeekCount: "0"), PlanData(days: "", duration: "", price: "", planType: "", BoostGeekCount: "", GeekCount: "")]
         
         self.PlanCollectionView.register(UINib.init(nibName: Cells.PlanCollectionCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.PlanCollectionCell)
          self.PlanCollectionView.contentInset = UIEdgeInsets(top: 10, left: 30, bottom: 10, right: 30)
@@ -103,6 +114,21 @@ class ManageSubscriptionViewController: UIViewController, ManageSubscriptionProt
         self.PlanCollectionView.reloadData()
         
         self.pageControl.numberOfPages = self.PlanDetailsArray.count - 2
+    }
+
+    func getMonthlyPrice(withKey inAppID: String?) {
+        if let price = SubscriptionManager.shared.getProductPrice(productId: inAppID ?? ""), let period = SubscriptionManager.shared.getProductDuration(productId: inAppID ?? ""), let _ = SubscriptionManager.shared.getProductTrialPeriod(productId: inAppID ?? "") {
+
+            self.PlanDetailsArray = [PlanData(days: "", duration: "", price: "", planType: "", BoostGeekCount: "", GeekCount: ""), PlanData(days: "1", duration: period, price: price, planType: "1", BoostGeekCount: "0", GeekCount: "0")]
+        }
+    }
+
+    func getYearlyPrice(withKey inAppID: String?) {
+        if let price = SubscriptionManager.shared.getProductPrice(productId: inAppID ?? ""), let period = SubscriptionManager.shared.getProductDuration(productId: inAppID ?? ""), let _ = SubscriptionManager.shared.getProductTrialPeriod(productId: inAppID ?? "") {
+
+            var planDetails = [PlanData(days: "1", duration: period, price: price, planType: "2", BoostGeekCount: "0", GeekCount: "0"), PlanData(days: "", duration: "", price: "", planType: "", BoostGeekCount: "", GeekCount: "")]
+            self.PlanDetailsArray.append(contentsOf: planDetails)
+        }
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
@@ -348,7 +374,7 @@ extension ManageSubscriptionViewController : UICollectionViewDataSource, UIColle
         cell.lblduration.text = data.duration
         cell.lblPrice.text = data.price
         cell.btnPopular.alpha = 0.0
-        cell.cellView.borderColor = indexPath.row == 1 || indexPath.row == 2 || indexPath.row == 3 ? #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1) : .clear
+        cell.cellView.borderColor = indexPath.row == 1 || indexPath.row == 2 ? #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1) : .clear
         cell.lblPlanCount.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         cell.lblPrice.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         if indexPath.row == selectedIndex {
@@ -361,10 +387,11 @@ extension ManageSubscriptionViewController : UICollectionViewDataSource, UIColle
             } else if indexPath.row == 2 {
                 productKey = SubscriptionKeys.Monthly.productKey
                 planDict = ["productKey" : SubscriptionKeys.Monthly.productKey, "tiType": data.planType, "fPrice" : data.price.split("$").last!]
-            } else if indexPath.row == 3 {
-                productKey = SubscriptionKeys.Annualy.productKey
-                planDict = ["productKey" : SubscriptionKeys.Monthly.productKey, "tiType": data.planType, "fPrice" : data.price.split("$").last!]
             }
+//            else if indexPath.row == 3 {
+//                productKey = SubscriptionKeys.Annualy.productKey
+//                planDict = ["productKey" : SubscriptionKeys.Monthly.productKey, "tiType": data.planType, "fPrice" : data.price.split("$").last!]
+//            }
         }
         return cell
     }
@@ -380,7 +407,7 @@ extension ManageSubscriptionViewController : UICollectionViewDataSource, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.selectedIndex = indexPath.row == 1 || indexPath.row == 2 || indexPath.row == 3 ?  indexPath.row : 1
+        self.selectedIndex = indexPath.row == 1 || indexPath.row == 2  ?  indexPath.row : 1
         self.pageControl.currentPage = self.selectedIndex - 1 
         PlanCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         self.PlanCollectionView.reloadData()
@@ -390,7 +417,7 @@ extension ManageSubscriptionViewController : UICollectionViewDataSource, UIColle
         // Parallax visible cells
         let center = CGPoint(x: scrollView.contentOffset.x + (scrollView.frame.width / 2), y: (scrollView.frame.height / 2))
         if let ip = PlanCollectionView.indexPathForItem(at: center) {
-            self.selectedIndex = ip.row == 1 || ip.row == 2 || ip.row == 3 ?  ip.row : 1
+            self.selectedIndex = ip.row == 1 || ip.row == 2 ?  ip.row : 1
             self.pageControl.currentPage = self.selectedIndex - 1
             self.PlanCollectionView.reloadData()
         }

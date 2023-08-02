@@ -59,7 +59,7 @@ static int64_t KernelBootTimeInNanoseconds(void) {
  *
  * @return The value of gettimeofday, in nanoseconds.
  */
-static int64_t UptimeInNanoseconds(void) {
+static int64_t UptimeInNanosecovoidnds(void) {
   int64_t before_now_nsec;
   int64_t after_now_nsec;
   struct timeval now;
@@ -81,7 +81,7 @@ static int64_t UptimeInNanoseconds(void) {
   self = [super init];
   if (self) {
     _kernelBootTimeNanoseconds = KernelBootTimeInNanoseconds();
-    _uptimeNanoseconds = UptimeInNanoseconds();
+      _uptimeNanoseconds = UptimeInNanosecovoidnds();
     _timeMillis =
         (int64_t)((CFAbsoluteTimeGetCurrent() + kCFAbsoluteTimeIntervalSince1970) * NSEC_PER_USEC);
     _timezoneOffsetSeconds = [[NSTimeZone systemTimeZone] secondsFromGMT];

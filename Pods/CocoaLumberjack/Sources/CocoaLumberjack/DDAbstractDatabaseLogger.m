@@ -1,6 +1,6 @@
 // Software License Agreement (BSD License)
 //
-// Copyright (c) 2010-2022, Deusty, LLC
+// Copyright (c) 2010-2021, Deusty, LLC
 // All rights reserved.
 //
 // Redistribution and use of this software in source and binary forms,
@@ -114,10 +114,16 @@
         dispatch_source_cancel(_saveTimer);
 
         // Must activate a timer before releasing it (or it will crash)
-        if (_saveTimerSuspended < 0) {
-            dispatch_activate(_saveTimer);
-        } else if (_saveTimerSuspended > 0) {
-            dispatch_resume(_saveTimer);
+        if (@available(macOS 10.12, iOS 10.0, tvOS 10.0, watchOS 3.0, *)) {
+            if (_saveTimerSuspended < 0) {
+                dispatch_activate(_saveTimer);
+            } else if (_saveTimerSuspended > 0) {
+                dispatch_resume(_saveTimer);
+            }
+        } else {
+            if (_saveTimerSuspended != 0) {
+                dispatch_resume(_saveTimer);
+            }
         }
 
         #if !OS_OBJECT_USE_OBJC
@@ -135,12 +141,19 @@
 
         dispatch_source_set_timer(_saveTimer, startTime, interval, 1ull * NSEC_PER_SEC);
 
-        if (_saveTimerSuspended < 0) {
-            dispatch_activate(_saveTimer);
-            _saveTimerSuspended = 0;
-        } else if (_saveTimerSuspended > 0) {
-            dispatch_resume(_saveTimer);
-            _saveTimerSuspended = 0;
+        if (@available(macOS 10.12, iOS 10.0, tvOS 10.0, watchOS 3.0, *)) {
+            if (_saveTimerSuspended < 0) {
+                dispatch_activate(_saveTimer);
+                _saveTimerSuspended = 0;
+            } else if (_saveTimerSuspended > 0) {
+                dispatch_resume(_saveTimer);
+                _saveTimerSuspended = 0;
+            }
+        } else {
+            if (_saveTimerSuspended != 0) {
+                dispatch_resume(_saveTimer);
+                _saveTimerSuspended = 0;
+            }
         }
     }
 }
@@ -195,7 +208,10 @@
 
             // We are sure that -updateDeleteTimer did call dispatch_source_set_timer()
             // since it has the same guards on _deleteInterval and _maxAge
-            dispatch_activate(_deleteTimer);
+            if (@available(macOS 10.12, iOS 10.0, tvOS 10.0, watchOS 3.0, *))
+                dispatch_activate(_deleteTimer);
+            else
+                dispatch_resume(_deleteTimer);
         }
     }
 }

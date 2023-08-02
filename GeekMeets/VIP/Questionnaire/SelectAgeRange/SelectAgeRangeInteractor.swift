@@ -28,7 +28,7 @@ class SelectAgeRangeInteractor: SelectAgeRangeInteractorProtocol, SelectAgeRange
     // MARK: Do something
     func callQuestionaryAPI() {
 //        LoaderView.sharedInstance.showLoader()
-        PreferencesAPI.list(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization) { (response, error) in
+        PreferencesAPI.list(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization) { (response, error) in
             
 //            delay(0.2) {
 //                LoaderView.sharedInstance.hideLoader()
@@ -51,7 +51,7 @@ class SelectAgeRangeInteractor: SelectAgeRangeInteractorProtocol, SelectAgeRange
     
     func callCreatePreferenceAPI(params : Dictionary<String, String>){
         DefaultLoaderView.sharedInstance.showLoader()
-        PreferencesAPI.create(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization, tiPreferenceType: params["tiPreferenceType"]!, iPreferenceId: params["iPreferenceId"]!, iOptionId: params["iOptionId"]!, vAnswer: params["vAnswer"]!, tiIsHide: params["tiIsHide"]!) { (response, error) in
+        PreferencesAPI.create(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization, tiPreferenceType: params["tiPreferenceType"]!, iPreferenceId: params["iPreferenceId"]!, iOptionId: params["iOptionId"]!, vAnswer: params["vAnswer"]!, tiIsHide: params["tiIsHide"]!) { (response, error) in
             
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()

@@ -38,7 +38,7 @@ class OTPEnterInteractor: OTPEnterInteractorProtocol, OTPEnterDataStore {
         
         DefaultLoaderView.sharedInstance.showLoader()
       let intiUserId: Int = UserDataModel.currentUser!.iUserId ?? 0
-        UserAPI.verifyOtp(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, iUserId: String(intiUserId), iOTP: iOTP, vCountryCode: vCountryCode, vPhone:vPhone, tiStep: "2"){ (response, error) in
+        UserAPI.verifyOtp(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, language: APPLANGUAGE.english, iUserId: String(intiUserId), iOTP: iOTP, vCountryCode: vCountryCode, vPhone:vPhone, tiStep: "2"){ (response, error) in
             
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()
@@ -66,7 +66,7 @@ class OTPEnterInteractor: OTPEnterInteractorProtocol, OTPEnterDataStore {
         
         DefaultLoaderView.sharedInstance.showLoader()
         let intiUserId: Int = UserDataModel.currentUser!.iUserId!
-        UserAPI.requestForOtp(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, iUserId: String(intiUserId), vCountryCode: vCountryCode, vPhone:vPhone){ (response, error) in
+        UserAPI.requestForOtp(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, language: APPLANGUAGE.english, iUserId: String(intiUserId), vCountryCode: vCountryCode, vPhone:vPhone){ (response, error) in
             
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()
@@ -92,7 +92,7 @@ class OTPEnterInteractor: OTPEnterInteractorProtocol, OTPEnterDataStore {
         
         DefaultLoaderView.sharedInstance.showLoader()
         let intiUserId: Int = UserDataModel.currentUser!.iUserId!
-        UserAPI.verifyOtp(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, iUserId: String(intiUserId), iOTP: iOTP, vCountryCode: vCountryCode, vPhone:vPhone){ (response, error) in
+        UserAPI.verifyOtp(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, language: APPLANGUAGE.english, iUserId: String(intiUserId), iOTP: iOTP, vCountryCode: vCountryCode, vPhone:vPhone){ (response, error) in
             
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()

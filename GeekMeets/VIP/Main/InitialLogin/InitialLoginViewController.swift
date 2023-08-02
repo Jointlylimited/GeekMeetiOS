@@ -60,9 +60,9 @@ class InitialLoginViewController: UIViewController, InitialLoginProtocol {
     
     func setTheme() {
         
-//        GIDSignIn.sharedInstance.delegate = self
-//        GIDSignIn.sharedInstance.clientID = "1058883482858-feo3v537akjippp47hcq8cs80ed3q8ti.apps.googleusercontent.com"
-//        GIDSignIn.sharedInstance?.presentingViewController = self
+//        GIDSignIn.sharedInstance().delegate = self
+//        GIDSignIn.sharedInstance().clientID = "1058883482858-feo3v537akjippp47hcq8cs80ed3q8ti.apps.googleusercontent.com"
+//        GIDSignIn.sharedInstance()?.presentingViewController = self
         
         setupMultipleTapLabel()
         //        // Automatically sign in the user.
@@ -86,7 +86,7 @@ class InitialLoginViewController: UIViewController, InitialLoginProtocol {
     }
     
     // MARK:- IBAction Method
-    @IBAction func tapLabel(gesture: UITapGestureRecognizer) {
+    @objc func tapLabel(gesture: UITapGestureRecognizer) {
         
         let text = (lblPrivacyTerm.text)!
         let termsRange = (text as NSString).range(of: "Terms")
@@ -101,7 +101,7 @@ class InitialLoginViewController: UIViewController, InitialLoginProtocol {
     
     // MARK: IBAction Method
     @IBAction func actionGmailSignup(_ sender: Any) {
-        GIDSignIn.sharedInstance.signIn()
+//        GIDSignIn.sharedInstance().signIn()
     }
     
     @IBAction func actionFacebookSignup(_ sender: Any){
@@ -121,24 +121,24 @@ class InitialLoginViewController: UIViewController, InitialLoginProtocol {
     }
 }
 
-extension InitialLoginViewController : GIDSignInDelegate{
-    
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
-              withError error: Error!) {
-        
-        if let error = error {
-            print("\(error.localizedDescription)")
-        } else {
-            // Perform any operations on signed in user here.
-            // ...
-            let params = RequestParameter.sharedInstance().socialLoginParam(accessToken: user.accessToken.tokenString, service: "google")
-            self.presenter?.callSocialLoginRequest(loginParams: params)
-        }
-    }
-    
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
-              withError error: Error!) {
-        // Perform any operations when the user disconnects from app here.
-        // ...
-    }
-}
+//extension InitialLoginViewController : GIDSignInDelegate{
+//
+//    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
+//              withError error: Error!) {
+//
+//        if let error = error {
+//            print("\(error.localizedDescription)")
+//        } else {
+//            // Perform any operations on signed in user here.
+//            // ...
+//            let params = RequestParameter.sharedInstance().socialLoginParam(accessToken: user.authentication.accessToken, service: "google")
+//            self.presenter?.callSocialLoginRequest(loginParams: params)
+//        }
+//    }
+//
+//    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
+//              withError error: Error!) {
+//        // Perform any operations when the user disconnects from app here.
+//        // ...
+//    }
+//}

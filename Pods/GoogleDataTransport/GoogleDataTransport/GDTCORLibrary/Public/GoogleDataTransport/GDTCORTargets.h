@@ -16,24 +16,25 @@
 
 #import <Foundation/Foundation.h>
 
-/** The list of targets supported by the shared transport infrastructure.
- * These targets map to a specific backend designed to accept GDT payloads. If
- * adding a new target, please use the previous value +1.
+/** The list of targets supported by the shared transport infrastructure. If adding a new target,
+ * please use the previous value +1.
  */
 typedef NS_ENUM(NSInteger, GDTCORTarget) {
 
-  /** Target used for testing purposes. */
+  /** A target only used in testing. */
   kGDTCORTargetTest = 999,
 
-  /** Target used by internal clients. See go/firelog for more information. */
+  /** The CCT target. */
   kGDTCORTargetCCT = 1000,
 
-  /** Target mapping to the Firelog backend. See go/firelog for more information. */
+  /** The FLL target. */
   kGDTCORTargetFLL = 1001,
 
-  /** Special-purpose Crashlytics target. Please do not use it without permission. */
+  /** The CSH target. The CSH target is a special-purpose backend. Please do not use it without
+   * permission.
+   */
   kGDTCORTargetCSH = 1002,
 
-  /** Target used for integration testing. */
+  /** The INT target. */
   kGDTCORTargetINT = 1003,
 };

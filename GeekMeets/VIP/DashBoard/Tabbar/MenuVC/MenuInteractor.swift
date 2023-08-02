@@ -33,7 +33,7 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
     // MARK: Do something
     func callSignoutAPI() {
         DefaultLoaderView.sharedInstance.showLoader()
-        UserAPI.signout(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
+        UserAPI.signout(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()
@@ -55,7 +55,7 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
     
     func callUpdateLocationAPI(fLatitude : String, fLongitude : String, tiIsLocationOn : String){
         DefaultLoaderView.sharedInstance.showLoader()
-        UserAPI.locationUpdate(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vDeviceToken: vDeviceToken, fLatitude: fLatitude, fLongitude: fLongitude, tiIsLocationOn : tiIsLocationOn) { (response, error) in
+        UserAPI.locationUpdate(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, vDeviceToken: vDeviceToken, fLatitude: fLatitude, fLongitude: fLongitude, tiIsLocationOn : tiIsLocationOn) { (response, error) in
             
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()
@@ -77,7 +77,7 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
     
     func callPushStatusAPI(tiIsAcceptPush : String) {
         DefaultLoaderView.sharedInstance.showLoader()
-        UserAPI.setPushStatus(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vDeviceToken: AppDelObj.deviceToken, tiIsAcceptPush: tiIsAcceptPush) { (response, error) in
+        UserAPI.setPushStatus(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, vDeviceToken: AppDelObj.deviceToken, tiIsAcceptPush: tiIsAcceptPush) { (response, error) in
             
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()
@@ -99,7 +99,7 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
     
     func callMatchListAPI() {
 //        LoaderView.sharedInstance.showLoader()
-        UserAPI.matches(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiType: 0) { (response, error) in
+        UserAPI.matches(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, tiType: 0) { (response, error) in
             
 //            delay(0.2) {
 //                LoaderView.sharedInstance.hideLoader()
@@ -123,7 +123,7 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
     
     func callGeeksPlansAPI(){
     //        LoaderView.sharedInstance.showLoader()
-            BoostGeekAPI.boostGeekPlans(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiType: 2) { (response, error) in
+            BoostGeekAPI.boostGeekPlans(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, tiType: 2) { (response, error) in
                 
     //            LoaderView.sharedInstance.hideLoader()
                 if response?.responseCode == 200 {
@@ -145,7 +145,7 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
     
     func callBoostPlansAPI(){
 //        LoaderView.sharedInstance.showLoader()
-        BoostGeekAPI.boostGeekPlans(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiType: 1) { (response, error) in
+        BoostGeekAPI.boostGeekPlans(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, tiType: 1) { (response, error) in
             
             DefaultLoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
@@ -167,7 +167,7 @@ class MenuInteractor: MenuInteractorProtocol, MenuDataStore {
     
     func callBadgeCountAPI(){
         DefaultLoaderView.sharedInstance.showLoader()
-        NotificationAPI.budgeCount(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
+        NotificationAPI.budgeCount(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()

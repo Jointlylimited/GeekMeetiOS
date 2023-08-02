@@ -27,7 +27,7 @@ class ForgotPasswordInteractor: ForgotPasswordInteractorProtocol, ForgotPassword
     // MARK: Do something
     func callForgotPasswordAPI(email : String) {
         DefaultLoaderView.sharedInstance.showLoader()
-        UserAPI.forgotPassword(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, vEmail: email) { (response, error) in
+        UserAPI.forgotPassword(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, language: APPLANGUAGE.english, vEmail: email) { (response, error) in
             
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()

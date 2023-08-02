@@ -28,7 +28,7 @@ class FirstCallInteractor: FirstCallInteractorProtocol, FirstCallDataStore {
     func callStaticPageAPI() {
         
         DefaultLoaderView.sharedInstance.showLoader()
-        ContentPageAPI.contentPage(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, slug: ContentPageAPI.Slug_contentPage(rawValue: "tips")!) { (response, error) in
+        ContentPageAPI.contentPage(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, slug: ContentPageAPI.Slug_contentPage(rawValue: "tips")!) { (response, error) in
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()
             }

@@ -35,7 +35,7 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
     
     func callUserProfileAPI(id : String, code : String){
         DefaultLoaderView.sharedInstance.showLoader()
-        UserAPI.userProfile(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iUserId: id, vReferralCode: code) { (response, error) in
+        UserAPI.userProfile(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, iUserId: id, vReferralCode: code) { (response, error) in
             
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()
@@ -61,7 +61,7 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
     
     func callStoryListAPI(id : Int) {
 //        LoaderView.sharedInstance.showLoader()
-        MediaAPI.listStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, _id: id) { (response, error) in
+        MediaAPI.listStory(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, _id: id) { (response, error) in
             
             DefaultLoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
@@ -83,7 +83,7 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
     
     func callBlockUserAPI(vXmppUser: String, tiIsBlocked: String) {
 //        LoaderView.sharedInstance.showLoader()
-        UserAPI.blockUsers(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vXmppUser: vXmppUser, tiIsBlocked: tiIsBlocked) { (response, error) in
+        UserAPI.blockUsers(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, vXmppUser: vXmppUser, tiIsBlocked: tiIsBlocked) { (response, error) in
             
             DefaultLoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
@@ -106,7 +106,7 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
     
     func callBlockUserListAPI(){
 //        LoaderView.sharedInstance.showLoader()
-        UserAPI.blockList(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
+        UserAPI.blockList(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
             DefaultLoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
@@ -129,7 +129,7 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
     
     func callReactEmojiAPI( iUserId: String, iMediaId: String, tiRactionType: String){
         DefaultLoaderView.sharedInstance.showLoader()
-        MediaAPI.applyReaction(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iUserId: iUserId, iMediaId: iMediaId, tiRactionType: tiRactionType) { (response, error) in
+        MediaAPI.applyReaction(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, iUserId: iUserId, iMediaId: iMediaId, tiRactionType: tiRactionType) { (response, error) in
             
             DefaultLoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
@@ -152,7 +152,7 @@ class MatchProfileInteractor: MatchProfileInteractorProtocol, MatchProfileDataSt
     
     func callSwipeCardAPI(iProfileId : String, tiSwipeType : String){
         DefaultLoaderView.sharedInstance.showLoader()
-        UserAPI.swipeUser(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iProfileId: iProfileId, tiSwipeType: tiSwipeType) { (response, error) in
+        UserAPI.swipeUser(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, iProfileId: iProfileId, tiSwipeType: tiSwipeType) { (response, error) in
             
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()

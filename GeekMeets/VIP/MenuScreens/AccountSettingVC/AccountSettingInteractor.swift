@@ -27,7 +27,7 @@ class AccountSettingInteractor: AccountSettingInteractorProtocol, AccountSetting
     // MARK: Do something
     func callUserProfileAPI(id : String, code : String){
         DefaultLoaderView.sharedInstance.showLoader()
-            UserAPI.userProfile(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iUserId: id, vReferralCode: code) { (response, error) in
+            UserAPI.userProfile(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, iUserId: id, vReferralCode: code) { (response, error) in
                 
                 delay(0.2) {
                     DefaultLoaderView.sharedInstance.hideLoader()

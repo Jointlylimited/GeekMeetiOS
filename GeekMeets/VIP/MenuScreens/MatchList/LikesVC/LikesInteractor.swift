@@ -27,7 +27,7 @@ class LikesInteractor: LikesInteractorProtocol, LikesDataStore {
      // MARK: Do something
        func callMatchListAPI() {
         DefaultLoaderView.sharedInstance.showLoader()
-           UserAPI.matches(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiType: 2) { (response, error) in
+           UserAPI.matches(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, tiType: 2) { (response, error) in
                
                delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()

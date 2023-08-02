@@ -31,7 +31,7 @@ class ChangePasswordInteractor: ChangePasswordInteractorProtocol, ChangePassword
     }
     func callChangePasswordAPI(vCurrentPassword : String,vNewPassword : String) {
         DefaultLoaderView.sharedInstance.showLoader()
-      UserAPI.changePassword(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization, vCurrentPassword: vCurrentPassword, vNewPassword: vNewPassword ){ (response, error) in
+      UserAPI.changePassword(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization, vCurrentPassword: vCurrentPassword, vNewPassword: vNewPassword ){ (response, error) in
             
         delay(0.2) {
             DefaultLoaderView.sharedInstance.hideLoader()

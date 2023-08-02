@@ -27,7 +27,7 @@ class Interest_PreferenceInteractor: Interest_PreferenceInteractorProtocol, Inte
     // MARK: Do something
     func callQuestionaryAPI() {
         DefaultLoaderView.sharedInstance.showLoader()
-        PreferencesAPI.list(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization) { (response, error) in
+        PreferencesAPI.list(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization) { (response, error) in
             
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()

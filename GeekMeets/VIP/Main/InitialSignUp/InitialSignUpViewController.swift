@@ -47,9 +47,8 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
     var InstaAccessToken : String?
     var InstaUserID : String?
     var isSuccssess : Bool = false
-    
-    let objConfig = SOGoogleConfig()
-    
+
+
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -106,10 +105,10 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
     }
     
     func setTheme() {
-        GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance().clientID = "784959084971-42nkai7mqrspe87v6euc5gfe5d77uodi.apps.googleusercontent.com"
-        GIDSignIn.sharedInstance()?.presentingViewController = self
-        
+//        GIDSignIn.sharedInstance().delegate = self
+//        GIDSignIn.sharedInstance().clientID = "784959084971-42nkai7mqrspe87v6euc5gfe5d77uodi.apps.googleusercontent.com"
+//        GIDSignIn.sharedInstance()?.presentingViewController = self
+
         setLink()
         
         //Facebook Logout
@@ -188,6 +187,10 @@ extension  InitialSignUpViewController{
     
     @IBAction func actionGoogleSignUp(_ sender: UIButton) {
        // if self.btnLogin.titleLabel?.text != "Login" {
+
+//        let objConfig = SOGoogleConfig(self)
+//        objConfig.delegate = self
+
             self.presenter?.actionLogin()
        /* } else {
           //   GIDSignIn.sharedInstance().signIn()
@@ -370,28 +373,47 @@ extension InitialSignUpViewController : InstagramAuthenticationDelegate {
     }
 }
 
-extension InitialSignUpViewController : GIDSignInDelegate {
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        
-        //        LoaderView.sharedInstance.hideLoader()
+extension InitialSignUpViewController : GoogleManagerDelegate {
+    func receiveResponse(user: GIDGoogleUser?, error: Error?) {
         if (error == nil){
-            
-            print(user.authentication)
-            print(user.profile.givenName)
-            print(user.profile.familyName)
-            print(user.profile.email)
-            
-            let param = RequestParameter.sharedInstance().googleSigninParams(tiSocialType : "2", accessKey: user.authentication.accessToken, service: "google", vUserName: user.profile.givenName, vEmailId: user.profile.email, vSocialId: user.userID, vImageUrl: user.profile.imageURL(withDimension: 120).absoluteString)
-            
+
+            print(user?.authentication)
+            print(user?.profile?.givenName)
+            print(user?.profile?.familyName)
+            print(user?.profile?.email)
+
+            guard let objUser = user else {return}
+
+            let param = RequestParameter.sharedInstance().googleSigninParams(tiSocialType : "2", accessKey: objUser.authentication.accessToken, service: "google", vUserName: objUser.profile?.givenName ?? "", vEmailId: objUser.profile?.email ?? "", vSocialId: objUser.userID ?? "0", vImageUrl: objUser.profile?.imageURL(withDimension: 120)?.absoluteString ?? "")
+
             self.presenter?.callGoogleSigninAPI(loginParams: param)
         }
         else {
-            print("\(error.localizedDescription)")
+            print("\(error?.localizedDescription)")
         }
     }
-    
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-//        LoaderView.sharedInstance.hideLoader()
-        print(error?.localizedDescription ?? "")
-    }
+
+//    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+//
+//        //        LoaderView.sharedInstance.hideLoader()
+//        if (error == nil){
+//
+//            print(user.authentication)
+//            print(user.profile.givenName)
+//            print(user.profile.familyName)
+//            print(user.profile.email)
+//
+//            let param = RequestParameter.sharedInstance().googleSigninParams(tiSocialType : "2", accessKey: user.authentication.accessToken, service: "google", vUserName: user.profile.givenName, vEmailId: user.profile.email, vSocialId: user.userID, vImageUrl: user.profile.imageURL(withDimension: 120).absoluteString)
+//
+//            self.presenter?.callGoogleSigninAPI(loginParams: param)
+//        }
+//        else {
+//            print("\(error.localizedDescription)")
+//        }
+//    }
+//
+//    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+////        LoaderView.sharedInstance.hideLoader()
+//        print(error?.localizedDescription ?? "")
+//    }
 }

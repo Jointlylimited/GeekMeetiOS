@@ -113,6 +113,7 @@ class MenuViewController: UIViewController, MenuProtocol {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setTheme()
         if !profileEdited {
             self.presenter?.callMatchListAPI()
         }
@@ -187,8 +188,10 @@ class MenuViewController: UIViewController, MenuProtocol {
             updateTimerView()
             self.lblRemainTime.text = "\(00):\(00) Remaining"
         }
-        self.lblRemainTime.text = "\(totalMin!):\(totalSecond!) Remaining"
-        
+          ez.runThisInMainThread {
+              self.lblRemainTime.text = "\(self.totalMin!):\(self.totalSecond!) Remaining"
+          }
+
       } else {
         updateTimerView()
       }
@@ -272,7 +275,8 @@ extension MenuViewController : EditProfileResponseDelegate {
 extension MenuViewController {
     func getMatchResponse(response : MatchUser) {
         UserDataModel.setMatchesCount(count: response.responseData!.count)
-        setTheme()
+//        setTheme()
+        self.tblMenuList.reloadData()
         self.presenter?.callGeeksPlansAPI()
     }
     
@@ -315,7 +319,8 @@ extension MenuViewController {
             UserDataModel.setNotificationCount(count: 0)
             self.btnNotification.badgeLabel.alpha = 0.0
         }
-        setTheme()
+        self.tblMenuList.reloadData()
+        //        setTheme()
     }
 }
 //MARK: Tableview Delegate & Datasource Methods

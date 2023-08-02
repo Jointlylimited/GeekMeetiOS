@@ -14,7 +14,7 @@ import Firebase
 import FBSDKLoginKit
 import FBSDKCoreKit
 import UserNotifications
-//import FirebaseInstanceID
+import FirebaseInstanceID
 
 let kSecret = "BmECMMDZdXM8VhKIw4EKLY8nx0uC4Jtt@geekmeets"
 let kPrivateKey = "QOUATaUA24pIFBPiIHr2Nu3BTcjFS8DA@geekmeets"
@@ -25,18 +25,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var notificationBadgeCount : Int? = 0
     var deviceToken: String = "123456"
+
+    var isDeveloperMode : Bool {
+        #if DEBUG
+        return true
+        #else
+        return false
+        #endif
+    }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 //        Visualizer.start()
         IQKeyboardManager.shared.enable = true
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.tokenRefreshNotification(notification:)), name: NSNotification.Name.InstanceIDTokenRefresh, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.tokenRefreshNotification(notification:)), name: NSNotification.Name.InstanceIDTokenRefresh, object: nil)
         
         let filePath = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist")!
         let options = FirebaseOptions(contentsOfFile: filePath)
         FirebaseApp.configure(options: options!)
-//        GIDSignIn.sharedInstance.clientID = "784959084971-42nkai7mqrspe87v6euc5gfe5d77uodi.apps.googleusercontent.com"
-        
+//        GIDSignIn.sharedInstance().clientID = "784959084971-42nkai7mqrspe87v6euc5gfe5d77uodi.apps.googleusercontent.com"
+
+        SubscriptionManager.shared.completeTransactions()
+        if FileManager.default.fileExists(atPath: Bundle.main.appStoreReceiptURL?.path ?? "") {
+            SubscriptionManager.shared.validateSubscriptionStatus()
+        }
         //Push Notification call
         self.registerForPushNotifications()
         if Authentication.getLoggedInStatus() == true {
@@ -46,33 +58,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 AppSingleton.sharedInstance().showHomeVC(fromMatch : false, userDict: [:])
             }
         }
-        return true
+       return true
     }
     
     @objc func tokenRefreshNotification(notification: NSNotification) {
-
-        Messaging.messaging().token { (result, error) in
+        InstanceID.instanceID().instanceID(handler: { (result, error) in
             if let error = error {
                 print("Error fetching remote instange ID: \(error)")
             } else if let result = result {
-                print("Remote instance ID token: \(result)")
-                let refreshedToken = result
+                print("Remote instance ID token: \(result.token)")
+                let refreshedToken = result.token
                 print("Connected to FCM. Token : \(String(describing: refreshedToken))")
                 self.connectToFcm()
             }
-        }
-
-
-//        InstanceID.instanceID().instanceID(handler: { (result, error) in
-//            if let error = error {
-//                print("Error fetching remote instange ID: \(error)")
-//            } else if let result = result {
-//                print("Remote instance ID token: \(result.token)")
-//                let refreshedToken = result.token
-//                print("Connected to FCM. Token : \(String(describing: refreshedToken))")
-//                self.connectToFcm()
-//            }
-//        })
+        })
     }
     
     func application(_ app: UIApplication,
@@ -112,7 +111,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
     
-    func applicationDidBecomeActive(_ application: UIApplication) {
+    func applicationDidBecomeActiv8e(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
     

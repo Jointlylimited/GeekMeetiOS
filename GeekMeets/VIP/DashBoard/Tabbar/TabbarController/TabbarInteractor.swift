@@ -26,7 +26,7 @@ class TabbarInteractor: TabbarInteractorProtocol, TabbarDataStore {
     
     func callStoryListAPI() {
         //        LoaderView.sharedInstance.showLoader()
-        MediaAPI.listStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, _id: 0) { (response, error) in
+        MediaAPI.listStory(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, _id: 0) { (response, error) in
             
             //            delay(0.2) {
             //                LoaderView.sharedInstance.hideLoader()

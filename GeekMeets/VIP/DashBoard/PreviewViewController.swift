@@ -58,7 +58,7 @@ class PreviewViewController: UIViewController, PreviewProtocol {
     var textView = UITextView()
     var fontSize : CGFloat = 0.0
     var imgview : UIImageView?
-    var userResizableView1 = ZDStickerView()
+//    var userResizableView1 = ZDStickerView()
     var transform : CGAffineTransform = CGAffineTransform(rotationAngle: 0.0)
     var editedlabel : JLStickerLabelView = JLStickerLabelView()
     
@@ -149,22 +149,22 @@ class PreviewViewController: UIViewController, PreviewProtocol {
         let bounds = self.view.bounds //  CGRect(x: 0, y: -5, w: self.view.bounds.width, h: self.view.bounds.height + 10)
         imgview = UIImageView(frame: bounds)
         imgview?.image = photo.image
-        imgview?.contentMode = .scaleAspectFill
+        imgview?.contentMode = .scaleAspectFit
         stickerView.contentMode = .scaleAspectFill
         
-        let contentView = UIView(frame: bounds)
-        contentView.backgroundColor = UIColor.black
-        contentView.addSubview(imgview!)
-        
-        userResizableView1 = ZDStickerView(frame: bounds)
-        userResizableView1.tag = 0
-        userResizableView1.stickerViewDelegate = self
-        userResizableView1.contentView = contentView
-        userResizableView1.preventsPositionOutsideSuperview = false
-        userResizableView1.hideCustomHandle()
-        userResizableView1.translucencySticker = false
-        userResizableView1.hideEditingHandles() //showEditingHandles() //
-        view.insertSubview(userResizableView1, at: 2)
+//        let contentView = UIView(frame: bounds)
+//        contentView.backgroundColor = UIColor.black
+        PhotoView.addSubview(imgview!)
+//
+//        userResizableView1 = ZDStickerView(frame: bounds)
+//        userResizableView1.tag = 0
+//        userResizableView1.stickerViewDelegate = self
+//        userResizableView1.contentView = contentView
+//        userResizableView1.preventsPositionOutsideSuperview = false
+//        userResizableView1.hideCustomHandle()
+//        userResizableView1.translucencySticker = false
+//        userResizableView1.hideEditingHandles() //showEditingHandles() //
+//        view.insertSubview(userResizableView1, at: 2)
     }
     
     // MARK: Manual Functions
@@ -695,18 +695,23 @@ extension PreviewViewController : JLStickerLabelViewDelegate {
         print(angle)
     }
 }
-extension PreviewViewController : ZDStickerViewDelegate {
-    func stickerViewDidClose(_ sticker: ZDStickerView!) {
-        print(sticker)
-    }
-    
-    func stickerViewDidEndEditing(_ sticker: ZDStickerView!) {
-        print(sticker)
-    }
-}
+
+//extension PreviewViewController : ZDStickerViewDelegate {
+//    func stickerViewDidClose(_ sticker: ZDStickerView!) {
+//        print(sticker)
+//    }
+//
+//    func stickerViewDidEndEditing(_ sticker: ZDStickerView!) {
+//        print(sticker)
+//    }
+//}
 
 // MARK: CropPickerViewDelegate
 extension PreviewViewController: CropPickerViewDelegate {
+    func cropPickerView(_ cropPickerView: CropPickerView, result: CropResult) {
+
+    }
+
     func cropPickerView(_ cropPickerView: CropPickerView, error: Error) {
         
     }

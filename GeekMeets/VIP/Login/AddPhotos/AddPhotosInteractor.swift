@@ -106,7 +106,7 @@ class AddPhotosInteractor: AddPhotosInteractorProtocol, AddPhotosDataStore {
         DispatchQueue.main.async {
             DefaultLoaderView.sharedInstance.showLoader()
         }
-        UserAPI.signUpInfo(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iUserId: "\(UserDataModel.currentUser?.iUserId ?? 1)", vName: signParams["vName"]!, dDob: signParams["dDob"]!, tiAge: signParams["tiAge"]!, tiGender: UserAPI.TiGender_signUpInfo(rawValue: signParams["tiGender"]!)!, iCurrentStatus: UserAPI.ICurrentStatus_signUpInfo(rawValue: signParams["iCurrentStatus"]!)!, txCompanyDetail: signParams["txCompanyDetail"]!, txAbout: signParams["txAbout"]!, photos: signParams["photos"]!, vProfileImage: signParams["vProfileImage"]!) { (response, error) in
+        UserAPI.signUpInfo(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, iUserId: "\(UserDataModel.currentUser?.iUserId ?? 1)", vName: signParams["vName"]!, dDob: signParams["dDob"]!, tiAge: signParams["tiAge"]!, tiGender: UserAPI.TiGender_signUpInfo(rawValue: signParams["tiGender"]!)!, iCurrentStatus: UserAPI.ICurrentStatus_signUpInfo(rawValue: signParams["iCurrentStatus"]!)!, txCompanyDetail: signParams["txCompanyDetail"]!, txAbout: signParams["txAbout"]!, photos: signParams["photos"]!, vProfileImage: signParams["vProfileImage"]!) { (response, error) in
             
             //            DispatchQueue.main.async {
             DefaultLoaderView.sharedInstance.hideLoader()

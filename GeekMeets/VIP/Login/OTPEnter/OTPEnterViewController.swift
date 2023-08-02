@@ -52,7 +52,7 @@ class OTPEnterViewController: UIViewController, OTPEnterProtocol {
     var strNewCountryCode : String = ""
     var strNewPhoneNumber : String = ""
     var isStepCompleted : Bool = true
-    
+
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)

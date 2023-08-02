@@ -27,7 +27,7 @@ class CommonPagesInteractor: CommonPagesInteractorProtocol, CommonPagesDataStore
     // MARK: Do something
     func CallContentPageAPI(slug:String) {
         DefaultLoaderView.sharedInstance.showLoader()
-        ContentPageAPI.contentPage(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, slug: ContentPageAPI.Slug_contentPage(rawValue: slug)!) { (response, error) in
+        ContentPageAPI.contentPage(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, slug: ContentPageAPI.Slug_contentPage(rawValue: slug)!) { (response, error) in
             
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()

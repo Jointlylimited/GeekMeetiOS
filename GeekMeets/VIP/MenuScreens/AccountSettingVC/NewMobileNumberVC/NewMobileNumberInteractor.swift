@@ -29,7 +29,7 @@ class NewMobileNumberInteractor: NewMobileNumberInteractorProtocol, NewMobileNum
         
         DefaultLoaderView.sharedInstance.showLoader()
         let intiUserId: Int = UserDataModel.currentUser!.iUserId!
-        UserAPI.requestForOtp(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, iUserId: String(intiUserId), vCountryCode: vCountryCode, vPhone:vPhone){ (response, error) in
+        UserAPI.requestForOtp(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, language: APPLANGUAGE.english, iUserId: String(intiUserId), vCountryCode: vCountryCode, vPhone:vPhone){ (response, error) in
             
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()

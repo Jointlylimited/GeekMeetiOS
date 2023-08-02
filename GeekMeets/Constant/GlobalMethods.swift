@@ -292,16 +292,14 @@ func fetchUserData() -> [UserDetail] {
     if let path = Bundle.main.path(forResource: "user-details", ofType: "json") {
         do {
             let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-            let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
-            print(jsonResult)
-            let userDetails : NSArray = (jsonResult as! NSDictionary).object(forKey: "userDetails") as! NSArray
-            for object in userDetails {
-                
-                let userDetail : UserDetail = try UserDetail(dictionary: object as! [AnyHashable : Any])
-                arrayDetails.append(userDetail)
-            }
-            print(userDetails)
-            
+            let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves) as! [String: Any]
+//            print(jsonResult)
+//            let userDetails : NSArray = (jsonResult as NSDictionary).object(forKey: "userDetails") as! NSArray
+            let userDetail = try JSONDecoder().decode(UserDetail.self, from: data)
+            arrayDetails.append(userDetail)
+
+            print(arrayDetails)
+
         } catch {
             // handle error
         }

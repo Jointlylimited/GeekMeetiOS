@@ -28,7 +28,7 @@ class DiscoverInteractor: DiscoverInteractorProtocol, DiscoverDataStore {
     // MARK: Do something
     func callStoryListAPI() {
         //        LoaderView.sharedInstance.showLoader()
-        MediaAPI.listStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, _id: 0) { (response, error) in
+        MediaAPI.listStory(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, _id: 0) { (response, error) in
             
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()
@@ -52,7 +52,7 @@ class DiscoverInteractor: DiscoverInteractorProtocol, DiscoverDataStore {
     
     func callViewStoryAPI(iStoryId : String) {
         DefaultLoaderView.sharedInstance.showLoader()
-        MediaAPI.viewStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iStoryId: iStoryId) { (response, error) in
+        MediaAPI.viewStory(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, iStoryId: iStoryId) { (response, error) in
             
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()

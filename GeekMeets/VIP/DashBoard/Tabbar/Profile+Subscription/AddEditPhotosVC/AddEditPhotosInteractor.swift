@@ -106,7 +106,7 @@ class AddEditPhotosInteractor: AddEditPhotosInteractorProtocol, AddEditPhotosDat
         DispatchQueue.main.async {
             DefaultLoaderView.sharedInstance.showLoader()
         }
-        UserAPI.addPhotos(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, photos: param["photos"]!, deletephotos: param["deletephotos"]!) { (response, error) in
+        UserAPI.addPhotos(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, photos: param["photos"]!, deletephotos: param["deletephotos"]!) { (response, error) in
             
             DispatchQueue.main.async {
                 DefaultLoaderView.sharedInstance.hideLoader()

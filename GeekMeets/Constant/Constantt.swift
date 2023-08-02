@@ -29,6 +29,63 @@ class Constant: NSObject {
 
 }
 
+struct AppEnvironment {
+    /*
+     TODO: Do change environment as per requirement.
+    - Note: 
+     Change API Base URL while updating the swagger. Swaggers -> APIs -> OpenAPIClientAPI: basePath
+
+     public static var basePath = AppEnvironment.environment.baseURL
+    */
+    static var environment = eAppEnvironment.development
+}
+
+enum eAppEnvironment: String {
+    case local
+    case development
+    case staging
+    case production
+
+    var baseURL: String {
+        switch self {
+        case .local:
+            return "http://172.16.17.221/projects/geekmeetsweb/code/api/v1"
+        case .development:
+            return "http://dev6.spaceo.in/project/geekmeets/code/api/v1"
+        case .staging:
+            return ""
+        case .production:
+            return ""
+        }
+    }
+
+    var socketURL: String {
+        switch self {
+        case .local:
+            return ""
+        case .development:
+            return ""
+        case .staging:
+            return ""
+        case .production:
+            return ""
+        }
+    }
+
+    var s3Folder: String {
+        switch self {
+        case .local:
+            return "local/"
+        case .development:
+            return "development/"
+        case .staging:
+            return "staging/"
+        case .production:
+            return "production/"
+        }
+    }
+}
+
 struct APPUser {
   
     static let Customer = 1
@@ -208,6 +265,18 @@ struct INSTAGRAM_IDS {
     static let INSTAGRAM_USER_INFO = "https://api.instagram.com/v1/users/self/?access_token="
 }
 
+struct UserDetail: Decodable {
+    var name: String
+    var imageUrl: String
+    var contents: [Content]
+}
+
+struct Content: Codable {
+    var type: String
+    var url: String
+}
+
+
 struct InstagramTestUser: Codable {
   var access_token: String
   var user_id: Int
@@ -343,7 +412,7 @@ class AppSingleton: NSObject {
             return
         }
         self.chatBoxLogin()
-        
+
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.TabbarScreen) as! TabbarViewController
         controller.isFromMatch = fromMatch
         controller.isFromStory = fromStory!

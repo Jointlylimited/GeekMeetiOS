@@ -215,7 +215,9 @@ class ViewController: UIViewController {
     }
     
     func startRunningCaptureSession() {
-        captureSession.startRunning()
+        ez.runThisInBackground {
+            self.captureSession.startRunning()
+        }
     }
     
     override var prefersStatusBarHidden: Bool {

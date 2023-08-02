@@ -29,11 +29,12 @@ class BoostInteractor: BoostInteractorProtocol, BoostDataStore {
     // MARK: Do something
     func callBoostPlansAPI(){
 //        LoaderView.sharedInstance.showLoader()
-        BoostGeekAPI.boostGeekPlans(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiType: 1) { (response, error) in
+        BoostGeekAPI.boostGeekPlans(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, tiType: 1) { (response, error) in
             
             delay(0.2) {
                 LoaderView.sharedInstance.hideLoader()
             }
+
             if response?.responseCode == 200 {
                 self.presenter?.getBoostPlansResponse(response: response!)
             } else if response?.responseCode == 203 {
@@ -54,7 +55,7 @@ class BoostInteractor: BoostInteractorProtocol, BoostDataStore {
     func callCreateBoostAPI(param : Dictionary<String, String>) {
         
         LoaderView.sharedInstance.showLoader()
-        BoostGeekAPI.createBoostGeek(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization, tiPlanType: Int(param["tiPlanType"]!)!, fPlanPrice: param["fPlanPrice"]!, vPurchaseDate: authToken.timeStamp, iBoostCount: Int(param["iBoostCount"]!)!, iGeekCount: Int(param["iGeekCount"]!)!) { (response, error) in
+        BoostGeekAPI.createBoostGeek(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, authorization: UserDataModel.authorization, tiPlanType: Int(param["tiPlanType"]!)!, fPlanPrice: param["fPlanPrice"]!, vPurchaseDate: String(Authentication.sharedInstance().currentTimeMillis()), iBoostCount: Int(param["iBoostCount"]!)!, iGeekCount: Int(param["iGeekCount"]!)!) { (response, error) in
             
 //            delay(0.2) {
 //                LoaderView.sharedInstance.hideLoader()
@@ -78,11 +79,12 @@ class BoostInteractor: BoostInteractorProtocol, BoostDataStore {
     
     func callActiveBoostAPI(){
         LoaderView.sharedInstance.showLoader()
-        BoostGeekAPI.activeBoostGeek(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization, tiPlanType: 1) { (response, error) in
+        BoostGeekAPI.activeBoostGeek(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, authorization: UserDataModel.authorization, tiPlanType: 1) { (response, error) in
             
             delay(0.2) {
                 LoaderView.sharedInstance.hideLoader()
             }
+            
             if response?.responseCode == 200 {
                 self.presenter?.getActiveBoostResponse(response: response!)
             } else if response?.responseCode == 203 {

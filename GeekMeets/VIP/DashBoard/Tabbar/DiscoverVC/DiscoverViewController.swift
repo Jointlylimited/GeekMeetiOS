@@ -12,6 +12,7 @@
 
 import UIKit
 import Alamofire
+import SDWebImage
 
 protocol DeleteStoryDelegate {
     func getDeleteStoryResponse(deleted : Bool)
@@ -40,7 +41,7 @@ class DiscoverViewController: UIViewController, DiscoverProtocol {
     @IBOutlet weak var TopStoryView: UIView!
     
     var objStoryData : [StoryViewModel] = []
-    var arrayDetails :  [UserDetail] = []
+  //  var arrayDetails :  [UserDetail] = []
     var objAllStoryArray : [StoryResponseArray]?
     var objStoryArray : [StoryResponseArray]?
     var objOwnStoryArray : [StoryResponseArray]?
@@ -138,18 +139,18 @@ extension DiscoverViewController{
                 self.tblDiscoverList.alpha = 1
                 self.btnSearch.alpha = 1
                 self.lblNoData.alpha = 0
-                
+
                 self.objAllStoryArray = response.responseData?.bottomStory
                 self.objStoryArray = response.responseData?.topStory
-                
+
                 self.objStoryArray = self.objStoryArray!.sorted(by: { (res1, res2) -> Bool in
                     res1[0].tiIsView! < res2[0].tiIsView!
                 })
-                
+
                 self.objStoryArray = self.objStoryArray!.sorted(by: { (res1, res2) -> Bool in
                     res1[0].iUserId == UserDataModel.currentUser?.iUserId
                 })
-                
+
                 if self.objStoryArray == nil || self.objStoryArray?[0].count == 0 {
                     self.TopStoryView.height = 0
                     self.tblDiscoverList.willRemoveSubview(TopStoryView)
@@ -157,7 +158,7 @@ extension DiscoverViewController{
                     self.TopStoryView.height = 141
                     self.tblDiscoverList.insertSubview(self.TopStoryView, at: 0)
                 }
-                
+
                 if self.objAllStoryArray == nil || self.objAllStoryArray?[0].count == 0 {
                     UserDataModel.setStoryCount(count: 0)
                     self.tblDiscoverList.alpha = 0
@@ -169,7 +170,7 @@ extension DiscoverViewController{
                     self.btnSearch.alpha = 1
                     self.lblNoData.alpha = 0
                 }
-                
+
                 self.AllStoryCollView.reloadData()
                 self.StoryCollView.reloadData()
                 self.tblDiscoverList.reloadData()
@@ -223,7 +224,9 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
                     if data.txStory != "" {
                         let url = URL(string:"\(data.tiStoryType! == "0" ? data.txStory! : data.vThumbnail!)")
                         print(url!)
-                        cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
+                        cell.userImgView.sd_setImage(with: url, placeholderImage: UIImage(named: "placeholder_rect"), options: [.lowPriority])
+
+//                        cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: ))
                         cell.userName.text = data.iUserId == UserDataModel.currentUser?.iUserId ? "Your Story" : data.vName
                         if data.tiIsView == 1 {
                             cell.viewBorder.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 0.5049901832)
@@ -258,7 +261,7 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
                 if data.txStory != "" {
                     let url = URL(string:"\(data.tiStoryType! == "0" ? data.txStory! : data.vThumbnail!)")
                     print(url!)
-                    cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
+                    cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"), options: [.lowPriority])
                 }
             } else {
                 let data = self.objStoryData[indexPath.row]
@@ -295,6 +298,7 @@ extension DiscoverViewController : UICollectionViewDataSource, UICollectionViewD
         controller!.modalTransitionStyle = .crossDissolve
         controller!.modalPresentationStyle = .overCurrentContext
         controller?.isFromMatchVC = false
+        
 //        controller?.isOwnStory = (self.objStoryArray![indexPath.row][0].iUserId == UserDataModel.currentUser?.iUserId) ? true : false
         controller?.delegate = self
         if collectionView == self.StoryCollView  {

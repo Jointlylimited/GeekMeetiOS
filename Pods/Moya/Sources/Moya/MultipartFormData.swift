@@ -2,10 +2,10 @@ import Foundation
 import Alamofire
 
 /// Represents "multipart/form-data" for an upload.
-public struct MultipartFormData: Hashable {
+public struct MultipartFormData {
 
     /// Method to provide the form data.
-    public enum FormDataProvider: Hashable {
+    public enum FormDataProvider {
         case data(Foundation.Data)
         case file(URL)
         case stream(InputStream, UInt64)
@@ -35,7 +35,15 @@ public struct MultipartFormData: Hashable {
 // MARK: RequestMultipartFormData appending
 internal extension RequestMultipartFormData {
     func append(data: Data, bodyPart: MultipartFormData) {
-        append(data, withName: bodyPart.name, fileName: bodyPart.fileName, mimeType: bodyPart.mimeType)
+        if let mimeType = bodyPart.mimeType {
+            if let fileName = bodyPart.fileName {
+                append(data, withName: bodyPart.name, fileName: fileName, mimeType: mimeType)
+            } else {
+                append(data, withName: bodyPart.name, mimeType: mimeType)
+            }
+        } else {
+            append(data, withName: bodyPart.name)
+        }
     }
 
     func append(fileURL url: URL, bodyPart: MultipartFormData) {

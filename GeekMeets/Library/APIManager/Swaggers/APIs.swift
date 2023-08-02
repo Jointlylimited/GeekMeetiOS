@@ -7,7 +7,7 @@
 import Foundation
 
 open class SwaggerClientAPI {
-  public static var basePath = "http://dev6.spaceo.in/project/geekmeets/code/api/v1"
+  public static var basePath = AppEnvironment.environment.baseURL
   public static var credential: URLCredential?
   public static var customHeaders: [String:String] = [:]
   public static var requestBuilderFactory: RequestBuilderFactory = AlamofireRequestBuilderFactory()
@@ -30,6 +30,15 @@ open class RequestBuilder<T> {
         self.parameters = parameters
         self.isBody = isBody
         self.headers = headers
+
+        if ez.isDebug {
+            print("\n******************** API Request ********************")
+            print("Method: \(method)")
+            print("URLString: \(URLString)")
+            print("Parameters: \(parameters ?? [:])")
+            print("Headers: \(headers)")
+            print("******************** API Request ********************")
+        }
 
         addHeaders(SwaggerClientAPI.customHeaders)
     }

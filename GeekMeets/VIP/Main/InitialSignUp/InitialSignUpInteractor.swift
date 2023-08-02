@@ -29,7 +29,7 @@ protocol InitialSignUpDataStore {
 class InitialSignUpInteractor: InitialSignUpInteractorProtocol, InitialSignUpDataStore {
     var presenter: InitialSignUpPresentationProtocol?
     //var name: String = ""
-    let objConfig = SOGoogleConfig()
+//    let objConfig = SOGoogleConfig()
     
     func callFBLogin() {
         HSFacebookLoginManager.manager.loginWithFacebook(in: AppDelObj.window!.rootViewController!) { (result, isLogout, error) -> (Void) in
@@ -104,7 +104,7 @@ class InitialSignUpInteractor: InitialSignUpInteractorProtocol, InitialSignUpDat
     func callSocialSignInAPI(params: Dictionary<String, String>) {
         DefaultLoaderView.sharedInstance.showLoader()
         UserDataModel.setSocialType(socialType: params["tiSocialType"]!)
-        UserAPI.socialSignin(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language:APPLANGUAGE.english , tiSocialType: UserAPI.TiSocialType_socialSignin(rawValue: params["tiSocialType"]!)!, vAccessToken: params["accessKey"]!, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_socialSignin(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId ?? "", vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress) { (response, error) in
+        UserAPI.socialSignin(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, language:APPLANGUAGE.english , tiSocialType: UserAPI.TiSocialType_socialSignin(rawValue: params["tiSocialType"]!)!, vAccessToken: params["accessKey"]!, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_socialSignin(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId ?? "", vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress) { (response, error) in
             
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()
@@ -113,7 +113,7 @@ class InitialSignUpInteractor: InitialSignUpInteractorProtocol, InitialSignUpDat
             if response?.responseCode == 200 {
                 self.presenter?.getLoginResponse(userData : response)
             } else if response?.responseCode == 203 {
-                self.objConfig.googleSignOut()
+//                self.objConfig.googleSignOut()
                 AppSingleton.sharedInstance().logout()
                 AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else if response?.responseCode == 209 {
@@ -121,7 +121,7 @@ class InitialSignUpInteractor: InitialSignUpInteractorProtocol, InitialSignUpDat
                 self.presenter?.gotoSignUpScreen(signParams : data!)
             }
             else {
-                self.objConfig.googleSignOut()
+//                self.objConfig.googleSignOut()
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
                 } else {
@@ -134,7 +134,7 @@ class InitialSignUpInteractor: InitialSignUpInteractorProtocol, InitialSignUpDat
     
     func callQuestionaryAPI() {
 //        LoaderView.sharedInstance.showLoader()
-        PreferencesAPI.list(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization) { (response, error) in
+        PreferencesAPI.list(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization) { (response, error) in
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()
             }

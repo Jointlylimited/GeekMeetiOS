@@ -29,7 +29,7 @@ class EditPreferenceInteractor: EditPreferenceInteractorProtocol, EditPreference
     func callCreatePreferenceAPI(params : Dictionary<String, String>){
         if params["tiPreferenceType"]! == 1 {
 //            LoaderView.sharedInstance.showLoader()
-            PreferencesAPI.update(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization, tiPreferenceType: params["tiPreferenceType"]!, iPreferenceId: params["iPreferenceId"]!, iOptionId: params["iOptionId"]!, tiIsHide: params["tiIsHide"]!) { (response, error) in
+            PreferencesAPI.update(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization, tiPreferenceType: params["tiPreferenceType"]!, iPreferenceId: params["iPreferenceId"]!, iOptionId: params["iOptionId"]!, tiIsHide: params["tiIsHide"]!) { (response, error) in
                 
 //                delay(0.2) {
 //                    LoaderView.sharedInstance.hideLoader()
@@ -49,7 +49,7 @@ class EditPreferenceInteractor: EditPreferenceInteractorProtocol, EditPreference
             }
         } else {
 //            LoaderView.sharedInstance.showLoader()
-            PreferencesAPI.update(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization, tiPreferenceType: params["tiPreferenceType"]!, iPreferenceId: params["iPreferenceId"]!, iAnswerId: params["iAnswerId"]!, iOptionId: params["iOptionId"]!, tiIsHide: params["tiIsHide"]!) { (response, error) in
+            PreferencesAPI.update(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization, tiPreferenceType: params["tiPreferenceType"]!, iPreferenceId: params["iPreferenceId"]!, iAnswerId: params["iAnswerId"]!, iOptionId: params["iOptionId"]!, tiIsHide: params["tiIsHide"]!) { (response, error) in
                 
 //                delay(0.2) {
 //                    LoaderView.sharedInstance.hideLoader()
@@ -72,7 +72,7 @@ class EditPreferenceInteractor: EditPreferenceInteractorProtocol, EditPreference
     
     func callQuestionaryAPI() {
         DefaultLoaderView.sharedInstance.showLoader()
-        PreferencesAPI.list(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization) { (response, error) in
+        PreferencesAPI.list(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization) { (response, error) in
             
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()

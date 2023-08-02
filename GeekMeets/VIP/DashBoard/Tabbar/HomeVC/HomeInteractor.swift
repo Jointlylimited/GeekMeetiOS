@@ -30,7 +30,7 @@ class HomeInteractor: HomeInteractorProtocol, HomeDataStore {
     // MARK: Do something
      func callUserCardAPI() {
         DefaultLoaderView.sharedInstance.showLoader()
-        UserAPI.cardList(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
+        UserAPI.cardList(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()
@@ -52,7 +52,7 @@ class HomeInteractor: HomeInteractorProtocol, HomeDataStore {
     
     func callSwipeCardAPI(iProfileId : String, tiSwipeType : String){
 //        LoaderView.sharedInstance.showLoader()
-        UserAPI.swipeUser(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iProfileId: iProfileId, tiSwipeType: tiSwipeType) { (response, error) in
+        UserAPI.swipeUser(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, iProfileId: iProfileId, tiSwipeType: tiSwipeType) { (response, error) in
             
 //            delay(0.2) {
 //                LoaderView.sharedInstance.hideLoader()
@@ -74,7 +74,7 @@ class HomeInteractor: HomeInteractorProtocol, HomeDataStore {
     
     func callUpdateLocationAPI(fLatitude : String, fLongitude : String, tiIsLocationOn : String){
         DefaultLoaderView.sharedInstance.showLoader()
-        UserAPI.locationUpdate(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vDeviceToken: vDeviceToken, fLatitude: fLatitude, fLongitude: fLongitude, tiIsLocationOn : tiIsLocationOn) { (response, error) in
+        UserAPI.locationUpdate(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, vDeviceToken: vDeviceToken, fLatitude: fLatitude, fLongitude: fLongitude, tiIsLocationOn : tiIsLocationOn) { (response, error) in
             
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()
@@ -96,7 +96,7 @@ class HomeInteractor: HomeInteractorProtocol, HomeDataStore {
     
     func callMatchListAPI() {
 //           LoaderView.sharedInstance.showLoader()
-           UserAPI.matches(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiType: 0) { (response, error) in
+           UserAPI.matches(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, tiType: 0) { (response, error) in
                
 //               delay(0.2) {
 //                   LoaderView.sharedInstance.hideLoader()

@@ -28,7 +28,7 @@ class ReportInteractor: ReportInteractorProtocol, ReportDataStore {
     // MARK: Do something
     func callReportAPI() {
         DefaultLoaderView.sharedInstance.showLoader()
-        ReportAPI.listReason(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
+        ReportAPI.listReason(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()
@@ -50,7 +50,7 @@ class ReportInteractor: ReportInteractorProtocol, ReportDataStore {
     
     func callSendReportAPI(params : Dictionary<String, String>){
         DefaultLoaderView.sharedInstance.showLoader()
-        ReportAPI.createReport(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiReportType: params["tiReportType"]!, iReasonId: params["iReasonId"]!, vReportText: params["vReportText"]!, iReportedFor: params["iReportedFor"]!, iStoryId : params["iStoryId"]!) { (response, error) in
+        ReportAPI.createReport(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, tiReportType: params["tiReportType"]!, iReasonId: params["iReasonId"]!, vReportText: params["vReportText"]!, iReportedFor: params["iReportedFor"]!, iStoryId : params["iStoryId"]!) { (response, error) in
             
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()

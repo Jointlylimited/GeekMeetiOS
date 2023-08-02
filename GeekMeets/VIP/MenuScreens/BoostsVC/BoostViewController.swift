@@ -49,6 +49,8 @@ class BoostViewController: UIViewController, BoostProtocol {
     var totalSecond : Int!
     var PlanDetailsArray : [PlanData] = []
     var selectedIndex : Int = 0
+    weak var delegateGreekBoost: GreekBoostProtocol?
+
     
      // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -223,6 +225,7 @@ extension BoostViewController {
         if response.responseCode == 200 {
             self.btnActiveBoostPlans.setTitle("\(response.responseData?.pendingBoost ?? 0)", for: .normal)
             if response.responseData?.tiPlanType == 1 || response.responseData?.tiPlanType == 3 {
+                self.delegateGreekBoost?.getBoostStoryResponse(boostGreekResponse: response)
                 setBoostNowButton(data : response.responseData!)
             }
         }
@@ -234,6 +237,8 @@ extension BoostViewController {
     }
     
     func getBoostResponse(response : BoostGeekResponse){
+        LoaderView.sharedInstance.hideLoader()
+        
         if response.responseCode == 200 {
             resetButtonView()
             AppSingleton.sharedInstance().showAlert(kSuccessPurBoostPlan, okTitle: "OK")

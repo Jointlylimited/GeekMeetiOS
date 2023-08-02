@@ -72,9 +72,9 @@ class SignUpViewController: UIViewController, SignUpProtocol {
     
     @IBAction func actionSignUp() {
         
-//        let img1 = UIImage(named: "image_1")
-//        let img2 = UIImage(named: "image_2")
-//        let img3 = UIImage(named: "image_3")
+        let img1 = UIImage(named: "image_1")
+        let img2 = UIImage(named: "image_2")
+        let img3 = UIImage(named: "image_3")
                 
 //        let params = RequestParameter.sharedInstance().signUpParam(vUserName: (txtUserName?.text)!, vFirstName: (txtFirstName?.text)!, vLastName: (txtLastName?.text)!, vEmailId: (txtEmail?.text)!, vPassword: (txtPassword?.text)!, images: nil)
 //        self.presenter?.callSignUpRequest(signUpParams: params)

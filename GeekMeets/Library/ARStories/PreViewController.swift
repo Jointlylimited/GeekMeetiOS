@@ -28,7 +28,7 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
     var pageIndex : Int = 0
 //    var items: [UserDetail] = []
     var items: [StoryResponseFields] = []
-    var item : [StoryResponseFields] = []
+//    var item : [StoryResponseFields] = []
 //    var item: [Content] = []
     var SPB: SegmentedProgressBar!
     var player: AVPlayer!
@@ -74,10 +74,10 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
         }
         lblViews.text = items[pageIndex].dbTotalViews == "" ? "0 views" : "\(items[pageIndex].dbTotalViews!) views"
        
-        item = items
+       // item = items
 //        item = items[pageIndex].contents as! [Content]
         
-        SPB = SegmentedProgressBar(numberOfSegments: item.count, duration: 5)
+        SPB = SegmentedProgressBar(numberOfSegments: items.count, duration: 5)
         if #available(iOS 11.0, *) {
             SPB.frame = CGRect(x: 18, y: UIApplication.shared.statusBarFrame.height + 5, width: view.frame.width - 35, height: 3)
         } else {
@@ -175,7 +175,7 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
         attributedString.append(attributedString2)
         lblUserName.attributedText = attributedString
         
-        if item[index].tiStoryType! == "0" {
+        if items[index].tiStoryType! == "0" {
             self.SPB.duration = 5
             
             if !NetworkReachabilityManager.init()!.isReachable{
@@ -187,7 +187,7 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
             self.imgReconnect.alpha = 0.0
             self.imagePreview.isHidden = false
             self.videoView.isHidden = true
-            print("\(items[pageIndex].txStory!)")
+            print("\(items[index].txStory!)")
             let url = URL(string:"\(items[index].txStory!)")
             self.imagePreview.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
             if self.player != nil {
@@ -226,7 +226,7 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
     // MARK: Private func
     private func getDuration(at index: Int) -> TimeInterval {
         var retVal: TimeInterval = 10.0
-        if item[index].tiStoryType! == "0" {
+        if items[index].tiStoryType! == "0" {
             retVal = 10.0
         } else {
             guard let url = NSURL(string: items[index].txStory!) as URL? else { return retVal }
@@ -277,7 +277,7 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
 extension PreViewController {
     func callDeleteStoryAPI(id : String){
         DefaultLoaderView.sharedInstance.showLoader()
-        MediaAPI.deleteStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, _id: id) { (response, error) in
+        MediaAPI.deleteStory(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, _id: id) { (response, error) in
             
             DefaultLoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {

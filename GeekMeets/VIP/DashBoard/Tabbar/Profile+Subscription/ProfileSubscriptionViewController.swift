@@ -9,6 +9,7 @@
 import UIKit
 import SDWebImage
 
+
 class ProfileSubscriptionViewController: UIViewController {
 
     @IBOutlet weak var lblUserNameAge: UILabel!
@@ -118,6 +119,7 @@ class ProfileSubscriptionViewController: UIViewController {
         let boostVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.BoostScreen) as! BoostViewController
         boostVC.modalTransitionStyle = .crossDissolve
         boostVC.modalPresentationStyle = .overCurrentContext
+        boostVC.delegateGreekBoost = self
         self.presentVC(boostVC)
     }
     
@@ -125,6 +127,7 @@ class ProfileSubscriptionViewController: UIViewController {
         let topVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.TopGeeksScreen) as! TopGeeksViewController
         topVC.modalTransitionStyle = .crossDissolve
         topVC.modalPresentationStyle = .overCurrentContext
+        topVC.delegateGreekBoost = self
         self.presentVC(topVC)
     }
 }
@@ -132,7 +135,7 @@ class ProfileSubscriptionViewController: UIViewController {
 extension ProfileSubscriptionViewController {
     func callGeeksPlansAPI(){
         //        LoaderView.sharedInstance.showLoader()
-        BoostGeekAPI.boostGeekPlans(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiType: 2) { (response, error) in
+        BoostGeekAPI.boostGeekPlans(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, tiType: 2) { (response, error) in
             
             //            LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
@@ -154,7 +157,7 @@ extension ProfileSubscriptionViewController {
         
     func callBoostPlansAPI(){
         //        LoaderView.sharedInstance.showLoader()
-        BoostGeekAPI.boostGeekPlans(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiType: 1) { (response, error) in
+        BoostGeekAPI.boostGeekPlans(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, tiType: 1) { (response, error) in
             
             //            LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
@@ -175,7 +178,7 @@ extension ProfileSubscriptionViewController {
     }
     func getGeeksPlansResponse(response : BoostGeekResponse){
         if response.responseCode == 200 {
-            self.lblActiveGeek.text = response.responseData?.pendingGeek != 0 ? "" /* "\(response.responseData!.pendingGeek!) Pending"*/ : (response.responseData?.iExpireAt != "" ? "Active" : "Inactive")
+            self.lblActiveGeek.text = (response.responseData?.pendingGeek != 0 /* "\(response.responseData!.pendingGeek!) Pending"*/ && response.responseData?.iExpireAt != "") ? "Active" : "Inactive"
             self.callBoostPlansAPI()
         } else {
             self.lblActiveGeek.text = "Inactive"
@@ -184,9 +187,19 @@ extension ProfileSubscriptionViewController {
     
     func getBoostPlansResponse(response : BoostGeekResponse) {
         if response.responseCode == 200 {
-            self.lblActiveBoost.text = response.responseData?.pendingBoost != 0 ? ""/* "\(response.responseData!.pendingBoost!) Pending"*/ : (response.responseData?.iExpireAt != "" ? "Active" : "Inactive")
+            self.lblActiveBoost.text = (response.responseData?.pendingBoost != 0 /* "\(response.responseData!.pendingBoost!) Pending"*/ && response.responseData?.iExpireAt != "") ? "Active" : "Inactive"
         } else {
             self.lblActiveBoost.text = "Inactive"
+        }
+    }
+}
+
+extension ProfileSubscriptionViewController: GreekBoostProtocol {
+    func getBoostStoryResponse(boostGreekResponse: BoostGeekResponse) {
+        if boostGreekResponse.responseData?.tiPlanType == 1 {
+            self.lblActiveBoost.text = (boostGreekResponse.responseData?.pendingBoost != 0 /* "\(response.responseData!.pendingBoost!) Pending"*/ && boostGreekResponse.responseData?.iExpireAt != "") ? "Active" : "Inactive"
+        } else {
+            self.lblActiveGeek.text = (boostGreekResponse.responseData?.pendingGeek != 0 /* "\(response.responseData!.pendingGeek!) Pending"*/ && boostGreekResponse.responseData?.iExpireAt != "") ? "Active" : "Inactive"
         }
     }
 }

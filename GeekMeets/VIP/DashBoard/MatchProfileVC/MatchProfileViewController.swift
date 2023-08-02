@@ -156,7 +156,7 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     var objMatchUserProfile : UserAuthResponseField!
     var tiIsBlocked : Int = 0
     var location:CLLocation?
-    var objStoryArray : [StoryResponseArray]?
+    var objStoryArray = [StoryResponseArray]()
     var UserCode : String = ""
     
     lazy var lblHeaderview: UIImageView = {
@@ -253,12 +253,12 @@ class MatchProfileViewController: UIViewController, MatchProfileProtocol {
     }
     
     @IBAction func btnViewStoriesAction(_ sender: UIButton) {
-        if self.objStoryArray?.count != 0 {
+        if self.objStoryArray.count != 0 {
             let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.StoryContentScreen) as? ContentViewController
             controller!.modalTransitionStyle = .crossDissolve
             controller!.modalPresentationStyle = .overCurrentContext
             controller!.isFromMatchVC = true
-            controller?.pages = [self.objStoryArray![0]]
+            controller?.pages = [self.objStoryArray[0]]
             self.presentVC(controller!)
         }
     }
@@ -344,8 +344,8 @@ extension MatchProfileViewController {
     func getStoryListResponse(response: StoryResponse){
         if response.responseCode == 200 {
             self.presenter?.callBlockUserListAPI()
-            self.objStoryArray = response.responseData?.bottomStory
-            if self.objStoryArray?.count != 1 {
+            self.objStoryArray = response.responseData?.bottomStory ?? []
+            if self.objStoryArray.count != 0 {
                 self.btnViewStories.alpha = 1
             } else {
                 self.btnViewStories.alpha = 0

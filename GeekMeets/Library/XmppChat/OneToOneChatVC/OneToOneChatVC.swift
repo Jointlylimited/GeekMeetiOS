@@ -1099,7 +1099,7 @@ extension OneToOneChatVC {
             AppSingleton.sharedInstance().showAlert(NoInternetConnection, okTitle: "OK")
             return false
         }
-        if !SOXmpp.manager.xmppStream.isConnected {
+        if SOXmpp.manager.connect() == false {
             AppSingleton.sharedInstance().showAlert("msgServerConnection", okTitle: "OK")
             return false
         }
@@ -1108,7 +1108,7 @@ extension OneToOneChatVC {
     
     func callUnMatchUserAPI(iProfileId : String){
 //        DefaultLoaderView.sharedInstance.showLoader()
-        UserAPI.unMatch(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vXmppUser: iProfileId) { (response, error) in
+        UserAPI.unMatch(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, vXmppUser: iProfileId) { (response, error) in
             
             DefaultLoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
@@ -1139,7 +1139,7 @@ extension OneToOneChatVC {
 //            DefaultLoaderView.sharedInstance.showLoader()
         }
         
-        UserAPI.blockUsers(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vXmppUser: userId, tiIsBlocked: "\(tiStatus)") { (response, error) in
+        UserAPI.blockUsers(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, vXmppUser: userId, tiIsBlocked: "\(tiStatus)") { (response, error) in
             DispatchQueue.main.async {
                 DefaultLoaderView.sharedInstance.hideLoader()
             }
@@ -1187,7 +1187,7 @@ extension OneToOneChatVC {
     
     func callBlockUserListAPI() {
 //        DefaultLoaderView.sharedInstance.showLoader()
-        UserAPI.blockList(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
+        UserAPI.blockList(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
             DefaultLoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {

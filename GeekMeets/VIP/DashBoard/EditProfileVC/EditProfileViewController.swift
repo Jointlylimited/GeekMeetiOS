@@ -165,7 +165,7 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
     var del : EditProfileResponseDelegate?
     var instagramPhotosModel : NSArray = []
     var instagramIntegrated : Bool = false
-    
+
     var thumbURlUpload: (path: String, name: String) {
         let folderName = user_Profile
         let timeStamp = Authentication.sharedInstance().GetCurrentTimeStamp()
@@ -441,8 +441,8 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
         } else if objEditProfileData.cells[indexPath.section].cellID == "EditPhotosCell" {
             if let cell = cell as? EditPhotosCell  {
                 
-                cell.AddPhotosCollView.register(UINib.init(nibName: Cells.PhotoEmojiCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.PhotoEmojiCell)
-                cell.AddPhotosCollView.tag = 1
+//                cell.AddPhotosCollView.register(UINib.init(nibName: Cells.PhotoEmojiCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.PhotoEmojiCell)
+                cell.AddPhotosCollView.tag = 0
                 let layout = CustomImageLayout()
                 layout.scrollDirection = .horizontal
                 cell.AddPhotosCollView.collectionViewLayout = layout
@@ -480,8 +480,8 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
         } else {
             if let cell = cell as? EditInstagramPhotosCell  {
                 
-                cell.InstagramPhotosCell.register(UINib.init(nibName: Cells.PhotoEmojiCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.PhotoEmojiCell)
-                cell.InstagramPhotosCell.tag = 2
+//                cell.InstagramPhotosCell.register(UINib.init(nibName: Cells.PhotoEmojiCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.PhotoEmojiCell)
+                cell.InstagramPhotosCell.tag = 1
                 let layout = CustomImageLayout()
                 layout.scrollDirection = .horizontal
                 cell.InstagramPhotosCell.collectionViewLayout = layout
@@ -541,7 +541,7 @@ extension EditProfileViewController : UICollectionViewDataSource, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView.tag == 1 {
+        if collectionView.tag == 0 {
             return self.userPhotosModel.count != 0 ? self.userPhotosModel.count + 1 : 1
         } else {
             return self.instagramPhotosModel != [] ? self.instagramPhotosModel.count : 1
@@ -550,12 +550,12 @@ extension EditProfileViewController : UICollectionViewDataSource, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if collectionView.tag == 1 {
+        if collectionView.tag == 0 {
             let cell : PhotoEmojiCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PhotoEmojiCell, for: indexPath) as! PhotoEmojiCell
             cell.emojiStackView.alpha = 0.0
             cell.emojiStackView.spacing = DeviceType.iPhone5orSE ? 2 : 10
             
-            if indexPath.row < self.userPhotosModel.count {
+            if indexPath.row < (self.userPhotosModel.count - 1) {
                 cell.btnClose.alpha = 1.0
                 if userPhotosModel[indexPath.row].tiImage == nil {
                     let url = URL(string:"\(userPhotosModel[indexPath.row].vMedia!)")

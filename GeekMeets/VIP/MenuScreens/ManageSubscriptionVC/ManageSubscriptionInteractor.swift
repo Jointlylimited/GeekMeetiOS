@@ -30,7 +30,7 @@ class ManageSubscriptionInteractor: ManageSubscriptionInteractorProtocol, Manage
     // MARK: Do something
     func callSubscriptionDetailsAPI(){
         DefaultLoaderView.sharedInstance.showLoader()
-        SubscriptionAPI.subscriptionDetails(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
+        SubscriptionAPI.subscriptionDetails(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()
@@ -54,7 +54,7 @@ class ManageSubscriptionInteractor: ManageSubscriptionInteractorProtocol, Manage
     
     func callCreateSubscriptionAPI(param : Dictionary<String, String>) {
         LoaderView.sharedInstance.showLoader()
-        SubscriptionAPI.createSubscription(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vTransactionId: param["vTransactionId"]!, tiType: param["tiType"]!, fPrice: param["fPrice"]!, vReceiptData: param["vReceiptData"]!, iStartDate: param["iStartDate"]!, iEndDate: param["iEndDate"]!) { (response, error) in
+        SubscriptionAPI.createSubscription(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, vTransactionId: param["vTransactionId"]!, tiType: param["tiType"]!, fPrice: param["fPrice"]!, vReceiptData: param["vReceiptData"]!, iStartDate: param["iStartDate"]!, iEndDate: param["iEndDate"]!) { (response, error) in
             
             delay(0.2) {
                 LoaderView.sharedInstance.hideLoader()
@@ -78,7 +78,7 @@ class ManageSubscriptionInteractor: ManageSubscriptionInteractorProtocol, Manage
     
     func callUpdateSubscriptionAPI(param : Dictionary<String, String>){
 //        LoaderView.sharedInstance.showLoader()
-        SubscriptionAPI.updateSubscription(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iSubscriptionId: param["iSubscriptionId"]!, iEndDate: param["iEndDate"]!) { (response, error) in
+        SubscriptionAPI.updateSubscription(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, iSubscriptionId: param["iSubscriptionId"]!, iEndDate: param["iEndDate"]!) { (response, error) in
             
 //            delay(0.2) {
 //                LoaderView.sharedInstance.hideLoader()
@@ -102,7 +102,7 @@ class ManageSubscriptionInteractor: ManageSubscriptionInteractorProtocol, Manage
     
     func callUserProfileAPI(){
 //        LoaderView.sharedInstance.showLoader()
-        UserAPI.userProfile(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, iUserId: "\(UserDataModel.currentUser!.iUserId!)", vReferralCode: "") { (response, error) in
+        UserAPI.userProfile(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, iUserId: "\(UserDataModel.currentUser!.iUserId!)", vReferralCode: "") { (response, error) in
             
 //            delay(0.2) {
 //                LoaderView.sharedInstance.hideLoader()

@@ -30,11 +30,12 @@ class TopGeeksInteractor: TopGeeksInteractorProtocol, TopGeeksDataStore {
     
     func callGeeksPlansAPI(){
 //        LoaderView.sharedInstance.showLoader()
-        BoostGeekAPI.boostGeekPlans(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, tiType: 2) { (response, error) in
+        BoostGeekAPI.boostGeekPlans(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, tiType: 2) { (response, error) in
             
             delay(0.2) {
                 LoaderView.sharedInstance.hideLoader()
             }
+
             if response?.responseCode == 200 {
                 self.presenter?.getGeeksPlansResponse(response: response!)
             } else if response?.responseCode == 203 {
@@ -54,7 +55,7 @@ class TopGeeksInteractor: TopGeeksInteractorProtocol, TopGeeksDataStore {
     
     func callCreateGeeksAPI(param : Dictionary<String, String>) {
         LoaderView.sharedInstance.showLoader()
-        BoostGeekAPI.createBoostGeek(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization, tiPlanType: Int(param["tiPlanType"]!)!, fPlanPrice: param["fPlanPrice"]!, vPurchaseDate: authToken.timeStamp, iBoostCount: Int(param["iBoostCount"]!)!, iGeekCount: Int(param["iGeekCount"]!)!) { (response, error) in
+        BoostGeekAPI.createBoostGeek(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, authorization: UserDataModel.authorization, tiPlanType: Int(param["tiPlanType"]!)!, fPlanPrice: param["fPlanPrice"]!, vPurchaseDate: String(Authentication.sharedInstance().currentTimeMillis()), iBoostCount: Int(param["iBoostCount"]!)!, iGeekCount: Int(param["iGeekCount"]!)!) { (response, error) in
             
 //            delay(0.2) {
 //                LoaderView.sharedInstance.hideLoader()
@@ -78,7 +79,7 @@ class TopGeeksInteractor: TopGeeksInteractorProtocol, TopGeeksDataStore {
     
     func callActiveGeeksAPI(){
         LoaderView.sharedInstance.showLoader()
-        BoostGeekAPI.activeBoostGeek(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization, tiPlanType: 2) { (response, error) in
+        BoostGeekAPI.activeBoostGeek(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, authorization: UserDataModel.authorization, tiPlanType: 2) { (response, error) in
             
             delay(0.2) {
                 LoaderView.sharedInstance.hideLoader()

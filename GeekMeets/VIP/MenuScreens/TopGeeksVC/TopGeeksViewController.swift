@@ -16,8 +16,12 @@ protocol TopGeeksProtocol: class {
     func getGeeksPlansResponse(response : BoostGeekResponse)
     func getGeeksResponse(response : BoostGeekResponse)
     func getActiveGeeksResponse(response : BoostGeekResponse)
-    
 }
+
+protocol GreekBoostProtocol: AnyObject {
+    func getBoostStoryResponse(boostGreekResponse : BoostGeekResponse)
+}
+
 
 class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     //var interactor : TopGeeksInteractorProtocol?
@@ -41,6 +45,7 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     
     var PlanDetailsArray : [PlanData] = []
     var selectedIndex : Int = 0
+    weak var delegateGreekBoost: GreekBoostProtocol?
     
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -216,6 +221,7 @@ extension TopGeeksViewController {
         if response.responseCode == 200 {
             self.btnActivePlans.setTitle("\(response.responseData?.pendingGeek ?? 0)", for: .normal)
             if response.responseData?.tiPlanType == 2 || response.responseData?.tiPlanType == 3 {
+                self.delegateGreekBoost?.getBoostStoryResponse(boostGreekResponse: response)
                 setActiveNowButton(data : response.responseData!)
             }
         }
@@ -227,6 +233,8 @@ extension TopGeeksViewController {
     }
     
     func getGeeksResponse(response : BoostGeekResponse){
+        LoaderView.sharedInstance.hideLoader()
+        
         if response.responseCode == 200 {
             resetButtonView()
             AppSingleton.sharedInstance().showAlert(kSuccessPurStoryPlan, okTitle: "OK")

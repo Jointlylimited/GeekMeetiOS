@@ -12,11 +12,14 @@ import KissXML
 import CoreData
 import CFNetwork
 
-private let Xmpp_Host = "dev1.spaceo.in" //Live : "3.129.31.9"  // Local : 172.16.18.97
-private let Xmpp_Port: UInt16 = 5222
 
-private let Xmpp_MyDomain: String = "@localhost"
-private let Xmpp_UserIDPrefix: String = "" //"spaceo_lib_"
+private let Xmpp_Host = "dev6.spaceo.in"  //"172.16.16.53" //"dev1.spaceo.in" //Live : "3.129.31.9"  // Local : 172.16.18.97
+private let Xmpp_Port: UInt16 = 5222 //5280
+
+private let Xmpp_MyDomain: String = "@localhost"//"@localhost"
+
+private let Xmpp_UserIDPrefix: String = "jointly" //"spaceo_lib_"
+
 
 typealias BlockCompletionBool = (Bool)->Void
 typealias BlockCompletionVoid = ()->Void
@@ -135,7 +138,7 @@ final class SOXmpp: NSObject {
                     //        If you do enableBackgroundingOnSocket on the simulator,
                     //        you will simply see an error message from the xmpp stack when it fails to set the property.
                     
-            xmppStream.enableBackgroundingOnSocket = true
+            xmppStream.enableBackgroundingOnSocket = false
         #endif
         
         // Setup reconnect
@@ -328,7 +331,7 @@ final class SOXmpp: NSObject {
         // myJID = @"user@gmail.com/xmppframework";
         // myPassword = @"";
         let JID = "\(self.UserID!)\(Xmpp_MyDomain)"
-        
+
         xmppStream.myJID = XMPPJID.init(string: JID)
         
         do {

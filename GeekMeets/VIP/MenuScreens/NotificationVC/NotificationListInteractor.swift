@@ -29,7 +29,7 @@ class NotificationListInteractor: NotificationListInteractorProtocol, Notificati
     // MARK: Do something
     func callNotificationListAPI(offset: Int, limit: Int) {
         DefaultLoaderView.sharedInstance.showLoader()
-        NotificationAPI.listNotification(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, limit: limit, offset: offset) { (response, error) in
+        NotificationAPI.listNotification(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, limit: limit, offset: offset) { (response, error) in
             
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()
@@ -52,7 +52,7 @@ class NotificationListInteractor: NotificationListInteractorProtocol, Notificati
     func callReadAPI(iNotificationId : String, tiType : String) {
         if iNotificationId != "" {
 //            LoaderView.sharedInstance.showLoader()
-            NotificationAPI.viewNotification(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization, iNotificationId: iNotificationId, tiType: tiType) { (response, error) in
+            NotificationAPI.viewNotification(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, authorization: UserDataModel.authorization, iNotificationId: iNotificationId, tiType: tiType) { (response, error) in
                 
 //                delay(0.2) {
 //                    LoaderView.sharedInstance.hideLoader()
@@ -72,7 +72,7 @@ class NotificationListInteractor: NotificationListInteractorProtocol, Notificati
             }
         } else {
 //            LoaderView.sharedInstance.showLoader()
-            NotificationAPI.viewNotification(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization, iNotificationId: iNotificationId, tiType: tiType, isClearAll: 1) { (response, error) in
+            NotificationAPI.viewNotification(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, authorization: UserDataModel.authorization, iNotificationId: iNotificationId, tiType: tiType, isClearAll: 1) { (response, error) in
                 
 //                delay(0.2) {
 //                    LoaderView.sharedInstance.hideLoader()
@@ -95,7 +95,7 @@ class NotificationListInteractor: NotificationListInteractorProtocol, Notificati
     
     func callBadgeCountAPI(){
         DefaultLoaderView.sharedInstance.showLoader()
-        NotificationAPI.budgeCount(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
+        NotificationAPI.budgeCount(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()

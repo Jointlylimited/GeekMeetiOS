@@ -6,8 +6,8 @@
 //  Copyright © 2019 Mohammad Ashraful Kabir. All rights reserved.
 //
 
-#import "UserDetail.h"
-
-@implementation UserDetail
-
-@end
+//#import "UserDetail.h"
+//
+//@implementation UserDetail
+//
+//@end

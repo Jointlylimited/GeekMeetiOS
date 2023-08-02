@@ -16,6 +16,7 @@ class EditInstagramPhotosCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        InstagramPhotosCell.register(UINib.init(nibName: Cells.PhotoEmojiCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.PhotoEmojiCell)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

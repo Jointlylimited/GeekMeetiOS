@@ -184,7 +184,7 @@ class PreviewInteractor: PreviewInteractorProtocol, PreviewDataStore {
             DefaultLoaderView.sharedInstance.showLoader()
         }
         if obj.tiStoryType == "1" {
-            MediaAPI.createStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, txStory: self.objPost.txStory, tiStoryType: obj.tiStoryType, vThumbnail: self.objPost.vThumbnail) { (response, error) in
+            MediaAPI.createStory(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, txStory: self.objPost.txStory, tiStoryType: obj.tiStoryType, vThumbnail: self.objPost.vThumbnail) { (response, error) in
                 
                 delay(0.2) {
                     DefaultLoaderView.sharedInstance.hideLoader()
@@ -205,7 +205,7 @@ class PreviewInteractor: PreviewInteractorProtocol, PreviewDataStore {
                 }
             }
         } else {
-            MediaAPI.createStory(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, txStory: self.objPost.txStory, tiStoryType: obj.tiStoryType) { (response, error) in
+            MediaAPI.createStory(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, txStory: self.objPost.txStory, tiStoryType: obj.tiStoryType) { (response, error) in
                 
                 delay(0.2) {
                     DefaultLoaderView.sharedInstance.hideLoader()

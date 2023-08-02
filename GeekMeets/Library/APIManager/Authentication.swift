@@ -38,11 +38,15 @@ class Authentication : NSObject
         return str
     }
     
-    public func getAutheticationToken() -> (nonce : String, timeStamp : String, token : String){
+    public func getAutheticationToken() -> (nonce : String, timeStamps : String, token : String){
         let nonce = 6.randomString
         let timestamp = Authentication.sharedInstance().GetCurrentTimeStamp()
         let token = Authentication.sharedInstance().createHashedTokenString(timeStemp: timestamp, randomStr: nonce)
         return (nonce,timestamp,token)
+    }
+
+    public func currentTimeMillis() -> Int {
+        return Int(NSDate().timeIntervalSince1970)
     }
     
     class func setVAuthKey(_ strkey:String?)

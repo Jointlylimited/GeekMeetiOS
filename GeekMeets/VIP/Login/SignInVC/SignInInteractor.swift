@@ -28,7 +28,7 @@ class SignInInteractor: SignInInteractorProtocol {
     func callSignInAPI(_ userName : String, password : String)
     {
         DefaultLoaderView.sharedInstance.showLoader()
-        UserAPI.signIn(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, vEmail: userName, vPassword: password, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signIn(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId!, vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress) { (response, error) in
+        UserAPI.signIn(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, vEmail: userName, vPassword: password, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signIn(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId!, vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress) { (response, error) in
 
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()
@@ -52,7 +52,7 @@ class SignInInteractor: SignInInteractorProtocol {
     
     func callQuestionaryAPI() {
 //        LoaderView.sharedInstance.showLoader()
-        PreferencesAPI.list(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization) { (response, error) in
+        PreferencesAPI.list(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization) { (response, error) in
             
 //            LoaderView.sharedInstance.hideLoader()
             if response?.responseCode == 200 {
@@ -73,7 +73,7 @@ class SignInInteractor: SignInInteractorProtocol {
     
     func callVerifyEmailAPI(email : String){
         DefaultLoaderView.sharedInstance.showLoader()
-        UserAPI.requestForEmail(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, vEmail: email) { (response, error) in
+        UserAPI.requestForEmail(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, language: APPLANGUAGE.english, vEmail: email) { (response, error) in
             
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()
@@ -99,7 +99,7 @@ class SignInInteractor: SignInInteractorProtocol {
     //            LoaderView.sharedInstance.showLoader()
             }
             
-        UserAPI.setPushStatus(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization, vDeviceToken: AppDelObj.deviceToken, tiIsAcceptPush: UserDataModel.getPushStatus()) { (response, error) in
+        UserAPI.setPushStatus(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, vDeviceToken: vDeviceToken, tiIsAcceptPush: UserDataModel.getPushStatus()) { (response, error) in
                 DispatchQueue.main.async {
     //                LoaderView.sharedInstance.hideLoader()
                 }

@@ -27,7 +27,7 @@ class ContactUS_LegalInteractor: ContactUS_LegalInteractorProtocol, ContactUS_Le
     // MARK: Do something
     func callContactUsAPI() {
         DefaultLoaderView.sharedInstance.showLoader()
-        ContentPageAPI.contactUs(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
+        ContentPageAPI.contactUs(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
             
             delay(0.2) {
                 DefaultLoaderView.sharedInstance.hideLoader()

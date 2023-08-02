@@ -13,46 +13,56 @@ protocol GoogleManagerDelegate {
     func receiveResponse(user: GIDGoogleUser?, error: Error?)// Pass Parameter that you want
 }
 
+class SocialUser: Codable{
+    var userId : String?
+    var token : String?
+    var firstName : String?
+    var lastName : String?
+    var email : String? = nil
+    var profile : String?
+    var socialType : String?
+
+}
+
+
 class SOGoogleConfig: NSObject {
     
-    var delegate: GoogleManagerDelegate?
-    
-    func ConfigGoogleSignIn() {
-        // Initialize sign-in
+    var delegate: GoogleManagerDelegate? = nil
+    var configuration = GIDConfiguration(clientID: "784959084971-42nkai7mqrspe87v6euc5gfe5d77uodi.apps.googleusercontent.com")
 
-//        GIDSignIn.sharedInstance().clientID = "Client ID"
-//        GIDSignIn.sharedInstance().delegate = self
-//        GIDSignIn.sharedInstance().uiDelegate = self
-    }
-    
-    func googleSignIn() {
-       // GIDSignIn.sharedInstance().signIn()
-        googleSignIn()
-    }
-    
-    func googleSignOut() {
-//        GIDSignIn.sharedInstance().signOut()
-//        GIDSignIn.sharedInstance().disconnect()
-      googleSignOut()
+    init(_ viewController: UIViewController) {
+        super.init()
 
-    }
+        GIDSignIn.sharedInstance.signIn(with: configuration, presenting: viewController) { user, error in
+            if let err = error {
+                self.delegate?.receiveResponse(user: nil, error: err.localizedDescription)
+                return
+            }else if let userObj = user {
+                let obj = SocialUser()
+                obj.socialType = "google"
+                obj.userId = userObj.userID
+                obj.email = userObj.profile?.email
+                obj.token = userObj.authentication.idToken
+                obj.firstName = userObj.profile?.givenName
+                obj.lastName = userObj.profile?.familyName
+                // withDimension change value as per your
+                obj.profile = userObj.profile?.imageURL(withDimension: 512)?.absoluteString
 
-    GIDSignIn.sharedInstance.signIn(withPresenting: self) { (signInResult, error) in
-        guard error == nil else {
-
-            if (user.profile?.hasImage) {
-                let url = user.profile?.imageURL(withDimension: 100)
-                print("url....\(String(describing: url))")
-                UserDefaults.standard.set(url, forKey: "user_photo")
+                self.delegate?.receiveResponse(user: user, error: nil)
+            }else{
+                self.delegate?.receiveResponse(user: nil, error: "Something want wrong")
+                return
             }
-            return
-
         }
-        guard let signInResult = signInResult else { return }
+    }
 
-        let user = signInResult.user
+    func googleSignIn() {
+        GIDSignIn.sharedInstance.hasPreviousSignIn()
+    }
 
-        self.delegate?.receiveResponse(user: user, error: error)
+    func googleSignOut() {
+        GIDSignIn.sharedInstance.signOut()
+        GIDSignIn.sharedInstance.disconnect()
     }
 }
 
@@ -65,16 +75,38 @@ extension AppDelegate {
     
 }
 
-    
+//extension SOGoogleConfig : GIDSignInDelegate {
+//    
 //    //var GoogleConfigDelegate: GoogleManagerDelegate?
 //    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
 //        print("didDisconnectWith", user)
 //        print("didDisconnectWith", error)
 //        self.delegate?.receiveResponse(user: user, error: error)
 //    }
-//
+//    
 //    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-//
+//        
+//        if (error == nil) {
+//            // Perform any operations on signed in user here.
+////            let userId = user.userID                  // For client-side use only!
+////            let idToken = user.authentication.idToken // Safe to send to the server
+////            let fullName = user.profile.name
+////            let givenName = user.profile.givenName
+////            let familyName = user.profile.familyName
+////            let email = user.profile.email
+////            
+////            print(user.serverAuthCode)
+////            print("\n\(String(describing: userId)) \n\(String(describing: idToken)) \n\(String(describing: fullName)) \n \(String(describing: givenName)) \n \(String(describing: familyName)) \n \(String(describing: email))");
+//            
+//            if (user.profile.hasImage) {
+//                let url = user.profile.imageURL(withDimension: 100)
+//                print("url....\(String(describing: url))")
+//                UserDefaults.standard.set(url, forKey: "user_photo")
+//            }
+//        } else {
+//            print("\(error.localizedDescription)")
+//        }
+//        self.delegate?.receiveResponse(user: user, error: error)
 //    }
 //}
 
