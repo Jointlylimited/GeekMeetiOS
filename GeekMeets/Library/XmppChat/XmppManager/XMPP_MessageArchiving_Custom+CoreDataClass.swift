@@ -203,15 +203,22 @@ public class XMPP_MessageArchiving_Custom: NSManagedObject {
             guard var filteredResult = result as? [XMPP_MessageArchiving_Custom] else {
                 return []
             }
-            
-            result = (result as NSArray).filtered(using: NSPredicate(block: { evaluatedObject, bindings in
+
+            var results = (result as NSArray).filtered(using: NSPredicate(block: { evaluatedObject, bindings in
                 if (evaluatedObject as! XMPP_MessageArchiving_Custom).messageId == MessageId! {
                     return true
                 }
                 return false
             }))
+//
+//            result = (result as NSArray).filtered(using: NSPredicate(block: { evaluatedObject, bindings in
+//                if (evaluatedObject as! XMPP_MessageArchiving_Custom).messageId == MessageId! {
+//                    return true
+//                }
+//                return false
+//            }))
             
-            return result as NSArray
+            return results as NSArray
         } catch {
             print(error.localizedDescription)
         }

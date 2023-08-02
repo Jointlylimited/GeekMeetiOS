@@ -60,9 +60,9 @@ class InitialLoginViewController: UIViewController, InitialLoginProtocol {
     
     func setTheme() {
         
-        GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance().clientID = "1058883482858-feo3v537akjippp47hcq8cs80ed3q8ti.apps.googleusercontent.com"
-        GIDSignIn.sharedInstance()?.presentingViewController = self
+//        GIDSignIn.sharedInstance.delegate = self
+//        GIDSignIn.sharedInstance.clientID = "1058883482858-feo3v537akjippp47hcq8cs80ed3q8ti.apps.googleusercontent.com"
+//        GIDSignIn.sharedInstance?.presentingViewController = self
         
         setupMultipleTapLabel()
         //        // Automatically sign in the user.
@@ -101,7 +101,7 @@ class InitialLoginViewController: UIViewController, InitialLoginProtocol {
     
     // MARK: IBAction Method
     @IBAction func actionGmailSignup(_ sender: Any) {
-        GIDSignIn.sharedInstance().signIn()
+        GIDSignIn.sharedInstance.signIn()
     }
     
     @IBAction func actionFacebookSignup(_ sender: Any){
@@ -131,7 +131,7 @@ extension InitialLoginViewController : GIDSignInDelegate{
         } else {
             // Perform any operations on signed in user here.
             // ...
-            let params = RequestParameter.sharedInstance().socialLoginParam(accessToken: user.authentication.accessToken, service: "google")
+            let params = RequestParameter.sharedInstance().socialLoginParam(accessToken: user.accessToken.tokenString, service: "google")
             self.presenter?.callSocialLoginRequest(loginParams: params)
         }
     }

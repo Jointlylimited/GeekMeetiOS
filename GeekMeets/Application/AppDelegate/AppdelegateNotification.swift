@@ -9,7 +9,7 @@
 import UIKit
 import UserNotifications
 import SCSDKLoginKit
-import FirebaseInstanceID
+//import FirebaseInstanceID
 import FirebaseMessaging
 import Firebase
 
@@ -88,7 +88,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     }
     
     func connectToFcm() {
-        Messaging.messaging().shouldEstablishDirectChannel = true
+//        Messaging.messaging().shouldEstablishDirectChannel = true
         let token11 = Messaging.messaging().fcmToken
         if token11 != nil {
             print(token11)
@@ -215,11 +215,11 @@ extension AppDelegate {
 }
 extension AppDelegate: MessagingDelegate{
     
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         print(kDeviceToken)
     }
     
-    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
-        print("Recive")
-    }
+//    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
+//        print("Recive")
+//    }
 }

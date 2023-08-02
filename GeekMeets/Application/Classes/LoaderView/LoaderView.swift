@@ -19,7 +19,7 @@ import Lottie
     
     var indicatorCount:Int = 0
     var activity:NVActivityIndicatorView!
-    let starAnimationView = AnimationView()
+    var starAnimationView = LottieAnimationView()
     var view = UIView()
     @objc static var sharedInstance = LoaderView()
     
@@ -39,10 +39,11 @@ import Lottie
         view.addSubview(blurEffectView)
         
         indicatorCount = indicatorCount + 1
-        let starAnimation = Animation.named("Purple_heart_Updated")
+        starAnimationView = .init(name: "coffee")
+        let starAnimation = AnimationKeypath(keypath: "Purple_heart_Updated")
         starAnimationView.frame = CGRect(x: (AppDelObj.window!.frame.size.width - 400) / 2.0, y: (AppDelObj.window!.frame.size.height - 400) / 2.0, w: 400, h: 400)
 //        starAnimationView.center = self.view.center
-        starAnimationView.animation = starAnimation
+//        starAnimationView.animation = starAnimation
         starAnimationView.contentMode = .scaleAspectFill
         starAnimationView.loopMode = .repeat(Float(100))
         view.addSubview(starAnimationView)

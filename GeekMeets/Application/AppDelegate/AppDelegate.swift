@@ -14,7 +14,7 @@ import Firebase
 import FBSDKLoginKit
 import FBSDKCoreKit
 import UserNotifications
-import FirebaseInstanceID
+//import FirebaseInstanceID
 
 let kSecret = "BmECMMDZdXM8VhKIw4EKLY8nx0uC4Jtt@geekmeets"
 let kPrivateKey = "QOUATaUA24pIFBPiIHr2Nu3BTcjFS8DA@geekmeets"
@@ -30,12 +30,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 //        Visualizer.start()
         IQKeyboardManager.shared.enable = true
-        NotificationCenter.default.addObserver(self, selector: #selector(self.tokenRefreshNotification(notification:)), name: NSNotification.Name.InstanceIDTokenRefresh, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.tokenRefreshNotification(notification:)), name: NSNotification.Name.InstanceIDTokenRefresh, object: nil)
         
         let filePath = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist")!
         let options = FirebaseOptions(contentsOfFile: filePath)
         FirebaseApp.configure(options: options!)
-        GIDSignIn.sharedInstance().clientID = "784959084971-42nkai7mqrspe87v6euc5gfe5d77uodi.apps.googleusercontent.com"
+//        GIDSignIn.sharedInstance.clientID = "784959084971-42nkai7mqrspe87v6euc5gfe5d77uodi.apps.googleusercontent.com"
         
         //Push Notification call
         self.registerForPushNotifications()
@@ -50,16 +50,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     @objc func tokenRefreshNotification(notification: NSNotification) {
-        InstanceID.instanceID().instanceID(handler: { (result, error) in
+
+        Messaging.messaging().token { (result, error) in
             if let error = error {
                 print("Error fetching remote instange ID: \(error)")
             } else if let result = result {
-                print("Remote instance ID token: \(result.token)")
-                let refreshedToken = result.token
+                print("Remote instance ID token: \(result)")
+                let refreshedToken = result
                 print("Connected to FCM. Token : \(String(describing: refreshedToken))")
                 self.connectToFcm()
             }
-        })
+        }
+
+
+//        InstanceID.instanceID().instanceID(handler: { (result, error) in
+//            if let error = error {
+//                print("Error fetching remote instange ID: \(error)")
+//            } else if let result = result {
+//                print("Remote instance ID token: \(result.token)")
+//                let refreshedToken = result.token
+//                print("Connected to FCM. Token : \(String(describing: refreshedToken))")
+//                self.connectToFcm()
+//            }
+//        })
     }
     
     func application(_ app: UIApplication,

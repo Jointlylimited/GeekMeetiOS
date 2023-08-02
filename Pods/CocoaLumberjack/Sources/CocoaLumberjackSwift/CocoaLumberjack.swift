@@ -1,6 +1,6 @@
 // Software License Agreement (BSD License)
 //
-// Copyright (c) 2010-2020, Deusty, LLC
+// Copyright (c) 2010-2022, Deusty, LLC
 // All rights reserved.
 //
 // Redistribution and use of this software in source and binary forms,
@@ -13,14 +13,14 @@
 //   to endorse or promote products derived from this software without specific
 //   prior written permission of Deusty, LLC.
 
-#if SWIFT_PACKAGE
 @_exported import CocoaLumberjack
+#if SWIFT_PACKAGE
 import CocoaLumberjackSwiftSupport
 #endif
 
 extension DDLogFlag {
     public static func from(_ logLevel: DDLogLevel) -> DDLogFlag {
-        return DDLogFlag(rawValue: logLevel.rawValue)
+        DDLogFlag(rawValue: logLevel.rawValue)
     }
 
 	public init(_ logLevel: DDLogLevel) {
@@ -62,7 +62,7 @@ public func resetDynamicLogLevel() {
 @available(*, deprecated, message: "Please use dynamicLogLevel", renamed: "dynamicLogLevel")
 public var defaultDebugLevel: DDLogLevel {
     get {
-        return dynamicLogLevel
+        dynamicLogLevel
     }
     set {
         dynamicLogLevel = newValue
@@ -78,7 +78,7 @@ public func resetDefaultDebugLevel() {
 public var asyncLoggingEnabled = true
 
 @inlinable
-public func _DDLogMessage(_ message: @autoclosure () -> String,
+public func _DDLogMessage(_ message: @autoclosure () -> Any,
                           level: DDLogLevel,
                           flag: DDLogFlag,
                           context: Int,
@@ -92,7 +92,7 @@ public func _DDLogMessage(_ message: @autoclosure () -> String,
     // We cannot "mix" it with the `DDDefaultLogLevel`, because otherwise the compiler won't strip strings that are not logged.
     if level.rawValue & flag.rawValue != 0 && dynamicLogLevel.rawValue & flag.rawValue != 0 {
         // Tell the DDLogMessage constructor to copy the C strings that get passed to it.
-        let logMessage = DDLogMessage(message: message(),
+        let logMessage = DDLogMessage(message: String(describing: message()),
                                       level: level,
                                       flag: flag,
                                       context: context,
@@ -107,7 +107,7 @@ public func _DDLogMessage(_ message: @autoclosure () -> String,
 }
 
 @inlinable
-public func DDLogDebug(_ message: @autoclosure () -> String,
+public func DDLogDebug(_ message: @autoclosure () -> Any,
                        level: DDLogLevel = DDDefaultLogLevel,
                        context: Int = 0,
                        file: StaticString = #file,
@@ -116,11 +116,20 @@ public func DDLogDebug(_ message: @autoclosure () -> String,
                        tag: Any? = nil,
                        asynchronous async: Bool = asyncLoggingEnabled,
                        ddlog: DDLog = .sharedInstance) {
-    _DDLogMessage(message(), level: level, flag: .debug, context: context, file: file, function: function, line: line, tag: tag, asynchronous: async, ddlog: ddlog)
+    _DDLogMessage(message(),
+                  level: level,
+                  flag: .debug,
+                  context: context,
+                  file: file,
+                  function: function,
+                  line: line,
+                  tag: tag,
+                  asynchronous: async,
+                  ddlog: ddlog)
 }
 
 @inlinable
-public func DDLogInfo(_ message: @autoclosure () -> String,
+public func DDLogInfo(_ message: @autoclosure () -> Any,
                       level: DDLogLevel = DDDefaultLogLevel,
                       context: Int = 0,
                       file: StaticString = #file,
@@ -129,11 +138,20 @@ public func DDLogInfo(_ message: @autoclosure () -> String,
                       tag: Any? = nil,
                       asynchronous async: Bool = asyncLoggingEnabled,
                       ddlog: DDLog = .sharedInstance) {
-    _DDLogMessage(message(), level: level, flag: .info, context: context, file: file, function: function, line: line, tag: tag, asynchronous: async, ddlog: ddlog)
+    _DDLogMessage(message(),
+                  level: level,
+                  flag: .info,
+                  context: context,
+                  file: file,
+                  function: function,
+                  line: line,
+                  tag: tag,
+                  asynchronous: async,
+                  ddlog: ddlog)
 }
 
 @inlinable
-public func DDLogWarn(_ message: @autoclosure () -> String,
+public func DDLogWarn(_ message: @autoclosure () -> Any,
                       level: DDLogLevel = DDDefaultLogLevel,
                       context: Int = 0,
                       file: StaticString = #file,
@@ -142,11 +160,20 @@ public func DDLogWarn(_ message: @autoclosure () -> String,
                       tag: Any? = nil,
                       asynchronous async: Bool = asyncLoggingEnabled,
                       ddlog: DDLog = .sharedInstance) {
-    _DDLogMessage(message(), level: level, flag: .warning, context: context, file: file, function: function, line: line, tag: tag, asynchronous: async, ddlog: ddlog)
+    _DDLogMessage(message(),
+                  level: level,
+                  flag: .warning,
+                  context: context,
+                  file: file,
+                  function: function,
+                  line: line,
+                  tag: tag,
+                  asynchronous: async,
+                  ddlog: ddlog)
 }
 
 @inlinable
-public func DDLogVerbose(_ message: @autoclosure () -> String,
+public func DDLogVerbose(_ message: @autoclosure () -> Any,
                          level: DDLogLevel = DDDefaultLogLevel,
                          context: Int = 0,
                          file: StaticString = #file,
@@ -155,11 +182,20 @@ public func DDLogVerbose(_ message: @autoclosure () -> String,
                          tag: Any? = nil,
                          asynchronous async: Bool = asyncLoggingEnabled,
                          ddlog: DDLog = .sharedInstance) {
-    _DDLogMessage(message(), level: level, flag: .verbose, context: context, file: file, function: function, line: line, tag: tag, asynchronous: async, ddlog: ddlog)
+    _DDLogMessage(message(),
+                  level: level,
+                  flag: .verbose,
+                  context: context,
+                  file: file,
+                  function: function,
+                  line: line,
+                  tag: tag,
+                  asynchronous: async,
+                  ddlog: ddlog)
 }
 
 @inlinable
-public func DDLogError(_ message: @autoclosure () -> String,
+public func DDLogError(_ message: @autoclosure () -> Any,
                        level: DDLogLevel = DDDefaultLogLevel,
                        context: Int = 0,
                        file: StaticString = #file,
@@ -168,11 +204,19 @@ public func DDLogError(_ message: @autoclosure () -> String,
                        tag: Any? = nil,
                        asynchronous async: Bool = false,
                        ddlog: DDLog = .sharedInstance) {
-    _DDLogMessage(message(), level: level, flag: .error, context: context, file: file, function: function, line: line, tag: tag, asynchronous: async, ddlog: ddlog)
+    _DDLogMessage(message(),
+                  level: level,
+                  flag: .error,
+                  context: context,
+                  file: file,
+                  function: function,
+                  line: line,
+                  tag: tag,
+                  asynchronous: async,
+                  ddlog: ddlog)
 }
 
 /// Returns a String of the current filename, without full path or extension.
-///
 /// Analogous to the C preprocessor macro `THIS_FILE`.
 public func currentFileName(_ fileName: StaticString = #file) -> String {
     var str = String(describing: fileName)
@@ -189,5 +233,5 @@ public func currentFileName(_ fileName: StaticString = #file) -> String {
 // swiftlint doesn't like func names that begin with a capital letter - deprecated
 @available(*, deprecated, message: "Please use currentFileName", renamed: "currentFileName")
 public func CurrentFileName(_ fileName: StaticString = #file) -> String {
-    return currentFileName(fileName)
+    currentFileName(fileName)
 }
