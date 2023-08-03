@@ -7,193 +7,65 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "44269C2D-1CA5-406B-B71F-29B3DC5E2B38"
+            uuid = "7A50FEA6-6AE6-41CD-BA55-23C2EAB8A669"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GeekMeets/VIP/Login/AddPhotos/AddPhotosInteractor.swift"
+            filePath = "GeekMeets/Library/StickerView/Source/JLStickerImageView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "callSocialSignUpAPI(signParams:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "44269C2D-1CA5-406B-B71F-29B3DC5E2B38 - 592b67ac5c2317e9"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Jointly.AddPhotosInteractor.callSocialSignUpAPI(signParams: Swift.Dictionary&lt;Swift.String, Swift.String&gt;) -&gt; ()"
-                  moduleName = "Jointly"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sotsys124/Documents/Divya/GitLab_Project/DatingApp/Code/Daveloment/geekmeetsios/GeekMeets/VIP/Login/AddPhotos/AddPhotosInteractor.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "49"
-                  endingLineNumber = "49"
-                  offsetFromSymbolStart = "133">
-               </Location>
-               <Location
-                  uuid = "44269C2D-1CA5-406B-B71F-29B3DC5E2B38 - 29f4beebc6963cd2"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Jointly.UserAuthResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Jointly.AddPhotosInteractor.callSocialSignUpAPI(signParams: Swift.Dictionary&lt;Swift.String, Swift.String&gt;) -&gt; ()"
-                  moduleName = "Jointly"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sotsys124/Documents/Divya/GitLab_Project/DatingApp/Code/Daveloment/geekmeetsios/GeekMeets/VIP/Login/AddPhotos/AddPhotosInteractor.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "51"
-                  endingLineNumber = "51"
-                  offsetFromSymbolStart = "172">
-               </Location>
-            </Locations>
+            startingLineNumber = "347"
+            endingLineNumber = "347"
+            landmarkName = "textBackgroundColor"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9AF6570D-A1D9-44BE-86F1-FB4ADFCA0380"
-            shouldBeEnabled = "No"
+            uuid = "CBD97954-0F15-4200-90B2-9AD0983BF494"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GeekMeets/VIP/Login/SignUpVC/SignUpVCViewController.swift"
+            filePath = "GeekMeets/Library/StickerView/Source/JLStickerImageView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "actionContinue(_:)"
-            landmarkType = "7">
+            startingLineNumber = "353"
+            endingLineNumber = "353"
+            landmarkName = "textBackgroundColor"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "CD574972-6EE8-4A1E-AFAB-222D565AEDE7"
+            uuid = "3AF1A6F1-6342-403B-99D5-9E6A26EEB238"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GeekMeets/VIP/Main/InitialSignUp/InitialSignUpInteractor.swift"
+            filePath = "GeekMeets/VIP/DashBoard/PreviewViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "callSnapchatLogin(objLoginVC:)"
-            landmarkType = "7">
+            startingLineNumber = "590"
+            endingLineNumber = "590"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8BD2EDF8-226D-46F9-8E06-B5E4D15CB0F8"
+            uuid = "BA72E0D5-B7A0-42F4-94D8-B41093273289"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GeekMeets/VIP/DashBoard/EditProfileVC/EditProfileViewController.swift"
+            filePath = "GeekMeets/VIP/DashBoard/PreviewViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "468"
-            endingLineNumber = "468"
-            landmarkName = "EditProfileViewController"
-            landmarkType = "21">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2CFE7479-43C2-4B4C-9F34-4696489A49E7"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GeekMeets/VIP/DashBoard/EditProfileVC/EditProfileViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "446"
-            endingLineNumber = "446"
-            landmarkName = "textFieldShouldBeginEditing(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "AC4E33E8-D509-45BC-B20E-DC9EF6C1B2D8"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GeekMeets/VIP/Login/SignUpVC/SignUpVCPresenter.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
-            landmarkName = "actionContinue(signUpParams:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "30E8BBF3-DFDF-4D4D-A97F-D7F6711CEE9B"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GeekMeets/VIP/Login/AddPhotos/AddPhotosViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
-            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "EE4822BD-C9A4-421F-B4E2-2D387BCE9C31"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GeekMeets/VIP/Login/UserProfile/UserProfileViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "202"
-            endingLineNumber = "202"
-            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8E89A602-3683-425A-8669-2328059394E3"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GeekMeets/VIP/Main/InitialSignUp/InitialSignUpInteractor.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
-            landmarkName = "callSocialSignInAPI(params:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "0D7FFE39-09FE-43AF-949C-0E211801F1F3"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GeekMeets/VIP/Login/LoginPresenter.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "getLoginResponse(userData:)"
-            landmarkType = "7">
+            startingLineNumber = "473"
+            endingLineNumber = "473"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -51,10 +51,7 @@ class InitialLoginPresenter: InitialLoginPresentationProtocol {
           if let view = self.viewController as? UIViewController
           {
               view.pushVC(controller)
-              
           }
-        
-         
       }
     func callSocialLoginRequest(loginParams : Dictionary<String, String>){
            self.interactor?.callSocialLoginApi(params: loginParams)

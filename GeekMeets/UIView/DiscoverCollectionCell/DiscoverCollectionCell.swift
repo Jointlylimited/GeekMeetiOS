@@ -9,12 +9,11 @@
 import UIKit
 
 class DiscoverCollectionCell: UICollectionViewCell {
-
     
     @IBOutlet weak var userImgView: UIImageView!
+    @IBOutlet weak var lblName: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
 }

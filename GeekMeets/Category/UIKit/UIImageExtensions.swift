@@ -8,6 +8,10 @@
 
 import Foundation
 import UIKit
+import Kingfisher
+import Photos
+import ImageIO
+import Accelerate
 
 extension UIImage {
     enum JPEGQuality: CGFloat {
@@ -23,5 +27,274 @@ extension UIImage {
     /// - returns: A data object containing the JPEG data, or nil if there was a problem generating the data. This function may return nil if the image has no data or if the underlying CGImageRef contains data in an unsupported bitmap format.
     func jpeg(_ jpegQuality: JPEGQuality) -> Data? {
         return jpegData(compressionQuality: jpegQuality.rawValue)
+    }
+}
+
+
+// MARK: Custom UItextfield Initilizers
+extension UIImageView {
+    func set(with urlString: String){
+        guard let url = URL.init(string: urlString) else {
+            return
+        }
+        let resource = ImageResource(downloadURL: url, cacheKey: urlString)
+        var kf = self.kf
+        kf.indicatorType = .activity
+        self.kf.setImage(with: resource)
+    }
+   
+    func setImage(with urlString: String?, placeHolder: UIImage? = #imageLiteral(resourceName: "placeholder_rect"), showActivity: Bool = true){
+        let imgUrl = URL(string: urlString ?? "")
+        var kf = self.kf
+        kf.indicatorType = showActivity ? .activity : .none
+        self.kf.setImage(with: imgUrl, placeholder: placeHolder)
+        
+    }
+  
+    func setUserImage(with urlString: String?, placeHolder: UIImage? = #imageLiteral(resourceName: "placeholder_rect"), showActivity: Bool = true){
+      let imgUrl = URL(string: urlString ?? "")
+      var kf = self.kf
+      kf.indicatorType = showActivity ? .activity : .none
+      self.kf.setImage(with: imgUrl, placeholder: placeHolder)
+      
+    }
+  
+    func SetImageWithKey(urlString: String,key: String){
+        guard let url = URL.init(string: urlString) else {
+            return
+        }
+        let resource = ImageResource(downloadURL: url, cacheKey: key)
+        var kf = self.kf
+        kf.indicatorType = .activity
+        self.kf.setImage(with: resource)
+    }
+    
+}
+
+
+extension UIImage {
+    
+    func isEqualToImage(image: UIImage) -> Bool {
+        let data1: NSData = self.pngData()! as NSData
+        let data2: NSData = image.pngData()! as NSData
+        return data1.isEqual(data2)
+    }
+    
+    /// It will used to scale image size to down and maintain image ration.
+    ///
+    /// - Parameter toWidth: CGFloat type value, expect width
+    /// - Returns: UIImage type object
+    func scaleWithAspectRatioTo(_ width:CGFloat) -> UIImage {
+        let oldWidth = size.width
+        let oldHeight = size.height
+        if oldHeight < width && oldWidth < width {
+            return self
+        }
+        let scaleFactor = oldWidth > oldHeight ? width/oldWidth : width/oldHeight
+        let newHeight = oldHeight * scaleFactor
+        let newWidth = oldWidth * scaleFactor;
+        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+        draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage!
+    }
+    
+    
+    /// It will used to reduce image resolution and maintain aspect ratio.
+    ///
+    /// - Parameter width: Expected width to reduce resolution
+    /// - Returns: UIImage object return
+    func scaleAndManageAspectRatio(_ width: CGFloat) -> UIImage {
+        if let cgImage = cgImage {
+            let oldWidth = size.width
+            let oldHeight = size.height
+            if oldHeight < width && oldWidth < width {
+                return self
+            }
+            let scaleFactor = oldWidth > oldHeight ? width/oldWidth : width/oldHeight
+            let newHeight = oldHeight * scaleFactor
+            let newWidth = oldWidth * scaleFactor;
+            var format = vImage_CGImageFormat(bitsPerComponent: 8, bitsPerPixel: 32, colorSpace: nil, bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.first.rawValue),version: 0, decode: nil, renderingIntent: CGColorRenderingIntent.defaultIntent)
+            var sourceBuffer = vImage_Buffer()
+            defer {
+                sourceBuffer.data.deallocate()
+            }
+            var error = vImageBuffer_InitWithCGImage(&sourceBuffer, &format, nil, cgImage, numericCast(kvImageNoFlags))
+            guard error == kvImageNoError else { return self }
+            
+            // create a destination buffer
+            let scale = self.scale
+            let destWidth = Int(newWidth)
+            let destHeight = Int(newHeight)
+            let bytesPerPixel = cgImage.bitsPerPixel/8
+            let destBytesPerRow = destWidth * bytesPerPixel
+            let destData = UnsafeMutablePointer<UInt8>.allocate(capacity: destHeight * destBytesPerRow)
+            defer {
+                destData.deallocate()
+            }
+            var destBuffer = vImage_Buffer(data: destData, height: vImagePixelCount(destHeight), width: vImagePixelCount(destWidth), rowBytes: destBytesPerRow)
+            
+            // scale the image
+            error = vImageScale_ARGB8888(&sourceBuffer, &destBuffer, nil, numericCast(kvImageHighQualityResampling))
+            guard error == kvImageNoError else { return self }
+            
+            // create a CGImage from vImage_Buffer
+            let destCGImage = vImageCreateCGImageFromBuffer(&destBuffer, &format, nil, nil, numericCast(kvImageNoFlags), &error)?.takeRetainedValue()
+            guard error == kvImageNoError else { return self }
+            
+            // create a UIImage
+            let imgOutPut = destCGImage.flatMap { (cgImage) -> UIImage? in
+                return UIImage(cgImage: cgImage, scale: 0.0, orientation: imageOrientation)
+            }
+            return imgOutPut ?? self
+        }else{
+            return self
+        }
+    }
+    
+    func resizeImage(targetSize: CGSize) -> UIImage {
+        let size = self.size
+        let widthRatio  = targetSize.width  / size.width
+        let heightRatio = targetSize.height / size.height
+        let newSize = widthRatio > heightRatio ?  CGSize(width: size.width * heightRatio, height: size.height * heightRatio) : CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+        
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        self.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
+    }
+    
+    func rotate(radians: Float) -> UIImage? {
+            var newSize = CGRect(origin: CGPoint.zero, size: self.size).applying(CGAffineTransform(rotationAngle: CGFloat(radians))).size
+            // Trim off the extremely small float value to prevent core graphics from rounding it up
+            newSize.width = floor(newSize.width)
+            newSize.height = floor(newSize.height)
+
+            UIGraphicsBeginImageContextWithOptions(newSize, false, self.scale)
+            let context = UIGraphicsGetCurrentContext()!
+
+            // Move origin to middle
+            context.translateBy(x: newSize.width/2, y: newSize.height/2)
+            // Rotate around middle
+            context.rotate(by: CGFloat(radians))
+            // Draw the image at its center
+            self.draw(in: CGRect(x: -self.size.width/2, y: -self.size.height/2, width: self.size.width, height: self.size.height))
+
+            let newImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+
+            return newImage
+        }
+}
+
+// MARK: - Get Image From asset
+extension PHAsset {
+    func getDisplayImage(size: CGSize, comp: @escaping (UIImage?) -> ()){
+        let requestOptions = PHImageRequestOptions()
+        requestOptions.isSynchronous = true
+        PHImageManager.default().requestImage(for: self, targetSize: size, contentMode: PHImageContentMode.aspectFill, options: requestOptions, resultHandler: { (image, info) -> Void in
+            comp(image)
+        })
+    }
+    
+    func getFullImage(comp: @escaping (UIImage?) -> ()) {
+        let options = PHImageRequestOptions()
+        options.isNetworkAccessAllowed = true
+        options.isSynchronous = true
+        PHImageManager.default().requestImage(for: self, targetSize: _maxImageSize, contentMode: PHImageContentMode.aspectFit, options: options, resultHandler: { (image, info) -> Void in
+            comp(image)
+        })
+        //        PHImageManager.default().requestImageData(for: self, options: options, resultHandler: { (imageData, imageDataUTI, imageOrientation, imageUserInfo) -> Void in
+        //            DispatchQueue.main.async(execute: { () -> Void in
+        //                if let d = imageData {
+        //                    let image = UIImage(data: d)
+        //                    comp(image)
+        //                } else {
+        //                    comp(nil)
+        //                }
+        //            })
+        //        })
+    }
+}
+extension PHAsset {
+    
+    func getUIImage(asset: PHAsset) -> UIImage? {
+        
+        var img: UIImage?
+        let manager = PHImageManager.default()
+        let options = PHImageRequestOptions()
+        options.version = .original
+        options.isSynchronous = true
+        manager.requestImageData(for: asset, options: options) { data, _, _, _ in
+            
+            if let data = data {
+                img = UIImage(data: data)
+            }
+        }
+        return img
+    }
+    
+    func getUrlFromPHAsset(asset: PHAsset/*, callBack: @escaping (_ url: URL?) -> Void*/) -> URL
+    {
+        var url : URL?
+        asset.requestContentEditingInput(with: PHContentEditingInputRequestOptions(), completionHandler: { (contentEditingInput, dictInfo) in
+            
+            if let strURL = (contentEditingInput!.audiovisualAsset as? AVURLAsset)?.url.absoluteString
+            {
+                print("VIDEO URL: \(strURL)")
+                url = URL.init(string: strURL)
+                //                callBack(URL.init(string: strURL))
+            }
+        })
+        return url != nil ? url! : URL(string: "")!
+    }
+}
+extension AVAsset {
+    func assetByTrimming(startTime: CMTime, endTime: CMTime) throws -> AVAsset {
+        let duration = CMTimeSubtract(endTime, startTime)
+        let timeRange = CMTimeRange(start: startTime, duration: duration)
+        
+        let composition = AVMutableComposition()
+        
+        do {
+            for track in tracks {
+                let compositionTrack = composition.addMutableTrack(withMediaType: track.mediaType, preferredTrackID: track.trackID)
+                compositionTrack?.preferredTransform = track.preferredTransform
+                try compositionTrack?.insertTimeRange(timeRange, of: track, at: CMTime.zero)
+            }
+        } catch let error {
+            throw TrimError("error during composition", underlyingError: error)
+        }
+        
+        return composition
+    }
+    
+    struct TrimError: Error {
+        let description: String
+        let underlyingError: Error?
+        
+        init(_ description: String, underlyingError: Error? = nil) {
+            self.description = "TrimVideo: " + description
+            self.underlyingError = underlyingError
+        }
+    }
+    
+    func getVideoThumbImage() -> UIImage? {
+        let asset = self
+        let imageGenerator = AVAssetImageGenerator(asset: asset)
+        imageGenerator.appliesPreferredTrackTransform = true
+        let time = CMTimeMake(value: 1, timescale: 1)
+        do {
+            let imageRef = try imageGenerator.copyCGImage(at: time, actualTime: nil)
+            return  UIImage(cgImage:imageRef)
+        } catch let error {
+            imageGenerator.cancelAllCGImageGeneration()
+            print( "getVideoThumbImage  error : \(error.localizedDescription)")
+        }
+        return nil
     }
 }

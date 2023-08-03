@@ -15,6 +15,24 @@ import UIKit
 protocol MatchProfilePresentationProtocol {
     func gotoMatchVC()
     func gotoReportVC()
+    
+    func callUserProfileAPI(id : String, code : String)
+    func getUserProfileResponse(response : UserAuthResponseField)
+    
+    func callStoryListAPI(id : Int)
+    func getStoryListResponse(response: StoryResponse)
+    
+    func callBlockUserAPI(vXmppUser: String, tiIsBlocked: String)
+    func getBlockUserResponse(response : CommonResponse)
+    
+    func callBlockUserListAPI()
+    func getBlockUserListResponse(response : BlockUser)
+    
+    func callReactEmojiAPI( iUserId: String, iMediaId: String, tiRactionType: String)
+    func getReactEmojiResponse(response : MediaReaction)
+    
+    func callSwipeCardAPI(iProfileId : String, tiSwipeType : String)
+    func getSwipeCardResponse(response : SwipeUser)
 }
 
 class MatchProfilePresenter: MatchProfilePresentationProtocol {
@@ -22,6 +40,50 @@ class MatchProfilePresenter: MatchProfilePresentationProtocol {
     var interactor: MatchProfileInteractorProtocol?
     
     // MARK: Present something
+    func callUserProfileAPI(id : String, code : String){
+        self.interactor?.callUserProfileAPI(id: id, code : code)
+    }
+    func getUserProfileResponse(response : UserAuthResponseField){
+        self.viewController?.getUserProfileResponse(response: response)
+    }
+    
+    func callStoryListAPI(id : Int){
+        self.interactor?.callStoryListAPI(id : id)
+    }
+    func getStoryListResponse(response: StoryResponse){
+        self.viewController?.getStoryListResponse(response: response)
+    }
+    func callBlockUserAPI(vXmppUser: String, tiIsBlocked: String){
+        self.interactor?.callBlockUserAPI(vXmppUser: vXmppUser, tiIsBlocked: tiIsBlocked)
+    }
+    
+    func getBlockUserResponse(response : CommonResponse){
+        self.viewController?.getBlockUserResponse(response : response)
+    }
+    
+    func callBlockUserListAPI(){
+        self.interactor?.callBlockUserListAPI()
+    }
+    
+    func getBlockUserListResponse(response : BlockUser){
+        self.viewController?.getBlockUserListResponse(response : response)
+    }
+    
+    func callReactEmojiAPI( iUserId: String, iMediaId: String, tiRactionType: String){
+        self.interactor?.callReactEmojiAPI(iUserId: iUserId, iMediaId: iMediaId, tiRactionType: tiRactionType)
+    }
+    
+    func getReactEmojiResponse(response : MediaReaction){
+        self.viewController?.getReactEmojiResponse(response: response)
+    }
+    
+    func callSwipeCardAPI(iProfileId : String, tiSwipeType : String){
+        self.interactor?.callSwipeCardAPI(iProfileId: iProfileId, tiSwipeType: tiSwipeType)
+    }
+    func getSwipeCardResponse(response : SwipeUser){
+        self.viewController?.getSwipeCardResponse(response : response)
+    }
+    
     func gotoMatchVC() {
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchScreen)
         controller.modalTransitionStyle = .crossDissolve

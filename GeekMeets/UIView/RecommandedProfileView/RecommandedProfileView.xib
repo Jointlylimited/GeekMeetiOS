@@ -33,7 +33,7 @@
                     <rect key="frame" x="40" y="233" width="334" height="430"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Recommanded Profile Photo" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JOO-Ln-yug">
-                            <rect key="frame" x="20" y="267" width="294" height="20"/>
+                            <rect key="frame" x="20" y="270.5" width="294" height="16.5"/>
                             <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -137,15 +137,15 @@
                             </constraints>
                         </stackView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v5Y-2f-VmN">
-                            <rect key="frame" x="77" y="50" width="180" height="180"/>
+                            <rect key="frame" x="74.5" y="47.5" width="185" height="185"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="180" id="FiC-LM-aiq"/>
+                                <constraint firstAttribute="width" constant="185" id="FiC-LM-aiq"/>
                                 <constraint firstAttribute="width" secondItem="v5Y-2f-VmN" secondAttribute="height" multiplier="1:1" id="Wds-Ne-6GO"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                    <real key="value" value="5"/>
+                                    <real key="value" value="10"/>
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                     <real key="value" value="90"/>
@@ -155,7 +155,7 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image 64" translatesAutoresizingMaskIntoConstraints="NO" id="XKd-0p-dEk">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image_1" translatesAutoresizingMaskIntoConstraints="NO" id="XKd-0p-dEk">
                             <rect key="frame" x="87" y="60" width="160" height="160"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="160" id="Cgk-Tq-MS9"/>
@@ -233,7 +233,7 @@
         </view>
     </objects>
     <resources>
-        <image name="Image 64" width="56" height="84"/>
         <image name="icn_close_grey" width="10.5" height="10.5"/>
+        <image name="image_1" width="290" height="412"/>
     </resources>
 </document>

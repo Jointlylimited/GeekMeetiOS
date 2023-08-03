@@ -16,6 +16,7 @@ protocol OTPEnterInteractorProtocol {
     func doSomething()
     func callVerifyOTPAPI(iOTP : String,vCountryCode : String,vPhone : String)
     func callResendOTPAPI(vCountryCode : String,vPhone : String)
+    func callNewVerifyOTPAPI(iOTP : String,vCountryCode : String,vPhone : String)
 }
 
 protocol OTPEnterDataStore {
@@ -32,16 +33,25 @@ class OTPEnterInteractor: OTPEnterInteractorProtocol, OTPEnterDataStore {
     }
   
     func callVerifyOTPAPI(iOTP : String,vCountryCode : String,vPhone : String) {
-      
-     
-      let intiUserId: Int = UserDataModel.currentUser!.iUserId!
-      UserAPI.verifyOtp(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, iUserId: String(intiUserId), iOTP: iOTP, vCountryCode: vCountryCode, vPhone:vPhone ){ (response, error) in
+        
+    print(UserDataModel.currentUser)
+        
+        DefaultLoaderView.sharedInstance.showLoader()
+      let intiUserId: Int = UserDataModel.currentUser!.iUserId ?? 0
+        UserAPI.verifyOtp(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, language: APPLANGUAGE.english, iUserId: String(intiUserId), iOTP: iOTP, vCountryCode: vCountryCode, vPhone:vPhone, tiStep: "2"){ (response, error) in
+            
+            delay(0.2) {
+                DefaultLoaderView.sharedInstance.hideLoader()
+            }
             
             if response?.responseCode == 200 {
                 self.presenter?.getVerifyOTPResponse(response: response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else if response?.responseCode == 400 {
                 self.presenter?.getVerifyOTPResponse(response: response!)
-              
+                
             }  else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
@@ -52,30 +62,56 @@ class OTPEnterInteractor: OTPEnterInteractorProtocol, OTPEnterDataStore {
         }
     }
   
-      func callResendOTPAPI(vCountryCode : String,vPhone : String) {
+    func callResendOTPAPI(vCountryCode : String,vPhone : String) {
         
+        DefaultLoaderView.sharedInstance.showLoader()
         let intiUserId: Int = UserDataModel.currentUser!.iUserId!
-        UserAPI.requestForOtp(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: APPLANGUAGE.english, iUserId: String(intiUserId), vCountryCode: vCountryCode, vPhone:vPhone){ (response, error) in
+        UserAPI.requestForOtp(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, language: APPLANGUAGE.english, iUserId: String(intiUserId), vCountryCode: vCountryCode, vPhone:vPhone){ (response, error) in
             
+            delay(0.2) {
+                DefaultLoaderView.sharedInstance.hideLoader()
+            }
             if response?.responseCode == 200 {
                 self.presenter?.getResendOTPResponse(response: response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else if response?.responseCode == 400 {
-                
                 self.presenter?.getResendOTPResponse(response: response!)
-                
             }  else {
                 if error != nil {
-                  
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
-                  
-                  
                 } else {
-                  
                     self.presenter?.getResendOTPResponse(response: response!)
-                  
                 }
             }
         }
     }
       
+    func callNewVerifyOTPAPI(iOTP : String,vCountryCode : String,vPhone : String) {
+        
+        DefaultLoaderView.sharedInstance.showLoader()
+        let intiUserId: Int = UserDataModel.currentUser!.iUserId!
+        UserAPI.verifyOtp(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, language: APPLANGUAGE.english, iUserId: String(intiUserId), iOTP: iOTP, vCountryCode: vCountryCode, vPhone:vPhone){ (response, error) in
+            
+            delay(0.2) {
+                DefaultLoaderView.sharedInstance.hideLoader()
+            }
+            if response?.responseCode == 200 {
+                self.presenter?.getNewVerifyOTPResponse(response: response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+            } else if response?.responseCode == 400 {
+                self.presenter?.getNewVerifyOTPResponse(response: response!)
+                
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getNewVerifyOTPResponse(response: response!)
+                }
+            }
+        }
+    }
 }

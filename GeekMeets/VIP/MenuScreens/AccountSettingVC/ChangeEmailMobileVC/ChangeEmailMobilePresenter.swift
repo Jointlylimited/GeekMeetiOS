@@ -13,7 +13,8 @@
 import UIKit
 
 protocol ChangeEmailMobilePresentationProtocol {
-    func presentSomething()
+    func callUpdateEmailAPI(iUserId: String, vEmail: String)
+    func getUpdateEmailResponse(response : CommonResponse)
 }
 
 class ChangeEmailMobilePresenter: ChangeEmailMobilePresentationProtocol {
@@ -21,7 +22,18 @@ class ChangeEmailMobilePresenter: ChangeEmailMobilePresentationProtocol {
     var interactor: ChangeEmailMobileInteractorProtocol?
     
     // MARK: Present something
-    func presentSomething() {
-        
+    func callUpdateEmailAPI(iUserId: String, vEmail: String) {
+        if vEmail.isEmpty {
+            self.viewController?.displayAlert(strTitle: "", strMessage: kEnterEmail)
+            return
+        } else if !vEmail.isEmail {
+            self.viewController?.displayAlert(strTitle: "", strMessage: kEnterValidEmail)
+            return
+        }
+        self.interactor?.callUpdateEmailAPI(iUserId: iUserId, vEmail: vEmail)
+    }
+    
+    func getUpdateEmailResponse(response : CommonResponse){
+        self.viewController?.getUpdateEmailResponse(response : response)
     }
 }

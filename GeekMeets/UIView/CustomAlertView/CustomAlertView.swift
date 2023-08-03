@@ -9,7 +9,7 @@
 import UIKit
 
 protocol AlertViewDelegate: NSObjectProtocol {
-    func OkButtonAction()
+    func OkButtonAction(title : String)
     func cancelButtonAction()
 }
 
@@ -52,7 +52,6 @@ class CustomAlertView: UIView {
     
     func commonInit(){
       self.frame = self.bounds
-        
     }
     
     override func awakeFromNib() {
@@ -67,19 +66,14 @@ class CustomAlertView: UIView {
     }
     
     class func initAlertView(title: String, message: String, btnRightStr: String, btnCancelStr: String, btnCenter : String, isSingleButton : Bool) -> CustomAlertView {
-        let view = Bundle.main.loadNibNamed("CustomAlertView", owner: nil, options: nil)?.first as! CustomAlertView
-//        view.viewCancel.dropShadow()
-//        view.viewRight.dropShadow()
-        view.prepareUI(title: title, message: message, btnRightStr : btnRightStr, btnCancelStr: btnCancelStr, btnCenter : btnCenter, isSingleButton : isSingleButton)
         
+        let view = Bundle.main.loadNibNamed("CustomAlertView", owner: nil, options: nil)?.first as! CustomAlertView
+        view.prepareUI(title: title, message: message, btnRightStr : btnRightStr, btnCancelStr: btnCancelStr, btnCenter : btnCenter, isSingleButton : isSingleButton)
         view.layoutIfNeeded()
         return view
     }
     
     func prepareUI(title: String, message: String, btnRightStr : String, btnCancelStr: String, btnCenter : String, isSingleButton : Bool) {
-
-        let attributedStr1 = NSAttributedString(string: btnRightStr) // .color(UIColor.hexStringToUIColor(hexStr: "F2F2F2"))
-        let attributedStr2 = NSAttributedString(string:btnCancelStr)
         
         if isSingleButton {
             self.BtnStackView.alpha = 0
@@ -88,17 +82,20 @@ class CustomAlertView: UIView {
             self.viewCentre.alpha = 0
             self.BtnStackView.alpha = 1
         }
+        
+        self.viewCancel.dropShadow(view: self.viewCancel)
+        self.viewRight.dropShadow(view: self.viewRight)
+        self.viewCentre.dropShadow(view: self.viewCentre)
+        
         lblTitle.text = title
         lblDesc.text = message
         
         self.btnRight.setTitle(btnRightStr, for: .normal)
         self.btnCancel.setTitle(btnCancelStr, for: .normal)
-        
     }
 }
 
 extension CustomAlertView {
-    
     @IBAction func btnCloseAction(_ sender: UIButton) {
         self.removeFromSuperview()
     }
@@ -108,8 +105,7 @@ extension CustomAlertView {
     }
     
     @IBAction func btnOkAction(_ sender: UIButton) {
-        
-        delegate?.OkButtonAction()
+        delegate?.OkButtonAction(title: (sender.titleLabel?.text!)!)
     }
     
     @IBAction func btnCentreAction(_ sender: UIButton) {

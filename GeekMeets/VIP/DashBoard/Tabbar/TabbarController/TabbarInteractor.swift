@@ -13,7 +13,7 @@
 import UIKit
 
 protocol TabbarInteractorProtocol {
-    func doSomething()
+    func callStoryListAPI()
 }
 
 protocol TabbarDataStore {
@@ -24,8 +24,27 @@ class TabbarInteractor: TabbarInteractorProtocol, TabbarDataStore {
     var presenter: TabbarPresentationProtocol?
     //var name: String = ""
     
-    // MARK: Do something
-    func doSomething() {
-        
+    func callStoryListAPI() {
+        //        LoaderView.sharedInstance.showLoader()
+        MediaAPI.listStory(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, _id: 0) { (response, error) in
+            
+            //            delay(0.2) {
+            //                LoaderView.sharedInstance.hideLoader()
+            //            }
+            if response?.responseCode == 200 {
+                self.presenter?.getStoryListResponse(response: response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+            } else if response?.responseCode == 400 {
+                self.presenter?.getStoryListResponse(response: response!)
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getStoryListResponse(response: response!)
+                }
+            }
+        }
     }
 }

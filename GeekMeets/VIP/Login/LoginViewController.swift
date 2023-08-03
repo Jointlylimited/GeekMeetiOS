@@ -20,11 +20,10 @@ class LoginViewController: UIViewController, LoginProtocol {
     //var interactor : LoginInteractorProtocol?
     var presenter : LoginPresentationProtocol?
     
-    
     @IBOutlet weak var txtEmail : UITextField?
     @IBOutlet weak var txtPassword : UITextField?
-    // MARK: Object lifecycle
     
+    // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -36,7 +35,6 @@ class LoginViewController: UIViewController, LoginProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = LoginInteractor()
@@ -54,21 +52,14 @@ class LoginViewController: UIViewController, LoginProtocol {
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         if ez.isDebug {
             txtEmail?.text = "ht11@gmail.com"
             txtPassword?.text = "12345678"
         }
     }
-    
-    // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
     
     @IBAction func actionLogin() {
         let params = RequestParameter.sharedInstance().loginParam(email: (txtEmail?.text)!, password: (txtPassword?.text)!)
@@ -84,9 +75,7 @@ class LoginViewController: UIViewController, LoginProtocol {
     }
     
     func displayAlert(strTitle : String, strMessage : String) {
-        //nameTextField.text = viewModel.name
         self.showAlert(title: strTitle, message: strMessage)
-      
     }
     
     @IBAction func actionBack() {

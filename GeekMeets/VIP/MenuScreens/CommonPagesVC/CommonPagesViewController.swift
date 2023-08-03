@@ -12,30 +12,8 @@
 
 import UIKit
 
-enum CommonModelData {
-
-    case Tips
-    case Terms
-    case Privacy
-    case About
-    case Licenses
-
-    var Title : String {
-        switch self {
-        case .Tips:
-            return "Tips"
-        case .Terms:
-            return "Terms & Conditions"
-        case .Privacy:
-            return "Privacy Policy"
-        case .About:
-            return "About Us"
-        case .Licenses:
-            return "Licenses"
-        }
-    }
-}
 protocol CommonPagesProtocol: class {
+    func getContentResponse(response : ContentPageResponse)
 }
 
 class CommonPagesViewController: UIViewController, CommonPagesProtocol {
@@ -44,11 +22,11 @@ class CommonPagesViewController: UIViewController, CommonPagesProtocol {
     
     @IBOutlet weak var lblScreenTitle: UILabel!
     @IBOutlet weak var descView: UITextView!
-    
+
     var objCommonData : CommonModelData?
+    var slug : String = ""
     
     // MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -60,7 +38,6 @@ class CommonPagesViewController: UIViewController, CommonPagesProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = CommonPagesInteractor()
@@ -78,21 +55,40 @@ class CommonPagesViewController: UIViewController, CommonPagesProtocol {
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setData()
     }
     
-    
     func setData(){
         self.lblScreenTitle.text = objCommonData?.Title
-//        self.descView.text = objCommonData
+        if slug != "" {
+            self.presenter?.CallContentPageAPI(slug: slug)
+        }
     }
+    
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.popVC()
     }
 }
 
+extension CommonPagesViewController {
+    func getContentResponse(response : ContentPageResponse){
+        if response.responseCode == 200 {
+            self.descView.text = response.responseData?.txContent?.html2AttributedString
+        }
+    }
+}
+
+extension String {
+    var html2AttributedString: String? {
+    guard let data = data(using: .utf8) else { return nil }
+    do {
+        return try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil).string
+    } catch let error as NSError {
+        print(error.localizedDescription)
+        return  nil
+    }
+  }
+}

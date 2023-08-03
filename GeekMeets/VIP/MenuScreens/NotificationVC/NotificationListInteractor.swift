@@ -13,7 +13,9 @@
 import UIKit
 
 protocol NotificationListInteractorProtocol {
-    func doSomething()
+    func callNotificationListAPI(offset: Int, limit: Int)
+    func callReadAPI(iNotificationId : String, tiType : String)
+     func callBadgeCountAPI()
 }
 
 protocol NotificationListDataStore {
@@ -25,7 +27,91 @@ class NotificationListInteractor: NotificationListInteractorProtocol, Notificati
     //var name: String = ""
     
     // MARK: Do something
-    func doSomething() {
-        
+    func callNotificationListAPI(offset: Int, limit: Int) {
+        DefaultLoaderView.sharedInstance.showLoader()
+        NotificationAPI.listNotification(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, limit: limit, offset: offset) { (response, error) in
+            
+            delay(0.2) {
+                DefaultLoaderView.sharedInstance.hideLoader()
+            }
+            if response?.responseCode == 200 {
+                self.presenter?.getNotificationListResponse(response : response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+            } else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getNotificationListResponse(response : response!)
+                }
+            }
+        }
+    }
+    
+    func callReadAPI(iNotificationId : String, tiType : String) {
+        if iNotificationId != "" {
+//            LoaderView.sharedInstance.showLoader()
+            NotificationAPI.viewNotification(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, authorization: UserDataModel.authorization, iNotificationId: iNotificationId, tiType: tiType) { (response, error) in
+                
+//                delay(0.2) {
+//                    LoaderView.sharedInstance.hideLoader()
+//                }
+                if response?.responseCode == 200 {
+                    self.presenter?.getReadNotificationResponse(response: response!)
+                } else if response?.responseCode == 203 {
+                    AppSingleton.sharedInstance().logout()
+                    AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+                }  else {
+                    if error != nil {
+                        AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                    } else {
+                        self.presenter?.getReadNotificationResponse(response: response!)
+                    }
+                }
+            }
+        } else {
+//            LoaderView.sharedInstance.showLoader()
+            NotificationAPI.viewNotification(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, authorization: UserDataModel.authorization, iNotificationId: iNotificationId, tiType: tiType, isClearAll: 1) { (response, error) in
+                
+//                delay(0.2) {
+//                    LoaderView.sharedInstance.hideLoader()
+//                }
+                if response?.responseCode == 200 {
+                    self.presenter?.getClearAllNotificationResponse(response: response!)
+                } else if response?.responseCode == 203 {
+                    AppSingleton.sharedInstance().logout()
+                    AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+                }  else {
+                    if error != nil {
+                        AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                    } else {
+                        self.presenter?.getClearAllNotificationResponse(response: response!)
+                    }
+                }
+            }
+        }
+    }
+    
+    func callBadgeCountAPI(){
+        DefaultLoaderView.sharedInstance.showLoader()
+        NotificationAPI.budgeCount(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
+            
+            delay(0.2) {
+                DefaultLoaderView.sharedInstance.hideLoader()
+            }
+            if response?.responseCode == 200 {
+                self.presenter?.getBadgeCountResponse(response: response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getBadgeCountResponse(response: response!)
+                }
+            }
+        }
     }
 }

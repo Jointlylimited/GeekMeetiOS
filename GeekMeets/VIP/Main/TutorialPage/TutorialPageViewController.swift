@@ -13,7 +13,6 @@
 import UIKit
 
 protocol TutorialPageProtocol: class {
-    func displaySomething()
 }
 
 class TutorialPageViewController: UIViewController, TutorialPageProtocol {
@@ -24,9 +23,9 @@ class TutorialPageViewController: UIViewController, TutorialPageProtocol {
     @IBOutlet var clViewTutorial : UICollectionView!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var btnNext: UIButton!
-  var tutorialData : [TutorialData] = [.firstPage, .secondPage, .thirdPage]
-    // MARK: Object lifecycle
+    var tutorialData : [TutorialData] = [.firstPage, .secondPage, .thirdPage]
     
+    // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -38,7 +37,6 @@ class TutorialPageViewController: UIViewController, TutorialPageProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = TutorialPageInteractor()
@@ -56,46 +54,23 @@ class TutorialPageViewController: UIViewController, TutorialPageProtocol {
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        doSomething()
+        setTheme()
     }
-    
-    // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
-    func doSomething() {
-      
+
+    func setTheme() {
       clViewTutorial.frame.size = self.view.frame.size
-        
     }
     
-    func displaySomething() {
-        //nameTextField.text = viewModel.name
-    }
-  
    // MARK:- IBAction Method
-  
   @IBAction func actionNext(_ sender : UIButton)
   {
       if pageControl.currentPage == self.tutorialData.count - 1
       {
         btnNext.setTitle("Continue",for: .normal)
-//          if UserResponse.isUserLoggedIn
-//          {
-//              self.navBar?.isHidden = false
-//              self.navigationController?.popViewController(animated: false)
-//          }
-//          else
-//          {
-//              self.presenter?.actionNextButton()
-//          }
         self.presenter?.actionNextButton()
-        
       }
       else
       {
@@ -106,15 +81,14 @@ class TutorialPageViewController: UIViewController, TutorialPageProtocol {
           if nextItem.row < tutorialData.count {
               self.clViewTutorial.scrollToItem(at: nextItem, at: .left, animated: true)
               pageControl.currentPage = nextItem.row
-//            if nextItem.row == 2{
               btnNext.setTitle("Next",for: .normal)
-//            }
           }
       }
   }
+    
   @IBAction func actionSkip(_ sender : UIButton)
     {
-        
+        self.presenter?.actionNextButton()
     }
 }
 

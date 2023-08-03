@@ -13,7 +13,8 @@
 import UIKit
 
 protocol CommonPagesPresentationProtocol {
-    func presentSomething()
+    func CallContentPageAPI(slug:String)
+    func getContentResponse(response : ContentPageResponse)
 }
 
 class CommonPagesPresenter: CommonPagesPresentationProtocol {
@@ -21,7 +22,11 @@ class CommonPagesPresenter: CommonPagesPresentationProtocol {
     var interactor: CommonPagesInteractorProtocol?
     
     // MARK: Present something
-    func presentSomething() {
-        
+    func CallContentPageAPI(slug:String) {
+        self.interactor?.CallContentPageAPI(slug: slug)
+    }
+    
+    func getContentResponse(response : ContentPageResponse){
+        self.viewController?.getContentResponse(response : response)
     }
 }

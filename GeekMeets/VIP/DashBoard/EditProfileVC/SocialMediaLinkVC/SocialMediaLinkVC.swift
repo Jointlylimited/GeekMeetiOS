@@ -24,7 +24,8 @@ class SocialMediaLinkVC: UIViewController {
 
     @IBOutlet weak var tblSocialLinkList: UITableView!
     var objSocialMediaModel : [SocialMediaLinkModel] = []
-    var userProfileModel : UserProfileModel?
+    var userProfileModel : UserAuthResponseField?
+    var delegate : SocialMediaLinkDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +34,7 @@ class SocialMediaLinkVC: UIViewController {
     }
     
     func registerTableViewCell(){
-        self.objSocialMediaModel = [SocialMediaLinkModel(image: #imageLiteral(resourceName: "icn_Instagaram"), title: "Instagram", link: "https://www.instagram.com/Shopie Lee"), SocialMediaLinkModel(image: #imageLiteral(resourceName: "snapchat"), title: "Snapchat", link: "https://www.snapchat.com/Shopie Lee"), SocialMediaLinkModel(image: #imageLiteral(resourceName: "icn_facebook"), title: "Facebook", link: "https://www.facebook.com/Shopie Lee")]
+        self.objSocialMediaModel = [SocialMediaLinkModel(image: #imageLiteral(resourceName: "icn_Instagaram"), title: "Instagram", link: "https://www.instagram.com/\(UserDataModel.currentUser!.vName!)"), SocialMediaLinkModel(image: #imageLiteral(resourceName: "snapchat"), title: "Snapchat", link: "https://www.snapchat.com/\(UserDataModel.currentUser!.vName!)"), SocialMediaLinkModel(image: #imageLiteral(resourceName: "icn_facebook"), title: "Facebook", link: "https://www.facebook.com/\(UserDataModel.currentUser!.vName!)")]
         self.tblSocialLinkList.register(UINib.init(nibName: Cells.SocialLinkCell, bundle: Bundle.main), forCellReuseIdentifier: Cells.SocialLinkCell)
     }
     
@@ -41,9 +42,10 @@ class SocialMediaLinkVC: UIViewController {
         self.popVC()
     }
     @IBAction func btnSaveAction(_ sender: GradientButton) {
-        self.userProfileModel?.vFacebookLink = self.objSocialMediaModel[2].link
-        self.userProfileModel?.vSnapchatLink = self.objSocialMediaModel[1].link
-        self.userProfileModel?.vInstagramLink = self.objSocialMediaModel[0].link
+        self.userProfileModel?.vFbLink = self.objSocialMediaModel[2].link
+        self.userProfileModel?.vSnapLink = self.objSocialMediaModel[1].link
+        self.userProfileModel?.vInstaLink = self.objSocialMediaModel[0].link
+        self.delegate.updatedSocailLinkModel(model: self.userProfileModel!)
         self.popVC()
     }
 }
@@ -64,7 +66,7 @@ extension SocialMediaLinkVC : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let cell = cell as? SocialLinkCell {
-            
+            cell.selectionStyle = .none
             let data = self.objSocialMediaModel[indexPath.row]
             cell.btnTitle.setImage(data.image, for: .normal)
             cell.btnTitle.setTitle(data.title, for: .normal)

@@ -10,6 +10,7 @@ import UIKit
 
 class SubscriptionVC: UIViewController {
 
+    @IBOutlet var btnPopularColl: [UIButton]!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -17,13 +18,20 @@ class SubscriptionVC: UIViewController {
     }
     
     @IBAction func btnCloseAction(_ sender: UIButton) {
-        self.popVC()
+        moveToTabVC()
     }
     @IBAction func btnContinueAction(_ sender: GradientButton) {
         moveToTabVC()
     }
     @IBAction func btnSkipAction(_ sender: UIButton) {
         moveToTabVC()
+    }
+    
+    @IBAction func btnPopularAction(_ sender: UIButton) {
+        btnPopularColl.forEach{
+            $0.isSelected = false
+        }
+        sender.isSelected = true
     }
     
     func moveToTabVC(){

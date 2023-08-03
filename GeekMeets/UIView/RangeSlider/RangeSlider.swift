@@ -36,7 +36,6 @@ class RangeSlider : UIControl {
         self.addSubview(sliderView)
         
         sliderView.setThumbImage(#imageLiteral(resourceName: "icn_circle"), for: .normal)
-        
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -44,8 +43,8 @@ class RangeSlider : UIControl {
     }
     
     @objc func changeVlaue(_ sender: UISlider) {
-           let textSize = CGFloat(sender.value + 16)
-           print("value is" ,textSize)
-            self.delegate.selectTextSize(size: textSize)
-       }
+        let textSize = CGFloat(sender.value + 18)
+        print("value is" ,textSize)
+        self.delegate.selectTextSize(size: textSize)
+    }
 }

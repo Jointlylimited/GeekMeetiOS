@@ -13,7 +13,6 @@
 import UIKit
 
 protocol SplashProtocol: class {
-    func displaySomething()
 }
 
 class SplashViewController: UIViewController, SplashProtocol {
@@ -21,7 +20,6 @@ class SplashViewController: UIViewController, SplashProtocol {
     var presenter : SplashPresentationProtocol?
     
     // MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -33,7 +31,6 @@ class SplashViewController: UIViewController, SplashProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = SplashInteractor()
@@ -53,20 +50,11 @@ class SplashViewController: UIViewController, SplashProtocol {
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
     @IBAction func actionStart() {
         self.presenter?.callStart()
-    }
-    
-    func displaySomething() {
-        //nameTextField.text = viewModel.name
     }
 }

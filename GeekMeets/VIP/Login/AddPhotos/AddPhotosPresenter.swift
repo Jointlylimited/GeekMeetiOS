@@ -15,7 +15,7 @@ import CoreLocation
 
 protocol AddPhotosPresentationProtocol {
     
-    func callUserSignUpAPI(signParams : Dictionary<String, String>)
+    func callUserSignUpAPI(signParams : Dictionary<String, String>, images : [NSDictionary])
     func getSignUpResponse(response : UserAuthResponse)
 }
 
@@ -23,15 +23,15 @@ class AddPhotosPresenter: AddPhotosPresentationProtocol {
     weak var viewController: AddPhotosProtocol?
     var interactor: AddPhotosInteractorProtocol?
     
-    func callUserSignUpAPI(signParams : Dictionary<String, String>) {
+    func callUserSignUpAPI(signParams : Dictionary<String, String>, images : [NSDictionary]) {
         if String(describing: signParams["photos"]!).isEmpty {
             self.viewController?.displayAlert(strTitle: "", strMessage: kAddPhotos)
             return
         } else {
-            if signParams["vSocialId"]! != "" {
-                self.interactor?.callSocialSignUpAPI(signParams : signParams)
+            if images.count > 0 {
+                self.interactor?.uploadImgToS3(with: signParams, images: images)
             } else {
-            self.interactor?.callUserSignUpAPI(signParams : signParams)
+                self.interactor?.callSignUpInfoAPI(signParams : signParams)
             }
         }
     }
@@ -39,6 +39,11 @@ class AddPhotosPresenter: AddPhotosPresentationProtocol {
     func getSignUpResponse(response : UserAuthResponse) {
         
         UserDataModel.currentUser = response.responseData
+        UserDataModel.currentUser = UserDataModel.lastLoginUser
+        UserDataModel.setAuthKey(key: (response.responseData?.vAuthKey)!)
+        Authentication.setSignUpFlowStatus(response.responseData!.tiStep!)
+        Authentication.setLoggedInStatus(true)
+        Authentication.setSwipeStatus(10)
         
         let controller = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange)
         if let view = self.viewController as? UIViewController

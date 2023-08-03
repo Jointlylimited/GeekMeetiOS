@@ -13,6 +13,8 @@
 import UIKit
 
 protocol ChangeEmailMobileProtocol: class {
+    func getUpdateEmailResponse(response : CommonResponse)
+    func displayAlert(strTitle : String, strMessage : String)
 }
 
 class ChangeEmailMobileViewController: UIViewController, ChangeEmailMobileProtocol {
@@ -22,12 +24,12 @@ class ChangeEmailMobileViewController: UIViewController, ChangeEmailMobileProtoc
     @IBOutlet weak var lblEmail: UILabel!
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var btnUpdate: UIButton!
+    @IBOutlet weak var btnVerify: UIButton!
     
     var isForUpdateEmail : Bool = false
     var objAccountData : CommonCellModel!
     
     // MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -39,7 +41,6 @@ class ChangeEmailMobileViewController: UIViewController, ChangeEmailMobileProtoc
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = ChangeEmailMobileInteractor()
@@ -57,10 +58,7 @@ class ChangeEmailMobileViewController: UIViewController, ChangeEmailMobileProtoc
         interactor.presenter = presenter
     }
     
-    
-    
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setTheme()
@@ -72,8 +70,11 @@ class ChangeEmailMobileViewController: UIViewController, ChangeEmailMobileProtoc
             self.lblEmail.text = "Verified Email Address"
             self.txtEmail.text = self.objAccountData.description ?? "john@gmail.com"
             self.btnUpdate.setTitle("Send Email Verification", for: .normal)
+            self.btnVerify.alpha = UserDataModel.currentUser?.vEmail == self.txtEmail.text ? 1.0 : 0.0
+            self.btnUpdate.alpha = self.btnVerify.alpha == 1.0 ? 0.0 : 1.0
         } else {
             self.txtEmail.text = self.objAccountData.description ?? "+1123456789"
+            self.btnVerify.alpha = UserDataModel.currentUser?.vPhone == self.txtEmail.text ? 1.0 : 0.0
         }
     }
     
@@ -82,10 +83,55 @@ class ChangeEmailMobileViewController: UIViewController, ChangeEmailMobileProtoc
     }
     @IBAction func btnUpdateAction(_ sender: UIButton) {
         if isForUpdateEmail {
-            self.popVC()
+            self.presenter?.callUpdateEmailAPI(iUserId: "\(UserDataModel.currentUser!.iUserId!)", vEmail: self.txtEmail.text!)
         } else {
             let newMobVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.NewMobileScreen)
             self.pushVC(newMobVC)
         }
+    }
+}
+
+extension ChangeEmailMobileViewController {
+    func getUpdateEmailResponse(response : CommonResponse){
+        if response.responseCode == 200 {
+            AppSingleton.sharedInstance().logout()
+            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        } else {
+            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        }
+    }
+    
+    func displayAlert(strTitle : String, strMessage : String) {
+        self.showAlert(title: strTitle, message: strMessage)
+    }
+}
+
+extension ChangeEmailMobileViewController : UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if isForUpdateEmail {
+            textField.addTarget(self, action: #selector(textFieldDidChange(textField:)), for: .editingChanged)
+            return true
+        } else {
+             return false
+        }
+    }
+    
+    @objc func textFieldDidChange(textField : UITextField){
+        if isForUpdateEmail {
+            self.txtEmail.text = textField.text
+            self.btnVerify.alpha = UserDataModel.currentUser?.vEmail == self.txtEmail.text ? 1.0 : 0.0
+            self.btnUpdate.alpha = self.btnVerify.alpha == 1.0 ? 0.0 : 1.0
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.txtEmail.text = textField.text
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.txtEmail.text = textField.text
+        setTheme()
+        textField.resignFirstResponder()
+        return true
     }
 }

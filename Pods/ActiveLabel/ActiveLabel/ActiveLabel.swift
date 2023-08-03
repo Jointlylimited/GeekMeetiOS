@@ -60,11 +60,6 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
     @IBInspectable public var highlightFontName: String? = nil {
         didSet { updateTextStorage(parseText: false) }
     }
-    
-    @IBInspectable open var UnderlineColor: UIColor? {
-        didSet { updateTextStorage(parseText: false) }
-    }
-    
     public var highlightFontSize: CGFloat? = nil {
         didSet { updateTextStorage(parseText: false) }
     }
@@ -231,6 +226,14 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
             selectedElement = nil
         case .stationary:
             break
+        case .regionEntered:
+            break
+        case .regionMoved:
+            break
+        case .regionExited:
+            break
+        @unknown default:
+            break
         }
 
         return avoidSuperCall
@@ -313,7 +316,6 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
         
         attributes[NSAttributedString.Key.font] = font!
         attributes[NSAttributedString.Key.foregroundColor] = textColor
-        attributes[NSAttributedString.Key.underlineColor] = textColor
         mutAttrString.addAttributes(attributes, range: range)
 
         attributes[NSAttributedString.Key.foregroundColor] = mentionColor

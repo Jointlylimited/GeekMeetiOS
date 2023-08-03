@@ -16,6 +16,7 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import AuthenticationServices
 import ActiveLabel
+import Alamofire
 
 protocol InstagramAuthenticationDelegate {
     func fetchAuthToken(token : String)
@@ -36,12 +37,19 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
     
     @IBOutlet weak var lblPrivacyTerm: ActiveLabel!
     @IBOutlet weak var btnLogin: UIButton!
+    @IBOutlet weak var buttonStackView: UIStackView!
+    @IBOutlet weak var btnStackLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var btnSTackTrailingConstraint: NSLayoutConstraint!
     
-    
+    let clientId = ""
+    let clientSecret = ""
+    let redirectUri = ""
+    var InstaAccessToken : String?
+    var InstaUserID : String?
+    var isSuccssess : Bool = false
+
+
     // MARK: Object lifecycle
-    
-    let objConfig = SOGoogleConfig()
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -53,7 +61,6 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = InitialSignUpInteractor()
@@ -73,7 +80,6 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
@@ -86,13 +92,23 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
         self.btnSnapchat.titleEdgeInsets = DeviceType.iPhoneXRMax || DeviceType.iPhoneX ? UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
         self.btnInstagram.titleEdgeInsets = DeviceType.iPhoneXRMax || DeviceType.iPhoneX ? UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
         self.btnApple.titleEdgeInsets = DeviceType.iPhoneXRMax || DeviceType.iPhoneX ? UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        
+         if #available(iOS 13.0, *) {
+            self.btnApple.alpha = 1.0
+            self.btnStackLeadingConstraint.constant = 20
+            self.btnSTackTrailingConstraint.constant = 20
+         } else {
+            self.btnApple.alpha = 0.0
+            self.btnStackLeadingConstraint.constant = 100
+            self.btnSTackTrailingConstraint.constant = 100
+        }
     }
     
     func setTheme() {
-        GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance().clientID = "784959084971-42nkai7mqrspe87v6euc5gfe5d77uodi.apps.googleusercontent.com"
-        GIDSignIn.sharedInstance()?.presentingViewController = self
-        
+//        GIDSignIn.sharedInstance().delegate = self
+//        GIDSignIn.sharedInstance().clientID = "784959084971-42nkai7mqrspe87v6euc5gfe5d77uodi.apps.googleusercontent.com"
+//        GIDSignIn.sharedInstance()?.presentingViewController = self
+
         setLink()
         
         //Facebook Logout
@@ -103,8 +119,8 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
 
     func setLink(){
         
-        let customType = ActiveType.custom(pattern: "\\sTerms\\b") //Looks for "Terms of Service"
-        let customType1 = ActiveType.custom(pattern: "\\sPrivacy Policy\\b") //Looks for "Privacy Policy"
+        let customType = ActiveType.custom(pattern: "\\sTerms\\b")
+        let customType1 = ActiveType.custom(pattern: "\\sPrivacy Policy\\b")
         let customType2 = ActiveType.custom(pattern: "\\sCookie Privacy\\b")
         
         lblPrivacyTerm.enabledTypes.append(customType)
@@ -137,18 +153,21 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
             label.handleCustomTap(for: customType) {_ in
                 let commonVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.CommonPagesScreen) as! CommonPagesViewController
                 commonVC.objCommonData = CommonModelData.Terms
+                commonVC.slug = CommonModelData.Terms.slugTitle
                 self.pushVC(commonVC)
             }
             
             label.handleCustomTap(for: customType1) {_ in
                 let commonVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.CommonPagesScreen) as! CommonPagesViewController
                 commonVC.objCommonData = CommonModelData.Privacy
+                commonVC.slug = CommonModelData.Privacy.slugTitle
                 self.pushVC(commonVC)
             }
             
             label.handleCustomTap(for: customType2) {_ in
                 let commonVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.CommonPagesScreen) as! CommonPagesViewController
                 commonVC.objCommonData = CommonModelData.Privacy
+                commonVC.slug = CommonModelData.Privacy.slugTitle
                 self.pushVC(commonVC)
             }
         }
@@ -156,7 +175,6 @@ class InitialSignUpViewController: UIViewController, InitialSignUpProtocol {
 }
 
 //MARK: IBAction Methods
-
 extension  InitialSignUpViewController{
     @IBAction func btnLoginAction(_ sender: UIButton) {
         /*if sender.titleLabel?.text == "Login" {
@@ -169,6 +187,10 @@ extension  InitialSignUpViewController{
     
     @IBAction func actionGoogleSignUp(_ sender: UIButton) {
        // if self.btnLogin.titleLabel?.text != "Login" {
+
+//        let objConfig = SOGoogleConfig(self)
+//        objConfig.delegate = self
+
             self.presenter?.actionLogin()
        /* } else {
           //   GIDSignIn.sharedInstance().signIn()
@@ -176,20 +198,172 @@ extension  InitialSignUpViewController{
       
     }
     @IBAction func actionFacebookSignUp(_ sender: Any) {
+        if !NetworkReachabilityManager.init()!.isReachable{
+            AppSingleton.sharedInstance().showAlert(NoInternetConnection, okTitle: "OK")
+            return
+        }
         self.presenter?.callFBLogin()
     }
     
     @IBAction func actionInstagramSignUp(_ sender: Any) {
+        if !NetworkReachabilityManager.init()!.isReachable{
+            AppSingleton.sharedInstance().showAlert(NoInternetConnection, okTitle: "OK")
+            return
+        }
         let instaVC = GeekMeets_StoryBoard.Main.instantiateViewController(withIdentifier: GeekMeets_ViewController.InstagramLoginScreen) as! InstagramLoginVC
+        instaVC.isFromEditProfile = false
         instaVC.delegate = self
         self.presentVC(instaVC)
     }
     
     @IBAction func actionSnapchatSignUp(_ sender: Any) {
+        if !NetworkReachabilityManager.init()!.isReachable{
+            AppSingleton.sharedInstance().showAlert(NoInternetConnection, okTitle: "OK")
+            return
+        }
         self.presenter?.callSnapchatLoginRequest(objLoginVC : self)
     }
     @IBAction func actionAppleSignUp(_ sender: Any) {
-      
+        if !NetworkReachabilityManager.init()!.isReachable{
+            AppSingleton.sharedInstance().showAlert(NoInternetConnection, okTitle: "OK")
+            return
+        }
+        self.handleAppleIdRequest()
+    }
+    
+    private func setupInstagramSignIn()
+    {
+        
+        if InstaUserID == nil && InstaAccessToken == nil
+        {
+            let instagramAuthViewController = InstagramLoginVC(clientId: clientId, clientSecret: clientSecret, redirectUri: redirectUri)
+            instagramAuthViewController.delegate = self
+            let navController = UINavigationController(rootViewController: instagramAuthViewController)
+            present(navController, animated: true)
+        }
+        else
+        {
+            if let ID = InstaUserID
+            {
+//                fetchInstaPhoto(strUrl: "https://graph.instagram.com/\(ID)/media?fields=id,caption,media_url,media_type&access_token=\(InstaAccessToken!)", accessToken: InstaAccessToken!, strPageToken: "")
+            }
+        }
+    }
+    
+    @objc func handleAppleIdRequest() {
+        if #available(iOS 13.0, *) {
+            let appleIDProvider = ASAuthorizationAppleIDProvider()
+            let request = appleIDProvider.createRequest()
+            request.requestedScopes = [.fullName, .email]
+            let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+            authorizationController.delegate = self
+            authorizationController.presentationContextProvider = self
+            authorizationController.performRequests()
+            performExistingAccountSetupFlows()
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    
+    private func performExistingAccountSetupFlows() {
+        if let userIdentifier = UserDefaults.standard.object(forKey: "userIdentifier1") as? String {
+            if #available(iOS 13.0, *) {
+                let authorizationProvider = ASAuthorizationAppleIDProvider()
+                authorizationProvider.getCredentialState(forUserID: userIdentifier) { (state, error) in
+                    switch (state) {
+                    case .authorized:
+                        print("Account Found - Signed In")
+                        DispatchQueue.main.async {
+
+                        }
+                        break
+                    case .revoked:
+                        print("No Account Found")
+                        fallthrough
+                    case .notFound:
+                        print("No Account Found")
+                        DispatchQueue.main.async {
+                            
+                        }
+                    default:
+                        break
+                    }
+                }
+            } else {
+                // Fallback on earlier versions
+            }
+            
+        }
+           
+       }
+}
+
+extension InitialSignUpViewController: InstagramAuthDelegate {
+    func instagramAuthControllerDidFinish(accessToken: String?,id: String?, error: Error?, mediaData: NSArray){
+        if let error = error {
+            print("Error logging in to Instagram: \(error.localizedDescription)")
+            
+        } else {
+            isSuccssess = true
+            InstaAccessToken = accessToken!
+            InstaUserID = id
+            print("Access token: \(accessToken!)")
+            let signupModel = SignUpUserModel(email: "", password: "", confirmpassword: "", mobile: "", countryCode: "", firstName: "", lastName: "", phone: "", birthday: "")
+            UserDataModel.SignUpUserResponse = signupModel
+            
+            Authentication.setInstagramIntegrationStatus(true)
+            UserDefaults.standard.set(mediaData, forKey: "InstagramPhotosModel")
+            
+            let param = RequestParameter.sharedInstance().socialSigninParams(tiSocialType: "3", accessKey: accessToken!, service: "Instagram")
+            self.presenter?.callSignInForAppleAPI(params: param)
+        }
+    }
+}
+
+extension InitialSignUpViewController : ASAuthorizationControllerPresentationContextProviding {
+    @available(iOS 13.0, *)
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        // return the current view window
+        return self.view.window!
+    }
+}
+
+extension InitialSignUpViewController : ASAuthorizationControllerDelegate {
+    
+    // ASAuthorizationControllerDelegate function for successful authorization
+    @available(iOS 13.0, *)
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            // Create an account in your system.
+            let userIdentifier = appleIDCredential.user
+            let userFirstName = appleIDCredential.fullName?.givenName
+            let userLastName = appleIDCredential.fullName?.familyName
+            let userEmail = appleIDCredential.email
+            
+            let defaults = UserDefaults.standard
+            defaults.set(userIdentifier, forKey: "userIdentifier1")
+              
+            //Save the UserIdentifier somewhere in your server/database
+            let signupModel = SignUpUserModel(email: userEmail, password: "", confirmpassword: "", mobile: "", countryCode: "", firstName: userFirstName, lastName: userLastName, phone: "", birthday: "")
+            UserDataModel.SignUpUserResponse = signupModel
+            
+            let param = RequestParameter.sharedInstance().socialSigninParams(tiSocialType: "5", accessKey: userIdentifier, service: "Apple")
+            self.presenter?.callSignInForAppleAPI(params: param)
+
+            //Navigate to other view controller
+        } else if let passwordCredential = authorization.credential as? ASPasswordCredential {
+            // Sign in using an existing iCloud Keychain credential.
+            let username = passwordCredential.user
+            let password = passwordCredential.password
+            
+            //Navigate to other view controller
+        }
+    }
+    
+    @available(iOS 13.0, *)
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        //Handle error here
+        print("Sign In Error : \(error.localizedDescription)")
     }
 }
 
@@ -199,33 +373,47 @@ extension InitialSignUpViewController : InstagramAuthenticationDelegate {
     }
 }
 
-extension InitialSignUpViewController : GIDSignInDelegate {
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        
-        //        LoaderView.sharedInstance.hideLoader()
-        
+extension InitialSignUpViewController : GoogleManagerDelegate {
+    func receiveResponse(user: GIDGoogleUser?, error: Error?) {
         if (error == nil){
-            
-            print(user.authentication)
-            print(user.profile.givenName)
-            print(user.profile.familyName)
-            print(user.profile.email)
-          
-            
-            let param = RequestParameter.sharedInstance().googleSigninParams(tiSocialType : "2", accessKey: user.authentication.accessToken, service: "google", vUserName: user.profile.givenName, vEmailId: user.profile.email, vSocialId: user.userID, vImageUrl: user.profile.imageURL(withDimension: 120).absoluteString)
-            
+
+            print(user?.authentication)
+            print(user?.profile?.givenName)
+            print(user?.profile?.familyName)
+            print(user?.profile?.email)
+
+            guard let objUser = user else {return}
+
+            let param = RequestParameter.sharedInstance().googleSigninParams(tiSocialType : "2", accessKey: objUser.authentication.accessToken, service: "google", vUserName: objUser.profile?.givenName ?? "", vEmailId: objUser.profile?.email ?? "", vSocialId: objUser.userID ?? "0", vImageUrl: objUser.profile?.imageURL(withDimension: 120)?.absoluteString ?? "")
+
             self.presenter?.callGoogleSigninAPI(loginParams: param)
-          
         }
         else {
-            print("\(error.localizedDescription)")
+            print("\(error?.localizedDescription)")
         }
     }
-    
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-//        LoaderView.sharedInstance.hideLoader()
-      
-        print(error?.localizedDescription ?? "")
-      
-    }
+
+//    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+//
+//        //        LoaderView.sharedInstance.hideLoader()
+//        if (error == nil){
+//
+//            print(user.authentication)
+//            print(user.profile.givenName)
+//            print(user.profile.familyName)
+//            print(user.profile.email)
+//
+//            let param = RequestParameter.sharedInstance().googleSigninParams(tiSocialType : "2", accessKey: user.authentication.accessToken, service: "google", vUserName: user.profile.givenName, vEmailId: user.profile.email, vSocialId: user.userID, vImageUrl: user.profile.imageURL(withDimension: 120).absoluteString)
+//
+//            self.presenter?.callGoogleSigninAPI(loginParams: param)
+//        }
+//        else {
+//            print("\(error.localizedDescription)")
+//        }
+//    }
+//
+//    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+////        LoaderView.sharedInstance.hideLoader()
+//        print(error?.localizedDescription ?? "")
+//    }
 }

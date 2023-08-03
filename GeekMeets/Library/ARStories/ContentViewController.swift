@@ -12,10 +12,13 @@ var ContentViewControllerVC = ContentViewController()
 @objc class ContentViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
 
     var pageViewController : UIPageViewController?
-    @objc var pages: [UserDetail] = []
+//    @objc var pages: [UserDetail] = []
+    var pages: [StoryResponseArray] = []
     @objc var currentIndex : Int = 0
     
     var isFromMatchVC : Bool = true
+    var isOwnStory : Bool = false
+    var delegate : DeleteStoryDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,10 +84,11 @@ var ContentViewControllerVC = ContentViewController()
         // Create a new view controller and pass suitable data.
         let vc = storyboard?.instantiateViewController(withIdentifier: "PreView") as! PreViewController
         vc.isFromMatchVC = isFromMatchVC
+        vc.isOwnStory = isOwnStory
         vc.pageIndex = index
-        vc.items = pages
+        vc.items = pages[0]
         currentIndex = index
-        
+        vc.delegate = self.delegate
         vc.view.transform = CGAffineTransform(scaleX: 1.4, y: 1.4)
         return vc
     }

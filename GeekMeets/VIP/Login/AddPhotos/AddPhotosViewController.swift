@@ -12,6 +12,7 @@
 
 import UIKit
 import Photos
+import OpalImagePicker
 
 protocol AddPhotosProtocol: class {
     func displayAlert(strTitle : String, strMessage : String)
@@ -25,15 +26,22 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
     @IBOutlet weak var btnDone: GradientButton!
     
     //USER PHOTOS
-    var imgsUserPhotosStr:[String] = []
     var imgsUserPhotos:[UIImage] = []
     var imgsUserPhotosDict:[NSDictionary] = []
     var signUpParams : Dictionary<String, String>?
     var imgProfile : UIImage?
-    var location:CLLocation?
+    var userPhotosModel : [UserPhotosModel] = []
+    var opimagePicker = OpalImagePickerController()
+    
+    var thumbURlUpload: (path: String, name: String) {
+        let folderName = user_Profile
+        let timeStamp = Authentication.sharedInstance().GetCurrentTimeStamp()
+        let imgExtension = ".jpeg"
+        let path = "\(folderName)\(timeStamp)\(imgExtension)"
+        return (path: path, name: "\(timeStamp)\(imgExtension)")
+    }
     
     // MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -45,7 +53,6 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = AddPhotosInteractor()
@@ -63,83 +70,51 @@ class AddPhotosViewController: UIViewController, AddPhotosProtocol {
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        doSomething()
+        setTheme()
     }
     
-    func doSomething() {
+    func setTheme() {
         self.navigationController?.isNavigationBarHidden = false
         self.navigationItem.leftBarButtonItem = leftSideBackBarButton
         self.navigationController?.navigationBar.barTintColor = UIColor.white
-        self.getUserCurrentLocation()
         // Profile image set
-        
-        imgsUserPhotos.append(imgProfile!)
-        imgsUserPhotosStr.append(signUpParams!["vProfileImage"]!)
-    }
-
-    //MARK: IBAction Method
-    @IBAction func actionDone(_ sender: Any) {
-       
-        
-        let photoJsonString = json(from: self.imgsUserPhotosDict)
-        let params = RequestParameter.sharedInstance().signUpParam(vEmail: signUpParams!["vEmail"]!, vPassword: signUpParams!["vPassword"]!, vConfirmPassword : signUpParams!["vConfirmPassword"]!, vCountryCode: signUpParams!["vCountryCode"]!, vPhone: signUpParams!["vPhone"]!, termsChecked : signUpParams!["termsChecked"]!, vProfileImage: signUpParams!["vProfileImage"]!, vName: signUpParams!["vName"]!, dDob: signUpParams!["dDob"]!, tiAge: signUpParams!["tiAge"]!, tiGender: signUpParams!["tiGender"]!, iCurrentStatus: signUpParams!["iCurrentStatus"]!, txCompanyDetail: signUpParams!["txCompanyDetail"]!, txAbout: signUpParams!["txAbout"]!, photos: self.imgsUserPhotos.count > 0 ? photoJsonString! : "", vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vSocialId : signUpParams!["vSocialId"]!, fLatitude : self.location != nil ? "\(self.location?.coordinate.latitude ?? 0.0)" : "0.0", fLongitude: self.location != nil ? "\(self.location?.coordinate.longitude ?? 0.0)" : "0.0")
-        
-        self.presenter?.callUserSignUpAPI(signParams: params)
+        userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, vMediaPath: self.thumbURlUpload.path, tiMediaType: 1, tiImage: imgProfile, tiIsDefault: 1, reaction: []))
     }
     
-    func json(from object:[NSDictionary]) -> String? {
-            var yourString : String = ""
-            do
-            {
-                if let postData : NSData = try JSONSerialization.data(withJSONObject: object, options: JSONSerialization.WritingOptions.prettyPrinted) as NSData
-                {
-                    yourString = NSString(data: postData as Data, encoding: String.Encoding.utf8.rawValue)! as String
-                    return yourString
-                }
-            }
-            catch
-            {
-                print(error)
-            }
-            return yourString
+    //MARK: IBAction Method
+    @IBAction func actionDone(_ sender: Any) {
+        
+        if self.userPhotosModel.count == 0 {
+            AppSingleton.sharedInstance().showAlert("Select at least one image.", okTitle: "OK")
+            return
         }
         
-        func displayAlert(strTitle : String, strMessage : String) {
-            self.showAlert(title: strTitle, message: strMessage)
+        for photo in userPhotosModel {
+            if  photo.tiImage != nil {
+                self.imgsUserPhotosDict.append(["tiImage": photo.tiImage!, "vMedia": photo.vMedia!, "vMediaPath" : photo.vMediaPath!, "tiIsDefault": photo.tiIsDefault!])
+            }
         }
         
-        func getUserCurrentLocation() {
-    //          LoaderView.sharedInstance.showLoader()
-              LocationManager.sharedInstance.getLocation { (currLocation, error) in
-                  if error != nil {
-    //                  LoaderView.sharedInstance.hideLoader()
-                      print(error?.localizedDescription ?? "")
-                      self.showAccessPopup(title: kLocationAccessTitle, msg: kLocationAccessMsg)
-                      return
-                  }
-                  guard let _ = currLocation else {
-                      return
-                  }
-                  if error == nil {
-    //                  LoaderView.sharedInstance.hideLoader()
-                      self.location = currLocation
-                    //UserDataModel.setUserLocation(location: self.location!)
-                  }
-              }
-          }
+        let params = RequestParameter.sharedInstance().signUpInfoParam(vProfileImage: signUpParams!["vProfileImage"]!, vName: signUpParams!["vName"]!, dDob: signUpParams!["dDob"]!, tiAge: signUpParams!["tiAge"]!, tiGender: signUpParams!["tiGender"]!, iCurrentStatus: signUpParams!["iCurrentStatus"]!, txCompanyDetail: signUpParams!["txCompanyDetail"]!, txAbout: signUpParams!["txAbout"]!, photos: self.imgsUserPhotosDict.count > 0 ? "photos" : "")
+        
+        self.presenter?.callUserSignUpAPI(signParams: params, images : imgsUserPhotosDict)
+    }
+    
+    func displayAlert(strTitle : String, strMessage : String) {
+        self.showAlert(title: strTitle, message: strMessage)
+    }
 }
+
 extension AddPhotosViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,OptionButtonsDelegate
 {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-      if imgsUserPhotos.count == 20{
-        return imgsUserPhotos.count
-      }
-      return imgsUserPhotos.count + 1
+        if userPhotosModel.count == 20{
+            return userPhotosModel.count
+        }
+        return userPhotosModel.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
@@ -149,13 +124,12 @@ extension AddPhotosViewController: UICollectionViewDelegate, UICollectionViewDat
         cell.btnRemoveImg.isHidden = true
         cell.btnAddImg.isHidden = false
         cell.imgPhotos.isHidden = true
-        if indexPath.row < imgsUserPhotos.count {
+        if indexPath.row < userPhotosModel.count {
             cell.imgPhotos.isHidden = false
-            cell.imgPhotos.image = imgsUserPhotos[indexPath.row] as UIImage
+            cell.imgPhotos.image = userPhotosModel[indexPath.row].tiImage
             cell.btnRemoveImg.isHidden = false
             cell.btnAddImg.isHidden = true
         }
-        
         cell.delegate = self
         cell.indexPath = indexPath
         return cell
@@ -167,6 +141,7 @@ extension AddPhotosViewController: UICollectionViewDelegate, UICollectionViewDat
         
         return CGSize(width: yourWidth, height: yourHeight)
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets.zero
     }
@@ -179,90 +154,73 @@ extension AddPhotosViewController: UICollectionViewDelegate, UICollectionViewDat
         return 0
     }
     
-    
     //DelegateMethod
     func closeFriendsTapped(at index: IndexPath) {
         Getimage()
     }
     
     func actionRemoveIMG(at index: IndexPath) {
-        imgsUserPhotosStr.remove(at: index.row)
-        imgsUserPhotos.remove(at: index.row)
+        userPhotosModel.remove(at: index.row)
         clnAddPhoto.reloadData()
     }
 }
 
 extension AddPhotosViewController:  UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[UIImagePickerController.InfoKey.originalImage]
-             picker.dismiss(animated: true, completion: nil)
-            var imgTemp:UIImage = image as! UIImage
+        picker.dismiss(animated: true, completion: nil)
+        var imgTemp:UIImage = image as! UIImage
         if #available(iOS 11.0, *) {
             if let asset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset{
                 if let fileName = asset.value(forKey: "filename") as? String{
                     print(fileName)
-                    imgsUserPhotosStr.append(fileName)
-                    let dict = ["vMedia":fileName, "tiMediaType":1, "fHeight":asset.pixelHeight, "fWidth": asset.pixelWidth] as [String : Any]
-                    imgsUserPhotosDict.append(dict as NSDictionary)
                 }
             }else{
-              if (picker.sourceType == UIImagePickerController.SourceType.camera) {
-
-                      let imgName = UUID().uuidString
-                      let documentDirectory = NSTemporaryDirectory()
-                      let localPath = documentDirectory.appending(imgName)
-
-                let data = (info[UIImagePickerController.InfoKey.originalImage] as? UIImage)!.jpegData(compressionQuality: 0.3)! as NSData
-                      data.write(toFile: localPath, atomically: true)
-                      let photoURL = URL.init(fileURLWithPath: localPath)
-                      imgsUserPhotosStr.append(localPath)
-
-                  }else{
+                if (picker.sourceType == UIImagePickerController.SourceType.camera) {
+                    
+                    let imgName = UUID().uuidString
+                    let documentDirectory = NSTemporaryDirectory()
+                    let localPath = documentDirectory.appending(imgName)
+                    
+                    let data = (info[UIImagePickerController.InfoKey.originalImage] as? UIImage)!.jpegData(compressionQuality: 0.3)! as NSData
+                    data.write(toFile: localPath, atomically: true)
+                    let photoURL = URL.init(fileURLWithPath: localPath)
+                    
+                }else{
                     let imgString = (info[UIImagePickerController.InfoKey.imageURL] as! URL).lastPathComponent
-                    imgsUserPhotosStr.append(imgString)
-                    }
-              }
-             
-          
+                }
+            }
+            
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-//                self.imgsUserPhotos.append(image)
-              imgTemp = image
+                imgTemp = image
             }
             self.clnAddPhoto.reloadData()
+            
         } else {
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-//                self.imgsUserPhotos.append(image)
-                  imgTemp = image
+                imgTemp = image
                 if let imageURL = info[UIImagePickerController.InfoKey.referenceURL] as? URL {
                     let result = PHAsset.fetchAssets(withALAssetURLs: [imageURL], options: nil)
                     let assetResources = PHAssetResource.assetResources(for: result.firstObject!)
                     let file = assetResources.first!.originalFilename
                     print(assetResources.first!.originalFilename)
-                    imgsUserPhotosStr.append(file)
-                   
-                    let dict = ["vMedia":file, "tiMediaType":1, "fHeight":image.size.height, "fWidth": image.size.width] as [String : Any]
-                    imgsUserPhotosDict.append(dict as NSDictionary)
                 }
             }
         }
-      
-      
-      
-      let imgData = NSData(data: (imgTemp).jpegData(compressionQuality: 1)!)
-         var imageSize: Int = imgData.count
-         print("actual size of image in KB: %f ", Double(imageSize) / 1000.0)
-         
-         if (Double(imageSize) / 1000.0) > 5000{
-           let imgDataa = NSData(data: (imgTemp).jpegData(compressionQuality: 0.5)!)
-           let image = UIImage(data: imgDataa as Data)
-            self.imgsUserPhotos.append(image!)
-         }else{
-           self.imgsUserPhotos.append(imgTemp)
-         }
-      
-      
-      
+        
+        let imgData = NSData(data: (imgTemp).jpegData(compressionQuality: 1)!)
+        var imageSize: Int = imgData.count
+        print("actual size of image in KB: %f ", Double(imageSize) / 1000.0)
+        
+        if (Double(imageSize) / 1000.0) > 5000{
+            let imgDataa = NSData(data: (imgTemp).jpegData(compressionQuality: 0.5)!)
+            let image = UIImage(data: imgDataa as Data)
+            let IsDefault = self.userPhotosModel.count == 0 ? 1 : 0
+            self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, vMediaPath: self.thumbURlUpload.path, tiMediaType: 1, tiImage: image, tiIsDefault: IsDefault, reaction: []))
+        }else{
+            let IsDefault = self.userPhotosModel.count == 0 ? 1 : 0
+            self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, vMediaPath: self.thumbURlUpload.path, tiMediaType: 1, tiImage: imgTemp, tiIsDefault: IsDefault, reaction: []))
+        }
         clnAddPhoto.reloadData()
     }
     
@@ -300,11 +258,13 @@ extension AddPhotosViewController:  UINavigationControllerDelegate, UIImagePicke
     func openGallery()
     {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary){
-            let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-            imagePicker.allowsEditing = true
-            imagePicker.sourceType = UIImagePickerController.SourceType.savedPhotosAlbum
-            self.present(imagePicker, animated: true, completion: nil)
+//            let imagePicker = UIImagePickerController()
+//            imagePicker.delegate = self
+//            imagePicker.allowsEditing = true
+//            imagePicker.sourceType = UIImagePickerController.SourceType.savedPhotosAlbum
+            self.opimagePicker.imagePickerDelegate = self
+            self.opimagePicker.maximumSelectionsAllowed = 10
+            self.present(self.opimagePicker, animated: true, completion: nil)
         }
         else
         {
@@ -314,4 +274,62 @@ extension AddPhotosViewController:  UINavigationControllerDelegate, UIImagePicke
         }
     }
     
+}
+
+extension AddPhotosViewController : OpalImagePickerControllerDelegate {
+    func imagePicker(_ picker: OpalImagePickerController, didFinishPickingAssets assets: [PHAsset]) {
+        picker.dismiss(animated: true, completion: nil)
+        for asset in assets {
+            if #available(iOS 11.0, *) {
+//                if let asset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset{
+                    if let fileName = asset.value(forKey: "filename") as? String{
+                        print(fileName)
+                    }
+//                }
+//                if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                    
+//                    let IsDefault = self.userPhotosModel.count == 0 ? 1 : 0
+////                self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, vMediaPath: self.thumbURlUpload.path, tiMediaType: 1, tiImage: asset.getUIImage(asset: asset), tiIsDefault: IsDefault, reaction: []))
+//                    if IsDefault == 1 {
+//                        self.imgProfile.image = self.userPhotosModel[0].tiImage
+//                    }
+//                }
+                
+                let imgData = NSData(data: (asset.getUIImage(asset: asset))!.jpegData(compressionQuality: 1)!)
+                var imageSize: Int = imgData.count
+                print("actual size of image in KB: %f ", Double(imageSize) / 1000.0)
+                
+                if (Double(imageSize) / 1000.0) > 5000{
+                    let imgDataa = NSData(data: (asset.getUIImage(asset: asset))!.jpegData(compressionQuality: 0.5)!)
+                    let image = UIImage(data: imgDataa as Data)
+                    let IsDefault = self.userPhotosModel.count == 0 ? 1 : 0
+                    self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, vMediaPath: self.thumbURlUpload.path, tiMediaType: 1, tiImage: image, tiIsDefault: IsDefault, reaction: []))
+                }else{
+                    let IsDefault = self.userPhotosModel.count == 0 ? 1 : 0
+                    self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, vMediaPath: self.thumbURlUpload.path, tiMediaType: 1, tiImage: asset.getUIImage(asset: asset), tiIsDefault: IsDefault, reaction: []))
+                }
+                
+                self.clnAddPhoto.reloadData()
+            } else {
+//                if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                    
+//                    let IsDefault = self.userPhotosModel.count == 0 ? 1 : 0
+//                    self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, vMediaPath: self.thumbURlUpload.path, tiMediaType: 1, tiImage: image, tiIsDefault: IsDefault, reaction: []))
+//                    if IsDefault == 1 {
+//                        self.imgProfile.image = self.userPhotosModel[0].tiImage
+//                    }
+////                    if let imageURL = info[UIImagePickerController.InfoKey.referenceURL] as? URL {
+//                        let result = PHAsset.fetchAssets(withALAssetURLs: [imageURL], options: nil)
+//                        let assetResources = PHAssetResource.assetResources(for: result.firstObject!)
+//
+//                        print(assetResources.first!.originalFilename)
+//                    }
+//                }
+            }
+        }
+    }
+    
+    func imagePickerDidCancel(_ picker: OpalImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
 }

@@ -13,14 +13,41 @@
 import UIKit
 
 protocol TopGeeksProtocol: class {
+    func getGeeksPlansResponse(response : BoostGeekResponse)
+    func getGeeksResponse(response : BoostGeekResponse)
+    func getActiveGeeksResponse(response : BoostGeekResponse)
 }
+
+protocol GreekBoostProtocol: AnyObject {
+    func getBoostStoryResponse(boostGreekResponse : BoostGeekResponse)
+}
+
 
 class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     //var interactor : TopGeeksInteractorProtocol?
     var presenter : TopGeeksPresentationProtocol?
     
-    // MARK: Object lifecycle
+    @IBOutlet var btnTopGeekColl: [UIButton]!
+    @IBOutlet weak var btnActivePlans: UIButton!
+    @IBOutlet weak var lblRemainingTime: UILabel!
+    @IBOutlet weak var btnActiveNow: UIButton!
+    @IBOutlet var btnViews: [UIView]!
+    @IBOutlet weak var bgViewHeightConstant: NSLayoutConstraint!
+    @IBOutlet weak var PlanCollectionView: UICollectionView!
+    @IBOutlet weak var pageControl: UIPageControl!
     
+    var planDict : NSDictionary = [:]
+    var timer = Timer()
+    var totalDay : Int!
+    var totalHour : Int!
+    var totalMin : Int!
+    var totalSecond : Int!
+    
+    var PlanDetailsArray : [PlanData] = []
+    var selectedIndex : Int = 0
+    weak var delegateGreekBoost: GreekBoostProtocol?
+    
+    // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -32,7 +59,6 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = TopGeeksInteractor()
@@ -50,14 +76,254 @@ class TopGeeksViewController: UIViewController, TopGeeksProtocol {
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setCollectionView()
+        self.bgViewHeightConstant.constant = DeviceType.hasNotch || DeviceType.iPhone11 || DeviceType.iPhone11or11Pro ? 230 : 180
+        self.presenter?.callGeeksPlansAPI()
+    }
+    
+    func setCollectionView(){
+        
+        self.PlanDetailsArray = [PlanData(days: "", duration: "", price: "", planType: "", BoostGeekCount: "", GeekCount: ""), PlanData(days: "1", duration: "Top Story", price: "$1.99", planType: "2", BoostGeekCount: "0", GeekCount: "1"), PlanData(days: "4", duration: "Top Stories", price: "$6.99", planType: "2", BoostGeekCount: "0", GeekCount: "4"),  PlanData(days: "10 + 10", duration: "Top Stories", price: "$14.99", planType: "3", BoostGeekCount: "10", GeekCount: "10"), PlanData(days: "", duration: "", price: "", planType: "", BoostGeekCount: "", GeekCount: "")]
+        
+        self.PlanCollectionView.register(UINib.init(nibName: Cells.PlanCollectionCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.PlanCollectionCell)
+        self.PlanCollectionView.contentInset = UIEdgeInsets(top: 10, left: 30, bottom: 10, right: 30)
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = 15
+        self.PlanCollectionView.collectionViewLayout = layout
+        self.PlanCollectionView.reloadData()
+        
+        self.pageControl.numberOfPages = self.PlanDetailsArray.count - 2
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
-        self.popVC()
+        self.dismissVC(completion: nil)
+    }
+    
+    @IBAction func btnContinueAction(_ sender: UIButton) {
+        if planDict != [:] {
+            self.callCreateGeeksAPI()
+        } else {
+            AppSingleton.sharedInstance().showAlert("Please select plan", okTitle: "OK")
+        }
+    }
+    
+    @IBAction func btnActiveNowAction(_ sender: UIButton) {
+        self.callActiveGeeksAPI()
+    }
+    
+    @IBAction func btnTopGeekAction(_ sender: UIButton) {
+        btnTopGeekColl.forEach{
+            $0.isSelected = false
+        }
+        sender.isSelected = true
+        resetButtonView()
+        btnViews[sender.tag].backgroundColor = .lightGray
+        
+        if sender.tag == 0 {
+            planDict = ["fPlanPrice" : "1.99", "tiPlanType": "2", "iBoostCount" : "0", "iGeekCount" : "1"]
+        } else if sender.tag == 1 {
+            planDict = ["fPlanPrice" : "6.99", "tiPlanType": "2", "iBoostCount" : "0", "iGeekCount" : "4"]
+        } else if sender.tag == 2 {
+            planDict = ["fPlanPrice" : "9.99", "tiPlanType": "2", "iBoostCount" : "0", "iGeekCount" : "8"]
+        } else {
+            planDict = ["fPlanPrice" : "14.99", "tiPlanType": "3", "iBoostCount" : "10", "iGeekCount" : "10"]
+        }
+    }
+    
+    func startTimer() {
+      timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+    }
+    
+    @objc func updateTime() {
+      print("Timer : \(totalMin):\(totalSecond)")
+      if totalSecond != 0 || totalMin != 0 {
+        if totalSecond != 0 {
+          totalSecond -= 1
+        }
+        
+        if "\(totalSecond!)".firstCharacterAsString == "0" {
+          totalSecond = 60
+          totalMin -= 1
+        }
+        if "\(totalMin!)".firstCharacterAsString == "0" {
+         // totalMin = 60
+          totalHour -= 1
+        }
+        self.lblRemainingTime.text = "\(totalMin!):\(totalSecond!) Remaining"
+        
+        if totalMin! == 0 && totalSecond! == 0 {
+            totalMin = 0
+            totalSecond = 0
+          endTimer()
+          self.lblRemainingTime.text = "\(00):\(00) Remaining"
+        }
+        
+      } else {
+        endTimer()
+        self.lblRemainingTime.text = "\(00):\(00) Remaining"
+      }
+    }
+    
+    func endTimer() {
+      timer.invalidate()
+    }
+    
+    func resetButtonView(){
+        btnViews.forEach {
+            $0.backgroundColor = .white
+        }
+    }
+    
+    func setPlansDetails(date : String){
+        let Dateformatter = DateFormatter()
+        Dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let myTimeInterval = TimeInterval(Int((date))!)
+        let date1 = Date(timeIntervalSince1970: TimeInterval(myTimeInterval))
+        
+        let dateStr1 = Dateformatter.string(from: date1)
+        let dateStr2 = Dateformatter.string(from: Date())
+        
+        if dateStr1 != "" {
+            (totalHour, totalMin, totalSecond) = timeGapBetweenDates(previousDate: dateStr1, currentDate: dateStr2)
+        }
+        if dateStr1.compare(dateStr2) == .orderedDescending  {
+            startTimer()
+        } else {
+            //         viewTimer.isHidden = true
+            //         viewMeeting.isHidden = false
+        }
+    }
+    
+    func setActiveNowButton(data : BoostGeekFields){
+        if data.pendingGeek != 0 && data.iExpireAt == "" {
+            self.btnActiveNow.alpha = 1.0
+            self.btnActiveNow.isUserInteractionEnabled = true
+        } else {
+            self.btnActiveNow.alpha = 0.5
+            self.btnActiveNow.isUserInteractionEnabled = false
+            if data.iExpireAt != "" {
+                setPlansDetails(date: (data.iExpireAt)!)
+            }
+        }
     }
 }
+
+extension TopGeeksViewController {
+    
+    func getGeeksPlansResponse(response : BoostGeekResponse){
+        print(response)
+        if response.responseCode == 200 {
+            self.btnActivePlans.setTitle("\(response.responseData?.pendingGeek ?? 0)", for: .normal)
+            if response.responseData?.tiPlanType == 2 || response.responseData?.tiPlanType == 3 {
+                self.delegateGreekBoost?.getBoostStoryResponse(boostGreekResponse: response)
+                setActiveNowButton(data : response.responseData!)
+            }
+        }
+    }
+    
+    func callCreateGeeksAPI() {
+        let param = RequestParameter.sharedInstance().createBoostGeekParams(fPlanPrice: planDict["fPlanPrice"] as! String, tiPlanType: planDict["tiPlanType"] as! String, iBoostCount: planDict["iBoostCount"] as! String, iGeekCount: planDict["iGeekCount"] as! String)
+        self.presenter?.callCreateGeeksAPI(param: param)
+    }
+    
+    func getGeeksResponse(response : BoostGeekResponse){
+        LoaderView.sharedInstance.hideLoader()
+        
+        if response.responseCode == 200 {
+            resetButtonView()
+            AppSingleton.sharedInstance().showAlert(kSuccessPurStoryPlan, okTitle: "OK")
+            self.presenter?.callGeeksPlansAPI()
+        } else {
+            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        }
+    }
+    
+    func callActiveGeeksAPI(){
+        self.presenter?.callActiveGeeksAPI()
+    }
+    
+    func getActiveGeeksResponse(response : BoostGeekResponse){
+        print(response)
+        if response.responseCode == 200 {
+            resetButtonView()
+            self.presenter?.callGeeksPlansAPI()
+        } else {
+            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        }
+    }
+}
+
+//MARK: UICollectionview Delegate & Datasource Methods
+extension TopGeeksViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.PlanDetailsArray.count != 0 ? self.PlanDetailsArray.count : 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell : PlanCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PlanCollectionCell, for: indexPath) as! PlanCollectionCell
+        let data = self.PlanDetailsArray[indexPath.row]
+        let dataIndex = indexPath.row == 1 || indexPath.row == 2 || indexPath.row == 3
+        cell.lblPlanCount.text = data.days
+        cell.lblduration.text = data.duration
+        cell.lblPrice.text = data.price
+        cell.btnPopular.alpha = 0.0
+        cell.cellView.borderColor = dataIndex ? #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1) : .clear
+        cell.lblPlanCount.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        cell.lblPrice.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        
+        if indexPath.row == selectedIndex {
+            
+            cell.cellView.borderColor = dataIndex ? #colorLiteral(red: 0.5791940689, green: 0.1280144453, blue: 0.5726861358, alpha: 1) : .clear
+            cell.lblPlanCount.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            cell.lblPrice.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            planDict = ["fPlanPrice" : data.price.split("$").last!, "tiPlanType": data.planType, "iBoostCount" : data.BoostGeekCount, "iGeekCount" : data.GeekCount]
+        }
+        
+        if indexPath.row == 3 {
+            cell.btnPopular.alpha = 1.0
+        }
+        return cell
+    }
+    
+    
+     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let height = collectionView.frame.height
+       
+        if indexPath.row == selectedIndex {
+            return CGSize(width: DeviceType.iPhone5orSE ? 125 : 135, height: height - 80)
+        } else {
+            return CGSize(width: DeviceType.iPhone5orSE ? 110 : 120, height: height - 100)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let dataIndex = indexPath.row == 1 || indexPath.row == 2 || indexPath.row == 3
+        self.selectedIndex = dataIndex ? indexPath.row : 1
+        self.pageControl.currentPage = self.selectedIndex - 1
+        PlanCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        self.PlanCollectionView.reloadData()
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // Parallax visible cells
+        let center = CGPoint(x: scrollView.contentOffset.x + (scrollView.frame.width / 2), y: (scrollView.frame.height / 2))
+        if let ip = PlanCollectionView.indexPathForItem(at: center) {
+            
+            let dataIndex = ip.row == 1 || ip.row == 2 || ip.row == 3
+            self.selectedIndex = dataIndex ? ip.row : 1
+            self.pageControl.currentPage = self.selectedIndex - 1
+            self.PlanCollectionView.reloadData()
+        }
+    }
+}
+

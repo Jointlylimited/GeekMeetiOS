@@ -4,3 +4,4 @@
 #import <CommonCrypto/CommonHMAC.h>
 #import "UserDetail.h"
 #import "Content.h"
+#import "ZDStickerView.h"

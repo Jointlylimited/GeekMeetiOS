@@ -33,22 +33,8 @@ class CustomImageLayout: UICollectionViewFlowLayout {
     }
     
     func setupLayout() {
-        minimumInteritemSpacing = 1 // Set to zero if you want
+        minimumInteritemSpacing = 1.0 // Set to zero if you want
         minimumLineSpacing = 1
         scrollDirection = scrollViewDirection
-    }
-}
-
-@available(iOS 13.0, *)
-struct MultipleLineTextField: View {
-    var content: Binding<String>
-
-    init(content: Binding<String>) {
-        self.content = content
-    }
-
-    var body: some View {
-        TextField("Custom placeholder", text: content)
-            .background(Color.yellow)
     }
 }

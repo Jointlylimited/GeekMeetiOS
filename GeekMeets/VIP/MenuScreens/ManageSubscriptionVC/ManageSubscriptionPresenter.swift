@@ -13,7 +13,17 @@
 import UIKit
 
 protocol ManageSubscriptionPresentationProtocol {
-    func presentSomething()
+    func callSubscriptionDetailsAPI()
+    func getSubscriptionDetailsResponse(response : SubscriptionResponse)
+    
+    func callCreateSubscriptionAPI(param : Dictionary<String, String>)
+    func getSubscriptionResponse(response : SubscriptionResponse)
+    
+    func callUpdateSubscriptionAPI(param : Dictionary<String, String>)
+    func getUpdateSubscriptionResponse(response : CommonResponse)
+    
+    func callUserProfileAPI()
+    func getUserProfileResponse(response : UserAuthResponseField)
 }
 
 class ManageSubscriptionPresenter: ManageSubscriptionPresentationProtocol {
@@ -21,7 +31,32 @@ class ManageSubscriptionPresenter: ManageSubscriptionPresentationProtocol {
     var interactor: ManageSubscriptionInteractorProtocol?
     
     // MARK: Present something
-    func presentSomething() {
-        
+    func callSubscriptionDetailsAPI(){
+        self.interactor?.callSubscriptionDetailsAPI()
+    }
+    func getSubscriptionDetailsResponse(response : SubscriptionResponse){
+        self.viewController?.getSubscriptionDetailsResponse(response : response)
+    }
+    
+    func callCreateSubscriptionAPI(param : Dictionary<String, String>) {
+        self.interactor?.callCreateSubscriptionAPI(param : param)
+    }
+    func getSubscriptionResponse(response : SubscriptionResponse){
+        self.viewController?.getSubscriptionResponse(response: response)
+    }
+    
+    func callUpdateSubscriptionAPI(param : Dictionary<String, String>){
+        self.interactor?.callUpdateSubscriptionAPI(param: param)
+    }
+    func getUpdateSubscriptionResponse(response : CommonResponse){
+        self.viewController?.getUpdateSubscriptionResponse(response: response)
+    }
+    
+    func callUserProfileAPI(){
+        self.interactor?.callUserProfileAPI()
+    }
+    
+    func getUserProfileResponse(response : UserAuthResponseField){
+        self.viewController?.getUserProfileResponse(response : response)
     }
 }

@@ -13,7 +13,7 @@
 import UIKit
 
 protocol NewMobileNumberInteractorProtocol {
-    func doSomething()
+    func callResendOTPAPI(vCountryCode : String,vPhone : String)
 }
 
 protocol NewMobileNumberDataStore {
@@ -25,7 +25,29 @@ class NewMobileNumberInteractor: NewMobileNumberInteractorProtocol, NewMobileNum
     //var name: String = ""
     
     // MARK: Do something
-    func doSomething() {
+    func callResendOTPAPI(vCountryCode : String,vPhone : String) {
         
+        DefaultLoaderView.sharedInstance.showLoader()
+        let intiUserId: Int = UserDataModel.currentUser!.iUserId!
+        UserAPI.requestForOtp(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, language: APPLANGUAGE.english, iUserId: String(intiUserId), vCountryCode: vCountryCode, vPhone:vPhone){ (response, error) in
+            
+            delay(0.2) {
+                DefaultLoaderView.sharedInstance.hideLoader()
+            }
+            if response?.responseCode == 200 {
+                self.presenter?.getResendOTPResponse(response: response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+            } else if response?.responseCode == 400 {
+                self.presenter?.getResendOTPResponse(response: response!)
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getResendOTPResponse(response: response!)
+                }
+            }
+        }
     }
 }

@@ -52,7 +52,6 @@ class DiscoverySettingViewController: UIViewController, DiscoverySettingProtocol
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = DiscoverySettingInteractor()
@@ -70,11 +69,13 @@ class DiscoverySettingViewController: UIViewController, DiscoverySettingProtocol
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.registerTableViewCell()
     }
     
@@ -82,7 +83,7 @@ class DiscoverySettingViewController: UIViewController, DiscoverySettingProtocol
         if !isFromMenu {
             self.lblTitle.text = "Edit Interests & Preferences"
             self.viewHeightConstant.constant = 135
-            self.btnChange.alpha = 1.0
+            self.btnChange.alpha = 0.0
         } else {
             self.lblTitle.text = "Discovery Settings"
             self.viewHeightConstant.constant = 85
@@ -90,20 +91,19 @@ class DiscoverySettingViewController: UIViewController, DiscoverySettingProtocol
         }
         self.tblDiscoverList.register(UINib.init(nibName: Cells.CommonTblListCell, bundle: Bundle.main), forCellReuseIdentifier: Cells.CommonTblListCell)
         
-        self.objDiscoverData = [CommonCellModel(title: "Interested Age Range", description: "20-30", isDescAvailable: true), CommonCellModel(title: "Interested In Gender", description: "Male, Female", isDescAvailable: true), CommonCellModel(title: "Most liked social media platforms", description: "Whats App, Instagram, Snapchat", isDescAvailable: true)]
+        self.objDiscoverData = [CommonCellModel(title: "Yourself", description: "", isDescAvailable: false), CommonCellModel(title: "Your Desired Partner", description: "", isDescAvailable: false), CommonCellModel(title: "Your Interests", description: "", isDescAvailable: false)]
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.popVC()
     }
+    
     @IBAction func btnChangeAction(_ sender: GradientButton) {
-        self.userProfileModel?.vInterestAge = self.objDiscoverData[0].description
-        self.userProfileModel?.vInterestGender = self.objDiscoverData[1].description
-        self.userProfileModel?.vLikedSocialPlatform = self.objDiscoverData[2].description
         self.popVC()
     }
 }
 
+//MARK: UITableView Delegate & Datasource Methods
 extension DiscoverySettingViewController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -122,9 +122,8 @@ extension DiscoverySettingViewController : UITableViewDataSource, UITableViewDel
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let cell = cell as? CommonTblListCell {
             
-            
             let data = self.objDiscoverData[indexPath.row]
-            
+            cell.lblTitle.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             cell.lblTitle.text = data.title
             cell.lblDesc.text = data.description
         }
@@ -141,30 +140,22 @@ extension DiscoverySettingViewController : UITableViewDataSource, UITableViewDel
     
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let index = indexPath.row
-        let queVC = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange) as? SelectAgeRangeViewController
-        queVC?.isFromSignUp = false
-        queVC?.interest_delegate = self
+        let intVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.Interest_PreferenceScreen) as? Interest_PreferenceViewController
+        intVC?.isFromMenu = self.isFromMenu
+        
+        let response = UserDataModel.UserPreferenceResponse?.responseData
         if index == 0 {
-            queVC?.index = 1
+            intVC?.header_title = self.objDiscoverData[0].title
+            intVC?.objDiscoverData = [response![0], response![4], response![11], response![17], response![19], response![23], response![24], response![25], response![26], response![27], response![28]]
             
         } else if index == 1 {
-            queVC?.index = 2
+            intVC?.header_title = self.objDiscoverData[1].title
+            intVC?.objDiscoverData = [response![1], response![3], response![5], response![7], response![9], response![12]]
         } else {
-            queVC?.index = 3
+            intVC?.header_title = self.objDiscoverData[2].title
+            intVC?.objDiscoverData = [response![13], response![14], response![15], response![16], response![17], response![18], response![22], response![29]]
         }
-        self.pushVC(queVC!)
+        self.pushVC(intVC!)
     }
 }
 
-extension DiscoverySettingViewController : SelectInterestAgeGenderDelegate {
-    func getSelectedValue(index: Int, data: String) {
-        if index == 1 {
-            self.objDiscoverData[0].description = data
-        } else if index == 2 {
-            self.objDiscoverData[1].description = data
-        } else {
-            self.objDiscoverData[2].description = data
-        }
-        self.tblDiscoverList.reloadData()
-    }
-}

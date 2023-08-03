@@ -6,8 +6,8 @@
 //  Copyright © 2019 Mohammad Ashraful Kabir. All rights reserved.
 //
 
-#import "Content.h"
-
-@implementation Content
-
-@end
+//#import "Content.h"
+//
+//@implementation Content
+//
+//@end

@@ -12,21 +12,71 @@ import Alamofire
 
 open class ContentPageAPI {
     /**
+     ContactUS
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func contactUs(nonce: String, timestamp: String, token: String, authorization: String, completion: @escaping ((_ data: ContactUsResponse?,_ error: Error?) -> Void)) {
+        contactUsWithRequestBuilder(nonce: nonce, timestamp: timestamp, token: token, authorization: authorization).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     ContactUS
+     - GET /contact-us/view
+     - examples: [{contentType=application/json, example=""}]
+     
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter authorization: (header)
+
+     - returns: RequestBuilder<ContactUsResponse>
+     */
+    open class func contactUsWithRequestBuilder(nonce: String, timestamp: String, token: String, authorization: String) -> RequestBuilder<ContactUsResponse> {
+        let path = "/contact-us/view"
+        let URLString = SwaggerClientAPI.basePath + path
+        let parameters: [String:Any]? = nil
+        
+        let url = URLComponents(string: URLString)
+        let nillableHeaders: [String: Any?] = [
+            "nonce": nonce,
+            "timestamp": timestamp,
+            "token": token,
+            "authorization": authorization
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<ContactUsResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
+    }
+
+    /**
      * enum for parameter slug
      */
-    public enum Slug_contentPage: String { 
+    public enum Slug_contentPage: String {
         case aboutUs = "about-us"
         case privacyPolicy = "privacy-policy"
         case terms = "terms"
+        case contactUs = "contact-us"
+        case licenses = "licenses"
+        case tips = "tips"
     }
 
     /**
      Content Page
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter slug: (path)  
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter slug: (path)
      - parameter completion: completion handler to receive the data and the error objects
      */
     open class func contentPage(nonce: String, timestamp: String, token: String, slug: Slug_contentPage, completion: @escaping ((_ data: ContentPageResponse?,_ error: Error?) -> Void)) {
@@ -48,12 +98,12 @@ open class ContentPageAPI {
   }
 }}]
      
-     - parameter nonce: (header)  
-     - parameter timestamp: (header)  
-     - parameter token: (header)  
-     - parameter slug: (path)  
+     - parameter nonce: (header)
+     - parameter timestamp: (header)
+     - parameter token: (header)
+     - parameter slug: (path)
 
-     - returns: RequestBuilder<ContentPageResponse> 
+     - returns: RequestBuilder<ContentPageResponse>
      */
     open class func contentPageWithRequestBuilder(nonce: String, timestamp: String, token: String, slug: Slug_contentPage) -> RequestBuilder<ContentPageResponse> {
         var path = "/content-pages/{slug}"

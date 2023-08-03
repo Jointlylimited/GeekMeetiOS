@@ -6,13 +6,13 @@
 //  Copyright © 2019 Mohammad Ashraful Kabir. All rights reserved.
 //
 
-#import <JSONModel/JSONModel.h>
-#import "Content.h"
-
-@interface UserDetail : JSONModel
-
-@property (nonatomic) NSString *name;
-@property (nonatomic) NSString *imageUrl;
-@property (nonatomic) NSArray<Content> *contents;
-
-@end
+//#import <JSONModel/JSONModel.h>
+//#import "Content.h"
+//
+//@interface UserDetail : JSONModel
+//
+//@property (nonatomic) NSString *name;
+//@property (nonatomic) NSString *imageUrl;
+//@property (nonatomic) NSArray<Content> *contents;
+//
+//@end

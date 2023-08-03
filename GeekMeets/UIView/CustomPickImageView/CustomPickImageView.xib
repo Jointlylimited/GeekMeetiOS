@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-SemiBold.ttf">
+            <string>Poppins-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="EH2-v3-TIa" customClass="CustomPickImageView" customModule="Jointly" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xuc-ho-aOM" customClass="VDTouch" customModule="Jointly" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                </view>
+                <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nIQ-th-BjX">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <connections>
+                        <action selector="btnCloseAction:" destination="EH2-v3-TIa" eventType="touchUpInside" id="57s-fo-VHf"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WEm-Ny-B7p">
+                    <rect key="frame" x="0.0" y="684" width="414" height="212"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="G01-AC-pFi">
+                            <rect key="frame" x="77" y="42" width="260" height="70"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GsR-EB-91o">
+                                    <rect key="frame" x="0.0" y="0.0" width="76.5" height="70"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o2s-bQ-mlc">
+                                            <rect key="frame" x="0.0" y="0.0" width="76.5" height="70"/>
+                                            <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
+                                            <state key="normal" image="icn_camera">
+                                                <color key="titleColor" red="0.70980392160000005" green="0.32549019610000002" blue="0.89411764709999997" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="btnCameraAction:" destination="EH2-v3-TIa" eventType="touchUpInside" id="ylk-FK-PL1"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="o2s-bQ-mlc" secondAttribute="trailing" id="FF1-LS-bYf"/>
+                                        <constraint firstItem="o2s-bQ-mlc" firstAttribute="leading" secondItem="GsR-EB-91o" secondAttribute="leading" id="Krf-JH-vZO"/>
+                                        <constraint firstAttribute="bottom" secondItem="o2s-bQ-mlc" secondAttribute="bottom" id="Sgb-Ni-tth"/>
+                                        <constraint firstItem="o2s-bQ-mlc" firstAttribute="top" secondItem="GsR-EB-91o" secondAttribute="top" id="gUL-dk-GhD"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                            <size key="value" width="0.0" height="0.0"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                            <real key="value" value="0.0"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                            <real key="value" value="0.0"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PDr-h6-kaM">
+                                    <rect key="frame" x="91.5" y="0.0" width="77" height="70"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="on0-Bb-zBM">
+                                            <rect key="frame" x="0.0" y="0.0" width="77" height="70"/>
+                                            <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
+                                            <state key="normal" image="icn_gif">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
+                                                    <color key="value" red="0.52941176469999995" green="0.18039215689999999" blue="0.76470588240000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
+                                                    <color key="value" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="thirdColor">
+                                                    <color key="value" red="0.70980392160000005" green="0.32549019610000002" blue="0.89411764709999997" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isHorizontal" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="btnGifAction:" destination="EH2-v3-TIa" eventType="touchUpInside" id="Y1i-oY-cMK"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="on0-Bb-zBM" firstAttribute="top" secondItem="PDr-h6-kaM" secondAttribute="top" id="5oK-XI-XPc"/>
+                                        <constraint firstAttribute="bottom" secondItem="on0-Bb-zBM" secondAttribute="bottom" id="Nyw-ZJ-SRc"/>
+                                        <constraint firstItem="on0-Bb-zBM" firstAttribute="leading" secondItem="PDr-h6-kaM" secondAttribute="leading" id="R4E-OK-cnW"/>
+                                        <constraint firstAttribute="trailing" secondItem="on0-Bb-zBM" secondAttribute="trailing" id="Un0-Te-xeZ"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                            <size key="value" width="0.0" height="0.0"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                            <real key="value" value="0.0"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                            <real key="value" value="0.0"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UCK-yh-062">
+                                    <rect key="frame" x="183.5" y="0.0" width="76.5" height="70"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mb0-fh-1HF">
+                                            <rect key="frame" x="0.0" y="0.0" width="76.5" height="70"/>
+                                            <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
+                                            <state key="normal" image="icn_location1">
+                                                <color key="titleColor" red="0.70980392160000005" green="0.32549019610000002" blue="0.89411764709999997" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="btnLocationAction:" destination="EH2-v3-TIa" eventType="touchUpInside" id="Gat-K3-vjz"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="Mb0-fh-1HF" firstAttribute="leading" secondItem="UCK-yh-062" secondAttribute="leading" id="3t1-qP-dqP"/>
+                                        <constraint firstItem="Mb0-fh-1HF" firstAttribute="top" secondItem="UCK-yh-062" secondAttribute="top" id="MDi-Sd-azI"/>
+                                        <constraint firstAttribute="bottom" secondItem="Mb0-fh-1HF" secondAttribute="bottom" id="Nlf-v4-YoO"/>
+                                        <constraint firstAttribute="trailing" secondItem="Mb0-fh-1HF" secondAttribute="trailing" id="pFJ-H4-lvd"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                            <size key="value" width="0.0" height="0.0"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                            <real key="value" value="0.0"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                            <real key="value" value="0.0"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="260" id="Vin-gb-uxq"/>
+                                <constraint firstAttribute="height" constant="70" id="qIM-kW-nY0"/>
+                            </constraints>
+                        </stackView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1b4-pH-UX7">
+                            <rect key="frame" x="122" y="137" width="170" height="50"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D7o-Xn-Wj3" customClass="GradientButton" customModule="Jointly" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="170" height="50"/>
+                                    <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
+                                    <state key="normal" title="Cancel">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
+                                            <color key="value" red="0.52941176469999995" green="0.18039215689999999" blue="0.76470588240000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
+                                            <color key="value" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="thirdColor">
+                                            <color key="value" red="0.70980392160000005" green="0.32549019610000002" blue="0.89411764709999997" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHorizontal" value="YES"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="btnCloseAction:" destination="EH2-v3-TIa" eventType="touchUpInside" id="4gV-X8-JjY"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="D7o-Xn-Wj3" firstAttribute="leading" secondItem="1b4-pH-UX7" secondAttribute="leading" id="0gs-mo-f8U"/>
+                                <constraint firstAttribute="height" constant="50" id="UYL-r5-qd8"/>
+                                <constraint firstItem="D7o-Xn-Wj3" firstAttribute="top" secondItem="1b4-pH-UX7" secondAttribute="top" id="kC6-cp-K2G"/>
+                                <constraint firstAttribute="width" constant="170" id="keI-4F-SHV"/>
+                                <constraint firstAttribute="bottom" secondItem="D7o-Xn-Wj3" secondAttribute="bottom" id="x3X-AN-Ucq"/>
+                                <constraint firstAttribute="trailing" secondItem="D7o-Xn-Wj3" secondAttribute="trailing" id="zCv-F0-T9T"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="1b4-pH-UX7" firstAttribute="top" secondItem="G01-AC-pFi" secondAttribute="bottom" constant="25" id="0JF-eL-qfi"/>
+                        <constraint firstAttribute="height" constant="212" id="8YT-2c-XMh"/>
+                        <constraint firstAttribute="bottom" secondItem="1b4-pH-UX7" secondAttribute="bottom" constant="25" id="J0E-Se-O6n"/>
+                        <constraint firstItem="1b4-pH-UX7" firstAttribute="centerX" secondItem="WEm-Ny-B7p" secondAttribute="centerX" id="JYl-bA-fHO"/>
+                        <constraint firstItem="G01-AC-pFi" firstAttribute="centerX" secondItem="WEm-Ny-B7p" secondAttribute="centerX" id="lJE-dg-wwY"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="6"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="yf9-sj-BHa" firstAttribute="trailing" secondItem="WEm-Ny-B7p" secondAttribute="trailing" id="8mD-qI-OgF"/>
+                <constraint firstItem="nIQ-th-BjX" firstAttribute="trailing" secondItem="xuc-ho-aOM" secondAttribute="trailing" id="9db-oN-7dF"/>
+                <constraint firstItem="xuc-ho-aOM" firstAttribute="top" secondItem="EH2-v3-TIa" secondAttribute="top" id="EM4-II-CdX"/>
+                <constraint firstAttribute="bottom" secondItem="xuc-ho-aOM" secondAttribute="bottom" id="MVz-y3-ep1"/>
+                <constraint firstItem="WEm-Ny-B7p" firstAttribute="centerX" secondItem="EH2-v3-TIa" secondAttribute="centerX" id="Ooh-Fh-p0k"/>
+                <constraint firstItem="xuc-ho-aOM" firstAttribute="leading" secondItem="yf9-sj-BHa" secondAttribute="leading" id="TCW-gx-fsL"/>
+                <constraint firstItem="nIQ-th-BjX" firstAttribute="top" secondItem="xuc-ho-aOM" secondAttribute="top" id="a2J-sF-xbo"/>
+                <constraint firstAttribute="bottom" secondItem="WEm-Ny-B7p" secondAttribute="bottom" id="cOW-hk-6qo"/>
+                <constraint firstItem="nIQ-th-BjX" firstAttribute="leading" secondItem="xuc-ho-aOM" secondAttribute="leading" id="ce1-JF-8d4"/>
+                <constraint firstItem="WEm-Ny-B7p" firstAttribute="leading" secondItem="yf9-sj-BHa" secondAttribute="leading" id="eOK-Gn-iXM"/>
+                <constraint firstItem="nIQ-th-BjX" firstAttribute="bottom" secondItem="EH2-v3-TIa" secondAttribute="bottom" id="neX-fR-iY8"/>
+                <constraint firstItem="yf9-sj-BHa" firstAttribute="trailing" secondItem="xuc-ho-aOM" secondAttribute="trailing" id="pH8-kH-Hyc"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="yf9-sj-BHa"/>
+            <connections>
+                <outlet property="BtnStackView" destination="G01-AC-pFi" id="IrL-ku-2cS"/>
+                <outlet property="alertView" destination="WEm-Ny-B7p" id="aPF-pN-wBA"/>
+                <outlet property="btnCamera" destination="o2s-bQ-mlc" id="Fg8-cF-0PD"/>
+                <outlet property="btnCancel" destination="o2s-bQ-mlc" id="Vqy-vA-qbe"/>
+                <outlet property="btnClose" destination="nIQ-th-BjX" id="3zE-8e-x0f"/>
+                <outlet property="btnGif" destination="on0-Bb-zBM" id="Dyf-ro-OZa"/>
+                <outlet property="btnLocation" destination="Mb0-fh-1HF" id="Mpg-ZD-EEt"/>
+                <outlet property="viewCamera" destination="GsR-EB-91o" id="aWY-jT-Xs5"/>
+                <outlet property="viewCancel" destination="GsR-EB-91o" id="Gb1-B1-5gE"/>
+                <outlet property="viewGif" destination="PDr-h6-kaM" id="PSR-eF-pKU"/>
+                <outlet property="viewLocation" destination="UCK-yh-062" id="E89-mb-kys"/>
+            </connections>
+            <point key="canvasLocation" x="1011.5942028985507" y="169.41964285714286"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="icn_camera" width="73" height="75"/>
+        <image name="icn_gif" width="75" height="75"/>
+        <image name="icn_location1" width="75" height="75"/>
+    </resources>
+</document>

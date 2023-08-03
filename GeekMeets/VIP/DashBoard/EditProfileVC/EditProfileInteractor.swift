@@ -13,7 +13,8 @@
 import UIKit
 
 protocol EditProfileInteractorProtocol {
-    func doSomething()
+    func uploadImgToS3(with obj: Dictionary<String, Any>, images : [NSDictionary])
+    func callEdirProfileAPI(params : Dictionary<String, String>)
 }
 
 protocol EditProfileDataStore {
@@ -24,8 +25,103 @@ class EditProfileInteractor: EditProfileInteractorProtocol, EditProfileDataStore
     var presenter: EditProfilePresentationProtocol?
     //var name: String = ""
     
-    // MARK: Do something
-    func doSomething() {
+    var paramDetails : Dictionary<String, Any>!
+    var thumbURlUpload: (path: String, name: String) {
+        let folderName = user_Profile
+        let timeStamp = Authentication.sharedInstance().GetCurrentTimeStamp()
+        let imgExtension = ".jpeg"
+        let path = "\(folderName)\(timeStamp)\(imgExtension)"
+        return (path: path, name: "\(timeStamp)\(imgExtension)")
+    }
+    
+    var index = 0
+    var images : [NSDictionary]?
+    var finalStr = ""
+    
+    func sequenceUpload(){
+        guard index < images!.count else {
+            index = 0
+            return
+        }
         
+        let image = images![index].value(forKey: "tiImage") as! UIImage
+        let tiDefault = images![index].value(forKey: "tiIsDefault") as! Int
+        let imgName = images![index].value(forKey: "vMedia") as! String
+        let imgPath = images![index].value(forKey: "vMediaPath") as! String
+        
+        index += 1
+        AWSHelper.setup()
+        
+        self.uploadSingleImg(image: image, path: self.thumbURlUpload.path, name: self.thumbURlUpload.name) { (success, path) in
+            if tiDefault == 1 {
+                self.paramDetails["vProfileImage"] = path.split("/").last!
+            }
+            
+            let ustr = "{\"vMedia\":\"\(path.split("/").last!)\",\"tiMediaType\":\"1\",\"fHeight\":\"\(image.size.height)\",\"fWidth\":\"\(image.size.height)\",\"tiIsDefault\":\"\(tiDefault)\"}"
+            self.finalStr = self.finalStr != "" ? "\(self.finalStr),\(ustr)" : ustr
+            
+            print(self.finalStr)
+            
+            if self.index == self.images!.count {
+                DispatchQueue.main.async {
+                    DefaultLoaderView.sharedInstance.hideLoader()
+                }
+                self.paramDetails["photos"] = "[\(self.finalStr)]"
+                self.callEdirProfileAPI(params: self.paramDetails as! Dictionary<String, String>)
+            }
+        }
+    }
+    
+    func uploadImgToS3(with obj: Dictionary<String, Any>, images : [NSDictionary]) {
+        if images.count == 0 {
+            _ = AppSingleton.sharedInstance().showAlert(kSelectUserProfile, okTitle: "OK")
+            return
+        }
+        self.images = images
+        self.sequenceUpload()
+        DispatchQueue.main.async {
+            DefaultLoaderView.sharedInstance.showLoader()
+        }
+        self.paramDetails = obj
+    }
+    
+    func uploadSingleImg(image : UIImage, path: String, name: String, complete: @escaping (Bool, String) -> ()){
+        AWSHelper.shared.upload(img: image, imgPath: path, imgName: name) { [weak self] (isUploaded, path, error) in
+
+            guard let `self` = self else {return}
+            if let err = error {
+                print("ERROR : \(err.localizedDescription)")
+                _ = AppSingleton.sharedInstance().showAlert(err.localizedDescription, okTitle: "OK")
+            } else if isUploaded {
+                complete(true, path!)
+            } else {
+                _ = AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+            }
+            self.sequenceUpload()
+        }
+    }
+    
+    // MARK: Do something
+    func callEdirProfileAPI(params : Dictionary<String, String>) {
+        DispatchQueue.main.async {
+            DefaultLoaderView.sharedInstance.showLoader()
+        }
+        UserAPI.editProfile(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, vName: params["vName"]!, dDob: params["dDob"]!, tiAge: params["tiAge"]!, tiGender: UserAPI.TiGender_editProfile(rawValue: params["tiGender"]!)!, txCompanyDetail: params["txCompanyDetail"]!, txAbout: params["txAbout"]!, vEmail: params["vEmail"]!, vProfileImage: params["vProfileImage"]!, vLiveIn: params["vLiveIn"]!, deletephotos : params["deletephotos"]!, photos: params["photos"]!, vInstaLink: params["vInstaLink"]!, vSnapLink: params["vSnapLink"]!, vFbLink: params["vFbLink"]!, tiIsShowAge: UserAPI.TiIsShowAge_editProfile(rawValue: params["tiIsShowAge"]!)!, tiIsShowDistance: UserAPI.TiIsShowDistance_editProfile(rawValue: params["tiIsShowDistance"]!), tiIsShowContactNumber: UserAPI.TiIsShowContactNumber_editProfile(rawValue: params["tiIsShowContactNumber"]!)!, tiIsShowProfileToLikedUser: UserAPI.TiIsShowProfileToLikedUser_editProfile(rawValue: params["tiIsShowProfileToLikedUser"]!)!) { (response, error) in
+            DispatchQueue.main.async {
+                DefaultLoaderView.sharedInstance.hideLoader()
+            }
+            if response?.responseCode == 200 {
+                self.presenter?.getEditProfileResponse(response: response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+                }
+            }
+        }
     }
 }

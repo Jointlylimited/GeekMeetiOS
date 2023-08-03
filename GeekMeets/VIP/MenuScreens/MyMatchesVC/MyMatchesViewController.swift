@@ -13,6 +13,8 @@
 import UIKit
 
 protocol MyMatchesProtocol: class {
+    func getMatchResponse(response : MatchUser)
+    func getUnMatchResponse(response : CommonResponse)
 }
 
 class MyMatchesViewController: UIViewController, MyMatchesProtocol {
@@ -20,11 +22,13 @@ class MyMatchesViewController: UIViewController, MyMatchesProtocol {
     var presenter : MyMatchesPresentationProtocol?
     
     @IBOutlet weak var tblMatchList: UITableView!
+    @IBOutlet weak var lblNoUser: UILabel!
+    @IBOutlet weak var btnSearch: UIButton!
     
-    var objMsgData : [MessageViewModel] = []
+    var objMatchData : [SwipeUserFields] = []
+    var parentNavigationController : UINavigationController?
     
     // MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -36,7 +40,6 @@ class MyMatchesViewController: UIViewController, MyMatchesProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = MyMatchesInteractor()
@@ -56,7 +59,6 @@ class MyMatchesViewController: UIViewController, MyMatchesProtocol {
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.registerTableViewCell()
@@ -68,27 +70,52 @@ class MyMatchesViewController: UIViewController, MyMatchesProtocol {
     }
     
     func setStoryMsgViewData(){
-        self.objMsgData = [MessageViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Sophia", msgTxt: "Matches on 11 Jan, 2019, 10:23 pm", msgCount: "2", msgTime: "11:23 pm"),MessageViewModel(userImage: #imageLiteral(resourceName: "img_intro_1"), userName: "Sophia", msgTxt: "Matches on 11 Jan, 2019, 10:23 pm", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "Image 64"), userName: "Linda Parker", msgTxt: "Matches on 11 Jan, 2019, 10:23 pm", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "Image 62"), userName: "Linda Parker", msgTxt: "Matches on 11 Jan, 2019, 10:23 pm", msgCount: "2", msgTime: "11:23 pm"), MessageViewModel(userImage: #imageLiteral(resourceName: "Image 65"), userName: "Linda Parker", msgTxt: "Matches on 11 Jan, 2019, 10:23 pm", msgCount: "2", msgTime: "11:23 pm"),MessageViewModel(userImage: #imageLiteral(resourceName: "img_intro_1"), userName: "Sophia", msgTxt: "Matches on 11 Jan, 2019, 10:23 pm", msgCount: "2", msgTime: "11:23 pm")]
+        self.presenter?.callMatchListAPI()
     }
+    
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.popVC()
     }
     
     @IBAction func btnSearchAction(_ sender: UIButton) {
         let searchVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.SearchScreen) as? SearchProfileViewController
-        searchVC?.objMsgData = self.objMsgData
+        searchVC?.objMsgData = self.objMatchData
         searchVC?.isFromDiscover = false
         self.pushVC(searchVC!)
     }
 }
 
+extension MyMatchesViewController {
+    func getMatchResponse(response : MatchUser) {
+            UserDataModel.setMatchesCount(count: response.responseData!.count)
+            self.objMatchData = response.responseData!
+            if self.objMatchData.count != 0 {
+                self.tblMatchList.alpha = 1.0
+                self.lblNoUser.alpha = 0.0
+                self.btnSearch.alpha = 1.0
+            } else {
+                self.tblMatchList.alpha = 0.0
+                self.lblNoUser.alpha = 1.0
+                self.btnSearch.alpha = 0.0
+            }
+            self.tblMatchList.reloadData()
+    }
+    
+    func getUnMatchResponse(response : CommonResponse){
+        if response.responseCode == 200 {
+           self.presenter?.callMatchListAPI()
+        } 
+    }
+}
+
+//MARK: UITableView Delegate & Datasource Methods
 extension MyMatchesViewController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.objMsgData.count
+        return self.objMatchData.count != 0 ? self.objMatchData.count : 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -101,10 +128,29 @@ extension MyMatchesViewController : UITableViewDataSource, UITableViewDelegate {
             
             cell.btnChat.alpha = 1.0
             
-            let data = objMsgData[indexPath.row]
-            cell.userImgView.image = data.userImage
-            cell.userName.text = data.userName
-            cell.msgText.text = data.msgTxt
+            if self.objMatchData.count != 0  {
+                let data = self.objMatchData[indexPath.row]
+                let url = URL(string:"\(data.vProfileImage!)")
+                cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_round"))
+                cell.userName.text = data.vProfileName
+                cell.msgText.text = data.iMatchDateTime
+                
+                cell.clickOnChatBtn = {
+                    let obj = GeekMeets_StoryBoard.Chat.instantiateViewController(withIdentifier: GeekMeets_ViewController.OneToOneChatScreen) as! OneToOneChatVC
+                    obj.objFriend?.jID = UserDataModel.currentUser?.vXmppUser ?? ""
+                    obj._userIDForRequestSend = data.vOtherUserXmpp
+                    obj.userName = data.vProfileName
+                    obj.imageString = data.vProfileImage
+                    obj.modalPresentationStyle = .fullScreen
+                    self.pushVC(obj)
+                }
+            }
+            
+            if UserDataModel.currentUser?.tiIsSubscribed == 1 {
+                cell.btnChat.alpha = 1
+            } else {
+                cell.btnChat.alpha = 0
+            }
             cell.msgTime.alpha = 0.0
             cell.msgCount.alpha = 0.0
         }
@@ -117,8 +163,7 @@ extension MyMatchesViewController : UITableViewDataSource, UITableViewDelegate {
     @available(iOS 11.0, *)
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title:  "", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            self.objMsgData.remove(at: indexPath.row)
-            self.tblMatchList.reloadData()
+            self.presenter?.callUnMatchUserAPI(iProfileId: "\(self.objMatchData[indexPath.row].vOtherUserXmpp!)")
             //whatever
             success(true)
         })

@@ -26,6 +26,9 @@ protocol InitialSignUpPresentationProtocol {
     func callSnapchatLoginResponse(token: String, entity : UserEntity)
     
     func gotoSignUpScreen(signParams : UserAuthResponseField)
+    func getPrefernceResponse(response : PreferencesResponse)
+    
+    func callSignInForAppleAPI(params : Dictionary<String, String>)
 }
 
 class InitialSignUpPresenter: InitialSignUpPresentationProtocol {
@@ -60,6 +63,9 @@ class InitialSignUpPresenter: InitialSignUpPresentationProtocol {
         print(response.firstName ?? "")
         print(response.token)
         
+        let signupModel = SignUpUserModel(email: response.email ?? "", password: "", confirmpassword: "", mobile: "", countryCode: "", firstName: response.firstName ?? "", lastName: response.lastName ?? "", phone: response.phone ?? "", birthday: response.birthday ?? "")
+        UserDataModel.SignUpUserResponse = signupModel
+        
         let param = RequestParameter.sharedInstance().socialSigninParams(tiSocialType: "1", accessKey: response.token, service: "facebook")
         self.interactor?.callSocialSignInAPI(params: param)
     }
@@ -69,14 +75,23 @@ class InitialSignUpPresenter: InitialSignUpPresentationProtocol {
     }
     
     func getLoginResponse(userData : UserAuthResponse?) {
-        if userData != nil {
+        if userData?.responseCode == 200 {
             Authentication.setLoggedInStatus(true)
+            Authentication.setSignUpFlowStatus((userData?.responseData?.tiStep)!)
             UserDataModel.currentUser = userData?.responseData
-            let controller = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange)
-            if let view = self.viewController as? UIViewController
-            {
-                view.pushVC(controller)
-            }
+            UserDataModel.setAuthKey(key: (userData?.responseData?.vAuthKey)!)
+            self.callPreferenceAPI()
+        }
+    }
+    
+    func callPreferenceAPI(){
+        self.interactor?.callQuestionaryAPI()
+    }
+    
+    func getPrefernceResponse(response : PreferencesResponse){
+        if response.responseCode == 200 {
+            UserDataModel.UserPreferenceResponse = response
+            AppSingleton.sharedInstance().showHomeVC(fromMatch : false, userDict: [:])
         }
     }
     
@@ -85,8 +100,15 @@ class InitialSignUpPresenter: InitialSignUpPresentationProtocol {
     }
     
     func callSnapchatLoginResponse(token: String, entity : UserEntity){
-        let param = RequestParameter.sharedInstance().socialSigninParams(tiSocialType: "1", accessKey: token, service: "snapchat")
+        let signupModel = SignUpUserModel(email: "", password: "", confirmpassword: "", mobile: "", countryCode: "", firstName: entity.displayName ?? "", lastName: "", phone: "", birthday: "")
+        UserDataModel.SignUpUserResponse = signupModel
+        
+        let param = RequestParameter.sharedInstance().socialSigninParams(tiSocialType: "4", accessKey: token, service: "snapchat")
         self.interactor?.callSocialSignInAPI(params: param)
+    }
+    
+    func callSignInForAppleAPI(params : Dictionary<String, String>) {
+        self.interactor?.callSocialSignInAPI(params: params)
     }
     
     //MARK: If user not registered go to sign up screen

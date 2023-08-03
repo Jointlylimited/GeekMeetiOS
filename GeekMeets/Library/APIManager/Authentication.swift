@@ -38,11 +38,15 @@ class Authentication : NSObject
         return str
     }
     
-    public func getAutheticationToken() -> (nonce : String, timeStamp : String, token : String){
+    public func getAutheticationToken() -> (nonce : String, timeStamps : String, token : String){
         let nonce = 6.randomString
         let timestamp = Authentication.sharedInstance().GetCurrentTimeStamp()
         let token = Authentication.sharedInstance().createHashedTokenString(timeStemp: timestamp, randomStr: nonce)
         return (nonce,timestamp,token)
+    }
+
+    public func currentTimeMillis() -> Int {
+        return Int(NSDate().timeIntervalSince1970)
     }
     
     class func setVAuthKey(_ strkey:String?)
@@ -51,12 +55,12 @@ class Authentication : NSObject
             print("You should use the remove auth key method.")
             return
         }
-        UserDefaults.standard.set(strkey, forKey: "vAuthKey")
+        UserDefaults.standard.set(strkey, forKey: kkAuthKey)
         UserDefaults.standard.synchronize()
     }
     class func getVAuthKey()-> String?
     {
-        let vAuthKey = UserDefaults.standard.object(forKey: "vAuthKey")
+        let vAuthKey = UserDefaults.standard.object(forKey: kkAuthKey)
         if vAuthKey != nil{
             return vAuthKey as! String     //(userData as AnyObject).object(forKey: "vAuthKey") as! String
         }
@@ -68,37 +72,80 @@ class Authentication : NSObject
     class func setLoggedInStatus(_ status:Bool?)
        {
            if status == nil{
-               print("You should use the remove auth key method.")
+               print("You should use the remove status key method.")
                return
            }
-           UserDefaults.standard.set(status, forKey: "isUserLoggedIn")
+           UserDefaults.standard.set(status, forKey: kLoggedInStatus)
            UserDefaults.standard.synchronize()
        }
        class func getLoggedInStatus()-> Bool?
        {
-           let vAuthKey = UserDefaults.standard.object(forKey: "isUserLoggedIn")
+           let vAuthKey = UserDefaults.standard.object(forKey: kLoggedInStatus)
            if vAuthKey != nil{
-               return vAuthKey as! Bool     //(userData as AnyObject).object(forKey: "vAuthKey") as! String
+            return vAuthKey as? Bool     //(userData as AnyObject).object(forKey: "vAuthKey") as! String
            }
            else{
                return false
            }
        }
+    
+    class func setInstagramIntegrationStatus(_ status:Bool?)
+    {
+        if status == nil{
+            print("You should use the remove status key method.")
+            return
+        }
+        UserDefaults.standard.set(status, forKey: kInstagramMediaIntegrated)
+        UserDefaults.standard.synchronize()
+    }
+    class func getInstagramIntegrationStatus()-> Bool?
+    {
+        let vAuthKey = UserDefaults.standard.object(forKey: kInstagramMediaIntegrated)
+        if vAuthKey != nil{
+            return vAuthKey as? Bool     //(userData as AnyObject).object(forKey: "vAuthKey") as! String
+        }
+        else{
+            return false
+        }
+    }
+    
+    class func setSignUpFlowStatus(_ status:Int?)
+    {
+        if status == nil{
+            print("You could not find status value.")
+            return
+        }
+        UserDefaults.standard.set(status, forKey: kSignUpFlowStatus)
+        UserDefaults.standard.synchronize()
+    }
+    class func getSignUpFlowStatus()-> Int?
+    {
+        let vAuthKey = UserDefaults.standard.object(forKey: kSignUpFlowStatus)
+        if vAuthKey != nil{
+            return vAuthKey as! Int     //(userData as AnyObject).object(forKey: "vAuthKey") as! String
+        }
+        else{
+            return 0
+        }
+    }
+    
+    class func setSwipeStatus(_ status:Int?)
+    {
+        if status == nil{
+            print("You should use the remove status key method.")
+            return
+        }
+        UserDefaults.standard.set(status, forKey: kSwipeStatus)
+        UserDefaults.standard.synchronize()
+    }
+    class func getSwipeStatus()-> Int?
+    {
+        let vSwipeKey = UserDefaults.standard.object(forKey: kSwipeStatus)
+        if vSwipeKey != nil{
+            return (vSwipeKey as! Int)     //(userData as AnyObject).object(forKey: "vAuthKey") as! String
+        }
+        else{
+            return 0
+        }
+    }
 }
-
-
-//class Recheable
-//{
-//    static var instanceBlockClass: Recheable!
-//
-//    class func sharedInstanceClass() -> Recheable {
-//        self.instanceBlockClass = (self.instanceBlockClass ?? Recheable())
-//        return self.instanceBlockClass
-//    }
-//    
-//    func isNetwork() -> Bool
-//    {
-//      let hostreach : Reachability = Reachability()
-//        return !(hostreach.connection == .none)
-//    }
-//}

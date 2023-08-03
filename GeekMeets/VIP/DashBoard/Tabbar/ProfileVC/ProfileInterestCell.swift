@@ -10,9 +10,10 @@ import UIKit
 
 class ProfileInterestCell: UITableViewCell {
 
-    @IBOutlet weak var lblInterestAge: UILabel!
-    @IBOutlet weak var lblInterestGender: UILabel!
-    @IBOutlet weak var lblLikedSocialPlatform: UILabel!
+    typealias ButtonClickEvent = (_ title : String?) -> Void
+    var clickOnBtnNext : ButtonClickEvent!
+    
+    @IBOutlet var lblInterest: [UILabel]!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,5 +25,8 @@ class ProfileInterestCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    @IBAction func btnInterestAction(_ sender: UIButton) {
+        self.clickOnBtnNext(lblInterest[sender.tag].text)
+    }
+    
 }

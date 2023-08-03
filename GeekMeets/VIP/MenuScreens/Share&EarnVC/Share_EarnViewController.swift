@@ -20,7 +20,6 @@ class Share_EarnViewController: UIViewController, Share_EarnProtocol {
     var presenter : Share_EarnPresentationProtocol?
     
     // MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -32,7 +31,6 @@ class Share_EarnViewController: UIViewController, Share_EarnProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = Share_EarnInteractor()
@@ -50,9 +48,7 @@ class Share_EarnViewController: UIViewController, Share_EarnProtocol {
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }

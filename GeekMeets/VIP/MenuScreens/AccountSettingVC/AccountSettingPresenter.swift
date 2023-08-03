@@ -12,7 +12,8 @@
 import UIKit
 
 protocol AccountSettingPresentationProtocol {
-    func presentSomething()
+    func callUserProfileAPI(id : String, code : String)
+    func getUserProfileResponse(response : UserAuthResponseField)
 }
 
 class AccountSettingPresenter: AccountSettingPresentationProtocol {
@@ -20,7 +21,11 @@ class AccountSettingPresenter: AccountSettingPresentationProtocol {
     var interactor: AccountSettingInteractorProtocol?
     
     // MARK: Present something
-    func presentSomething() {
-        
+    func callUserProfileAPI(id : String, code : String) {
+        self.interactor?.callUserProfileAPI(id : id, code : code)
+    }
+    
+    func getUserProfileResponse(response : UserAuthResponseField){
+        self.viewController?.getUserProfileResponse(response : response)
     }
 }

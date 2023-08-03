@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SignUpUserModel: NSObject {
+class SignUpUserModel: Codable {
 
     public var email : String?
     public var password : String?
@@ -18,5 +18,19 @@ class SignUpUserModel: NSObject {
     public var userImageName : String? = ""
     public var firstName : String?
     public var lastName : String?
+    public var phone: String?
+    public var birthday: String?
 
+    public init(email : String?, password : String?, confirmpassword : String?, mobile : String?, countryCode : String?, userImageName : String? = "", firstName : String?, lastName : String?, phone: String?, birthday: String?) {
+        self.email = email
+        self.password = password
+        self.confirmpassword = confirmpassword
+        self.mobile = mobile
+        self.countryCode = countryCode
+        self.userImageName = userImageName
+        self.firstName = firstName
+        self.lastName = lastName
+        self.phone = phone
+        self.birthday = birthday
+    }
 }

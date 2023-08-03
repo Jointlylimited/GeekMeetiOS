@@ -11,9 +11,9 @@
 //
 
 import UIKit
+import SDWebImage
 
 protocol MatchProtocol: class {
-    func displaySomething()
 }
 
 class MatchViewController: UIViewController, MatchProtocol {
@@ -23,11 +23,23 @@ class MatchViewController: UIViewController, MatchProtocol {
     // MARK: Object lifecycle
     @IBOutlet weak var userImgView: UIImageView!
     @IBOutlet weak var matchUserImgView: UIImageView!
+    @IBOutlet weak var lblDesc: UILabel!
     
     @IBOutlet weak var userImgWidthContraint: NSLayoutConstraint!
     
     @IBOutlet weak var viewHeightConstant: NSLayoutConstraint!
     @IBOutlet weak var stackViewHeightConstant: NSLayoutConstraint!
+    
+    @IBOutlet var MsgButtons: [UIButton]!
+    var UserDetails : UserAuthResponseField!
+    var CardUserDetails : SearchUserFields!
+    var isFromProfile : Bool = false
+    var isFromNotification : Bool = false
+    var OtherUserData : NSDictionary = [:]
+    var xmppUserID : String = ""
+    var name : String = ""
+    var imageString : String = ""
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -49,7 +61,7 @@ class MatchViewController: UIViewController, MatchProtocol {
         viewController.presenter = presenter
         //viewController.interactor = interactor
         
-        //Presenter will communicate with Interector and Viewcontroller
+        //Presenter will communicate with Interector and Vi ewcontroller
         presenter.viewController = viewController
         presenter.interactor = interactor
         
@@ -59,17 +71,14 @@ class MatchViewController: UIViewController, MatchProtocol {
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
     }
     
-    // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
     func setUI() {
+        SDImageCache.shared.clearMemory()
+        SDImageCache.shared.clearDisk()
         
         userImgWidthContraint.constant = ScreenSize.width/2 - 30
         viewHeightConstant.constant = userImgWidthContraint.constant
@@ -78,19 +87,68 @@ class MatchViewController: UIViewController, MatchProtocol {
         self.matchUserImgView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/9))
         self.userImgView.transform = CGAffineTransform(rotationAngle: -CGFloat(Double.pi/9))
         
+        if UserDataModel.currentUser?.vProfileImage != "" {
+            let url = URL(string:"\(UserDataModel.currentUser!.vProfileImage!)")
+            print(url!)
+            self.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
+        }
+        if !isFromNotification {
+            if isFromProfile {
+                if UserDetails != nil {
+                    self.lblDesc.text = "Wow, You and \(UserDetails.vName!) have liked each other"
+                    if UserDetails.vProfileImage != "" {
+                        let url = URL(string:"\(UserDetails.vProfileImage!)")
+                        print(url!)
+                        self.matchUserImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
+                    }
+                    self.xmppUserID = UserDetails.vXmppUser!
+                    self.name = UserDetails.vName!
+                    self.imageString = UserDetails.vProfileImage!
+                }
+            } else {
+                if CardUserDetails != nil {
+                    self.lblDesc.text = "Wow, You and \(CardUserDetails.vName!) have liked each other"
+                    if CardUserDetails.vProfileImage != "" {
+                        let url = URL(string:"\(CardUserDetails.vProfileImage!)")
+                        print(url!)
+                        self.matchUserImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
+                    }
+                    self.xmppUserID = CardUserDetails.vXmppUser!
+                    self.name = CardUserDetails.vName!
+                    self.imageString = CardUserDetails.vProfileImage!
+                }
+            }
+        } else {
+            self.lblDesc.text = "Wow, You and \(OtherUserData["name"]!) have liked each other"
+            if OtherUserData["profileImage"] as! String != "" {
+                let url = URL(string:"\(OtherUserData["profileImage"]!)")
+                print(url!)
+                self.matchUserImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
+            }
+        }
     }
     
-    func displaySomething() {
-        //nameTextField.text = viewModel.name
-    }
     @IBAction func btnContinueSwippingAction(_ sender: UIButton) {
-        self.dismissVC(completion: nil)
+        self.dismissVC {
+            AppSingleton.sharedInstance().showHomeVC(fromMatch: false, userDict: [:])
+        }
     }
+    
     @IBAction func btnSendMsgAction(_ sender: UIButton) {
-//        let tabVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.TabbarScreen) as! TabbarViewController
-//        tabVC.modalTransitionStyle = .crossDissolve
-//        tabVC.modalPresentationStyle = .overCurrentContext
-//        tabVC.isFromMatch = true
-//        self.presentVC(tabVC)
+        self.dismissVC {
+            if self.xmppUserID != "" {
+            let dict = ["xmppUserID": self.xmppUserID, "name": self.name, "imageString": self.imageString]
+                AppSingleton.sharedInstance().showHomeVC(fromMatch: true, userDict: dict as NSDictionary)
+            }
+        }
+    }
+    
+    @IBAction func btnSendRandomMsgAction(_ sender: UIButton) {
+        self.dismissVC {
+            if self.xmppUserID != "" {
+                let dict = ["xmppUserID": self.xmppUserID, "name": self.name, "imageString": self.imageString, "inputMsgText" : sender.titleLabel?.text]
+                AppSingleton.sharedInstance().showHomeVC(fromMatch: true, userDict: dict as NSDictionary)
+            }
+        }
     }
 }

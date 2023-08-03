@@ -13,18 +13,19 @@
 import UIKit
 
 protocol TabbarProtocol: class {
-    
+    func getStoryListResponse(response: StoryResponse)
 }
 
 class TabbarViewController: UITabBarController, TabbarProtocol {
     //var interactor : TabbarInteractorProtocol?
     var presenter : TabbarPresentationProtocol?
     
-     
     var isFromMatch : Bool = false
+    var userDict : NSDictionary = [:]
+    var arrFriends:[Model_ChatFriendList] = [Model_ChatFriendList]()
+    var isFromStory : Bool = false
     
     // MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -36,7 +37,6 @@ class TabbarViewController: UITabBarController, TabbarProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = TabbarInteractor()
@@ -54,19 +54,79 @@ class TabbarViewController: UITabBarController, TabbarProtocol {
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(xmppUserOnlineOfflineObserver), name: Notification_User_Online_Offline, object: nil)
         SetTabbarItem()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.presenter?.callStoryListAPI()
     }
     
     func SetTabbarItem(){
         if !isFromMatch {
-            self.selectedIndex = 2
+            if !isFromStory {
+                self.selectedIndex = 2
+            } else {
+                self.selectedIndex = 3
+            }
         } else {
-            self.selectedIndex = 1
+            delay(0.2) {
+                let obj = GeekMeets_StoryBoard.Chat.instantiateViewController(withIdentifier: GeekMeets_ViewController.OneToOneChatScreen) as! OneToOneChatVC
+                obj._userIDForRequestSend = self.userDict["xmppUserID"] as? String
+                obj.userName = self.userDict["name"] as? String
+                obj.imageString = self.userDict["imageString"] as? String
+                obj.inputMsgText = self.userDict["inputMsgText"] != nil ? (self.userDict["inputMsgText"] as? String)! : ""
+                self.pushVC(obj)
+            }
+        }
+    }
+    
+    @objc func xmppUserOnlineOfflineObserver(_ nofificat: Notification) {
+        DispatchQueue.main.async {
+            self.arrFriends = SOXmpp.manager.arrFriendsList
+            self.getUnreadMsgCount()
+        }
+    }
+    
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        self.presenter?.callStoryListAPI()
+        getUnreadMsgCount()
+    }
+}
+
+//MARK: API Methods
+extension TabbarViewController{
+    func getStoryListResponse(response: StoryResponse){
+        if response.responseCode == 200 {
+            print(response.responseData!)
+            if response.responseData!.bottomStory != nil || response.responseData!.bottomStory![0].count != 0 {
+                if response.responseData!.bottomStory![0].count - UserDataModel.getStoryCount() != 0 {
+                    self.tabBar.items![3].badgeValue = "\(response.responseData!.bottomStory![0].count - UserDataModel.getStoryCount())"
+                    UserDataModel.setStoryCount(count: response.responseData!.bottomStory![0].count - UserDataModel.getStoryCount())
+                } else {
+                    self.tabBar.items![3].badgeValue = nil
+                }
+            } else {
+                self.tabBar.items![3].badgeValue = nil
+            }
+        }
+    }
+    
+    func getUnreadMsgCount(){
+        var count : Int = 0
+        for friend in self.arrFriends {
+            if let unreadCount = SOXmpp.manager.GetUnreadCound(of: friend.jID) , unreadCount > 0 {
+                count = unreadCount + count
+            }
+        }
+        if count != 0 {
+            self.tabBar.items![1].badgeValue = "\(count)"
+        } else {
+            self.tabBar.items![1].badgeValue = nil
         }
     }
 }

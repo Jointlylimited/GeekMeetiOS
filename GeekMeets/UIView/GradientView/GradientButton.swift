@@ -45,10 +45,9 @@ class GradientButton: UIButton {
     
     func updateView()
     {
-//        secondColor = firstColor.withAlphaComponent(0.7)
         let layer = self.layer as! CAGradientLayer
         // set the corner radius
-        layer.cornerRadius = 3
+        layer.cornerRadius = 10
         layer.masksToBounds = true
         
         layer.colors = [firstColor, thirdColor].map {$0.cgColor}
@@ -58,9 +57,8 @@ class GradientButton: UIButton {
         // set the shadow properties
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOffset = CGSize(width: 0, height: 1.0)
-        layer.shadowOpacity = 0.2
+        layer.shadowOpacity = 1
         layer.shadowRadius = 4.0
     }
-    
 }
 

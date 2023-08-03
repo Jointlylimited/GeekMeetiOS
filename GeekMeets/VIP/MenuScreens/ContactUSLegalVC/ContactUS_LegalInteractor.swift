@@ -13,7 +13,7 @@
 import UIKit
 
 protocol ContactUS_LegalInteractorProtocol {
-    func doSomething()
+    func callContactUsAPI()
 }
 
 protocol ContactUS_LegalDataStore {
@@ -25,7 +25,25 @@ class ContactUS_LegalInteractor: ContactUS_LegalInteractorProtocol, ContactUS_Le
     //var name: String = ""
     
     // MARK: Do something
-    func doSomething() {
-        
+    func callContactUsAPI() {
+        DefaultLoaderView.sharedInstance.showLoader()
+        ContentPageAPI.contactUs(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization) { (response, error) in
+            
+            delay(0.2) {
+                DefaultLoaderView.sharedInstance.hideLoader()
+            }
+            if response?.responseCode == 200 {
+                self.presenter?.getContactUsResponse(response : response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+            } else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getContactUsResponse(response : response!)
+                }
+            }
+        }
     }
 }

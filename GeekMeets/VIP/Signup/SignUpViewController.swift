@@ -14,8 +14,6 @@ import UIKit
 
 protocol SignUpProtocol: class {
     func displayAlert(strTitle : String, strMessage : String)
-    
-    func displaySomething()
 }
 
 class SignUpViewController: UIViewController, SignUpProtocol {
@@ -30,7 +28,6 @@ class SignUpViewController: UIViewController, SignUpProtocol {
     @IBOutlet weak var txtConfirmPassword : UITextField?
     
     // MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -42,7 +39,6 @@ class SignUpViewController: UIViewController, SignUpProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = SignUpInteractor()
@@ -60,9 +56,7 @@ class SignUpViewController: UIViewController, SignUpProtocol {
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
          
@@ -76,14 +70,11 @@ class SignUpViewController: UIViewController, SignUpProtocol {
         }
     }
     
-    // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
     @IBAction func actionSignUp() {
         
-//        let img1 = UIImage(named: "image_1")
-//        let img2 = UIImage(named: "image_2")
-//        let img3 = UIImage(named: "image_3")
+        let img1 = UIImage(named: "image_1")
+        let img2 = UIImage(named: "image_2")
+        let img3 = UIImage(named: "image_3")
                 
 //        let params = RequestParameter.sharedInstance().signUpParam(vUserName: (txtUserName?.text)!, vFirstName: (txtFirstName?.text)!, vLastName: (txtLastName?.text)!, vEmailId: (txtEmail?.text)!, vPassword: (txtPassword?.text)!, images: nil)
 //        self.presenter?.callSignUpRequest(signUpParams: params)
@@ -99,9 +90,5 @@ class SignUpViewController: UIViewController, SignUpProtocol {
     
     @IBAction func actionBack() {
         self.popVC()
-    }
-    
-    func displaySomething() {
-        //nameTextField.text = viewModel.name
     }
 }

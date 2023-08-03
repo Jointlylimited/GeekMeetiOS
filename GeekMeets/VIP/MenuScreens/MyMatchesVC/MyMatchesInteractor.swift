@@ -13,7 +13,8 @@
 import UIKit
 
 protocol MyMatchesInteractorProtocol {
-    func doSomething()
+    func callMatchListAPI()
+    func callUnMatchUserAPI(iProfileId : String)
 }
 
 protocol MyMatchesDataStore {
@@ -25,7 +26,51 @@ class MyMatchesInteractor: MyMatchesInteractorProtocol, MyMatchesDataStore {
     //var name: String = ""
     
     // MARK: Do something
-    func doSomething() {
-        
+    func callMatchListAPI() {
+        DefaultLoaderView.sharedInstance.showLoader()
+        UserAPI.matches(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, tiType: 0) { (response, error) in
+            
+            delay(0.2) {
+                DefaultLoaderView.sharedInstance.hideLoader()
+            }
+            if response?.responseCode == 200 {
+                self.presenter?.getMatchResponse(response: response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+            } else if response?.responseCode == 400 {
+                self.presenter?.getMatchResponse(response: response!)
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getMatchResponse(response: response!)
+                }
+            }
+        }
+    }
+    
+    func callUnMatchUserAPI(iProfileId : String){
+        DefaultLoaderView.sharedInstance.showLoader()
+        UserAPI.unMatch(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, vXmppUser: iProfileId) { (response, error) in
+            
+            delay(0.2) {
+                DefaultLoaderView.sharedInstance.hideLoader()
+            }
+            if response?.responseCode == 200 {
+                self.presenter?.getUnMatchResponse(response: response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+            } else if response?.responseCode == 400 {
+                self.presenter?.getUnMatchResponse(response: response!)
+            }  else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    self.presenter?.getUnMatchResponse(response: response!)
+                }
+            }
+        }
     }
 }

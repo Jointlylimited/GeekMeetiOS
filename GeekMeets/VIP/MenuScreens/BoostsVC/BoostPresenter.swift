@@ -13,7 +13,14 @@
 import UIKit
 
 protocol BoostPresentationProtocol {
-    func presentSomething()
+    func callBoostPlansAPI()
+    func getBoostPlansResponse(response : BoostGeekResponse)
+    
+    func callCreateBoostAPI(param : Dictionary<String, String>)
+    func getBoostResponse(response : BoostGeekResponse)
+    
+    func callActiveBoostAPI()
+    func getActiveBoostResponse(response : BoostGeekResponse)
 }
 
 class BoostPresenter: BoostPresentationProtocol {
@@ -21,7 +28,24 @@ class BoostPresenter: BoostPresentationProtocol {
     var interactor: BoostInteractorProtocol?
     
     // MARK: Present something
-    func presentSomething() {
-        
+    func callBoostPlansAPI(){
+        self.interactor?.callBoostPlansAPI()
+    }
+    func getBoostPlansResponse(response : BoostGeekResponse){
+        self.viewController?.getBoostPlansResponse(response: response)
+    }
+    
+    func callCreateBoostAPI(param : Dictionary<String, String>){
+        self.interactor?.callCreateBoostAPI(param: param)
+    }
+    func getBoostResponse(response : BoostGeekResponse){
+        self.viewController?.getBoostResponse(response : response)
+    }
+    
+    func callActiveBoostAPI(){
+        self.interactor?.callActiveBoostAPI()
+    }
+    func getActiveBoostResponse(response : BoostGeekResponse){
+        self.viewController?.getActiveBoostResponse(response: response)
     }
 }

@@ -14,8 +14,8 @@ import UIKit
 import CoreLocation
 
 protocol AddPhotosInteractorProtocol {
-    func callUserSignUpAPI(signParams : Dictionary<String, String>)
-    func callSocialSignUpAPI(signParams : Dictionary<String, String>)
+    func uploadImgToS3(with obj: Dictionary<String, Any>, images : [NSDictionary])
+    func callSignUpInfoAPI(signParams : Dictionary<String, String>)
 }
 
 protocol AddPhotosDataStore {
@@ -26,15 +26,96 @@ class AddPhotosInteractor: AddPhotosInteractorProtocol, AddPhotosDataStore {
     var presenter: AddPhotosPresentationProtocol?
     //var name: String = ""
     
-    // MARK: Do something
-    func callUserSignUpAPI(signParams : Dictionary<String, String>) {
-      print(signParams)
-        UserAPI.signUp(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, tiIsSocialLogin: UserAPI.TiIsSocialLogin_signUp(rawValue: "0")!, vEmail: signParams["vEmail"]!, vPassword: signParams["vPassword"]!, vCountryCode: signParams["vCountryCode"]!, vPhone: signParams["vPhone"]!, vName: signParams["vName"]!, dDob: signParams["dDob"]!, tiAge: signParams["tiAge"]!, tiGender: UserAPI.TiGender_signUp(rawValue: signParams["tiGender"]!)!, iCurrentStatus: UserAPI.ICurrentStatus_signUp(rawValue: signParams["iCurrentStatus"]!)!, txCompanyDetail: signParams["txCompanyDetail"]!, txAbout: signParams["txAbout"]!, photos: signParams["photos"]!, vTimeOffset: signParams["vTimeOffset"]!, vTimeZone: signParams["vTimeZone"]!, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signUp(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId ?? "", vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress) { (response, error) in
+    var paramDetails : Dictionary<String, Any>!
+    var thumbURlUpload: (path: String, name: String) {
+        let folderName = user_Profile
+        let timeStamp = Authentication.sharedInstance().GetCurrentTimeStamp()
+        let imgExtension = ".jpeg"
+        let path = "\(folderName)\(timeStamp)\(imgExtension)"
+        return (path: path, name: "\(timeStamp)\(imgExtension)")
+    }
+    var index = 0
+    var images : [NSDictionary]?
+    var finalStr = ""
+    
+    func sequenceUpload(){
+        guard index < images!.count else {
+            index = 0
+            return
+        }
+        
+        let image = images![index].value(forKey: "tiImage") as! UIImage
+        let tiDefault = images![index].value(forKey: "tiIsDefault") as! Int
+        let imgName = images![index].value(forKey: "vMedia") as! String
+        let imgPath = images![index].value(forKey: "vMediaPath") as! String
+        
+        index += 1
+        
+        AWSHelper.setup()
+        self.uploadSingleImg(image: image, path: self.thumbURlUpload.path, name: self.thumbURlUpload.name) { (success, path) in
+            if tiDefault == 1 {
+                self.paramDetails["vProfileImage"] = path.split("/").last!
+            }
             
+            let ustr = "{\"vMedia\":\"\(path.split("/").last!)\",\"tiMediaType\":\"1\",\"fHeight\":\"\(image.size.height)\",\"fWidth\":\"\(image.size.height)\",\"tiIsDefault\":\"\(tiDefault)\"}"
+            self.finalStr = self.finalStr != "" ? "\(self.finalStr),\(ustr)" : ustr
+            
+            print(self.finalStr)
+            
+            if self.index == self.images!.count {
+                DispatchQueue.main.async {
+                    DefaultLoaderView.sharedInstance.hideLoader()
+                }
+                self.paramDetails["photos"] = "[\(self.finalStr)]"
+                self.callSignUpInfoAPI(signParams: self.paramDetails as! Dictionary<String, String>)
+            }
+        }
+    }
+    
+    func uploadImgToS3(with obj: Dictionary<String, Any>, images : [NSDictionary]) {
+        if images.count == 0 {
+            _ = AppSingleton.sharedInstance().showAlert(kSelectUserProfile, okTitle: "OK")
+            return
+        }
+        self.images = images
+        self.sequenceUpload()
+        DispatchQueue.main.async {
+            DefaultLoaderView.sharedInstance.showLoader()
+        }
+        var finalStr = ""
+        self.paramDetails = obj
+    }
+        
+        func uploadSingleImg(image : UIImage, path: String, name: String, complete: @escaping (Bool, String) -> ()){
+            AWSHelper.shared.upload(img: image, imgPath: path, imgName: name) { [weak self] (isUploaded, path, error) in
+
+                guard let `self` = self else {return}
+                if let err = error {
+                    print("ERROR : \(err.localizedDescription)")
+                    _ = AppSingleton.sharedInstance().showAlert(err.localizedDescription, okTitle: "OK")
+                } else if isUploaded {
+                    complete(true, path!)
+                } else {
+                    _ = AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                }
+                self.sequenceUpload()
+            }
+        }
+    
+    func callSignUpInfoAPI(signParams : Dictionary<String, String>) {
+        DispatchQueue.main.async {
+            DefaultLoaderView.sharedInstance.showLoader()
+        }
+        UserAPI.signUpInfo(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, authorization: UserDataModel.authorization, iUserId: "\(UserDataModel.currentUser?.iUserId ?? 1)", vName: signParams["vName"]!, dDob: signParams["dDob"]!, tiAge: signParams["tiAge"]!, tiGender: UserAPI.TiGender_signUpInfo(rawValue: signParams["tiGender"]!)!, iCurrentStatus: UserAPI.ICurrentStatus_signUpInfo(rawValue: signParams["iCurrentStatus"]!)!, txCompanyDetail: signParams["txCompanyDetail"]!, txAbout: signParams["txAbout"]!, photos: signParams["photos"]!, vProfileImage: signParams["vProfileImage"]!) { (response, error) in
+            
+            //            DispatchQueue.main.async {
+            DefaultLoaderView.sharedInstance.hideLoader()
+            //            }
             if response?.responseCode == 200 {
                 self.presenter?.getSignUpResponse(response : response!)
             } else if response?.responseCode == 203 {
                 AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else {
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
@@ -44,21 +125,4 @@ class AddPhotosInteractor: AddPhotosInteractorProtocol, AddPhotosDataStore {
             }
         }
     }
-    
-    func callSocialSignUpAPI(signParams : Dictionary<String, String>) {
-           UserAPI.signUp(nonce: authToken.nonce, timestamp: authToken.timeStamp, token: authToken.token, tiIsSocialLogin: UserAPI.TiIsSocialLogin_signUp(rawValue: "1")!, vEmail: signParams["vEmail"]!, vPassword: signParams["vPassword"]!, vCountryCode: signParams["vCountryCode"]!, vPhone: signParams["vPhone"]!, vName: signParams["vName"]!, dDob: signParams["dDob"]!, tiAge: signParams["tiAge"]!, tiGender: UserAPI.TiGender_signUp(rawValue: signParams["tiGender"]!)!, iCurrentStatus: UserAPI.ICurrentStatus_signUp(rawValue: signParams["iCurrentStatus"]!)!, txCompanyDetail: signParams["txCompanyDetail"]!, txAbout: signParams["txAbout"]!, photos: signParams["photos"]!, vTimeOffset: signParams["vTimeOffset"]!, vTimeZone: signParams["vTimeZone"]!, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_signUp(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId ?? "", vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress, vSocialId: signParams["vSocialId"]!, tiSocialType: UserAPI.TiSocialType_signUp(rawValue: "1")!, vProfileImage: signParams["vProfileImage"]!, fLatitude: Float(signParams["fLatitude"]!), fLongitude: Float(signParams["fLongitude"]!)) { (response, error) in
-               
-               if response?.responseCode == 200 {
-                   self.presenter?.getSignUpResponse(response : response!)
-               } else if response?.responseCode == 203 {
-                   AppSingleton.sharedInstance().logout()
-               } else {
-                   if error != nil {
-                       AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
-                   } else {
-                       AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
-                   }
-               }
-           }
-       }
 }

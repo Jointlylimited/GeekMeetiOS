@@ -22,15 +22,17 @@ class SearchProfileViewController: UIViewController, SearchProfileProtocol {
     @IBOutlet weak var tblSearchList: UITableView!
     @IBOutlet weak var txtSearchField: UITextField!
     @IBOutlet weak var btnSearch: UIButton!
+    @IBOutlet weak var lblNoResult: UILabel!
     
-    var objMsgData : [MessageViewModel] = []
-    var objStoryData : [StoryViewModel] = []
-    var objFilterMsgData : [MessageViewModel] = []
-    var objFilterStoryData : [StoryViewModel] = []
+    var objMsgData : [SwipeUserFields] = []
+    var objStoryData : [StoryResponseArray] = []
+    var objFilterMsgData : [SwipeUserFields] = []
+    var objFilterStoryData : [StoryResponseArray] = []
+    var objAllMsgData : [SwipeUserFields] = []
+    var objAllFilterStoryData : [StoryResponseArray] = []
     var isFromDiscover : Bool = true
     
     // MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -42,7 +44,6 @@ class SearchProfileViewController: UIViewController, SearchProfileProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = SearchProfileInteractor()
@@ -62,17 +63,19 @@ class SearchProfileViewController: UIViewController, SearchProfileProtocol {
     
     
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setFilterData()
     }
     
     func setFilterData(){
+        txtSearchField.returnKeyType = .search
         if !self.isFromDiscover {
             self.objFilterMsgData = self.objMsgData
+            self.objAllMsgData = self.objMsgData
         } else {
             self.objFilterStoryData = self.objStoryData
+            self.objAllFilterStoryData = self.objStoryData
         }
         self.tblSearchList.reloadData()
     }
@@ -80,12 +83,14 @@ class SearchProfileViewController: UIViewController, SearchProfileProtocol {
     @objc func btnClearAllAction(){
         self.btnSearch.alpha = 0.0
         self.txtSearchField.text = ""
+        self.lblNoResult.alpha = 0
+        
         if !self.isFromDiscover {
             self.objFilterMsgData.removeAll()
-            self.objFilterMsgData = self.objMsgData
+            self.objFilterMsgData = self.objAllMsgData
         } else {
             self.objFilterStoryData.removeAll()
-            self.objFilterStoryData = self.objStoryData
+            self.objFilterStoryData = self.objAllFilterStoryData
         }
         self.tblSearchList.reloadData()
     }
@@ -94,6 +99,7 @@ class SearchProfileViewController: UIViewController, SearchProfileProtocol {
     }
 }
 
+//MARK: UITableView Delegate & Datasource Methods
 extension SearchProfileViewController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -101,9 +107,9 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if !self.isFromDiscover {
-            return self.objFilterMsgData.count
+            return self.objFilterMsgData.count != 0 ? self.objFilterMsgData.count : 0
         } else {
-            return self.objFilterStoryData.count
+            return self.objFilterStoryData.count != 0 ? self.objFilterStoryData.count : 0
         }
     }
     
@@ -114,36 +120,54 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
         if let cell = cell as? SearchListCell {
             if !self.isFromDiscover {
                 let data = objFilterMsgData[indexPath.row]
-                cell.imgProfile.image = data.userImage
-                cell.lblName.text = data.userName
-                if self.txtSearchField.text == "" {
-                    cell.btnClose.alpha = 0
-                } else {
+                let url = URL(string:"\(data.vProfileImage!)")
+                cell.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_round"))
+                cell.lblName.text = data.vProfileName
+                if self.txtSearchField.text != "" {
                     cell.btnClose.alpha = 1
+                } else {
+                    cell.btnClose.alpha = 0
                 }
                 
                 cell.clickOnCloseBtn = {
                     print("Click on close button.")
-//                    self.objFilterMsgData.remove(at: 0)
-                    self.tblSearchList.reloadData()
+                    if self.objFilterMsgData.count != 0 {
+                        self.objFilterMsgData.remove(at: indexPath.row)
+                        self.tblSearchList.reloadData()
+                        if self.objFilterMsgData.count == 0 {
+                            self.lblNoResult.alpha = 1
+                        } else {
+                            self.lblNoResult.alpha = 0
+                        }
+                    }
                 }
             } else {
-                let data = objFilterStoryData[indexPath.row]
-                cell.imgProfile.image = data.userImage
-                cell.lblName.text = data.userName
-                if self.txtSearchField.text == "" {
-                    cell.btnClose.alpha = 0
-                } else {
+                let data = objFilterStoryData[indexPath.row][0]
+                if data.vProfileImage != "" {
+                    let url = URL(string:"\(data.vProfileImage!)")
+                    print(url!)
+                    cell.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
+                }
+                cell.lblName.text = data.vName
+                if self.txtSearchField.text != "" {
                     cell.btnClose.alpha = 1
+                } else {
+                    cell.btnClose.alpha = 0
                 }
                 cell.clickOnCloseBtn = {
                     print("Click on close button.")
-//                    self.objFilterMsgData.remove(at: 0)
-                    self.tblSearchList.reloadData()
+                    if self.objFilterStoryData.count != 0 {
+                        self.objFilterStoryData.remove(at: indexPath.row)
+                        self.tblSearchList.reloadData()
+                        if self.objFilterStoryData.count == 0 {
+                            self.lblNoResult.alpha = 1
+                        } else {
+                            self.lblNoResult.alpha = 0
+                        }
+                    }
                 }
             }
         }
-        
         return cell!
     }
     
@@ -160,16 +184,16 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
         headerView.backgroundColor = .white
         
         let headerTitle = UILabel()
-        headerTitle.frame = CGRect(x: 20, y: headerView.frame.origin.y + 5, w: ScreenSize.width - 60, h: 30)
+        headerTitle.frame = CGRect(x: 18, y: headerView.frame.origin.y + 5, w: ScreenSize.width - 60, h: 30)
         headerTitle.text = "Recents"
         headerTitle.textColor = .black
-        headerTitle.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        headerTitle.font = UIFont(name: FontTypePoppins.Poppins_SemiBold.rawValue, size: 14)
         headerView.addSubview(headerTitle)
         
         if self.txtSearchField.text != "" {
             let buttonClr = UIButton(frame: CGRect(x: ScreenSize.width - 110, y: headerView.frame.origin.y + 5, w: 100, h: 30))
             buttonClr.backgroundColor = .clear
-            buttonClr.titleLabel?.font = UIFont(name: "Poppins-SemiBold", size: 14)
+            buttonClr.titleLabel?.font = UIFont(name: FontTypePoppins.Poppins_SemiBold.rawValue, size: 14)
             buttonClr.setTitleColor(#colorLiteral(red: 0.5294117647, green: 0.1803921569, blue: 0.7647058824, alpha: 1), for: .normal)
             buttonClr.setTitle("Clear All", for: .normal)
             buttonClr.addTarget(self, action: #selector(btnClearAllAction), for: .touchUpInside)
@@ -179,8 +203,20 @@ extension SearchProfileViewController : UITableViewDataSource, UITableViewDelega
     }
     
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let matchVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchProfileScreen) as? MatchProfileViewController
+        if self.isFromDiscover {
+            if objFilterStoryData.count != 0 {
+                matchVC!.UserID = objFilterStoryData[indexPath.row][0].iUserId
+            }
+        } else {
+            if objFilterMsgData.count != 0 {
+                matchVC!.UserID = objFilterMsgData[indexPath.row].iOtherUserId
+            }
+        }
         matchVC!.isFromHome = false
+        self.btnClearAllAction()
+        self.txtSearchField.resignFirstResponder()
         self.pushVC(matchVC!)
     }
 }
@@ -191,7 +227,6 @@ extension SearchProfileViewController : UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if textField == txtSearchField {
             textField.addTarget(self, action: #selector(textFieldDidChange(textField:)), for: .editingChanged)
-//            self.viewPopUp.alpha = 0.0
             if !self.isFromDiscover {
                 self.objFilterMsgData.removeAll()
             } else {
@@ -214,12 +249,15 @@ extension SearchProfileViewController : UITextFieldDelegate {
                 self.objFilterMsgData.removeAll()
                 for data in self.objMsgData {
                     print(self.objFilterMsgData.count)
-                    if data.userName.lowercased().contains(textField.text!) {
-//                        if objFilterMsgData.count == 0 {
+                    if data.vProfileName!.lowercased().contains(textField.text!) {
                             self.objFilterMsgData.append(data)
-//                        }
                     }
                 }
+            }
+            if objFilterMsgData.count == 0 {
+                self.lblNoResult.alpha = 1
+            } else {
+                self.lblNoResult.alpha = 0
             }
         } else {
             if textField.text == "" {
@@ -231,12 +269,15 @@ extension SearchProfileViewController : UITextFieldDelegate {
                 self.objFilterStoryData.removeAll()
                 for data in self.objStoryData {
                     print(self.objFilterStoryData.count)
-                    if data.userName.lowercased().contains(textField.text!) {
-                        if objFilterStoryData.count == 0 {
-                            self.objFilterStoryData.append(data)
-                        }
+                    if data[0].vName!.lowercased().contains(textField.text!) {
+                        self.objFilterStoryData.append([data[0]])
                     }
                 }
+            }
+            if objFilterStoryData.count == 0 {
+                self.lblNoResult.alpha = 1
+            } else {
+                self.lblNoResult.alpha = 0
             }
         }
         self.tblSearchList.reloadData()

@@ -18,6 +18,8 @@ protocol InitialSignUpInteractorProtocol {
     
     func callSocialSignInAPI(params : Dictionary<String, String>)
     func callSnapchatLogin(objLoginVC : InitialSignUpViewController)
+    
+    func callQuestionaryAPI()
 }
 
 protocol InitialSignUpDataStore {
@@ -27,7 +29,7 @@ protocol InitialSignUpDataStore {
 class InitialSignUpInteractor: InitialSignUpInteractorProtocol, InitialSignUpDataStore {
     var presenter: InitialSignUpPresentationProtocol?
     //var name: String = ""
-    let objConfig = SOGoogleConfig()
+//    let objConfig = SOGoogleConfig()
     
     func callFBLogin() {
         HSFacebookLoginManager.manager.loginWithFacebook(in: AppDelObj.window!.rootViewController!) { (result, isLogout, error) -> (Void) in
@@ -70,7 +72,7 @@ class InitialSignUpInteractor: InitialSignUpInteractorProtocol, InitialSignUpDat
                     if let userEntity = userEntity {
                         DispatchQueue.main.async {
                             print(userEntity)
-                            self.presenter?.callSnapchatLoginResponse(token: authToken, entity: userEntity)
+                            self.presenter?.callSnapchatLoginResponse(token: userEntity.externalId!, entity: userEntity)
                         }
                     }
                 })
@@ -79,7 +81,7 @@ class InitialSignUpInteractor: InitialSignUpInteractorProtocol, InitialSignUpDat
     }
         
       private func fetchSnapUserInfo(_ completion: @escaping ((UserEntity?, Error?) -> ())){
-          let graphQLQuery = "{me{displayName bitmoji{avatar} externalId}}" // "{me{displayName, bitmoji{avatar}}}"
+          let graphQLQuery = "{me{displayName bitmoji{avatar} externalId}}"
           
           SCSDKLoginClient
               .fetchUserData(
@@ -90,6 +92,8 @@ class InitialSignUpInteractor: InitialSignUpInteractorProtocol, InitialSignUpDat
                       if let userInfo = userInfo,
                           let data = try? JSONSerialization.data(withJSONObject: userInfo, options: .prettyPrinted),
                           let userEntity = try? JSONDecoder().decode(UserEntity.self, from: data) {
+//                         let data1 = userInfo["data"] as? [String: Any]
+//                        userEntity.externalID = data1
                           completion(userEntity, nil)
                       }
               }) { (error, isUserLoggedOut) in
@@ -98,20 +102,26 @@ class InitialSignUpInteractor: InitialSignUpInteractorProtocol, InitialSignUpDat
       }
     
     func callSocialSignInAPI(params: Dictionary<String, String>) {
-        
-        UserAPI.socialSignin(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language:APPLANGUAGE.english , tiSocialType: UserAPI.TiSocialType_socialSignin(rawValue: params["tiSocialType"]!)!, vAccessToken: params["accessKey"]!, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_socialSignin(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId ?? "", vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress) { (response, error) in
+        DefaultLoaderView.sharedInstance.showLoader()
+        UserDataModel.setSocialType(socialType: params["tiSocialType"]!)
+        UserAPI.socialSignin(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, language:APPLANGUAGE.english , tiSocialType: UserAPI.TiSocialType_socialSignin(rawValue: params["tiSocialType"]!)!, vAccessToken: params["accessKey"]!, vTimeOffset: vTimeOffset, vTimeZone: vTimeZone, vDeviceToken: vDeviceToken, tiDeviceType: UserAPI.TiDeviceType_socialSignin(rawValue: 1)!, vDeviceName: vDeviceName, vDeviceUniqueId: vDeviceUniqueId ?? "", vApiVersion: vApiVersion, vAppVersion: vAppVersion, vOsVersion: vOSVersion, vIpAddress: vIPAddress) { (response, error) in
+            
+            delay(0.2) {
+                DefaultLoaderView.sharedInstance.hideLoader()
+            }
             
             if response?.responseCode == 200 {
                 self.presenter?.getLoginResponse(userData : response)
             } else if response?.responseCode == 203 {
-                self.objConfig.googleSignOut()
+//                self.objConfig.googleSignOut()
                 AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
             } else if response?.responseCode == 209 {
                 let data = response?.responseData
                 self.presenter?.gotoSignUpScreen(signParams : data!)
             }
             else {
-                self.objConfig.googleSignOut()
+//                self.objConfig.googleSignOut()
                 if error != nil {
                     AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
                 } else {
@@ -119,6 +129,28 @@ class InitialSignUpInteractor: InitialSignUpInteractorProtocol, InitialSignUpDat
                 }
             }
 
+        }
+    }
+    
+    func callQuestionaryAPI() {
+//        LoaderView.sharedInstance.showLoader()
+        PreferencesAPI.list(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, language: APPLANGUAGE.english, authorization: UserDataModel.authorization) { (response, error) in
+            delay(0.2) {
+                DefaultLoaderView.sharedInstance.hideLoader()
+            }
+            if response?.responseCode == 200 {
+                self.presenter?.getPrefernceResponse(response : response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+            } else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                    AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+                }
+            }
+            
         }
     }
 }

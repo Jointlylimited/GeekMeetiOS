@@ -16,14 +16,12 @@ import Crashlytics
 //MARK:- Protocol and Method
 protocol SignInProtocol: class{
     func displayAlert(strTitle : String, strMessage : String)
+    func getLoginResponse(res : UserAuthResponse)
 }
 
-
 //MARK:-
-
 class SignInViewController: UIViewController,SignInProtocol
 {
-    
     //var interactor : SignInInteractorProtocol?
     var presenter : SignInPresentationProtocol?
     
@@ -32,8 +30,10 @@ class SignInViewController: UIViewController,SignInProtocol
     @IBOutlet weak var btnSignUp : UIButton?
     @IBOutlet weak var btnForgot: UIButton!
     @IBOutlet weak var btnSignIn: GradientButton!
-    // MARK:- Object lifecycle
     
+    var alertView: CustomAlertView!
+    
+    // MARK:- Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -45,7 +45,6 @@ class SignInViewController: UIViewController,SignInProtocol
     }
     
     // MARK:- Setup
-    
     private func setup() {
         let viewController = self
         let interactor = SignInInteractor()
@@ -63,15 +62,13 @@ class SignInViewController: UIViewController,SignInProtocol
         interactor.presenter = presenter
     }
     
-    
     // MARK:- View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        doSomething()
-        
+        setTheme()
     }
-    func doSomething(){
+    
+    func setTheme(){
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         self.navigationItem.leftBarButtonItem = leftSideBackBarButton
@@ -83,6 +80,10 @@ class SignInViewController: UIViewController,SignInProtocol
         btnSignUp?.addTarget(self, action:#selector(clickOnSignUpBtn) , for: .touchUpInside)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
     
     override func viewDidAppear(_ animated: Bool)
     {
@@ -97,19 +98,36 @@ class SignInViewController: UIViewController,SignInProtocol
         self.showAlert(title: strTitle, message: strMessage)
     }
     
-    @objc func clickOnSignUpBtn(){
+    @IBAction func btnBackAction(_ sender: UIButton) {
         self.popVC()
+    }
+    
+    @objc func clickOnSignUpBtn(){
+        let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.SignUpScreen) as! SignUpVCViewController
+        controller.socialType = false
+        self.pushVC(controller)
+    }
+    
+    func showAlertView() {
+        alertView = CustomAlertView.initAlertView(title: kVerifyEmail, message: kNotVerifyMail, btnRightStr: kResendLink, btnCancelStr: kTitleCancel, btnCenter: "", isSingleButton: false)
+        alertView.delegate = self
+        alertView.frame = self.view.frame
+        AppDelObj.window?.addSubview(alertView)
+    }
+    
+    func getLoginResponse(res : UserAuthResponse) {
+        if res.responseCode == 401 {
+            self.showAlertView()
+        }
     }
 }
 
 //MARK:- IBAction Method
 extension SignInViewController
 {
-
     @IBAction func btnSignInClick(_ sender : UIButton)
     {
-//        Crashlytics.sharedInstance().crash()
-//        self.presenter?.gotoHomeScreen()
+//        DefaultLoaderView.sharedInstance.showLoader()
         self.presenter?.callSignInAPI(tfEmail.text ?? "", password: tfPassword.text ?? "")
     }
     
@@ -122,5 +140,17 @@ extension SignInViewController
     {
         sender.isSelected = !sender.isSelected
         tfPassword.isSecureTextEntry = !sender.isSelected
+    }
+}
+
+//MARK: AlertView Delegate Methods
+extension SignInViewController : AlertViewDelegate {
+    func OkButtonAction(title : String) {
+        alertView.alpha = 0.0
+        self.presenter?.callVerifyEmailAPI(email : self.tfEmail.text ?? "")
+    }
+    
+    func cancelButtonAction() {
+        alertView.alpha = 0.0
     }
 }

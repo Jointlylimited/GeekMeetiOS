@@ -13,7 +13,11 @@
 import UIKit
 
 protocol MyMatchesPresentationProtocol {
-    func presentSomething()
+    func callMatchListAPI()
+    func getMatchResponse(response : MatchUser)
+    
+    func callUnMatchUserAPI(iProfileId : String)
+    func getUnMatchResponse(response : CommonResponse)
 }
 
 class MyMatchesPresenter: MyMatchesPresentationProtocol {
@@ -21,7 +25,18 @@ class MyMatchesPresenter: MyMatchesPresentationProtocol {
     var interactor: MyMatchesInteractorProtocol?
     
     // MARK: Present something
-    func presentSomething() {
-        
+    func callMatchListAPI() {
+        self.interactor?.callMatchListAPI()
+    }
+    func getMatchResponse(response : MatchUser){
+        self.viewController?.getMatchResponse(response : response)
+    }
+    
+    func callUnMatchUserAPI(iProfileId : String){
+        self.interactor?.callUnMatchUserAPI(iProfileId : iProfileId)
+    }
+    
+    func getUnMatchResponse(response : CommonResponse){
+        self.viewController?.getUnMatchResponse(response: response)
     }
 }

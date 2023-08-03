@@ -13,7 +13,8 @@
 import UIKit
 
 protocol NewMobileNumberPresentationProtocol {
-    func presentSomething()
+    func callResendOTPAPI(vCountryCode: String, vPhone: String)
+    func getResendOTPResponse(response : CommonResponse)
 }
 
 class NewMobileNumberPresenter: NewMobileNumberPresentationProtocol {
@@ -21,7 +22,10 @@ class NewMobileNumberPresenter: NewMobileNumberPresentationProtocol {
     var interactor: NewMobileNumberInteractorProtocol?
     
     // MARK: Present something
-    func presentSomething() {
-        
+    func callResendOTPAPI(vCountryCode: String, vPhone: String) {
+        self.interactor?.callResendOTPAPI(vCountryCode: vCountryCode, vPhone: vPhone)
+    }
+    func getResendOTPResponse(response : CommonResponse) {
+        self.viewController?.getResendOTPResponse(response: response)
     }
 }

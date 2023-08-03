@@ -13,7 +13,11 @@
 import UIKit
 
 protocol DiscoverPresentationProtocol {
-    func presentStoryScreen()
+    func callStoryListAPI()
+    func getStoryListResponse(response: StoryResponse)
+    
+    func callViewStoryAPI(iStoryId : String)
+    func getViewStoryResponse(response : CommonResponse)
 }
 
 class DiscoverPresenter: DiscoverPresentationProtocol {
@@ -21,7 +25,19 @@ class DiscoverPresenter: DiscoverPresentationProtocol {
     var interactor: DiscoverInteractorProtocol?
     
     // MARK: Present something
-    func presentStoryScreen() {
-        
+    func callStoryListAPI(){
+        self.interactor?.callStoryListAPI()
+    }
+    
+    func getStoryListResponse(response: StoryResponse) {
+        self.viewController?.getStoryListResponse(response: response)
+    }
+    
+    func callViewStoryAPI(iStoryId : String){
+        self.interactor?.callViewStoryAPI(iStoryId: iStoryId)
+    }
+    
+    func getViewStoryResponse(response : CommonResponse) {
+        self.viewController?.getViewStoryResponse(response : response)
     }
 }

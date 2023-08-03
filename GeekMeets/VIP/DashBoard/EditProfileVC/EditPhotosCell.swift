@@ -11,8 +11,11 @@ import UIKit
 class EditPhotosCell: UITableViewCell {
 
     @IBOutlet weak var AddPhotosCollView: UICollectionView!
+
     override func awakeFromNib() {
         super.awakeFromNib()
+        AddPhotosCollView.register(UINib.init(nibName: Cells.PhotoEmojiCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.PhotoEmojiCell)
+
         // Initialization code
     }
 

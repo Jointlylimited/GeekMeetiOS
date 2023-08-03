@@ -8,6 +8,8 @@
 #import <UIKit/UIKit.h>
 
 #import "SCSDKLoginClient.h"
+#import "SCSDKVerifyClient.h"
 #import "SCSDKLoginButton.h"
 
 #import "SCSDKLoginKitErrorCode.h"
+#import "SCSnapKitFeatureOptions.h"

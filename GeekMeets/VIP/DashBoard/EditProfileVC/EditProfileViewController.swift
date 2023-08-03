@@ -12,9 +12,17 @@
 
 import UIKit
 import Photos
+import SDWebImage
+import OpalImagePicker
+import Alamofire
+
+protocol SocialMediaLinkDelegate {
+    func updatedSocailLinkModel(model : UserAuthResponseField)
+}
 
 protocol SelectInterestAgeGenderDelegate {
     func getSelectedValue(index : Int, data : String)
+    
 }
 enum EditProfileListCells {
     
@@ -23,13 +31,14 @@ enum EditProfileListCells {
     case PhotosCell
     case SocialCell
     case PrivacyCell
+    case InstagramPhotosCell
     
     var cellHeight  : CGFloat {
         switch self {
         case .InformationCell(let desc):
-           return 50  //return */ desc.heightWithConstrainedWidth(width: 374 * _widthRatio,font: fontPoppins(fontType: .Poppins_Medium, fontSize: .sizeNormalTextField)) + 16
-        case .InterestCell, .PhotosCell, .SocialCell, .PrivacyCell:
-            return 50
+           return 45  //return */ desc.heightWithConstrainedWidth(width: 374 * _widthRatio,font: fontPoppins(fontType: .Poppins_Medium, fontSize: .sizeNormalTextField)) + 16
+        case .InterestCell, .PhotosCell, .SocialCell, .PrivacyCell, .InstagramPhotosCell:
+            return 45
             
         }
     }
@@ -40,13 +49,15 @@ enum EditProfileListCells {
         case .InformationCell(let desc):
             return desc.heightWithConstrainedWidth(width: 374 * _widthRatio,font: fontPoppins(fontType: .Poppins_Medium, fontSize: .sizeNormalTextField)) + 450//480
         case .InterestCell:
-            return 225
+            return 130
         case .PhotosCell:
-            return 390
+            return DeviceType.iPhone5orSE ? 350 : 410
         case .SocialCell:
             return 225
         case .PrivacyCell:
-            return 230
+            return 225
+        case .InstagramPhotosCell:
+            return DeviceType.iPhone5orSE ? 170 : 200
         }
     }
     
@@ -54,7 +65,7 @@ enum EditProfileListCells {
         switch self {
 //        case .PrivacyCell:
 //            return 90
-        case .InformationCell, .InterestCell, .PhotosCell, .SocialCell, .PrivacyCell:
+        case .InformationCell, .InterestCell, .PhotosCell, .SocialCell, .PrivacyCell, .InstagramPhotosCell:
         return 45
         }
     }
@@ -72,7 +83,8 @@ enum EditProfileListCells {
             return "EditSocialLinkCell"
         case .PrivacyCell:
             return "EditProfilePrivacyCell"
-            
+        case .InstagramPhotosCell:
+            return "EditInstagramPhotosCell"
         }
     }
     
@@ -88,12 +100,14 @@ enum EditProfileListCells {
             return "Social Media Links"
         case .PrivacyCell:
             return "Profile Privacy Settings (only for subscribers)"
+        case .InstagramPhotosCell:
+            return "Instagram Photos"
         }
     }
     
     var isHeaderAvailable : Bool {
         switch self {
-        case .InterestCell, .SocialCell:
+        case .InterestCell, .SocialCell, .InstagramPhotosCell:
             return true
         case .InformationCell, .PhotosCell, .PrivacyCell:
             return false
@@ -111,13 +125,16 @@ struct EditProfileData {
     cell.append(.InterestCell)
     cell.append(.PhotosCell)
     cell.append(.SocialCell)
-    cell.append(.PrivacyCell)
-    
+    if UserDataModel.currentUser?.tiIsSubscribed == 1 {
+        cell.append(.PrivacyCell)
+    }
+    cell.append(.InstagramPhotosCell)
     return cell
   }
 }
 
 protocol EditProfileProtocol: class {
+    func getEditProfileResponse(response: UserAuthResponse)
 }
 
 class EditProfileViewController: UIViewController, EditProfileProtocol {
@@ -133,14 +150,29 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
     @IBOutlet weak var genderPickerView: UIView!
     
     var objEditProfileData = EditProfileData()
-    var imageArray : [UIImage]  = [] //[#imageLiteral(resourceName: "img_intro_2"), #imageLiteral(resourceName: "image_1"), #imageLiteral(resourceName: "Image 63"), #imageLiteral(resourceName: "Image 62")]
+    var imageArray : [NSDictionary] = [] // [UIImage]  = []
+    var userPhotosModel : [UserPhotosModel] = []
     var imagePicker: UIImagePickerController!
+    var opimagePicker = OpalImagePickerController()
     var image : UIImage?
     
-    var userProfileModel : UserProfileModel?
-    var isForProfile : Bool = true
+    var userProfileModel : UserAuthResponseField? //  UserProfileModel?
     var objQuestionModel = QuestionaryModel()
     var customProfileView: RecommandedProfileView!
+    var genderArray : [String] = ["Male", "Female", "Others", "Prefer not to say"]
+    var delegate : ProfileDataDelegate!
+    var removePhotoStr = ""
+    var del : EditProfileResponseDelegate?
+    var instagramPhotosModel : NSArray = []
+    var instagramIntegrated : Bool = false
+
+    var thumbURlUpload: (path: String, name: String) {
+        let folderName = user_Profile
+        let timeStamp = Authentication.sharedInstance().GetCurrentTimeStamp()
+        let imgExtension = ".jpeg"
+        let path = "\(folderName)\(timeStamp)\(imgExtension)"
+        return (path: path, name: "\(timeStamp)\(imgExtension)")
+    }
     
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -186,21 +218,58 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
     }
     
     func setTheme(){
-        self.datePicker.maximumDate = Date()
-        self.lblUserNameAge.text = "\(self.userProfileModel?.vFullName ?? ""), \(self.userProfileModel?.vAge ?? 0)"
         
-        self.objQuestionModel.arrQuestionnaire = callQuestionnaireApi()
-        self.objQuestionModel.objQuestionnaire = QuestionnaireModel(dictionary: self.objQuestionModel.arrQuestionnaire[1])!
+        SDImageCache.shared.clearMemory()
+        SDImageCache.shared.clearDisk()
         
+        var components = DateComponents()
+        components.year = -18
+        let minData = Calendar.current.date(byAdding: components, to: Date())
+        self.datePicker.maximumDate = minData
+        
+        self.lblUserNameAge.text = "\(UserDataModel.currentUser?.vName ?? ""), \(UserDataModel.currentUser?.tiAge ?? 0)"
+        if self.userProfileModel == nil {
+            self.userProfileModel = UserDataModel.currentUser
+        }
+        
+        //ProfileImage setup
+        if userProfileModel?.vProfileImage != "" {
+            let url = URL(string:"\(userProfileModel!.vProfileImage!)")
+            print(url!)
+            self.imgProfile.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_round"))
+        }
+        
+        for photo in UserDataModel.currentUser!.photos! {
+            let photoModel = UserPhotosModel(iMediaId: photo.iMediaId, vMedia: photo.vMedia, vMediaPath: photo.vMedia, tiMediaType: photo.tiMediaType, tiImage: nil, tiIsDefault: photo.tiIsDefault, reaction: photo.reaction)
+            userPhotosModel.append(photoModel)
+        }
+        
+        if UserDefaults.standard.value(forKey: "InstagramPhotosModel") != nil {
+            self.instagramPhotosModel = UserDefaults.standard.value(forKey: "InstagramPhotosModel") as! NSArray
+        }
         self.tblEditProfileView.reloadData()
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.popVC()
     }
+    
     @IBAction func btnUpdateAction(_ sender: GradientButton) {
-        self.popVC()
+        if self.userPhotosModel.count == 0 {
+            AppSingleton.sharedInstance().showAlert("Select at least one image.", okTitle: "OK")
+            return
+        }
+        
+        for photo in userPhotosModel {
+            if  photo.tiImage != nil {
+                self.imageArray.append(["tiImage": photo.tiImage!, "vMedia": photo.vMedia!, "vMediaPath" : photo.vMediaPath!, "tiIsDefault": photo.tiIsDefault!, "msgType" : photo.tiMediaType!])
+            }
+        }
+        
+        let params = RequestParameter.sharedInstance().editProfileParam(vEmail: userProfileModel?.vEmail ?? "", vProfileImage: userProfileModel?.vProfileImage?.split("UserProfile/").last ?? "", vName: userProfileModel?.vName ?? "", dDob: userProfileModel?.dDob ?? "", tiAge: "\(userProfileModel?.tiAge ?? 0)", tiGender: "\(userProfileModel?.tiGender ?? 0)", vLiveIn: userProfileModel?.vLiveIn ?? "", txCompanyDetail: userProfileModel?.txCompanyDetail ?? "", txAbout: userProfileModel?.txAbout ?? "", deletephotos : self.removePhotoStr, photos: "", vInstaLink: userProfileModel?.vInstaLink ?? "", vSnapLink: userProfileModel?.vSnapLink ?? "", vFbLink: userProfileModel?.vFbLink ?? "", tiIsShowAge: "\(userProfileModel?.tiIsShowAge ?? 0)", tiIsShowDistance: "\(userProfileModel?.tiIsShowDistance ?? 0)", tiIsShowContactNumber: "\(userProfileModel?.tiIsShowContactNumber ?? 0)", tiIsShowProfileToLikedUser: "\(userProfileModel?.tiIsShowProfileToLikedUser ?? 0)")
+        self.presenter?.callEdirProfileAPI(params: params, images : self.imageArray)
     }
+    
     @IBAction func btnDonePickerAction(_ sender: UIBarButtonItem) {
         
         if sender.tag == 0 {
@@ -209,40 +278,102 @@ class EditProfileViewController: UIViewController, EditProfileProtocol {
             dateFormatter.dateFormat = "dd/MM/yyyy"
             let strDate = dateFormatter.string(from: datePicker.date)
             print(strDate)
-            self.userProfileModel?.vDoB = strDate
-            self.userProfileModel?.vAge = datePicker.date.age
+            self.userProfileModel?.dDob = strDate.inputDateStrToAPIDateStr(dateStr: strDate)
+            self.userProfileModel?.tiAge = datePicker.date.age
         } else {
             self.genderPickerView.alpha = 0.0
         }
         self.tblEditProfileView.reloadData()
     }
+    
     @IBAction func btnChooseProfileAction(_ sender: UIButton) {
         self.showSetProfileView()
-//        self.isForProfile = true
-//        self.openImagePickerActionSheet()
     }
     
     @objc func btnChangeAction(sender : UIButton){
         if sender.tag == 1 {
             let discVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.DiscoverySettingScreen) as! DiscoverySettingViewController
-            discVC.userProfileModel = self.userProfileModel
             discVC.isFromMenu = false
             self.pushVC(discVC)
-        } else {
+        } else if sender.tag == 3 {
             let socialVC = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.SocialMediaLink) as! SocialMediaLinkVC
+            socialVC.delegate = self
             socialVC.userProfileModel = self.userProfileModel
             self.pushVC(socialVC)
+        } else if sender.tag == 5 {
+            if !NetworkReachabilityManager.init()!.isReachable{
+                AppSingleton.sharedInstance().showAlert(NoInternetConnection, okTitle: "OK")
+                return
+            }
+            if Authentication.getInstagramIntegrationStatus() == false {
+                let instaVC = GeekMeets_StoryBoard.Main.instantiateViewController(withIdentifier: GeekMeets_ViewController.InstagramLoginScreen) as! InstagramLoginVC
+                instaVC.isFromEditProfile = true
+                instaVC.delegate = self
+                self.presentVC(instaVC)
+            } else {
+                Authentication.setInstagramIntegrationStatus(false)
+                UserDefaults.standard.set([], forKey: "InstagramPhotosModel")
+                self.instagramIntegrated = false
+                self.instagramPhotosModel = []
+                self.tblEditProfileView.reloadData()
+            }
         }
     }
     
     func showSetProfileView() {
-        customProfileView = RecommandedProfileView.initAlertView()
+        let imgString = userProfileModel!.vProfileImage != "" ? userProfileModel!.vProfileImage! : ""
+        customProfileView = RecommandedProfileView.initAlertView(imgString : imgString)
         customProfileView.delegate = self
         customProfileView.frame = self.view.frame
         AppDelObj.window?.addSubview(customProfileView)
     }
+    
+    func getEditProfileResponse(response: UserAuthResponse){
+        if response.responseCode == 200 {
+            UserDataModel.currentUser = response.responseData
+            
+            //Update vcard
+            SOXmpp.manager.UserName = (response.responseData!.vName ?? "")
+            SOXmpp.manager.profileImageUrl = "\(response.responseData?.vProfileImage ?? "")"
+            SOXmpp.manager.xmpp_UpdateMyvCard()
+            
+            if self.delegate != nil {
+            }
+            self.popVC()
+            self.del?.profileEdited(success: true)
+            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        }
+    }
 }
 
+extension EditProfileViewController: InstagramAuthDelegate {
+    func instagramAuthControllerDidFinish(accessToken: String?,id: String?, error: Error?, mediaData: NSArray) {
+        if let error = error {
+            print("Error logging in to Instagram: \(error.localizedDescription)")
+            
+        } else {
+            if mediaData != [] {
+                self.instagramIntegrated = true
+                Authentication.setInstagramIntegrationStatus(true)
+                self.instagramPhotosModel = mediaData
+                UserDefaults.standard.set(mediaData, forKey: "InstagramPhotosModel")
+                DispatchQueue.main.async {
+                    self.tblEditProfileView.reloadData()
+                }
+            }
+        }
+    }
+}
+
+//MARK: SocialMediaLink Delegate Methods
+extension EditProfileViewController : SocialMediaLinkDelegate {
+    func updatedSocailLinkModel(model: UserAuthResponseField) {
+        self.userProfileModel = model
+        self.tblEditProfileView.reloadData()
+    }
+}
+
+//MARK: RecommandedProfileView Delegate Methods
 extension EditProfileViewController : RecommandedProfileViewDelegate {
     func SetProfileButtonAction() {
         self.customProfileView.alpha = 0.0
@@ -255,14 +386,11 @@ extension EditProfileViewController : RecommandedProfileViewDelegate {
 
 extension EditProfileViewController : SelectInterestAgeGenderDelegate {
     func getSelectedValue(index : Int, data : String){
-        if index == 1 {
-            self.userProfileModel?.vInterestAge = data
-        } else {
-            self.userProfileModel?.vInterestGender = data
-        }
        self.tblEditProfileView.reloadData()
     }
 }
+
+//MARK: Tableview Delegate & Datasource Methods
 extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.objEditProfileData.cells.count
@@ -292,14 +420,14 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
                 cell.txtAbout.delegate = self
                 cell.txtAbout.tag = 4
                 
-                cell.txtUserName.text = userProfileModel?.vFullName
-                cell.txtAbout.text = userProfileModel?.vAbout
+                cell.txtUserName.text = userProfileModel?.vName
+                cell.txtAbout.text = userProfileModel?.txAbout
                 
-                cell.txtDoB.text = userProfileModel != nil ? userProfileModel?.vDoB : "02/01/1999"
-                cell.txtCity.text = userProfileModel?.vCity
-                cell.txtGender.text = userProfileModel?.vGender
-                cell.txtCompanyDetail.text = userProfileModel?.vCompanyDetail
-                cell.lblCharCount.text = "\(userProfileModel!.vAbout!.count)/\(300)"
+                cell.txtDoB.text = userProfileModel != nil ? userProfileModel?.dDob?.strDateTODateStr(dateStr: userProfileModel!.dDob!) : "02/01/1999"
+                cell.txtCity.text = userProfileModel?.vLiveIn
+                cell.txtGender.text = genderArray[(userProfileModel?.tiGender)!]
+                cell.txtCompanyDetail.text = userProfileModel?.txCompanyDetail
+                cell.lblCharCount.text = "\(userProfileModel!.txAbout!.count)/\(300)"
                 cell.btnChange.underlineButton(text: "Change", font: UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 12)!, color: #colorLiteral(red: 0.5294117647, green: 0.1803921569, blue: 0.7647058824, alpha: 1))
                 
                 cell.clickOnChangeGender = {
@@ -307,20 +435,14 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
                 }
             }
         } else if objEditProfileData.cells[indexPath.section].cellID == "EditInterestCell" {
-            if let cell = cell as? EditInterestCell {
-                cell.txtInterestAge.text = userProfileModel?.vInterestAge
-                cell.txtInterestGender.text = userProfileModel?.vInterestGender
-                cell.txtLikedSocialPlatform.text = userProfileModel?.vLikedSocialPlatform
-                
                 let queVC = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange) as? SelectAgeRangeViewController
                 queVC?.isFromSignUp = false
                 
-            }
         } else if objEditProfileData.cells[indexPath.section].cellID == "EditPhotosCell" {
             if let cell = cell as? EditPhotosCell  {
                 
-                cell.AddPhotosCollView.register(UINib.init(nibName: Cells.PhotoEmojiCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.PhotoEmojiCell)
-                
+//                cell.AddPhotosCollView.register(UINib.init(nibName: Cells.PhotoEmojiCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.PhotoEmojiCell)
+                cell.AddPhotosCollView.tag = 0
                 let layout = CustomImageLayout()
                 layout.scrollDirection = .horizontal
                 cell.AddPhotosCollView.collectionViewLayout = layout
@@ -330,29 +452,42 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
             }
         } else if objEditProfileData.cells[indexPath.section].cellID == "EditSocialLinkCell" {
             if let cell = cell as? EditSocialLinkCell {
-                cell.txtFacebookLink.text = userProfileModel?.vFacebookLink
-                cell.txtSnapchatLink.text = userProfileModel?.vSnapchatLink
-                cell.txtInstagramLink.text = userProfileModel?.vInstagramLink
+                cell.txtFacebookLink.text = userProfileModel?.vFbLink
+                cell.txtSnapchatLink.text = userProfileModel?.vSnapLink
+                cell.txtInstagramLink.text = userProfileModel?.vInstaLink
             }
-        } else {
+        } else if objEditProfileData.cells[indexPath.section].cellID == "EditProfilePrivacyCell" {
              if let cell = cell as? EditProfilePrivacyCell  {
+                
+                cell.btnSwichMode[0].isSelected = userProfileModel?.tiIsShowDistance == 1 ? true : false
+                cell.btnSwichMode[1].isSelected = userProfileModel?.tiIsShowContactNumber == 1 ? true : false
+                cell.btnSwichMode[2].isSelected = userProfileModel?.tiIsShowProfileToLikedUser == 1 ? true : false
                 
                 cell.clickOnBtnSwitch = { (index) in
                     print(indexPath.row)
                     if cell.btnSwichMode[index!].tag == 0 {
                         cell.btnSwichMode[0].isSelected = !cell.btnSwichMode[0].isSelected
-                        self.userProfileModel?.vShowAge = cell.btnSwichMode[0].isSelected
+                        self.userProfileModel?.tiIsShowDistance = cell.btnSwichMode[0].isSelected == true ? 1 : 0
                     } else if cell.btnSwichMode[index!].tag == 1 {
                         cell.btnSwichMode[1].isSelected = !cell.btnSwichMode[1].isSelected
-                        self.userProfileModel?.vShowDistance = cell.btnSwichMode[1].isSelected
-                    } else if cell.btnSwichMode[index!].tag == 2 {
-                        cell.btnSwichMode[2].isSelected = !cell.btnSwichMode[2].isSelected
-                        self.userProfileModel?.vShowContactNo = cell.btnSwichMode[2].isSelected
+                        self.userProfileModel?.tiIsShowContactNumber = cell.btnSwichMode[1].isSelected == true ? 1 : 0
                     } else {
-                        cell.btnSwichMode[3].isSelected = !cell.btnSwichMode[3].isSelected
-                        self.userProfileModel?.vShowProfiletoLiked = cell.btnSwichMode[3].isSelected
+                        cell.btnSwichMode[2].isSelected = !cell.btnSwichMode[2].isSelected
+                        self.userProfileModel?.tiIsShowProfileToLikedUser = cell.btnSwichMode[2].isSelected == true ? 1 : 0
                     }
                 }
+            }
+        } else {
+            if let cell = cell as? EditInstagramPhotosCell  {
+                
+//                cell.InstagramPhotosCell.register(UINib.init(nibName: Cells.PhotoEmojiCell, bundle: Bundle.main), forCellWithReuseIdentifier: Cells.PhotoEmojiCell)
+                cell.InstagramPhotosCell.tag = 1
+                let layout = CustomImageLayout()
+                layout.scrollDirection = .horizontal
+                cell.InstagramPhotosCell.collectionViewLayout = layout
+                
+                cell.InstagramPhotosCell.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                cell.InstagramPhotosCell.reloadData()
             }
         }
     }
@@ -367,10 +502,10 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView:UIView =  UIView()
-        headerView.backgroundColor = .white
+        headerView.backgroundColor = AppCommonColor.headerColor
         
         let headerTitle = UILabel()
-        headerTitle.frame = CGRect(x: 20, y: headerView.frame.origin.y + 10, w: ScreenSize.width - 60, h: 30)
+        headerTitle.frame = CGRect(x: 20, y: headerView.frame.origin.y + headerView.frame.height/2, w: ScreenSize.width - 60, h: 45)
         headerTitle.text = objEditProfileData.cells[section].sectionTitle
         headerTitle.lineBreakMode = .byWordWrapping
         headerTitle.textColor = .black
@@ -378,9 +513,18 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
         headerView.addSubview(headerTitle)
         
         if objEditProfileData.cells[section].isHeaderAvailable {
-            let buttonClr = UIButton(frame: CGRect(x: ScreenSize.width - 100, y: headerView.frame.origin.y + 10, w: 100, h: 30))
+            
+            let buttonClr = UIButton(frame: CGRect(x: ScreenSize.width - 100, y: headerView.frame.origin.y + headerView.frame.height/2, w: 100, h: 45))
             buttonClr.backgroundColor = .clear
-            buttonClr.underlineButton(text: "Change", font: UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 12)!, color: #colorLiteral(red: 0.5294117647, green: 0.1803921569, blue: 0.7647058824, alpha: 1))
+            if objEditProfileData.cells[section].cellID != "EditInstagramPhotosCell" {
+                buttonClr.underlineButton(text: "Change", font: UIFont(name: FontTypePoppins.Poppins_Regular.rawValue, size: 12)!, color: #colorLiteral(red: 0.5294117647, green: 0.1803921569, blue: 0.7647058824, alpha: 1))
+            } else {
+                if Authentication.getInstagramIntegrationStatus()! {
+                    buttonClr.setImage(#imageLiteral(resourceName: "icn_on"), for: .normal)
+                } else {
+                    buttonClr.setImage(#imageLiteral(resourceName: "icn_off"), for: .normal)
+                }
+            }
             buttonClr.tag = section
             buttonClr.addTarget(self, action: #selector(btnChangeAction(sender:)), for: .touchUpInside)
             headerView.addSubview(buttonClr)
@@ -389,6 +533,7 @@ extension EditProfileViewController : UITableViewDataSource, UITableViewDelegate
     }
 }
 
+//MARK: UICollectionView Delegate & Datasource Methods
 extension EditProfileViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -396,46 +541,98 @@ extension EditProfileViewController : UICollectionViewDataSource, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.imageArray.count != 0 ? self.imageArray.count + 1 : 1
+        if collectionView.tag == 0 {
+            return self.userPhotosModel.count != 0 ? self.userPhotosModel.count + 1 : 1
+        } else {
+            return self.instagramPhotosModel != [] ? self.instagramPhotosModel.count : 1
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell : PhotoEmojiCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PhotoEmojiCell, for: indexPath) as! PhotoEmojiCell
-        cell.emojiStackView.spacing = DeviceType.iPhone5orSE ? 2 : 10
         
-        if indexPath.row < self.imageArray.count {
-            cell.btnClose.alpha = 1.0
-            cell.userImgView.image = imageArray[indexPath.row]
-        } else {
-            cell.userImgView.image = #imageLiteral(resourceName: "icn_add_photo")
-            cell.emojiStackView.alpha = 0
-            cell.btnClose.alpha  = 0
-        }
-        
-        cell.clickOnImageButton = {
-            self.isForProfile = false
-            if self.image != nil {
-                self.openImagePickerActionSheet()
+        if collectionView.tag == 0 {
+            let cell : PhotoEmojiCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PhotoEmojiCell, for: indexPath) as! PhotoEmojiCell
+            cell.emojiStackView.alpha = 0.0
+            cell.emojiStackView.spacing = DeviceType.iPhone5orSE ? 2 : 10
+            
+            if indexPath.row < (self.userPhotosModel.count - 1) {
+                cell.btnClose.alpha = 1.0
+                if userPhotosModel[indexPath.row].tiImage == nil {
+                    let url = URL(string:"\(userPhotosModel[indexPath.row].vMedia!)")
+                    print(url)
+                    cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
+                } else {
+                    cell.userImgView.image = userPhotosModel[indexPath.row].tiImage
+                }
+                let photoString = userPhotosModel[indexPath.row]
+                if photoString.reaction?.count != 0 {
+                    cell.emojiStackView.alpha = 0.0
+                    if photoString.reaction!.count == 3 {
+                        cell.btnKiss.setTitle((photoString.reaction?.count != 0 && photoString.reaction![2].vCount != "0") ? photoString.reaction![2].vCount : "0", for: .normal)
+                        cell.btnLove.setTitle((photoString.reaction?.count != 0 && photoString.reaction![1].vCount != "0") ? photoString.reaction![1].vCount : "0", for: .normal)
+                        cell.btnLoveSmile.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].vCount != "0") ? photoString.reaction![0].vCount : "0", for: .normal)
+                    }
+                    if photoString.reaction!.count == 2 {
+                        cell.btnKiss.setTitle("0", for: .normal)
+                        cell.btnLoveSmile.setTitle((photoString.reaction?.count != 0 && photoString.reaction![1].vCount != "0") ? photoString.reaction![1].vCount : "0", for: .normal)
+                        cell.btnLove.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].vCount != "0") ? photoString.reaction![0].vCount : "0", for: .normal)
+                    }
+                    if photoString.reaction!.count == 1  {
+                        cell.btnKiss.setTitle("0", for: .normal)
+                        cell.btnLoveSmile.setTitle("0", for: .normal)
+                        cell.btnLove.setTitle((photoString.reaction?.count != 0 && photoString.reaction![0].vCount != "0") ? photoString.reaction![0].vCount : "0", for: .normal)
+                    }
+                } else {
+                    cell.emojiStackView.alpha = 0
+                }
+                
+                cell.clickOnRemovePhoto = {
+                    if self.userPhotosModel.count != 0 {
+                        let mediaID = self.userPhotosModel[indexPath.row].iMediaId
+                        self.userPhotosModel.remove(at: indexPath.row)
+                        self.removePhotoStr = self.removePhotoStr != "" ? "\(self.removePhotoStr),\(mediaID!)" : "\(mediaID!)"
+                    }
+                    self.tblEditProfileView.reloadData()
+                }
+                
             } else {
+                cell.userImgView.image = #imageLiteral(resourceName: "icn_add_photo")
+                cell.emojiStackView.alpha = 0
+                cell.btnClose.alpha  = 0
+            }
+            cell.emojiStackView.spacing = DeviceType.iPhone5orSE ? 2 : 10
+            cell.clickOnImageButton = {
                 self.openImagePickerActionSheet()
             }
-            self.tblEditProfileView.reloadData()
-        }
-        
-        cell.clickOnRemovePhoto = {
-            if self.imageArray.count != 0 {
-                self.imageArray.remove(at: indexPath.row)
+             return cell
+        } else {
+            let cell : PhotoEmojiCell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PhotoEmojiCell, for: indexPath) as! PhotoEmojiCell
+            
+            cell.emojiStackView.alpha = 0.0
+            cell.emojiStackView.spacing = DeviceType.iPhone5orSE ? 2 : 10
+            cell.btnClose.alpha = 0.0
+            
+            if self.instagramPhotosModel != [] {
+                let data = self.instagramPhotosModel[indexPath.row] as! NSDictionary
+                print(data)
+                let url = URL(string: data["media_url"] as! String)
+                print(url)
+                cell.userImgView.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "placeholder_rect"))
+                cell.btnChooseImage.isUserInteractionEnabled = false
+            } else {
+                cell.userImgView.image = #imageLiteral(resourceName: "icn_add_photo")
             }
-            self.tblEditProfileView.reloadData()
+             return cell
         }
-        return cell
     }
-
-       func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-             let width = ScreenSize.width/3
-             return CGSize(width: width, height: width)
-     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = ScreenSize.width/3 + 10
+        return CGSize(width: width, height: width)
+    }
 }
+
+//MARK: UITextfield Delegate Methods
 extension EditProfileViewController : UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         textField.addTarget(self, action: #selector(textFieldDidChange(textField:)), for: .editingChanged)
@@ -445,7 +642,7 @@ extension EditProfileViewController : UITextFieldDelegate {
             self.PickerView.alpha = 1.0
             return false
         } else if textField.tag == 4 {
-            if (textField.text?.count)! < 300 {
+            if (textField.text?.count)! <= 300 {
                 return true
             }
         }
@@ -453,13 +650,13 @@ extension EditProfileViewController : UITextFieldDelegate {
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.tag == 0 {
-            self.userProfileModel?.vFullName = textField.text
+            self.userProfileModel?.vName = textField.text
         } else if textField.tag == 2 {
-            self.userProfileModel?.vCity = textField.text
+            self.userProfileModel?.vLiveIn = textField.text
         } else if textField.tag == 3 {
-             self.userProfileModel?.vCompanyDetail = textField.text
+             self.userProfileModel?.txCompanyDetail = textField.text
         } else if textField.tag == 4 {
-            self.userProfileModel?.vAbout = textField.text
+            self.userProfileModel?.txAbout = textField.text
         } else {
             
         }
@@ -467,10 +664,21 @@ extension EditProfileViewController : UITextFieldDelegate {
     }
     
     @objc func textFieldDidChange(textField : UITextField){
-        if (textField.text?.count)! < 300 {
-            textField.isUserInteractionEnabled = true
+        
+        if textField.tag == 0 {
+            self.userProfileModel?.vName = textField.text
+        } else if textField.tag == 2 {
+            self.userProfileModel?.vLiveIn = textField.text
+        } else if textField.tag == 3 {
+             self.userProfileModel?.txCompanyDetail = textField.text
+        } else if textField.tag == 4 {
+            if (textField.text?.count)! <= 300 {
+                textField.isUserInteractionEnabled = true
+            } else {
+                textField.resignFirstResponder()
+            }
         } else {
-            textField.isUserInteractionEnabled = false
+            
         }
     }
     
@@ -520,11 +728,13 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
             guard let `self` = self else {return}
             if isGrant {
                 if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
-                    self.imagePicker = UIImagePickerController()
-                    self.imagePicker.delegate = self
-                    self.imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary;
-                    self.imagePicker.allowsEditing = false
-                    self.present(self.imagePicker, animated: true, completion: nil)
+//                    let opimagePicker = OpalImagePickerController()
+                    self.opimagePicker.imagePickerDelegate = self
+                    self.opimagePicker.maximumSelectionsAllowed = 10
+                    
+//                    self.imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary;
+//                    self.imagePicker.allowsEditing = false
+                    self.present(self.opimagePicker, animated: true, completion: nil)
                 }
             }
         }
@@ -543,21 +753,21 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
                 }
             }
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-                if self.isForProfile {
-                    self.image = image
-                    self.imgProfile.image = image
-                } else {
-                    self.imageArray.append(image)
+                
+                let IsDefault = self.userPhotosModel.count == 0 ? 1 : 0
+                self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, vMediaPath: self.thumbURlUpload.path, tiMediaType: 1, tiImage: image, tiIsDefault: IsDefault, reaction: []))
+                if IsDefault == 1 {
+                    self.imgProfile.image = self.userPhotosModel[0].tiImage
                 }
             }
             self.tblEditProfileView.reloadData()
         } else {
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-                if self.isForProfile {
-                    self.imgProfile.image = image
-                    self.image = image
-                } else {
-                    self.imageArray.append(image)
+                
+                let IsDefault = self.userPhotosModel.count == 0 ? 1 : 0
+                self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, vMediaPath: self.thumbURlUpload.path, tiMediaType: 1, tiImage: image, tiIsDefault: IsDefault, reaction: []))
+                if IsDefault == 1 {
+                    self.imgProfile.image = self.userPhotosModel[0].tiImage
                 }
                 if let imageURL = info[UIImagePickerController.InfoKey.referenceURL] as? URL {
                     let result = PHAsset.fetchAssets(withALAssetURLs: [imageURL], options: nil)
@@ -570,23 +780,64 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
     }
 }
 
+extension EditProfileViewController : OpalImagePickerControllerDelegate {
+    func imagePicker(_ picker: OpalImagePickerController, didFinishPickingAssets assets: [PHAsset]) {
+        picker.dismiss(animated: true, completion: nil)
+        for asset in assets {
+            if #available(iOS 11.0, *) {
+//                if let asset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset{
+                    if let fileName = asset.value(forKey: "filename") as? String{
+                        print(fileName)
+                    }
+//                }
+//                if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                    
+                    let IsDefault = self.userPhotosModel.count == 0 ? 1 : 0
+                self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, vMediaPath: self.thumbURlUpload.path, tiMediaType: 1, tiImage: asset.getUIImage(asset: asset), tiIsDefault: IsDefault, reaction: []))
+                    if IsDefault == 1 {
+                        self.imgProfile.image = self.userPhotosModel[0].tiImage
+                    }
+//                }
+                self.tblEditProfileView.reloadData()
+            } else {
+//                if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                    
+//                    let IsDefault = self.userPhotosModel.count == 0 ? 1 : 0
+//                    self.userPhotosModel.append(UserPhotosModel(iMediaId: 1, vMedia: self.thumbURlUpload.name, vMediaPath: self.thumbURlUpload.path, tiMediaType: 1, tiImage: image, tiIsDefault: IsDefault, reaction: []))
+//                    if IsDefault == 1 {
+//                        self.imgProfile.image = self.userPhotosModel[0].tiImage
+//                    }
+////                    if let imageURL = info[UIImagePickerController.InfoKey.referenceURL] as? URL {
+//                        let result = PHAsset.fetchAssets(withALAssetURLs: [imageURL], options: nil)
+//                        let assetResources = PHAssetResource.assetResources(for: result.firstObject!)
+//
+//                        print(assetResources.first!.originalFilename)
+//                    }
+//                }
+            }
+        }
+    }
+    
+    func imagePickerDidCancel(_ picker: OpalImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
 extension EditProfileViewController : UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return self.objQuestionModel.objQuestionnaire.response_set!.response_option?.count ?? 0
+        return self.genderArray.count
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
-        let title = self.objQuestionModel.objQuestionnaire.response_set?.response_option?[row].name!
+        let title = self.genderArray[row]
         return title
     }
 
     func pickerView(_ pickerView:UIPickerView,didSelectRow row: Int,inComponent component: Int){
-        let title = self.objQuestionModel.objQuestionnaire.response_set?.response_option?[row].name!
-        self.userProfileModel?.vGender = title
+        self.userProfileModel?.tiGender = (row == 3 ? 4 : row)
     }
 }

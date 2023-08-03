@@ -10,6 +10,9 @@ import UIKit
 
 class ProfileSocialCell: UITableViewCell {
     
+    typealias SocialButtonClickEvent = (_ index : Int?) -> Void
+    var clickOnBtn : SocialButtonClickEvent!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -20,6 +23,9 @@ class ProfileSocialCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    @IBAction func btnSocialIconAction(_ sender: UIButton) {
+        self.clickOnBtn(sender.tag)
     }
     
 }

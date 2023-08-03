@@ -14,7 +14,6 @@ protocol OTPDelegate: class {
     func didChangeValidity(isValid: Bool)
 }
 
-
 class OTPStackView: UIStackView {
     
     //Customise the OTPField here
@@ -82,7 +81,7 @@ class OTPStackView: UIStackView {
       
         textField.textColor = .black
         textField.layer.cornerRadius = 5
-        textField.layer.borderWidth = 1
+        textField.layer.borderWidth = 0
         textField.layer.borderColor = inactiveFieldBorderColor.cgColor
         textField.addBottomBorder()
         textField.keyboardType = .numberPad
@@ -115,15 +114,13 @@ class OTPStackView: UIStackView {
         }
         showsWarningColor = isWarningColor
     }
+    
     // textfieldClear
     func clearTextField()  {
-       
         for textField in textFieldsCollection{
              textField.text  = ""
         }
-        
     }
-    
 }
 
 //TextField related operations
@@ -145,7 +142,6 @@ extension OTPStackView: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range:NSRange, replacementString string: String) -> Bool {
         
         guard let textField = textField as? OTPTextField else { return true }
-        
         if (range.length == 0){
             
             if textField.nextTextField == nil {
@@ -156,7 +152,6 @@ extension OTPStackView: UITextFieldDelegate {
             textField.text? = string
             checkForValidity()
             return false
-            
         }
         else if (range.length == 1) {
             
@@ -164,9 +159,7 @@ extension OTPStackView: UITextFieldDelegate {
             textField.text? = ""
             checkForValidity()
             return false
-            
         }
         return true
     }
-    
 }

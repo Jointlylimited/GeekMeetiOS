@@ -13,6 +13,7 @@
 import UIKit
 
 protocol NewMobileNumberProtocol: class {
+    func getResendOTPResponse(response: CommonResponse)
 }
 
 class NewMobileNumberViewController: UIViewController, NewMobileNumberProtocol {
@@ -21,8 +22,8 @@ class NewMobileNumberViewController: UIViewController, NewMobileNumberProtocol {
     
     @IBOutlet weak var txtCountryCode: UITextField!
     @IBOutlet weak var txtMobNo: UITextField!
-    // MARK: Object lifecycle
     
+    // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -34,7 +35,6 @@ class NewMobileNumberViewController: UIViewController, NewMobileNumberProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = NewMobileNumberInteractor()
@@ -52,9 +52,7 @@ class NewMobileNumberViewController: UIViewController, NewMobileNumberProtocol {
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setData()
@@ -75,9 +73,32 @@ class NewMobileNumberViewController: UIViewController, NewMobileNumberProtocol {
     }
     
     @IBAction func btnContinueAction(_ sender: GradientButton) {
-        let otpVC = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter) as! OTPEnterViewController
-        otpVC.isFromNewMobile = true
-        self.pushVC(otpVC)
+        
+        if self.txtCountryCode.text!.isEmpty {
+            AppSingleton.sharedInstance().showAlert(kSelectCountryCode, okTitle: "OK")
+            return
+        }
+        
+        if self.txtMobNo.text!.isEmpty {
+            AppSingleton.sharedInstance().showAlert(KEnterMobileNo, okTitle: "OK")
+            return
+        }else if !self.txtMobNo.text!.isMobileNumber {
+            AppSingleton.sharedInstance().showAlert(KEnterValidMobileNo, okTitle: "OK")
+            return
+        }
+        self.presenter?.callResendOTPAPI(vCountryCode : self.txtCountryCode.text ?? "" ,vPhone : self.txtMobNo.text ?? "")
+    }
+    
+    func getResendOTPResponse(response: CommonResponse){
+        if response.responseCode == 200 {
+            let otpVC = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter) as! OTPEnterViewController
+            otpVC.isFromNewMobile = true
+            otpVC.strNewCountryCode = self.txtCountryCode.text ?? ""
+            otpVC.strNewPhoneNumber = self.txtMobNo.text ?? ""
+            self.pushVC(otpVC)
+        } else {
+            AppSingleton.sharedInstance().showAlert(response.responseMessage!, okTitle: "OK")
+        }
     }
 }
 

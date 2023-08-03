@@ -16,12 +16,14 @@ protocol SignInPresentationProtocol
 {
     func callSignInAPI(_ userName : String, password : String)
     func getSignInResponse(response : UserAuthResponse)
+    func getPrefernceResponse(response : PreferencesResponse)
     
-    func actionSignUp()
     func actionForgotPassword()
-    func actionOTPVerifyClick()
-    
     func gotoHomeScreen()
+    
+    func callVerifyEmailAPI(email : String)
+    func getEmailVerifyResponse(response : CommonResponse)
+    func getPushStatusResponse(response : UserAuthResponse)
 }
 
 class SignInPresenter: SignInPresentationProtocol {
@@ -39,11 +41,6 @@ class SignInPresenter: SignInPresentationProtocol {
     
     func validateSignInRequest(_ userName : String, password : String) -> Bool
     {
-//        if !RechableObj.isNetwork()
-//        {
-//            self.viewController?.displayAlert(strMessage: kInternetConnection)
-//            return false
-//        }
         if userName.isEmpty
         {
             self.viewController?.displayAlert(strTitle: "", strMessage: kEnterEmail)
@@ -59,28 +56,62 @@ class SignInPresenter: SignInPresentationProtocol {
     
     func getSignInResponse(response : UserAuthResponse)
     {
-        UserDataModel.currentUser = response.responseData
+       
         if response.responseCode == 200 {
-            AppSingleton.sharedInstance().showHomeVC()
+            UserDataModel.currentUser = response.responseData
+            UserDataModel.currentUser = UserDataModel.lastLoginUser
+            UserDataModel.setAuthKey(key: (response.responseData?.vAuthKey)!)
+            Authentication.setSignUpFlowStatus(response.responseData!.tiStep!)
+            self.setScreenAsPerLoginStatus(status: response.responseData!.tiStep!)
         } else if response.responseCode == 203 {
-            let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter)
-            if let view = self.viewController as? UIViewController
-            {
-                view.pushVC(controller)
-            }
+            UserDataModel.currentUser = response.responseData
+            UserDataModel.currentUser = UserDataModel.lastLoginUser
+            UserDataModel.setAuthKey(key: (response.responseData?.vAuthKey)!)
+            Authentication.setSignUpFlowStatus(response.responseData!.tiStep!)
+            self.setScreenAsPerLoginStatus(status: response.responseData!.tiStep!)
+        }  else if response.responseCode == 401 {
+            self.viewController?.getLoginResponse(res: response)
         } else {
             self.viewController?.displayAlert(strTitle: "", strMessage: response.responseMessage!)
         }
     }
     
-    // MARK: Present something
-    func actionSignUp()
-    {
-//        let controller = NearBy_Customer_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: NearBy_Provider_ViewController.SignUpVC)
-//        if let view = self.viewController as? UIViewController
-//        {
-//            view.pushVC(controller)
-//        }
+    func callVerifyEmailAPI(email : String){
+        if email.isEmpty
+        {
+            self.viewController?.displayAlert(strTitle: "", strMessage: kEnterEmail)
+            return
+        }
+        self.interactor?.callVerifyEmailAPI(email : email)
+    }
+    
+    func getEmailVerifyResponse(response : CommonResponse) {
+        self.viewController?.displayAlert(strTitle: "", strMessage: response.responseMessage!)
+    }
+    
+    func callPreferenceAPI(){
+        self.interactor?.callQuestionaryAPI()
+    }
+    
+    func getPrefernceResponse(response : PreferencesResponse){
+        if response.responseCode == 200 {
+            UserDataModel.UserPreferenceResponse = response
+            if UserDataModel.currentUser != nil {
+                if UserDataModel.currentUser?.tiIsAcceptPush == 0 {
+                    self.interactor?.callPushStatusAPI()
+                }
+            } else {
+                self.interactor?.callPushStatusAPI()
+            }
+            AppSingleton.sharedInstance().showHomeVC(fromMatch : false, userDict: [:])
+        }
+    }
+    
+    func getPushStatusResponse(response : UserAuthResponse){
+        if response.responseCode == 200 {
+            UserDataModel.currentUser?.tiIsAcceptPush = response.responseData?.tiIsAcceptPush
+            AppSingleton.sharedInstance().showHomeVC(fromMatch : false, userDict: [:])
+        }
     }
     
     func actionForgotPassword() {
@@ -91,15 +122,6 @@ class SignInPresenter: SignInPresentationProtocol {
         }
     }
     
-    func actionOTPVerifyClick()
-    {
-//        let controller = NearBy_Customer_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: NearBy_Provider_ViewController.OTPVerificationVC) as! OTPVerificationViewController
-//        if let view = self.viewController as? UIViewController
-//        {
-//            view.pushVC(controller)
-//        }
-    }
-    
     func gotoHomeScreen(){
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.TabbarScreen)
         if let view = self.viewController as? UIViewController
@@ -107,4 +129,42 @@ class SignInPresenter: SignInPresentationProtocol {
             view.pushVC(controller)
         }
     }
+    
+    func setScreenAsPerLoginStatus(status : Int) {
+        AppSingleton.sharedInstance().chatBoxLogin()
+        
+        if status == 0 {
+            let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.SignUpScreen)
+            if let view = self.viewController as? UIViewController
+            {
+                view.pushVC(controller)
+            }
+        } else if status == 1 {
+            Authentication.setLoggedInStatus(true)
+            let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.OTPEnter) as? OTPEnterViewController
+            controller?.isStepCompleted = false
+            if let view = self.viewController as? UIViewController
+            {
+                view.pushVC(controller!)
+            }
+        } else if status == 2 {
+            Authentication.setLoggedInStatus(true)
+            let controller = GeekMeets_StoryBoard.LoginSignUp.instantiateViewController(withIdentifier: GeekMeets_ViewController.UserProfile) as! UserProfileViewController
+            if let view = self.viewController as? UIViewController
+            {
+                view.pushVC(controller)
+            }
+        } else if status == 3 {
+            Authentication.setLoggedInStatus(true)
+            let controller = GeekMeets_StoryBoard.Questionnaire.instantiateViewController(withIdentifier: GeekMeets_ViewController.SelectAgeRange)
+            if let view = self.viewController as? UIViewController
+            {
+                view.pushVC(controller)
+            }
+        } else {
+            self.callPreferenceAPI()
+        }
+    }
 }
+
+

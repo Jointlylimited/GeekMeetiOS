@@ -13,7 +13,7 @@
 import UIKit
 
 protocol CommonPagesInteractorProtocol {
-    func doSomething()
+    func CallContentPageAPI(slug:String)
 }
 
 protocol CommonPagesDataStore {
@@ -25,7 +25,26 @@ class CommonPagesInteractor: CommonPagesInteractorProtocol, CommonPagesDataStore
     //var name: String = ""
     
     // MARK: Do something
-    func doSomething() {
-        
+    func CallContentPageAPI(slug:String) {
+        DefaultLoaderView.sharedInstance.showLoader()
+        ContentPageAPI.contentPage(nonce: authToken.nonce, timestamp: authToken.timeStamps, token: authToken.token, slug: ContentPageAPI.Slug_contentPage(rawValue: slug)!) { (response, error) in
+            
+            delay(0.2) {
+                DefaultLoaderView.sharedInstance.hideLoader()
+            }
+            if response?.responseCode == 200 {
+                self.presenter?.getContentResponse(response : response!)
+            } else if response?.responseCode == 203 {
+                AppSingleton.sharedInstance().logout()
+                AppSingleton.sharedInstance().showAlert((response?.responseMessage!)!, okTitle: "OK")
+            } else {
+                if error != nil {
+                    AppSingleton.sharedInstance().showAlert(kSomethingWentWrong, okTitle: "OK")
+                } else {
+                     self.presenter?.getContentResponse(response : response!)
+                }
+            }
+        }
     }
 }
+

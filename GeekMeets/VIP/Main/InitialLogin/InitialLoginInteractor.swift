@@ -105,7 +105,7 @@ class InitialLoginInteractor: InitialLoginInteractorProtocol, InitialLoginDataSt
     func callSocialLoginApi(params : Dictionary<String, String>){
 
 //      let authenticationObj = AuthenticationObj.getAutheticationToken()
-        UserAPI.socialSignin(nonce: authToken.nonce, timestamp: Int(authToken.timeStamp)!, token: authToken.token, language: "English", tiSocialType: UserAPI.TiSocialType_socialSignin(rawValue: "1")!, vAccessToken: "String", vTimeOffset: "12345", vTimeZone: "Kolkata", vDeviceToken: "12345", tiDeviceType: UserAPI.TiDeviceType_socialSignin(rawValue: 0)!, vDeviceName:
+        UserAPI.socialSignin(nonce: authToken.nonce, timestamp: Int(authToken.timeStamps)!, token: authToken.token, language: "English", tiSocialType: UserAPI.TiSocialType_socialSignin(rawValue: "1")!, vAccessToken: "String", vTimeOffset: "12345", vTimeZone: "Kolkata", vDeviceToken: "12345", tiDeviceType: UserAPI.TiDeviceType_socialSignin(rawValue: 0)!, vDeviceName:
       "", vDeviceUniqueId: "123", vApiVersion: "1.0", vAppVersion: "1.0", vOsVersion: "11.0", vIpAddress: "19.168.0.0"){ (userResponse, error) in
           if error == nil
           {

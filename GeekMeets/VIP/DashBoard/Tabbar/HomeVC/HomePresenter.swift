@@ -13,8 +13,19 @@
 import UIKit
 
 protocol HomePresentationProtocol {
+    func callUserCardAPI()
+    func getUserCardResponse(response : SearchUsers)
+    
+    func callSwipeCardAPI(iProfileId : String, tiSwipeType : String)
+    func getSwipeCardResponse(response : SwipeUser)
+    
     func gotoMatchVC()
-    func gotoMatchProfileVC()
+    
+    func callUpdateLocationAPI(fLatitude : String, fLongitude : String, tiIsLocationOn : String)
+    func getLocationUpdateResponse(response : UserAuthResponse)
+    
+    func callMatchListAPI()
+    func getMatchResponse(response : MatchUser)
 }
 
 class HomePresenter: HomePresentationProtocol {
@@ -22,6 +33,20 @@ class HomePresenter: HomePresentationProtocol {
     var interactor: HomeInteractorProtocol?
     
     // MARK: Present something
+    func callUserCardAPI(){
+        self.interactor?.callUserCardAPI()
+    }
+    func getUserCardResponse(response : SearchUsers){
+        self.viewController?.getUserCardResponse(response : response)
+    }
+    
+    func callSwipeCardAPI(iProfileId : String, tiSwipeType : String){
+        self.interactor?.callSwipeCardAPI(iProfileId: iProfileId, tiSwipeType: tiSwipeType)
+    }
+    func getSwipeCardResponse(response : SwipeUser){
+        self.viewController?.getSwipeCardResponse(response : response)
+    }
+    
     func gotoMatchVC() {
         let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchScreen)
         controller.modalTransitionStyle = .crossDissolve
@@ -30,19 +55,21 @@ class HomePresenter: HomePresentationProtocol {
         if let view = self.viewController as? UIViewController
         {
             view.presentVC(controller)
-            //            view.pushVC(controller)
         }
     }
     
-    func gotoMatchProfileVC() {
-        let controller = GeekMeets_StoryBoard.Dashboard.instantiateViewController(withIdentifier: GeekMeets_ViewController.MatchProfileScreen)
-        controller.modalTransitionStyle = .crossDissolve
-        controller.modalPresentationStyle = .overCurrentContext
-        
-        if let view = self.viewController as? UIViewController
-        {
-            view.presentVC(controller)
-            //            view.pushVC(controller)
-        }
+    func callUpdateLocationAPI(fLatitude : String, fLongitude : String, tiIsLocationOn : String){
+        self.interactor?.callUpdateLocationAPI(fLatitude: fLatitude, fLongitude: fLongitude, tiIsLocationOn : tiIsLocationOn)
+    }
+    
+    func getLocationUpdateResponse(response : UserAuthResponse){
+        self.viewController?.getLocationUpdateResponse(response: response)
+    }
+    
+    func callMatchListAPI() {
+        self.interactor?.callMatchListAPI()
+    }
+    func getMatchResponse(response : MatchUser){
+        self.viewController?.getMatchResponse(response : response)
     }
 }

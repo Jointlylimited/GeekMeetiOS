@@ -13,6 +13,7 @@
 import UIKit
 
 protocol AccountSettingProtocol: class {
+    func getUserProfileResponse(response : UserAuthResponseField)
 }
 
 class AccountSettingViewController: UIViewController, AccountSettingProtocol {
@@ -23,7 +24,6 @@ class AccountSettingViewController: UIViewController, AccountSettingProtocol {
     var objAccountData : [CommonCellModel] = []
     
     // MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -35,7 +35,6 @@ class AccountSettingViewController: UIViewController, AccountSettingProtocol {
     }
     
     // MARK: Setup
-    
     private func setup() {
         let viewController = self
         let interactor = AccountSettingInteractor()
@@ -53,24 +52,37 @@ class AccountSettingViewController: UIViewController, AccountSettingProtocol {
         interactor.presenter = presenter
     }
     
-    
     // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.registerTableViewCell()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.presenter?.callUserProfileAPI(id : "\(UserDataModel.currentUser?.iUserId ?? 0)", code : "")
+    }
+    
     func registerTableViewCell(){
         self.tblAccountList.register(UINib.init(nibName: Cells.CommonTblListCell, bundle: Bundle.main), forCellReuseIdentifier: Cells.CommonTblListCell)
-        
+    }
+    
+    func setAccountDetails(){
         self.objAccountData = [CommonCellModel(title: "Mobile Number", description: "\(UserDataModel.currentUser?.vCountryCode ?? "")  \(UserDataModel.currentUser?.vPhone ?? "")", isDescAvailable: true), CommonCellModel(title: "Email Address", description: "\(UserDataModel.currentUser?.vEmail ?? "")", isDescAvailable: true), CommonCellModel(title: "Change Password", description: "", isDescAvailable: false)]
+        self.tblAccountList.reloadData()
     }
     
     @IBAction func btnBackAction(_ sender: UIButton) {
         self.popVC()
     }
+    
+    func getUserProfileResponse(response : UserAuthResponseField){
+        UserDataModel.currentUser = response
+        setAccountDetails()
+    }
 }
 
+//MARK: UITableView Delegate Methods
 extension AccountSettingViewController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -89,9 +101,7 @@ extension AccountSettingViewController : UITableViewDataSource, UITableViewDeleg
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let cell = cell as? CommonTblListCell {
             
-            
             let data = self.objAccountData[indexPath.row]
-            
             cell.lblTitle.text = data.title
             cell.lblDesc.text = data.description
         }
@@ -119,7 +129,6 @@ extension AccountSettingViewController : UITableViewDataSource, UITableViewDeleg
         } else {
             let changeVC = GeekMeets_StoryBoard.Menu.instantiateViewController(withIdentifier: GeekMeets_ViewController.ChangePasswordScreen)
             self.pushVC(changeVC)
-          
         }
     }
 }
