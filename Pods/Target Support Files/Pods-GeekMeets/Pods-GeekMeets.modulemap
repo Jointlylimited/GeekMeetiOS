@@ -1,0 +1,6 @@
+framework module Pods_GeekMeets {
+  umbrella header "Pods-GeekMeets-umbrella.h"
+
+  export *
+  module * { export * }
+}
